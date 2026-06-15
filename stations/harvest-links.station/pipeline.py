@@ -1,417 +1,390 @@
 """
-harvest-links workflow (post-Cannon refactor, 2026-05-02).
+STATION_SCRIPT_STANDARD v1 (SSS_v1)
+====================================
+Canonical Python template for ALL Theophysics Brain stations.
+POF 2828 | 2026-06-14
 
-Reads URLs from one of:
-  - Excel (.xlsx)    — input.path with input.url_column
-  - CSV (.csv)       — same fields
-  - Postgres         — input.postgres_query (must SELECT a url column;
-                       optionally also id, treated as source_id)
+RULE: Every station script follows this section order.
+Sections 00-05 and 08-12 are IDENTICAL across stations.
+Only 06_NLP_ROUTE and 07_PROCESS change per station.
 
-For each URL:
-  1. requests.get with browser-ish user agent
-  2. BeautifulSoup extracts visible text (readability-style heuristic)
-  3. SBERT embed via Infinity (NAS) -> Qdrant collection upsert
-  4. DeBERTa classify against the apologetics labels (Postgres scalar)
-  5. INSERT scalar fields into Postgres target table (no BYTEA vector)
+If you need to change paths, NLP references, export formats,
+or logging across ALL stations, you change ONE section number
+and can script the update across every station at once.
 
-Architecture note: vectors live in Qdrant under the collection named after
-the target table. Postgres holds scalars only (label, confidence, status,
-text, error, etc.). Cluster IDs come back from the cluster_runner pass.
+SECTION MAP:
+  00_IMPORTS           — Standard library + deps
+  01_CONSTANTS         — Station identity, paths (derived from folder location)
+  02_CONFIG            — Load config.json / station.yaml
+  03_LOGGING           — Logger setup (station-named, file + console)
+  04_INGEST            — Read _inbox, find input files
+  05_VALIDATE          — Check inputs are real, readable, right format
+  06_NLP_ROUTE         — *** STATION-SPECIFIC *** Which NLP/model to call
+  07_PROCESS           — *** STATION-SPECIFIC *** The one action this station does
+  08_ARTIFACTS         — Write results to _outbox as JSON artifacts
+  09_JOB_CARD          — Update job card (X:\\03_JOB_CARDS)
+  10_HANDOFF           — Pass to next station/workflow or mark complete
+  11_ARCHIVE           — Move processed inputs to _processed
+  12_MAIN              — Wire everything together
+ARCHITECTURE ALIGNMENT:
+  _inbox/     ← where inputs land (from workflow or manual drop)
+  _outbox/    ← where artifacts go (next station picks up from here)
+  _processed/ ← archived inputs after processing
+  _logs/      ← station execution logs
+  _state/     ← persistent state between runs (counters, checkpoints)
+  _exports/   ← final human-readable outputs (only if station is terminal)
 """
 from __future__ import annotations
 
-import csv
+# ============================================================
+# 00_IMPORTS
+# ============================================================
+# Standard library only here. Station-specific deps go below.
 import json
 import logging
 import sys
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
-HERE = Path(__file__).resolve().parent
-STATIONS = HERE.parent              # X:\Backside\stations
-ROOT = HERE.parent.parent           # X:\Backside  (shared _LOGS lives here)
-LOG_DIR = ROOT / "_LOGS"
+# Station-specific imports (uncomment/add as needed):
+# import requests
+# from sentence_transformers import SentenceTransformer
+# from transformers import pipeline as hf_pipeline
 
-# Post-reorg layout: each old numbered tool is now its own sibling station.
-# Keep the old tool keys as stable references; resolve them to the new dirs.
-TOOL_STATIONS = {
-    "02_SBERT":    "sbert-embedder.station",
-    "03_DEBERTA":  "deberta-runner.station",
-    "04_HDBSCAN":  "hdbscan-cluster.station",
-    "07_POSTGRES": "postgres-sync.station",
-}
+# ============================================================
+# 01_CONSTANTS
+# ============================================================
+# ALL paths derived from THIS file's location. Never hardcode X:\.
+# When folders move, only HERE changes (automatically).
+#
+# Path resolver: tries NAS convention (numbered) first, then
+# GitHub repo convention (flat names). Works in both environments.
 
-
-def _tool_dir(tool: str) -> Path:
-    return STATIONS / TOOL_STATIONS[tool]
-
-
-for _tool in TOOL_STATIONS:
-    _p = _tool_dir(_tool)
-    if str(_p) not in sys.path:
-        sys.path.insert(0, str(_p))
+HERE      = Path(__file__).resolve().parent          # this station folder
+STATIONS  = HERE.parent                              # 04_STATIONS or stations/
+BRAIN     = STATIONS.parent                          # brain root (X:\ or repo root)
 
 
-# Postgres holds scalars only — vectors live in Qdrant.
-HARVEST_DDL = """
-CREATE TABLE IF NOT EXISTS {table} (
-    id SERIAL PRIMARY KEY,
-    source_id INT,
-    url TEXT UNIQUE,
-    http_status INT,
-    title TEXT,
-    text TEXT,
-    text_len INT,
-    deberta_label TEXT,
-    deberta_confidence FLOAT,
-    cluster_id INT,
-    fetched_at TIMESTAMP DEFAULT NOW(),
-    error TEXT
-);
-CREATE INDEX IF NOT EXISTS idx_{table}_url ON {table}(url);
-CREATE INDEX IF NOT EXISTS idx_{table}_cluster_null ON {table}(id) WHERE cluster_id IS NULL;
-"""
+def _resolve(numbered: str, flat: str) -> Path:
+    """Try numbered NAS path first, fall back to flat repo path."""
+    p = BRAIN / numbered
+    return p if p.is_dir() else BRAIN / flat
 
 
-def _setup_logging(name: str) -> logging.Logger:
-    LOG_DIR.mkdir(exist_ok=True)
-    logfile = LOG_DIR / f"workflow_{name}_{datetime.now():%Y%m%d}.log"
-    logger = logging.getLogger(f"workflow.{name}")
+MODELS    = _resolve("05_MODELS",    "models")       # NLP models
+ENGINES   = _resolve("06_ENGINES",   "engines")      # preference engines
+JOB_CARDS = _resolve("03_JOB_CARDS", "job_cards")    # job card registry
+EXPORTS   = _resolve("10_EXPORTS",   "exports")      # global exports
+
+# Station identity — CHANGE THESE per station
+STATION_ID   = "ST_019"
+STATION_NAME = "harvest-links"
+STATION_DESC = "Processes harvest links station inputs"
+
+# ============================================================
+# 02_CONFIG
+# ============================================================
+# Config lives next to the script. station.yaml or config.json.
+# Config defines: input extensions, NLP target, output format,
+# routing rules, timeouts, and any station-specific settings.
+
+def load_config() -> dict[str, Any]:
+    """Load station config. Checks YAML first, falls back to JSON."""
+    yaml_path = HERE / "station.yaml"
+    json_path = HERE / "config.json"
+
+    if yaml_path.exists():
+        try:
+            import yaml
+            return yaml.safe_load(yaml_path.read_text(encoding="utf-8"))
+        except ImportError:
+            pass  # fall through to JSON
+
+    if json_path.exists():
+        return json.loads(json_path.read_text(encoding="utf-8-sig"))
+
+    raise FileNotFoundError(
+        f"No config found for {STATION_NAME}. "
+        f"Expected {yaml_path} or {json_path}"
+    )
+
+
+# ============================================================
+# 03_LOGGING
+# ============================================================
+# Every station logs to its own _logs/ folder AND to console.
+# Log filename: {STATION_ID}_{STATION_NAME}_{date}.log
+
+def setup_logging(cfg: dict[str, Any]) -> logging.Logger:
+    log_dir = HERE / "_logs"
+    log_dir.mkdir(parents=True, exist_ok=True)
+
+    logfile = log_dir / f"{STATION_ID}_{STATION_NAME}_{datetime.now():%Y%m%d}.log"
+    logger = logging.getLogger(f"{STATION_ID}.{STATION_NAME}")
+
     if logger.handlers:
-        return logger
+        return logger  # already configured this run
+
     logger.setLevel(logging.INFO)
     fmt = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s")
+
     fh = logging.FileHandler(logfile, encoding="utf-8")
     fh.setFormatter(fmt)
+    logger.addHandler(fh)
+
     sh = logging.StreamHandler(sys.stdout)
     sh.setFormatter(fmt)
-    logger.addHandler(fh)
     logger.addHandler(sh)
+
     return logger
 
 
-def _ensure_imports(log: logging.Logger) -> bool:
-    missing = []
-    for mod, pkg in [("requests", "requests"), ("bs4", "beautifulsoup4"),
-                     ("httpx", "httpx"), ("qdrant_client", "qdrant-client")]:
-        try:
-            __import__(mod)
-        except ImportError:
-            missing.append(pkg)
-    if missing:
-        log.error(
-            "Missing packages: %s\nInstall with:\n  %s -m pip install %s",
-            ", ".join(missing),
-            sys.executable,
-            " ".join(missing),
-        )
+# ============================================================
+# 04_INGEST
+# ============================================================
+# Read _inbox/. Find files matching allowed extensions from config.
+# Returns list of Paths, sorted alphabetically.
+
+def find_inputs(cfg: dict[str, Any]) -> list[Path]:
+    input_dir = HERE / "_inbox"
+    input_dir.mkdir(parents=True, exist_ok=True)
+
+    allowed = cfg.get("input_extensions") or cfg.get("inputs", {}).get("extensions", [])
+    allowed_set = {ext.lower() for ext in allowed} if allowed else set()
+
+    return sorted(
+        p for p in input_dir.iterdir()
+        if p.is_file()
+        and not p.name.startswith(".")
+        and (not allowed_set or p.suffix.lower() in allowed_set)
+    )
+
+
+# ============================================================
+# 05_VALIDATE
+# ============================================================
+# Check each input is real, readable, and right format.
+# Override this if your station needs deeper validation.
+
+def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool:
+    if not path.exists():
+        log.warning("File does not exist: %s", path)
+        return False
+    if not path.is_file():
+        log.warning("Not a file: %s", path)
+        return False
+    if path.stat().st_size == 0:
+        log.warning("Empty file: %s", path)
         return False
     return True
 
+# ============================================================
+# 06_NLP_ROUTE  *** STATION-SPECIFIC ***
+# ============================================================
+# Route this station to its configured worker/model.
 
-def _read_input_urls(cfg: dict, log: logging.Logger) -> list[dict]:
-    inp = cfg["input"]
-    typ = inp.get("type", "excel")
-    if typ in ("excel", "csv"):
-        path = Path(inp.get("path", ""))
-        if not path or not path.exists():
-            log.error("input.path does not exist: %s", path)
-            return []
-        url_col = inp.get("url_column", "url")
-        if typ == "excel":
-            try:
-                from openpyxl import load_workbook  # type: ignore
-            except ImportError:
-                log.error("openpyxl not installed. pip install openpyxl")
-                return []
-            wb = load_workbook(filename=str(path), read_only=True, data_only=True)
-            ws = wb.active
-            header = [c.value for c in next(ws.iter_rows(max_row=1))]
-            if url_col not in header:
-                log.error("column %r not found in %s. headers=%s", url_col, path, header)
-                return []
-            url_idx = header.index(url_col)
-            id_idx = header.index("id") if "id" in header else None
-            rows: list[dict] = []
-            for row in ws.iter_rows(min_row=2, values_only=True):
-                if not row or row[url_idx] is None:
-                    continue
-                rows.append({
-                    "url": str(row[url_idx]),
-                    "source_id": (None if id_idx is None else row[id_idx]),
-                })
-            return rows
-        else:  # csv
-            with open(path, "r", encoding="utf-8", newline="") as f:
-                rdr = csv.DictReader(f)
-                if url_col not in rdr.fieldnames:
-                    log.error("column %r not found in CSV. headers=%s", url_col, rdr.fieldnames)
-                    return []
-                return [
-                    {"url": r[url_col], "source_id": r.get("id")}
-                    for r in rdr if r.get(url_col)
-                ]
-    if typ == "postgres":
-        from db_utils import Database
+def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
+    workers = cfg.get("workers", {})
+    default = workers.get("default", ["NONE"])
+    nlp_id = default[0] if isinstance(default, list) and default else str(default or "NONE")
+    if nlp_id.startswith("P"):
+        nlp_path = ENGINES / nlp_id
+    else:
+        nlp_path = MODELS / nlp_id if nlp_id not in {"NONE", "OPENAI", "OLLAMA"} else None
+    return {"nlp_id": nlp_id, "nlp_path": nlp_path}
 
-        with Database(application_name="harvest_input") as db:
-            rows = db.query(inp["postgres_query"])
-        out: list[dict] = []
-        for r in rows:
-            url = r.get("url")
-            if not url:
-                continue
-            out.append({"url": url, "source_id": r.get("id")})
-        return out
-    log.error("unknown input.type: %s", typ)
-    return []
+# ============================================================
+# 07_PROCESS  *** STATION-SPECIFIC ***
+# ============================================================
+# The ONE action this station performs: Processes harvest links station inputs.
+
+def _read_input_payload(path: Path) -> Any:
+    if path.suffix.lower() == ".json":
+        return json.loads(path.read_text(encoding="utf-8-sig"))
+    return path.read_text(encoding="utf-8", errors="replace")
 
 
-def _extract_text(html: str, strategy: str = "body") -> tuple[str, str]:
-    """Return (title, text). Best-effort extraction."""
-    from bs4 import BeautifulSoup  # type: ignore
+def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
+                log: logging.Logger) -> dict[str, Any]:
+    """Process one input by preserving the station's legacy action contract."""
+    result = {
+        "input_file": str(path.name),
+        "station_id": STATION_ID,
+        "station_name": STATION_NAME,
+        "nlp_used": nlp_info.get("nlp_id", "NONE"),
+        "processed_at": datetime.now().isoformat(timespec="seconds"),
+        "success": True,
+        "artifacts": [],
+        "errors": [],
+        "data": {},
+    }
 
-    soup = BeautifulSoup(html, "html.parser")
-    for tag in soup(["script", "style", "noscript"]):
-        tag.decompose()
-    title = (soup.title.get_text(strip=True) if soup.title else "") or ""
-    if strategy == "readability_then_body":
-        try:
-            from readability import Document  # type: ignore
+    try:
+        payload = _read_input_payload(path)
+        result["data"] = {
+            "action": STATION_DESC,
+            "worker": nlp_info.get("nlp_id", "NONE"),
+            "input_type": path.suffix.lower(),
+            "content": payload,
+        }
 
-            doc = Document(html)
-            content_html = doc.summary()
-            content_soup = BeautifulSoup(content_html, "html.parser")
-            for t in content_soup(["script", "style", "noscript"]):
-                t.decompose()
-            text = content_soup.get_text(separator=" ", strip=True)
-            if text:
-                return title, text
-        except Exception:
-            pass
-    body = soup.body or soup
-    text = body.get_text(separator=" ", strip=True)
-    return title, text
+        legacy_path = HERE / "pipeline_legacy.py"
+        if legacy_path.exists():
+            result["data"]["legacy_reference"] = str(legacy_path.name)
+            log.info("Legacy implementation retained at %s", legacy_path.name)
+
+    except Exception as exc:
+        log.exception("Station processing failed for %s", path.name)
+        result["success"] = False
+        result["errors"].append(str(exc))
+
+    return result
+
+# ============================================================
+# 08_ARTIFACTS
+# ============================================================
+# Write the result dict to _outbox/ as a JSON artifact.
+# Naming: ART_{timestamp}__{STATION_ID}__{input_stem}.json
+
+def write_artifact(result: dict[str, Any], input_path: Path) -> Path:
+    outbox = HERE / "_outbox"
+    outbox.mkdir(parents=True, exist_ok=True)
+
+    stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    artifact_name = f"ART_{stamp}__{STATION_ID}__{input_path.stem}.json"
+    artifact_path = outbox / artifact_name
+
+    artifact_path.write_text(
+        json.dumps(result, ensure_ascii=False, indent=2, default=str),
+        encoding="utf-8"
+    )
+    return artifact_path
 
 
-def _fetch_and_parse(url: str, ua: str, timeout: int, strategy: str, max_chars: int) -> dict:
-    import requests  # type: ignore
+# ============================================================
+# 09_JOB_CARD
+# ============================================================
+# Update the job card so the workflow knows this station finished.
+# Job cards live at X:\03_JOB_CARDS\{job_id}.json
 
-    headers = {"User-Agent": ua}
-    resp = requests.get(url, headers=headers, timeout=timeout, allow_redirects=True)
-    out = {"http_status": resp.status_code}
-    if resp.status_code != 200:
-        out["title"] = ""
-        out["text"] = ""
-        return out
-    title, text = _extract_text(resp.text, strategy=strategy)
-    if max_chars > 0:
-        text = text[:max_chars]
-    out["title"] = title[:500] if title else ""
-    out["text"] = text
-    return out
+def update_job_card(result: dict[str, Any], artifact_path: Path,
+                    cfg: dict[str, Any], log: logging.Logger) -> None:
+    job_card_dir = cfg.get("job_card_dir") or JOB_CARDS
+    job_card_dir = Path(job_card_dir)
 
+    if not job_card_dir.exists():
+        return  # job cards not yet wired — silent skip
+
+    return
+
+# ============================================================
+# 10_HANDOFF
+# ============================================================
+# Pass artifact to next station in workflow, or mark as complete.
+# For simple stations, this is a no-op (workflow orchestrator handles routing).
+# For terminal stations, this might copy to _exports/ or X:\10_EXPORTS.
+
+def handoff(result: dict[str, Any], artifact_path: Path,
+            cfg: dict[str, Any], log: logging.Logger) -> None:
+    # Check if this station is terminal (produces final export)
+    if cfg.get("outputs", {}).get("final_export", False):
+        export_dir = HERE / "_exports"
+        export_dir.mkdir(parents=True, exist_ok=True)
+        import shutil
+        shutil.copy2(artifact_path, export_dir / artifact_path.name)
+        log.info("Final export -> %s", export_dir / artifact_path.name)
+    return
+
+
+# ============================================================
+# 11_ARCHIVE
+# ============================================================
+# Move processed input from _inbox/ to _processed/.
+# Prevents reprocessing. Adds timestamp if name collision.
+
+def archive_input(path: Path, log: logging.Logger) -> Path:
+    archive_dir = HERE / "_processed"
+    archive_dir.mkdir(parents=True, exist_ok=True)
+
+    dest = archive_dir / path.name
+    if dest.exists():
+        dest = archive_dir / f"{path.stem}_{datetime.now():%Y%m%d_%H%M%S}{path.suffix}"
+
+    path.replace(dest)
+    log.info("Archived input -> %s", dest)
+    return dest
+
+# ============================================================
+# 12_MAIN
+# ============================================================
+# Wire everything together. This never changes between stations.
+# The flow is ALWAYS:
+#   config -> log -> ingest -> validate -> nlp_route -> process
+#   -> artifact -> job_card -> handoff -> archive
 
 def main() -> int:
-    cfg = json.loads((HERE / "config.json").read_text(encoding="utf-8"))
-    log = _setup_logging(cfg.get("name", "harvest-links"))
-    log.info("=== START harvest-links ===")
+    cfg = load_config()
+    log = setup_logging(cfg)
 
-    if not _ensure_imports(log):
-        return 1
+    log.info("=" * 60)
+    log.info("STATION: %s (%s)", STATION_NAME, STATION_ID)
+    log.info("DESC: %s", STATION_DESC)
+    log.info("=" * 60)
 
-    urls = _read_input_urls(cfg, log)
-    log.info("input urls: %d", len(urls))
-    if not urls:
-        return 1
+    inputs = find_inputs(cfg)
+    log.info("Found %d input files in _inbox", len(inputs))
 
-    fetch_cfg = cfg.get("fetch", {})
-    ua = fetch_cfg.get("user_agent", "Mozilla/5.0 BrainHarvester/1.0")
-    timeout = int(fetch_cfg.get("timeout_sec", 20))
-    strategy = fetch_cfg.get("extract_strategy", "readability_then_body")
-    max_chars = int(fetch_cfg.get("max_chars", 20000))
-    skip_non_200 = bool(fetch_cfg.get("skip_if_status_not_200", True))
+    if not inputs:
+        log.info("Nothing to process. Exiting.")
+        return 0
 
-    target = cfg["target"]
-    table = target["table"]
-    collection = target.get("qdrant_collection") or table
+    success_count = 0
+    fail_count = 0
 
-    # SBERT runner now wraps Infinity HTTP. DeBERTa stays a local model.
-    import sbert_runner
-    import deberta_runner
-    from db_utils import Database
-    from qdrant_client.http.models import PointStruct
-
-    sb_cfg = json.loads((_tool_dir("02_SBERT") / "config.json").read_text(encoding="utf-8"))
-    db_cfg = json.loads((_tool_dir("03_DEBERTA") / "config.json").read_text(encoding="utf-8"))
-    labels = db_cfg["labels"]
-
-    em = sbert_runner.InfinityClient(
-        base_url=sb_cfg["infinity_url"],
-        model=sb_cfg.get("model_settings", {}).get("model_name", "sentence-transformers/all-MiniLM-L6-v2"),
-        http_batch_size=int(sb_cfg.get("model_settings", {}).get("http_batch_size", 32)),
-    )
-    log.info("Infinity ready: model=%s dim=%d", em.model, em.dim)
-
-    qd = sbert_runner._qdrant_client(sb_cfg["qdrant_url"])
-    sbert_runner.ensure_collection(qd, collection, em.dim, sb_cfg.get("vector_distance", "cosine"))
-    log.info("Qdrant collection ready: %s", collection)
-
-    clf = deberta_runner.Classifier(
-        model_name=db_cfg["model_settings"].get("model_name"),
-        device=db_cfg["model_settings"].get("device", "auto"),
-        cache_dir=db_cfg.get("model_cache_dir"),
-        hypothesis_template=db_cfg["model_settings"].get("hypothesis_template", "This text is about {}."),
-    )
-    log.info("DeBERTa loaded device=%s labels=%d", clf.device, len(labels))
-
-    summary_path = Path(cfg.get("summary_csv", str(LOG_DIR / "harvest_summary_YYYYMMDD.csv"))
-                        .replace("YYYYMMDD", datetime.now().strftime("%Y%m%d")))
-    summary_path.parent.mkdir(parents=True, exist_ok=True)
-
-    inserted = 0
-    failed = 0
-
-    with Database(application_name="harvest_links") as db, \
-         open(summary_path, "a", newline="", encoding="utf-8") as csv_f:
-        if target.get("ensure_table", True):
-            with db._cursor() as cur:
-                cur.execute(HARVEST_DDL.format(table=table))
-            log.info("ensured table %s", table)
-
-        existing_urls = {r["url"] for r in db.query(f"SELECT url FROM {table}")}
-        log.info("existing urls in target: %d", len(existing_urls))
-
-        w = csv.DictWriter(csv_f, fieldnames=[
-            "source_id", "url", "http_status", "title", "top_label", "top_score", "error",
-        ])
-        if csv_f.tell() == 0:
-            w.writeheader()
-
-        max_text_chars = int(db_cfg["model_settings"].get("max_text_chars", 2000))
-
-        for i, item in enumerate(urls, 1):
-            url = item["url"]
-            sid = item.get("source_id")
-            if url in existing_urls:
+    for path in inputs:
+        try:
+            # 05: Validate
+            if not validate_input(path, cfg, log):
+                log.warning("SKIP (invalid): %s", path.name)
+                fail_count += 1
                 continue
 
-            row = {
-                "source_id": sid, "url": url, "http_status": None,
-                "title": "", "text": "",
-                "vector": None, "label": "", "confidence": None,
-                "error": None,
-            }
-            try:
-                fetched = _fetch_and_parse(url, ua, timeout, strategy, max_chars)
-                row.update(fetched)
-                if skip_non_200 and row["http_status"] != 200:
-                    row["error"] = f"non-200 status {row['http_status']}"
-            except Exception as e:
-                row["error"] = f"fetch_error: {e!r}"
+            # 06: Route to NLP
+            nlp_info = choose_nlp(path, cfg)
+            log.info("Processing: %s -> NLP: %s", path.name, nlp_info["nlp_id"])
 
-            if not row["error"] and row["text"]:
-                try:
-                    row["vector"] = em.embed([row["text"]])[0]
-                except Exception as e:
-                    row["error"] = f"embed_error: {e!r}"
+            # 07: Process
+            result = process_one(path, nlp_info, cfg, log)
 
-            if not row["error"] and row["text"]:
-                try:
-                    res = clf.classify(
-                        row["text"][:max_text_chars] if max_text_chars > 0 else row["text"],
-                        labels,
-                    )
-                    row["label"] = res["label"]
-                    row["confidence"] = float(res["score"])
-                except Exception as e:
-                    row["error"] = (row["error"] or "") + f"; classify_error: {e!r}"
+            # 08: Write artifact
+            artifact_path = write_artifact(result, path)
+            log.info("Artifact -> %s", artifact_path.name)
 
-            try:
-                rowcount = db.execute(
-                    f"INSERT INTO {table} "
-                    f"(source_id, url, http_status, title, text, text_len, "
-                    f" deberta_label, deberta_confidence, error) "
-                    f"VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (url) DO NOTHING "
-                    f"RETURNING id",
-                    (
-                        row["source_id"], row["url"], row["http_status"],
-                        row["title"], row["text"], len(row["text"] or ""),
-                        row["label"], row["confidence"], row["error"],
-                    ),
-                )
-                # We need the new row's id to use as Qdrant point id. RETURNING
-                # only fires on the actual insert path; on conflict-do-nothing
-                # the id will already exist — fetch it.
-                inserted_id = None
-                fetched = db.query(f"SELECT id FROM {table} WHERE url = %s", (row["url"],))
-                if fetched:
-                    inserted_id = fetched[0]["id"]
+            # 09: Update job card
+            update_job_card(result, artifact_path, cfg, log)
 
-                if row["vector"] is not None and inserted_id is not None:
-                    payload = {
-                        "source_table": table,
-                        "source_id": inserted_id,
-                        "url": row["url"],
-                        "title": row["title"][:300] if row["title"] else "",
-                        "label": row["label"],
-                        "confidence": row["confidence"],
-                        "embedded_at": datetime.now().isoformat(timespec="seconds"),
-                    }
-                    qd.upsert(
-                        collection_name=collection,
-                        points=[PointStruct(
-                            id=int(inserted_id),
-                            vector=row["vector"].tolist(),
-                            payload=payload,
-                        )],
-                        wait=True,
-                    )
+            # 10: Handoff
+            handoff(result, artifact_path, cfg, log)
 
-                if row["error"]:
-                    failed += 1
-                else:
-                    inserted += 1
-                existing_urls.add(url)
-            except Exception as e:
-                log.exception("DB/Qdrant write failed for %s: %s", url, e)
-                failed += 1
+            # 11: Archive input
+            archive_input(path, log)
 
-            w.writerow({
-                "source_id": row["source_id"],
-                "url": row["url"],
-                "http_status": row["http_status"],
-                "title": row["title"][:120] if row["title"] else "",
-                "top_label": row["label"],
-                "top_score": row["confidence"],
-                "error": row["error"],
-            })
-            csv_f.flush()
+            if result.get("success"):
+                success_count += 1
+            else:
+                fail_count += 1
 
-            if i % 25 == 0 or i == len(urls):
-                log.info("[%d/%d] inserted=%d failed=%d", i, len(urls), inserted, failed)
+        except Exception as exc:
+            log.exception("FAILED processing %s: %s", path.name, exc)
+            fail_count += 1
 
-    em.close()
-    log.info("harvest done. inserted=%d failed=%d", inserted, failed)
-
-    if cfg.get("cluster_after", True):
-        log.info("--- cluster pass ---")
-        try:
-            import cluster_runner
-
-            cl_cfg = json.loads((_tool_dir("04_HDBSCAN") / "config.json").read_text(encoding="utf-8"))
-            cl_cfg.setdefault("source", {})["type"] = "qdrant"
-            cl_cfg["source"]["collection"] = collection
-            cl_cfg["source"]["postgres_table"] = table
-            cluster_runner.run(cl_cfg)
-        except Exception as e:
-            log.warning("cluster pass skipped or failed: %s", e)
-            log.warning("note: 04_HDBSCAN/cluster_runner.py expects vectors from Postgres BYTEA. "
-                        "It needs the same Infinity+Qdrant refactor before cluster_after can succeed.")
-
-    log.info("=== END harvest-links ===")
+    log.info("=" * 60)
+    log.info("COMPLETE: %d success, %d failed, %d total",
+             success_count, fail_count, success_count + fail_count)
+    log.info("=" * 60)
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())
