@@ -9,7 +9,7 @@ Every station Python script follows the same 13-section structure, in the same o
 | Section | Name | Changes per station? | What it does |
 |---------|------|---------------------|--------------|
 | 00 | IMPORTS | Rarely | Standard library + station-specific deps |
-| 01 | CONSTANTS | YES (identity only) | STATION_ID, STATION_NAME, STATION_DESC |
+| 01 | CONSTANTS | YES (identity + resolvers) | STATION_ID, STATION_NAME, STATION_DESC, TEMPLATES resolver |
 | 02 | CONFIG | Never | Load config.json or station.yaml |
 | 03 | LOGGING | Never | Setup logger (file + console) |
 | 04 | INGEST | Never | Read _inbox/, find files by extension |
@@ -49,11 +49,29 @@ MODELS    = _resolve("05_MODELS",    "models")
 ENGINES   = _resolve("06_ENGINES",   "engines")
 JOB_CARDS = _resolve("03_JOB_CARDS", "job_cards")
 EXPORTS   = _resolve("10_EXPORTS",   "exports")
+TEMPLATES = _resolve("15_TEMPLATES", "templates")
 ```
 
 If the brain moves from X:\ to D:\brain, NOTHING changes in any station.
 The `_resolve` shim also handles the GitHub repo layout (flat folder names
 like `models/` instead of `05_MODELS/`), so stations work in both environments.
+
+## Template Resolver
+Stations that consume or render templates MUST reference filenames from `config.json` under `templates`, grouped by role:
+
+```json
+{
+  "templates": {
+    "input_lexicon": ["paper_grader_lexicons_master_enhanced.xlsx"],
+    "input_data": ["citation_map.xlsx"],
+    "input_rubric": ["paper_intelligence.xlsx"],
+    "output_template": ["mda-grades.html"],
+    "output_excel": ["OUTREACH_TRACKER.xlsx"]
+  }
+}
+```
+
+Resolve every configured filename through `TEMPLATES = _resolve("15_TEMPLATES", "templates")`. Markdown templates may live below `templates/md/`. The JSON artifact remains the always-present baseline even when HTML or Excel renderings are emitted.
 
 ## Standard Station Folder
 ```
@@ -92,6 +110,14 @@ X:\06_ENGINES\
   P03_lightfm     P07_markovify
   P04_paper_recommender
 ```
+
+## Section 08 Template-Aware Artifact Rule
+Section 08 always writes the canonical JSON artifact to `_outbox/`. If `config.json` declares `templates.output_template`, Section 08 may additionally render an HTML artifact by loading the configured HTML file from `TEMPLATES` and replacing station-provided placeholders. If `config.json` declares `templates.output_excel`, Section 08 may additionally create an Excel-compatible artifact using the configured workbook filename as the export contract.
+
+The required baseline is never optional:
+1. JSON artifact: always present, machine-readable, complete.
+2. HTML render: optional companion when an HTML output template is configured.
+3. Excel render/export: optional companion when an Excel output template is configured.
 
 ## Batch Update Script Pattern
 Because every station has the same structure, you can write:

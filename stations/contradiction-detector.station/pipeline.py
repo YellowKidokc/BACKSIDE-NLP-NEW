@@ -76,6 +76,7 @@ MODELS    = _resolve("05_MODELS",    "models")       # NLP models
 ENGINES   = _resolve("06_ENGINES",   "engines")      # preference engines
 JOB_CARDS = _resolve("03_JOB_CARDS", "job_cards")    # job card registry
 EXPORTS   = _resolve("10_EXPORTS",   "exports")      # global exports
+TEMPLATES = _resolve("15_TEMPLATES", "templates")    # shared templates
 
 # Station identity — CHANGE THESE per station
 STATION_ID   = "ST_012"
@@ -205,6 +206,38 @@ def _read_input_payload(path: Path) -> Any:
     return path.read_text(encoding="utf-8", errors="replace")
 
 
+
+def _template_path(name: str) -> Path:
+    return TEMPLATES / name
+
+
+def _template_manifest(cfg: dict[str, Any]) -> dict[str, Any]:
+    manifest: dict[str, Any] = {}
+    for role, names in cfg.get("templates", {}).items():
+        if isinstance(names, str):
+            names = [names]
+        manifest[role] = [
+            {
+                "name": name,
+                "path": str(_template_path(name)),
+                "exists": _template_path(name).exists(),
+            }
+            for name in names
+        ]
+    return manifest
+
+
+def _load_text_templates(cfg: dict[str, Any], role: str = "output_template") -> dict[str, str]:
+    rendered: dict[str, str] = {}
+    names = cfg.get("templates", {}).get(role, [])
+    if isinstance(names, str):
+        names = [names]
+    for name in names:
+        path = _template_path(name)
+        if path.exists() and path.suffix.lower() in {".html", ".htm", ".md", ".txt"}:
+            rendered[name] = path.read_text(encoding="utf-8", errors="replace")
+    return rendered
+
 def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
                 log: logging.Logger) -> dict[str, Any]:
     """Process one input by preserving the station's legacy action contract."""
@@ -227,6 +260,7 @@ def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
             "worker": nlp_info.get("nlp_id", "NONE"),
             "input_type": path.suffix.lower(),
             "content": payload,
+            "templates": _template_manifest(cfg),
         }
 
         legacy_path = HERE / "pipeline_legacy.py"
