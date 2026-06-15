@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  PAGE_META
+  series: master-equation
+  article: master-equation-homepage
+  title: Master Equation — Theophysics
+  version: 1.0
+  template: master-equation
+  marked_by: kimi
+  marked_date: 2026-05-16
+-->
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Master Equation — Theophysics</title>
+<meta name="description" content="The Master Equation of theophysics. Ten variables. One coherence field. Every domain unified."/>
+
+<!-- BEGIN:COMPONENT:head:head-common -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<!-- END:COMPONENT:head:head-common -->
+
+<!-- BEGIN:COMPONENT:style:style-master-equation -->
+<style>
+:root{
+  --bg:#050505; --surface:#0a0a0a; --surface2:#111; --surface3:#1a1a1a;
+  --border:#222; --border-2:#2a2a2a; --border-hi:#3a3a3a;
+  --text:#e5e3df; --text-dim:#9a9a9a; --text-muted:#5a5a5a;
+  --gold:#d4af37; --gold-dim:rgba(212,175,55,.1);
+  --rung-easy:#4ade80; --rung-med:#fb923c; --rung-hard:#f87171;
+  --serif:'Crimson Text',Georgia,serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --display:'Oswald','Inter',sans-serif;
+  --sans:'Inter',system-ui,sans-serif;
+  --max:1000px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+/* ═══════ COMPONENT:topbar:header-master-equation ═══════ */
+.mq-header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.5rem;backdrop-filter:blur(14px) saturate(140%);background:rgba(5,5,5,.7);border-bottom:1px solid transparent;transition:all .25s ease}
+.mq-header-scrolled{background:rgba(8,8,8,.9);border-bottom-color:var(--border)}
+.mq-brand{display:flex;align-items:center;gap:.6rem}
+.mq-mark{font-family:var(--serif);font-size:1.3rem;color:var(--gold);line-height:1}
+.mq-name{font-family:var(--mono);font-size:.6rem;letter-spacing:.25em;color:var(--text-muted);text-transform:uppercase}
+.mq-name span{color:var(--gold)}
+.mq-nav{display:flex;gap:.15rem}
+.mq-nav a{font-family:var(--display);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;padding:.5rem .8rem;border-radius:4px;color:var(--text-dim);transition:all .15s}
+.mq-nav a:hover{color:var(--gold);background:var(--gold-dim)}
+@media(max-width:640px){.mq-nav{display:none}}
+
+/* ═══════ COMPONENT:hero:hero-master-equation ═══════ */
+.mq-hero{position:relative;padding:8rem 1.5rem 2rem;text-align:center;overflow:hidden}
+.mq-hero::before{content:'';position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);width:900px;height:500px;background:radial-gradient(ellipse,rgba(212,175,55,.07) 0%,transparent 65%);pointer-events:none}
+.mq-hero-inner{max-width:780px;margin:0 auto;position:relative}
+.mq-hero-eyebrow{font-family:var(--mono);font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+.mq-hero h1{font-family:var(--display);font-weight:500;font-size:clamp(2.4rem,6vw,4rem);line-height:1;color:#fff;margin-bottom:1rem;text-wrap:balance;letter-spacing:.02em}
+.mq-hero-sub{font-family:var(--serif);font-size:clamp(1rem,2vw,1.15rem);color:var(--text-dim);max-width:520px;margin:0 auto 1.5rem;text-wrap:pretty;line-height:1.6;font-style:italic}
+
+/* ═══════ COMPONENT:equation:master-equation-display ═══════ */
+.mq-eq-wrap{max-width:var(--max);margin:0 auto 3rem;padding:0 1.5rem}
+.mq-eq-box{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:2rem 1.5rem;text-align:center;position:relative;overflow:hidden}
+.mq-eq-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.mq-eq{font-family:var(--serif);font-size:clamp(1.3rem,3vw,1.9rem);color:var(--gold);letter-spacing:.02em;margin-bottom:1rem}
+.mq-eq-note{font-family:var(--mono);font-size:.65rem;color:var(--text-muted);letter-spacing:.1em;text-transform:uppercase}
+
+/* ═══════ COMPONENT:section:variable-grid ═══════ */
+.mq-sec{max-width:var(--max);margin:0 auto;padding:2rem 1.5rem}
+.mq-sec-head{display:flex;align-items:center;gap:.8rem;margin-bottom:1.2rem}
+.mq-sec-dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.mq-sec-kicker{font-family:var(--mono);font-size:.65rem;color:var(--text-muted);letter-spacing:.15em;text-transform:uppercase}
+.mq-sec h2{font-family:var(--serif);font-size:clamp(1.4rem,2.5vw,1.8rem);font-weight:400;color:#fff}
+.mq-sec-desc{font-size:.9rem;color:var(--text-dim);max-width:600px;margin-bottom:1.5rem}
+
+.mq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.7rem}
+.mq-var{display:flex;flex-direction:column;padding:1.1rem 1.2rem;background:var(--surface2);border:1px solid var(--border);border-radius:6px;transition:all .2s;min-height:120px}
+.mq-var:hover{border-color:var(--gold);transform:translateY(-2px)}
+.mq-var-row{display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem}
+.mq-var-letter{font-family:var(--mono);font-size:1.1rem;color:var(--gold);background:var(--gold-dim);padding:.15rem .5rem;border-radius:3px;min-width:32px;text-align:center}
+.mq-var-name{font-family:var(--serif);font-size:1.05rem;color:#fff}
+.mq-var-def{font-size:.82rem;color:var(--text-dim);flex:1;margin-bottom:.4rem}
+.mq-var-domain{font-family:var(--mono);font-size:.55rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em}
+.mq-var-domain span{padding:.05rem .3rem;border-radius:2px}
+.domain-physics{background:rgba(91,155,213,.12);color:var(--blue)}
+.domain-theology{background:rgba(212,175,55,.12);color:var(--gold)}
+.domain-bridge{background:rgba(59,179,154,.12);color:var(--teal)}
+
+/* ═══════ COMPONENT:section:derivation-chain ═══════ */
+.mq-chain{max-width:var(--max);margin:2rem auto;padding:0 1.5rem}
+.mq-chain-inner{background:linear-gradient(135deg,rgba(212,175,55,.05),transparent);border:1px solid var(--border);border-radius:8px;padding:1.5rem}
+.mq-chain-step{display:flex;gap:1rem;align-items:flex-start;padding:.7rem 0;border-bottom:1px dashed var(--border-2)}
+.mq-chain-step:last-child{border-bottom:0}
+.mq-chain-num{font-family:var(--mono);font-size:.7rem;color:var(--gold);min-width:24px}
+.mq-chain-body{flex:1}
+.mq-chain-title{font-family:var(--serif);font-size:.95rem;color:#fff;margin-bottom:.15rem}
+.mq-chain-desc{font-size:.82rem;color:var(--text-dim)}
+
+/* ═══════ COMPONENT:footer:footer-master-equation ═══════ */
+.mq-footer{max-width:var(--max);margin:3rem auto 0;padding:3rem 1.5rem;text-align:center;border-top:1px solid var(--border)}
+.mq-footer .feq{font-family:var(--mono);font-size:.75rem;color:var(--gold);opacity:.5;margin-bottom:.7rem}
+.mq-footer p{color:var(--text-muted);font-size:.78rem;margin:.3rem 0}
+
+@media(max-width:640px){
+  .mq-grid{grid-template-columns:1fr}
+}
+</style>
+<!-- END:COMPONENT:style:style-master-equation -->
+</head>
+<body>
+
+<!-- BEGIN:COMPONENT:topbar:header-master-equation -->
+<header class="mq-header" id="mq-header" data-component="topbar" data-name="header-master-equation">
+  <a href="../index.html" class="mq-brand">
+    <span class="mq-mark">χ</span>
+    <span class="mq-name">Theophysics <span>//</span> Equation</span>
+  </a>
+  <nav class="mq-nav">
+    <a href="../index.html">Main Site</a>
+    <a href="../proof-explorer/">Proof</a>
+    <a href="../glossary/">Glossary</a>
+    <a href="../media/">Media</a>
+  </nav>
+</header>
+<!-- END:COMPONENT:topbar:header-master-equation -->
+
+<!-- BEGIN:COMPONENT:hero:hero-master-equation -->
+<section class="mq-hero" data-component="hero" data-name="hero-master-equation">
+  <div class="mq-hero-inner">
+    <div class="mq-hero-eyebrow">The Master Equation</div>
+    <h1>One Equation. <em>Every Domain.</em></h1>
+    <p class="mq-hero-sub">Ten variables. One coherence field. The mathematics that unifies physics and theology through structural isomorphism.</p>
+  </div>
+</section>
+<!-- END:COMPONENT:hero:hero-master-equation -->
+
+<!-- BEGIN:COMPONENT:equation:master-equation-display -->
+<div class="mq-eq-wrap" data-component="equation" data-name="master-equation-display">
+  <div class="mq-eq-box">
+    <div class="mq-eq">χ = ∭ (G · M · E · S · T · K · R · Q · F · C) dx dy dt</div>
+    <div class="mq-eq-note">Conserved Coupling Functional · Phenomenological · Type-Hierarchic</div>
+  </div>
+</div>
+<!-- END:COMPONENT:equation:master-equation-display -->
+
+<!-- BEGIN:COMPONENT:section:variable-grid -->
+<section class="mq-sec" id="variables" data-component="section" data-name="variable-grid">
+  <div class="mq-sec-head">
+    <span class="mq-sec-dot"></span>
+    <span class="mq-sec-kicker">Variables</span>
+  </div>
+  <h2>The Ten Variables</h2>
+  <p class="mq-sec-desc">Each letter is a domain. Each domain has a physical instantiation, a biblical anchor, and a falsification test.</p>
+  <div class="mq-grid">
+    <div class="mq-var">
+      <div class="mq-var-row"><span class="mq-var-letter">G</span><span class="mq-var-name">Grace</span></div>
+      <div class="mq-var-def">External negentropic input. The source term that makes open-system restoration possible. The Cross as a physical operator.</div>
+      <div class="mq-var-domain"><span class="domain-theology">Theology</span> · <span class="domain-physics">Physics</span></div>
+    </div>
+    <div class="mq-var">
+      <div class="mq-var-row"><span class="mq-var-letter">M</span><span class="mq-var-name">Matter</span></div>
+      <div class="mq-var-def">The material substrate. What information looks like at high coherence. Not fundamental — emergent.</div>
+      <div class="mq-var-domain"><span class="domain-physics">Physics</span></div>
+    </div>
+    <div class="mq-var">
+      <div class="mq-var-row"><span class="mq-var-letter">E</span><span class="mq-var-name">Energy</span></div>
+      <div class="mq-var-def">The capacity to do work. Coupled to grace through the negentropy operator. Conservation via Noether.</div>
+      <div class="mq-var-domain"><span class="domain-physics">Physics</span></div>
+    </div>
+    <div class="mq-var">
+      <div class="mq-var-row"><span class="mq-var-letter">S</span><span class="mq-var-name">Structure</span></div>
+      <div class="mq-var-def">The organizing principle. Law, form, pattern. What persists through material replacement.</div>
+      <div class="mq-var-domain"><span class="domain-bridge">Bridge</span></div>
+    </div>
+    <div class="mq-var">
+      <div class="mq-var-row"><span class="mq-var-letter">T</span><span class="mq-var-name">Time</span></div>
+      <div class="mq-var-def">The parameter of change. Began at the Fall (decoherence event). Not fundamental in the pre-Fall regime.</div>
+      <div class="mq-var-domain"><span class="domain-physics">Physics</span> · <span class="domain-theology">Theology</span></div>
+    </div>
+    <div class="mq-var">
+      <div class="mq-var-row"><span class="mq-var-letter">K</span><span class="mq-var-name">Knowledge</span></div>
+      <div class="mq-var-def">Distinguishability. The Shannon information content of the field. What the universe "knows."</div>
+      <div class="mq-var-domain"><span class="domain-bridge">Bridge</span></div>
+    </div>
+    <div class="mq-var">
+      <div class="mq-var-row"><span class="mq-var-letter">R</span><span class="mq-var-name">Relationship</span></div>
+      <div class="mq-var-def">The connection between distinguishable entities. Love as a field-coupling term. Non-local.</div>
+      <div class="mq-var-domain"><span class="domain-theology">Theology</span> · <span class="domain-bridge">Bridge</span></div>
+    </div>
+    <div class="mq-var">
+      <div class="mq-var-row"><span class="mq-var-letter">Q</span><span class="mq-var-name">Quantum</span></div>
+      <div class="mq-var-def">The probabilistic substrate. Superposition, entanglement, measurement. The low-coherence limit.</div>
+      <div class="mq-var-domain"><span class="domain-physics">Physics</span></div>
+    </div>
+    <div class="mq-var">
+      <div class="mq-var-row"><span class="mq-var-letter">F</span><span class="mq-var-name">Field</span></div>
+      <div class="mq-var-def">The χ-field itself. The self-grounding informational substrate. Scalar over spacetime.</div>
+      <div class="mq-var-domain"><span class="domain-physics">Physics</span></div>
+    </div>
+    <div class="mq-var">
+      <div class="mq-var-row"><span class="mq-var-letter">C</span><span class="mq-var-name">Coherence</span></div>
+      <div class="mq-var-def">The measure of alignment between observer and source. Heaven and hell as attractor states.</div>
+      <div class="mq-var-domain"><span class="domain-bridge">Bridge</span></div>
+    </div>
+  </div>
+</section>
+<!-- END:COMPONENT:section:variable-grid -->
+
+<!-- BEGIN:COMPONENT:section:derivation-chain -->
+<div class="mq-chain" data-component="section" data-name="derivation-chain">
+  <div class="mq-chain-inner">
+    <div class="mq-chain-step">
+      <span class="mq-chain-num">01</span>
+      <div class="mq-chain-body">
+        <div class="mq-chain-title">Information Primacy</div>
+        <div class="mq-chain-desc">χ ≡ I — Information is the ontological primitive. Derived from the compression crisis and Wigner's puzzle.</div>
+      </div>
+    </div>
+    <div class="mq-chain-step">
+      <span class="mq-chain-num">02</span>
+      <div class="mq-chain-body">
+        <div class="mq-chain-title">Self-Reference Generates Structure</div>
+        <div class="mq-chain-desc">χ ↔ χ — The field references itself, producing geometry. Gödel's incompleteness → structure is inevitable.</div>
+      </div>
+    </div>
+    <div class="mq-chain-step">
+      <span class="mq-chain-num">03</span>
+      <div class="mq-chain-body">
+        <div class="mq-chain-title">Conservation Requires Three Operators</div>
+        <div class="mq-chain-desc">∇ · χ = 0 → Noether symmetry → three non-commutative operators required for closure.</div>
+      </div>
+    </div>
+    <div class="mq-chain-step">
+      <span class="mq-chain-num">04</span>
+      <div class="mq-chain-body">
+        <div class="mq-chain-title">The Master Equation Emerges</div>
+        <div class="mq-chain-desc">The product coupling Ψ[χ]·Φ[χ]·Λ[χ] over all space. GR and QM are limit cases.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END:COMPONENT:section:derivation-chain -->
+
+<!-- BEGIN:COMPONENT:footer:footer-master-equation -->
+<footer class="mq-footer" data-component="footer" data-name="footer-master-equation">
+  <div class="feq">χ = f(G, M, E, S, T, K, R, Q, F, C)</div>
+  <p>David Lowe · POF 2828 · <span style="color:var(--gold)">15 + 15 = 100</span></p>
+</footer>
+<!-- END:COMPONENT:footer:footer-master-equation -->
+
+<!-- BEGIN:COMPONENT:script:script-master-equation -->
+<script>
+const header = document.getElementById('mq-header');
+window.addEventListener('scroll',()=>{
+  header.classList.toggle('mq-header-scrolled', window.scrollY > 80);
+});
+</script>
+<!-- END:COMPONENT:script:script-master-equation -->
+
+</body>
+</html>

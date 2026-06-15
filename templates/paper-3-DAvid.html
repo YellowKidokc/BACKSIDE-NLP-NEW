@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DAvid — Snapshot</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --fg: #0b0e14;
+      --muted: #586172;
+      --panel: #f6f7fb;
+      --border: #d8dde6;
+      --accent: #0b6e4f;
+      --warn: #b45309;
+      --bad: #b91c1c;
+      --good: #15803d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      color: var(--fg);
+      background: var(--bg);
+      line-height: 1.55;
+    }
+    main { max-width: 880px; margin: 0 auto; padding: 32px 24px; }
+    header.snap {
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+    }
+    header.snap h1 { margin: 0 0 4px; }
+    header.snap .meta { color: var(--muted); font-size: 14px; }
+    section.snap-block {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 16px 0;
+    }
+    section.snap-block h2 { margin-top: 0; font-size: 18px; color: var(--accent); }
+    .pill {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--muted); font-weight: 600; }
+    blockquote {
+      margin: 6px 0;
+      padding: 6px 12px;
+      border-left: 3px solid var(--accent);
+      color: var(--muted);
+      background: #ffffff;
+    }
+    .score-row { display: flex; align-items: center; gap: 12px; margin: 6px 0; }
+    .score-row .label { width: 220px; color: var(--muted); }
+    .score-bar { flex: 1; height: 8px; background: #e6e8ee; border-radius: 4px; overflow: hidden; }
+    .score-bar > span { display: block; height: 100%; background: var(--good); }
+    .score-bar.bad > span { background: var(--bad); }
+    .score-num { width: 48px; text-align: right; font-variant-numeric: tabular-nums; }
+    footer { margin-top: 32px; padding-top: 12px; border-top: 1px solid var(--border); color: var(--muted); font-size: 12px; }
+    .claim { margin-bottom: 14px; }
+    .claim .head { font-weight: 600; }
+    .claim .quote { font-size: 13px; }
+    @media print {
+      body { background: white; }
+      section.snap-block { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header class="snap">
+    <h1>DAvid</h1>
+    <div class="meta">
+      David      · rendered 2026-04-29T04:41:33Z
+    </div>
+  </header>
+
+
+  <section class="snap-block">
+    <h2>Evidence Scorecard <span class="pill">overall 6/100</span></h2>
+      <div class="score-row">
+        <div class="label">Methodological rigor</div>
+        <div class="score-bar "><span style="width: 0%"></span></div>
+        <div class="score-num">0</div>
+      </div>
+      <div class="score-row">
+        <div class="label">Evidence strength</div>
+        <div class="score-bar "><span style="width: 0%"></span></div>
+        <div class="score-num">0</div>
+      </div>
+      <div class="score-row">
+        <div class="label">Reproducibility</div>
+        <div class="score-bar "><span style="width: 0%"></span></div>
+        <div class="score-num">0</div>
+      </div>
+      <div class="score-row">
+        <div class="label">Clarity</div>
+        <div class="score-bar "><span style="width: 20%"></span></div>
+        <div class="score-num">20</div>
+      </div>
+      <div class="score-row">
+        <div class="label">Bias risk (lower better)</div>
+        <div class="score-bar bad"><span style="width: 60%"></span></div>
+        <div class="score-num">60</div>
+      </div>
+      <p class="muted" style="font-size: 13px; margin-top: 10px;">Limitations are briefly addressed in the &#39;System Audit&#39; section, identifying overreach and unproven claims.</p>
+  </section>
+
+  <section class="snap-block">
+    <h2>Universal Paper Model</h2>
+        <h3 style="margin: 14px 0 6px; text-transform: capitalize;">problem</h3>
+          <div class="claim">
+            <div class="head">Standard quantum mechanics lacks a mechanism that assigns different collapse authority to different observers.
+<span class="pill">conf 0.90</span>            </div>
+              <blockquote class="quote">Standard quantum mechanics has no mechanism for this. There is no hierarchy of observer authority in any textbook.</blockquote>
+              <div class="muted" style="font-size:13px;">Uncertainty: The statement is an author assertion rather than experimental data.</div>
+
+          </div>
+          <div class="claim">
+            <div class="head">The identity of the observer authorized to make reality real is unresolved in quantum mechanics.
+<span class="pill">conf 0.80</span>            </div>
+              <blockquote class="quote">The question Genesis asks is the question quantum mechanics cannot answer: Who is authorized to make reality real?</blockquote>
+              <div class="muted" style="font-size:13px;">Uncertainty: Conceptual problem framed philosophically rather than empirically.</div>
+
+          </div>
+        <h3 style="margin: 14px 0 6px; text-transform: capitalize;">method</h3>
+          <div class="claim">
+            <div class="head">The authors map five defining properties of quantum superposition onto the Eden narrative.
+<span class="pill">conf 0.70</span>            </div>
+              <blockquote class="quote">Five properties. Five complete matches.</blockquote>
+              <div class="muted" style="font-size:13px;">Uncertainty: Details of the mapping are qualitative and interpretive.</div>
+
+          </div>
+          <div class="claim">
+            <div class="head">The study uses cross-domain confirmation through phase transitions as an independent physical system.
+<span class="pill">conf 0.75</span>            </div>
+              <blockquote class="quote">Third: a cross-domain confirmation through an independent physical system (phase transitions) that exhibits the same five properties through an entirely different mechanism.</blockquote>
+              <div class="muted" style="font-size:13px;">Uncertainty: The supplemental evidence is referenced but not presented in the excerpt.</div>
+
+          </div>
+        <h3 style="margin: 14px 0 6px; text-transform: capitalize;">variables</h3>
+          <div class="claim">
+            <div class="head">Informational Fidelity is introduced as a variable measuring how cleanly an observer received the system&#39;s boundary conditions.
+<span class="pill">conf 0.90</span>            </div>
+              <blockquote class="quote">The framework calls this variable Informational Fidelity — how cleanly an observer received the system&#39;s boundary conditions from the Source.</blockquote>
+              <div class="muted" style="font-size:13px;">Uncertainty: Definition exists but quantification is missing.</div>
+
+          </div>
+        <h3 style="margin: 14px 0 6px; text-transform: capitalize;">mechanism</h3>
+          <div class="claim">
+            <div class="head">The Tree of Knowledge functions as a measurement operator that collapses the superposition and activates entropy.
+<span class="pill">conf 0.90</span>            </div>
+              <blockquote class="quote">The Tree of Knowledge is the measurement operator. Touch it and the question gets forced. The arrow of time activates. Death becomes possible because decay becomes possible because entropy has entered the equation.</blockquote>
+              <div class="muted" style="font-size:13px;">Uncertainty: Mechanistic description is metaphorical and not experimentally verified.</div>
+
+          </div>
+          <div class="claim">
+            <div class="head">Adam&#39;s interaction crossed both physical and authority thresholds causing collapse that propagated to all entangled observers.
+<span class="pill">conf 0.80</span>            </div>
+              <blockquote class="quote">Adam&#39;s interaction crossed both. And because his authority was federal — the collapse propagated instantaneously to all entangled observers.</blockquote>
+              <div class="muted" style="font-size:13px;">Uncertainty: Causal chain relies on theological assumptions.</div>
+
+          </div>
+        <h3 style="margin: 14px 0 6px; text-transform: capitalize;">evidence</h3>
+          <div class="claim">
+            <div class="head">Genesis records simultaneous awareness change after Adam ate, implying a single collapse event.
+<span class="pill">conf 0.70</span>            </div>
+              <blockquote class="quote">Then the eyes of both of them were opened.</blockquote>
+              <div class="muted" style="font-size:13px;">Uncertainty: Interpretation of the verse as physical evidence is speculative.</div>
+
+          </div>
+        <h3 style="margin: 14px 0 6px; text-transform: capitalize;">limitations</h3>
+          <div class="claim">
+            <div class="head">No equation currently relates Informational Fidelity values to collapse thresholds.
+<span class="pill">conf 0.90</span>            </div>
+              <blockquote class="quote">What we don&#39;t have is the equation that takes &#34;this observer received the specification directly, this one received it degraded&#34; and outputs &#34;this measurement triggers collapse, this one doesn&#39;t.&#34; That equation doesn&#39;t exist yet.</blockquote>
+              <div class="muted" style="font-size:13px;">Uncertainty: Acknowledged gap in formalism.</div>
+
+          </div>
+          <div class="claim">
+            <div class="head">Whether the correspondences between Eden and superposition constitute true structural equivalence is unproven.
+<span class="pill">conf 0.85</span>            </div>
+              <blockquote class="quote">- Whether these correspondences constitute true structural equivalence remains unproven.</blockquote>
+              <div class="muted" style="font-size:13px;">Uncertainty: Stated explicitly in audit section.</div>
+
+          </div>
+        <h3 style="margin: 14px 0 6px; text-transform: capitalize;">implications</h3>
+          <div class="claim">
+            <div class="head">If the mapping holds across independent domains the universality claim gains credibility.
+<span class="pill">conf 0.80</span>            </div>
+              <blockquote class="quote">If the mapping holds in two independent domains, the universality claim becomes serious.</blockquote>
+              <div class="muted" style="font-size:13px;">Uncertainty: Conditional implication dependent on future confirmation.</div>
+
+          </div>
+          <div class="claim">
+            <div class="head">The authors suggest Eden represents a coherent state that current quantum mechanics only approximates.
+<span class="pill">conf 0.80</span>            </div>
+              <blockquote class="quote">Eden is not the quantum world we are trying to describe. Eden is the coherent state quantum mechanics is reaching toward and failing to formalize.</blockquote>
+              <div class="muted" style="font-size:13px;">Uncertainty: Implication is theological and speculative.</div>
+
+          </div>
+  </section>
+
+
+  <footer>
+    Generated by Treaties · Postgres is the source of truth · this HTML is a cached artifact.
+  </footer>
+</main>
+</body>
+</html>

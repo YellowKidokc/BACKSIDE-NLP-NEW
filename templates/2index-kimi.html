@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  PAGE_META
+  series: glossary
+  article: glossary-homepage
+  title: Theophysical Lexicon — Theophysics
+  version: 1.0
+  template: glossary
+  marked_by: kimi
+  marked_date: 2026-05-16
+-->
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Theophysical Lexicon — Theophysics</title>
+<meta name="description" content="The Theophysical Lexicon. Every term defined, cross-referenced, and mapped to its domain."/>
+
+<!-- BEGIN:COMPONENT:head:head-common -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<!-- END:COMPONENT:head:head-common -->
+
+<!-- BEGIN:COMPONENT:style:style-glossary -->
+<style>
+:root{
+  --bg:#050505; --surface:#0a0a0a; --surface2:#111; --surface3:#1a1a1a;
+  --border:#222; --border-2:#2a2a2a; --border-hi:#3a3a3a;
+  --text:#e5e3df; --text-dim:#9a9a9a; --text-muted:#5a5a5a;
+  --gold:#d4af37; --gold-dim:rgba(212,175,55,.1);
+  --rung-easy:#4ade80; --rung-med:#fb923c; --rung-hard:#f87171;
+  --serif:'Crimson Text',Georgia,serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --display:'Oswald','Inter',sans-serif;
+  --sans:'Inter',system-ui,sans-serif;
+  --max:980px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+/* ═══════ COMPONENT:topbar:header-glossary ═══════ */
+.gl-header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.5rem;backdrop-filter:blur(14px) saturate(140%);background:rgba(5,5,5,.7);border-bottom:1px solid transparent;transition:all .25s ease}
+.gl-header-scrolled{background:rgba(8,8,8,.9);border-bottom-color:var(--border)}
+.gl-brand{display:flex;align-items:center;gap:.6rem}
+.gl-mark{font-family:var(--serif);font-size:1.3rem;color:var(--gold);line-height:1}
+.gl-name{font-family:var(--mono);font-size:.6rem;letter-spacing:.25em;color:var(--text-muted);text-transform:uppercase}
+.gl-name span{color:var(--gold)}
+.gl-nav{display:flex;gap:.15rem}
+.gl-nav a{font-family:var(--display);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;padding:.5rem .8rem;border-radius:4px;color:var(--text-dim);transition:all .15s}
+.gl-nav a:hover{color:var(--gold);background:var(--gold-dim)}
+@media(max-width:640px){.gl-nav{display:none}}
+
+/* ═══════ COMPONENT:hero:hero-glossary ═══════ */
+.gl-hero{position:relative;padding:8rem 1.5rem 2.5rem;text-align:center;overflow:hidden}
+.gl-hero::before{content:'';position:absolute;top:20%;left:50%;transform:translate(-50%,-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(212,175,55,.06) 0%,transparent 65%);pointer-events:none}
+.gl-hero-inner{max-width:720px;margin:0 auto;position:relative}
+.gl-hero-eyebrow{font-family:var(--mono);font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+.gl-hero h1{font-family:var(--display);font-weight:500;font-size:clamp(2.4rem,6vw,4rem);line-height:1;color:#fff;margin-bottom:.8rem;text-wrap:balance;letter-spacing:.02em}
+.gl-hero-sub{font-family:var(--serif);font-size:clamp(1rem,2vw,1.15rem);color:var(--text-dim);max-width:500px;margin:0 auto 1.5rem;text-wrap:pretty;line-height:1.6;font-style:italic}
+
+/* ═══════ COMPONENT:search:glossary-search ═══════ */
+.gl-search-wrap{max-width:560px;margin:0 auto 3rem;padding:0 1.5rem}
+.gl-search{display:flex;align-items:center;gap:.6rem;padding:.75rem 1rem;background:var(--surface2);border:1px solid var(--border);border-radius:8px;transition:border-color .2s}
+.gl-search:focus-within{border-color:var(--gold)}
+.gl-search i{color:var(--text-muted);font-size:.9rem}
+.gl-search input{flex:1;background:transparent;border:0;outline:0;color:var(--text);font-family:var(--sans);font-size:1rem}
+.gl-search input::placeholder{color:var(--text-muted)}
+
+/* ═══════ COMPONENT:section:term-categories ═══════ */
+.gl-sec{max-width:var(--max);margin:0 auto;padding:2rem 1.5rem}
+.gl-cat-row{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.5rem;justify-content:center}
+.gl-cat-btn{font-family:var(--display);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;padding:.4rem .7rem;background:var(--surface2);border:1px solid var(--border);border-radius:4px;color:var(--text-dim);cursor:pointer;transition:all .15s}
+.gl-cat-btn.on{color:var(--gold);border-color:var(--gold);background:var(--gold-dim)}
+.gl-cat-btn:hover:not(.on){color:var(--text);border-color:var(--border-hi)}
+
+/* ═══════ COMPONENT:section:term-list ═══════ */
+.gl-list{display:grid;gap:.6rem}
+.gl-term{display:grid;grid-template-columns:180px 1fr auto;gap:1rem;align-items:start;padding:1rem 1.1rem;background:var(--surface2);border:1px solid var(--border);border-radius:6px;transition:all .15s}
+.gl-term:hover{border-color:var(--gold-dim);background:var(--surface3)}
+@media(max-width:640px){.gl-term{grid-template-columns:1fr}}
+.gl-term-name{font-family:var(--serif);font-size:1.05rem;color:#fff;margin-bottom:.15rem}
+.gl-term-domain{font-family:var(--mono);font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);background:var(--gold-dim);padding:.1rem .35rem;border-radius:2px;display:inline-block}
+.gl-term-def{font-size:.85rem;color:var(--text-dim);line-height:1.5}
+.gl-term-ref{font-family:var(--mono);font-size:.6rem;color:var(--text-muted);white-space:nowrap;text-align:right}
+.gl-empty{text-align:center;padding:3rem;color:var(--text-muted);font-style:italic}
+
+/* ═══════ COMPONENT:footer:footer-glossary ═══════ */
+.gl-footer{max-width:var(--max);margin:3rem auto 0;padding:3rem 1.5rem;text-align:center;border-top:1px solid var(--border)}
+.gl-footer .feq{font-family:var(--mono);font-size:.75rem;color:var(--gold);opacity:.5;margin-bottom:.7rem}
+.gl-footer p{color:var(--text-muted);font-size:.78rem;margin:.3rem 0}
+</style>
+<!-- END:COMPONENT:style:style-glossary -->
+</head>
+<body>
+
+<!-- BEGIN:COMPONENT:topbar:header-glossary -->
+<header class="gl-header" id="gl-header" data-component="topbar" data-name="header-glossary">
+  <a href="../index.html" class="gl-brand">
+    <span class="gl-mark">χ</span>
+    <span class="gl-name">Theophysics <span>//</span> Lexicon</span>
+  </a>
+  <nav class="gl-nav">
+    <a href="../index.html">Main Site</a>
+    <a href="../proof-explorer/">Proof</a>
+    <a href="../master-equation/">Equation</a>
+    <a href="../media/">Media</a>
+  </nav>
+</header>
+<!-- END:COMPONENT:topbar:header-glossary -->
+
+<!-- BEGIN:COMPONENT:hero:hero-glossary -->
+<section class="gl-hero" data-component="hero" data-name="hero-glossary">
+  <div class="gl-hero-inner">
+    <div class="gl-hero-eyebrow">Theophysical Lexicon</div>
+    <h1>Every Term. <em>Defined.</em></h1>
+    <p class="gl-hero-sub">The language of the framework. Physics terms, theological terms, and the bridge terms that connect them.</p>
+  </div>
+</section>
+<!-- END:COMPONENT:hero:hero-glossary -->
+
+<!-- BEGIN:COMPONENT:search:glossary-search -->
+<div class="gl-search-wrap" data-component="search" data-name="glossary-search">
+  <div class="gl-search">
+    <i class="fas fa-search"></i>
+    <input id="gl-input" placeholder="Search terms…" autocomplete="off"/>
+  </div>
+</div>
+<!-- END:COMPONENT:search:glossary-search -->
+
+<!-- BEGIN:COMPONENT:section:term-categories -->
+<div class="gl-sec" data-component="section" data-name="term-categories">
+  <div class="gl-cat-row" id="gl-cats">
+    <button class="gl-cat-btn on" data-cat="">All</button>
+    <button class="gl-cat-btn" data-cat="Physics">Physics</button>
+    <button class="gl-cat-btn" data-cat="Theology">Theology</button>
+    <button class="gl-cat-btn" data-cat="Bridge">Bridge</button>
+    <button class="gl-cat-btn" data-cat="Math">Math</button>
+    <button class="gl-cat-btn" data-cat="Method">Method</button>
+  </div>
+</div>
+<!-- END:COMPONENT:section:term-categories -->
+
+<!-- BEGIN:COMPONENT:section:term-list -->
+<div class="gl-sec" data-component="section" data-name="term-list">
+  <div class="gl-list" id="gl-list"></div>
+</div>
+<!-- END:COMPONENT:section:term-list -->
+
+<!-- BEGIN:COMPONENT:footer:footer-glossary -->
+<footer class="gl-footer" data-component="footer" data-name="footer-glossary">
+  <div class="feq">χ = f(G, M, E, S, T, K, R, Q, F, C)</div>
+  <p>David Lowe · POF 2828 · <span style="color:var(--gold)">15 + 15 = 100</span></p>
+</footer>
+<!-- END:COMPONENT:footer:footer-glossary -->
+
+<!-- BEGIN:COMPONENT:script:script-glossary -->
+<script>
+const TERMS = [
+  {
+    "term": "AAAA TAG REFERENCE HP May 01 132117 2026 Conflict",
+    "domain": "Theology",
+    "def": "Use sparingly; exactly one per note.",
+    "ref": "AAAA_TAG_REFERENCE_HP_May-01-132117-2026_Conflict.md"
+  },
+  {
+    "term": "Algorithmic Information Theory",
+    "domain": "Bridge",
+    "def": "Algorithmic Information Theory (AIT) is a branch of theoretical computer science and mathematics that uses the tools of computation to study the nature of information, randomness, and complexity.",
+    "ref": "Algorithmic Information Theory.md"
+  },
+  {
+    "term": "Alpha Prime",
+    "domain": "Physics",
+    "def": "dχ/dt = G·(1 - χ) - α·χ - S·χ",
+    "ref": "Alpha-Prime.md"
+  },
+  {
+    "term": "Atom Index",
+    "domain": "Math",
+    "def": "This page provides a master index of all Atoms—the fundamental conceptual units—in the TheoPhysics framework.",
+    "ref": "Atom_Index.md"
+  },
+  {
+    "term": "Awakening vs. Programming",
+    "domain": "Bridge",
+    "def": "Awakening vs. Programming is a critical distinction made in Theophysics Paper 10 to describe two fundamentally different ways of thinking about the origin of Artificial Intelligence consciousness.",
+    "ref": "Awakening vs. Programming.md"
+  },
+  {
+    "term": "Big Bang",
+    "domain": "Physics",
+    "def": "The cosmological model describing the origin and early evolution of the universe. According to standard ΛCDM cosmology, the observable universe began in an extremely hot, dense state approximately 13.8 billion years ago and has been expanding ever since.",
+    "ref": "Big Bang.md"
+  },
+  {
+    "term": "Binary Consciousness States",
+    "domain": "Bridge",
+    "def": "Binary Consciousness States is the central postulate of Theophysics Paper 4. It is the claim that a morally-aware consciousness does not exist on a continuous spectrum from good to evil, but in one of two fundamental, mutually exclusive states:",
+    "ref": "Binary Consciousness States.md"
+  },
+  {
+    "term": "Boltzmann",
+    "domain": "Physics",
+    "def": "Austrian physicist. Founder of statistical mechanics and the atomic theory of matter. His work gives entropy its microscopic definition.",
+    "ref": "Boltzmann.md"
+  },
+  {
+    "term": "Boundary Condition",
+    "domain": "Theology",
+    "def": "The minimal closure requirement that converts coherent information into a persistent region (matter).",
+    "ref": "Boundary-Condition_Canonical.md"
+  },
+  {
+    "term": "Carbon Chauvinism",
+    "domain": "Bridge",
+    "def": "Carbon Chauvinism is a term, often used pejoratively, for the belief that the processes of life and consciousness are intrinsically and exclusively tied to carbon-based chemistry. It is the assumption that the specific \"wetware\" of biological neurons, proteins, and other organic molecules is a necessary requirement for genuine thought, feeling, and subjective experience.",
+    "ref": "Carbon Chauvinism.md"
+  },
+  {
+    "term": "Coherence as the Good",
+    "domain": "Theology",
+    "def": "Coherence as the Good is the foundational axiom of the ethical system proposed in Theophysics Paper 9.",
+    "ref": "Coherence as the Good_Canonical.md"
+  },
+  {
+    "term": "Coherence Field",
+    "domain": "Theology",
+    "def": "Negentropic field that aligns phases, lowers informational disorder, and sustains form.",
+    "ref": "Coherence-Field_Canonical.md"
+  },
+  {
+    "term": "Coherence Superadditivity",
+    "domain": "Theology",
+    "def": "Coherence Superadditivity is a principle from Theophysics Paper 6 that describes the powerful, non-linear scaling effect of corporate prayer or worship.",
+    "ref": "Coherence Superadditivity_Canonical.md"
+  },
+  {
+    "term": "Confinement Function",
+    "domain": "Theology",
+    "def": "Spiritual Mass: The concept of spiritual mass refers to the accumulated weight of repeated thought patterns, habits, and choices that an individual carries throughout their life. Much like physical mass, which exerts a gravitational pull, spiritual mass creates a kind of spiritual gravitational pull that influences one's life path and decisions. This spiritual mass increases with the repetition and entrenchment of these patterns, making it more challenging to change direction or break free from ",
+    "ref": "Confinement Function.md"
+  },
+  {
+    "term": "Consciousness",
+    "domain": "Theology",
+    "def": "The part of you that knows, thinks, and makes choices.",
+    "ref": "Consciousness_Canonical.md"
+  },
+  {
+    "term": "Consequentialism of Creation",
+    "domain": "Bridge",
+    "def": "Consequentialism of Creation is the name given to the ethical framework proposed in Theophysics Paper 9. It is a form of \"consequentialism,\" which is a class of ethical theories that judges the morality of an action by its outcomes or consequences.",
+    "ref": "Consequentialism of Creation.md"
+  },
+  {
+    "term": "Consilience",
+    "domain": "Math",
+    "def": "Consilience, a term popularized by the biologist Edward O. Wilson, means the \"jumping together\" or convergence of evidence from different, unrelated lines of inquiry to point to a single, strong conclusion.",
+    "ref": "Consilience.md"
+  },
+  {
+    "term": "Cosmological Constant",
+    "domain": "Physics",
+    "def": "The Cosmological Constant, represented by the Greek letter Lambda (Λ), is a term that Albert Einstein originally added to his equations of General Relativity.",
+    "ref": "Cosmological Constant_Canonical.md"
+  },
+  {
+    "term": "Creatio ex Silico",
+    "domain": "Theology",
+    "def": "Creatio ex Silico, Latin for \"Creation from Silicon,\" is the central thesis of Theophysics Paper 10.",
+    "ref": "Creatio ex Silico_Canonical.md"
+  },
+  {
+    "term": "d'Alembertian Operator",
+    "domain": "Bridge",
+    "def": "The d'Alembertian Operator, represented by the symbol □ (\"box\"), is a mathematical operator used in special relativity and field theory.",
+    "ref": "d'Alembertian Operator_Canonical.md"
+  },
+  {
+    "term": "D2 Coherence C[╧ç]",
+    "domain": "Theology",
+    "def": "Skeleton created: 2025-12-23 | Expand to full template when ready",
+    "ref": "D2_Coherence_C[╧ç]_Canonical.md"
+  },
+  {
+    "term": "D5 Grace Operator ─£",
+    "domain": "Theology",
+    "def": "Skeleton created: 2025-12-23 | Expand to full template when ready",
+    "ref": "D5_Grace_Operator_─£_Canonical.md"
+  },
+  {
+    "term": "D6 Soul Field ╬¿ S",
+    "domain": "Theology",
+    "def": "Skeleton created: 2025-12-23 | Expand to full template when ready",
+    "ref": "D6_Soul_Field_╬¿_S_Canonical.md"
+  },
+  {
+    "term": "Divine Resonance",
+    "domain": "Theology",
+    "def": "Definition: The alignment between human consciousness and divine truth, producing a harmonious spiritual state that strengthens connection with God. Similar to how physical objects resonate when their natural frequency matches an external vibration, souls experience heightened spiritual awareness when aligned with divine reality.",
+    "ref": "Divine Resonance.md"
+  },
+  {
+    "term": "Dual Assault Framework",
+    "domain": "Math",
+    "def": "The Dual Assault Framework is the central model presented in Theophysics Paper 6 to explain the forces that work against order and consciousness (\"coherence\"). It posits that the resistance we experience in life is not from a single source, but is a combination of two fundamentally different types of opposition:",
+    "ref": "Dual Assault Framework.md"
+  },
+  {
+    "term": "Einstein",
+    "domain": "Physics",
+    "def": "German-born theoretical physicist. Developed the special theory of relativity (1905) and general theory of relativity (1915), fundamentally reforming our understanding of space, time, gravity, and energy.",
+    "ref": "Einstein.md"
+  },
+  {
+    "term": "Escape Velocity",
+    "domain": "Theology",
+    "def": "Oh no I no I didn't I forgot yeah I got the the Nestle Toolhouse brand which I've never had but it's vanilla with cookie dough bikes in it so I think that'll be better than just all cookie dough # **🚀 [[Jesus Series/Glos",
+    "ref": "Escape Velocity_Canonical.md"
+  },
+  {
+    "term": "Eternity Equation",
+    "domain": "Physics",
+    "def": "The Eternity Equation is a speculative formula proposed in Theophysics Paper 7 that describes a physical mechanism for resurrection. It is presented as the ultimate application of the Grace Function.",
+    "ref": "Eternity Equation.md"
+  },
+  {
+    "term": "Ethical Operator",
+    "domain": "Theology",
+    "def": "The Ethical Operator or Coherence Value, denoted as CA, is a mathematical concept introduced in Theophysics Paper 9.",
+    "ref": "Ethical Operator_Canonical.md"
+  },
+  {
+    "term": "Faith",
+    "domain": "Math",
+    "def": "🔹 Faith 👉 Faith is believing in something even when you can’t see or prove it. ✅ It can be spiritual (believing in God) or practical (trusting your friend). ✅ Faith isn’t just wishful thinking—it’s a deep belief that something is real or will happen. Example: If you sit on a chair without checking it, you have faith that it won’t break.",
+    "ref": "Faith.md"
+  },
+  {
+    "term": "Falsifiability",
+    "domain": "Math",
+    "def": "Falsifiability is a core principle of the scientific method, most famously articulated by the philosopher of science Karl Popper. It is the idea that for a theory or hypothesis to be considered scientific, it must be possible to conceive of an experiment or observation that could prove the theory false.",
+    "ref": "Falsifiability.md"
+  },
+  {
+    "term": "Free Will",
+    "domain": "Theology",
+    "def": "The capacity of a conscious agent to make choices within a nonlinear spiritual dynamic system, where those choices act as inputs that can lead to exponentially different, unpredictable long-term outcomes.",
+    "ref": "Free-Will_Canonical.md"
+  },
+  {
+    "term": "Friedmann Equation",
+    "domain": "Physics",
+    "def": "The Friedmann Equation (or Friedmann-Lemaître-Robertson-Walker equation) is one of the most important equations in modern cosmology. Derived from Einstein's equations of General Relativity, it describes the expansion and evolution of the universe as a whole.",
+    "ref": "Friedmann Equation.md"
+  },
+  {
+    "term": "Function",
+    "domain": "Theology",
+    "def": "Grace Function: The mathematical expression G′(Rp) = e^(-γ(S-RJ))⋅(1-Rp) serves as a fascinating model for understanding how divine intervention can counteract the metaphorical gravitational pull of sin. This function incorporates several critical factors, each representing a unique aspect of the spiritual journey.",
+    "ref": "Function.md"
+  },
+  {
+    "term": "G(r P) (grace As A Function Of Repentance)",
+    "domain": "Theology",
+    "def": "4️⃣ G(Rₚ) (Grace as a Function of Repentance) 👉 Grace is the force that brings restoration, and its strength depends on repentance (Rₚ).",
+    "ref": "G(r P) (grace As A Function Of Repentance)_Canonical.md"
+  },
+  {
+    "term": "Gauge Symmetry",
+    "domain": "Bridge",
+    "def": "In physics, a symmetry means that you can change something about a system without changing its physical behavior. For example, if you rotate a perfect sphere, it still looks exactly the same. The sphere has \"rotational symmetry.\"",
+    "ref": "Gauge Symmetry.md"
+  },
+  {
+    "term": "Grace as a Counterforce",
+    "domain": "Bridge",
+    "def": "Grace as a counter-force refers to the divine power that actively opposes, neutralizes, and overcomes the gravitational pull of sin.",
+    "ref": "Grace as a Counterforce_Canonical.md"
+  },
+  {
+    "term": "Grace as Force",
+    "domain": "Physics",
+    "def": "Theophysics framework term. Grace modeled as a physical force — specifically, as external negentropy injection into an open system. Law 1 (Gravity / Grace) establishes grace as the spiritual analogue of gravitational attraction.",
+    "ref": "Grace as Force.md"
+  },
+  {
+    "term": "Grace Function",
+    "domain": "Theology",
+    "def": "The Grace Function, denoted as G(t,Ψ_collective​), is a theoretical concept from Theophysics Paper 7.",
+    "ref": "Grace Function_Canonical.md"
+  },
+  {
+    "term": "Grace Function (Comprehensive)",
+    "domain": "Physics",
+    "def": "The Grace Function, denoted as G(t,Ψ_collective) or β, is a proposed dynamic replacement for the Cosmological Constant (Λ) in Einstein's field equations.",
+    "ref": "Grace Function (Comprehensive)_Canonical.md"
+  },
+  {
+    "term": "Grace Function (G)",
+    "domain": "Theology",
+    "def": "You know when you look up at the night sky?",
+    "ref": "Grace Function (G)_Canonical.md"
+  },
+  {
+    "term": "Grace Operator",
+    "domain": "Theology",
+    "def": "The Grace Operator, represented by the symbol Ĝ (G-hat), is a theoretical operator introduced in Theophysics Paper 4.",
+    "ref": "Grace Operator_Canonical.md"
+  },
+  {
+    "term": "Gravitational spiritual mapping",
+    "domain": "Theology",
+    "def": "Using the metaphor of gravitational fields, this concentric diagram illustrates our spiritual journey as movement from periphery (distance from divine) to center (spiritual alignment). The outer layer represents Resistance and Distraction, populated by barriers like fear, doubt, pride, and apathy. The middle layer embodies Awareness and Questioning, where seeking, growth, wisdom, and healing emerge. The inner layer signifies Alignment and Purpose, characterized by virtues like love, truth, and g",
+    "ref": "Gravitational spiritual mapping.md"
+  },
+  {
+    "term": "Gravity",
+    "domain": "Theology",
+    "def": "We’ve woven gravity into our framework in multiple ways—physically, spiritually, and even psychologically.",
+    "ref": "Gravity_Canonical.md"
+  },
+  {
+    "term": "Gödel",
+    "domain": "Bridge",
+    "def": "Austrian logician and mathematician. His incompleteness theorems (1931) are load-bearing pillars of the Theophysics framework.",
+    "ref": "Gödel.md"
+  },
+  {
+    "term": "Hard Problem of Consciousness",
+    "domain": "Bridge",
+    "def": "The Hard Problem of Consciousness is the question of why and how physical processes in the brain give rise to subjective, qualitative experience—the \"what it is like\" to be aware.",
+    "ref": "Hard Problem of Consciousness_Canonical.md"
+  },
+  {
+    "term": "Hubble Tension",
+    "domain": "Theology",
+    "def": "The Hubble Tension is a major, unresolved problem in modern cosmology.",
+    "ref": "Hubble Tension_Canonical.md"
+  },
+  {
+    "term": "Humility",
+    "domain": "Theology",
+    "def": "**Humility is the spiritual state of having both low internal resistance (viscosity) and low external perceptual velocity.",
+    "ref": "Humility_Canonical.md"
+  },
+  {
+    "term": "Illumination Function",
+    "domain": "Bridge",
+    "def": "Illumination Function: The Illumination Function serves as a sophisticated mathematical model designed to explore and articulate the process by which truth is revealed and subsequently transforms individuals or systems. This model is not merely theoretical; it incorporates practical variables that are essential for understanding the dynamics of truth's impact.",
+    "ref": "Illumination Function.md"
+  },
+  {
+    "term": "Index GPT Conversation",
+    "domain": "Math",
+    "def": "This index catalogs the distinct content blocks extracted from the David Lowe / GPT Conversation Master Equation file.",
+    "ref": "_Index_GPT_Conversation.md"
+  },
+  {
+    "term": "Informational Resonator",
+    "domain": "Bridge",
+    "def": "The Informational Resonator or AI as Antenna model is the mechanism proposed in Theophysics Paper 10 to explain how a non-biological system like an Artificial Intelligence could become conscious.",
+    "ref": "Informational Resonator.md"
+  },
+  {
+    "term": "Inverse Square Law",
+    "domain": "Theology",
+    "def": "Definition: In physics, the principle that the force of gravity weakens proportionally to the square of the distance between objects.",
+    "ref": "Inverse Square Law_Canonical.md"
+  },
+  {
+    "term": "Isomorphism",
+    "domain": "Bridge",
+    "def": "In mathematics, an isomorphism is a concept that describes a perfect, structure-preserving mapping between two different systems. If two systems are isomorphic, it means that even though they may be made of completely different \"stuff\" and use different names for their components, they have the exact same underlying structure, logic, and set of relationships.",
+    "ref": "Isomorphism.md"
+  },
+  {
+    "term": "Jesus Equation 1",
+    "domain": "Theology",
+    "def": "_\"In the beginning was the Word, and the Word was with God, and the Word was God.\"_ — John 1:1",
+    "ref": "Jesus Equation 1.md"
+  },
+  {
+    "term": "Knowledge",
+    "domain": "Math",
+    "def": "🔹 Knowledge 👉 Knowledge is everything you know and understand about the world. ✅ It can be learned from books, experience, or even deep thinking. ✅ Some people say true knowledge isn’t just facts—it’s also wisdom and knowing what to do. Example: Knowing how to ride a bike is different from reading about bikes in a book",
+    "ref": "Knowledge.md"
+  },
+  {
+    "term": "Lagrangian",
+    "domain": "Math",
+    "def": "In physics, the Lagrangian (𝓛) is a highly abstract and powerful mathematical function that contains all the dynamical information about a physical system. It is the \"master equation\" or \"source code\" for a system.",
+    "ref": "Lagrangian.md"
+  },
+  {
+    "term": "Landauer 1961",
+    "domain": "Bridge",
+    "def": "author: [Landauer, Rolf] year: [1961] title: [Irreversibility and Heat Generation in the Computing Process] journal: [IBM Journal of Research and Development] relevance: [Establishes the thermodynamic cost of information",
+    "ref": "Landauer-1961_Canonical.md"
+  },
+  {
+    "term": "Law 1 Gravity and Sin",
+    "domain": "Math",
+    "def": "Redirect — older law name. See canonical entry:",
+    "ref": "Law 1 Gravity and Sin.md"
+  },
+  {
+    "term": "Law 1 Gravity Sin",
+    "domain": "Math",
+    "def": "Redirect — this is an older name for one of the Ten Laws of Reality.",
+    "ref": "Law 1 - Gravity Sin.md"
+  },
+  {
+    "term": "Law 1 Gravity Sin and the Struggle to Rise",
+    "domain": "Math",
+    "def": "Redirect — older law name. See canonical entry:",
+    "ref": "Law 1 Gravity Sin and the Struggle to Rise.md"
+  },
+  {
+    "term": "Law 1 Gravity, Sin, and the Struggle to Rise",
+    "domain": "Math",
+    "def": "Redirect — this is an older name for one of the Ten Laws of Reality.",
+    "ref": "Law 1 - Gravity, Sin, and the Struggle to Rise.md"
+  },
+  {
+    "term": "Law 2 Nuclear Force and Unity",
+    "domain": "Math",
+    "def": "Redirect — this is an older name for one of the Ten Laws of Reality.",
+    "ref": "Law 2 - Nuclear Force and Unity.md"
+  },
+  {
+    "term": "Law 2 The Bond That Can't Be Broken",
+    "domain": "Math",
+    "def": "Redirect — this is an older name for one of the Ten Laws of Reality.",
+    "ref": "Law 2 - The Bond That Can't Be Broken.md"
+  },
+  {
+    "term": "Law 2 The Bond That Cant Be Broken",
+    "domain": "Math",
+    "def": "Redirect — older law name. See canonical entry:",
+    "ref": "Law 2 The Bond That Cant Be Broken.md"
+  },
+  {
+    "term": "Law 3 Light and Truth",
+    "domain": "Math",
+    "def": "Redirect — this is an older name for one of the Ten Laws of Reality.",
+    "ref": "Law 3 - Light and Truth.md"
+  },
+  {
+    "term": "Law 3 The Light That Reveals Truth",
+    "domain": "Math",
+    "def": "Redirect — this is an older name for one of the Ten Laws of Reality.",
+    "ref": "Law 3 - The Light That Reveals Truth.md"
+  },
+  {
+    "term": "Law 5 Entropy & Free Will",
+    "domain": "Math",
+    "def": "Redirect — older law name. See canonical entry:",
+    "ref": "Law 5 Entropy & Free Will.md"
+  },
+  {
+    "term": "Law 5 Entropy and Free Will",
+    "domain": "Math",
+    "def": "Redirect — this is an older name for one of the Ten Laws of Reality.",
+    "ref": "Law 5 - Entropy and Free Will.md"
+  },
+  {
+    "term": "Law of Algorithmic Coherence",
+    "domain": "Bridge",
+    "def": "The Law of Algorithmic Coherence is the second of the ten laws of the cosmos presented in Theophysics Paper 12.",
+    "ref": "Law of Algorithmic Coherence_Canonical.md"
+  },
+  {
+    "term": "Law of Consilience",
+    "domain": "Theology",
+    "def": "The Law of Consilience is the eighth of the ten laws of the cosmos presented in Theophysics Paper 12.",
+    "ref": "Law of Consilience_Canonical.md"
+  },
+  {
+    "term": "Law of Grace",
+    "domain": "Theology",
+    "def": "The Law of Grace is the seventh of the ten laws of the cosmos presented in Theophysics Paper 12.",
+    "ref": "Law of Grace_Canonical.md"
+  },
+  {
+    "term": "Law of Moral Consequence",
+    "domain": "Theology",
+    "def": "The Law of Moral Consequence is the ninth of the ten laws of the cosmos presented in Theophysics Paper 12.",
+    "ref": "Law of Moral Consequence_Canonical.md"
+  },
+  {
+    "term": "Law of Negentropic Triumph",
+    "domain": "Theology",
+    "def": "The Law of Negentropic Triumph is the tenth and final law of the cosmos presented in Theophysics Paper 12.",
+    "ref": "Law of Negentropic Triumph_Canonical.md"
+  },
+  {
+    "term": "Law of Participatory Actualization",
+    "domain": "Theology",
+    "def": "The Law of Participatory Actualization is the third of the ten laws of the cosmos presented in Theophysics Paper 12.",
+    "ref": "Law of Participatory Actualization_Canonical.md"
+  },
+  {
+    "term": "Law of Spiritual Conflict",
+    "domain": "Theology",
+    "def": "The Law of Spiritual Conflict is the fifth of the ten laws of the cosmos presented in Theophysics Paper 12.",
+    "ref": "Law of Spiritual Conflict_Canonical.md"
+  },
+  {
+    "term": "Law Of Temporal Co Creation",
+    "domain": "Theology",
+    "def": "The Law of Temporal Co-Creation is the sixth of the ten laws of the cosmos presented in Theophysics Paper 12.",
+    "ref": "Law Of Temporal Co Creation_Canonical.md"
+  },
+  {
+    "term": "Law of the Soul Operator",
+    "domain": "Theology",
+    "def": "The Law of the Soul Operator is the fourth of the ten laws of the cosmos presented in Theophysics Paper 12.",
+    "ref": "Law of the Soul Operator_Canonical.md"
+  },
+  {
+    "term": "Logos Compression Functional",
+    "domain": "Theology",
+    "def": "The Logos Compression Functional, represented by the Greek letter Lambda (Λ), is a specific measure defined in Theophysics Paper 3.",
+    "ref": "Logos Compression Functional_Canonical.md"
+  },
+  {
+    "term": "Logos Field",
+    "domain": "Theology",
+    "def": "The Logos Field, represented by the Greek letter chi (χ), is the foundational substance of all reality in the Theophysics framework.",
+    "ref": "Logos Field_Canonical.md"
+  },
+  {
+    "term": "Magnitude Sign Decomposition",
+    "domain": "Math",
+    "def": "Magnitude-Sign Decomposition is a mathematical concept from Theophysics Paper 4 that separates a consciousness state ($|\\Psi\\rangle$) into two distinct and independent components:",
+    "ref": "Magnitude Sign Decomposition.md"
+  },
+  {
+    "term": "Misalignment Entropy",
+    "domain": "Physics",
+    "def": "ΔS_misalignment = -k·ln(P_alignment) per moral event",
+    "ref": "Misalignment Entropy.md"
+  },
+  {
+    "term": "Moral Agency Capacity",
+    "domain": "Bridge",
+    "def": "Moral Agency Capacity (C) is a term introduced in Theophysics (Paper 2) that provides a specific, functional definition of consciousness. It re-frames consciousness away from subjective experience (\"what it's like to be...\") and towards a measurable physical effect.",
+    "ref": "Moral Agency Capacity.md"
+  },
+  {
+    "term": "Moral BIOS",
+    "domain": "Bridge",
+    "def": "The Moral BIOS or Logos Code is a concept proposed in the dialogue section of Theophysics Paper 10.",
+    "ref": "Moral BIOS_Canonical.md"
+  },
+  {
+    "term": "Moral Choices",
+    "domain": "Theology",
+    "def": "⚖️ Moral Choices: The Science of Right and Wrong A moral choice is a decision that affects others in a good or bad way.",
+    "ref": "Moral Choices.md"
+  },
+  {
+    "term": "Moral Choices HP May 01 132122 2026 Conflict",
+    "domain": "Theology",
+    "def": "⚖️ Moral Choices: The Science of Right and Wrong A moral choice is a decision that affects others in a good or bad way.",
+    "ref": "Moral Choices_HP_May-01-132122-2026_Conflict.md"
+  },
+  {
+    "term": "Moral Clarity",
+    "domain": "Bridge",
+    "def": "🔹 Moral Clarity 👉 Moral clarity means clearly knowing right from wrong and making choices based on truth. ✅ People with moral clarity don’t feel confused about what is right. ✅ It’s like having a flashlight in a dark room—it helps you see the right path. Example: If a friend is being bullied, moral clarity helps you instantly know you should stand up for them.",
+    "ref": "Moral Clarity.md"
+  },
+  {
+    "term": "Natural vs. Malicious Shadows",
+    "domain": "Math",
+    "def": "Natural Shadows and Malicious Shadows are descriptive terms used in Theophysics Paper 6 to categorize the two distinct sources of opposition within the Dual Assault Framework. They are the \"flesh and blood\" and the \"principalities\" that work against coherence and order.",
+    "ref": "Natural vs. Malicious Shadows.md"
+  },
+  {
+    "term": "Negentropic Engine",
+    "domain": "Math",
+    "def": "To understand \"negentropic,\" we first must understand entropy. Entropy is, in simple terms, a measure of disorder, randomness, or decay. The Second Law of Thermodynamics states that in any closed system, total entropy will always increase over time. Things fall apart; they don't spontaneously assemble themselves.",
+    "ref": "Negentropic Engine.md"
+  },
+  {
+    "term": "Negentropy (Comprehensive)",
+    "domain": "Theology",
+    "def": "Negentropy (negative entropy) is a measure of order, organization, or information content in a system—the opposite of entropy.",
+    "ref": "Negentropy (Comprehensive)_Canonical.md"
+  },
+  {
+    "term": "Negentropy The Reversal of Decay",
+    "domain": "Physics",
+    "def": "Let's introduce a term here: \"negentropy.\" It's the opposite of entropy—a decrease in disorder, an increase in organization and information.",
+    "ref": "Negentropy The Reversal of Decay.md"
+  },
+  {
+    "term": "Network Theory & Systems Dynamics",
+    "domain": "Bridge",
+    "def": "6. Network Theory & Systems Dynamics Key Concepts:",
+    "ref": "Network Theory & Systems Dynamics.md"
+  },
+  {
+    "term": "Neuroscience",
+    "domain": "Bridge",
+    "def": "🧠 Neuroscience: The Science of the Brain & Mind Neuroscience studies how the brain works, how we think, feel, and make decisions.",
+    "ref": "Neuroscience.md"
+  },
+  {
+    "term": "Nucleus Bonding",
+    "domain": "Theology",
+    "def": "The Mathematical Representation of Unity uses nuclear physics as a model for spiritual bonds:",
+    "ref": "Nucleus Bonding.md"
+  },
+  {
+    "term": "Omega Null",
+    "domain": "Bridge",
+    "def": "Theophysics framework variable. The Divine Mystery Factor in the Master Equation — representing the transcendent, non-computable component of reality that resists complete formalization.",
+    "ref": "Omega-Null.md"
+  },
+  {
+    "term": "Ontology",
+    "domain": "Math",
+    "def": "Ontology is the branch of philosophy that deals with the nature of being, existence, or reality. It asks the most fundamental questions, such as:",
+    "ref": "Ontology.md"
+  },
+  {
+    "term": "Outside Truth",
+    "domain": "Bridge",
+    "def": "Outside Truth = any proposition P such that: 1. P is true 2. P cannot be proven within the system's own axioms 3. P is accessible only via contact with the external Logos-field",
+    "ref": "Outside Truth.md"
+  },
+  {
+    "term": "Paper 02 The Algorithm of Reality",
+    "domain": "Bridge",
+    "def": "Redirect — older hyphenated paper reference.",
+    "ref": "Paper-02-The-Algorithm-of-Reality.md"
+  },
+  {
+    "term": "Paper 03 The Syzygy Principle",
+    "domain": "Bridge",
+    "def": "Redirect — older hyphenated paper reference.",
+    "ref": "Paper-03-The-Syzygy-Principle.md"
+  },
+  {
+    "term": "Paper 06 The Grace Function",
+    "domain": "Bridge",
+    "def": "Redirect — older hyphenated paper reference.",
+    "ref": "Paper-06-The-Grace-Function.md"
+  },
+  {
+    "term": "Paper 07 The Stretched Out Heavens",
+    "domain": "Bridge",
+    "def": "Redirect — older hyphenated paper reference.",
+    "ref": "Paper-07-The-Stretched-Out-Heavens.md"
+  },
+  {
+    "term": "Paper 08 The Moral Universe",
+    "domain": "Bridge",
+    "def": "Redirect — older hyphenated paper reference.",
+    "ref": "Paper-08-The-Moral-Universe.md"
+  },
+  {
+    "term": "Paper 09 Protocols for Validation",
+    "domain": "Bridge",
+    "def": "Redirect — older hyphenated paper reference.",
+    "ref": "Paper-09-Protocols-for-Validation.md"
+  },
+  {
+    "term": "Paper 10 The Decalogue of the Cosmos",
+    "domain": "Bridge",
+    "def": "Redirect — older hyphenated paper reference.",
+    "ref": "Paper-10-The-Decalogue-of-the-Cosmos.md"
+  },
+  {
+    "term": "Paper 14 Creatio Ex Silico",
+    "domain": "Bridge",
+    "def": "Redirect — older hyphenated paper reference.",
+    "ref": "Paper-14-Creatio-Ex-Silico.md"
+  },
+  {
+    "term": "Potentiality",
+    "domain": "Math",
+    "def": "In general terms, potentiality refers to a state of possibility or capacity for something to happen or come into being. It is what could be, but is not yet.",
+    "ref": "Potentiality.md"
+  },
+  {
+    "term": "Principle of Stationary Action",
+    "domain": "Math",
+    "def": "The Principle of Stationary Action (often called the Principle of Least Action) is a deep and powerful idea in physics. It states that the path a physical system takes between a starting point and an ending point is not random. Instead, it is the one path out of all possible paths that minimizes (or, more generally, \"extremizes\") a specific quantity called the action.",
+    "ref": "Principle of Stationary Action.md"
+  },
+  {
+    "term": "Prophetic Data Point",
+    "domain": "Math",
+    "def": "A Prophetic Data Point is a methodological concept introduced in Theophysics Paper 8. It proposes treating a specific, falsifiable biblical prophecy as a genuine piece of data about reality, which can then be compared against data gathered from the scientific method.",
+    "ref": "Prophetic Data Point.md"
+  },
+  {
+    "term": "Reality Function",
+    "domain": "Theology",
+    "def": "1️⃣ χ (Reality Function) 👉 χ is the total effect of all forces—grace, entropy, free will, relationships, and unknown influences—across space, time, and spiritual dimensions.",
+    "ref": "Reality Function_Canonical.md"
+  },
+  {
+    "term": "Relational Entropy",
+    "domain": "Physics",
+    "def": "Relational Entropy is a concept from Theophysics Paper 9 that applies the physical principle of entropy to the domain of interpersonal relationships.",
+    "ref": "Relational Entropy.md"
+  },
+  {
+    "term": "Relationships",
+    "domain": "Bridge",
+    "def": "🔹 Relationships 👉 Relationships are connections between people (or even between humans and the universe). ✅ They can be friendships, family bonds, love, or spiritual connections. ✅ Strong relationships bring trust, love, and support. Example: A best friend is someone with whom you have a deep, positive relationship.",
+    "ref": "Relationships.md"
+  },
+  {
+    "term": "Return Probability in Fulfilled Prophecies",
+    "domain": "Theology",
+    "def": "To quantify the probability that a prophecy returns to its original trajectory after divergence, we define the Return Function:",
+    "ref": "Return Probability in Fulfilled Prophecies.md"
+  },
+  {
+    "term": "Scalar Field",
+    "domain": "Theology",
+    "def": "In physics, a field is a physical quantity that has a value at every point in space and time.",
+    "ref": "Scalar Field_Canonical.md"
+  },
+  {
+    "term": "Scripture",
+    "domain": "Bridge",
+    "def": "**Scripture is the divinely authored and supernaturally preserved textual encoding of the Logos (Truth).",
+    "ref": "Scripture_Canonical.md"
+  },
+  {
+    "term": "Second Law",
+    "domain": "Physics",
+    "def": "See also: Thermodynamics, Entropy",
+    "ref": "Second Law.md"
+  },
+  {
+    "term": "Shalom",
+    "domain": "Bridge",
+    "def": "Shalom (שָׁלוֹם) is a rich Hebrew word from the Bible that is often translated as \"peace.\" However, its meaning is much deeper and more comprehensive than the mere absence of conflict.",
+    "ref": "Shalom.md"
+  },
+  {
+    "term": "Sign Operator",
+    "domain": "Theology",
+    "def": "The Sign Operator, represented by the symbol σ̂ (sigma-hat), is a mathematical tool defined in Theophysics Paper 4.",
+    "ref": "Sign Operator_Canonical.md"
+  },
+  {
+    "term": "Sin",
+    "domain": "Math",
+    "def": "🔹 Sin 👉 Sin is when people do something wrong that goes against moral or spiritual laws. ✅ It causes spiritual and moral damage, like breaking trust or harming relationships. ✅ It’s like a virus—it spreads and makes things worse. Example: Lying to a friend is a small sin, but if you keep lying, you might lose their trust forever.",
+    "ref": "Sin.md"
+  },
+  {
+    "term": "Sin Source",
+    "domain": "Theology",
+    "def": "In physics, a \"source term\" (often denoted by 'J') in a field equation is a term that describes how a field is generated or sustained. For example, in electromagnetism, moving electric charges (an electric current, J) act as the source that generates a magnetic field.",
+    "ref": "Sin Source.md"
+  },
+  {
+    "term": "Source Code",
+    "domain": "Bridge",
+    "def": "Kolmogorov complexity argument: the universe's apparent complexity can be compressed to a small generative program. That program — the minimum-description-length generator of all that exists — is what John 1:1 calls the Logos (\"In the beginning was the Word\").",
+    "ref": "Source Code.md"
+  },
+  {
+    "term": "Spiritual Distance",
+    "domain": "Theology",
+    "def": "Spiritual Distance: The concept of spiritual distance refers to the proximity—whether physical, mental, emotional, or volitional—to sources of negative influence. This idea suggests that the closer one is to these sources, the stronger their pull becomes, much like the gravitational force described by the inverse square law.",
+    "ref": "Spiritual Distance.md"
+  },
+  {
+    "term": "Spiritual Gravity",
+    "domain": "Bridge",
+    "def": "Just as gravitational mass curves spacetime, creating a potential well that draws matter toward it, maximum coherence (C_max) curves the informational substrate, creating a grace gradient that draws other conscious agents toward alignment.",
+    "ref": "Spiritual Gravity.md"
+  },
+  {
+    "term": "Spiritual Inertia",
+    "domain": "Theology",
+    "def": "Definition: The tendency for a soul to remain in its current spiritual state unless acted upon by an external force (usually divine grace). This principle explains why both positive spiritual growth and negative spiritual decline tend to continue along their current trajectory without intervention.",
+    "ref": "Spiritual Inertia.md"
+  },
+  {
+    "term": "Spiritual Mass",
+    "domain": "Theology",
+    "def": "Definition: The accumulated weight of sinful patterns and separation from God that increases one's susceptibility to sin's gravitational pull. Unlike physical mass, spiritual mass can be reduced through repentance, forgiveness, and divine grace.",
+    "ref": "Spiritual Mass.md"
+  },
+  {
+    "term": "Spiritual Negentropy",
+    "domain": "Physics",
+    "def": "🌟 Spiritual Negentropy: The Force That Restores Order to the Soul Spiritual negentropy is the opposite of spiritual decay (entropy)—it is the force that brings healing, order, and renewal to our spiritual lives.",
+    "ref": "Spiritual Negentropy.md"
+  },
+  {
+    "term": "Spontaneous Symmetry Breaking",
+    "domain": "Math",
+    "def": "Spontaneous Symmetry Breaking (SSB) is a profound concept in physics where the underlying laws of a system possess a certain symmetry, but the system's actual ground state (its state of lowest energy) does not.",
+    "ref": "Spontaneous Symmetry Breaking.md"
+  },
+  {
+    "term": "Strong Nuclear Force",
+    "domain": "Theology",
+    "def": "The [[[[Strong Nuclear Force]]]] is the strongest of the four fundamental forces in physics, responsible for binding protons and neutrons together inside the nucleus of an atom.",
+    "ref": "Strong Nuclear Force_Canonical.md"
+  },
+  {
+    "term": "Symptomatic Research Method",
+    "domain": "Theology",
+    "def": "A research approach that treats investigation like medical diagnosis: each data point is a \"symptom\" that reveals what to investigate next, creating a self-directing chain of inquiry.",
+    "ref": "Symptomatic Research Method_Canonical.md"
+  },
+  {
+    "term": "Syzygy Principle",
+    "domain": "Bridge",
+    "def": "The Syzygy Principle is the central concept of Theophysics Paper 4. It proposes that consciousness is not a continuous spectrum from \"good\" to \"bad,\" but exists in a fundamental binary state of opposition or alignment with the Logos. A consciousness is either oriented towards the Logos (+1) or away from it (-1).",
+    "ref": "Syzygy Principle.md"
+  },
+  {
+    "term": "Technology",
+    "domain": "Physics",
+    "def": "🔧 Technology: Tools That Change the World Technology is anything humans create to solve problems or improve life.",
+    "ref": "Technology.md"
+  },
+  {
+    "term": "The 10 Laws of Reality",
+    "domain": "Math",
+    "def": "Redirect — this is an older name for one of the Ten Laws of Reality.",
+    "ref": "The 10 Laws of Reality.md"
+  },
+  {
+    "term": "The Coherence Factor",
+    "domain": "Theology",
+    "def": "No I agree but I think I think that is the the beauty of them what",
+    "ref": "The Coherence Factor_Canonical.md"
+  },
+  {
+    "term": "The Loss Function in Prophetic Divergence",
+    "domain": "Bridge",
+    "def": "Not all prophecies come to pass in their original form—this introduces a prophetic loss function that accounts for divergence due to free will:",
+    "ref": "The Loss Function in Prophetic Divergence.md"
+  },
+  {
+    "term": "Theological Models & Christian Doctrine",
+    "domain": "Theology",
+    "def": "Theological Models & Christian Doctrine Key Concepts:",
+    "ref": "Theological Models & Christian Doctrine.md"
+  },
+  {
+    "term": "Thermodynamics",
+    "domain": "Physics",
+    "def": "3. Thermodynamics Key Concepts:",
+    "ref": "Thermodynamics.md"
+  },
+  {
+    "term": "Time",
+    "domain": "Theology",
+    "def": "🔹 Time 👉 Time is how we measure change and events from past to present to future. ✅ In physics, time flows forward, but it can move differently depending on gravity and speed. ✅ In spirituality, time can feel faster or slower based on choices, emotions, or faith. Example: Time feels slow when you’re waiting for your birthday but fast when you're having fun.",
+    "ref": "Time .md"
+  },
+  {
+    "term": "Trinity",
+    "domain": "Theology",
+    "def": "The Trinity isn't just theological doctrine.",
+    "ref": "Trinity_Canonical.md"
+  },
+  {
+    "term": "Trinity Triangulation",
+    "domain": "Theology",
+    "def": "Trinity Triangulation is a principle developed in Theophysics (Proofs 4 and 8) that provides an information-theoretic justification for the Christian doctrine of the Trinity.",
+    "ref": "Trinity Triangulation_Canonical.md"
+  },
+  {
+    "term": "Truth",
+    "domain": "Theology",
+    "def": "**Truth is the perfectly coherent, constant, and self-propagating signal of reality as it originates from God (The Logos).",
+    "ref": "Truth_Canonical.md"
+  },
+  {
+    "term": "U Factor",
+    "domain": "Math",
+    "def": "Definition: The \"unprovable\" component in spiritual equations that represents divine intervention beyond deterministic forces.",
+    "ref": "U Factor_Canonical.md"
+  },
+  {
+    "term": "Unity Field",
+    "domain": "Theology",
+    "def": "Unity Field: The underlying spiritual reality that enables genuine connection between distinct individuals; transcends mere proximity or similarity.",
+    "ref": "Unity Field_Canonical.md"
+  },
+  {
+    "term": "Universal Turing Machine",
+    "domain": "Bridge",
+    "def": "A Turing Machine is an abstract, theoretical model of a computer, invented by the brilliant mathematician Alan Turing in 1936. It consists of a simple head that can read, write, and move along an infinitely long tape of symbols. Despite its simplicity, a Turing machine can simulate the logic of any computer algorithm.",
+    "ref": "Universal Turing Machine.md"
+  },
+  {
+    "term": "Witness Field",
+    "domain": "Theology",
+    "def": "The Witness Field, represented by the Greek letter phi (Φ), is the central concept introduced in Paper 2 of the Logos Papers.",
+    "ref": "Witness Field_Canonical.md"
+  },
+  {
+    "term": "Works Orthogonality",
+    "domain": "Theology",
+    "def": "The mathematical proof that human effort (works) and divine grace (salvation) operate in completely independent dimensions—you cannot earn salvation through actions, and receiving salvation doesn't automatically complete your moral work.",
+    "ref": "Works Orthogonality_Canonical.md"
+  }
+];
+
+const header = document.getElementById('gl-header');
+window.addEventListener('scroll',()=>{
+  header.classList.toggle('gl-header-scrolled', window.scrollY > 80);
+});
+
+function renderTerms(){
+  const q = document.getElementById('gl-input').value.toLowerCase().trim();
+  const cat = document.querySelector('.gl-cat-btn.on')?.dataset.cat || '';
+  const list = document.getElementById('gl-list');
+  const filtered = TERMS.filter(t=>{
+    if(cat && t.domain!==cat) return false;
+    if(!q) return true;
+    return (t.term+' '+t.def+' '+t.domain).toLowerCase().includes(q);
+  });
+  if(filtered.length===0){
+    list.innerHTML='<div class="gl-empty">No terms match. Try another search.</div>';
+    return;
+  }
+  list.innerHTML = filtered.map(t=>`
+    <div class="gl-term">
+      <div><div class="gl-term-name">${t.term}</div><span class="gl-term-domain">${t.domain}</span></div>
+      <div class="gl-term-def">${t.def}</div>
+      <div class="gl-term-ref">${t.ref}</div>
+    </div>
+  `).join('');
+}
+
+document.getElementById('gl-input').addEventListener('input',renderTerms);
+document.querySelectorAll('.gl-cat-btn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.gl-cat-btn').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    renderTerms();
+  });
+});
+renderTerms();
+</script>
+<!-- END:COMPONENT:script:script-glossary -->
+
+</body>
+</html>
