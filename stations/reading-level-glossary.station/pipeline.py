@@ -1,480 +1,567 @@
-"""Reading level glossary station.
-
-Scans dropped text files, estimates reading level, and produces glossary
-support for words above the configured audience level. This station does not
-rewrite source text.
 """
+STATION_SCRIPT_STANDARD v1 (SSS_v1)
+====================================
+Canonical Python template for ALL Theophysics Brain stations.
+POF 2828 | 2026-06-14
 
+RULE: Every station script follows this section order.
+Sections 00-05 and 08-12 are IDENTICAL across stations.
+Only 06_NLP_ROUTE and 07_PROCESS change per station.
+
+If you need to change paths, NLP references, export formats,
+or logging across ALL stations, you change ONE section number
+and can script the update across every station at once.
+
+SECTION MAP:
+  00_IMPORTS           — Standard library + deps
+  01_CONSTANTS         — Station identity, paths (derived from folder location)
+  02_CONFIG            — Load config.json / station.yaml
+  03_LOGGING           — Logger setup (station-named, file + console)
+  04_INGEST            — Read _inbox, find input files
+  05_VALIDATE          — Check inputs are real, readable, right format
+  06_NLP_ROUTE         — *** STATION-SPECIFIC *** Which NLP/model to call
+  07_PROCESS           — *** STATION-SPECIFIC *** The one action this station does
+  08_ARTIFACTS         — Write results to _outbox as JSON artifacts
+  09_JOB_CARD          — Update job card (X:\\03_JOB_CARDS)
+  10_HANDOFF           — Pass to next station/workflow or mark complete
+  11_ARCHIVE           — Move processed inputs to _processed
+  12_MAIN              — Wire everything together
+ARCHITECTURE ALIGNMENT:
+  _inbox/     ← where inputs land (from workflow or manual drop)
+  _outbox/    ← where artifacts go (next station picks up from here)
+  _processed/ ← archived inputs after processing
+  _logs/      ← station execution logs
+  _state/     ← persistent state between runs (counters, checkpoints)
+  _exports/   ← final human-readable outputs (only if station is terminal)
+"""
 from __future__ import annotations
 
-import argparse
-import csv
-import html
+# ============================================================
+# 00_IMPORTS
+# ============================================================
+# Standard library only here. Station-specific deps go below.
 import json
-import math
-import re
-import shutil
-from collections import Counter, defaultdict
-from datetime import datetime, timezone
+import logging
+import sys
+from datetime import datetime
 from pathlib import Path
-from typing import Iterable
+from typing import Any
+
+# Station-specific imports (uncomment/add as needed):
+# import requests
+# from sentence_transformers import SentenceTransformer
+# from transformers import pipeline as hf_pipeline
+
+# ============================================================
+# 01_CONSTANTS
+# ============================================================
+# ALL paths derived from THIS file's location. Never hardcode X:\.
+# When folders move, only HERE changes (automatically).
+#
+# Path resolver: tries NAS convention (numbered) first, then
+# GitHub repo convention (flat names). Works in both environments.
+
+HERE      = Path(__file__).resolve().parent          # this station folder
+STATIONS  = HERE.parent                              # 04_STATIONS or stations/
+BRAIN     = STATIONS.parent                          # brain root (X:\ or repo root)
 
 
-STATION_ROOT = Path(__file__).resolve().parent
-CONFIG_PATH = STATION_ROOT / "config.json"
-
-EASY_WORDS = {
-    "a", "able", "about", "above", "after", "again", "against", "age", "ago",
-    "air", "all", "almost", "alone", "along", "already", "also", "always",
-    "am", "america", "an", "and", "another", "any", "are", "around", "as",
-    "ask", "at", "back", "bad", "be", "because", "become", "been", "before",
-    "began", "begin", "behind", "being", "best", "better", "between", "big",
-    "both", "boy", "bring", "but", "by", "call", "came", "can", "cannot",
-    "case", "change", "child", "children", "city", "come", "could", "country",
-    "day", "did", "different", "do", "does", "done", "down", "during", "each",
-    "early", "earth", "easy", "end", "enough", "even", "ever", "every",
-    "example", "eye", "face", "fact", "family", "far", "father", "feel",
-    "few", "find", "first", "five", "for", "form", "found", "four", "from",
-    "gave", "get", "give", "go", "god", "good", "got", "great", "group",
-    "had", "hand", "hard", "has", "have", "he", "head", "help", "her",
-    "here", "high", "him", "his", "home", "house", "how", "i", "idea", "if",
-    "in", "into", "is", "it", "its", "jesus", "just", "keep", "kind", "know",
-    "last", "law", "learn", "left", "less", "let", "life", "like", "line",
-    "little", "live", "long", "look", "made", "make", "man", "many", "may",
-    "me", "mean", "men", "might", "more", "most", "mother", "move", "much",
-    "must", "my", "name", "near", "need", "never", "new", "next", "night",
-    "no", "not", "now", "number", "of", "off", "old", "on", "one", "only",
-    "or", "other", "our", "out", "over", "own", "part", "people", "place",
-    "point", "put", "question", "read", "real", "right", "said", "same",
-    "saw", "say", "school", "see", "seem", "set", "she", "should", "show",
-    "side", "since", "small", "so", "some", "something", "son", "soon",
-    "sound", "start", "state", "still", "story", "strong", "such", "system",
-    "take", "tell", "ten", "than", "that", "the", "their", "them", "then",
-    "there", "these", "they", "thing", "think", "this", "those", "three",
-    "through", "time", "to", "today", "together", "too", "true", "truth", "try",
-    "two", "under", "up", "us", "use", "very", "want", "was", "way", "we",
-    "well", "went", "were", "what", "when", "where", "which", "while", "who",
-    "why", "will", "with", "word", "work", "world", "would", "write", "year",
-    "yes", "you", "young", "your"
-}
-
-CANONICAL_DEFINITIONS = {
-    "academic": "Written for advanced study, often with formal terms, citations, and careful claims.",
-    "acceleration": "A speed-up in change, growth, or decline.",
-    "ai-assisted": "Made with help from an AI system, while still needing human review.",
-    "ai-generated": "Created by an AI system rather than written directly by a person.",
-    "annotations": "Notes added to explain, mark, or comment on a source.",
-    "architecture": "The way a system is structured and how its parts connect.",
-    "atonement": "The act by which a moral debt is answered and relationship can be restored.",
-    "attribution": "A statement showing where an idea, quote, source, or claim came from.",
-    "authority": "The accepted power to decide, judge, teach, or govern.",
-    "axiom": "A starting truth that the system uses before it proves anything else.",
-    "biaxiosum": "A two-axis measurement frame used in the MDA work to compare moral and structural change.",
-    "bureaucracy": "A rule-heavy institution or office system that can slow or control decisions.",
-    "canonical": "Approved as the current source of truth for this workflow.",
-    "categories": "Groups used to sort things that share the same kind of feature.",
-    "civilization": "A large organized society with shared institutions, laws, culture, and memory.",
-    "civilizations": "Large organized societies with shared institutions, laws, culture, and memory.",
-    "coherence": "How well parts fit together without contradiction or collapse.",
-    "coherence-metric": "A measurement used to estimate how strongly a system holds together.",
-    "collaborator": "A person or AI partner working with someone else on the same task.",
-    "communication": "The act of sharing meaning between people, groups, or systems.",
-    "complexity": "The amount of interacting parts or difficulty inside a system.",
-    "consciousness": "Aware experience: the capacity to notice, choose, and respond.",
-    "constraint-removal": "Taking away a limit or boundary that was holding a system in place.",
-    "constitutional": "Related to the basic rules or structure that governs a society or system.",
-    "contaminates": "Adds something that pollutes, weakens, or corrupts the result.",
-    "contradiction": "A conflict where two claims cannot both be true in the same way at the same time.",
-    "contradictions": "Conflicts where two claims cannot both be true in the same way at the same time.",
-    "counterarguments": "The strongest reasons someone could give against a claim.",
-    "criticality": "The point where a system is close to changing state or breaking into a new pattern.",
-    "curve-fitting": "Forcing a model to match data too closely, often so it looks stronger than it really is.",
-    "decoherence": "The loss of stable order when a system stops holding together.",
-    "deterministic": "Describes a process where the same causes always produce the same result.",
-    "disciplines": "Fields of study or organized areas of work.",
-    "domain-general": "Useful across many areas, not just one narrow field.",
-    "domain-specific": "Useful inside one particular area or field.",
-    "econometrica": "A major academic journal in economics and statistics.",
-    "empirically": "Based on observation, measurement, or evidence rather than theory alone.",
-    "entropy": "The drift from order toward disorder when no restoring force acts.",
-    "epistemology": "The study of how we know what we claim to know.",
-    "falsification": "A test that could show a claim is wrong.",
-    "ferromagnetism": "A physics pattern where many tiny magnetic parts line up together.",
-    "ferromagnets": "Materials whose tiny magnetic parts can line up together.",
-    "fragmentation": "The breaking of a whole into separated pieces.",
-    "grace": "Restoring action that moves against collapse and makes repair possible.",
-    "hypothesis": "A proposed explanation that can be tested.",
-    "institutional": "Related to organizations, systems, rules, or public structures.",
-    "institutions": "Organizations or systems that shape public life, such as schools, courts, churches, or governments.",
-    "intergenerational": "Passing across generations, such as from parents to children and grandchildren.",
-    "interpretation": "An explanation of what something means.",
-    "interpretations": "Different explanations of what something means.",
-    "isomorphism": "A shared structure between two domains, not just a loose similarity.",
-    "isomorphisms": "Shared structures between domains, not just loose similarities.",
-    "longitudinal": "Studied across time rather than at only one moment.",
-    "logos": "Ordered truth, reason, and meaning as the structure behind reality.",
-    "mathematical": "Related to numbers, formulas, structure, or formal reasoning.",
-    "measurement-based": "Grounded in measurement rather than impression alone.",
-    "methodology": "The method or process used to study a question.",
-    "metaphorically": "As a comparison or image, not as a literal identity.",
-    "normalization": "Changing values into a common scale so they can be compared fairly.",
-    "noether": "A reference to Noether's theorem: preserved symmetry implies conserved quantity.",
-    "operationalization": "Turning an idea into something that can be measured or tested.",
-    "operationalizations": "Ways of turning ideas into things that can be measured or tested.",
-    "operationalized": "Turned into a measurable or testable form.",
-    "ontology": "The study of what exists and what kind of thing it is.",
-    "percentage-point": "A direct difference between percentages, such as 40 percent to 45 percent being 5 percentage points.",
-    "polarization": "A split into opposing sides that become harder to reconcile.",
-    "preliminary": "Early or first-stage, before final proof or final judgment.",
-    "primary-source": "Original evidence from the time, person, dataset, or document being studied.",
-    "probability": "The chance that something will happen or be true.",
-    "psychological": "Related to the mind, behavior, feeling, or thought.",
-    "quantitative": "Based on numbers or measurement.",
-    "relationship": "A connection between people, ideas, events, or variables.",
-    "research-method": "The process used to investigate a question and test claims.",
-    "resolution": "The point where a conflict, question, or uncertainty is answered or settled.",
-    "sigma": "A statistical distance from chance; higher sigma means stronger evidence.",
-    "signal-to-noise": "The amount of useful information compared with distracting background noise.",
-    "statistically": "In a way that uses data, probability, or measurement.",
-    "sigma": "A statistical distance from chance; higher sigma means stronger evidence.",
-    "superconductivity": "A physics state where electrical resistance drops away under special conditions.",
-    "superconductors": "Materials that can carry electricity with no resistance under special conditions.",
-    "synchronization": "Separate parts lining up in timing, behavior, or pattern.",
-    "synchronized": "Made to line up in timing, behavior, or pattern.",
-    "systematically": "Done according to a clear method or repeated pattern.",
-    "substrate": "The deeper layer or base structure that something else rests on.",
-    "symmetry": "A pattern that stays true when something is changed, moved, or viewed differently.",
-    "theophysics": "David's framework treating physics and theology as two views of one ordered reality.",
-    "thermodynamics": "The physics of heat, energy, work, and disorder.",
-    "threshold-crossing": "Passing the point where a system changes state or enters a new phase.",
-    "transformation": "A major change in form, structure, or state.",
-    "universality": "The quality of applying across many cases rather than only one case.",
-    "verification": "A check that tests whether a claim, result, or source is actually correct.",
-    "visualization": "A chart, image, or display that helps people see a pattern.",
-    "virtue-related": "Connected to moral qualities such as honesty, courage, self-control, or faithfulness."
-}
-
-NO_GLOSSARY_WORDS = {
-    "accumulates", "accurately", "authors", "authorship", "commitment",
-    "connections", "decorative", "everything", "genuinely", "incomplete",
-    "precisely", "publications", "researcher's", "significant", "summarized",
-    "suggestions", "supporting", "understanding", "uncomfortable"
-}
+def _resolve(numbered: str, flat: str) -> Path:
+    """Try numbered NAS path first, fall back to flat repo path."""
+    p = BRAIN / numbered
+    return p if p.is_dir() else BRAIN / flat
 
 
-def now_stamp() -> str:
-    return datetime.now().strftime("%Y%m%d-%H%M%S")
+MODELS    = _resolve("05_MODELS",    "models")       # NLP models
+ENGINES   = _resolve("06_ENGINES",   "engines")      # preference engines
+JOB_CARDS = _resolve("03_JOB_CARDS", "job_cards")    # job card registry
+EXPORTS   = _resolve("10_EXPORTS",   "exports")      # global exports
 
+# Station identity — CHANGE THESE per station
+STATION_ID   = "ST_047"
+STATION_NAME = "reading-level-glossary"
+STATION_DESC = "Processes reading level glossary station inputs"
 
-def now_iso() -> str:
-    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+# ============================================================
+# 02_CONFIG
+# ============================================================
+# Config lives next to the script. station.yaml or config.json.
+# Config defines: input extensions, NLP target, output format,
+# routing rules, timeouts, and any station-specific settings.
 
+def load_config() -> dict[str, Any]:
+    """Load station config. Checks YAML first, falls back to JSON."""
+    yaml_path = HERE / "station.yaml"
+    json_path = HERE / "config.json"
 
-def load_config() -> dict:
-    with CONFIG_PATH.open("r", encoding="utf-8") as handle:
-        return json.load(handle)
-
-
-def strip_html(text: str) -> str:
-    text = re.sub(r"(?is)<(script|style).*?>.*?</\1>", " ", text)
-    text = re.sub(r"(?s)<[^>]+>", " ", text)
-    return html.unescape(text)
-
-
-def normalize_text(raw: str, suffix: str) -> str:
-    text = strip_html(raw) if suffix.lower() in {".html", ".htm"} else raw
-    text = re.sub(r"`{1,3}.*?`{1,3}", " ", text, flags=re.S)
-    text = re.sub(r"!\[[^\]]*\]\([^)]+\)", " ", text)
-    text = re.sub(r"\[[^\]]+\]\([^)]+\)", " ", text)
-    text = re.sub(r"^#{1,6}\s+", "", text, flags=re.M)
-    text = re.sub(r"[_*~>#|]", " ", text)
-    text = re.sub(r"\s+", " ", text)
-    return text.strip()
-
-
-def read_text(path: Path) -> str:
-    data = path.read_bytes()
-    for encoding in ("utf-8-sig", "utf-8", "cp1252", "latin-1"):
+    if yaml_path.exists():
         try:
-            return data.decode(encoding)
-        except UnicodeDecodeError:
-            continue
-    return data.decode("utf-8", errors="replace")
+            import yaml
+            return yaml.safe_load(yaml_path.read_text(encoding="utf-8"))
+        except ImportError:
+            pass  # fall through to JSON
 
+    if json_path.exists():
+        return json.loads(json_path.read_text(encoding="utf-8-sig"))
 
-def iter_inputs(config: dict, explicit: Path | None) -> list[Path]:
-    extensions = {ext.lower() for ext in config.get("text_extensions", [])}
-    if explicit:
-        return [explicit]
-    input_dir = Path(config["input_dir"])
-    if not input_dir.exists():
-        return []
-    globber = input_dir.rglob("*") if config.get("recursive", False) else input_dir.glob("*")
-    return sorted(
-        path for path in globber
-        if path.is_file() and path.suffix.lower() in extensions
+    raise FileNotFoundError(
+        f"No config found for {STATION_NAME}. "
+        f"Expected {yaml_path} or {json_path}"
     )
 
 
-def split_sentences(text: str) -> list[str]:
-    sentences = [s.strip() for s in re.split(r"(?<=[.!?])\s+", text) if s.strip()]
-    return sentences or ([text] if text else [])
+# ============================================================
+# 03_LOGGING
+# ============================================================
+# Every station logs to its own _logs/ folder AND to console.
+# Log filename: {STATION_ID}_{STATION_NAME}_{date}.log
+
+def setup_logging(cfg: dict[str, Any]) -> logging.Logger:
+    log_dir = HERE / "_logs"
+    log_dir.mkdir(parents=True, exist_ok=True)
+
+    logfile = log_dir / f"{STATION_ID}_{STATION_NAME}_{datetime.now():%Y%m%d}.log"
+    logger = logging.getLogger(f"{STATION_ID}.{STATION_NAME}")
+
+    if logger.handlers:
+        return logger  # already configured this run
+
+    logger.setLevel(logging.INFO)
+    fmt = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s")
+
+    fh = logging.FileHandler(logfile, encoding="utf-8")
+    fh.setFormatter(fmt)
+    logger.addHandler(fh)
+
+    sh = logging.StreamHandler(sys.stdout)
+    sh.setFormatter(fmt)
+    logger.addHandler(sh)
+
+    return logger
 
 
-def words(text: str) -> list[str]:
-    return re.findall(r"[A-Za-z][A-Za-z'-]*", text)
+# ============================================================
+# 04_INGEST
+# ============================================================
+# Read _inbox/. Find files matching allowed extensions from config.
+# Returns list of Paths, sorted alphabetically.
+
+def find_inputs(cfg: dict[str, Any]) -> list[Path]:
+    input_dir = HERE / "_inbox"
+    input_dir.mkdir(parents=True, exist_ok=True)
+
+    allowed = cfg.get("input_extensions") or cfg.get("inputs", {}).get("extensions", [])
+    allowed_set = {ext.lower() for ext in allowed} if allowed else set()
+
+    return sorted(
+        p for p in input_dir.iterdir()
+        if p.is_file()
+        and not p.name.startswith(".")
+        and (not allowed_set or p.suffix.lower() in allowed_set)
+    )
 
 
-def count_syllables(word: str) -> int:
-    word = word.lower()
-    word = re.sub(r"[^a-z]", "", word)
-    if not word:
-        return 0
-    vowels = "aeiouy"
-    groups = 0
-    prev = False
-    for char in word:
-        is_vowel = char in vowels
-        if is_vowel and not prev:
-            groups += 1
-        prev = is_vowel
-    if word.endswith("e") and groups > 1 and not word.endswith(("le", "ye")):
-        groups -= 1
-    return max(1, groups)
+# ============================================================
+# 05_VALIDATE
+# ============================================================
+# Check each input is real, readable, and right format.
+# Override this if your station needs deeper validation.
+
+def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool:
+    if not path.exists():
+        log.warning("File does not exist: %s", path)
+        return False
+    if not path.is_file():
+        log.warning("Not a file: %s", path)
+        return False
+    if path.stat().st_size == 0:
+        log.warning("Empty file: %s", path)
+        return False
+    return True
+
+# ============================================================
+# 06_NLP_ROUTE  *** STATION-SPECIFIC ***
+# ============================================================
+# Route this station to its configured worker/model.
+
+def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
+    workers = cfg.get("workers", {})
+    default = workers.get("default", ["NONE"])
+    nlp_id = default[0] if isinstance(default, list) and default else str(default or "NONE")
+    if nlp_id.startswith("P"):
+        nlp_path = ENGINES / nlp_id
+    else:
+        nlp_path = MODELS / nlp_id if nlp_id not in {"NONE", "OPENAI", "OLLAMA"} else None
+    return {"nlp_id": nlp_id, "nlp_path": nlp_path}
+
+# ============================================================
+# 07_PROCESS  *** STATION-SPECIFIC ***
+# ============================================================
+# The ONE action this station performs: Processes reading level glossary station inputs.
+
+def _load_legacy_module() -> Any:
+    legacy_path = HERE / "pipeline_legacy.py"
+    if not legacy_path.exists():
+        raise FileNotFoundError(f"Missing legacy implementation: {legacy_path}")
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(f"{STATION_NAME}_legacy", legacy_path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Cannot import legacy implementation: {legacy_path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
-def flesch_kincaid_grade(word_count: int, sentence_count: int, syllable_count: int) -> float:
-    if word_count <= 0:
-        return 0.0
-    sentence_count = max(1, sentence_count)
-    return max(0.0, (0.39 * (word_count / sentence_count)) + (11.8 * (syllable_count / word_count)) - 15.59)
+def _read_input_payload(path: Path) -> Any:
+    if path.suffix.lower() == ".json":
+        return json.loads(path.read_text(encoding="utf-8-sig"))
+    return path.read_text(encoding="utf-8", errors="replace")
 
 
-def estimated_word_grade(term: str, syllables: int) -> float:
-    letters = len(re.sub(r"[^A-Za-z]", "", term))
-    grade = 1.5 + (syllables * 2.2) + max(0, letters - 6) * 0.55
-    if "-" in term:
-        grade += 0.5
-    return round(grade, 1)
+def _station_output_dir() -> Path:
+    out_dir = HERE / "_outbox" / "phase2_logic"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    return out_dir
 
 
-def simple_definition(term: str) -> str:
-    key = term.lower()
-    if key in CANONICAL_DEFINITIONS:
-        return CANONICAL_DEFINITIONS[key]
-    if key.endswith("tion"):
-        return "A process or result connected to this article's argument. Define it in one plain sentence."
-    if key.endswith("ity"):
-        return "A quality or state named by the article. Define what quality is being measured or described."
-    if key.endswith("ism"):
-        return "A system of belief, practice, or explanation. Define which system the article means."
-    return "Definition needed: write one plain sentence explaining this term in context."
+def _fallback_embed_one(text: str, dim: int = 384) -> list[float]:
+    import hashlib
+    import math
+    vector = [0.0] * dim
+    tokens = [token.lower() for token in text.split() if len(token) > 2] or [text[:64] or "empty"]
+    for token in tokens[:2000]:
+        digest = hashlib.sha256(token.encode("utf-8", errors="ignore")).digest()
+        idx = int.from_bytes(digest[:4], "little") % dim
+        vector[idx] += 1.0
+    norm = math.sqrt(sum(value * value for value in vector))
+    return [value / norm for value in vector] if norm else vector
 
 
-def glossary_terms(text: str, config: dict) -> list[dict]:
-    target_grade = float(config.get("target_grade", 8.0))
-    always = {t.lower() for t in config.get("always_glossary_terms", [])}
-    counts = Counter(w.lower().strip("'") for w in words(text))
-    display_seen: dict[str, str] = {}
-    for token in words(text):
-        key = token.lower().strip("'")
-        display_seen.setdefault(key, token.strip("'"))
-
-    entries = []
-    for key, count in counts.items():
-        if not key or key in EASY_WORDS or key in NO_GLOSSARY_WORDS or len(key) <= 3:
-            continue
-        syllables = count_syllables(key)
-        word_grade = estimated_word_grade(key, syllables)
-        reason = []
-        if key in always:
-            reason.append("canonical term")
-        if word_grade > target_grade:
-            reason.append(f"estimated grade {word_grade} > target {target_grade:g}")
-        if syllables >= 4:
-            reason.append(f"{syllables} syllables")
-        if len(key) >= 12:
-            reason.append(f"{len(key)} letters")
-        if not reason:
-            continue
-        entries.append({
-            "term": display_seen.get(key, key),
-            "key": key,
-            "count": count,
-            "syllables": syllables,
-            "estimated_word_grade": word_grade,
-            "reason": "; ".join(reason),
-            "definition": simple_definition(key),
-            "context": context_for(text, key)
-        })
-    entries.sort(key=lambda e: (-e["estimated_word_grade"], -e["count"], e["key"]))
-    return entries[: int(config.get("max_glossary_terms", 80))]
-
-
-def context_for(text: str, key: str) -> str:
-    pattern = re.compile(rf"\b{re.escape(key)}s?\b", re.IGNORECASE)
-    match = pattern.search(text)
-    if not match:
-        return ""
-    start = max(0, match.start() - 90)
-    end = min(len(text), match.end() + 120)
-    snippet = text[start:end].strip()
-    snippet = re.sub(r"\s+", " ", snippet)
-    return snippet
-
-
-def analyze_file(path: Path, config: dict, run_dir: Path) -> dict:
-    raw = read_text(path)
-    text = normalize_text(raw, path.suffix)
-    token_list = words(text)
-    sentence_count = len(split_sentences(text))
-    syllable_count = sum(count_syllables(w) for w in token_list)
-    word_count = len(token_list)
-    grade = flesch_kincaid_grade(word_count, sentence_count, syllable_count)
-    target = float(config.get("target_grade", 8.0))
-    status = "PASS" if grade <= target else "REVIEW"
-    if word_count < int(config.get("min_word_count", 20)):
-        status = "TOO_SHORT"
-
-    glossary = glossary_terms(text, config)
-    result = {
-        "source_file": str(path),
-        "source_name": path.name,
-        "timestamp": now_iso(),
-        "target_label": config.get("target_label", "8th grade"),
-        "target_grade": target,
-        "estimated_grade": round(grade, 2),
-        "status": status,
-        "word_count": word_count,
-        "sentence_count": sentence_count,
-        "syllable_count": syllable_count,
-        "glossary_count": len(glossary),
-        "glossary": glossary
+def _fallback_classify(text: str, labels: list[str]) -> dict[str, Any]:
+    lower = text.lower()
+    scored = []
+    for label in labels:
+        terms = [term for term in label.lower().split() if len(term) > 2]
+        hits = sum(1 for term in terms if term in lower)
+        scored.append((label, hits / max(len(terms), 1)))
+    scored.sort(key=lambda item: item[1], reverse=True)
+    top_label, top_score = scored[0] if scored else ("unclassified", 0.0)
+    if top_score == 0:
+        top_label = "unclassified"
+    return {
+        "label": top_label,
+        "score": float(top_score),
+        "labels": [label for label, _ in scored],
+        "scores": [float(score) for _, score in scored],
+        "engine": "deterministic-fallback",
     }
 
-    stem = re.sub(r"[^A-Za-z0-9_.-]+", "_", path.stem)[:90]
-    json_path = run_dir / f"{stem}.readability_glossary.json"
-    md_path = run_dir / f"{stem}.readability_glossary.md"
-    csv_path = run_dir / f"{stem}.glossary.csv"
 
-    json_path.write_text(json.dumps(result, indent=2), encoding="utf-8")
-    write_markdown_report(md_path, result)
-    write_csv(csv_path, glossary)
-    result["report_json"] = str(json_path)
-    result["report_md"] = str(md_path)
-    result["glossary_csv"] = str(csv_path)
+def _extract_urls(text: str) -> list[str]:
+    import re
+    return re.findall(r"https?://[^\s)\]>\"']+", text)
+
+
+def _basic_fetch_url(url: str, timeout: int = 20, max_chars: int = 20000) -> dict[str, Any]:
+    from html import unescape
+    from urllib.request import Request, urlopen
+    import re
+    req = Request(url, headers={"User-Agent": "BACKSIDE-NLP/SSS_v1"})
+    with urlopen(req, timeout=timeout) as response:
+        raw = response.read(max_chars * 4)
+        content_type = response.headers.get("content-type", "")
+    html = raw.decode("utf-8", errors="replace")
+    title_match = re.search(r"(?is)<title[^>]*>(.*?)</title>", html)
+    title = unescape(re.sub(r"\s+", " ", title_match.group(1)).strip()) if title_match else ""
+    text = re.sub(r"(?is)<script.*?>.*?</script>", " ", html)
+    text = re.sub(r"(?is)<style.*?>.*?</style>", " ", text)
+    text = unescape(re.sub(r"(?s)<[^>]+>", " ", text))
+    text = re.sub(r"\s+", " ", text).strip()[:max_chars]
+    return {"url": url, "title": title, "content_type": content_type, "text": text}
+
+
+def _simple_paper_proof_grade(text: str) -> dict[str, Any]:
+    import re
+    sentences = [s.strip() for s in re.split(r"(?<=[.!?])\s+", text) if s.strip()]
+    equation_count = len(re.findall(r"(?:\$[^$]+\$|\\\(|\\\[|=|≤|≥|\\frac|\\sum|\\int)", text))
+    claim_terms = ["therefore", "thus", "we prove", "we show", "implies", "theorem", "lemma", "proof"]
+    evidence_terms = ["because", "since", "follows", "by", "given", "assume", "derive", "verified"]
+    claim_hits = sum(text.lower().count(term) for term in claim_terms)
+    evidence_hits = sum(text.lower().count(term) for term in evidence_terms)
+    rigor_score = min(1.0, (claim_hits + evidence_hits + equation_count) / max(len(sentences), 1))
+    return {
+        "sentence_count": len(sentences),
+        "equation_count": equation_count,
+        "claim_signal_count": claim_hits,
+        "evidence_signal_count": evidence_hits,
+        "rigor_score": round(rigor_score, 4),
+        "grade": "strong" if rigor_score >= 0.35 else "developing" if rigor_score >= 0.15 else "thin",
+    }
+
+
+def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
+                log: logging.Logger) -> dict[str, Any]:
+    """Run the migrated core action for one input file."""
+    result = {
+        "input_file": str(path.name),
+        "station_id": STATION_ID,
+        "station_name": STATION_NAME,
+        "nlp_used": nlp_info.get("nlp_id", "NONE"),
+        "processed_at": datetime.now().isoformat(timespec="seconds"),
+        "success": True,
+        "artifacts": [],
+        "errors": [],
+        "data": {},
+    }
+
+    try:
+        out_dir = _station_output_dir()
+
+        if STATION_NAME == "classify-documents":
+            text = path.read_text(encoding="utf-8", errors="replace")
+            labels = cfg.get("labels") or [
+                "theology", "science", "philosophy", "history",
+                "apologetics", "research", "unclassified",
+            ]
+            vector = _fallback_embed_one(text)
+            classification = _fallback_classify(text[: int(cfg.get("max_text_chars", 2000))], labels)
+            result["data"] = {
+                "action": "classify document",
+                "classification": classification,
+                "embedding_dim": len(vector),
+                "embedding_engine": "deterministic-fallback",
+            }
+
+        elif STATION_NAME == "session-handoff-drop":
+            legacy = _load_legacy_module()
+            text = legacy._read_text(path)
+            lines = legacy._normalize_lines(text)
+            manifest_items = legacy._manifest_objects(
+                legacy._collect_bullets(legacy._extract_layer(lines, ["layer 1", "session manifest"]))
+            )
+            decision_items = legacy._decision_objects(
+                legacy._collect_bullets(legacy._extract_layer(lines, ["layer 2", "decisions and results"]))
+            )
+            thread_items = legacy._open_thread_objects(
+                legacy._collect_bullets(legacy._extract_layer(lines, ["layer 3", "open threads"]))
+            )
+            session_date = legacy._extract_date(text, cfg.get("default_date", datetime.now().strftime("%Y-%m-%d")))
+            ai_partner = cfg.get("default_ai_partner", "Codex")
+            markdown = legacy._render_markdown(
+                session_date, ai_partner, manifest_items, decision_items, thread_items, path.name, [path.name]
+            )
+            md_path = out_dir / f"{path.stem}__handoff.md"
+            json_path = out_dir / f"{path.stem}__handoff.json"
+            md_path.write_text(markdown, encoding="utf-8")
+            json_payload = {
+                "session_date": session_date,
+                "ai_partner": ai_partner,
+                "manifest": manifest_items,
+                "decisions": decision_items,
+                "open_threads": thread_items,
+            }
+            json_path.write_text(json.dumps(json_payload, ensure_ascii=False, indent=2), encoding="utf-8")
+            result["artifacts"].extend([str(md_path), str(json_path)])
+            result["data"] = json_payload
+
+        elif STATION_NAME == "link-pull":
+            payload = _read_input_payload(path)
+            if isinstance(payload, dict):
+                urls = [payload.get("url") or payload.get("link")] if (payload.get("url") or payload.get("link")) else []
+            elif isinstance(payload, list):
+                urls = [str(item.get("url", item)) if isinstance(item, dict) else str(item) for item in payload]
+            else:
+                urls = _extract_urls(str(payload))
+            pulled = []
+            for url in urls:
+                try:
+                    item = _basic_fetch_url(str(url), int(cfg.get("timeout", 20)), int(cfg.get("max_chars", 20000)))
+                    out_path = out_dir / f"{len(pulled)+1:03d}__link.json"
+                    out_path.write_text(json.dumps(item, ensure_ascii=False, indent=2), encoding="utf-8")
+                    result["artifacts"].append(str(out_path))
+                    pulled.append(item)
+                except Exception as exc:
+                    result["errors"].append(f"{url}: {exc}")
+            result["success"] = not result["errors"]
+            result["data"] = {"action": "pull linked web content", "urls": urls, "pulled": pulled}
+
+        elif STATION_NAME == "harvest-links":
+            legacy = _load_legacy_module()
+            payload = _read_input_payload(path)
+            urls = payload if isinstance(payload, list) else [line.strip() for line in str(payload).splitlines() if line.strip()]
+            harvested = []
+            for url in urls:
+                try:
+                    harvested.append(legacy._fetch_and_parse(
+                        str(url),
+                        cfg.get("user_agent", "BACKSIDE-NLP/SSS_v1"),
+                        int(cfg.get("timeout", 20)),
+                        cfg.get("strategy", "requests"),
+                        int(cfg.get("max_chars", 20000)),
+                    ))
+                except Exception as exc:
+                    result["errors"].append(f"{url}: {exc}")
+            result["success"] = not result["errors"]
+            result["data"] = {"action": "harvest link text", "urls": urls, "harvested": harvested}
+
+        elif STATION_NAME == "reading-level-glossary":
+            legacy = _load_legacy_module()
+            analysis = legacy.analyze_file(path, cfg, out_dir)
+            result["data"] = {"action": "reading level and glossary analysis", "analysis": analysis}
+
+        elif STATION_NAME == "paper-proof-grader":
+            text = path.read_text(encoding="utf-8", errors="replace")
+            result["data"] = {"action": "grade paper proof", "grade": _simple_paper_proof_grade(text)}
+
+    except Exception as exc:
+        log.exception("Station processing failed for %s", path.name)
+        result["success"] = False
+        result["errors"].append(str(exc))
+
     return result
 
+# ============================================================
+# 08_ARTIFACTS
+# ============================================================
+# Write the result dict to _outbox/ as a JSON artifact.
+# Naming: ART_{timestamp}__{STATION_ID}__{input_stem}.json
 
-def write_csv(path: Path, glossary: list[dict]) -> None:
-    with path.open("w", encoding="utf-8", newline="") as handle:
-        fieldnames = ["term", "count", "syllables", "estimated_word_grade", "reason", "definition", "context"]
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
-        writer.writeheader()
-        for row in glossary:
-            writer.writerow({key: row.get(key, "") for key in fieldnames})
+def write_artifact(result: dict[str, Any], input_path: Path) -> Path:
+    outbox = HERE / "_outbox"
+    outbox.mkdir(parents=True, exist_ok=True)
 
+    stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    artifact_name = f"ART_{stamp}__{STATION_ID}__{input_path.stem}.json"
+    artifact_path = outbox / artifact_name
 
-def write_markdown_report(path: Path, result: dict) -> None:
-    lines = [
-        f"# Reading Level Glossary Report - {result['source_name']}",
-        "",
-        f"- Status: {result['status']}",
-        f"- Target: {result['target_label']} (grade {result['target_grade']:g})",
-        f"- Estimated grade: {result['estimated_grade']}",
-        f"- Words / sentences / syllables: {result['word_count']} / {result['sentence_count']} / {result['syllable_count']}",
-        f"- Glossary terms: {result['glossary_count']}",
-        "",
-        "## Glossary Support",
-        "",
-        "| Term | Count | Est. grade | Reason | Draft definition | Context |",
-        "|---|---:|---:|---|---|---|",
-    ]
-    for item in result["glossary"]:
-        definition = str(item["definition"]).replace("|", "\\|")
-        reason = str(item["reason"]).replace("|", "\\|")
-        context = str(item.get("context", "")).replace("|", "\\|")
-        lines.append(
-            f"| {item['term']} | {item['count']} | {item['estimated_word_grade']} | {reason} | {definition} | {context} |"
-        )
-    if not result["glossary"]:
-        lines.append("| None | 0 | 0 | No above-target terms detected | | |")
-    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    artifact_path.write_text(
+        json.dumps(result, ensure_ascii=False, indent=2, default=str),
+        encoding="utf-8"
+    )
+    return artifact_path
 
 
-def write_index(run_dir: Path, results: list[dict], config: dict) -> None:
-    summary = {
-        "station": config.get("name", "reading-level-glossary"),
-        "timestamp": now_iso(),
-        "target_grade": config.get("target_grade", 8.0),
-        "files": results,
-    }
-    (run_dir / "run_index.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
-    lines = [
-        "# Reading Level Glossary Run Index",
-        "",
-        f"- Generated: {summary['timestamp']}",
-        f"- Target: {config.get('target_label', '8th grade')} (grade {config.get('target_grade', 8.0)})",
-        f"- Files processed: {len(results)}",
-        "",
-        "| Status | Grade | Glossary terms | File |",
-        "|---|---:|---:|---|",
-    ]
-    for result in results:
-        lines.append(
-            f"| {result['status']} | {result['estimated_grade']} | {result['glossary_count']} | {result['source_name']} |"
-        )
-    (run_dir / "run_index.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+# ============================================================
+# 09_JOB_CARD
+# ============================================================
+# Update the job card so the workflow knows this station finished.
+# Job cards live at X:\03_JOB_CARDS\{job_id}.json
+
+def update_job_card(result: dict[str, Any], artifact_path: Path,
+                    cfg: dict[str, Any], log: logging.Logger) -> None:
+    job_card_dir = cfg.get("job_card_dir") or JOB_CARDS
+    job_card_dir = Path(job_card_dir)
+
+    if not job_card_dir.exists():
+        return  # job cards not yet wired — silent skip
+
+    return
+
+# ============================================================
+# 10_HANDOFF
+# ============================================================
+# Pass artifact to next station in workflow, or mark as complete.
+# For simple stations, this is a no-op (workflow orchestrator handles routing).
+# For terminal stations, this might copy to _exports/ or X:\10_EXPORTS.
+
+def handoff(result: dict[str, Any], artifact_path: Path,
+            cfg: dict[str, Any], log: logging.Logger) -> None:
+    # Check if this station is terminal (produces final export)
+    if cfg.get("outputs", {}).get("final_export", False):
+        export_dir = HERE / "_exports"
+        export_dir.mkdir(parents=True, exist_ok=True)
+        import shutil
+        shutil.copy2(artifact_path, export_dir / artifact_path.name)
+        log.info("Final export -> %s", export_dir / artifact_path.name)
+    return
 
 
-def maybe_archive_inputs(paths: Iterable[Path], config: dict, run_id: str) -> None:
-    if not config.get("archive_inputs", False):
-        return
-    archive_dir = Path(config["archive_dir"]) / run_id
+# ============================================================
+# 11_ARCHIVE
+# ============================================================
+# Move processed input from _inbox/ to _processed/.
+# Prevents reprocessing. Adds timestamp if name collision.
+
+def archive_input(path: Path, log: logging.Logger) -> Path:
+    archive_dir = HERE / "_processed"
     archive_dir.mkdir(parents=True, exist_ok=True)
-    for path in paths:
-        shutil.move(str(path), str(archive_dir / path.name))
 
+    dest = archive_dir / path.name
+    if dest.exists():
+        dest = archive_dir / f"{path.stem}_{datetime.now():%Y%m%d_%H%M%S}{path.suffix}"
 
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Scan reading level and emit glossary support.")
-    parser.add_argument("--file", type=Path, action="append", help="File to scan instead of DROP_HERE. Repeat for multiple files.")
-    parser.add_argument("--target-grade", type=float, help="Override configured target grade.")
-    parser.add_argument("--max-terms", type=int, help="Override maximum glossary terms per file.")
-    return parser.parse_args()
+    path.replace(dest)
+    log.info("Archived input -> %s", dest)
+    return dest
 
+# ============================================================
+# 12_MAIN
+# ============================================================
+# Wire everything together. This never changes between stations.
+# The flow is ALWAYS:
+#   config -> log -> ingest -> validate -> nlp_route -> process
+#   -> artifact -> job_card -> handoff -> archive
 
 def main() -> int:
-    args = parse_args()
-    config = load_config()
-    if args.target_grade is not None:
-        config["target_grade"] = args.target_grade
-        config["target_label"] = f"grade {args.target_grade:g}"
-    if args.max_terms is not None:
-        config["max_glossary_terms"] = args.max_terms
+    cfg = load_config()
+    log = setup_logging(cfg)
 
-    output_dir = Path(config["output_dir"])
-    output_dir.mkdir(parents=True, exist_ok=True)
-    run_id = datetime.now().strftime("%Y%m%d-%H%M%S-%f")
-    run_dir = output_dir / f"run_{run_id}"
-    run_dir.mkdir(parents=True, exist_ok=True)
+    log.info("=" * 60)
+    log.info("STATION: %s (%s)", STATION_NAME, STATION_ID)
+    log.info("DESC: %s", STATION_DESC)
+    log.info("=" * 60)
 
-    if args.file:
-        inputs = args.file
-    else:
-        inputs = iter_inputs(config, None)
+    inputs = find_inputs(cfg)
+    log.info("Found %d input files in _inbox", len(inputs))
+
     if not inputs:
-        print(f"No input files found. Drop .txt/.md/.html files into {config['input_dir']}")
-        write_index(run_dir, [], config)
+        log.info("Nothing to process. Exiting.")
         return 0
 
-    results = [analyze_file(path, config, run_dir) for path in inputs]
-    write_index(run_dir, results, config)
-    maybe_archive_inputs(inputs, config, run_id)
+    success_count = 0
+    fail_count = 0
 
-    review_count = sum(1 for result in results if result["status"] == "REVIEW")
-    print(f"Processed {len(results)} file(s). Reports: {run_dir}")
-    print(f"Target grade: {config.get('target_grade', 8.0):g}; review files: {review_count}")
+    for path in inputs:
+        try:
+            # 05: Validate
+            if not validate_input(path, cfg, log):
+                log.warning("SKIP (invalid): %s", path.name)
+                fail_count += 1
+                continue
+
+            # 06: Route to NLP
+            nlp_info = choose_nlp(path, cfg)
+            log.info("Processing: %s -> NLP: %s", path.name, nlp_info["nlp_id"])
+
+            # 07: Process
+            result = process_one(path, nlp_info, cfg, log)
+
+            # 08: Write artifact
+            artifact_path = write_artifact(result, path)
+            log.info("Artifact -> %s", artifact_path.name)
+
+            # 09: Update job card
+            update_job_card(result, artifact_path, cfg, log)
+
+            # 10: Handoff
+            handoff(result, artifact_path, cfg, log)
+
+            # 11: Archive input
+            archive_input(path, log)
+
+            if result.get("success"):
+                success_count += 1
+            else:
+                fail_count += 1
+
+        except Exception as exc:
+            log.exception("FAILED processing %s: %s", path.name, exc)
+            fail_count += 1
+
+    log.info("=" * 60)
+    log.info("COMPLETE: %d success, %d failed, %d total",
+             success_count, fail_count, success_count + fail_count)
+    log.info("=" * 60)
     return 0
 
 
