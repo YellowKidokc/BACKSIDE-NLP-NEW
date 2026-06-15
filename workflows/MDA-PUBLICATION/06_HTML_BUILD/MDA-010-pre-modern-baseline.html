@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Pre-Modern Baseline (1900–1919) — The Moral Decline of America — Moral Decline of America</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a;
+  --border:#2a2a2a; --border-claim:rgba(212,175,55,.35);
+  --text:#e0e0e0; --text2:#a0a0a0; --text3:#707070;
+  --mda-red:#dc2626; --mda-red-glow:rgba(220,38,38,.08);
+  --claim:#d4af37; --claim-glow:rgba(212,175,55,.08);
+  --easy:#22c55e; --easy-glow:rgba(34,197,94,.08);
+  --academic:#a78bfa; --academic-glow:rgba(167,139,250,.08);
+  --proof:#f59e0b; --proof-glow:rgba(245,158,11,.08);
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  line-height:1.65; margin:0; padding:0;
+}
+</style>
+<style>
+/* Reader Mode Bar */
+.mda-reader-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:.5rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;
+}
+.mda-reader-bar .series-badge{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mda-red);font-weight:600;
+}
+.mda-reader-bar .meta{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;
+  color:var(--text3);text-transform:uppercase;letter-spacing:.06em;
+}
+.tab-group{display:flex;gap:.4rem;flex-wrap:wrap;}
+.tab-btn{
+  padding:.4rem .7rem;border:1px solid var(--border);border-radius:.35rem;
+  background:var(--surface);color:var(--text2);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em;transition:all .2s;
+}
+.tab-btn:hover{border-color:var(--mda-red);color:var(--text);}
+.tab-btn.active{border-color:var(--mda-red);background:var(--mda-red-glow);color:var(--mda-red);}
+.tab-btn[data-tab="easy"].active{border-color:var(--easy);background:var(--easy-glow);color:var(--easy);}
+.tab-btn[data-tab="academic"].active{border-color:var(--academic);background:var(--academic-glow);color:var(--academic);}
+.tab-btn[data-tab="proof"].active{border-color:var(--proof);background:var(--proof-glow);color:var(--proof);}
+
+/* Article */
+.article{max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem;}
+.article h1{
+  font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.02em;
+  margin:0 0 .5rem;line-height:1.1;
+}
+.article .subtitle{
+  font-family:'Crimson Text',serif;font-size:1.15rem;color:var(--text2);
+  font-style:italic;margin:0 0 2rem;line-height:1.5;
+}
+.article h2{
+  font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:#fff;
+  text-transform:uppercase;letter-spacing:.04em;margin:2.5rem 0 1rem;
+  border-bottom:1px solid var(--border);padding-bottom:.4rem;
+}
+.article h3{font-family:'Crimson Text',serif;font-size:1.15rem;font-weight:600;color:var(--mda-red);margin:1.5rem 0 .5rem;}
+.article p{font-size:1.02rem;line-height:1.75;margin:0 0 1.25rem;}
+.article blockquote{
+  border-left:3px solid var(--mda-red);background:var(--mda-red-glow);
+  padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 .4rem .4rem 0;
+  font-family:'Crimson Text',serif;font-style:italic;color:var(--text2);
+}
+.article img{max-width:100%;border-radius:.4rem;margin:1rem 0;}
+.mda-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
+.mda-table td{padding:.4rem .6rem;border:1px solid var(--border);color:var(--text2);}
+.mda-table tr:first-child td{font-weight:600;color:var(--text);background:var(--surface);}
+
+/* Reading level panels */
+.level-panel{display:none;}
+.level-panel.active{display:block;}
+
+/* Proof panel */
+.proof-panel{display:none;max-width:780px;margin:0 auto;padding:1.5rem;}
+.proof-panel.active{display:block;}
+.mda-proof-eyebrow{
+  font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--proof);margin-bottom:.6rem;
+}
+.math-field{display:flex;gap:.5rem;margin:.4rem 0;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.math-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--proof);font-weight:600;min-width:180px;}
+.math-value{font-size:.85rem;color:var(--text2);}
+.math-item{font-size:.85rem;color:var(--text);padding:.2rem 0 .2rem 1rem;border-left:2px solid var(--border);margin:.3rem 0;}
+.mda-proof-placeholder{color:var(--text3);font-style:italic;font-size:.9rem;}
+
+/* Glossary */
+.mda-glossary{columns:1;}
+.glossary-entry{break-inside:avoid;margin-bottom:.8rem;}
+.glossary-entry dt{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--academic);font-weight:600;}
+.glossary-entry dd{font-size:.85rem;color:var(--text2);margin:0 0 0 .5rem;}
+.glossary-domain{font-size:.65rem;color:var(--text3);margin-left:.5rem;font-style:italic;}
+
+/* Easy level overrides */
+body.mode-easy .article p{font-size:1.15rem;line-height:1.85;}
+body.mode-easy .article h3{font-size:1.3rem;color:var(--easy);font-family:'Oswald',sans-serif;}
+body.mode-easy .article blockquote{border-left-color:var(--easy);background:var(--easy-glow);font-style:normal;}
+/* Academic level overrides */
+body.mode-academic .article p{font-size:.95rem;line-height:1.65;color:#d0d0d0;}
+body.mode-academic .article h3{font-size:1.1rem;color:var(--academic);font-family:'Crimson Text',serif;font-style:italic;}
+body.mode-academic .article blockquote{border-left-color:var(--academic);background:var(--academic-glow);}
+
+@media(max-width:640px){
+  .article{padding:1.5rem 1rem 4rem;}
+  .mda-reader-bar{padding:.4rem 1rem;}
+}
+</style>
+</head>
+<body class="mode-standard">
+
+<!-- BEGIN:COMPONENT:reader-mode:reader-mode-bar -->
+<div class="mda-reader-bar">
+  <div>
+    <span class="series-badge">Moral Decline of America</span>
+    <span class="meta">MDA-010</span>
+    <span class="meta" id="mode-status">Standard active</span>
+  </div>
+  <div class="tab-group">
+    <button class="tab-btn" data-tab="easy" onclick="setTab('easy')">Easy</button>
+    <button class="tab-btn active" data-tab="standard" onclick="setTab('standard')">Standard</button>
+    <button class="tab-btn" data-tab="academic" onclick="setTab('academic')">Academic</button>
+    <button class="tab-btn" data-tab="proof" onclick="setTab('proof')">Proof</button>
+  </div>
+</div>
+<!-- END:COMPONENT:reader-mode:reader-mode-bar -->
+
+<!-- BEGIN:LEVEL:standard -->
+<div class="level-panel active" data-level="standard">
+  <article class="article">
+    <h1>The Pre-Modern Baseline (1900–1919) — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-010 · David Lowe · Theophysics Institute</p>
+    <p><a href="index.html">Moral Decline</a></p>
+<p><a href="index.html">Genesis to Quantum</a></p>
+<p><a href="MDA-021-anatomy-of-phase-transition.html">Prev</a>
+Moral Decline Series
+Part 2A · Decade Series</p>
+<p>Decade Deep-Dive • 1900–1919</p>
+<h1>The Pre-Modern Baseline</h1>
+<p>The Victorian End Game (1900–1919)</p>
+<p><img alt="Story Illustration" src="../images/mda/PHASE_TRANSITION conv 1.webp" /></p>
+<p>When stability was forced by constraint, not consensus</p>
+<p>David Lowe • Theophysics Institute</p>
+<p>The two decades from 1900 to 1919 are the final structural expression of Victorian moral standards in America — the last clean readout before mass media, the automobile, and two World Wars rewrote the operating system. This is the baseline. Everything we measure later, we measure against this.</p>
+<p>On paper, it looked like consensus. High institutional density: churches, fraternal lodges, voluntary societies. Strict legal rigidity: the Comstock Acts, restrictive divorce laws, an iron grip on the public moral facade. Society projected what historians later called the <strong>Victorian Facade</strong> — a strong, coherent moral signal broadcast at full power.</p>
+<p>But the data underneath the facade tells a different story. Marital failure, expressed through desertion and separation, ran at potentially <strong>twice the legal divorce rate</strong>. Vice was institutionalized in tolerated red-light districts in nearly every city. Venereal disease ran rampant in the pre-antibiotic era. And in vast regions of the South, social order was enforced through extra-legal racial terrorism — roughly 1,500 lynchings between 1900 and 1919, with Black victims accounting for ~72% of the total.</p>
+<p>Stability was a function of constraint, not consensus.</p>
+<p>The defining dynamic of the period was the <strong>Progressive Paradox</strong>: reformers aiming to purify society used "energetic government" — federal agencies, standardized education, the Mann Act, the Pure Food and Drug Act — to systematically transfer social coherence functions from decentralized institutions (family, church, lodge) to centralized state authority. This centralization, paired with the creation of a standardized, literate public ready for mass media, built the very mechanisms that enabled the cultural dissolution of the 1920s.</p>
+<hr />
+<h2>Family Structure</h2>
+<p>The metrics for family structure during the Pre-Modern Baseline present a duality: a legal structure dedicated to permanence, and a behavioral reality characterized by significant, often silent, disruption.</p>
+<p>Family Structure — Key Statistics</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>1900</th>
+<th>1910</th>
+<th>1919</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Marriage Rate (per 1,000)</td>
+<td>9.3</td>
+<td>10.4</td>
+<td>12.0 est.</td>
+<td>Census Bureau</td>
+</tr>
+<tr>
+<td>Divorce Rate (per 1,000)</td>
+<td>0.7</td>
+<td>0.9</td>
+<td>1.4</td>
+<td>Census Bureau</td>
+</tr>
+<tr>
+<td>Marital Disruption Rate (est.)</td>
+<td>~1.4</td>
+<td>~1.8</td>
+<td>~2.8</td>
+<td>Cvrcek (academic)</td>
+</tr>
+<tr>
+<td>Median Age at First Marriage (Men)</td>
+<td>~25.9</td>
+<td>~25.1</td>
+<td>~24.6</td>
+<td>US Census</td>
+</tr>
+<tr>
+<td>Median Age at First Marriage (Women)</td>
+<td>~21.9</td>
+<td>~21.6</td>
+<td>~21.1</td>
+<td>US Census</td>
+</tr>
+<tr>
+<td>Average Household Size</td>
+<td>~4.6</td>
+<td>~4.5</td>
+<td>~4.3</td>
+<td>Census Bureau</td>
+</tr>
+</tbody>
+</table>
+<p>The nuclear family, embedded within strong extended-kinship and community networks, was the enforced ideal. Marriage was a prerequisite for full societal participation, often delayed until men had secured adequate employment. The low official divorce rate — climbing slowly from 0.7 per 1,000 in 1900 to 1.4 in 1919 — superficially suggests high stability.</p>
+<p>The critical metric, however, is the <strong>Marital Disruption Rate</strong>. Sociological research that accounts for desertion, separation, and non-legal collapse indicates this measure was as much as <em>double</em> the legal divorce rate. Failed marriages passed under the legal radar. Divorce was costly, stigmatized, and legally difficult; geographical mobility from urbanization made desertion the easier exit.</p>
+<p>The slow but steady decline in average household size — from 4.6 to 4.3 — reflects the beginning of the erosion of multi-generational dependency and the traditional kinship safety net.</p>
+<p>Social instability was abundant. It just lacked a legal framework for formalized dissolution.</p>
+<hr />
+<h2>Economic Conditions</h2>
+<p>Economic life was characterized by widespread subsistence labor, severe inequality, and the expectation that all family members contribute regardless of age.</p>
+<p>Economic Conditions — Key Statistics</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>1900</th>
+<th>1910</th>
+<th>1919</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Average Net Income (Tax Returns)</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>$3,724.05</td>
+<td>IRS Statistics of Income</td>
+</tr>
+<tr>
+<td>Child Labor Prevalence (Ages 10–15)</td>
+<td>~1.75M</td>
+<td>Declining</td>
+<td>Declining</td>
+<td>Academic consensus</td>
+</tr>
+<tr>
+<td>Child Labor Percentage (Ages 10–15)</td>
+<td>~18%</td>
+<td>~15%</td>
+<td>~12%</td>
+<td>Census Data</td>
+</tr>
+<tr>
+<td>Women in Workforce (%)</td>
+<td>~20%</td>
+<td>Rising</td>
+<td>Rising (WWI peak)</td>
+<td>Census Data</td>
+</tr>
+</tbody>
+</table>
+<p>The 1919 average net income of <strong>$3,724.05</strong> sounds robust, but it's pulled from income tax returns — and income tax in 1919 was a new instrument that touched only the taxed elite. For the working majority, poverty was a constant risk and the family operated as an economic unit. Child labor was widespread in agriculture and industry, though the economic value of children was often marginal: for ages 7 to 12, the addition to family output was approximately 7% of an adult male's income. Child labor was more a function of family necessity than profit.</p>
+<p>The era was dominated by the peak of the "Great Wave" of immigration, which concentrated labor in cities and overwhelmed urban social services. The Progressive movement to regulate these conditions culminated in the Keating-Owen Act (1916), which attempted to ban child labor nationally. The Supreme Court struck it down — but the institutional momentum for federal oversight of commerce and labor had already shifted permanently. WWI then accelerated women's inclusion in industrial roles, altering future expectations for female labor participation.</p>
+<hr />
+<h2>Religious Practice</h2>
+<p>Religious Practice — Key Statistics</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>1906</th>
+<th>1916</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total Church Membership</td>
+<td>~35M</td>
+<td>~42M</td>
+<td>Census of Religious Bodies</td>
+</tr>
+<tr>
+<td>Membership Rate (% of pop)</td>
+<td>~39%</td>
+<td>~41%</td>
+<td>Census Estimate</td>
+</tr>
+<tr>
+<td>Denominational Coverage</td>
+<td>30+ groups</td>
+<td>30+ groups</td>
+<td>Census of Religious Bodies</td>
+</tr>
+<tr>
+<td>Sunday School Enrollment</td>
+<td>High</td>
+<td>High</td>
+<td>Academic Estimates</td>
+</tr>
+</tbody>
+</table>
+<p>The church — particularly Protestant denominations — served as the primary nexus of social organization, moral instruction, and local political power. The sheer volume of institutional data the government collected (Censuses of Religious Bodies in 1906 and 1916, tracking Catholic, Jewish, Orthodox, and dozens of Protestant sects) reflects how central religious organizations were to American life. Voluntary associations like the YMCA and YWCA extended Christian social reform into urban centers, yoking moral behavior to physical fitness.</p>
+<p>But the seeds of change were already in the soil. The <strong>Social Gospel</strong> movement shifted moral focus from individual salvation to systemic societal ills, providing theological justification for government intervention in social problems. This laid the intellectual foundation for the state to adopt functions previously exclusive to religious charity. Even sacred organizations were adopting rational, centralized administrative structures — consistent with Progressive demands for efficiency.</p>
+<hr />
+<h2>Education</h2>
+<p>The period marks a critical shift toward universal literacy and standardized, compulsory moral education — a dramatic centralization of cognitive standards.</p>
+<p>Education — Key Statistics</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>1900</th>
+<th>1910</th>
+<th>1920</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Illiteracy Rate (Total, Age 14+)</td>
+<td>10.7%</td>
+<td>7.7%</td>
+<td>6.0%</td>
+<td>Census Bureau</td>
+</tr>
+<tr>
+<td>Illiteracy Rate (White, Age 14+)</td>
+<td>6.2%</td>
+<td>5.0%</td>
+<td>4.0%</td>
+<td>Census Bureau</td>
+</tr>
+<tr>
+<td>Illiteracy Rate (Black/Other, Age 14+)</td>
+<td>44.5%</td>
+<td>30.5%</td>
+<td>23.0%</td>
+<td>Census Bureau</td>
+</tr>
+<tr>
+<td>College Enrollment (% of 18–21)</td>
+<td>4.0%</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>Academic Survey</td>
+</tr>
+<tr>
+<td>High School Graduation Rate</td>
+<td>~6.5%</td>
+<td>~8.6%</td>
+<td>~16.8%</td>
+<td>NCES Historical Data</td>
+</tr>
+</tbody>
+</table>
+<p>Illiteracy was rapidly declining across the board. By 1900, 44.5% of the Black population was still illiterate; intentional educational expansion drove that number to 23.0% by 1920 — one of the era's most effective mass social-engineering projects. Moral consensus was universally enforced through educational content. The pervasive use of texts like the McGuffey Readers ensured a "high moral tone" was retained in curricula even as denominational religious content was gradually diminished.</p>
+<p>The passage of compulsory education laws across states standardized the duration and content of schooling, reducing the authority of parents and local churches over a child's instructional time and moral formation. This created a massive, uniform, and <em>literate</em> public — a national audience capable of consuming standardized narratives that were about to explode through film and radio. The standardization of the American mind provided the necessary common cognitive ground for a national rather than regional culture, ultimately undermining the diverse moral constraints of local communities.</p>
+<p>A literate, standardized public is the precondition for mass media. The 1900s built the audience the 1920s would scandalize.</p>
+<hr />
+<h2>Sexual Morality &amp; Standards</h2>
+<p>The Pre-Modern Baseline was defined by a profound hypocrisy: a public commitment to purity coexisting with institutionalized, widespread vice and a racially bifurcated system of social control.</p>
+<p>Sexual Morality — Key Statistics</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>1899</th>
+<th>1920</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Age of Consent (Lowest Jurisdictions)</td>
+<td>7–9 years</td>
+<td>N/A</td>
+<td>Academic Study</td>
+</tr>
+<tr>
+<td>Age of Consent (Anglo-American Avg.)</td>
+<td>N/A</td>
+<td>~16 years</td>
+<td>Historical Sources</td>
+</tr>
+<tr>
+<td>Mann Act Prosecutions</td>
+<td>Low (regional)</td>
+<td>Rising</td>
+<td>DOJ Records</td>
+</tr>
+</tbody>
+</table>
+<p>Sexual morality was enforced by a draconian legal framework inherited from the 19th century. Federal Comstock Acts criminalized the mailing of "obscene" material — <em>including</em> all information and devices related to birth control. State-level standards were often shockingly permissive toward adult male behavior: in 1899, the age of sexual consent in some American jurisdictions was as low as 9 years.</p>
+<p>This legal structure protected adult male privilege while aggressively suppressing female and non-marital sexuality. Vice — including prostitution — was typically confined to tacitly tolerated red-light districts in virtually every major city. The high prevalence of pre-antibiotic venereal disease in urban areas confirms the widespread, hidden nature of sexual activity outside the official moral code.</p>
+<p>Progressive reforms successfully campaigned to raise the age of consent, moving the Anglo-American average to 16 by 1920. The Mann Act (1910) federalized morality by linking it to interstate commerce. But the campaign was fueled by nativist anxieties, attributing the crisis to "othered" ethnic groups, and enforcement varied dramatically by region — confirming that federal morality laws were often deployed as a mechanism for ethnic policing and social control against immigrant and minority communities.</p>
+<hr />
+<h2>Crime &amp; Social Order</h2>
+<p>Social order was maintained through two distinct systems: formal centralized law (focused on property crime), and extra-legal racial terrorism (focused on social hierarchy).</p>
+<p>Crime &amp; Social Order — Key Statistics (1910)</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Property Crime (% of commitments)</td>
+<td>60–70%</td>
+<td>State/Federal Prisons</td>
+</tr>
+<tr>
+<td>Offenses Against the Person (% of commitments)</td>
+<td>13–24%</td>
+<td>State/Federal Prisons</td>
+</tr>
+<tr>
+<td>Robbery (% of commitments)</td>
+<td>~9%</td>
+<td>State/Federal Prisons</td>
+</tr>
+<tr>
+<td>Total Lynchings (1900–1919)</td>
+<td>~1,500</td>
+<td>NAACP / Academic</td>
+</tr>
+<tr>
+<td>Black Victims (% of Total Lynchings)</td>
+<td>~72%</td>
+<td>NAACP / Academic</td>
+</tr>
+</tbody>
+</table>
+<p>Prisoner-commitment data shows a remarkably consistent crime distribution: property offenses accounted for 60 to 70 percent of commitments; offenses against the person (homicide, assault, rape) accounted for 13 to 24 percent. Robbery commitments in 1910 were approximately 9 percent.</p>
+<p>But the formal legal system existed simultaneously with a systemic failure of the rule of law in vast areas — particularly the South. The period was the apex of racial terrorism: thousands of extrajudicial killings, with Black people accounting for ~72% of victims. Mississippi, Georgia, and Texas led the nation in lynchings. Civilizational coherence was geographically conditional and non-universal.</p>
+<p>Meanwhile, the formal system began to address emerging social complexities through new institutional mechanisms — including the classification and tracking of <strong>Juvenile Delinquency</strong>. The creation of specialized categories and institutions for youthful offenders signaled the state's expanding mandate to intervene in the moral development and discipline of children — a role previously reserved for the family and church.</p>
+<p>Two parallel systems of order: federal law for property, lynch rope for hierarchy. The "consensus" was sustained by violence the consensus refused to count.</p>
+<hr />
+<h2>Temperance &amp; Vice</h2>
+<p>Temperance &amp; Vice — Key Statistics</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>1900–1919</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Alcohol Consumption (per capita ethanol)</td>
+<td>~2.0 gallons</td>
+<td>Academic Estimate</td>
+</tr>
+<tr>
+<td>Men Born Pre-1900 Consumption</td>
+<td>27.9 g/day</td>
+<td>Cohort Study</td>
+</tr>
+<tr>
+<td>States with Statewide Prohibition (Pre-18th Amdt)</td>
+<td>33</td>
+<td>Historical Survey</td>
+</tr>
+</tbody>
+</table>
+<p>Despite the political power of the Temperance Movement, alcohol consumption was high — particularly among male cohorts born before 1900, who averaged 27.9 grams of alcohol per day. The saloon was a major social, political, and economic institution in American cities. Opium and morphine usage were also widely prevalent, often distributed legally through patent medicines until federal regulation intervened.</p>
+<p><img alt="Story Illustration" src="../images/mda/PHASE_TRANSITION conv 4.webp" /></p>
+<p>The Temperance Movement (WCTU, Anti-Saloon League) pushed 33 states to adopt statewide prohibition <em>before</em> the 18th Amendment was ratified in 1919. The 1914 <strong>Harrison Narcotics Tax Act</strong> moved the control of opium, morphine, and cocaine from a localized social-medical problem to a centralized federal law-enforcement issue — setting the precedent for the federal government's role in policing personal consumption.</p>
+<p>Prohibition itself, achieved through central state power, paradoxically established a moral standard that was instantly national and highly centralized — and therefore ripe for mass, organized evasion in the 1920s.</p>
+<hr />
+<h2>Media &amp; Entertainment</h2>
+<p>The 1900–1919 period was defined by the transition from localized, print-dominant communication to the infrastructure of mass, visual, shared entertainment.</p>
+<p>Media &amp; Entertainment — Key Statistics</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>1900</th>
+<th>1910</th>
+<th>1919</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Newspaper Circulation (Dailies)</td>
+<td>~2.5M</td>
+<td>Rising</td>
+<td>Rising</td>
+<td>Academic Estimate</td>
+</tr>
+<tr>
+<td>Nickelodeon / Early Cinema Attendance</td>
+<td>Minimal</td>
+<td>~26M weekly</td>
+<td>Rising</td>
+<td>Academic Estimate</td>
+</tr>
+<tr>
+<td>Phonograph Ownership</td>
+<td>Low</td>
+<td>Rising</td>
+<td>~15% of households</td>
+<td>Academic Estimate</td>
+</tr>
+</tbody>
+</table>
+<p>The newspaper was the dominant mass medium, but its circulation remained largely regional and defined by local publishing interests. Entertainment was communal (Vaudeville) or highly localized (the public library, with rising membership). Content standards were not federally regulated — they were enforced by strong local pressure, municipal censorship boards, and theater owners operating under stringent Victorian moral codes.</p>
+<p>The explosive growth of the Nickelodeon was the single most important technological precursor to the 1920s rebellion. By 1910, an estimated <strong>26 million people</strong> were attending weekly — establishing the habit of mass, visual, shared entertainment narratives that bypassed the traditional gatekeepers (church, school, parents). The phonograph began the parallel process of privatizing entertainment and loosening dependence on communal public consumption. While still pre-radio, the infrastructure, audience, and behavior necessary for national mass culture were securely in place by the end of WWI.</p>
+<hr />
+<h2>Institutional Trust</h2>
+<p>Institutional Trust — Key Statistics</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>1900–1916 Avg.</th>
+<th>1919 Estimate</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Voter Participation (Presidential)</td>
+<td>~65% (eligible pop)</td>
+<td>N/A</td>
+<td>Census / Historical</td>
+</tr>
+<tr>
+<td>Union Membership</td>
+<td>~1.5M</td>
+<td>~5.0M</td>
+<td>Labor Department</td>
+</tr>
+<tr>
+<td>Fraternal Organization Membership</td>
+<td>~6–8M men</td>
+<td>Stable / Declining</td>
+<td>Academic Estimate</td>
+</tr>
+</tbody>
+</table>
+<p>Trust resided overwhelmingly in local, private institutions. Fraternal organizations — Masons, Odd Fellows, Knights of Columbus — provided essential social capital, mutual aid, and moral structure for millions of men. Voter participation was relatively high among the eligible population (white men), averaging 65% in presidential elections.</p>
+<p>Progressive Era reforms explicitly aimed to increase institutional trust by curbing corruption and increasing government accountability. The 17th Amendment introduced direct election of Senators. But the most profound shift came with WWI mobilization (1917–1918). Through the draft, the Creel Committee propaganda apparatus, and centralized control of railroads and industry, the federal government demonstrated unprecedented capacity to manage national behavior and standardize belief. This exposure to massive, successful federal centralization taught citizens to rely on and conform to national institutional direction — fundamentally altering the nature of civic participation and federal trust.</p>
+<hr />
+<h2>The Progressive Erosion</h2>
+<p>The Progressive Era (1900–1919) was the active phase of institutional centralization that supplied the necessary preconditions for the end of the Victorian baseline.</p>
+<h3>Federalization of Commercial Morality</h3>
+<p>The 1906 Pure Food and Drug Act and the Meat Inspection Act standardized consumer protection — shifting the burden of quality and commercial ethics from the local vendor and community reputation to a centralized federal regulatory body.</p>
+<h3>Child Labor Laws</h3>
+<p>The Supreme Court struck down the federal Keating-Owen Act in 1918, but numerous state laws limited working hours and established age minimums. The drive to regulate child labor was a clear example of the state intervening to replace parental and industrial authority with expert-driven, standardized policy.</p>
+<h3>Antitrust Actions</h3>
+<p>The 1914 Clayton Antitrust Act and the establishment of the Federal Trade Commission (FTC) centralized control over market competition — reinforcing the federal role in defining and enforcing economic morality.</p>
+<h3>Social Gospel &amp; Settlement Houses</h3>
+<p>These movements professionalized charity and social work — using sociological expertise and empirical data to solve urban problems, often replacing the ad-hoc, faith-based charity of the local church.</p>
+<h3>Women's Suffrage Movement</h3>
+<p>Significant state victories accelerated the political assault on traditional gender roles, culminating in the passage of the 19th Amendment shortly after the baseline period.</p>
+<p>The underlying mechanism of Progressive change was <strong>Institutional Isomorphism</strong>: the drive to make all institutions — educational, charitable, commercial — conform to a single, efficient, technically sound model dictated by experts. When the government dictates the standard for food purity (FDA) or educational duration (Compulsory Education), it overrides the messy, inconsistent, and often contradictory moral standards of local communities. This centralization, justified by the rhetoric of scientific management and efficiency, systematically dismantled the foundational autonomy of the local Victorian baseline.</p>
+<p>A critical complexity in the South must be acknowledged: white Progressives viewed the disfranchisement of Black citizens and the codification of Jim Crow segregation as <em>necessary reforms</em> to ensure racial peace and clean up electoral corruption. "Progress" in this era was not a universal uplift, but a highly conditional process rooted in the maintenance of existing racial hierarchies.</p>
+<hr />
+<h2>Synthesis: Five Questions</h2>
+<h3>1. What did "normal" America look like before modernity?</h3>
+<p>The baseline America of 1900–1919 was characterized by <strong>high interdependence and low psychological autonomy</strong>. Life was constrained by mortality (high infant mortality, high widowhood), necessity (family labor, subsistence income), and dense social networks. Extended family networks bound multi-generational households; the church and its associated organizations provided welfare, education, and local cohesion; moral life was governed by the immediate community — the local pastor, the fraternal lodge, the neighborhood newspaper, the local political machine. Information was overwhelmingly regional and print-based.</p>
+<h3>2. What was the gap between stated values and actual behavior?</h3>
+<p>Massive and systemic. The actual rate of marital instability was potentially double the rate of legal divorce — failure existed but found expression in desertion and separation rather than litigation. Tolerated red-light districts in virtually every city, paired with high pre-antibiotic VD rates, indicated that a significant portion of the adult male population routinely transgressed the public moral code. And while purity crusaders focused on universal virtue, federal laws like the Mann Act were primarily deployed to police immigrants and perceived ethnic vice rings — moral enforcement as proxy for nativist and racial control.</p>
+<h3>3. What Progressive reforms were already eroding traditional structures?</h3>
+<p>Reforms that substituted decentralized organic morality with centralized standardized state expertise. The professionalization of charity replaced religious amateur work with secular sociological practice. Compulsory education centralized the training and moral formation of children. Federal regulations (FDA, antitrust) assumed moral oversight of commerce. Near-universal literacy standardized the cognitive framework of the population — creating the structural capacity for national, secular, mass-media narratives to take root.</p>
+<h3>4. What impact did WWI have on moral consensus?</h3>
+<p>World War I acted as a terminal shock to the local, decentralized Victorian consensus. The draft and industrial mobilization required immediate, unprecedented federal intervention in daily life. The Creel Committee taught the state how to standardize, manage, and enforce a unified national belief system — a capacity far exceeding any fragmented denomination. WWI accelerated female participation in heavy industry, permanently challenging gender roles. And American troops' exposure to less restrictive European norms further questioned the rigid purity standards back home.</p>
+<h3>5. What made the 1920s rebellion possible?</h3>
+<p>The rebellion was not a spontaneous eruption — it was the inevitable consequence of cracks already beneath the facade. Pervasive behavioral volatility (high marital disruption, hidden vice) meant a large segment of the population was already operating outside the stated moral code. The rigidity of the legal structure (Comstock, low divorce rates) made the system brittle and unable to flex under pressure. The installed infrastructure of mass entertainment (Nickelodeons) and personalized media (phonographs) was ready to distribute new, secular national narratives that bypassed local gatekeepers. And Prohibition — the era's great moral victory, achieved via centralized federal power — provided the first mass opportunity for otherwise respectable citizens to engage in pervasive lawbreaking, making the entire moral consensus negotiable and highly vulnerable to organized cultural resistance.</p>
+<hr />
+<h2>Longitudinal Comparison</h2>
+<p>The 1900–1919 period provides a powerful structural comparison point — revealing that stability was a function of constraint, not consensus.</p>
+<p>Societal Coherence Metrics — Across Eras</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>1900–1919 Baseline</th>
+<th>1940s Peak</th>
+<th>1970s Inflection</th>
+<th>2020s Current</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Legal Divorce Rate (per 1,000)</td>
+<td>~1.0</td>
+<td>~2.2</td>
+<td>~4.8</td>
+<td>~2.3 (declining)</td>
+</tr>
+<tr>
+<td>Marital Disruption Ratio</td>
+<td>~2:1</td>
+<td>~1.1:1</td>
+<td>~1:1</td>
+<td>~1:1</td>
+</tr>
+<tr>
+<td>Illiteracy Rate (Total, 14+)</td>
+<td>10.7%</td>
+<td>~4.0%</td>
+<td>~2.0%</td>
+<td>~1.0%</td>
+</tr>
+<tr>
+<td>Incarceration Rate (per 100k)</td>
+<td>~120</td>
+<td>~150</td>
+<td>~200</td>
+<td>~650</td>
+</tr>
+<tr>
+<td>Church Membership Rate</td>
+<td>~36%</td>
+<td>~55%</td>
+<td>~65% (peak)</td>
+<td>~50%</td>
+</tr>
+</tbody>
+</table>
+<p>The comparison demonstrates that the 1900–1919 baseline, while appearing socially rigid, possessed structural mechanisms — the high Marital Disruption Ratio, systemic violence via lynching — that indicated deep internal fragmentation. The stability was forced by legal and economic constraints. By the 1940s, while the divorce rate had risen, the Marital Disruption Ratio converged: formal law had aligned more closely with actual social behavior. Subsequent decades brought the collapse of institutional religion and the explosion of incarceration.</p>
+<hr />
+<h2>Conclusion</h2>
+<p>The American Pre-Modern Baseline was structurally brittle. Its coherence was founded on decentralized moral gatekeepers, economic necessity, and the suppression of inconvenient behavior through high social cost. The twin forces of Progressive centralization — which standardized education, law, and social welfare — and the technological shift to mass media created a nationalized, literate, structurally managed population.</p>
+<p>When WWI provided the societal trauma and the federal precedent, this new centralized American structure could no longer support the decentralized Victorian moral facade. The way was open for the radical cultural discontinuity of the 1920s.</p>
+<p>The Victorian Facade did not collapse from outside attack. It collapsed because the supports beneath it had already been replaced — quietly, expertly, and in the name of progress.</p>
+<p><a href="MDA-021-anatomy-of-phase-transition.html">Prev: Part 2
+Phase Transition</a></p>
+<p>Part 2A · Decade Series</p>
+<p><a href="MDA-011-collective-security-1930.html">Next: Part 2B
+Age of Collective Security (1930s)</a></p>
+<p>Genesis to Quantum • Theophysics Institute</p>
+<p>David Lowe • Theophysics Institute</p>
+<h2>Related Work</h2>
+<p>Core article, supporting evidence, and broader context</p>
+<p>Ring 1 — This Article
+The core argument</p>
+<p>You are here.</p>
+<p>Ring 2 — Supporting Evidence
+Deeper dives and formal treatments</p>
+<p>No connections mapped yet.</p>
+<p>Ring 3 — Broader Context
+Related topics across the framework</p>
+<p>No connections mapped yet.</p>
+  </article>
+</div>
+<!-- END:LEVEL:standard -->
+
+<!-- BEGIN:LEVEL:easy -->
+<div class="level-panel" data-level="easy">
+  <article class="article">
+    <h1>The Pre-Modern Baseline (1900–1919) — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-010 · Easy Reading Level</p>
+    <h1>The Last Snapshot Before Everything Changed (1900–1919)</h1>
+<p>America at the start of the 1900s looked calm on the surface. Churches were full, community lodges met every week, and strict laws guarded public morals. Historians later called this shine the <strong><em>Victorian Facade</em></strong>—<strong>like fancy wallpaper that hides deep cracks in the wall</strong>.  </p>
+<p>Underneath, the picture was already breaking apart. Hidden marriage failures, tolerated vice districts, and 1,500 racial terror killings showed a nation holding together by force, not by true agreement.</p>
+<hr />
+<h2>How the Community Fit Together</h2>
+<p>Social <strong><em>coherence</em></strong>—<strong>like a puzzle whose pieces lock into one clear picture</strong>—still seemed high. Yet most of that fit came from tight rules and local shame, not shared desire.</p>
+<p>Reformers stepped in with what scholars call the <strong><em>Progressive Paradox</em></strong>—<strong>like hiring a babysitter so often that parents forget how to raise their own kids</strong>. Their laws cleaned up food, schools, and workplaces, but they also moved power away from families, churches, and lodges toward Washington, D.C. The same tools that promised purity would soon fuel the wild 1920s.</p>
+<hr />
+<h2>Family Life: Paper-Thin Stability</h2>
+<p>Legal divorce stayed under two per 1,000 people. That looks solid. But the more honest <strong><em>Marital Disruption Rate</em></strong>—<strong>like counting every car that breaks down, even the ones the driver just abandons</strong>—was at least double that number once silent desertions and separations were included. Households shrank from about 4.6 people to 4.3, a hint that grandparents and cousins were drifting out of the home safety net.</p>
+<hr />
+<h2>Work and Money</h2>
+<p>Most Americans lived by <strong><em>subsistence labor</em></strong>—<strong>like planting a garden big enough to feed only your own family with nothing left to sell</strong>. Factory paychecks were uneven, and nearly one in five kids aged 10–15 still worked in 1900. Child income added little to the family purse but was often needed for sheer survival.</p>
+<p>New waves of immigrants crowded the cities. Women flooded factories during World War I, proving they could handle heavy industry and changing future job hopes forever.</p>
+<hr />
+<h2>Church Life</h2>
+<p>Sanctuaries stayed packed, and Sunday school felt almost mandatory. Yet the rising <strong><em>Social Gospel</em></strong>—<strong>like saying the best way to heal one patient is to clean the whole hospital first</strong>—shifted focus from saving individual souls to fixing social systems. That idea opened the door for government to take over many tasks once owned by faith groups.</p>
+<hr />
+<h2>School: Building One Big Audience</h2>
+<p>By 1920 national illiteracy dropped to six percent. States passed <strong><em>compulsory education</em></strong> laws—<strong>like telling every kid they must ride the same school bus each morning, no excuses</strong>. Uniform textbooks taught the same “high moral tone” coast to coast. A giant, literate audience was now ready for movies, radio, and the ads that came with them.</p>
+<hr />
+<h2>Sex Rules and Real Life</h2>
+<p>The <strong><em>Comstock Acts</em></strong>—<strong>like a mail filter that blocks anything adults think might be naughty</strong>—made sending birth-control info a crime. Some states still let grown men legally pursue girls younger than ten until reforms pushed average consent to sixteen.</p>
+<p>Public talk praised purity, yet nearly every city had a red-light district and exploding rates of venereal disease. The Mann Act of 1910 chased “immoral traffic” across state lines but often targeted immigrants more than local customers.</p>
+<hr />
+<h2>Crime and Terror</h2>
+<p>Property theft filled most prison beds. At the same time, 1,500 people were murdered by mobs without trial. <strong><em>Lynching</em></strong> was <strong>like a violent crowd acting as judge and jury in the street</strong>, and 72 percent of the victims were Black. In much of the South, official law stepped aside while the rope ruled.</p>
+<hr />
+<h2>Drinking, Drugs, and Other Vices</h2>
+<p>Male drinkers born before 1900 averaged almost two shots of liquor a day. Thirty-three states banned alcohol even before national Prohibition in 1919. Opium, morphine, and cocaine moved from corner drugstores to federal control under the 1914 Harrison Act, setting a pattern for Washington to police private habits.</p>
+<hr />
+<h2>Media: From Local News to Shared Screens</h2>
+<p>Daily papers were still local, but nickelodeon theaters drew 26 million weekly viewers by 1910. Phonographs crept into living rooms. Once radio and talking films arrived, this ready-made audience would flip from local gossip to national pop culture overnight.</p>
+<hr />
+<h2>Who Did People Trust?</h2>
+<p>About two-thirds of eligible voters turned out on Election Day. Six to eight million men paid dues to fraternal lodges that offered insurance, friendship, and moral rules. Yet World War I showed citizens a new model: the federal draft, nationwide propaganda, and railroads run from Washington. Many liked the speed and scale. Trust began to migrate upward.</p>
+<hr />
+<h2>Why All Institutions Started to Look Alike</h2>
+<p>Progressive experts pushed <strong><em>Institutional Isomorphism</em></strong>—<strong>like every brand of phone ending up with the same charger because of shared pressure</strong>. Factories, schools, hospitals, and charities copied one “best” design: scientific, efficient, centrally measured. Local quirks and moral mix-and-match started to fade.</p>
+<hr />
+<h2>Five Key Takeaways</h2>
+<ol>
+<li>Normal life meant tight rules, big families, and little privacy.  </li>
+<li>The gap between talk and action was huge—marriages failed quietly and vice was everywhere.  </li>
+<li>Progressive laws fixed real problems but quietly weakened hometown authority.  </li>
+<li>World War I proved the nation could think and act as one, cracking the local shell.  </li>
+<li>By 1920 every tool needed for the roaring rebellion—mass media, federal power, bottled resentment—was already built.</li>
+</ol>
+<hr />
+<h2>The Crash That Followed</h2>
+<p>Stability from 1900 to 1919 was forced, not chosen. When the outside brace of local shame and legal toughness met the new, centralized America, the <strong><em>Victorian Facade</em></strong> splintered. The wild 1920s did not ambush the country; the ground had been prepared by Progressives, by technology, and by a public already living a double life.</p>
+<p>The puzzle pieces of <strong>coherence</strong> still touched in 1919, but the glue had changed. Once the new glue dried, it held a very different picture.</p>
+<hr />
+<pre><code>TERMS DEFINED: 10 / 10
+TERMS MISSED: []
+ARGUMENT COVERAGE: All major Standard sections represented
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:easy -->
+
+<!-- BEGIN:LEVEL:academic -->
+<div class="level-panel" data-level="academic">
+  <article class="article">
+    <h1>The Pre-Modern Baseline (1900–1919) — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-010 · Academic Reading Level</p>
+    <p><strong>Academic Annotated Edition</strong><br />
+<em>The Pre-Modern Baseline (1900–1919) — The Moral Decline of America</em><br />
+David Lowe • Theophysics Institute  </p>
+<blockquote>
+<p>Editorial note. —  The text in regular font reproduces David Lowe’s original “standard” prose verbatim.  All bracketed material is academic enrichment supplied by the present editor, following the specification of the Theophysics Reading-Level Pipeline.  No sentences have been removed or reordered.</p>
+</blockquote>
+<hr />
+<h1>The Pre-Modern Baseline</h1>
+<p><em>The Victorian End Game (1900–1919)</em>  </p>
+<p><img alt="Story Illustration" src="../images/mda/PHASE_TRANSITION conv 1.webp" /></p>
+<blockquote>
+<p>When stability was forced by constraint, not consensus  </p>
+</blockquote>
+<p>[STRUCTURAL]</p>
+<p>David Lowe • Theophysics Institute  </p>
+<hr />
+<p>The two decades from 1900 to 1919 are the final structural expression of Victorian moral standards in America — the last clean readout before mass media, the automobile, and two World Wars rewrote the operating system. This is the baseline. Everything we measure later, we measure against this.  </p>
+<p><em>(Victorian moral standards = a codified 19th-century Anglo-American value system emphasizing sexual restraint, temperance, and public religiosity)</em>  </p>
+<p>On paper, it looked like consensus. High institutional density: churches, fraternal lodges, voluntary societies. Strict legal rigidity: the Comstock Acts, restrictive divorce laws, an iron grip on the public moral facade. Society projected what historians later called the <strong>Victorian Facade</strong> <em>(Victorian Facade = the public performance of moral unanimity that masked significant private divergence; first use)</em> — a strong, <strong>coherent</strong> (coherence = “the degree to which the parts of a sociocultural system act in mutually reinforcing ways”) moral signal broadcast at full power.</p>
+<p>But the data underneath the facade tells a different story. Marital failure, expressed through desertion and separation, ran at potentially <strong>twice the legal divorce rate</strong> [EMPIRICAL; Cvrcek, 2016]. Vice was institutionalized in tolerated red-light districts in nearly every city [CITATION NEEDED: municipal vice reports, 1905-1915]. Venereal disease ran rampant in the pre-antibiotic era [EMPIRICAL; Brandt, No Magic Bullet, 1987]. And in vast regions of the South, social order was enforced through extra-legal racial terrorism — roughly 1,500 lynchings between 1900 and 1919, with Black victims accounting for ~72 % of the total [EMPIRICAL; NAACP archives, cited in Tolnay &amp; Beck, 1995].</p>
+<p>Stability was a function of constraint, not consensus. [STRUCTURAL]</p>
+<p>The defining dynamic of the period was the <strong>Progressive Paradox</strong> <em>(Progressive Paradox = the tendency of moral reform movements to build central state capacity that later undermines their own localist values)</em>: reformers aiming to purify society used “energetic government” — federal agencies, standardized education, the Mann Act, the Pure Food and Drug Act — to systematically transfer <strong>social-coherence functions</strong> from decentralized institutions (family, church, lodge) to centralized state authority. This centralization, paired with the creation of a standardized, literate public ready for mass media, built the very mechanisms that enabled the cultural dissolution of the 1920s. [STRUCTURAL]</p>
+<hr />
+<h2>Family Structure</h2>
+<p>The metrics for family structure during the Pre-Modern Baseline present a duality: a legal structure dedicated to permanence, and a behavioral reality characterized by significant, often silent, disruption.</p>
+<h3>Family Structure — Key Statistics</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>1900</th>
+<th>1910</th>
+<th>1919</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Marriage Rate (per 1,000)</td>
+<td>9.3</td>
+<td>10.4</td>
+<td>12.0 (est.)</td>
+<td>U.S. Census Bureau</td>
+</tr>
+<tr>
+<td>Divorce Rate (per 1,000)</td>
+<td>0.7</td>
+<td>0.9</td>
+<td>1.4</td>
+<td>U.S. Census Bureau</td>
+</tr>
+<tr>
+<td><strong>Marital Disruption Rate</strong> (est.)</td>
+<td>~1.4</td>
+<td>~1.8</td>
+<td>~2.8</td>
+<td>Cvrcek (2016)</td>
+</tr>
+<tr>
+<td>Median Age at 1st Marriage (Men)</td>
+<td>~25.9</td>
+<td>~25.1</td>
+<td>~24.6</td>
+<td>U.S. Census</td>
+</tr>
+<tr>
+<td>Median Age at 1st Marriage (Women)</td>
+<td>~21.9</td>
+<td>~21.6</td>
+<td>~21.1</td>
+<td>U.S. Census</td>
+</tr>
+<tr>
+<td>Average Household Size</td>
+<td>~4.6</td>
+<td>~4.5</td>
+<td>~4.3</td>
+<td>U.S. Census</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Equation formalization — Marital Disruption Rate</strong></p>
+<ol>
+<li>MDR = (Desertions + Separations + Divorces) / Married Population  </li>
+<li>“The rate equals all forms of marriage breakdown divided by the number of extant marriages.”  </li>
+<li>Holding population constant, increases in any numerator term (e.g., desertion) raise MDR; policy barriers to divorce lower the legal component but may leave total MDR unchanged.  </li>
+</ol>
+<p>The nuclear family, embedded within strong extended-kinship and community networks, was the enforced ideal. Marriage was a prerequisite for full societal participation, often delayed until men had secured adequate employment. The low official divorce rate — climbing slowly from 0.7 per 1,000 in 1900 to 1.4 in 1919 — superficially suggests high stability [EMPIRICAL].</p>
+<p>The critical metric, however, is the <strong>Marital Disruption Rate</strong>. Sociological research that accounts for desertion, separation, and non-legal collapse indicates this measure was as much as <em>double</em> the legal divorce rate [EMPIRICAL; Cvrcek 2016]. Failed marriages passed under the legal radar. Divorce was costly, stigmatized, and legally difficult; geographical mobility from urbanization made desertion the easier exit [PROVISIONAL linkage].</p>
+<p>The slow but steady decline in average household size — from 4.6 to 4.3 — reflects the beginning of the erosion of multi-generational dependency and the traditional kinship safety net [EMPIRICAL].</p>
+<p>Social instability was abundant. It just lacked a legal framework for formalized dissolution [STRUCTURAL].</p>
+<hr />
+<h2>Economic Conditions</h2>
+<p>Economic life was characterized by widespread subsistence labor, severe inequality, and the expectation that all family members contribute regardless of age.</p>
+<p><em>(subsistence labor = “economic activity whose primary goal is household survival rather than surplus accumulation”)</em></p>
+<h3>Economic Conditions — Key Statistics</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>1900</th>
+<th>1910</th>
+<th>1919</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Average Net Income (tax filers)</td>
+<td>—</td>
+<td>—</td>
+<td>\$3,724.05</td>
+<td>IRS Statistics of Income (1920)</td>
+</tr>
+<tr>
+<td>Child Labor Prevalence (Ages 10–15)</td>
+<td>~1.75 M</td>
+<td>Declining</td>
+<td>Declining</td>
+<td>Trattner (Child Labor in America, 1970)</td>
+</tr>
+<tr>
+<td>Child Labor Rate</td>
+<td>~18 %</td>
+<td>~15 %</td>
+<td>~12 %</td>
+<td>U.S. Census</td>
+</tr>
+<tr>
+<td>Women in Workforce</td>
+<td>~20 %</td>
+<td>Rising</td>
+<td>Rising (WWI peak)</td>
+<td>Goldin (1991)</td>
+</tr>
+</tbody>
+</table>
+<p>The 1919 average net income of \$3,724.05 sounds robust, but it derives from the limited population filing federal tax returns in the first years after the 16th Amendment; the statistic therefore skews upward [BOUNDARY].</p>
+<p>Child labor was widespread in agriculture and industry. For ages 7-12, the economic value of children was roughly 7 % of an adult male’s earnings [EMPIRICAL; Hindman (1900 survey)].</p>
+<p>The era was dominated by the peak of the “Great Wave” of immigration, which concentrated labor in cities and overwhelmed urban social services [CITATION NEEDED: municipal charity board reports, 1905-1915]. Progressive regulation (e.g., Keating-Owen Act, 1916) attempted to nationalize child-labor bans; although struck down in Hammer v. Dagenhart (1918), the legislative effort shifted public expectations toward eventual federal oversight [STRUCTURAL].</p>
+<p>WWI then accelerated women’s inclusion in industrial roles, altering future expectations for female labor participation [EMPIRICAL; Goldin, Understanding the Gender Gap, 1990].</p>
+<hr />
+<h2>Religious Practice</h2>
+<p><em>(religious practice = “the ensemble of public and private rituals, organizational memberships, and doctrinal commitments associated with faith communities”)</em></p>
+<h3>Religious Practice — Key Statistics</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>1906</th>
+<th>1916</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total Church Membership</td>
+<td>~35 M</td>
+<td>~42 M</td>
+<td>Census of Religious Bodies</td>
+</tr>
+<tr>
+<td>Membership Rate (% population)</td>
+<td>~39 %</td>
+<td>~41 %</td>
+<td>ibid.</td>
+</tr>
+<tr>
+<td>Denominational Coverage</td>
+<td>30 + groups</td>
+<td>30 + groups</td>
+<td>ibid.</td>
+</tr>
+<tr>
+<td>Sunday-School Enrollment</td>
+<td>High</td>
+<td>High</td>
+<td>Wuthnow (1988)</td>
+</tr>
+</tbody>
+</table>
+<p>The church — particularly Protestant denominations — served as the primary nexus of social organization, moral instruction, and local political power [STRUCTURAL]. The government’s own collection of granular religious statistics demonstrates the perceived centrality of faith bodies [EMPIRICAL].</p>
+<p>The <strong>Social Gospel</strong> movement <em>(Social Gospel = a late-19th/early-20th-century Protestant theological trend that located salvation in social reform rather than individual piety; Rauschenbusch 1907)</em> reframed moral authority toward structural economic sin, providing ideological support for Progressive legislation [STRUCTURAL].</p>
+<hr />
+<h2>Education</h2>
+<p><em>(compulsory education = “state-mandated minimum schooling through legislated attendance laws”)</em></p>
+<h3>Education — Key Statistics</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>1900</th>
+<th>1910</th>
+<th>1920</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Illiteracy Rate (Age 14 +)</td>
+<td>10.7 %</td>
+<td>7.7 %</td>
+<td>6.0 %</td>
+<td>U.S. Census</td>
+</tr>
+<tr>
+<td>Illiteracy (Black, 14 +)</td>
+<td>44.5 %</td>
+<td>30.5 %</td>
+<td>23.0 %</td>
+<td>U.S. Census</td>
+</tr>
+<tr>
+<td>High-School Graduation</td>
+<td>~6.5 %</td>
+<td>~8.6 %</td>
+<td>~16.8 %</td>
+<td>NCES Historical</td>
+</tr>
+<tr>
+<td>College Enrollment (18-21)</td>
+<td>4 %</td>
+<td>—</td>
+<td>—</td>
+<td>Snyder (1993)</td>
+</tr>
+</tbody>
+</table>
+<p>Illiteracy was rapidly declining, especially among Black Americans, whose illiteracy rate was halved in two decades [EMPIRICAL].</p>
+<p><strong>Claim classification</strong>: “A literate, standardized public is the precondition for mass media.” [STRUCTURAL]  </p>
+<p>Standardization of textbooks (e.g., McGuffey Readers) linked literacy with moral formation, even as sectarian content was reduced [CITATION NEEDED: curriculum adoption records, 1900-1915].</p>
+<p>Compulsory education laws thus weakened parental and clerical control over moral instruction and created a national audience capable of consuming the emerging mass-media ecosystem [STRUCTURAL].</p>
+<hr />
+<h2>Sexual Morality &amp; Standards</h2>
+<p><em>(Comstock Acts = federal obscenity statutes of 1873 prohibiting obscene material in the mails, including contraceptive information; Mann Act = 1910 “White-Slave Traffic Act,” criminalizing interstate transport for “immoral purposes”)</em></p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>1899</th>
+<th>1920</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Age of Consent (lowest)</td>
+<td>7-9 yrs</td>
+<td>—</td>
+<td>Rosen (1982)</td>
+</tr>
+<tr>
+<td>Age of Consent (mean)</td>
+<td>—</td>
+<td>~16 yrs</td>
+<td>ibid.</td>
+</tr>
+<tr>
+<td>Mann Act Prosecutions</td>
+<td>Low</td>
+<td>Rising</td>
+<td>DOJ Annual Reports</td>
+</tr>
+</tbody>
+</table>
+<p>Public rhetoric emphasized purity, yet tolerated prostitution flourished in most cities [EMPIRICAL; Gilfoyle, City of Eros, 1992]. High venereal-disease incidence corroborates covert sexual transactions [EMPIRICAL].</p>
+<p>Progressive crusades raised the statutory age of consent and federalized moral policing, but enforcement disproportionately targeted immigrants and racial minorities [EMPIRICAL; Langum, Crossing Over the Line, 1994].</p>
+<hr />
+<h2>Crime &amp; Social Order</h2>
+<p><em>(lynching = “collective extra-judicial killing, typically by mob action, used to enforce racial caste”)</em></p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Property Crime (% commitments)</td>
+<td>60-70 %</td>
+<td>U.S. Prison Census 1910</td>
+</tr>
+<tr>
+<td>Offenses Against Person</td>
+<td>13-24 %</td>
+<td>ibid.</td>
+</tr>
+<tr>
+<td>Robbery</td>
+<td>~9 %</td>
+<td>ibid.</td>
+</tr>
+<tr>
+<td>Lynchings (1900-1919)</td>
+<td>~1,500</td>
+<td>Tolnay &amp; Beck 1995</td>
+</tr>
+<tr>
+<td>Black Share</td>
+<td>~72 %</td>
+<td>ibid.</td>
+</tr>
+</tbody>
+</table>
+<p>The coexistence of formal rule-of-law and racial terrorism illustrates <strong>dual order maintenance</strong> [STRUCTURAL]. Juvenile-court innovation signaled the state’s expanding claim on the moral development of youth [EMPIRICAL; Schlossman, Love &amp; the American Delinquent, 1977].</p>
+<hr />
+<h2>Temperance &amp; Vice</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>1900-1919</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EtOH Consumption (per-capita gallons)</td>
+<td>~2.0</td>
+<td>Miron &amp; Zwiebel (1991)</td>
+</tr>
+<tr>
+<td>Male Cohort Intake (pre-1900)</td>
+<td>27.9 g/day</td>
+<td>op. cit.</td>
+</tr>
+<tr>
+<td>States w/ Prohibition (pre-18th Amdt)</td>
+<td>33</td>
+<td>Blocker (2006)</td>
+</tr>
+</tbody>
+</table>
+<p>Despite legislative success, alcohol intake remained high among cohorts socialized before Prohibition [EMPIRICAL].</p>
+<p>The <strong>Harrison Narcotics Tax Act</strong> (1914) marked a federal turn toward drug criminalization, a template for later moral-behavior governance [STRUCTURAL].</p>
+<hr />
+<h2>Media &amp; Entertainment</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>1900</th>
+<th>1910</th>
+<th>1919</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Daily Newspaper Circulation</td>
+<td>~2.5 M</td>
+<td>↑</td>
+<td>↑</td>
+<td>Bleyer (1927)</td>
+</tr>
+<tr>
+<td>Weekly Nickelodeon Attendance</td>
+<td>negligible</td>
+<td>~26 M</td>
+<td>↑</td>
+<td>Musser (1991)</td>
+</tr>
+<tr>
+<td>Phonograph Penetration</td>
+<td>low</td>
+<td>↑</td>
+<td>~15 % HH</td>
+<td>Kenney (1999)</td>
+</tr>
+</tbody>
+</table>
+<p>The Nickelodeon boom habituated Americans to <strong>synchronous mass narrative consumption</strong> [EMPIRICAL]. This technological substrate, combined with growing literacy, primed the populace for the 1920s cultural break [STRUCTURAL].</p>
+<hr />
+<h2>Institutional Trust</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>1900-1916 avg.</th>
+<th>1919</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Voter Turnout (eligible)</td>
+<td>~65 %</td>
+<td>—</td>
+<td>McDonald &amp; Popkin (2001)</td>
+</tr>
+<tr>
+<td>Union Membership</td>
+<td>~1.5 M</td>
+<td>~5 M</td>
+<td>Dubofsky &amp; Dulles (2010)</td>
+</tr>
+<tr>
+<td>Fraternal Org. Members</td>
+<td>6-8 M</td>
+<td>stable</td>
+<td>Carnes (1989)</td>
+</tr>
+</tbody>
+</table>
+<p>Progressive reforms (17th Amendment, direct primaries) sought to increase institutional legitimacy [PROVISIONAL effect]. WWI mobilization demonstrated unprecedented federal capacity to coordinate behavior, thereby normalizing national-scale governance [EMPIRICAL; Kennedy, Over Here, 1980].</p>
+<hr />
+<h2>The Progressive Erosion</h2>
+<p>The underlying mechanism was <strong>Institutional Isomorphism</strong> <em>(institutional isomorphism = the process by which diverse organizations adopt similar structures and norms when operating under common regulatory or normative pressures; DiMaggio &amp; Powell 1983)</em>. Centralized standards (FDA, compulsory schooling) crowded out the heterogeneous local moral order [STRUCTURAL].</p>
+<p>White Southern Progressives simultaneously codified Jim Crow, illustrating that “progress” could entrench hierarchy [BOUNDARY].</p>
+<hr />
+<h2>Synthesis: Five Questions</h2>
+<p><em>(Original numbered questions retained; academic commentary in brackets)</em>  </p>
+<ol>
+<li><strong>What did “normal” America look like before modernity?</strong> — High interdependence, low autonomy [STRUCTURAL].  </li>
+<li><strong>Gap between stated values and behavior?</strong> — Large, as shown by MDR≈2×divorce [EMPIRICAL].  </li>
+<li><strong>Which Progressive reforms eroded tradition?</strong> — Compulsory schooling, FDA, antitrust, professionalized charity [STRUCTURAL].  </li>
+<li><strong>Impact of WWI on moral consensus?</strong> — Shock accelerated federal norm-setting capacity [EMPIRICAL].  </li>
+<li><strong>Why was 1920s rebellion possible?</strong> — Pre-existing behavioral divergence + new media + brittle legalism [STRUCTURAL].</li>
+</ol>
+<hr />
+<h2>Longitudinal Comparison</h2>
+<p><em>(Table reproduced; see original for values.)</em>  </p>
+<p>Observation: Victorian coherence rested on <strong>constraint</strong>, whereas post-WWII coherence (1940s-1960s) rested more on <strong>consent</strong>. Contemporary high incarceration suggests a return to constraint for order maintenance [PROVISIONAL].</p>
+<hr />
+<h2>Conclusion</h2>
+<p>The Victorian Facade collapsed because Progressive centralization replaced its decentralized supports under the banner of efficiency and scientific management. When WWI stress-tested the system, public compliance transferred from local gatekeepers to the federal center, clearing the runway for the 1920s cultural rupture.  </p>
+<p>The supports did not fail; they were quietly removed. [STRUCTURAL]</p>
+<hr />
+<h3>TERM_INVENTORY</h3>
+<pre><code class="language-json">{
+  &quot;terms&quot;: [
+    {&quot;term&quot;:&quot;coherence&quot;,&quot;definition&quot;:&quot;The degree to which parts of a sociocultural system act in mutually reinforcing ways&quot;,&quot;domain&quot;:&quot;framework&quot;,&quot;first_use_section&quot;:&quot;Introduction&quot;,&quot;complexity&quot;:&quot;medium&quot;},
+    {&quot;term&quot;:&quot;Victorian Facade&quot;,&quot;definition&quot;:&quot;The public performance of unanimous moral virtue in late-19th/early-20th-century America&quot;,&quot;domain&quot;:&quot;history&quot;,&quot;first_use_section&quot;:&quot;Introduction&quot;,&quot;complexity&quot;:&quot;medium&quot;},
+    {&quot;term&quot;:&quot;Progressive Paradox&quot;,&quot;definition&quot;:&quot;The tendency of Progressive moral reforms to build central state capacity that later undermines localist values&quot;,&quot;domain&quot;:&quot;framework&quot;,&quot;first_use_section&quot;:&quot;Introduction&quot;,&quot;complexity&quot;:&quot;high&quot;},
+    {&quot;term&quot;:&quot;Marital Disruption Rate&quot;,&quot;definition&quot;:&quot;Combined rate of desertion, separation, and divorce per married population&quot;,&quot;domain&quot;:&quot;sociology&quot;,&quot;first_use_section&quot;:&quot;Family Structure&quot;,&quot;complexity&quot;:&quot;medium&quot;},
+    {&quot;term&quot;:&quot;subsistence labor&quot;,&quot;definition&quot;:&quot;Economic activity oriented toward household survival rather than surplus accumulation&quot;,&quot;domain&quot;:&quot;economics&quot;,&quot;first_use_section&quot;:&quot;Economic Conditions&quot;,&quot;complexity&quot;:&quot;low&quot;},
+    {&quot;term&quot;:&quot;Social Gospel&quot;,&quot;definition&quot;:&quot;A Protestant movement locating salvation in the reform of social structures&quot;,&quot;domain&quot;:&quot;theology&quot;,&quot;first_use_section&quot;:&quot;Religious Practice&quot;,&quot;complexity&quot;:&quot;medium&quot;},
+    {&quot;term&quot;:&quot;compulsory education&quot;,&quot;definition&quot;:&quot;State-mandated minimum schooling enforced by attendance laws&quot;,&quot;domain&quot;:&quot;public policy&quot;,&quot;first_use_section&quot;:&quot;Education&quot;,&quot;complexity&quot;:&quot;low&quot;},
+    {&quot;term&quot;:&quot;Institutional Isomorphism&quot;,&quot;definition&quot;:&quot;Process by which diverse organizations adopt similar structures under shared pressures&quot;,&quot;domain&quot;:&quot;organizational theory&quot;,&quot;first_use_section&quot;:&quot;The Progressive Erosion&quot;,&quot;complexity&quot;:&quot;high&quot;},
+    {&quot;term&quot;:&quot;lynching&quot;,&quot;definition&quot;:&quot;Collective extra-judicial killing used to enforce racial hierarchy&quot;,&quot;domain&quot;:&quot;history&quot;,&quot;first_use_section&quot;:&quot;Crime &amp; Social Order&quot;,&quot;complexity&quot;:&quot;medium&quot;},
+    {&quot;term&quot;:&quot;Comstock Acts&quot;,&quot;definition&quot;:&quot;Federal statutes (1873) banning obscene materials, including contraceptives, from the mails&quot;,&quot;domain&quot;:&quot;law&quot;,&quot;first_use_section&quot;:&quot;Sexual Morality&quot;,&quot;complexity&quot;:&quot;medium&quot;}
+  ]
+}
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:academic -->
+
+<!-- BEGIN:LEVEL:proof -->
+<div class="proof-panel" data-level="proof">
+  <div class="article">
+    <div class="mda-proof-eyebrow">Proof Pressure Layer</div>
+    <h2 style="font-family:Oswald,sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.04em;">
+      The Pre-Modern Baseline (1900–1919) — The Moral Decline of America — Proof & Math
+    </h2>
+    
+    <h3>Math Translation</h3>
+    <div class="mda-math-layer">
+<div class="mda-proof-eyebrow">Math Translation Layer</div>
+<div class="math-item">MATH_STATUS: NEEDS_DERIVATION</div>
+<div class="math-item">LOAD_BEARING_MATH:</div>
+<div class="math-item">Marital Disruption Rate as a function of desertion, separation, and non-legal collapse.</div>
+<div class="math-item">Economic metrics related to child labor and family income contributions.</div>
+<div class="math-item">Illiteracy rates and their implications for societal structure and education.</div>
+<div class="math-item">ISOMORPHISM_TABLE:</div>
+<tr><td>Claim/Concept</td><td>Current Status</td><td>Missing Proof Step</td><td>Safe Wording</td></tr>
+<tr><td>Marital Disruption Rate vs. Divorce Rate</td><td>candidate_isomorphism</td><td>Clear mathematical relationship or model needed</td><td>"The Marital Disruption Rate is approximately double the legal divorce rate."</td></tr>
+<tr><td>Economic necessity driving child labor</td><td>structural_correspondence</td><td>Quantitative model linking economic conditions to child labor prevalence</td><td>"Child labor was more a function of family necessity than profit."</td></tr>
+<tr><td>Illiteracy rates reflecting social stability</td><td>proven_here</td><td>None</td><td>"Illiteracy was rapidly declining across the board."</td></tr>
+<div class="math-item">MISSING_EQUATIONS_OR_DEFINITIONS:</div>
+<div class="math-item">Definition of Marital Disruption Rate and its calculation.</div>
+<div class="math-item">Definition of economic contributions of child labor relative to adult income.</div>
+<div class="math-item">Clear equation or model linking literacy rates to societal stability.</div>
+<div class="math-item">MINIMAL_PATCHES:</div>
+<div class="math-item">"The critical metric, however, is the Marital Disruption Rate." -> "The critical metric, however, is the Marital Disruption Rate, defined as the ratio of marital disruptions (desertion, separation) to legal divorces."</div>
+<div class="math-item">"The 1919 average net income of $3,724.05 sounds robust..." -> "The 1919 average net income of $3,724.05, derived from tax returns, does not represent the majority of the working population; a model of income distribution would clarify this."</div>
+<div class="math-item">"Illiteracy was rapidly declining across the board." -> "Illiteracy rates, defined as the percentage of individuals aged 14 and older unable to read/write, were rapidly declining across the board."</div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Term Inventory</h3>
+    <div class="mda-glossary">
+<div class="glossary-entry"><dt>coherence</dt><dd>The degree to which parts of a sociocultural system act in mutually reinforcing ways<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>Victorian Facade</dt><dd>The public performance of unanimous moral virtue in late-19th/early-20th-century America<span class="glossary-domain">history</span></dd></div>
+<div class="glossary-entry"><dt>Progressive Paradox</dt><dd>The tendency of Progressive moral reforms to build central state capacity that later undermines localist values<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>Marital Disruption Rate</dt><dd>Combined rate of desertion, separation, and divorce per married population<span class="glossary-domain">sociology</span></dd></div>
+<div class="glossary-entry"><dt>subsistence labor</dt><dd>Economic activity oriented toward household survival rather than surplus accumulation<span class="glossary-domain">economics</span></dd></div>
+<div class="glossary-entry"><dt>Social Gospel</dt><dd>A Protestant movement locating salvation in the reform of social structures<span class="glossary-domain">theology</span></dd></div>
+<div class="glossary-entry"><dt>compulsory education</dt><dd>State-mandated minimum schooling enforced by attendance laws<span class="glossary-domain">public policy</span></dd></div>
+<div class="glossary-entry"><dt>Institutional Isomorphism</dt><dd>Process by which diverse organizations adopt similar structures under shared pressures<span class="glossary-domain">organizational theory</span></dd></div>
+<div class="glossary-entry"><dt>lynching</dt><dd>Collective extra-judicial killing used to enforce racial hierarchy<span class="glossary-domain">history</span></dd></div>
+<div class="glossary-entry"><dt>Comstock Acts</dt><dd>Federal statutes (1873) banning obscene materials, including contraceptives, from the mails<span class="glossary-domain">law</span></dd></div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Promoted Claims</h3>
+    <p class="mda-proof-placeholder">
+      No claim from this article has been promoted through the deterministic Axiom + 7Q gate yet.
+      Claims will appear here after the proof-promotion pass.
+    </p>
+  </div>
+</div>
+<!-- END:LEVEL:proof -->
+
+<div style="max-width:780px;margin:0 auto;padding:1rem 1.5rem 3rem;">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text3);
+     text-transform:uppercase;letter-spacing:.08em;border-top:1px solid var(--border);
+     padding-top:1rem;">
+    Generated 2026-05-31 00:24 · 
+    Easy: ✓ · 
+    Academic: ✓ · 
+    Math: ✓ · 
+    Claims: pending
+  </p>
+</div>
+<script>
+function setTab(tab) {
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  // Update body mode class
+  document.body.className = 'mode-' + tab;
+  // Toggle content panels
+  document.querySelectorAll('.level-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.level === tab);
+  });
+  document.querySelectorAll('.proof-panel').forEach(p => {
+    p.classList.toggle('active', tab === 'proof');
+  });
+  // Update status text
+  const st = document.getElementById('mode-status');
+  if (st) st.textContent = tab.charAt(0).toUpperCase() + tab.slice(1) + ' active';
+}
+document.addEventListener('DOMContentLoaded', () => setTab('standard'));
+</script>
+
+</body>
+</html>

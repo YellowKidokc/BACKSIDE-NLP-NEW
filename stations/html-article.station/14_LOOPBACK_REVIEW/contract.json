@@ -1,0 +1,43 @@
+{
+  "lane_id": "14",
+  "lane_name": "Loopback Review",
+  "input": {
+    "requires": [
+      "upstream lane artifacts that detect structural breakage or provisional output",
+      "evidence for what failed and why"
+    ],
+    "format": "lane-owned JSON or markdown evidence packets"
+  },
+  "output": {
+    "produces": [
+      "loopback-review.json",
+      "loopback-review.md"
+    ],
+    "format": "formal upstream return packet with evidence and recommended fix"
+  },
+  "loopback_conditions": [
+    "upstream packet loses structural meaning",
+    "required support artifact is stale or missing",
+    "confidence remains provisional and could distort downstream claims or rigor"
+  ],
+  "dependencies": {
+    "upstream_lanes": [
+      "07"
+    ],
+    "stations": [],
+    "models": []
+  },
+  "excel_columns": {
+    "tab_name": "Loopback_Review",
+    "columns": [
+      { "name": "page_id", "type": "string" },
+      { "name": "source_lane", "type": "string" },
+      { "name": "trigger_id", "type": "string" },
+      { "name": "severity", "type": "enum:low|medium|high" },
+      { "name": "condition", "type": "string" },
+      { "name": "recommendation", "type": "string" },
+      { "name": "downstream_safe_to_continue", "type": "boolean" }
+    ]
+  },
+  "confidence": "tested"
+}

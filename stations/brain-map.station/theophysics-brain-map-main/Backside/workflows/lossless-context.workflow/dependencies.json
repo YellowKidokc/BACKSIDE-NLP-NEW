@@ -1,0 +1,28 @@
+{
+  "schema": "theophysics.workflow.dependencies.v1",
+  "workflow": "lossless-context",
+  "stations": [
+    "markdown-parse",
+    "block-classify",
+    "semantic-address",
+    "audit-snapshot",
+    "postgres-store"
+  ],
+  "models": [
+    "M-EMB-GEN-001",
+    "DeBERTa-NLI optional",
+    "LLM optional fill pass"
+  ],
+  "external_services": [
+    {
+      "name": "Postgres pgvector",
+      "endpoint": "${POSTGRES_DSN}",
+      "required": false
+    }
+  ],
+  "sinks": [
+    "JSON artifact",
+    "HTML snapshot",
+    "Postgres append-only audit tables"
+  ]
+}

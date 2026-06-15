@@ -1,0 +1,43 @@
+{
+  "name": "paper-citation.model",
+  "kind": "nlp-lane",
+  "anchor_role": "Classify papers by relationship to Theophysics work: represent, close, cite, contrast, or reject.",
+  "status": "planned",
+  "owner": "shared",
+  "base_model": null,
+  "runtime_path": "X:\\Backside\\_models\\paper-citation.model",
+  "backing_models": [
+    "mistral-7b-instruct.model",
+    "deberta-v3-large.model",
+    "facts.model"
+  ],
+  "called_by": [
+    "Backside/workflows/grade-paper",
+    "Backside/workflows/route-and-convert"
+  ],
+  "inputs": [
+    "paper canonical markdown",
+    "paper metadata",
+    "abstracts",
+    "claim ledger",
+    "canon anchors"
+  ],
+  "outputs": [
+    "paper proximity map",
+    "citation candidate list",
+    "representative-paper list",
+    "contrast/opposition paper list",
+    "do-not-cite rationale"
+  ],
+  "non_goals": [
+    "Do not cite a paper only because it sounds adjacent.",
+    "Do not represent a paper as supporting Theophysics unless the claim match is explicit.",
+    "Do not bury opposition papers; classify them as contrast when useful."
+  ],
+  "verification": [
+    "Each citation recommendation has quote/section/page locator where available.",
+    "Each paper receives one primary relation and optional secondary relations.",
+    "Near-match papers include the exact shared claim structure, not just keywords."
+  ],
+  "notes": "This lane answers David's question: which papers are us, near us, useful to cite, useful to contrast, or noise?"
+}

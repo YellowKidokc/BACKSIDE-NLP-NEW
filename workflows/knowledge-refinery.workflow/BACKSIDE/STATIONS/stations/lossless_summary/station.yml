@@ -1,0 +1,54 @@
+# Station contract — copy from _TEMPLATE/
+# Mirrors the shape of MODELS/_TEMPLATE/model.yml so stations and models read alike.
+# new_station.py substitutes every {{PLACEHOLDER}} from CLI args.
+
+station_id: ST-SUM-001
+name: Lossless Summary
+lane: sum
+status: draft
+order: 15
+purpose: >
+  Preserve the argument without flattening it — keeps claims, evidence, equations, assumptions, argument order, unresolved gaps. NOT a short summary.
+
+# What this station calls. For model-wrapper stations this is the bound model.
+# For LLM stations this is the API model id (gpt-4o-mini, claude-opus-4-7, etc.).
+model:
+  primary:   gpt-4o-mini
+  fallback:  
+  provider:  openai
+
+prompt:
+  primary:   PROMPT_SYSTEM.md
+  fallback:  
+
+script:
+  runner:    scripts/03_run_prompt.bat
+
+input:
+  accepts:
+    - source_plus_claims                    # e.g. markdown_article, text_pair, query_passages
+  required_files:
+    - source.md                    # primary input filename convention
+
+output:
+  produces:
+    - summary.lossless.json
+    - summary.lossless.md
+  required_format: json
+
+healthcheck:
+  prompt: "Return JSON: {\"status\":\"ok\"}"
+  expected_contains: "\"status\""
+
+gate:
+  pass_if:
+    - valid_json: true
+    - preserves_argument_order: true
+  fail_to: 99_ERROR
+  review_to: 03_REVIEW
+
+next:
+  pass:
+    - ST-SEVENQ-001
+  fail:
+    - ST-ERR-001

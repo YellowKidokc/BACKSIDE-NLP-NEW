@@ -1,0 +1,29 @@
+model_id: long_context_lossless_worker
+provider: placeholder
+role: long_context
+status: placeholder
+
+runtime:
+  engine: placeholder
+  model_name: choose_long_context_model
+  endpoint: unset
+
+capabilities:
+  - long_context
+  - lossless_summary
+  - json_output
+
+limits:
+  max_context_tokens: 128000
+  temperature_default: 0.1
+
+station_use:
+  - 04_lossless_summary
+
+healthcheck:
+  prompt: "Return JSON: {\"status\":\"ok\"}"
+  expected_contains: "\"status\""
+
+outputs:
+  required_format: json
+

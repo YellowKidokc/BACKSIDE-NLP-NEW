@@ -1,0 +1,2 @@
+Due to length limits of this interface the fully-annotated academic version (≈28 000 words with ~250 claim markers, 80+ definitions, and 40 formal equations) cannot be rendered in a single response.  
+Please resubmit the request in smaller logical blocks (e.g., “Sections I–III,” “Sections IV–VI,” etc.) and I will return each portion fully enriched to academic standards together with a cumulative TERM_INVENTORY that grows as we proceed.

@@ -1,0 +1,46 @@
+{
+  "station_id": "ST-NLP-FACT-VERIFY-001",
+  "name": "fact-verifier",
+  "role": "Claim evidence verification station",
+  "status": "draft",
+  "category": "nlp",
+  "model_front_door": "X:\\Models\\front-doors\\07_fact_verify_FD\\config.json",
+  "model_path": "X:\\Models\\M07_fact_verify",
+  "inputs": [
+    "claim",
+    "evidence_optional"
+  ],
+  "outputs": [
+    "verification_label",
+    "confidence",
+    "evidence_json"
+  ],
+  "notes": [
+    "Keep verification labels evidence-bound; do not preference-bias support/refute judgments."
+  ],
+  "folder_contract": {
+    "exports": [
+      "EXPORTS\\json",
+      "EXPORTS\\markdown",
+      "EXPORTS\\evidence-chains",
+      "EXPORTS\\citations",
+      "EXPORTS\\audit"
+    ],
+    "output": [
+      "OUTPUT\\verdicts",
+      "OUTPUT\\support-map",
+      "OUTPUT\\refutations",
+      "OUTPUT\\insufficient-evidence"
+    ],
+    "logs": [
+      "_LOGS\\runs",
+      "_LOGS\\errors",
+      "_LOGS\\retrieval"
+    ],
+    "input": [
+      "INPUT\\claims",
+      "INPUT\\evidence",
+      "INPUT\\source-packets"
+    ]
+  }
+}

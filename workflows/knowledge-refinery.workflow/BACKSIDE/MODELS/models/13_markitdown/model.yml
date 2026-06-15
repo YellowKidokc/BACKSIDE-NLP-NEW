@@ -1,0 +1,23 @@
+model_id: markitdown_converter
+provider: tool_wrapper
+role: document_conversion
+status: placeholder
+
+runtime:
+  engine: markitdown
+
+capabilities:
+  - html_to_md
+  - pdf_to_md
+  - doc_to_md
+
+station_use:
+  - 03_cleaner
+
+healthcheck:
+  prompt: "Return JSON: {\"status\":\"ok\"}"
+  expected_contains: "\"status\""
+
+outputs:
+  required_format: markdown
+

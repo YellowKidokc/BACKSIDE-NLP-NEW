@@ -1,0 +1,113 @@
+# MDA Keyword Graph Overlay
+
+This is an overlay on the existing paper knowledge graph. It does not replace the graph; it adds cleaned paper keywords and bridge terms that explain why two papers connect.
+
+## Cluster Labels
+- Cluster 0 (26 papers): amish, jake, bill, henry, father, stay, tommy, samuel, rule, still
+- Cluster 1 (19 papers): amish, korea, identity, constraint, federal, domains, recovery, peak, self, potential
+- Cluster 2 (16 papers): entropy, technological, floor, amish, decay, membership, signal, religious, percent, analysis
+
+## Strong Bridge Edges
+- MDA-019-current-state-2024.md -> MDA-046-amish-demographics-THE-NUMBERS.md | weight 6 | amish, amish population, bank, business, county, doubling, fertility, furniture
+- MDA-033-entropic-society.md -> MDA-034-technology-entropy.md | weight 4 | aesthetic, design, digital, entropy, obsolescence, psychological, psychological entropy, relational
+- MDA-033-entropic-society.md -> MDA-047-amish-tech-filter-THE-FILTER.md | weight 6 | decay, informational integrity, mass mediation, perpetual, perpetual connectivity, psychological, psychological entropy, relational
+- MDA-901-appendix-america-index.md -> MDA-904-appendix-sample.md | weight 5 | aloud critical thresholds, appendix, court removes prayer, critical thresholds engel, engel vitale supreme, every facts metric, facts metric begins, framework civilizational entropy
+- MDA-048-ordnung-algorithm-THE-MECHANISM.md -> MDA-049-coherence-factory-THE-SYNTHESIS.md | weight 4 | algorithm, amish, friction, grid, limit, mutual aid, rule, sanctuary
+- MDA-016-thomas-1974.md -> MDA-050-jacob-2025.md | weight 6 | find good, find good woman, good woman, good woman work, grandfather, stay, woman, woman work stay
+- MDA-031-jacob-1998.md -> MDA-050-jacob-2025.md | weight 6 | find, find good, find good woman, good woman, infinite, jake, stay
+- MDA-016-thomas-1974.md -> MDA-031-jacob-1998.md | weight 6 | bill, find good, find good woman, good woman, stay
+- MDA-034-technology-entropy.md -> MDA-047-amish-tech-filter-THE-FILTER.md | weight 4 | psychological, psychological entropy, relational, relational coherence, technological
+- MDA-008-henry-1926.md -> MDA-012-william-1950.md | weight 6 | farm, father, henry, mother
+- MDA-052-individual-recovery.md -> MDA-053-the-question.md | weight 4 | below threshold, pattern, recovery, submission
+- MDA-001-story-introduction.md -> MDA-008-henry-1926.md | weight 3 | father, henry, samuel, son
+- MDA-023-coherence-cascade.md -> MDA-902-appendix-trans-domain-analysis.md | weight 2 | familial, familial institutional economic, semantic, semantic familial institutional
+- MDA-054-way-back.md -> MDA-902-appendix-trans-domain-analysis.md | weight 2 | civilizations, constraint, familial, semantic
+- MDA-008-henry-1926.md -> MDA-016-thomas-1974.md | weight 6 | father, feels, son
+- MDA-012-william-1950.md -> MDA-016-thomas-1974.md | weight 6 | bill, father, good
+- MDA-045-amish-control-group-THE-DATA.md -> MDA-048-ordnung-algorithm-THE-MECHANISM.md | weight 3 | amish, mutual aid, ordnung
+- MDA-051-korea-experiment.md -> MDA-052-individual-recovery.md | weight 3 | below threshold, coefficient, grace coefficient
+- MDA-005-empirical-evidence.md -> MDA-902-appendix-trans-domain-analysis.md | weight 6 | constraint, domains
+- MDA-012-william-1950.md -> MDA-031-jacob-1998.md | weight 6 | bill, screen
+- MDA-051-korea-experiment.md -> MDA-053-the-question.md | weight 6 | below threshold, korea
+- MDA-018-great-decoupling-1968.md -> MDA-035-great-reconfiguration.md | weight 4 | cohort, religion
+- MDA-033-entropic-society.md -> MDA-906-appendix-93-year-floor.md | weight 4 | decay, entropy
+- MDA-047-amish-tech-filter-THE-FILTER.md -> MDA-048-ordnung-algorithm-THE-MECHANISM.md | weight 4 | amish, technological
+- MDA-001-story-introduction.md -> MDA-012-william-1950.md | weight 3 | father, henry
+- MDA-001-story-introduction.md -> MDA-016-thomas-1974.md | weight 3 | father, son
+- MDA-001-story-introduction.md -> MDA-031-jacob-1998.md | weight 3 | jacob, jake
+- MDA-003-measuring-moral-health.md -> MDA-007-nine-domains.md | weight 3 | coherence factor, factor
+- MDA-007-nine-domains.md -> MDA-038-coherence-metric.md | weight 3 | nine, nine domains
+- MDA-011-collective-security-1930.md -> MDA-017-unraveling-1960.md | weight 3 | high school, influential
+- MDA-023-coherence-cascade.md -> MDA-054-way-back.md | weight 2 | familial, semantic
+- MDA-042-amish-exception-THE-CLAIM.md -> MDA-043-amish-proof-THE-PROOF.md | weight 2 | amish, principle
+- MDA-002-samuel-1900.md -> MDA-008-henry-1926.md | weight 1 | miles, samuel
+- MDA-043-amish-proof-THE-PROOF.md -> MDA-048-ordnung-algorithm-THE-MECHANISM.md | weight 1 | amish, friction
+- MDA-043-amish-proof-THE-PROOF.md -> MDA-049-coherence-factory-THE-SYNTHESIS.md | weight 1 | amish, friction
+- MDA-045-amish-control-group-THE-DATA.md -> MDA-049-coherence-factory-THE-SYNTHESIS.md | weight 1 | amish, mutual aid
+- MDA-003-measuring-moral-health.md -> MDA-053-the-question.md | weight 6 | below
+- MDA-007-nine-domains.md -> MDA-015-long-decline.md | weight 6 | civic
+- MDA-015-long-decline.md -> MDA-020-phase-transition.md | weight 6 | impact
+- MDA-034-technology-entropy.md -> MDA-048-ordnung-algorithm-THE-MECHANISM.md | weight 6 | technological
+
+## Paper Keywords
+- MDA-000-series-map.md: map, empirical evidence, analysis, investigation, papers, actualize every quantum, analysis trans-domain analysis, bad easier good, century structural change, coherence metric physics-based, defining foundation progressive, domains one number
+- MDA-001-story-introduction.md: delta, samuel, jake, tom, father, story, shapes, chosen, matches delta small, jacob, son, matches
+- MDA-002-samuel-1900.md: distance still weight, distance still, still weight, miles, weight, samuel, mda-002, distance, learn, across three half, background noise civilization, breathing silence learn
+- MDA-003-measuring-moral-health.md: coherence factor, without coherence, factor, low coherence, measures whether, measure health, whether, measures, measure, every part, everything else, below
+- MDA-005-empirical-evidence.md: points, seven domains, correlation, constraint, confirmed, check reports whether, english statistical check, enough treat evidence, evidence rather loose, measured pattern strong, pattern strong enough, rather loose impression
+- MDA-006-research-method.md: contradictions, file, inquiry, prompt, links, quotes domains links, quotes, terrain, competing interpretations, decide true, domains links, inquiry seed
+- MDA-007-nine-domains.md: question people, indicators, matters, families fragment, civic participation, participation, civic, coherence factor, nine domains, intergenerational transfer, shared meaning, drops
+- MDA-008-henry-1926.md: henry, dorothy, samuel, still, radio, farm, father, mother, cleveland, voices, knows, chicago
+- MDA-009-the-1900-baseline.md: meant practice, meant, practice, supported, numbers, wasn, today, everyone, coherent system parts, high systems reinforced, meant practice people, parts fit together
+- MDA-010-pre-modern-baseline.md: key statistics metric, federal, key statistics, statistics metric, standardized, pre-modern baseline, child labor, legal, local, progressive, labor, victorian
+- MDA-011-collective-security-1930.md: security, new deal, deal, repeal, collective security, code, age, age collective security, social security act, hays, influential, collective
+- MDA-012-william-1950.md: bill, mary, henry, hendricks, father, television, room, william, watches, good, living room, farm
+- MDA-013-peak-coherence-1940.md: kinsey, code, union density, consensus, peak, single-income, income share, decade, top income share, union, dominance, wartime
+- MDA-014-fissure-1950.md: fissure, conformity, fissure conformity, decade, national, veneer, television, peak, ethic thrift, household debt-to, little rock, federal
+- MDA-015-long-decline.md: impact family, mass media, mass media created, wave, noticed, weakened, still, civic, coherence everyone, invisible damage, post-war boom, trust neighbors
+- MDA-016-thomas-1974.md: tommy, bill, father, karen, find good woman, thomas, feels, find good, good woman, son, dylan, jenny
+- MDA-017-unraveling-1960.md: kinsey, high school, cohort, trust government, influential, high school graduation, school graduation rate, vietnam war, median, unraveling begins, youth cohort, sexual
+- MDA-018-great-decoupling-1968.md: technocratic, traditional, medical, fiat, fiat morality, new technocratic, traditional institutions, credentialed, pillars, roe wade, cohort, religion
+- MDA-019-current-state-2024.md: amish, county, holmes, holmes county, land, amish population, coherence still lives, coherence still, still lives, doubling, growth, lancaster
+- MDA-020-phase-transition.md: coherence impact, five years, shared meaning, impact, becomes collapse, phase transition, coherence impact shared, coherence impact trust, collapse five years, mental health declines, shared meaning fragments, five
+- MDA-021-anatomy-of-phase-transition.md: entropy, peak window, composite, index composite, anatomy phase transition, reinforced, anatomy phase, window, peak, access index composite, pornography access index, conviction
+- MDA-022-cascade.md: fragments, key metric, felt like, cascade, made worse, felt, worse, shared meaning, fifty years, crisis, decade made worse, every decade made
+- MDA-023-coherence-cascade.md: coherence cascade, cascade, semantic, familial, mda-023, words, california no-fault divorce, cascade layer vetted, familial institutional economic, nixon ends gold, social coherence collapses, jacob
+- MDA-024-semantic-collapse.md: virtue terms, semantic, terms, modesty chastity, chastity, individualistic, modesty, immune system, dismantled, conscience, pronouns, culture
+- MDA-025-cognitive-decline.md: excellence, self-esteem, cognitive system stress, objective, affirmation, subjective, cognitive system, college gpa, excellence defined, grade inflation, steady ascent, system stress
+- MDA-026-spiritual-collapse.md: mainline, valium, spiritual psychological, pharmacological, pharmacological management, pills sold, stoic endurance, spiritual psychological collapse, attending institutions taught, billion pills sold, psychological collapse, endurance
+- MDA-027-signal-went-dark.md: signal, truth, church corporate educational, government media science, media science medical, medical church corporate, science medical church, church corporate, corporate educational, medical church, science medical, truth coherence
+- MDA-028-phantom-money.md: phantom, wealth, monetary, monetary expansion, asset, debt, top wealth, net worth income, economic coherence, debt-to gdp, worth income, productive
+- MDA-029-observer-collapsed.md: identity, self, individual coherence, agency depression rate, consistency personal agency, identity consistency personal, personal agency depression, observer, agency depression, consistency personal, identity consistency, personal agency
+- MDA-030-trinity-mechanism.md: potential, spirit, actualization, cdot, son, cdot cdot cdot, trinity, cdot cdot, father, infinite, equation says english, compact way saying
+- MDA-031-jacob-1998.md: jake, infinite, bill, jacob, options, find, internet, find good woman, ohio, nothing, screen, always
+- MDA-032-why-bad-is-easier.md: shortcut, easier, bad easier good, book, bad easier, easier good, bad, virtue, asymmetry, human, patience, book makes
+- MDA-033-entropic-society.md: technological, psychological entropy, relational coherence, aesthetic, entropy, psychological, design, relational, systemic, decay, informational integrity, digital
+- MDA-034-technology-entropy.md: technological, entropy, aesthetic, design, social media, digital, obsolescence, psychological entropy, relational coherence, durability, generational replacement, philosophy
+- MDA-035-great-reconfiguration.md: membership, religious, affiliation, cohort, attendance, christian, ntf, religion, pew, gallup, megachurches, com
+- MDA-036-regulatory-impulse-1900.md: percent, mann act, progressive, social gospel, mann, censorship, legal, national, part expert analysis, analysis, gospel, labor
+- MDA-037-biaxiosum-audit.md: biaxiosum, biased, rights, axiom, biased toward, biaxiosum score, truths, bias, secure rights, endowed, founding, biaxiosum score axiom
+- MDA-038-coherence-metric.md: constraint, domains, constraint removal, independent, window, synchronized, critical phenomena, structural integrity, across domains, coherence metric, across nine, cross-domain
+- MDA-039-physics-of-coherence.md: order parameter, parameter, physics coherence, cooper, order, cooper pairs, formal paper, ordered, measurable, superconductor, phase transition, form cooper pairs
+- MDA-040-statistical-synthesis.md: children per woman, children per, society faith, family structure divorce, structure divorce rate, per woman, structure divorce, church attendance peak, faith weekly church, per children per, rate per children, society faith weekly
+- MDA-041-statistical-spine.md: outside voices per, voices per day, comparison coherence factor, life expectancy yrs, others premarital sex, premarital sex violent, sex violent crime, trust others premarital, verbal comparison coherence, voices per, outside voices, church weekly
+- MDA-042-amish-exception-THE-CLAIM.md: amish, principle, principle coherence, amish exception, different choices, principle coherence requires, outside, century different choices, country century different, distributed authority, outside institutions, prevent
+- MDA-043-amish-proof-THE-PROOF.md: amish, mainstream usa amish, metric mainstream usa, usa amish ratio, amish ratio, mainstream usa, metric mainstream, usa amish, mainstream, near zero, usa, amish control case
+- MDA-044-amish-control-study-THE-METHOD.md: metricmainstream usaamishratio, metricmainstream, usaamishratio, amish, zero, lower, modern, constraint, constraint produces order, health metricmainstream usaamishratio, per knear zero, want live like
+- MDA-045-amish-control-group-THE-DATA.md: amish, amish population, binding variable, million0 million0 million0, million0 million0, million0, settlements, binding, new settlements, abuse, retention, variable
+- MDA-046-amish-demographics-THE-NUMBERS.md: amish, county, holmes, holmes county, amish population, land, fertility, growth, retention, lancaster, settlements, amish demographics
+- MDA-047-amish-tech-filter-THE-FILTER.md: filter, relational coherence, mass mediation, amish, psychological entropy, relational, technological, phase mass mediation, decay, mediation, amish tech filter, engineered
+- MDA-048-ordnung-algorithm-THE-MECHANISM.md: amish, rule, finite, shanty, algorithm, grid, aid, mutual aid, limit, energy, chapter rule, ordnung
+- MDA-049-coherence-factory-THE-SYNTHESIS.md: rule, membrane, amish, artifact, algorithm, sanctuary, friction, grid, limit, rule artifact, finite input rule, mutual aid imperative
+- MDA-050-jacob-2025.md: jake, tyler, sarah, stay, grandfather, jake says, staying, find good woman, find, woman, good woman work, woman work stay
+- MDA-051-korea-experiment.md: korea, south korea, north korea, south, north, grace, divergence, people starting point, below threshold, people starting, coefficient, korea experiment
+- MDA-052-individual-recovery.md: recovery, submission, below threshold, restoration, protocol, coefficient, pattern, coherence restoration, individual recovery, grace coefficient, millions, step
+- MDA-053-the-question.md: below threshold, recovery, documented, submission, mechanism, below, generate coherence, question question, korea, surrender, option, recovery possible
+- MDA-054-way-back.md: semantic, sequence, reform, internal reform, iii institutional ratification, familial, semantic reconstruction, recovery, familial fortification, institutional ratification, civilizations, clapham sect
+- MDA-900-appendix-original-introduction.md: equation, appendix original introduction, signal, appendix original, original introduction, original, composite coherence index, nine parts, receiving signal, predicts, nobody, five years
+- MDA-901-appendix-america-index.md: appendix index, begins declining, critical thresholds, index, appendix, begins, thresholds, facts, water, aloud critical thresholds, court removes prayer, critical thresholds engel
+- MDA-902-appendix-trans-domain-analysis.md: semantic, familial institutional economic, familial, semantic familial, semantic familial institutional, yrs, domains, familial institutional, institutional economic, vocabulary, removed, total cycle
+- MDA-903-appendix-series-home.md: decoherence, internal alignment, across multiple domains, institutional signal, multiple domains, loses, chapter, domains, alignment across multiple, alignment exposed environmental, behavior institutional signal, cascading system failure
+- MDA-904-appendix-sample.md: appendix sample, sample, appendix, semantic collapse, civilizational, aloud critical thresholds, becomes impossible cognitive, court removes prayer, critical thresholds engel, david related work, engel vitale supreme, every facts metric
+- MDA-905-appendix-timeline.md: ethics, digital, political, purity, parental, traditional, ethical, parental advisory, political ethics, teapot dome, distrust, transformation
+- MDA-906-appendix-93-year-floor.md: floor, moses, lifespan, curve, exponential, psalm, genesis, exponential decay, minimum, compounding, thousand years, flood

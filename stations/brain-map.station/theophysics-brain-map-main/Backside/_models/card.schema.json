@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Theophysics Brain Model Card",
+  "type": "object",
+  "required": ["name", "kind", "anchor_role", "status", "owner", "inputs", "outputs", "non_goals"],
+  "properties": {
+    "name": { "type": "string" },
+    "kind": {
+      "type": "string",
+      "enum": ["weight", "nlp-lane", "adapter", "station-backed"]
+    },
+    "anchor_role": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["planned", "partial", "live", "deprecated"]
+    },
+    "owner": { "type": "string" },
+    "base_model": { "type": ["string", "null"] },
+    "runtime_path": { "type": ["string", "null"] },
+    "backing_models": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "called_by": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "inputs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "outputs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "non_goals": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "verification": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "notes": { "type": "string" }
+  }
+}

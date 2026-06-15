@@ -1,0 +1,72 @@
+{
+  "lane_id": "04",
+  "folder": "04_TAGS",
+  "lane_name": "Tags",
+  "pipeline_step": 6,
+  "owner": "worker-2 (round-1 swarm)",
+  "intent": "Attach semantic tags (chi variables, Master Equation references, Ten Laws references, axiom refs, workflow tags) to the page and to every section_id, consuming upstream section-map + semantic-address from lane 02 and YAML metadata from lane 03.",
+  "input": {
+    "requires": [
+      "02_SECTION_MAP/section-map.json",
+      "03_YAML_METADATA/frontmatter.yaml",
+      "03_YAML_METADATA/metadata.json",
+      "01_LOSSLESS/normalized-text.md",
+      "configs/shared_lib/address.py",
+      "configs/shared_lib/schemas.py (SemanticTag, LosslessArtifact)"
+    ],
+    "format": "section-map.json supplies {page_id, sections:[{section_id, heading_path, text, ordinal, block_types}]}; metadata.json supplies {domain, state, audience, use, risk, title, named_entity}. If upstream missing, lane mocks input from raw 00_DROP file and writes a loopback note.",
+    "mock_policy": "If 02 or 03 outputs are absent, lane will run section-splitter logic on raw drop file and synthesize a placeholder section-map locally. Mock provenance is recorded in tags.json under provenance.mocked = true with reason."
+  },
+  "output": {
+    "produces": [
+      "04_TAGS/tags.json",
+      "04_TAGS/section-tags.csv",
+      "04_TAGS/page-tag-summary.md",
+      "04_TAGS/semantic-address.json"
+    ],
+    "format": "tags.json conforms to a SemanticTag list per shared_lib/schemas.py:SemanticTag, plus a page-level tag block. section-tags.csv is the Excel-ready flat projection. semantic-address.json is a confirmation copy of the address emitted by lane 02 (lane 04 may issue loopback if address recomputed from tags disagrees)."
+  },
+  "excel_columns": {
+    "tab_name": "Tags",
+    "columns": [
+      {"name": "paper_uuid", "type": "string"},
+      {"name": "page_id", "type": "string"},
+      {"name": "section_id", "type": "string"},
+      {"name": "tag_id", "type": "string"},
+      {"name": "tag_type", "type": "enum:chi_var|law|axiom|master_eq|workflow|domain_badge|series|seven_q"},
+      {"name": "label", "type": "string"},
+      {"name": "chi_vars", "type": "string[]"},
+      {"name": "master_equation_uuid", "type": "string"},
+      {"name": "source_quote", "type": "string"},
+      {"name": "confidence", "type": "float[0..1]"},
+      {"name": "provenance", "type": "enum:lane04|loopback|mocked"}
+    ]
+  },
+  "semantic_address": {
+    "policy": "Lane 04 mints the canonical 10-variable vector + semantic_hash and composes them with the D/N/V/A/U/R address_candidate emitted by lane 03_YAML_METADATA. Lane 02 is narrow (section structure only) per lane_registry.json notes and CALIBRATION_EXPECTED.md. Vector + hash MUST be computed via configs/shared_lib/address.py (score_vector, vector_string, semantic_hash) — do NOT fork the format. Reviewed 2026-05-22.",
+    "vector_keys_order": ["G","M","E","S","T","K","R","Q","F","C"],
+    "tie_break": ["E","C","G","K","M","T","R","F","S","Q"],
+    "loopback_trigger": "If recomputed vector cannot be stabilized against the section_map (e.g. block_types missing), or if D/N/V/A/U/R from lane 03 cannot be joined to the vector deterministically, lane 04 writes 14_LOOPBACK_REVIEW/04_tags_loopback.json and marks tags.json.address_status = 'DRIFT'."
+  },
+  "loopback_conditions": [
+    "Vector cannot be deterministically computed from upstream section_map (block_types missing or section text empty).",
+    "Section text has zero recognizable tag signals (chi vars, laws, workflow markers) AND domain is THEOPHYSICS — likely upstream lossless failure.",
+    "Tag count > 50 per section (over-tagging — refine prompt).",
+    "address_candidate (D/N/V/A/U/R) from 03_YAML_METADATA is missing or has candidate_confidence='low'."
+  ],
+  "dependencies": {
+    "upstream_lanes": ["02", "03", "08"],
+    "stations": ["7q-classifier.station"],
+    "models": ["llm-first-pass (used by run_prompt.md); deberta-runner is NOT used here, that is lane 06"]
+  },
+  "tag_taxonomy": {
+    "chi_vars": ["chi_G","chi_M","chi_E","chi_S","chi_T","chi_K","chi_R","chi_Q","chi_F","chi_C"],
+    "laws": ["Law_1","Law_2","Law_3","Law_4","Law_5","Law_6","Law_7","Law_8","Law_9","Law_10"],
+    "master_eq_ref": "Tag with master_equation_uuid when section invokes the Master Equation explicitly.",
+    "workflow_tags": ["needs-math","needs-citation","needs-rigor","needs-evidence","calibration-input","story","operational","kill-condition"],
+    "domain_badges": ["PHYSICS","THEOLOGY","FORMAL","EMPIRICAL","ANALOGY","METAPHYSICS","INFORMATION","PUBLIC_COMM","LEGAL","TECH","AVIATION","SAFETY","PROCEDURE","UNKNOWN"]
+  },
+  "confidence": "draft",
+  "version": "0.1.0",
+  "round": "round-1"
+}

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Paper Intelligence: The Turtles and the Floor</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&family=Inter:wght@300;400;500;600&family=Oswald:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<style>
+:root {
+    --bg: #0a0a0a; --surface: #0f0f0f; --surface2: #1a1a1a; --surface3: #222;
+    --border: #2a2a2a; --gold: #d4af37; --gold-dim: rgba(212,175,55,0.1);
+    --text: #e8e8e8; --text-dim: #a0a0a0; --text-muted: #666;
+    --red: #ef4444; --blue: #4a9eff; --teal: #2dd4bf; --green: #22c55e; --orange: #f59e0b;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; font-size: 15px; }
+.serif { font-family: 'Crimson Text', serif; }
+.display { font-family: 'Oswald', sans-serif; }
+.mono { font-family: 'JetBrains Mono', monospace; }
+.main { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+h1 { font-family: 'Oswald', sans-serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 2px; }
+h2 { font-family: 'Oswald', sans-serif; font-size: 1.2rem; color: var(--gold); margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); text-transform: uppercase; letter-spacing: 1px; }
+h3 { font-size: 0.9rem; color: var(--text-dim); margin: 1.2rem 0 0.6rem; text-transform: uppercase; letter-spacing: 1px; }
+.meta { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0; }
+.card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; }
+.card-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 0.3rem; }
+.card-value { font-family: 'Oswald', sans-serif; font-size: 1.6rem; color: var(--gold); }
+.card-sub { font-size: 0.75rem; color: var(--text-dim); margin-top: 0.2rem; }
+.chart-box { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin: 1rem 0; }
+table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+th { text-align: left; padding: 8px 10px; border-bottom: 2px solid var(--border); color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; }
+td { padding: 6px 10px; border-bottom: 1px solid var(--border); }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 600; }
+.badge-gold { background: rgba(212,175,55,0.15); color: var(--gold); }
+.badge-green { background: rgba(34,197,94,0.15); color: var(--green); }
+.badge-red { background: rgba(239,68,68,0.15); color: var(--red); }
+.badge-blue { background: rgba(74,158,255,0.15); color: var(--blue); }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+@media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } .grid { grid-template-columns: 1fr 1fr; } }
+.footer { text-align: center; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--text-muted); }
+.quick-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 1rem 0; }
+.qa-btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 0.85rem;
+    background: var(--surface2); border: 1px solid var(--border); border-radius: 6px;
+    color: var(--text-dim); text-decoration: none; font-size: 0.8rem; transition: all 0.2s; }
+.qa-btn:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
+
+.pr-section-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; margin: 1rem 0; }
+.pr-tabs { display: flex; gap: 0.25rem; flex-wrap: wrap; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); margin-bottom: 1rem; overflow-x: auto; }
+.pr-tab {
+    font-family: 'Oswald', sans-serif; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--text-muted); background: transparent; border: 1px solid transparent; border-radius: 0.3rem;
+    padding: 0.4rem 0.75rem; cursor: pointer; white-space: nowrap; transition: all 0.2s;
+}
+.pr-tab:hover { color: var(--text-dim); background: var(--surface2); }
+.pr-tab.active { color: var(--gold); border-color: rgba(212,175,55,0.3); background: var(--gold-dim); }
+.pr-tab i { margin-right: 0.35rem; }
+.pr-panels { min-height: 100px; }
+.pr-panel { display: none; }
+.pr-panel.active { display: block; }
+.pr-empty { padding: 2rem; text-align: center; color: var(--text-muted); font-size: 0.85rem; font-style: italic; }
+.pr-empty i { margin-right: 0.5rem; color: var(--text-muted); }
+.pr-empty-mini { color: var(--text-muted); font-size: 0.75rem; font-style: italic; padding: 0.3rem 0; }
+
+.pr-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+.pr-table th { font-family: 'Oswald', sans-serif; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--text-muted); padding: 0.6rem 0.5rem; text-align: left; border-bottom: 1px solid var(--border); }
+.pr-table td { padding: 0.6rem 0.5rem; border-bottom: 1px solid var(--border); color: var(--text-dim); vertical-align: top; }
+.pr-table tr:hover td { background: rgba(212,175,55,0.03); }
+.pr-kill-table { background: rgba(239,68,68,0.04); border-radius: 6px; padding: 0.5rem; }
+
+.pr-badge { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+    padding: 0.15rem 0.45rem; border-radius: 0.25rem; border: 1px solid var(--border);
+    background: var(--surface2); color: var(--text-dim); white-space: nowrap; }
+.pr-badge.gold { color: var(--gold); border-color: rgba(212,175,55,0.3); background: var(--gold-dim); }
+.pr-badge.green { color: var(--green); border-color: rgba(34,197,94,0.3); background: rgba(34,197,94,0.1); }
+.pr-badge.red { color: var(--red); border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.1); }
+.pr-badge.blue { color: var(--blue); border-color: rgba(74,158,255,0.3); background: rgba(74,158,255,0.1); }
+.pr-badge.orange { color: var(--orange); border-color: rgba(245,158,11,0.3); background: rgba(245,158,11,0.1); }
+.pr-badge.violet { color: #8b7fc2; border-color: rgba(139,127,194,0.3); background: rgba(139,127,194,0.1); }
+.pr-badge.teal { color: var(--teal); border-color: rgba(45,212,191,0.3); background: rgba(45,212,191,0.1); }
+
+.pr-assump-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.75rem; }
+.pr-assump-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 0.75rem; }
+.pr-assump-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+.pr-list { list-style: disc; padding-left: 1.1rem; margin: 0; font-size: 0.78rem; color: var(--text-dim); line-height: 1.5; }
+.pr-list li { margin-bottom: 0.3rem; }
+.pr-list-numbered { list-style: decimal; }
+
+.pr-section { margin-top: 1rem; }
+.pr-section h4 { font-family: 'Oswald', sans-serif; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--text-muted); margin-bottom: 0.4rem; }
+.pr-prose { background: var(--surface2); border-left: 3px solid var(--red); padding: 0.7rem 0.9rem; border-radius: 0 4px 4px 0;
+    font-size: 0.85rem; color: var(--text-dim); line-height: 1.55; }
+
+.pr-row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 1rem; }
+.pr-stat-cell { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 0.75rem; }
+.pr-stat-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.4rem; }
+
+.pr-rubric { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+.pr-rubric-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.5rem; }
+.pr-rubric-cell { background: var(--surface2); border: 1px solid var(--border); border-radius: 5px; padding: 0.5rem 0.7rem; }
+.pr-rubric-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 0.35rem; }
+.pr-rubric-bar { height: 4px; background: #1a1a1a; border-radius: 2px; overflow: hidden; margin-bottom: 0.25rem; }
+.pr-rubric-fill { height: 100%; background: var(--gold); border-radius: 2px; }
+.pr-rubric-val { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--gold); text-align: right; }
+
+@media (max-width: 700px) {
+    .pr-row-3 { grid-template-columns: 1fr; }
+    .pr-rubric-grid { grid-template-columns: 1fr 1fr; }
+    .pr-table { font-size: 0.75rem; }
+    .pr-table th, .pr-table td { padding: 0.4rem 0.3rem; }
+}
+
+</style>
+</head>
+<body>
+<div class="main">
+
+<h1>The Turtles and the Floor</h1>
+<div class="meta">
+    Paper Intelligence Report &mdash; Schema 1.0.0 &mdash; 2026-04-29T15:00:00<br/>
+    <span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:rgba(34,197,94,0.15);border-radius:4px;font-size:0.7rem;color:#22c55e">&#10003; L1</span> <span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:rgba(34,197,94,0.15);border-radius:4px;font-size:0.7rem;color:#22c55e">&#10003; L10</span> <span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:rgba(34,197,94,0.15);border-radius:4px;font-size:0.7rem;color:#22c55e">&#10003; L13_peer_review</span> <span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:rgba(34,197,94,0.15);border-radius:4px;font-size:0.7rem;color:#22c55e">&#10003; L2</span> <span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:rgba(34,197,94,0.15);border-radius:4px;font-size:0.7rem;color:#22c55e">&#10003; L3</span> <span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:rgba(245,158,11,0.15);border-radius:4px;font-size:0.7rem;color:#f59e0b">&#8644; L4</span> <span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:rgba(34,197,94,0.15);border-radius:4px;font-size:0.7rem;color:#22c55e">&#10003; L5</span> <span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:rgba(34,197,94,0.15);border-radius:4px;font-size:0.7rem;color:#22c55e">&#10003; L6</span> <span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:rgba(34,197,94,0.15);border-radius:4px;font-size:0.7rem;color:#22c55e">&#10003; L7</span> <span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:rgba(34,197,94,0.15);border-radius:4px;font-size:0.7rem;color:#22c55e">&#10003; L8</span> <span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:rgba(34,197,94,0.15);border-radius:4px;font-size:0.7rem;color:#22c55e">&#10003; L9</span> 
+</div>
+
+<div class="quick-actions">
+    <a href="FP-005_snapshot.json" class="qa-btn" download><i class="fas fa-code"></i> Download JSON</a>
+    <a href="javascript:window.print()" class="qa-btn"><i class="fas fa-print"></i> Print / PDF</a>
+</div>
+
+<!-- ══════════ KEY METRICS ══════════ -->
+<div class="grid">
+    
+    <div class="card" style="border-color:rgba(212,175,55,0.4)">
+        <div class="card-label">Review Readiness</div>
+        <div class="card-value" style="color:var(--gold)">58</div>
+        <div class="card-sub">/ 100 &middot; conf: medium</div>
+    </div>
+    <div class="card">
+        <div class="card-label">CHI Score</div>
+        <div class="card-value">7.20</div>
+        <div class="card-sub">Coherent</div>
+    </div>
+    <div class="card">
+        <div class="card-label">Truth Score</div>
+        <div class="card-value">7.00</div>
+        <div class="card-sub">Coherence: 0.710</div>
+    </div>
+    <div class="card">
+        <div class="card-label">Academic Grade</div>
+        <div class="card-value">B+</div>
+        <div class="card-sub">11th-12th grade</div>
+    </div>
+    <div class="card">
+        <div class="card-label">CKG Tier</div>
+        <div class="card-value" style="font-size:1.2rem">Tier 2 — Sourced</div>
+        <div class="card-sub">4,200 words</div>
+    </div>
+    <div class="card">
+        <div class="card-label">Idea Density</div>
+        <div class="card-value">0.510</div>
+        <div class="card-sub">Above average</div>
+    </div>
+    <div class="card">
+        <div class="card-label">Fruit &minus; Anti</div>
+        <div class="card-value" style="color:var(--green)">+0.450</div>
+        <div class="card-sub">Emotion net score</div>
+    </div>
+    <div class="card">
+        <div class="card-label">Vocab Diversity</div>
+        <div class="card-value">92</div>
+        <div class="card-sub">MTLD</div>
+    </div>
+    <div class="card">
+        <div class="card-label">Claims Analyzed</div>
+        <div class="card-value">14</div>
+        <div class="card-sub">1 contradictions</div>
+    </div>
+</div>
+
+
+<!-- ══════════ PEER REVIEW ══════════ -->
+<h2><i class="fas fa-microscope" style="margin-right:0.4rem;color:var(--gold)"></i>Peer Review</h2>
+<div class="pr-section-wrap">
+    <div class="pr-tabs"><button class="pr-tab active" data-pr="claims" onclick="prSwitch('claims')"><i class="fas fa-list-check"></i> Claims</button><button class="pr-tab" data-pr="equations" onclick="prSwitch('equations')"><i class="fas fa-square-root-variable"></i> Equations</button><button class="pr-tab" data-pr="assumptions" onclick="prSwitch('assumptions')"><i class="fas fa-layer-group"></i> Assumptions</button><button class="pr-tab" data-pr="evidence" onclick="prSwitch('evidence')"><i class="fas fa-magnifying-glass"></i> Evidence</button><button class="pr-tab" data-pr="falsifiability" onclick="prSwitch('falsifiability')"><i class="fas fa-skull"></i> Falsifiability</button><button class="pr-tab" data-pr="comparison" onclick="prSwitch('comparison')"><i class="fas fa-balance-scale"></i> Comparison</button><button class="pr-tab" data-pr="weak" onclick="prSwitch('weak')"><i class="fas fa-triangle-exclamation"></i> Weak Points</button><button class="pr-tab" data-pr="revision" onclick="prSwitch('revision')"><i class="fas fa-pen-to-square"></i> Revision Plan</button></div>
+    <div class="pr-panels"><div class="pr-panel active" id="pr-panel-claims"><table class="pr-table"><thead><tr><th>Claim</th><th>Type</th><th>Importance</th><th>Evidence</th><th>Testable</th><th>Risk</th><th>Cite</th></tr></thead><tbody><tr><td style="max-width:380px">Closed systems cannot ground themselves<div style="font-size:0.7rem;color:var(--text-muted);margin-top:0.2rem">Anchored in Gödel + Turing + Shannon convergence.</div></td><td><span class="pr-badge pr-mathematical">mathematical</span></td><td><span class="pr-badge gold">core</span></td><td style="text-align:center"><i class="fas fa-check" style="color:var(--green)" title="evidence present"></i></td><td><span class="pr-badge gold">partial</span></td><td><span class="pr-badge green">low</span></td><td style="text-align:center"></td></tr><tr><td style="max-width:380px">The Cross satisfies all four CPT-symmetry constraints uniquely<div style="font-size:0.7rem;color:var(--text-muted);margin-top:0.2rem">Strongest interpretive claim; lacks formal derivation.</div></td><td><span class="pr-badge pr-metaphysical">metaphysical</span></td><td><span class="pr-badge gold">core</span></td><td style="text-align:center"><i class="fas fa-minus" style="color:var(--text-muted)"></i></td><td><span class="pr-badge red">no</span></td><td><span class="pr-badge red">high</span></td><td style="text-align:center"><i class="fas fa-exclamation-triangle" style="color:var(--orange)" title="needs citation"></i></td></tr><tr><td style="max-width:380px">τ_lock = 33 years derivable from coupling constants<div style="font-size:0.7rem;color:var(--text-muted);margin-top:0.2rem">Open Problem 2 — decisive.</div></td><td><span class="pr-badge pr-physical">physical</span></td><td><span class="pr-badge gold">core</span></td><td style="text-align:center"><i class="fas fa-minus" style="color:var(--text-muted)"></i></td><td><span class="pr-badge green">yes</span></td><td><span class="pr-badge red">high</span></td><td style="text-align:center"></td></tr><tr><td style="max-width:380px">Eden cherubim corresponds to no-cloning theorem<div style="font-size:0.7rem;color:var(--text-muted);margin-top:0.2rem">Structural analogy; framework explicitly does not claim isomorphism.</div></td><td><span class="pr-badge pr-analogy">analogy</span></td><td><span class="pr-badge red">rhetorical</span></td><td style="text-align:center"><i class="fas fa-minus" style="color:var(--text-muted)"></i></td><td><span class="pr-badge red">no</span></td><td><span class="pr-badge gold">medium</span></td><td style="text-align:center"><i class="fas fa-exclamation-triangle" style="color:var(--orange)" title="needs citation"></i></td></tr></tbody></table></div><div class="pr-panel" id="pr-panel-equations"><table class="pr-table"><thead><tr><th>Equation / Purpose</th><th>Role</th><th>Operational</th><th>Dimensions</th><th>Vars Defined</th></tr></thead><tbody><tr><td><div class="mono" style="font-size:0.78rem;color:var(--gold)">g_L(s,X) = κ · I_A(s; M_X) · Φ_X</div><div style="font-size:0.75rem;color:var(--text-dim);margin-top:0.2rem">Resonant coupling between input structure and target system</div></td><td><span class="pr-badge green">doing work</span></td><td><span class="pr-badge green">computable</span></td><td>defined</td><td style="text-align:center"><i class="fas fa-check" style="color:var(--green)"></i></td></tr><tr><td><div class="mono" style="font-size:0.78rem;color:var(--gold)">ΔO ≈ g_L(s,X) · S_X</div><div style="font-size:0.75rem;color:var(--text-dim);margin-top:0.2rem">General observable prediction</div></td><td><span class="pr-badge gold">predictive</span></td><td><span class="pr-badge green">computable</span></td><td>defined</td><td style="text-align:center"><i class="fas fa-check" style="color:var(--green)"></i></td></tr><tr><td><div class="mono" style="font-size:0.78rem;color:var(--gold)">□(QM ⊨ ⊤ → ∃O_∞ : Φ(O_∞) = ∞)</div><div style="font-size:0.75rem;color:var(--text-dim);margin-top:0.2rem">Necessity of Terminal Observer in modal logic</div><div style="font-size:0.7rem;color:var(--orange);margin-top:0.3rem">⚠ Missing operational definition of Φ at infinity</div></td><td><span class="pr-badge blue">structural</span></td><td><span class="pr-badge gold">symbolic</span></td><td>not_applicable</td><td style="text-align:center"><i class="fas fa-times" style="color:var(--red)"></i></td></tr></tbody></table></div><div class="pr-panel" id="pr-panel-assumptions"><div class="pr-assump-grid"><div class="pr-assump-card"><div class="pr-assump-header"><span class="pr-badge gold">Explicit</span><span style="color:var(--text-muted);font-size:0.7rem">2</span></div><ul class="pr-list"><li>Quantum mechanics is true</li><li>Well-foundedness of grounding relation</li></ul></div><div class="pr-assump-card"><div class="pr-assump-header"><span class="pr-badge red">Implicit</span><span style="color:var(--text-muted);font-size:0.7rem">1</span></div><ul class="pr-list"><li>Personal terminal observer is identical to classical theism&#x27;s God</li></ul></div><div class="pr-assump-card"><div class="pr-assump-header"><span class="pr-badge blue">Imported (existing physics)</span><span style="color:var(--text-muted);font-size:0.7rem">2</span></div><ul class="pr-list"><li>von Neumann measurement formalism</li><li>Tononi IIT (Φ as integration)</li></ul></div><div class="pr-assump-card"><div class="pr-assump-header"><span class="pr-badge gold">Theological</span><span style="color:var(--text-muted);font-size:0.7rem">2</span></div><ul class="pr-list"><li>Trinity is a non-derived primitive</li><li>Cross is a unique CPT counter-move</li></ul></div><div class="pr-assump-card"><div class="pr-assump-header"><span class="pr-badge blue">Scientific</span><span style="color:var(--text-muted);font-size:0.7rem">2</span></div><ul class="pr-list"><li>Standard Model holds</li><li>Decoherence is real but insufficient</li></ul></div><div class="pr-assump-card"><div class="pr-assump-header"><span class="pr-badge violet">Philosophical</span><span style="color:var(--text-muted);font-size:0.7rem">1</span></div><ul class="pr-list"><li>Self-refutation is a valid termination criterion</li></ul></div><div class="pr-assump-card"><div class="pr-assump-header"><span class="pr-badge teal">Measurement</span><span style="color:var(--text-muted);font-size:0.7rem">1</span></div><ul class="pr-list"><li>Φ is in-principle measurable for finite systems</li></ul></div><div class="pr-assump-card"><div class="pr-assump-header"><span class="pr-badge green">Causal</span><span style="color:var(--text-muted);font-size:0.7rem">0</span></div><div class="pr-empty-mini">none</div></div></div></div><div class="pr-panel" id="pr-panel-evidence"><table class="pr-table"><thead><tr><th>Claim</th><th>Supporting Evidence</th><th>Type</th><th>Quality</th></tr></thead><tbody><tr><td style="max-width:280px">Closed systems cannot ground themselves</td><td style="max-width:340px">Gödel (1931), Turing (1936), Chaitin (1975), Landauer (1961)<div style="font-size:0.7rem;color:var(--text-muted);margin-top:0.2rem">Counter-evidence needed: Constructive grounding without external input</div></td><td><span class="pr-badge green">primary</span></td><td><span class="pr-badge green">strong</span></td></tr><tr><td style="max-width:280px">Human intent measurably affects physical systems</td><td style="max-width:340px">PEAR-LAB 2.5M trials at 6.35σ; GCP 325+ replications at 6σ<div style="font-size:0.7rem;color:var(--orange);margin-top:0.3rem">Gap: Replication crisis context not addressed</div><div style="font-size:0.7rem;color:var(--text-muted);margin-top:0.2rem">Counter-evidence needed: Pre-registered replication outside PEAR/GCP communities</div></td><td><span class="pr-badge blue">secondary</span></td><td><span class="pr-badge gold">moderate</span></td></tr><tr><td style="max-width:280px">τ_lock = 33 years</td><td style="max-width:340px">Historical anchor only<div style="font-size:0.7rem;color:var(--orange);margin-top:0.3rem">Gap: No mechanism proposed for the specific value</div><div style="font-size:0.7rem;color:var(--text-muted);margin-top:0.2rem">Counter-evidence needed: First-principles derivation</div></td><td><span class="pr-badge gold">interpretive</span></td><td><span class="pr-badge red">weak</span></td></tr></tbody></table></div><div class="pr-panel" id="pr-panel-falsifiability"><table class="pr-table pr-kill-table"><thead><tr><th>Claim</th><th>Kill Condition / Test</th><th>Severity</th><th>Status</th></tr></thead><tbody><tr><td style="max-width:280px">SSB-irreversibility composition holds</td><td style="max-width:300px"><div>SSB reversible in infinite-volume limit</div><div style="font-size:0.72rem;color:var(--text-muted);margin-top:0.25rem">Test: QFT calculation</div></td><td><span class="pr-badge red">fatal</span></td><td><span class="pr-badge red">open</span></td></tr><tr><td style="max-width:280px">Energy conservation across full arc</td><td style="max-width:300px"><div>Energy non-conserved across full arc</div><div style="font-size:0.72rem;color:var(--text-muted);margin-top:0.25rem">Test: Thermodynamic audit</div></td><td><span class="pr-badge red">fatal</span></td><td><span class="pr-badge green">strong</span></td></tr><tr><td style="max-width:280px">τ_lock derivability</td><td style="max-width:300px"><div>τ_lock derivation ≠ 33 years</div><div style="font-size:0.72rem;color:var(--text-muted);margin-top:0.25rem">Test: Coupling constant calc</div></td><td><span class="pr-badge red">fatal</span></td><td><span class="pr-badge gold">unresolved</span></td></tr><tr><td style="max-width:280px">EM invisibility</td><td style="max-width:300px"><div>Coupling produces EM signature</div><div style="font-size:0.72rem;color:var(--text-muted);margin-top:0.25rem">Test: Direct detection</div></td><td><span class="pr-badge red">fatal</span></td><td><span class="pr-badge orange">weak</span></td></tr><tr><td style="max-width:280px">Historical fit</td><td style="max-width:300px"><div>Historical record contradicts P1</div><div style="font-size:0.72rem;color:var(--text-muted);margin-top:0.25rem">Test: Sociological analysis</div></td><td><span class="pr-badge gold">wounding</span></td><td><span class="pr-badge green">strong</span></td></tr></tbody></table></div><div class="pr-panel" id="pr-panel-comparison"><table class="pr-table"><thead><tr><th>Nearest Theory</th><th>Similarity</th><th>Difference</th><th>Outperforms?</th></tr></thead><tbody><tr><td><strong style="color:var(--gold)">Penrose Orchestrated Objective Reduction</strong><div style="font-size:0.7rem;color:var(--orange);margin-top:0.3rem">⚠ Category confusion: Penrose is physicalist; this is dualist — comparison risks category drift.</div></td><td>Both posit consciousness as fundamental to measurement.</td><td>Penrose locates collapse in microtubules; this paper locates it in the terminal observer.</td><td><span class="pr-badge gold">unclear</span></td></tr><tr><td><strong style="color:var(--gold)">Wheeler Participatory Universe</strong></td><td>It-from-bit, observation as creation</td><td>Wheeler doesn&#x27;t terminate the regress; BC1 does.</td><td><span class="pr-badge green">yes</span></td></tr></tbody></table></div><div class="pr-panel" id="pr-panel-weak"><div class="pr-row-3"><div class="pr-stat-cell"><div class="pr-stat-label">Rhetorical strength</div><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:78.0%;height:100%;background:#d4af37;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.780</span></div></div><div class="pr-stat-cell"><div class="pr-stat-label">Evidence strength</div><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:42.0%;height:100%;background:#22c55e;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.420</span></div></div><div class="pr-stat-cell"><div class="pr-stat-label">Δ (rhetoric − evidence)</div><div style="font-family:'Oswald',sans-serif;font-size:1.4rem;color:var(--red)">+0.36</div><span class="pr-badge orange" style="margin-top:0.3rem">moderate</span></div></div><div class="pr-section"><h4>Weakest Part</h4><div class="pr-prose">The compressed identification of the von Neumann fixed point with the personal God of classical theism — the math gives you a self-grounding observer, not personhood.</div></div><div class="pr-section"><h4>Overstated Passages (2)</h4><ul class="pr-list"><li>&quot;The data is in. The math is done.&quot; — overstates the maturity of the formal work; RCH calibration ladder is not yet executed.</li><li>&quot;Six theorems that accidentally proved Grace&quot; — six convergent theorems do not prove grace; they motivate it.</li></ul></div></div><div class="pr-panel" id="pr-panel-revision"><div class="pr-section"><h4>Strongest Part</h4><div class="pr-prose" style="border-left-color:var(--green)">Falsifiability discipline in RCH section; explicit STOP conditions in the four-rung ladder.</div></div><div class="pr-section"><h4>Must Fix Before Publication (3)</h4><ul class="pr-list pr-list-numbered"><li>Separate the fixed-point existence claim from the personhood claim and treat them as distinct propositions.</li><li>Provide a first-principles derivation candidate for τ_lock, even if speculative.</li><li>Tone down &#x27;proven&#x27; / &#x27;mathematically necessary&#x27; to &#x27;structurally required under stated assumptions&#x27;.</li></ul></div><div class="pr-section"><h4>Best Next Test</h4><div class="pr-prose" style="border-left-color:var(--gold)">Run Rung A of the RCH calibration ladder on synthetic baselines; report whether the monotonic trend holds.</div></div><div class="pr-section"><h4>Needs Expert Review</h4><div><span class="pr-badge violet" style="margin:0.15rem">philosophy of religion</span><span class="pr-badge violet" style="margin:0.15rem">QFT</span><span class="pr-badge violet" style="margin:0.15rem">philology</span></div></div></div></div>
+    <div class="pr-rubric">
+        <h3 style="margin-top:0">Coherence Rubric (8-metric review-readiness)</h3>
+        <div class="pr-rubric-grid"><div class="pr-rubric-cell"><div class="pr-rubric-label">Definitions</div><div class="pr-rubric-bar"><div class="pr-rubric-fill" style="width:70%"></div></div><div class="pr-rubric-val">7/10</div></div><div class="pr-rubric-cell"><div class="pr-rubric-label">Equations</div><div class="pr-rubric-bar"><div class="pr-rubric-fill" style="width:60%"></div></div><div class="pr-rubric-val">6/10</div></div><div class="pr-rubric-cell"><div class="pr-rubric-label">Claims</div><div class="pr-rubric-bar"><div class="pr-rubric-fill" style="width:50%"></div></div><div class="pr-rubric-val">5/10</div></div><div class="pr-rubric-cell"><div class="pr-rubric-label">Scope</div><div class="pr-rubric-bar"><div class="pr-rubric-fill" style="width:60%"></div></div><div class="pr-rubric-val">6/10</div></div><div class="pr-rubric-cell"><div class="pr-rubric-label">Falsifiable</div><div class="pr-rubric-bar"><div class="pr-rubric-fill" style="width:80%"></div></div><div class="pr-rubric-val">8/10</div></div><div class="pr-rubric-cell"><div class="pr-rubric-label">Citations</div><div class="pr-rubric-bar"><div class="pr-rubric-fill" style="width:40%"></div></div><div class="pr-rubric-val">4/10</div></div><div class="pr-rubric-cell"><div class="pr-rubric-label">Domain Sep.</div><div class="pr-rubric-bar"><div class="pr-rubric-fill" style="width:70%"></div></div><div class="pr-rubric-val">7/10</div></div><div class="pr-rubric-cell"><div class="pr-rubric-label">Readability</div><div class="pr-rubric-bar"><div class="pr-rubric-fill" style="width:60%"></div></div><div class="pr-rubric-val">6/10</div></div></div>
+        <div style="margin-top:0.6rem;font-size:0.7rem;color:var(--text-muted)">Confidence: medium. Not an objective truth score.</div>
+    </div>
+</div>
+
+
+<!-- ══════════ FRUITS RADAR ══════════ -->
+<h2>Fruits of the Spirit &mdash; Dual Channel</h2>
+<div class="two-col">
+    <div class="chart-box">
+        <canvas id="fruitRadar" height="300"></canvas>
+    </div>
+    <div class="chart-box">
+        <h3>Fruits Comparison Table</h3>
+        <table>
+            <tr><th>Fruit</th><th>L6 (Lexical)</th><th>L8 (Emotion)</th><th>Anti-Fruit</th><th>Avg</th></tr>
+            <tr>
+        <td style="font-weight:500;color:#e8e8e8">Love</td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:60.0%;height:100%;background:#d4af37;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.180</span></div></td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:55.00000000000001%;height:100%;background:#22c55e;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.550</span></div></td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:20.0%;height:100%;background:#ef4444;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.020</span></div></td>
+        <td class="mono" style="text-align:center;color:#d4af37">0.365</td>
+    </tr><tr>
+        <td style="font-weight:500;color:#e8e8e8">Joy</td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:40.0%;height:100%;background:#d4af37;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.120</span></div></td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:38.0%;height:100%;background:#22c55e;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.380</span></div></td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:30.0%;height:100%;background:#ef4444;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.030</span></div></td>
+        <td class="mono" style="text-align:center;color:#d4af37">0.250</td>
+    </tr><tr>
+        <td style="font-weight:500;color:#e8e8e8">Peace</td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:33.333333333333336%;height:100%;background:#d4af37;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.100</span></div></td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:42.0%;height:100%;background:#22c55e;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.420</span></div></td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:0.0%;height:100%;background:#ef4444;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.000</span></div></td>
+        <td class="mono" style="text-align:center;color:#d4af37">0.260</td>
+    </tr><tr>
+        <td style="font-weight:500;color:#e8e8e8">Patience</td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:26.666666666666668%;height:100%;background:#d4af37;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.080</span></div></td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:30.0%;height:100%;background:#22c55e;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.300</span></div></td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:0.0%;height:100%;background:#ef4444;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.000</span></div></td>
+        <td class="mono" style="text-align:center;color:#d4af37">0.190</td>
+    </tr><tr>
+        <td style="font-weight:500;color:#e8e8e8">Kindness</td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:30.0%;height:100%;background:#d4af37;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.090</span></div></td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:35.0%;height:100%;background:#22c55e;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.350</span></div></td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:0.0%;height:100%;background:#ef4444;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.000</span></div></td>
+        <td class="mono" style="text-align:center;color:#d4af37">0.220</td>
+    </tr><tr>
+        <td style="font-weight:500;color:#e8e8e8">Goodness</td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:46.66666666666667%;height:100%;background:#d4af37;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.140</span></div></td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:48.0%;height:100%;background:#22c55e;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.480</span></div></td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:0.0%;height:100%;background:#ef4444;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.000</span></div></td>
+        <td class="mono" style="text-align:center;color:#d4af37">0.310</td>
+    </tr><tr>
+        <td style="font-weight:500;color:#e8e8e8">Faithfulness</td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:70.0%;height:100%;background:#d4af37;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.210</span></div></td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:62.0%;height:100%;background:#22c55e;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.620</span></div></td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:0.0%;height:100%;background:#ef4444;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.000</span></div></td>
+        <td class="mono" style="text-align:center;color:#d4af37">0.415</td>
+    </tr><tr>
+        <td style="font-weight:500;color:#e8e8e8">Gentleness</td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:23.333333333333336%;height:100%;background:#d4af37;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.070</span></div></td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:28.000000000000004%;height:100%;background:#22c55e;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.280</span></div></td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:0.0%;height:100%;background:#ef4444;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.000</span></div></td>
+        <td class="mono" style="text-align:center;color:#d4af37">0.175</td>
+    </tr><tr>
+        <td style="font-weight:500;color:#e8e8e8">Self Control</td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:53.333333333333336%;height:100%;background:#d4af37;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.160</span></div></td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:41.0%;height:100%;background:#22c55e;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.410</span></div></td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden"><div style="width:0.0%;height:100%;background:#ef4444;border-radius:4px"></div></div><span class="mono" style="font-size:0.75rem;color:#a0a0a0;min-width:45px;text-align:right">0.000</span></div></td>
+        <td class="mono" style="text-align:center;color:#d4af37">0.285</td>
+    </tr>
+        </table>
+    </div>
+</div>
+
+<!-- ══════════ 27 EMOTIONS ══════════ -->
+<h2>GoEmotions &mdash; 27 Fine-Grained Emotions</h2>
+<div class="chart-box">
+    <canvas id="emoBar" height="200"></canvas>
+    <div style="margin-top:0.8rem;font-size:0.8rem;color:var(--text-dim)">
+        <strong>Dominant:</strong> curiosity &nbsp;|&nbsp; <strong>Top 5:</strong> curiosity, awe, conviction, gratitude, resolve
+    </div>
+</div>
+
+<!-- ══════════ NRC PLUTCHIK ══════════ -->
+<h2>NRC Plutchik Emotion Wheel</h2>
+<div class="two-col">
+    <div class="chart-box">
+        <canvas id="nrcRadar" height="280"></canvas>
+    </div>
+    <div class="chart-box">
+        <h3>NRC Top Emotions</h3>
+        <div style="font-size:0.85rem;color:var(--text-dim);line-height:2">trust<br/>anticipation<br/>joy<br/>surprise</div>
+    </div>
+</div>
+
+<!-- ══════════ MASTER EQUATION ══════════ -->
+<h2>Master Equation Variables</h2>
+<div class="chart-box">
+    <canvas id="meBar" height="200"></canvas>
+</div>
+
+<!-- ══════════ CLAIMS ══════════ -->
+<h2>Claims Analysis</h2>
+<div class="grid" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));">
+    <div class="card"><div class="card-label">Total Claims</div><div class="card-value">14</div></div>
+    <div class="card"><div class="card-label">Anchored</div><div class="card-value" style="color:var(--green)">6</div></div>
+    <div class="card"><div class="card-label">Under-Supported</div><div class="card-value" style="color:var(--orange)">4</div></div>
+    <div class="card"><div class="card-label">Overstated</div><div class="card-value" style="color:var(--red)">2</div></div>
+    <div class="card"><div class="card-label">Falsifiable</div><div class="card-value" style="color:var(--blue)">5</div></div>
+    <div class="card"><div class="card-label">Speculative</div><div class="card-value" style="color:var(--text-muted)">3</div></div>
+</div>
+
+<!-- ══════════ CHARACTER ══════════ -->
+<h2>Character Profile</h2>
+<div class="card" style="margin:1rem 0">
+    <div style="margin-bottom:0.5rem"><span class="badge badge-gold">Investigative — doctrinally bold but methodologically cautious</span></div>
+    <div style="font-size:0.85rem;color:var(--text-dim)">Self-flags speculative claims with bridge conditions; uses &#x27;candidate&#x27; rather than &#x27;proven&#x27;.</div>
+</div>
+
+<!-- ══════════ KEYWORDS ══════════ -->
+<h2>Keywords &amp; Entities</h2>
+<div class="two-col">
+    <div class="card">
+        <h3>KeyBERT Keywords</h3>
+        <div style="font-size:0.8rem;color:var(--text-dim);line-height:1.8">
+            logos<br/>terminal observer<br/>resonant coupling<br/>grace<br/>participatory
+        </div>
+    </div>
+    <div class="card">
+        <h3>NLP Entities</h3>
+        <div style="font-size:0.8rem;color:var(--text-dim);line-height:1.8">
+            <strong>People:</strong> Wheeler, von Neumann, Gödel, Tononi<br/>
+            <strong>Orgs:</strong> PEAR, GCP<br/>
+            <strong>Count:</strong> 12 entities, PERSON, ORG, WORK_OF_ART
+        </div>
+    </div>
+</div>
+
+<h2>Knowledge Graph Position</h2><div class="card" style="margin:1rem 0"><div style="font-size:0.85rem;color:var(--text-dim)"><strong>Centrality:</strong> 0.82 (hub) &nbsp;|&nbsp; <strong>Cluster:</strong> Foundational</div></div>
+
+<div class="footer">
+    Theophysics Paper Intelligence Pipeline v1.0.0 &mdash; 10-Layer Analysis + Peer-Review Snapshot<br/>
+    Generated 2026-04-29 21:39
+</div>
+
+</div>
+
+<script>
+
+function prSwitch(key) {
+    document.querySelectorAll('.pr-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.pr-panel').forEach(p => p.classList.remove('active'));
+    var btn = document.querySelector('.pr-tab[data-pr="' + key + '"]');
+    var panel = document.getElementById('pr-panel-' + key);
+    if (btn) btn.classList.add('active');
+    if (panel) panel.classList.add('active');
+}
+
+
+// Fruits Radar
+new Chart(document.getElementById('fruitRadar'), {
+    type: 'radar',
+    data: {
+        labels: ["Love", "Joy", "Peace", "Patience", "Kindness", "Goodness", "Faithfulness", "Gentleness", "Self Control"],
+        datasets: [
+            { label: 'L6 Lexical', data: [0.18, 0.12, 0.1, 0.08, 0.09, 0.14, 0.21, 0.07, 0.16], borderColor: '#d4af37', backgroundColor: 'rgba(212,175,55,0.1)', pointBackgroundColor: '#d4af37' },
+            { label: 'L8 Emotion', data: [0.55, 0.38, 0.42, 0.3, 0.35, 0.48, 0.62, 0.28, 0.41], borderColor: '#22c55e', backgroundColor: 'rgba(34,197,94,0.1)', pointBackgroundColor: '#22c55e' }
+        ]
+    },
+    options: {
+        responsive: true,
+        scales: { r: { beginAtZero: true, grid: { color: '#2a2a2a' }, ticks: { display: false }, pointLabels: { color: '#a0a0a0', font: { size: 11 } } } },
+        plugins: { legend: { labels: { color: '#a0a0a0' } } }
+    }
+});
+
+// GoEmotions Bar
+new Chart(document.getElementById('emoBar'), {
+    type: 'bar',
+    data: {
+        labels: ["Admiration", "Amusement", "Anger", "Annoyance", "Approval", "Caring", "Confusion", "Curiosity", "Desire", "Disappointment", "Disapproval", "Disgust", "Embarrassment", "Excitement", "Fear", "Gratitude", "Grief", "Joy", "Love", "Nervousness", "Optimism", "Pride", "Realization", "Relief", "Remorse", "Sadness", "Surprise", "Neutral"],
+        datasets: [{ data: [0.35, 0, 0, 0, 0, 0, 0, 0.62, 0, 0, 0, 0, 0, 0, 0, 0.28, 0, 0, 0, 0, 0.33, 0, 0.41, 0, 0, 0, 0, 0], backgroundColor: [0.35, 0, 0, 0, 0, 0, 0, 0.62, 0, 0, 0, 0, 0, 0, 0, 0.28, 0, 0, 0, 0, 0.33, 0, 0.41, 0, 0, 0, 0, 0].map(v => v > 0.1 ? '#d4af37' : v > 0.01 ? 'rgba(212,175,55,0.5)' : 'rgba(212,175,55,0.15)') }]
+    },
+    options: {
+        responsive: true, indexAxis: 'y',
+        scales: { x: { grid: { color: '#1a1a1a' }, ticks: { color: '#666' } }, y: { ticks: { color: '#a0a0a0', font: { size: 10 } } } },
+        plugins: { legend: { display: false } }
+    }
+});
+
+// NRC Radar
+new Chart(document.getElementById('nrcRadar'), {
+    type: 'radar',
+    data: {
+        labels: ["Joy", "Trust", "Fear", "Surprise", "Sadness", "Disgust", "Anger", "Anticipation"],
+        datasets: [{ label: 'NRC', data: [0.45, 0.62, 0, 0, 0, 0, 0, 0.55], borderColor: '#4a9eff', backgroundColor: 'rgba(74,158,255,0.1)', pointBackgroundColor: '#4a9eff' }]
+    },
+    options: {
+        responsive: true,
+        scales: { r: { beginAtZero: true, grid: { color: '#2a2a2a' }, ticks: { display: false }, pointLabels: { color: '#a0a0a0', font: { size: 11 } } } },
+        plugins: { legend: { display: false } }
+    }
+});
+
+// Master Equation Bar
+new Chart(document.getElementById('meBar'), {
+    type: 'bar',
+    data: {
+        labels: ["Gravity Belonging", "Mass Meaning", "Entropy Engagement", "Spacetime Structure", "Time Eternity", "Knowledge Logos", "Relationship", "Quantum Observer", "Faith Coupling", "Christ Coherence"],
+        datasets: [{ data: [0.6, 0.7, 0.5, 0.4, 0.55, 0.8, 0.65, 0.85, 0.7, 0.75], backgroundColor: '#d4af37' }]
+    },
+    options: {
+        responsive: true,
+        scales: { x: { ticks: { color: '#a0a0a0', font: { size: 10 } } }, y: { beginAtZero: true, grid: { color: '#1a1a1a' }, ticks: { color: '#666' } } },
+        plugins: { legend: { display: false } }
+    }
+});
+</script>
+</body>
+</html>

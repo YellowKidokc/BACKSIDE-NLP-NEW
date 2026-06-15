@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paper Grade Dashboard - gtq-04-free-will-two-frames</title>
+<style>
+:root {
+  --ink:#14120d;
+  --paper:#fbf4df;
+  --paper2:#f3e6bf;
+  --line:#d6bd73;
+  --deep:#33250b;
+  --gold:#b8871e;
+  --green:#267a4a;
+  --red:#b3442f;
+  --blue:#2f5f7f;
+  --muted:#786845;
+  --shadow:0 18px 60px rgba(33,24,8,.18);
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  color:var(--ink);
+  font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  background:
+    radial-gradient(circle at top left, rgba(184,135,30,.22), transparent 34rem),
+    linear-gradient(135deg, #fff9e8 0%, #ead38e 100%);
+}
+main { max-width:1280px; margin:0 auto; padding:38px 22px 80px; }
+.hero {
+  border:1px solid rgba(51,37,11,.22);
+  background:rgba(255,251,238,.86);
+  border-radius:28px;
+  padding:30px;
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+.hero:after {
+  content:"";
+  position:absolute;
+  right:-80px; top:-110px;
+  width:340px; height:340px;
+  border-radius:50%;
+  border:38px solid rgba(184,135,30,.16);
+}
+.eyebrow { color:var(--gold); letter-spacing:.16em; text-transform:uppercase; font-size:.76rem; font-weight:800; }
+h1 { margin:.35rem 0 .45rem; font-size:clamp(2.1rem,4vw,4.8rem); line-height:.92; max-width:960px; }
+.sub { color:var(--muted); max-width:940px; line-height:1.65; }
+.grid { display:grid; gap:16px; }
+.metrics { grid-template-columns:repeat(4,minmax(0,1fr)); margin:22px 0; }
+.metric, .panel, .issue {
+  background:rgba(255,252,242,.82);
+  border:1px solid rgba(51,37,11,.18);
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(33,24,8,.08);
+}
+.metric { padding:18px; min-height:112px; }
+.metric strong { display:block; font-size:2rem; line-height:1; color:var(--deep); }
+.metric span { color:var(--muted); font-size:.82rem; text-transform:uppercase; letter-spacing:.09em; }
+.two { grid-template-columns:1.1fr .9fr; align-items:start; margin-top:16px; }
+.panel { padding:20px; overflow:hidden; }
+h2 { margin:.2rem 0 1rem; color:var(--deep); font-size:1.35rem; }
+table { width:100%; border-collapse:collapse; font-size:.92rem; }
+th,td { border-bottom:1px solid rgba(51,37,11,.14); padding:11px 9px; vertical-align:top; text-align:left; }
+th { color:var(--gold); font-size:.72rem; text-transform:uppercase; letter-spacing:.1em; }
+td span { display:block; color:var(--muted); font-size:.78rem; margin-top:.25rem; }
+.bar { display:inline-block; width:120px; height:10px; background:#eadbad; border-radius:999px; overflow:hidden; vertical-align:middle; margin-right:8px; }
+.bar i { display:block; height:100%; background:linear-gradient(90deg,var(--red),var(--gold),var(--green)); border-radius:999px; }
+em { color:var(--muted); font-style:normal; }
+.issues { grid-template-columns:repeat(4,minmax(0,1fr)); }
+.issue { padding:14px; display:flex; justify-content:space-between; gap:12px; align-items:center; }
+.issue strong { font-size:.84rem; color:var(--muted); }
+.issue span { font-size:1.45rem; color:var(--red); font-weight:900; }
+.address {
+  font-family:"Cascadia Mono","Consolas",monospace;
+  font-size:.78rem;
+  line-height:1.65;
+  color:#3c321c;
+  background:#fff7dc;
+  border:1px dashed rgba(51,37,11,.28);
+  border-radius:16px;
+  padding:14px;
+  overflow-wrap:anywhere;
+}
+.claims td:nth-child(3) { min-width:320px; }
+.footer { margin-top:18px; color:var(--muted); font-size:.82rem; line-height:1.55; }
+@media (max-width:900px) { .metrics,.two,.issues { grid-template-columns:1fr; } .hero { padding:22px; border-radius:20px; } }
+</style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <div class="eyebrow">Paper Grader Surface / Canary</div>
+    <h1>gtq-04-free-will-two-frames</h1>
+    <p class="sub">This dashboard pulls the deterministic paper-grader metrics into a review surface: claims, equations, 7Q gaps, evidence markers, maturity distribution, semantic address, and station status. It does not replace the canonical JSON/XLSX; it makes the audit readable.</p>
+    <section class="grid metrics">
+      <div class="metric"><strong>7084</strong><span>Words</span></div>
+      <div class="metric"><strong>78</strong><span>Sections</span></div>
+      <div class="metric"><strong>175</strong><span>Equations</span></div>
+      <div class="metric"><strong>99</strong><span>Claim Candidates</span></div>
+    </section>
+    <div class="address">
+      <b>Semantic Address:</b> THEOPHYSICS/GTQ-04-FREE-WILL-TWO-FRAMES-PAPER-GRADE/W/PUBLIC/B/R1 :: G3M3E0S3T3K3R3Q0F3C3 :: CQ-GE-KS-MF-TR<br>
+      <b>Filename Safe:</b> THEOPHYSICS__GTQ-04-FREE-WILL-TWO-FRAMES-PAPER-GRADE__W__PUBLIC__B__R1__G3M3E0S3T3K3R3Q0F3C3__CQ-GE-KS-MF-TR<br>
+      <b>Vector / Hash:</b> G3M3E0S3T3K3R3Q0F3C3 / CQ-GE-KS-MF-TR<br>
+      <b>Rigor Verdict:</b>  &nbsp; <b>Math Layer:</b>  (0 translated spans)
+    </div>
+  </section>
+
+  <section class="grid two">
+    <div class="panel">
+      <h2>7Q Coverage</h2>
+      <table><thead><tr><th>Question</th><th>Observed Values</th><th>Weak</th><th>Coverage</th></tr></thead><tbody><tr><td><b>Identity</b><span>Q1_identity</span></td><td>clear: 50, implicit: 49</td><td>49</td><td><div class='bar'><i style='width:50.5%'></i></div><em>50.5%</em></td></tr>
+<tr><td><b>Scope</b><span>Q2_scope</span></td><td>broad: 83, bounded: 16</td><td>83</td><td><div class='bar'><i style='width:16.2%'></i></div><em>16.2%</em></td></tr>
+<tr><td><b>Mechanism</b><span>Q3_mechanism</span></td><td>missing: 73, present: 26</td><td>73</td><td><div class='bar'><i style='width:26.3%'></i></div><em>26.3%</em></td></tr>
+<tr><td><b>Evidence</b><span>Q4_evidence</span></td><td>missing: 90, present: 9</td><td>90</td><td><div class='bar'><i style='width:9.1%'></i></div><em>9.1%</em></td></tr>
+<tr><td><b>Falsifiability</b><span>Q5_falsifiability</span></td><td>missing: 89, present: 10</td><td>89</td><td><div class='bar'><i style='width:10.1%'></i></div><em>10.1%</em></td></tr>
+<tr><td><b>Boundary</b><span>Q6_boundary</span></td><td>missing: 86, present: 13</td><td>86</td><td><div class='bar'><i style='width:13.1%'></i></div><em>13.1%</em></td></tr>
+<tr><td><b>Listener Risk</b><span>Q7_listener_risk</span></td><td>normal: 98, high: 1</td><td>1</td><td><div class='bar'><i style='width:99.0%'></i></div><em>99.0%</em></td></tr></tbody></table>
+    </div>
+    <div class="panel">
+      <h2>Maturity Distribution</h2>
+      <table><thead><tr><th>Level</th><th>Claims</th><th>Share</th></tr></thead><tbody><tr><td>Formal Model</td><td>78</td><td>78.8%</td></tr>
+<tr><td>Metaphor</td><td>16</td><td>16.2%</td></tr>
+<tr><td>Empirical Support</td><td>4</td><td>4.0%</td></tr>
+<tr><td>Public Proof Claim</td><td>1</td><td>1.0%</td></tr></tbody></table>
+      <h2 style="margin-top:1.4rem;">Evidence Markers</h2>
+      <table><thead><tr><th>Marker</th><th>Claims</th></tr></thead><tbody><tr><td>no explicit marker</td><td>90</td></tr>
+<tr><td>source</td><td>2</td></tr>
+<tr><td>prediction</td><td>2</td></tr>
+<tr><td>data</td><td>2</td></tr>
+<tr><td>reference</td><td>1</td></tr>
+<tr><td>experiment</td><td>1</td></tr>
+<tr><td>measurement</td><td>1</td></tr></tbody></table>
+    </div>
+  </section>
+
+  <section class="panel" style="margin-top:16px;">
+    <h2>Primary Repair Pressure</h2>
+    <div class="grid issues"><div class='issue'><strong>weak:Q4_evidence</strong><span>90</span></div>
+<div class='issue'><strong>weak:Q5_falsifiability</strong><span>89</span></div>
+<div class='issue'><strong>weak:Q6_boundary</strong><span>86</span></div>
+<div class='issue'><strong>weak:Q2_scope</strong><span>83</span></div>
+<div class='issue'><strong>weak:Q3_mechanism</strong><span>73</span></div>
+<div class='issue'><strong>weak:Q1_identity</strong><span>49</span></div>
+<div class='issue'><strong>risk:Q7_listener_risk</strong><span>1</span></div></div>
+  </section>
+
+  <section class="panel" style="margin-top:16px;">
+    <h2>Station Marks</h2>
+    <table><thead><tr><th>Station</th><th>Status</th><th>Warnings</th></tr></thead><tbody><tr><td colspan='3'>No snapshot station marks loaded.</td></tr></tbody></table>
+  </section>
+
+  <section class="panel" style="margin-top:16px;">
+    <h2>Claim Audit Preview</h2>
+    <table class="claims"><thead><tr><th>#</th><th>Section</th><th>Claim</th><th>Maturity</th><th>Evidence</th><th>Kill Condition</th><th>Proof Boundary</th></tr></thead><tbody><tr><td>1</td><td>Free Will in Two Frames</td><td>Superposition requires a chooser — and the choice was real, not scripted.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>2</td><td>Main Article</td><td>Free Will in Two Frames Superposition requires a chooser — and the choice was real, not scripted.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>3</td><td>The single thing they should remember</td><td>The Calvinist–Arminian fight has run for five centuries because both camps identified one term of a product and treated it as the whole equation.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>4</td><td>Critical Insight</td><td>Why it matters now The equation is structurally synergistic: zero grace zeroes coherence regardless of openness, and zero openness zeroes coherence regardless of grace.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>5</td><td>Opening Note</td><td>The goal is not to arbitrate the debate but to show that the debate itself may be a category error — asking a question the equation was never designed to answer in the form posed.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>6</td><td>Opening Note</td><td>This paper proposes that the debate fails to resolve not because one side is wrong but because both sides are using the wrong frame.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>7</td><td>Opening Note</td><td>The question is not &quot;does God choose or do we choose?&quot; The question is: what does the coherence equation actually predict?</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>8</td><td>Where:</td><td>$C \in [0,1]$ is coherence — 0 is total decoherence (full separation from source), 1 is perfect alignment $O \in [0,1]$ is openness — the human agent&#x27;s receptivity parameter, the surrender variable $G &gt; 0$ is grace input — the rate at which divine grace is available to the system (external, not generated by the agent) $S \geq 0$ is the entropy/sin parameter — the rate at which coherence decays due to misalignment, resistance, or moral failure $(1-C)$ is the coherence gap — the available space for grace to fill Read the equation out loud: The rate of change of coherence equals openness times grace times available gap, minus entropy times current coherence.</td><td><b>Formal Model</b><span>Level 4</span></td><td>source</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>9</td><td>Three things are immediately visible:</td><td>Zero openness means zero effect from grace — not because grace isn&#x27;t there, but because the multiplication zeroes it out.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>10</td><td>Steady-State Coherence</td><td>$C^* = \frac{O \cdot G}{O \cdot G + S}$ This is the equation&#x27;s answer to the free will debate.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>11</td><td>Steady-State Coherence</td><td>The equation is structurally synergistic — not because we chose to make it that way, but because that is what the coupled dynamics produce.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>12</td><td>Steady-State Coherence</td><td>The Calvinist–Arminian Dissolution The historic debate maps onto the equation&#x27;s variables as follows:</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>13</td><td>Arminian</td><td>The equation reveals the error in both camps: they are each identifying one term of a product and treating it as the whole equation.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>14</td><td>Arminian</td><td>Neither has written down the equation that contains both variables.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>15</td><td>Arminian</td><td>Once you write the equation, the debate evaporates — not into compromise, but into a more complete description.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>16</td><td>Rewriting with the surrender parameter:</td><td>Extended Coherence Equation (Surrender Parameterization) $\frac{dC}{dt} = \frac{(1+s)}{2} \cdot G(1-C) - S \cdot C$ When $s = +1$: full openness, maximum grace coupling.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>17</td><td>Free Will Before and After the Fall</td><td>What it wants, it wants rightly, because its wanting-mechanism is coherent with its source.</td><td><b>Metaphor</b><span>Level 1</span></td><td>source</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>18</td><td>Post-Fall Will</td><td>Prevenient grace, in equation terms, is simply $G &gt; 0$ being nonzero for all human agents regardless of their prior state.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>19</td><td>Autonomy</td><td>Spiritually: increasing opacity to grace, not because grace withdraws, but because the coupling is driven to zero by the surrender parameter.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>20</td><td>What the Equation Predicts</td><td>Four falsifiable predictions emerge from the coherence equation applied to human agents: Prediction 1 — Path 3 outperforms Path 2.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>prediction</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>21</td><td>What the Equation Predicts</td><td>If $G$ is genuinely externally sourced and not proportional to prior $C$, then recipients of high-grace experiences should be randomly distributed across the coherence spectrum at time of receipt.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>22</td><td>What the Equation Predicts</td><td>The phase diagram of the coherence equation predicts that transitions between attractor basins (Path 1 → Path 3, for instance) should look like threshold crossings rather than smooth ramps.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>23</td><td>What the Equation Predicts</td><td>This predicts that grace-rich environments (retreats, liturgy, prayer communities) produce minimal change in participants with closed attitudinal posture.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>24</td><td>What You Just Read</td><td>The coherence equation $dC/dt = O \cdot G(1-C) - S \cdot C$ does not resolve the Calvinist–Arminian debate by picking a side.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>25</td><td>What You Just Read</td><td>It dissolves the debate by writing down a more complete description that requires both terms.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>26</td><td>What You Just Read</td><td>The fight between the two camps is a fight about which term is more important — a question the equation renders meaningless, because the two terms multiply.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>27</td><td>The Audit</td><td>What Is Load-Bearing The equation form is motivated.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>28</td><td>The Audit</td><td>The structure $dC/dt = O \cdot G(1-C) - S \cdot C$ is a standard logistic growth model with an external drive and a decay term.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>29</td><td>The Audit</td><td>Philippians 2:12–13 structurally requires both terms.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>30</td><td>The Audit</td><td>The claim that $C^* = OG / (OG + S)$ is a direct algebraic result.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>31</td><td>The Audit</td><td>It requires no assumptions beyond the equation form.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>32</td><td>The Audit</td><td>What Is Suggestive (Needs More Work) The mapping of theological concepts to equation variables is interpretive.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>33</td><td>The Audit</td><td>The phase transition prediction (Prediction 3) requires careful operationalization.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>prediction</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>34</td><td>The Audit</td><td>&quot;Abrupt&quot; versus &quot;gradual&quot; is a testable claim, but defining the threshold requires calibration work.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>35</td><td>Where We Got Carried Away</td><td>The equation does not prove Christian theology.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>36</td><td>Where We Got Carried Away</td><td>It shows that a particular dynamical model is consistent with a particular reading of Pauline text.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>37</td><td>Where We Got Carried Away</td><td>The reframing is useful if it generates testable predictions; its theological authority is a separate question.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>38</td><td>Where We Got Carried Away</td><td>The strong Calvinist claim that God actively decrees some to damnation is not touched by the coherence equation.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>39</td><td>Where We Got Carried Away</td><td>The equation predicts outcomes given parameters; it does not specify who sets the parameters or whether $G$ is truly universal.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>40</td><td>Tangent 03-A</td><td>MacArthur and the Equation John MacArthur&#x27;s Calvinist framework, mapped against the coherence equation.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr></tbody></table>
+    <p class="footer">Showing first 40 claims. Full canonical claim audit remains in the XLSX/JSON.</p>
+  </section>
+
+  <p class="footer">
+    Generated 2026-05-24T10:55:28 from X:\Backside\workflows\axioms.workflow\01_OUTBOX_REPORTS\gtq-04-free-will-two-frames.paper-grade.json. Snapshot: not loaded.
+  </p>
+</main>
+</body>
+</html>

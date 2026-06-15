@@ -1,0 +1,98 @@
+# Section Map — gtq-03
+
+- source: `\\dlowenas\brain\Backside\workflows\html-article.workflow\00_DROP\gtq-03-free-will-two-frames.html`
+- sections: 87
+- equations (total): 192
+- citations (total): 2
+- inferred sections: 0
+- generated: 2026-05-22T22:39:00Z
+
+## Heading tree
+
+- `sec-001-free-will-in-two-frames` h1: Free Will in Two Frames
+  - `sec-002-the-equation` h2: The Equation
+  - `sec-003-the-calvinist-arminian-dissolution` h2: The Calvinist–Arminian Dissolution
+    - `sec-004-the-surrender-parameter` h3: The Surrender Parameter
+  - `sec-005-free-will-before-and-after-the-fall` h2: Free Will Before and After the Fall
+    - `sec-006-pre-fall-will` h3: Pre-Fall Will
+    - `sec-007-post-fall-will` h3: Post-Fall Will
+  - `sec-008-three-pathways` h2: Three Pathways
+  - `sec-009-autonomy` h2: Autonomy
+  - `sec-010-performance` h2: Performance
+  - `sec-011-surrender` h2: Surrender
+  - `sec-012-what-the-equation-predicts` h2: What the Equation Predicts
+  - `sec-013-what-you-just-read` h2: What You Just Read
+  - `sec-014-the-audit` h2: The Audit
+    - `sec-015-what-is-load-bearing` h3: What Is Load-Bearing
+    - `sec-016-what-is-suggestive-needs-more-work` h3: What Is Suggestive (Needs More Work)
+    - `sec-017-where-we-got-carried-away` h3: Where We Got Carried Away
+    - `sec-018-macarthur-and-the-equation` h3: MacArthur and the Equation
+  - `sec-019-the-fight-that-won-t-end` h2: The Fight That Won't End
+  - `sec-020-macarthur-s-position-stated-plainly` h2: MacArthur's Position, Stated Plainly
+  - `sec-021-the-other-side-stated-fairly` h2: The Other Side, Stated Fairly
+  - `sec-022-why-neither-side-can-win` h2: Why Neither Side Can Win
+  - `sec-023-the-resolution-before-the-math` h2: The Resolution, Before the Math
+  - `sec-024-the-equation-2` h2: The Equation
+  - `sec-025-macarthur-s-specific-claims-mapped` h2: MacArthur's Specific Claims, Mapped
+  - `sec-026-the-double-predestination-question` h2: The Double Predestination Question
+  - `sec-027-what-augustine-already-knew` h2: What Augustine Already Knew
+  - `sec-028-the-hard-question-macarthur-doesn-t-answer` h2: The Hard Question MacArthur Doesn't Answer
+  - `sec-029-what-this-means` h2: What This Means
+    - `sec-030-the-three-pathways` h3: The Three Pathways
+  - `sec-031-path-1-autonomy-s-1` h2: Path 1: Autonomy ($s = -1$)
+    - `sec-032-the-posture` h3: The Posture
+    - `sec-033-the-neuroscience` h3: The Neuroscience
+    - `sec-034-the-equation-dynamics` h3: The Equation Dynamics
+    - `sec-035-the-phenomenology` h3: The Phenomenology
+  - `sec-036-path-2-performance-s-approx-0` h2: Path 2: Performance ($s \approx 0$)
+    - `sec-037-the-posture` h3: The Posture
+    - `sec-038-the-neuroscience` h3: The Neuroscience
+    - `sec-039-the-equation-dynamics` h3: The Equation Dynamics
+    - `sec-040-the-phenomenology` h3: The Phenomenology
+  - `sec-041-path-3-surrender-s-1` h2: Path 3: Surrender ($s = +1$)
+    - `sec-042-the-posture` h3: The Posture
+    - `sec-043-the-neuroscience` h3: The Neuroscience
+    - `sec-044-the-equation-dynamics` h3: The Equation Dynamics
+  - `sec-045-the-transition-architecture` h2: The Transition Architecture
+  - `sec-046-the-daily-practice` h2: The Daily Practice
+  - `sec-047-why-it-matters` h2: Why It Matters
+  - `sec-048-executive-summary` h2: Executive Summary
+    - `sec-049-key-findings` h3: Key Findings
+    - `sec-050-the-four-falsifiable-predictions` h3: The Four Falsifiable Predictions
+    - `sec-051-open-problem` h3: Open Problem
+    - `sec-052-formal-foundation` h3: Formal Foundation
+  - `sec-053-rigor-kill-conditions` h2: Rigor & Kill Conditions
+    - `sec-054-kill-conditions` h3: Kill Conditions
+    - `sec-055-confidence-tiers` h3: Confidence Tiers
+    - `sec-056-falsification-table` h3: Falsification Table
+  - `sec-057-watch-listen` h2: Watch & Listen
+    - `sec-058-free-will-in-two-frames` h3: Free Will in Two Frames
+    - `sec-059-calculus-of-calvinism-and-arminianism` h3: Calculus of Calvinism and Arminianism
+    - `sec-060-the-mathematical-equation-for-human-salvation` h3: The Mathematical Equation for Human Salvation
+    - `sec-061-the-violent-god-paradox` h3: The Violent God Paradox
+  - `sec-062-macarthur-and-the-equation` h2: MacArthur and the Equation
+    - `sec-063-the-fight-that-won-t-end` h3: The Fight That Won’t End
+    - `sec-064-macarthur-s-position-stated-plainly` h3: MacArthur’s Position, Stated Plainly
+    - `sec-065-the-other-side-stated-fairly` h3: The Other Side, Stated Fairly
+    - `sec-066-why-neither-side-can-win` h3: Why Neither Side Can Win
+    - `sec-067-the-resolution-before-the-math` h3: The Resolution, Before the Math
+    - `sec-068-the-equation` h3: The Equation
+    - `sec-069-macarthur-s-specific-claims-mapped` h3: MacArthur’s Specific Claims, Mapped
+    - `sec-070-the-double-predestination-question` h3: The Double Predestination Question
+    - `sec-071-what-augustine-already-knew` h3: What Augustine Already Knew
+    - `sec-072-what-this-means` h3: What This Means
+  - `sec-073-the-three-pathways` h2: The Three Pathways
+    - `sec-074-path-1-autonomy-s-1` h3: Path 1: Autonomy (s = −1)
+    - `sec-075-path-2-performance-s-0` h3: Path 2: Performance (s ≈ 0)
+    - `sec-076-path-3-surrender-s-1` h3: Path 3: Surrender (s = +1)
+    - `sec-077-the-transition-architecture` h3: The Transition Architecture
+    - `sec-078-the-daily-practice` h3: The Daily Practice
+  - `sec-079-why-did-god-drown-everybody` h2: Why Did God Drown Everybody?
+    - `sec-080-the-surgeon-without-antibiotics` h3: The Surgeon Without Antibiotics
+    - `sec-081-the-missing-protection-layer` h3: The Missing Protection Layer
+    - `sec-082-the-pattern-in-scripture` h3: The Pattern in Scripture
+    - `sec-083-pentecost-changes-everything` h3: Pentecost Changes Everything
+    - `sec-084-the-structural-answer` h3: The Structural Answer
+    - `sec-085-the-truth-bomb` h3: The Truth Bomb
+    - `sec-086-share-this-paper` h3: Share This Paper
+  - `sec-087-the-honest-assessment` h2: The Honest Assessment

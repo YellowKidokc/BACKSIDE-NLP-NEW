@@ -1,0 +1,57 @@
+station_id: ST-PROJ-009
+name: Academic Projection
+lane: projection
+status: draft
+order: 67
+purpose: >
+  Generate the formal academic version first from the source article and
+  canonical snapshot, preserving claim limits, evidence posture, citations,
+  equations, and critique handles without upgrading unsupported claims.
+
+model:
+  primary: phi4:latest
+  fallback:
+  provider: ollama
+
+prompt:
+  primary: PROMPT_SYSTEM.md
+  fallback:
+
+script:
+  runner: scripts/03_run_prompt.bat
+
+input:
+  accepts:
+    - canonical_markdown
+    - paper_snapshot
+    - trace_ledger
+  required_files:
+    - source.md
+    - paper-snapshot.json
+    - trace-ledger.json
+
+output:
+  produces:
+    - projection.academic.json
+    - projection.academic.md
+  required_format: json
+
+healthcheck:
+  prompt: "Return JSON: {\"status\":\"ok\"}"
+  expected_contains: "\"status\""
+
+gate:
+  pass_if:
+    - valid_json: true
+    - no_new_claims: true
+    - all_material_claims_traceable: true
+    - preserves_epistemic_tiers: true
+    - preserves_defeat_conditions: true
+  fail_to: 99_ERROR
+  review_to: 03_REVIEW
+
+next:
+  pass:
+    - ST-PROJ-010
+  fail:
+    - ST-ERR-001

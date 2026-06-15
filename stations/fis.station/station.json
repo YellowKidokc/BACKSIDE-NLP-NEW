@@ -1,0 +1,24 @@
+{
+  "station_id": "ST-FIS-001",
+  "name": "fis",
+  "display_name": "File Intelligence System",
+  "role": "Classify, summarize, tag, and generate rename previews for files",
+  "status": "active",
+  "category": "classification",
+  "version": "1.0.0",
+  "inputs": ["folder_path", "file_path"],
+  "outputs": [".fcard manifest (YAML)", "SQLite records"],
+  "models": {
+    "yake": {"type": "statistical", "size": "0MB", "required": true},
+    "spacy": {"model": "en_core_web_sm", "size": "12MB", "required": true},
+    "deberta_nli": {"path": "X:\\05_MODELS\\deberta_nli", "size": "900MB", "required": false},
+    "bart_summarizer": {"path": "X:\\05_MODELS\\M13_bart_summarizer", "size": "1.6GB", "required": false}
+  },
+  "card_extension": ".fcard",
+  "notes": [
+    "Baseline rename (lowercase+hyphens) runs BEFORE NLP.",
+    "NLP produces classification card. David approves domain, rename, move.",
+    "Card manifest drops into scanned folder as _manifest.fcard.",
+    "SQLite tracks all cards for search and dashboard."
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "schema": "theophysics.workflow.config.v1",
+  "workflow": "lossless-context",
+  "name": "default",
+  "packet_contract": "Lossless Context Compression + Semantic Addressing Protocol v1.0",
+  "steps": [
+    {
+      "station": "markdown-parse",
+      "enabled": true,
+      "input": "markdown",
+      "output": "blocks"
+    },
+    {
+      "station": "block-classify",
+      "enabled": true,
+      "input": "blocks",
+      "output": "typed_blocks"
+    },
+    {
+      "station": "semantic-address",
+      "enabled": true,
+      "input": "typed_blocks",
+      "output": "address"
+    },
+    {
+      "station": "audit-snapshot",
+      "enabled": true,
+      "input": "typed_blocks",
+      "output": "json_html"
+    },
+    {
+      "station": "postgres-store",
+      "enabled": false,
+      "input": "json_artifact",
+      "output": "append_only_tables"
+    }
+  ],
+  "exports": [
+    "lossless-context.json",
+    "lossless-context.html"
+  ]
+}

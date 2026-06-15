@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layer 2: Derived Theorems &amp; Laws — Proof Explorer</title>
+<meta name="description" content="Five derived theorems that bridge physics and theology. Information primacy, the moral Second Law, grace mechanics, information conservation, and voluntary coupling.">
+<meta property="og:title" content="Layer 2: Derived Theorems — From Physics to Soteriology">
+<meta property="og:description" content="The theorems that connect thermodynamics to salvation. Each one derived, each one defeatable, none yet defeated.">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "Layer 2: Derived Theorems & Laws",
+  "author": {"@type": "Person", "name": "David Lowe"},
+  "publisher": {"@type": "Organization", "name": "Faith Through Physics"},
+  "datePublished": "2026-04-27",
+  "description": "Five derived theorems bridging physics, information theory, and theology."
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --bg: #050505;
+  --bg-panel: #0a0a0a;
+  --bg-card: #111111;
+  --bg-hover: #1a1a1a;
+  --border: #222;
+  --border-hover: #333;
+  --text: #e0e0e0;
+  --text-dim: #999;
+  --text-muted: #555;
+  --gold: #d4af37;
+  --gold-dim: rgba(212,175,55,0.1);
+  --red: #c94040;
+  --red-dim: rgba(201,64,64,0.1);
+  --blue: #3b82f6;
+  --blue-dim: rgba(59,130,246,0.1);
+  --teal: #14b8a6;
+  --teal-dim: rgba(20,184,166,0.1);
+  --violet: #8b7fc2;
+  --violet-dim: rgba(139,127,194,0.1);
+  --green: #22c55e;
+  --green-dim: rgba(34,197,94,0.1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at 25% 0%, rgba(212,175,55,0.04), transparent 55%),
+              radial-gradient(ellipse at 75% 100%, rgba(212,175,55,0.02), transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+.top-nav {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(5,5,5,0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 1.5rem;
+  display: flex; align-items: center; gap: 2rem;
+}
+.top-nav .brand {
+  font-family: 'Cinzel', serif; font-size: 1rem; color: var(--gold);
+  text-decoration: none; display: flex; align-items: center; gap: 0.5rem;
+}
+.top-nav .nav-links { display: flex; gap: 0.5rem; margin-left: auto; }
+.top-nav .nav-links a {
+  font-family: 'Oswald', sans-serif; font-size: 0.75rem; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--text-dim); text-decoration: none;
+  padding: 0.35rem 0.85rem; border-radius: 0.3rem; transition: all 0.2s;
+}
+.top-nav .nav-links a:hover, .top-nav .nav-links a.active {
+  color: var(--gold); background: var(--gold-dim);
+}
+.layout {
+  display: grid; grid-template-columns: 260px 1fr 300px;
+  gap: 1px; min-height: calc(100vh - 60px); position: relative; z-index: 1;
+}
+.sidebar {
+  background: var(--bg-panel); padding: 1.25rem;
+  overflow-y: auto; max-height: calc(100vh - 60px);
+}
+.sidebar h3 {
+  font-family: 'Oswald', sans-serif; font-size: 0.65rem; text-transform: uppercase;
+  letter-spacing: 0.2em; color: var(--text-muted); margin-bottom: 0.75rem;
+  padding-bottom: 0.4rem; border-bottom: 1px solid var(--border);
+}
+.q-item {
+  display: block; padding: 0.5rem 0.6rem; border-radius: 0.35rem;
+  text-decoration: none; color: var(--text-dim); transition: all 0.2s; margin-bottom: 0.2rem;
+}
+.q-item:hover { background: var(--bg-hover); color: var(--text); }
+.q-item .q-row { display: flex; align-items: baseline; gap: 0.5rem; }
+.q-item .q-num { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--gold); min-width: 2.5rem; }
+.q-item .q-label { font-size: 0.8rem; font-weight: 500; }
+.q-item .q-desc { font-size: 0.7rem; color: var(--text-muted); padding-left: 3rem; }
+.q-item.active { background: var(--gold-dim); border-left: 2px solid var(--gold); }
+.q-item.active .q-label { color: var(--gold); }
+.main {
+  background: var(--bg); padding: 2rem;
+  overflow-y: auto; max-height: calc(100vh - 60px);
+}
+.breadcrumb { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+.breadcrumb a { color: var(--text-dim); text-decoration: none; }
+.breadcrumb a:hover { color: var(--gold); }
+.breadcrumb .sep { margin: 0 0.4rem; color: var(--text-muted); }
+.badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.25rem; }
+.badge {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+  padding: 0.3rem 0.7rem; border-radius: 0.3rem; border: 1px solid var(--border);
+  display: flex; align-items: center; gap: 0.35rem;
+}
+.badge.gold { color: var(--gold); border-color: rgba(212,175,55,0.3); background: var(--gold-dim); }
+.badge.green { color: var(--green); border-color: rgba(34,197,94,0.3); background: var(--green-dim); }
+.badge.blue { color: var(--blue); border-color: rgba(59,130,246,0.3); background: var(--blue-dim); }
+.badge.red { color: var(--red); border-color: rgba(201,64,64,0.3); background: var(--red-dim); }
+.badge.violet { color: var(--violet); border-color: rgba(139,127,194,0.3); background: var(--violet-dim); }
+.badge.teal { color: var(--teal); border-color: rgba(20,184,166,0.3); background: var(--teal-dim); }
+.paper-title {
+  font-family: 'Crimson Text', serif; font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 400; color: var(--text); line-height: 1.2; margin-bottom: 0.4rem;
+}
+.paper-subtitle {
+  font-family: 'Crimson Text', serif; font-size: 1.1rem; color: var(--text-dim);
+  font-style: italic; margin-bottom: 1.5rem;
+}
+.card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 0.5rem; padding: 1.25rem; margin-bottom: 1.25rem;
+}
+.card-header {
+  display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.875rem;
+  font-family: 'Oswald', sans-serif; font-size: 0.75rem; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--gold);
+}
+.card-header i { font-size: 0.9rem; }
+.section-title {
+  font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--gold);
+  margin: 2rem 0 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border);
+}
+.formal-box {
+  background: var(--bg-panel); border-left: 3px solid var(--gold);
+  padding: 1rem 1.25rem; font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem; color: var(--text-dim); line-height: 1.7; margin-bottom: 1rem;
+}
+.axiom-card {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.5rem;
+  padding: 1.5rem; margin-bottom: 1.25rem; position: relative;
+  border-left: 3px solid var(--blue);
+}
+.axiom-card.boundary { border-left-color: var(--violet); }
+.axiom-card.theorem { border-left-color: var(--teal); }
+.axiom-card .axiom-id {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--blue);
+  background: var(--blue-dim); padding: 0.2rem 0.5rem; border-radius: 0.2rem;
+  display: inline-block; margin-bottom: 0.5rem;
+}
+.axiom-card.boundary .axiom-id { color: var(--violet); background: var(--violet-dim); }
+.axiom-card.theorem .axiom-id { color: var(--teal); background: var(--teal-dim); }
+.axiom-card .axiom-name {
+  font-family: 'Cinzel', serif; font-size: 1rem; color: #fff; margin-bottom: 0.4rem;
+}
+.axiom-card .axiom-statement {
+  font-family: 'Crimson Text', serif; font-size: 1.05rem; color: var(--text);
+  font-style: italic; margin-bottom: 0.75rem; line-height: 1.6;
+  padding: 0.75rem; background: rgba(59,130,246,0.04); border-radius: 0.3rem;
+}
+.axiom-card.boundary .axiom-statement { background: rgba(139,127,194,0.04); }
+.axiom-card.theorem .axiom-statement { background: rgba(20,184,166,0.04); }
+.axiom-card .axiom-meaning {
+  font-size: 0.85rem; color: var(--text-dim); line-height: 1.65; margin-bottom: 0.75rem;
+}
+.axiom-card .lean-proof {
+  background: #0d1117; border: 1px solid #21262d; border-radius: 0.35rem;
+  padding: 0.75rem 1rem; font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem; color: #c9d1d9; line-height: 1.6; overflow-x: auto;
+}
+.axiom-card .lean-proof .keyword { color: #ff7b72; }
+.axiom-card .lean-proof .type { color: #79c0ff; }
+.axiom-card .lean-proof .comment { color: #8b949e; font-style: italic; }
+.axiom-card .lean-proof .string { color: #a5d6ff; }
+.defeat-list {
+  list-style: none; padding: 0; margin: 0.5rem 0;
+}
+.defeat-list li {
+  font-size: 0.8rem; color: var(--text-dim); padding: 0.35rem 0 0.35rem 1.5rem;
+  position: relative; line-height: 1.5;
+}
+.defeat-list li::before {
+  content: '\f00d'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+  position: absolute; left: 0; color: var(--red); font-size: 0.7rem; top: 0.45rem;
+}
+.bridge-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.5rem; margin: 0.5rem 0;
+}
+.bridge-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+  padding: 0.3rem 0.5rem; border-radius: 0.25rem;
+  background: var(--bg-hover); border: 1px solid var(--border); color: var(--text-dim);
+  text-align: center;
+}
+.kill-box {
+  background: var(--red-dim); border: 1px solid rgba(201,64,64,0.3);
+  border-radius: 0.4rem; padding: 1rem;
+}
+.kill-box .kill-header {
+  font-family: 'Oswald', sans-serif; font-size: 0.75rem; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--red); margin-bottom: 0.75rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+th, td { padding: 0.6rem 0.5rem; text-align: left; border-bottom: 1px solid var(--border); }
+th {
+  font-family: 'Oswald', sans-serif; font-size: 0.68rem; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--text-muted); font-weight: 500;
+}
+td { color: var(--text-dim); }
+.dep-graph { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; padding: 0.75rem; }
+.dep-node {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+  padding: 0.35rem 0.7rem; border-radius: 0.25rem; border: 1px solid var(--border);
+  background: var(--bg-card); color: var(--text-dim); text-align: center;
+}
+.dep-node.core { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
+.dep-node.derived { border-color: var(--blue); color: var(--blue); background: var(--blue-dim); }
+.dep-node.boundary { border-color: var(--violet); color: var(--violet); background: var(--violet-dim); }
+.dep-node.theorem { border-color: var(--teal); color: var(--teal); background: var(--teal-dim); }
+.dep-arrow { color: var(--text-muted); font-size: 0.75rem; }
+.meta-row {
+  display: flex; justify-content: space-between; padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border); font-size: 0.78rem;
+}
+.meta-row .meta-label { color: var(--text-muted); }
+.meta-row .meta-value { color: var(--text-dim); text-align: right; max-width: 55%; }
+.meta-value.gold { color: var(--gold); }
+.spine-item { margin-bottom: 0.875rem; }
+.spine-header { display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 0.2rem; }
+.spine-name { color: var(--text-dim); }
+.spine-status { color: var(--text-muted); font-size: 0.72rem; }
+.spine-bar { height: 3px; background: var(--bg-hover); border-radius: 2px; overflow: hidden; }
+.spine-bar .fill { height: 100%; border-radius: 2px; }
+.fill.gold { background: var(--gold); }
+.fill.green { background: var(--green); }
+.fill.blue { background: var(--blue); }
+.fill.red { background: var(--red); }
+.fill.violet { background: var(--violet); }
+.fill.teal { background: var(--teal); }
+.tag {
+  display: inline-block; font-size: 0.68rem; padding: 0.2rem 0.5rem; border-radius: 0.2rem;
+  background: var(--bg-hover); border: 1px solid var(--border); color: var(--text-dim); margin: 0.1rem;
+}
+.action-btn {
+  display: flex; width: 100%; padding: 0.55rem 0.7rem; margin-bottom: 0.4rem;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.35rem;
+  color: var(--text-dim); text-decoration: none; font-size: 0.78rem;
+  transition: all 0.2s; align-items: center; gap: 0.5rem;
+}
+.action-btn:hover { background: var(--bg-hover); border-color: var(--gold); color: var(--gold); }
+.eq-box {
+  background: rgba(20,184,166,0.05); border: 1px solid rgba(20,184,166,0.2);
+  border-radius: 0.35rem; padding: 0.75rem 1rem; margin: 0.5rem 0;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;
+  color: var(--teal); text-align: center; line-height: 1.8;
+}
+@media (max-width: 1200px) { .layout { grid-template-columns: 220px 1fr 260px; } }
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { max-height: none; }
+  .main { max-height: none; padding: 1rem; }
+}
+</style>
+  <script defer src="https://analytics.faiththruphysics.com/script.js" data-website-id="2f2e3a0f-e8e5-4900-a1e0-1b33592403ee"></script>
+  <link rel="canonical" href="https://faiththruphysics.com/proof-explorer/axioms-layer-2-derived.html">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta property="og:image" content="https://faiththruphysics.com/favicon.svg"/>
+<!-- RING NAVIGATION -->
+<style>
+.ring-nav{margin:4rem auto;max-width:1100px;padding:3rem 1.5rem;}
+.ring-nav .ring-header{text-align:center;margin-bottom:2.5rem;}
+.ring-nav .ring-header h2{font-family:'Oswald',sans-serif;font-size:1.6rem;color:var(--highlight,#d4af37);text-transform:uppercase;letter-spacing:3px;margin-bottom:.5rem;}
+.ring-nav .ring-header p{color:var(--text-secondary,#a0a0a0);font-size:.9rem;}
+.ring-tier{border:1px solid var(--border,#333);border-radius:8px;margin-bottom:1rem;overflow:hidden;}
+.ring-tier-header{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;cursor:pointer;transition:background .2s;}
+.ring-tier-header:hover{background:rgba(255,255,255,0.03);}
+.ring-tier-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.ring-1 .ring-tier-dot{background:#d4af37;}
+.ring-2 .ring-tier-dot{background:#4a9eff;}
+.ring-3 .ring-tier-dot{background:#8b7fc2;}
+.ring-tier-label{font-family:'Oswald',sans-serif;font-size:.85rem;text-transform:uppercase;letter-spacing:2px;color:var(--text-primary,#e0e0e0);}
+.ring-tier-desc{color:var(--text-secondary,#a0a0a0);font-size:.8rem;margin-left:auto;}
+.ring-tier-chevron{color:var(--text-secondary,#a0a0a0);font-size:.7rem;transition:transform .3s;margin-left:.5rem;}
+.ring-tier.open .ring-tier-chevron{transform:rotate(90deg);}
+.ring-tier-cards{display:none;padding:1rem 1.25rem;}
+.ring-tier.open .ring-tier-cards{display:block;}
+.ring-empty{color:#666;font-size:.85rem;font-style:italic;}
+</style>
+</head>
+<body>
+<nav class="tp-ribbon" style="position:sticky;top:0;z-index:1000;background:#0a0a0a;border-bottom:2px solid #a855f733;padding:.5rem 1.5rem;display:flex;align-items:center;justify-content:space-between;font-family:'Inter',sans-serif;font-size:.8rem;">
+  <div style="display:flex;gap:1rem;align-items:center;">
+    <a href="/index.html" style="color:#999;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#a855f7'" onmouseout="this.style.color='#999'">&larr; Main Index</a>
+    <span style="color:#333;">|</span>
+    <span style="color:#a855f7;font-weight:500;">Proof Explorer</span>
+  </div>
+</nav>
+
+
+<nav class="top-nav">
+  <a href="../index.html" class="brand"><i class="fas fa-atom"></i> THEOPHYSICS</a>
+  <div class="nav-links">
+    <a href="axioms-layer-0-core.html">Core Axioms</a>
+    <a href="axioms-layer-2-derived.html" class="active">Derived</a>
+    <a href="axioms-layer-3-extended.html">Extended</a>
+    <a href="axioms-closure.html">Closure</a>
+  </div>
+</nav>
+
+<div class="layout">
+
+<!-- LEFT SIDEBAR -->
+<aside class="sidebar">
+  <h3><i class="fas fa-compass" style="margin-right:0.4rem;"></i>Layer 2 Derived</h3>
+
+  <div style="font-family:'Oswald',sans-serif;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--blue);margin:0.75rem 0 0.5rem;">Derived Axioms</div>
+  <a href="#a13" class="q-item active"><div class="q-row"><span class="q-num">A1.3</span><span class="q-label">Information Primacy</span></div><span class="q-desc">Distinction IS information</span></a>
+
+  <div style="font-family:'Oswald',sans-serif;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--teal);margin:1rem 0 0.5rem;">Derived Theorems</div>
+  <a href="#t31" class="q-item"><div class="q-row"><span class="q-num">T3.1</span><span class="q-label">Coherence &nlarr; Self</span></div><span class="q-desc">Moral Second Law</span></a>
+
+  <div style="font-family:'Oswald',sans-serif;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--violet);margin:1rem 0 0.5rem;">Boundary Conditions</div>
+  <a href="#bc2" class="q-item"><div class="q-row"><span class="q-num">BC2</span><span class="q-label">Grace External</span></div><span class="q-desc">Salvation can't be earned</span></a>
+  <a href="#bc7" class="q-item"><div class="q-row"><span class="q-num">BC7</span><span class="q-label">Info Conservation</span></div><span class="q-desc">Nothing is destroyed</span></a>
+  <a href="#bc8" class="q-item"><div class="q-row"><span class="q-num">BC8</span><span class="q-label">Voluntary Coupling</span></div><span class="q-desc">Free will required</span></a>
+
+  <div style="font-family:'Oswald',sans-serif;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);margin:1.5rem 0 0.5rem;">Other Layers</div>
+  <a href="axioms-layer-0-core.html" class="q-item"><div class="q-row"><span class="q-num" style="color:var(--gold);">&larr;</span><span class="q-label">Layer 0 + Tier 1</span></div></a>
+  <a href="axioms-layer-3-extended.html" class="q-item"><div class="q-row"><span class="q-num" style="color:var(--gold);">&rarr;</span><span class="q-label">Layer 3: Extended</span></div></a>
+  <a href="axioms-closure.html" class="q-item"><div class="q-row"><span class="q-num" style="color:var(--gold);">&rarr;</span><span class="q-label">Closure &amp; Omega</span></div></a>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+  <div class="breadcrumb">
+    <a href="../index.html">Main Site</a><span class="sep">&rarr;</span><a href="index.html">Proof Explorer</a><span class="sep">&rarr;</span><span style="color:var(--gold);">Layer 2: Derived</span>
+  </div>
+
+  <div class="badges">
+    <span class="badge blue"><i class="fas fa-code-branch"></i> Derived from Layer 0+1</span>
+    <span class="badge violet"><i class="fas fa-filter"></i> 3 Boundary Conditions</span>
+    <span class="badge teal"><i class="fas fa-square-root-alt"></i> 1 Theorem</span>
+    <span class="badge gold"><i class="fas fa-link"></i> Chain: 3&ndash;65 of 188</span>
+  </div>
+
+  <h1 class="paper-title">Derived Theorems &amp; Laws</h1>
+  <p class="paper-subtitle">From information primacy to the thermodynamics of salvation. Five claims that bridge physics and soteriology.</p>
+
+  <!-- OVERVIEW CARD -->
+  <div class="card">
+    <div class="card-header"><i class="fas fa-sitemap"></i> Derivation Logic</div>
+    <p style="font-size:0.85rem;color:var(--text-dim);line-height:1.7;margin-bottom:1rem;">Layer 2 derives consequences from the seven Tier 1 axioms. These aren't assumed &mdash; they're <strong style="color:var(--blue);">logically forced</strong> by the foundation. Each theorem creates a constraint that narrows the space of viable worldviews. By BC8, only systems with external grace, information conservation, and voluntary coupling survive the filter.</p>
+    <div class="formal-box">
+      Distinction (P0.1) + Substrate (P0.2)<br>
+      &nbsp;&nbsp;&rarr; A1.3 Information Primacy (distinguishability = information)<br>
+      &nbsp;&nbsp;&rarr; T3.1 Coherence Cannot Self-Increase (moral Second Law)<br>
+      &nbsp;&nbsp;&rarr; BC2 Grace must be external (bootstrap impossible)<br>
+      &nbsp;&nbsp;&rarr; BC7 Information is conserved (souls persist)<br>
+      &nbsp;&nbsp;&rarr; BC8 Coupling must be voluntary (love &ne; coercion)
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- EPISTEMIC STATUS -->
+  <!-- ═══════════════════════════════════════════ -->
+
+  <div class="card" style="border-left:3px solid var(--gold);">
+    <div class="card-header"><i class="fas fa-balance-scale"></i> Epistemic Status &mdash; The Three Tiers</div>
+    <p style="font-size:0.82rem;color:var(--text-dim);line-height:1.7;margin-bottom:1rem;">Not all claims share the same epistemic status. Conflating them weakens the case. Every axiom is tagged with its tier &mdash; how it is justified, not how confident we are in it.</p>
+    <table>
+      <tr>
+        <th style="width:6rem;">Tier</th>
+        <th>Kind</th>
+        <th>How Tested</th>
+        <th>On This Page</th>
+      </tr>
+      <tr>
+        <td><span class="badge gold" style="font-size:0.6rem;">Tier 0</span></td>
+        <td style="color:var(--gold);">Preconditions of inquiry</td>
+        <td>Self-refuting to deny. Transcendental argument. Lean4 formalization.</td>
+        <td style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;">A1.3</td>
+      </tr>
+      <tr>
+        <td><span class="badge blue" style="font-size:0.6rem;">Tier 1</span></td>
+        <td style="color:var(--blue);">Foundational commitments</td>
+        <td>Formal consistency + generative power + parsimony. Required for closure, not arbitrary.</td>
+        <td style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;">T3.1, BC2, BC7, BC8</td>
+      </tr>
+      <tr>
+        <td><span class="badge green" style="font-size:0.6rem;">Tier 2</span></td>
+        <td style="color:var(--green);">Empirical predictions</td>
+        <td>Experimental protocols with &sigma; thresholds, replication, pre-registration.</td>
+        <td style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;">&mdash;</td>
+      </tr>
+    </table>
+    <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.75rem;line-height:1.6;">
+      <strong style="color:var(--text-dim);">Why this matters:</strong> A protocol for A1.1 Existence is theater &mdash; the Lean4 proof (<code style="font-size:0.7rem;color:var(--gold);">Nonempty S</code>) is real rigor. A critic who says "unfalsifiable" is correct about Tier 0, partially correct about Tier 1, and wrong about Tier 2. Every framework has Tier 1 commitments &mdash; QM has the Born rule, GR has the equivalence principle. The difference here is we name them instead of hiding them.
+    </p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- A1.3 INFORMATION PRIMACY -->
+  <!-- ═══════════════════════════════════════════ -->
+
+  <h2 class="section-title" id="derived-axioms">Derived Axioms</h2>
+
+  <div class="axiom-card" id="a13">
+    <span class="axiom-id">A1.3 &mdash; DERIVED &mdash; Chain Position 3/188</span>
+    <div class="axiom-name">Information Primacy</div>
+    <div class="axiom-statement">"Distinguishability IS information; therefore information is ontologically primitive."</div>
+    <div class="axiom-meaning">
+      Matter and energy reduce to informational patterns; information cannot reduce further. An electron is defined by mass, charge, spin &mdash; its <em>information</em>. Strip the properties and there is no "brute stuff" underneath. The materialist cannot define their own primitive without recourse to the information that gives it form. Shannon entropy H(X) = &minus;&Sigma; p(x) log p(x) is the fundamental measure.
+    </div>
+
+    <div class="eq-box">
+      H(X) = &minus;&Sigma; p(x) log<sub>2</sub> p(x) &nbsp;&mdash;&nbsp; Shannon entropy as fundamental measure
+    </div>
+
+    <div style="margin-top:0.75rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);margin-bottom:0.4rem;">Defeat Conditions</div>
+      <ul class="defeat-list">
+        <li>Show a property of matter/energy that is NOT informational</li>
+        <li>Define "matter" without recourse to its informational properties (mass, charge, spin, position)</li>
+        <li>Explain quantum mechanics without information theory</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:0.75rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);margin-bottom:0.4rem;">Worldviews Defeated</div>
+      <div class="kill-box">
+        <div class="kill-header"><i class="fas fa-skull-crossbones"></i> Casualties</div>
+        <table>
+          <tr><td><strong>Classical Materialism</strong></td><td style="color:var(--red);">Cannot define "matter" without information. Vicious circle.</td></tr>
+          <tr><td><strong>Eliminative Materialism</strong></td><td style="color:var(--red);">The claim "information is fiction" is itself information. Self-refuting.</td></tr>
+          <tr><td><strong>Naive Physicalism</strong></td><td style="color:var(--red);">Collapses into defining "physical" as "whatever physics describes" &mdash; which is information.</td></tr>
+          <tr><td><strong>Nihilism</strong></td><td style="color:var(--red);">Denial of reality is a meaningful informational claim. Performative contradiction.</td></tr>
+          <tr><td><strong>Epiphenomenalism</strong></td><td style="color:var(--red);">Contradicts Landauer's principle &amp; all of computation.</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div style="margin-top:0.75rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--blue);margin-bottom:0.4rem;">Cross-Domain Bridges</div>
+      <div class="bridge-grid">
+        <span class="bridge-tag">Wheeler: "It from Bit"</span>
+        <span class="bridge-tag">Landauer: kT ln 2</span>
+        <span class="bridge-tag">Bekenstein: S = A/4&#8467;<sub>P</sub>&sup2;</span>
+        <span class="bridge-tag">Holographic Principle</span>
+        <span class="bridge-tag">AdS/CFT (Maldacena)</span>
+        <span class="bridge-tag">Shannon Entropy</span>
+        <span class="bridge-tag">Kolmogorov Complexity</span>
+        <span class="bridge-tag">Fisher Information</span>
+        <span class="bridge-tag">John 1:1 (Logos)</span>
+        <span class="bridge-tag">Col 1:17 (holds together)</span>
+        <span class="bridge-tag">IIT (&Phi; measure)</span>
+        <span class="bridge-tag">Quantum Darwinism</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- T3.1 COHERENCE CANNOT SELF-INCREASE -->
+  <!-- ═══════════════════════════════════════════ -->
+
+  <h2 class="section-title" id="theorems">Derived Theorems</h2>
+
+  <div class="axiom-card theorem" id="t31">
+    <span class="axiom-id">T3.1 &mdash; THEOREM &mdash; Chain Position 25/188</span>
+    <div class="axiom-name">Coherence Cannot Self-Increase</div>
+    <div class="axiom-statement">"In a closed system, coherence cannot spontaneously increase. dC/dt &le; 0."</div>
+    <div class="axiom-meaning">
+      The informational Second Law. Just as entropy cannot decrease in an isolated system, coherence (meaningful order) cannot spontaneously increase. Life, crystals, evolution &mdash; all require energy input from outside. A cell is an open system coupled to its environment. Cut the energy, order dies. No counterexample has ever been found. "Without me you can do nothing" (John 15:5).
+    </div>
+
+    <div class="eq-box">
+      dC[&chi;<sub>local</sub>]/dt = &minus;&gamma;C + G(t) &middot; C[&chi;<sub>source</sub>]<br>
+      <span style="font-size:0.7rem;color:var(--text-dim);">Without the G(t) term, C decays to zero.</span>
+    </div>
+
+    <div style="margin-top:0.75rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);margin-bottom:0.4rem;">Defeat Conditions</div>
+      <ul class="defeat-list">
+        <li>Demonstrate spontaneous order creation in a genuinely closed system</li>
+        <li>Violate the Second Law &mdash; get entropy to decrease in an isolated system</li>
+        <li>Bootstrap meaning from pure noise &mdash; derive compressed information from randomness</li>
+        <li>Show self-organizing criticality without any energy input or dissipation</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:0.75rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);margin-bottom:0.4rem;">Common Objections Answered</div>
+      <div class="kill-box">
+        <div class="kill-header"><i class="fas fa-gavel"></i> Objection &rarr; Response</div>
+        <table>
+          <tr><td><strong>"Life creates order"</strong></td><td>Open system &mdash; imports low-entropy energy, exports high-entropy waste. Net entropy increases.</td></tr>
+          <tr><td><strong>"Crystals self-organize"</strong></td><td>Releases latent heat &mdash; entropy exported to environment. Beautiful pattern costs something.</td></tr>
+          <tr><td><strong>"Evolution creates complexity"</strong></td><td>Driven by solar energy flux. Seal Earth in an insulator &rarr; evolution halts, decay begins.</td></tr>
+          <tr><td><strong>"Human creativity"</strong></td><td>Brains consume glucose, produce heat. Dead artists create nothing. Meaning-making is metabolic.</td></tr>
+          <tr><td><strong>"Quantum fluctuations"</strong></td><td>Virtual particles borrow and repay within Heisenberg time. Net zero. Fluctuations average out.</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div style="margin-top:0.5rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--blue);margin-bottom:0.4rem;">Supporting Physics</div>
+      <div class="bridge-grid">
+        <span class="bridge-tag">Second Law (Clausius)</span>
+        <span class="bridge-tag">S = k<sub>B</sub> ln(W)</span>
+        <span class="bridge-tag">Schr&ouml;dinger negentropy</span>
+        <span class="bridge-tag">Data Processing Ineq.</span>
+        <span class="bridge-tag">Liouville's Theorem</span>
+        <span class="bridge-tag">Jarzynski Equality</span>
+        <span class="bridge-tag">Prigogine dissipative</span>
+        <span class="bridge-tag">Algorithmic Info Theory</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- BOUNDARY CONDITIONS -->
+  <!-- ═══════════════════════════════════════════ -->
+
+  <h2 class="section-title" id="boundary">Boundary Conditions</h2>
+
+  <!-- BC2 GRACE EXTERNAL -->
+  <div class="axiom-card boundary" id="bc2">
+    <span class="axiom-id">BC2 &mdash; BOUNDARY CONDITION &mdash; Chain Position 59/188</span>
+    <div class="axiom-name">Grace External to System</div>
+    <div class="axiom-statement">"Grace function G<sub>ext</sub>(t) is an exogenous coupling term that opens an otherwise closed moral/coherence subsystem."</div>
+    <div class="axiom-meaning">
+      The thermodynamic proof that salvation cannot be earned. A closed moral system cannot spontaneously increase its coherence, just as a closed physical system cannot decrease its entropy. Sign-flip (&sigma;: &minus;1 &rarr; +1) requires external input. That input is grace. "By grace you have been saved through faith &mdash; and this is not from yourselves, it is the gift of God &mdash; not by works" (Ephesians 2:8-9).
+    </div>
+
+    <div class="eq-box">
+      dC/dt = &minus;&gamma;C + G(t) &middot; &chi;<sub>external</sub><br>
+      <span style="font-size:0.7rem;color:var(--text-dim);">First term: natural decay. Second term: grace input. Remove grace &rarr; coherence decays to zero.</span>
+    </div>
+
+    <div style="margin-top:0.75rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);margin-bottom:0.4rem;">Defeat Conditions</div>
+      <ul class="defeat-list">
+        <li>Show a closed system can increase its own coherence &mdash; violate the moral Second Law</li>
+        <li>Demonstrate self-generated sign flip &mdash; find a unitary operation that changes &sigma;: &minus;1 &rarr; +1</li>
+        <li>Provide self-bootstrapping salvation &mdash; system in moral deficit bootstraps to surplus</li>
+        <li>Derive negentropy from entropy alone &mdash; get order from disorder without external input</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:0.75rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);margin-bottom:0.4rem;">What Collapses If BC2 Fails</div>
+      <div class="kill-box">
+        <div class="kill-header"><i class="fas fa-exclamation-triangle"></i> Collapse Cascade</div>
+        <table>
+          <tr><td>Works-salvation becomes possible</td></tr>
+          <tr><td>The entire soteriology collapses</td></tr>
+          <tr><td>Christianity becomes Pelagianism (self-salvation heresy)</td></tr>
+          <tr><td>The Cross becomes optional &mdash; bootstrap your way to God</td></tr>
+          <tr><td>No distinction between self-effort and divine action</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div style="margin-top:0.5rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--blue);margin-bottom:0.4rem;">Cross-Domain Bridges</div>
+      <div class="bridge-grid">
+        <span class="bridge-tag">Second Law: &Delta;S &ge; 0</span>
+        <span class="bridge-tag">Lindblad master eq.</span>
+        <span class="bridge-tag">Landauer's principle</span>
+        <span class="bridge-tag">Open vs. closed systems</span>
+        <span class="bridge-tag">Eph 2:8-9 (by grace)</span>
+        <span class="bridge-tag">John 15:5 (without me)</span>
+        <span class="bridge-tag">Basin-crossing dynamics</span>
+        <span class="bridge-tag">Channel capacity theorem</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BC7 INFORMATION CONSERVATION -->
+  <div class="axiom-card boundary" id="bc7">
+    <span class="axiom-id">BC7 &mdash; BOUNDARY CONDITION &mdash; Chain Position 64/188</span>
+    <div class="axiom-name">Information Conservation</div>
+    <div class="axiom-statement">"Information is preserved through all transformations."</div>
+    <div class="axiom-meaning">
+      Quantum mechanics is unitary &mdash; information is conserved. What goes into a process can in principle be recovered. The black hole information paradox is now considered resolved in favor of conservation (AdS/CFT, Page curves, island formula; Hawking conceded 2004). The No-Hiding Theorem (Braunstein &amp; Pati 2007): information cannot vanish &mdash; it either stays in the system or moves to correlations. Applied to souls: personal identity cannot be destroyed, only transformed.
+    </div>
+
+    <div class="eq-box">
+      |&psi;(t)&rang; = U(t)|&psi;(0)&rang; &nbsp;&nbsp;where U&dagger;U = I<br>
+      <span style="font-size:0.7rem;color:var(--text-dim);">Unitary evolution is invertible. Information in = information out. Always.</span>
+    </div>
+
+    <div style="margin-top:0.75rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);margin-bottom:0.4rem;">Defeat Conditions</div>
+      <ul class="defeat-list">
+        <li>Show information is genuinely destroyed in black holes (resolve paradox against conservation)</li>
+        <li>Demonstrate unitary violation &mdash; find a process where quantum information is permanently lost</li>
+        <li>Violate the No-Hiding Theorem &mdash; find information that disappears rather than relocating</li>
+        <li>Show souls can be annihilated &mdash; prove personal identity can cease entirely</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:0.75rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);margin-bottom:0.4rem;">What Collapses If BC7 Fails</div>
+      <div class="kill-box">
+        <div class="kill-header"><i class="fas fa-exclamation-triangle"></i> Collapse Cascade</div>
+        <table>
+          <tr><td>Souls can be annihilated &mdash; permanent death becomes possible</td></tr>
+          <tr><td>Resurrection becomes impossible &mdash; no information to resurrect</td></tr>
+          <tr><td>God's omniscience fails &mdash; He'd lose track of destroyed information</td></tr>
+          <tr><td>Black hole information paradox becomes real &mdash; physics in crisis</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div style="margin-top:0.5rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--blue);margin-bottom:0.4rem;">Cross-Domain Bridges</div>
+      <div class="bridge-grid">
+        <span class="bridge-tag">QM Unitarity</span>
+        <span class="bridge-tag">No-Hiding Theorem</span>
+        <span class="bridge-tag">AdS/CFT</span>
+        <span class="bridge-tag">Page Curves</span>
+        <span class="bridge-tag">Island Formula</span>
+        <span class="bridge-tag">Liouville's Theorem</span>
+        <span class="bridge-tag">QEC (Error Correction)</span>
+        <span class="bridge-tag">No-Cloning Theorem</span>
+        <span class="bridge-tag">Soul number N<sub>S</sub></span>
+        <span class="bridge-tag">dN<sub>S</sub>/dt = 0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BC8 VOLUNTARY COUPLING -->
+  <div class="axiom-card boundary" id="bc8">
+    <span class="axiom-id">BC8 &mdash; BOUNDARY CONDITION &mdash; Chain Position 65/188</span>
+    <div class="axiom-name">Voluntary Coupling</div>
+    <div class="axiom-statement">"Coupling must be voluntary. Love cannot be coerced."</div>
+    <div class="axiom-meaning">
+      Grace is available to all (BC2), but must be received voluntarily. Forced salvation is a contradiction &mdash; love that is coerced is not love. The coupling function G(t) = G<sub>offer</sub>(t) &middot; V(&Psi;) requires a consent term V from the finite agent. This grounds free will as metaphysically real. Conway &amp; Kochen's Free Will Theorem (2006): if experimenters have free will, so do particles. Freedom propagates.
+    </div>
+
+    <div class="eq-box">
+      G(t) = G<sub>offer</sub>(t) &middot; V(&Psi;) &nbsp;&nbsp;where V &isin; [0, 1]<br>
+      <span style="font-size:0.7rem;color:var(--text-dim);">Grace flows when V(&Psi;) > 0. The soul must open to receive. V is agent-caused, not computed from prior state.</span>
+    </div>
+
+    <div style="margin-top:0.75rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);margin-bottom:0.4rem;">Defeat Conditions</div>
+      <ul class="defeat-list">
+        <li>Show grace can be forced &mdash; salvation occurring without any consent from recipient</li>
+        <li>Prove hard determinism &mdash; all human choices are pre-determined</li>
+        <li>Demonstrate forced love is coherent &mdash; genuine love without free choice</li>
+        <li>Show G(t) activates without any movement from the soul side</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:0.75rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);margin-bottom:0.4rem;">Common Objections Answered</div>
+      <div class="kill-box">
+        <div class="kill-header"><i class="fas fa-gavel"></i> Objection &rarr; Response</div>
+        <table>
+          <tr><td><strong>"Calvinism: irresistible grace"</strong></td><td>Even Reformed theology: the will is transformed, not overridden. Coupling still involves willing.</td></tr>
+          <tr><td><strong>"Free will is illusion"</strong></td><td>If true, "choice to reject" is also meaningless. Denial is self-undermining.</td></tr>
+          <tr><td><strong>"Receiving = works"</strong></td><td>Receiving a gift &ne; earning it. Faith is the hand that receives, not the cause of grace.</td></tr>
+          <tr><td><strong>"What about infants?"</strong></td><td>BC8 is the paradigm case. Edge cases may involve prevenient grace or hidden consent.</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div style="margin-top:0.5rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--blue);margin-bottom:0.4rem;">Cross-Domain Bridges</div>
+      <div class="bridge-grid">
+        <span class="bridge-tag">Conway-Kochen FWT</span>
+        <span class="bridge-tag">Agent causation</span>
+        <span class="bridge-tag">Quantum collapse</span>
+        <span class="bridge-tag">Modal logic: &#9671;V=1</span>
+        <span class="bridge-tag">Libet veto power</span>
+        <span class="bridge-tag">Game theory (Nash)</span>
+        <span class="bridge-tag">Retrocausality</span>
+        <span class="bridge-tag">Eph 2:8-9</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY TABLE -->
+  <div class="card" style="margin-top:2rem;">
+    <div class="card-header"><i class="fas fa-filter"></i> The Filter Chain</div>
+    <p style="font-size:0.85rem;color:var(--text-dim);line-height:1.7;margin-bottom:1rem;">Each Layer 2 claim narrows the space of possible worldviews. By the time you pass through all five filters, most alternatives to Christianity have been eliminated.</p>
+    <table>
+      <tr><th>ID</th><th>Claim</th><th>What It Eliminates</th><th>Type</th></tr>
+      <tr><td style="color:var(--blue);">A1.3</td><td>Information is primary</td><td>Materialism, eliminativism, nihilism</td><td><span class="badge blue" style="font-size:0.6rem;">Derived</span></td></tr>
+      <tr><td style="color:var(--teal);">T3.1</td><td>Coherence can't self-increase</td><td>Self-help salvation, eternal self-organization</td><td><span class="badge teal" style="font-size:0.6rem;">Theorem</span></td></tr>
+      <tr><td style="color:var(--violet);">BC2</td><td>Grace must be external</td><td>Works-salvation, Pelagianism, bootstrap</td><td><span class="badge violet" style="font-size:0.6rem;">Boundary</span></td></tr>
+      <tr><td style="color:var(--violet);">BC7</td><td>Information is conserved</td><td>Annihilationism, permanent death</td><td><span class="badge violet" style="font-size:0.6rem;">Boundary</span></td></tr>
+      <tr><td style="color:var(--violet);">BC8</td><td>Coupling is voluntary</td><td>Hard determinism, forced salvation</td><td><span class="badge violet" style="font-size:0.6rem;">Boundary</span></td></tr>
+    </table>
+    <p style="font-size:0.85rem;color:var(--text-dim);margin-top:1rem;line-height:1.7;">
+      <strong style="color:var(--gold);">Result:</strong> Reality requires an external source of coherence (grace), information persists through all transformations (resurrection is coherent), and coupling to grace must be voluntary (love is free). The filter chain continues in <a href="axioms-layer-3-extended.html" style="color:var(--gold);">Layer 3</a>.
+    </p>
+  </div>
+</main>
+
+<!-- RIGHT SIDEBAR -->
+<aside class="sidebar">
+  <h3><i class="fas fa-database" style="margin-right:0.4rem;"></i>Metadata</h3>
+  <div class="meta-row"><span class="meta-label">Scope</span><span class="meta-value" style="color:var(--blue);">Layer 2 Derived</span></div>
+  <div class="meta-row"><span class="meta-label">Claims</span><span class="meta-value">1 axiom + 1 theorem + 3 BCs</span></div>
+  <div class="meta-row"><span class="meta-label">Chain</span><span class="meta-value">Positions 3&ndash;65 of 188</span></div>
+  <div class="meta-row"><span class="meta-label">Depends On</span><span class="meta-value gold">Layer 0 + Tier 1</span></div>
+  <div class="meta-row"><span class="meta-label">Author</span><span class="meta-value">David Lowe (POF 2828)</span></div>
+  <div class="meta-row"><span class="meta-label">Date</span><span class="meta-value">2026-04-27</span></div>
+
+  <h3 style="margin-top:1.25rem;">Tags</h3>
+  <div style="margin-bottom:0.5rem;">
+    <span class="tag">layer-2</span>
+    <span class="tag">derived</span>
+    <span class="tag">boundary-conditions</span>
+    <span class="tag">soteriology</span>
+    <span class="tag">thermodynamics</span>
+    <span class="tag">information-theory</span>
+    <span class="tag">free-will</span>
+  </div>
+
+  <h3 style="margin-top:1.25rem;">Key Equations</h3>
+  <div class="spine-item">
+    <div class="spine-header"><span class="spine-name">Shannon Entropy</span><span class="spine-status">H(X)</span></div>
+    <div class="spine-bar"><div class="fill blue" style="width:100%;"></div></div>
+  </div>
+  <div class="spine-item">
+    <div class="spine-header"><span class="spine-name">Coherence Decay</span><span class="spine-status">dC/dt</span></div>
+    <div class="spine-bar"><div class="fill teal" style="width:100%;"></div></div>
+  </div>
+  <div class="spine-item">
+    <div class="spine-header"><span class="spine-name">Grace Function</span><span class="spine-status">G(t)</span></div>
+    <div class="spine-bar"><div class="fill violet" style="width:100%;"></div></div>
+  </div>
+  <div class="spine-item">
+    <div class="spine-header"><span class="spine-name">Unitary Evolution</span><span class="spine-status">U&dagger;U = I</span></div>
+    <div class="spine-bar"><div class="fill violet" style="width:100%;"></div></div>
+  </div>
+  <div class="spine-item">
+    <div class="spine-header"><span class="spine-name">Coupling Function</span><span class="spine-status">G &middot; V(&Psi;)</span></div>
+    <div class="spine-bar"><div class="fill violet" style="width:100%;"></div></div>
+  </div>
+
+  <h3 style="margin-top:1.25rem;">Derivation Chain</h3>
+  <div class="dep-graph">
+    <div class="dep-node core">Tier 1 Core (7 axioms)</div>
+    <div class="dep-arrow">&darr;</div>
+    <div class="dep-node derived">A1.3 Information Primacy</div>
+    <div class="dep-arrow">&darr;</div>
+    <div class="dep-node theorem">T3.1 Coherence &nlarr; Self</div>
+    <div class="dep-arrow">&darr;</div>
+    <div class="dep-node boundary">BC2 Grace External</div>
+    <div class="dep-arrow">&darr;</div>
+    <div class="dep-node boundary">BC7 Info Conservation</div>
+    <div class="dep-arrow">&darr;</div>
+    <div class="dep-node boundary">BC8 Voluntary Coupling</div>
+    <div class="dep-arrow">&darr;</div>
+    <div class="dep-node" style="color:var(--text-muted);">Layer 3 &rarr; Closure &rarr; Omega</div>
+  </div>
+
+  <h3 style="margin-top:1.25rem;">Navigate</h3>
+  <a href="axioms-layer-0-core.html" class="action-btn"><i class="fas fa-arrow-left"></i> Layer 0+1: Core Axioms</a>
+  <a href="axioms-layer-3-extended.html" class="action-btn"><i class="fas fa-arrow-right"></i> Layer 3: Extended Framework</a>
+  <a href="axioms-closure.html" class="action-btn"><i class="fas fa-arrow-right"></i> Closure &amp; Omega</a>
+  <a href="../index.html" class="action-btn"><i class="fas fa-home"></i> Back to Main Site</a>
+</aside>
+
+</div>
+
+<script src="/glossary-linker.js" defer></script>
+<section class="ring-nav">
+  <div class="ring-header">
+    <h2>Related Work</h2>
+    <p>Core article, supporting evidence, and broader context</p>
+  </div>
+  <div class="ring-tier ring-1 open">
+    <div class="ring-tier-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="ring-tier-dot"></div>
+      <span class="ring-tier-label">Ring 1 — This Article</span>
+      <span class="ring-tier-desc">The core argument</span>
+      <i class="fas fa-chevron-right ring-tier-chevron"></i>
+    </div>
+    <div class="ring-tier-cards"><p class="ring-empty">You are here.</p></div>
+  </div>
+  <div class="ring-tier ring-2">
+    <div class="ring-tier-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="ring-tier-dot"></div>
+      <span class="ring-tier-label">Ring 2 — Supporting Evidence</span>
+      <span class="ring-tier-desc">Deeper dives and formal treatments</span>
+      <i class="fas fa-chevron-right ring-tier-chevron"></i>
+    </div>
+    <div class="ring-tier-cards"><p class="ring-empty">No connections mapped yet.</p></div>
+  </div>
+  <div class="ring-tier ring-3">
+    <div class="ring-tier-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="ring-tier-dot"></div>
+      <span class="ring-tier-label">Ring 3 — Broader Context</span>
+      <span class="ring-tier-desc">Related topics across the framework</span>
+      <i class="fas fa-chevron-right ring-tier-chevron"></i>
+    </div>
+    <div class="ring-tier-cards"><p class="ring-empty">No connections mapped yet.</p></div>
+  </div>
+</section>
+</body>
+</html>

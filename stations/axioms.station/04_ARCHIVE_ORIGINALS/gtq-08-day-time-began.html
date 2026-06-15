@@ -1,0 +1,2112 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="paper-slug" content="GTQ-08">
+<title>GTQ-08 The Day Time Began â€” Genesis to Quantum</title>
+<meta name="description" content="Time itself is the rescue mechanism â€” the grace vehicle Satan never anticipated."/>
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<!-- MathJax -->
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']] }, svg: { fontCache: 'global' } };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+:root{
+  --primary:#1a1a1a;
+  --accent:#2c2c2c;
+  --text-primary:#e0e0e0;
+  --text-secondary:#a0a0a0;
+  --highlight:#d4af37;
+  --highlight-bright:#f4d03f;
+  --highlight-dim:#8b7a1e;
+  --highlight-glow:rgba(212,175,55,0.12);
+  --border:#333333;
+  --surface:#0a0a0a;
+  --surface-light:#1a1a1a;
+  --surface-hover:#2a2a2a;
+  --red:#ef4444;
+  --blue:#4a9eff;
+  --teal:#2dd4bf;
+  --purple:#a855f7;
+  --green:#22c55e;
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--surface);
+  color:var(--text-primary);
+  line-height:1.65;
+  margin:0;
+  padding:0;
+  overflow-x:hidden;
+}
+.serif{font-family:'Crimson Text',serif;}
+.display{font-family:'Oswald',sans-serif;}
+.mono{font-family:'JetBrains Mono',monospace;}
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ SIDEBAR NAV â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.sidebar{
+  position:fixed;top:0;left:0;width:300px;height:100vh;
+  background:var(--surface);border-right:1px solid var(--border);
+  z-index:100;overflow-y:auto;
+  transform:translateX(-100%);transition:transform .3s ease;
+  padding:1.5rem 1rem;
+}
+.sidebar.open{transform:translateX(0);}
+.sidebar-toggle{
+  position:fixed;top:1rem;left:1rem;z-index:101;
+  background:var(--surface-light);border:1px solid var(--border);
+  color:var(--highlight);width:40px;height:40px;border-radius:.375rem;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:1rem;transition:all .2s ease;
+}
+.sidebar-toggle:hover{border-color:var(--highlight);background:var(--surface-hover);}
+.sidebar-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:99;}
+.sidebar-overlay.show{display:block;}
+.sidebar .series-title{
+  font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--highlight);margin-bottom:1rem;
+  padding-bottom:.5rem;border-bottom:1px solid var(--border);
+}
+.sidebar a{display:block;padding:.45rem .75rem;color:var(--text-secondary);text-decoration:none;font-size:.8rem;border-radius:.3rem;transition:all .15s ease;line-height:1.4;}
+.sidebar a:hover{color:var(--text-primary);background:var(--surface-hover);}
+.sidebar a.current{color:var(--highlight);background:var(--highlight-glow);font-weight:600;}
+.sidebar .nav-section{padding:.5rem .75rem .25rem;font-family:'Oswald',sans-serif;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);opacity:.6;margin-top:.5rem;}
+.sidebar a.main-article{font-weight:500;color:var(--text-primary);}
+.sidebar a.deep-dive{padding-left:1.25rem;font-size:.78rem;opacity:.85;}
+.sidebar a.deep-dive::before{content:"â”” ";color:var(--border);}
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ PROGRESS BAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.progress-track{position:fixed;top:0;left:0;right:0;height:3px;background:var(--border);z-index:90;}
+.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--highlight),var(--highlight-bright));transition:width 0.1s ease;border-radius:0 2px 2px 0;}
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HERO GRID â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.hero-grid{
+  display:grid;grid-template-columns:2fr 1fr;grid-template-rows:auto auto;
+  gap:1.25rem;min-height:420px;margin-bottom:2.5rem;
+}
+.hero-main{
+  grid-column:1/2;grid-row:1/3;position:relative;overflow:hidden;
+  border-radius:.75rem;background:linear-gradient(135deg,var(--surface-light) 0%,var(--accent,#2c2c2c) 100%);
+  border:1px solid var(--border);min-height:420px;
+}
+.hero-main img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35;}
+.hero-main .overlay{
+  position:relative;z-index:2;height:100%;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:2.5rem;
+  background:linear-gradient(0deg,rgba(10,10,10,.85) 0%,rgba(10,10,10,0) 60%);
+}
+.hero-side{
+  background:var(--surface-light);border:1px solid var(--border);border-radius:.75rem;
+  padding:1.5rem;transition:border-color .25s ease;
+}
+.hero-side:hover{border-color:var(--highlight);}
+.hero-side h3{font-family:'Crimson Text',serif;font-size:1.05rem;font-weight:600;color:#fff;margin:0 0 .65rem;}
+.hero-side p{font-size:.875rem;color:var(--text-secondary);margin:0;}
+.hero-side .label{display:block;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);margin-bottom:.4rem;font-weight:700;}
+@media(max-width:1024px){
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-main{grid-column:1;grid-row:1;min-height:300px;}
+  .hero-main .overlay{padding:1.5rem;}
+}
+.meta-row{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;font-size:.8125rem;color:var(--text-secondary);margin-bottom:1rem;}
+.meta-row i{color:var(--highlight);margin-right:.4rem;}
+.status-pill{
+  padding:.25rem .65rem;background:var(--highlight-glow);color:var(--highlight);
+  border-radius:.25rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+}
+.domain-tag{display:inline-block;padding:.2rem .65rem;border-radius:999px;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+.tag-physics{background:rgba(74,158,255,.15);color:#4a9eff;}
+.tag-theology{background:rgba(212,175,55,.15);color:#d4af37;}
+.tag-quantum{background:rgba(201,64,64,.15);color:var(--red);}
+.tag-bridge{background:rgba(45,212,191,.15);color:#2dd4bf;}
+.tag-data{background:rgba(34,197,94,.15);color:var(--green);}
+.tag-consciousness{background:rgba(168,85,247,.15);color:var(--purple);}
+.tag-history{background:rgba(212,175,55,.12);color:#caa040;}
+.tag-moral{background:rgba(239,68,68,.15);color:var(--red);}
+.tag-civilizational{background:rgba(168,85,247,.12);color:#b594d8;}
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ STICKY TAB BAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.tab-shell{
+  position:sticky;top:0;z-index:50;
+  background:rgba(10,10,10,.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.tab-nav{display:flex;gap:.125rem;overflow-x:auto;scrollbar-width:none;}
+.tab-nav::-webkit-scrollbar{display:none;}
+.tab-btn{
+  padding:.85rem 1.1rem;background:transparent;border:none;color:var(--text-secondary);
+  font-size:.825rem;font-weight:500;cursor:pointer;white-space:nowrap;
+  transition:all .2s ease;border-bottom:2px solid transparent;margin-bottom:-1px;letter-spacing:.02em;
+}
+.tab-btn:hover{color:var(--text-primary);background:var(--surface-light);}
+.tab-btn.active{color:var(--highlight);border-bottom-color:var(--highlight);background:var(--surface-light);}
+.tab-btn i{margin-right:.4rem;}
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ TAB CONTENT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.tab-content{display:none;animation:fadeIn .3s ease;}
+.tab-content.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ LAYOUT: MAIN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.main-layout{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:grid;grid-template-columns:1fr 280px;gap:3rem;}
+@media(max-width:1024px){.main-layout{grid-template-columns:1fr;}}
+
+.story{max-width:900px;margin:0 auto;}
+.story.wide{max-width:100%;}
+.story h2{
+  font-family:'Oswald',sans-serif;font-size:1.6rem;font-weight:600;color:#fff;
+  margin:3rem 0 1.25rem;letter-spacing:.03em;text-transform:uppercase;
+  border-bottom:1px solid var(--border);padding-bottom:.5rem;
+}
+.story h3{font-family:'Crimson Text',serif;font-size:1.3rem;font-weight:600;color:#fff;margin:2rem 0 .75rem;}
+.story h4{font-family:'Crimson Text',serif;font-size:1.1rem;font-weight:600;color:var(--highlight);margin:1.5rem 0 .5rem;}
+.story p{font-size:1.0625rem;color:#cfcfcf;margin:0 0 1.25rem;line-height:1.75;}
+.story p strong{color:#fff;}
+.story p em{color:var(--highlight);font-style:italic;}
+.story li{color:#cfcfcf;margin-bottom:.5rem;line-height:1.65;}
+.story li strong{color:#fff;}
+.story ul,.story ol{margin:0 0 1.25rem 1.5rem;}
+.story blockquote{
+  border-left:4px solid var(--highlight);background:var(--highlight-glow);
+  padding:1rem 1.5rem;margin:1.5rem 0;border-radius:0 .5rem .5rem 0;
+  font-family:'Crimson Text',serif;font-size:1.05rem;font-style:italic;color:#cfcfcf;
+}
+.story blockquote p{margin:0;font-size:1.05rem;}
+
+.drop-cap::first-letter{font-family:'Crimson Text',serif;font-size:4.5rem;float:left;line-height:.85;padding:.4rem .6rem 0 0;color:var(--highlight);font-weight:600;}
+
+.exec-summary{
+  background:var(--highlight-glow);border:1px solid var(--highlight-dim);
+  border-radius:.5rem;padding:1.5rem;margin:2rem 0;
+}
+.exec-summary-label{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);margin-bottom:.75rem;
+}
+.exec-summary p{font-size:1rem;color:#e0e0e0;margin:0;line-height:1.7;}
+
+.insight{border-left:4px solid var(--highlight);background:var(--highlight-glow);padding:1.25rem 1.5rem;margin:2rem 0;border-radius:0 .5rem .5rem 0;}
+.insight .label{font-family:'Crimson Text',serif;font-style:italic;color:var(--highlight);font-size:.85rem;letter-spacing:.05em;display:block;margin-bottom:.4rem;}
+.insight p{margin:0;color:#fff;font-size:1.05rem;}
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ KILL CONDITIONS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.kill-sidebar{position:sticky;top:120px;height:fit-content;}
+.kill-sidebar-title{
+  font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);
+  margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);
+}
+.kill-card{
+  background:rgba(34,197,94,.04);border:1px solid rgba(34,197,94,.2);
+  border-radius:.5rem;padding:1rem;margin-bottom:.75rem;
+}
+.kill-card.suggestive{background:var(--highlight-glow);border-color:var(--highlight-dim);}
+.kill-card.destructive{background:rgba(239,68,68,.04);border-color:rgba(239,68,68,.2);}
+.kill-label{font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.35rem;}
+.kill-card .kill-label{color:var(--green);}
+.kill-card.suggestive .kill-label{color:var(--highlight);}
+.kill-card.destructive .kill-label{color:var(--red);}
+.kill-card p{margin:.25rem 0 0;color:#cfcfcf;font-size:.85rem;line-height:1.5;}
+.kill-card .kill-detail{font-size:.75rem;color:var(--text-secondary);margin-top:.35rem;}
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ AUDIO DOCK â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.audio-dock{width:100%;background:var(--surface-light);border:1px solid var(--border);border-radius:.625rem;overflow:hidden;transition:border-color .3s ease;margin:2rem 0;}
+.audio-dock:hover{border-color:var(--highlight-dim);}
+.dock-pills{display:flex;gap:0;border-bottom:1px solid var(--border);}
+.dock-pill{flex:1;display:flex;align-items:center;justify-content:center;gap:.4rem;padding:.6rem .5rem;background:transparent;border:none;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);transition:all .25s ease;position:relative;}
+.dock-pill::after{content:'';position:absolute;bottom:0;left:15%;right:15%;height:2px;border-radius:1px;background:transparent;transition:all .25s ease;}
+.dock-pill:hover{color:var(--text-primary);background:rgba(255,255,255,.03);}
+.dock-pill[data-src="deep"]{--pill-c:var(--blue);}
+.dock-pill[data-src="read"]{--pill-c:var(--highlight);}
+.dock-pill[data-src="debate"]{--pill-c:var(--purple);}
+.dock-pill[data-src="critique"]{--pill-c:var(--teal);}
+.dock-pill.active{color:var(--pill-c);background:rgba(255,255,255,.02);}
+.dock-pill.active::after{background:var(--pill-c);}
+.dock-pill .pill-dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.5;transition:opacity .25s;}
+.dock-pill.active .pill-dot{opacity:1;}
+.dock-pill.unavailable{opacity:.3;cursor:default;pointer-events:none;}
+.dock-body{display:flex;align-items:center;gap:.65rem;padding:.65rem .85rem;}
+.dock-play{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--highlight);background:transparent;color:var(--highlight);font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s ease;}
+.dock-play:hover{background:var(--highlight-glow);transform:scale(1.05);}
+.dock-play.playing{animation:pulse-dock 2s ease-in-out infinite;}
+@keyframes pulse-dock{0%,100%{box-shadow:0 0 0 0 var(--highlight-glow);}50%{box-shadow:0 0 0 4px transparent;}}
+.dock-track-wrap{flex:1;display:flex;flex-direction:column;gap:.25rem;min-width:0;}
+.dock-track{width:100%;height:4px;background:#222;border-radius:2px;cursor:pointer;overflow:hidden;position:relative;}
+.dock-fill{height:100%;width:0%;border-radius:2px;background:var(--highlight);transition:width .15s linear,background .3s;}
+.dock-times{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--text-secondary);}
+.dock-vol{background:none;border:none;color:var(--text-secondary);cursor:pointer;font-size:.75rem;flex-shrink:0;padding:2px;transition:color .2s;}
+.dock-vol:hover{color:var(--text-primary);}
+.dock-empty{display:none;align-items:center;justify-content:center;padding:.85rem;font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);opacity:.5;font-style:italic;}
+.dock-body.hidden{display:none;}.dock-empty.visible{display:flex;}
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ BOTTOM NAVIGATION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.bottom-nav{
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:1.5rem 0;margin:3rem 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+.bottom-nav a{
+  display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;
+  background:var(--surface-light);border:1px solid var(--border);border-radius:.375rem;
+  color:var(--text-secondary);text-decoration:none;font-size:.85rem;transition:all .2s ease;
+}
+.bottom-nav a:hover{border-color:var(--highlight);color:var(--text-primary);background:var(--highlight-glow);}
+.bottom-nav a.primary{border-color:var(--highlight);color:var(--highlight);}
+.bottom-nav a.primary:hover{background:var(--highlight-glow);}
+.bottom-nav .nav-center{font-size:.8rem;color:var(--text-secondary);text-align:center;}
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ FOOTER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.site-footer{text-align:center;padding:3rem 1.5rem;color:var(--text-secondary);font-size:.8rem;border-top:1px solid var(--border);margin-top:2rem;}
+.site-footer .eq{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--highlight);opacity:.6;margin-bottom:.5rem;}
+
+@media(max-width:1024px){
+  .kill-sidebar{display:none;}
+  .main-layout{grid-template-columns:1fr;padding:0 1rem;}
+  .story{max-width:100%;}
+}
+@media(max-width:640px){
+  .tab-btn{padding:.65rem .8rem;font-size:.75rem;}
+  .story h2{font-size:1.3rem;}
+  .bottom-nav{flex-direction:column;align-items:stretch;}
+  .bottom-nav a{justify-content:center;}
+}
+
+/* GTQ bottom audit gradient: what we overstated vs. what still carries weight */
+.gtq-bottom-audit{margin:4rem 0 2rem;border:1px solid rgba(255,255,255,.12);border-radius:1rem;overflow:hidden;background:#080808;box-shadow:0 24px 80px rgba(0,0,0,.35);}
+.gtq-bottom-audit .audit-band{padding:2rem clamp(1.25rem,3vw,2.5rem);border-bottom:1px solid rgba(255,255,255,.08);}
+.gtq-bottom-audit .audit-band:last-child{border-bottom:0;}
+.gtq-bottom-audit .audit-red{background:linear-gradient(135deg,rgba(239,68,68,.28),rgba(127,29,29,.12) 62%,rgba(8,8,8,.96));border-left:6px solid #ef4444;}
+.gtq-bottom-audit .audit-amber{background:linear-gradient(135deg,rgba(239,68,68,.14),rgba(245,158,11,.18) 48%,rgba(8,8,8,.96));border-left:6px solid #f59e0b;}
+.gtq-bottom-audit .audit-green{background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(34,197,94,.22) 56%,rgba(8,8,8,.96));border-left:6px solid #22c55e;}
+.gtq-bottom-audit .audit-kicker{font-family:'Oswald',sans-serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.62);margin-bottom:.55rem;}
+.gtq-bottom-audit .audit-title{font-family:'Oswald',sans-serif;font-size:clamp(2rem,6vw,4.6rem);line-height:.92;letter-spacing:.02em;text-transform:uppercase;margin:0 0 1rem;}
+.gtq-bottom-audit .audit-red .audit-title{color:#ff5a5a;}
+.gtq-bottom-audit .audit-amber .audit-title{color:#fbbf24;}
+.gtq-bottom-audit .audit-green .audit-title{color:#4ade80;}
+.gtq-bottom-audit p{font-size:1.05rem;line-height:1.75;color:#d6d6d6;margin:.7rem 0 0;max-width:76ch;}
+.gtq-bottom-audit strong{color:#fff;}
+.gtq-bottom-audit .audit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1rem;}
+.gtq-bottom-audit .audit-chip{background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.1);border-radius:.65rem;padding:1rem;}
+@media(max-width:720px){.gtq-bottom-audit .audit-grid{grid-template-columns:1fr}.gtq-bottom-audit .audit-band{padding:1.35rem}.gtq-bottom-audit .audit-title{font-size:2.2rem}}
+/* BEGIN: HERO-BELOW-TABS NORMALIZATION */
+.article-hero-wrap{
+  max-width:1380px;
+  margin:0 auto;
+  padding:3.5rem 1.5rem 0;
+}
+.article-hero-wrap .hero-grid{
+  width:100%;
+  gap:1.5rem;
+  min-height:480px;
+  margin-bottom:3rem;
+}
+.article-hero-wrap .hero-main{
+  min-height:480px;
+}
+@media(max-width:1024px){
+  .article-hero-wrap{padding:2rem 1rem 0;}
+  .article-hero-wrap .hero-grid{min-height:0;}
+  .article-hero-wrap .hero-main{min-height:340px;}
+}
+/* END: HERO-BELOW-TABS NORMALIZATION */
+
+
+/* BEGIN: SUMMARY MEDIA NORMALIZATION */
+#summary .story.wide{
+  max-width:780px;
+}
+#summary .summary-video-card{
+  width:min(980px,calc(100% + 6rem));
+  margin:0 -3rem 1.15rem;
+  padding:1rem;
+}
+.main-layout.sidebar-collapsed #summary .summary-video-card{
+  width:min(1160px,calc(100% + 10rem));
+  margin-left:-5rem;
+  margin-right:-5rem;
+}
+#summary .summary-video-card .video-frame{
+  position:relative;
+  width:100%;
+  padding-top:56.25%;
+  border-radius:.5rem;
+  overflow:hidden;
+  background:#000;
+}
+#summary .summary-video-card video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+#summary .summary-audio-dock{
+  max-width:680px;
+  margin:0 auto 2.5rem;
+}
+#summary .summary-audio-dock .dock-body{
+  padding:.75rem .9rem;
+}
+#summary .summary-audio-dock .dock-pill:nth-child(n+2){
+  display:none;
+}
+@media(max-width:1180px){
+  #summary .summary-video-card,
+  .main-layout.sidebar-collapsed #summary .summary-video-card{
+    width:100%;
+    margin-left:0;
+    margin-right:0;
+  }
+}
+@media(max-width:760px){
+  #summary .story.wide{
+    max-width:100%;
+  }
+  #summary .summary-video-card{
+    padding:.75rem;
+  }
+  #summary .summary-audio-dock{
+    max-width:100%;
+  }
+}
+/* END: SUMMARY MEDIA NORMALIZATION */
+
+
+/* GLOSSARY + MATH GRID (canonical schema, Job B sweep) */
+.score-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:1.5rem 0;}
+.score-card{background:var(--surface-light);border:1px solid var(--border);border-radius:.65rem;padding:1rem;}
+.score-card .label{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);margin-bottom:.5rem;display:block;}
+.score-card p{font-size:.92rem;color:#cfcfcf;margin:0;line-height:1.5;}
+@media(max-width:760px){.score-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+
+<body>
+
+<!-- Progress bar -->
+<div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+
+<!-- GTQ CANON HEADER: managed by tools/apply_article_topbars.py -->
+<style>
+.gtq-canon-shell{
+  min-height:214px;background:#070707;border-bottom:1px solid rgba(212,175,55,.34);
+  color:var(--text-primary);position:relative;z-index:50;overflow:hidden;
+  box-shadow:0 18px 36px rgba(0,0,0,.28);
+}
+.gtq-canon-shell::before{
+  content:"";position:absolute;inset:0;background:
+    radial-gradient(circle at var(--canon-glow-x,18%) 18%,rgba(212,175,55,.16),transparent 30%),
+    linear-gradient(90deg,rgba(212,175,55,.08),transparent 35%);
+  pointer-events:none;
+}
+.gtq-canon-topline{
+  height:40px;padding:0 1.5rem 0 4.5rem;border-bottom:1px solid rgba(212,175,55,.22);
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;position:relative;z-index:1;
+  background:rgba(5,5,5,.72);
+}
+.gtq-canon-chip,.gtq-canon-link{
+  height:26px;display:inline-flex;align-items:center;gap:.38rem;border:1px solid rgba(212,175,55,.24);
+  background:rgba(255,255,255,.025);border-radius:4px;padding:0 .65rem;
+  color:var(--text-dim);font-family:'JetBrains Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;
+  text-decoration:none;white-space:nowrap;
+}
+.gtq-canon-chip strong{color:var(--highlight);font-weight:700;}
+.gtq-canon-link{font-family:'Inter',sans-serif;font-size:.68rem;letter-spacing:.04em;font-weight:700;}
+.gtq-canon-link:hover{border-color:var(--highlight);color:var(--highlight);background:var(--highlight-glow);}
+.gtq-canon-nav{display:flex;align-items:center;gap:.4rem;}
+.gtq-canon-header{
+  min-height:174px;padding:1.45rem 1.5rem 1.4rem 4.5rem;position:relative;z-index:1;
+  display:grid;align-items:center;gap:1.2rem;
+}
+.gtq-canon-kicker{
+  color:var(--highlight);font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;
+  margin-bottom:.58rem;font-weight:700;
+}
+.gtq-canon-title{
+  font-family:'Crimson Text',serif;font-size:clamp(2rem,4.5vw,3.8rem);line-height:.96;
+  color:#fff;font-weight:700;letter-spacing:0;margin:0;
+}
+.gtq-canon-sub{
+  color:var(--text-secondary);font-size:.94rem;line-height:1.55;max-width:780px;margin-top:.78rem;
+}
+.gtq-canon-meta{display:flex;align-items:center;flex-wrap:wrap;gap:.55rem;margin-top:1rem;}
+.gtq-canon-meta span{
+  height:28px;display:inline-flex;align-items:center;gap:.38rem;padding:0 .7rem;border-radius:999px;
+  border:1px solid rgba(212,175,55,.22);background:rgba(212,175,55,.07);color:var(--text-dim);
+  font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.045em;
+}
+.gtq-canon-meta i{color:var(--highlight);}
+.gtq-canon-mark{
+  color:var(--highlight);font-family:'Oswald',sans-serif;font-size:7.8rem;line-height:.8;font-weight:700;
+  letter-spacing:.02em;user-select:none;text-shadow:0 0 30px rgba(212,175,55,.16);
+}
+.gtq-canon-formula{
+  color:rgba(212,175,55,.48);font-family:'JetBrains Mono',monospace;font-size:.72rem;line-height:1.8;
+  border-left:1px solid rgba(212,175,55,.35);padding-left:1rem;
+}
+.gtq-canon-classic{grid-template-columns:minmax(0,1fr) 170px;--canon-glow-x:16%;}
+.gtq-canon-classic .gtq-canon-mark{justify-self:end;opacity:.72;}
+.gtq-canon-spine{grid-template-columns:104px minmax(0,1fr) 250px;--canon-glow-x:50%;}
+.gtq-canon-spine::before{
+  content:"";position:absolute;left:4.5rem;right:1.5rem;top:0;height:4px;
+  background:linear-gradient(90deg,var(--highlight),var(--highlight-dim),var(--highlight-bright));
+}
+.gtq-canon-spine .gtq-canon-mark{
+  color:#050505;background:var(--highlight);width:74px;height:74px;display:grid;place-items:center;
+  font-size:2.15rem;border-radius:3px;box-shadow:0 0 34px rgba(212,175,55,.14);
+}
+.gtq-canon-edge{grid-template-columns:minmax(0,1fr) 330px;--canon-glow-x:86%;}
+.gtq-canon-edge .gtq-canon-title{max-width:760px;}
+.gtq-canon-edge .gtq-canon-mark{justify-self:end;opacity:.82;}
+.gtq-canon-edge .gtq-canon-formula{
+  border-left:0;border-top:1px solid rgba(212,175,55,.35);padding:1rem 0 0;text-align:center;
+}
+@media(max-width:900px){
+  .gtq-canon-topline{height:auto;min-height:40px;padding-right:.8rem;align-items:flex-start;flex-direction:column;padding-top:.55rem;padding-bottom:.55rem;}
+  .gtq-canon-nav{flex-wrap:wrap;}
+  .gtq-canon-header,.gtq-canon-classic,.gtq-canon-spine,.gtq-canon-edge{grid-template-columns:1fr;padding-right:1rem;}
+  .gtq-canon-mark,.gtq-canon-formula{display:none;}
+  .gtq-canon-title{font-size:clamp(1.8rem,9vw,2.55rem);}
+}
+</style>
+<!-- BEGIN: TOPBAR -->
+<section class="gtq-canon-shell" aria-label="Article identity">
+  <nav class="gtq-canon-topline" aria-label="Article navigation">
+    <div class="gtq-canon-chip"><i class="fas fa-atom"></i><strong>Genesis to Quantum</strong></div>
+    <div class="gtq-canon-nav">
+      <a class="gtq-canon-link" href="https://faiththruphysics.com/genesis-to-quantum/"><i class="fas fa-th-list"></i>Index</a>
+      <a class="gtq-canon-link" href="../07-why-god-drowned-everybody/gtq-07-why-god-drowned-everybody.html"><i class="fas fa-arrow-left"></i>Prev</a>
+      <a class="gtq-canon-link" href="../09-decoherence-curve/gtq-09-decoherence-curve.html">Next<i class="fas fa-arrow-right"></i></a>
+    </div>
+  </nav>
+  <header class="gtq-canon-header gtq-canon-spine">
+    <div>
+      <div class="gtq-canon-kicker">Origin Story / Article 08 / Formal Canon</div>
+      <h1 class="gtq-canon-title">The Day Time Began</h1>
+      <p class="gtq-canon-sub">Time itself is the rescue mechanism â€” the grace vehicle Satan never anticipated.</p>
+      <div class="gtq-canon-meta">
+        <span><i class="fas fa-fingerprint"></i>GTQ-08</span>
+        <span><i class="fas fa-layer-group"></i>Foundation Track</span>
+        <span><i class="fas fa-scale-balanced"></i>Bounded Claim</span>
+      </div>
+    </div>
+    <div class="gtq-canon-mark">#08</div>
+    <div class="gtq-canon-formula">
+      chi_local = G * M * E * S_eff * T * K * R * Q * F * C<br/>
+      C is factor / chi is output / no drift
+    </div>
+  </header>
+</section>
+<!-- END: TOPBAR -->
+<!-- /GTQ CANON HEADER -->
+
+<!-- Sidebar toggle -->
+<button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle series navigation"><i class="fas fa-bars"></i></button>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- Sidebar nav -->
+<!-- BEGIN: SIDEBAR-NAV -->
+<nav class="sidebar" id="sidebar">
+  <div class="series-title"><i class="fas fa-atom" style="margin-right:.4rem;"></i> Genesis to Quantum</div>
+  <a href="https://faiththruphysics.com"><i class="fas fa-home" style="width:1.2rem;"></i> Home</a>
+  <a href="https://faiththruphysics.com/genesis-to-quantum/"><i class="fas fa-th-list" style="width:1.2rem;"></i> Series Home</a>
+
+  <div class="nav-section">Main Articles</div>
+  <a href="../01-measurement-collapsed-reality/gtq-01-measurement-collapsed-reality.html" class="main-article">01 The Measurement That Collapsed Reality</a>
+  <a href="../03-first-quantum-state/gtq-03-first-quantum-state.html" class="main-article">03 The First Quantum State</a>
+  <a href="../04-free-will-two-frames/gtq-04-free-will-two-frames.html" class="main-article">04 Free Will in Two Frames</a>
+  <a href="../08-day-time-began/gtq-08-day-time-began.html" class="main-article current">08 The Day Time Began</a>
+  <a href="../11-substrate-fractured/gtq-11-substrate-fractured.html" class="main-article">11 The Substrate Fractured</a>
+  <a href="../15-why-reality-needs-three/gtq-15-why-reality-needs-three.html" class="main-article">15 Why Reality Needs Three</a>
+  <a href="../16-photon-isnt-watching/gtq-16-photon-isnt-watching.html" class="main-article">16 The Photon Isn't Watching You Back</a>
+  <a href="../18-eraser-and-the-cross/gtq-18-eraser-and-the-cross.html" class="main-article">18 The Eraser and the Cross</a>
+  <a href="../22-same-god-both-testaments/gtq-22-same-god-both-testaments.html" class="main-article">22 The Same God in Both Testaments</a>
+  <a href="../25-counter-move/gtq-25-counter-move.html" class="main-article">25 The Counter-Move</a>
+  <div class="nav-section">Deep Dives</div>
+  <a href="../02-collapse-threshold/gtq-02-collapse-threshold.html" class="deep-dive">02 The Collapse Threshold</a>
+  <a href="../05-macarthur-equation/gtq-05-macarthur-equation.html" class="deep-dive">05 MacArthur and the Equation</a>
+  <a href="../06-three-pathways/gtq-06-three-pathways.html" class="deep-dive">06 The Three Pathways</a>
+  <a href="../07-why-god-drowned-everybody/gtq-07-why-god-drowned-everybody.html" class="deep-dive">07 Why Did God Drown Everybody?</a>
+  <a href="../09-decoherence-curve/gtq-09-decoherence-curve.html" class="deep-dive">09 The Decoherence Curve</a>
+  <a href="../10-how-lies-kill/gtq-10-how-lies-kill.html" class="deep-dive">10 How Lies Kill</a>
+  <a href="../12-trinity-mechanism/gtq-12-trinity-mechanism.html" class="deep-dive">12 The Trinity Mechanism</a>
+  <a href="../13-trinity-timeline/gtq-13-trinity-timeline.html" class="deep-dive">13 The Trinity Timeline</a>
+  <a href="../14-physics-broken-in-two/gtq-14-physics-broken-in-two.html" class="deep-dive">14 Why Physics Is Broken in Two</a>
+  <a href="../17-ran-the-numbers/gtq-17-ran-the-numbers.html" class="deep-dive">17 We Actually Ran the Numbers</a>
+  <a href="../19-temporal-trap/gtq-19-temporal-trap.html" class="deep-dive">19 The Temporal Trap</a>
+  <a href="../20-how-god-restores/gtq-20-how-god-restores.html" class="deep-dive">20 How God Restores</a>
+  <a href="../21-science-behind-restoration/gtq-21-science-behind-restoration.html" class="deep-dive">21 The Science Behind the Restoration</a>
+  <a href="../23-regime-dependent-theology/gtq-23-regime-dependent-theology.html" class="deep-dive">23 The Structural Case for Regime-Dependent Theology</a>
+  <a href="../24-societies-die/gtq-24-societies-die.html" class="deep-dive">24 Societies Die the Same Way People Do</a>
+  <a href="../26-pattern-is-the-signal/gtq-26-pattern-is-the-signal.html" class="deep-dive">26 Why the Pattern Is the Signal</a>
+</nav>
+<!-- END: SIDEBAR-NAV -->
+
+<!-- Sticky tab bar -->
+<!-- BEGIN: TAB-BAR -->
+<div class="tab-shell">
+  <div class="container mx-auto px-6" style="padding-left:4.5rem;">
+    <nav class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('paper')"><i class="fas fa-scroll"></i>The Paper</button>
+      <button class="tab-btn" onclick="switchTab('summary')"><i class="fas fa-compress-alt"></i>Executive Summary</button>
+      <button class="tab-btn" onclick="switchTab('rigor')"><i class="fas fa-crosshairs"></i>Rigor &amp; Kill Conditions</button>
+      <button class="tab-btn" onclick="switchTab('mathematics')"><i class="fas fa-square-root-variable"></i>Mathematics</button>
+      <button class="tab-btn" onclick="switchTab('glossary')"><i class="fas fa-book"></i>Glossary</button>
+      <button class="tab-btn" onclick="switchTab('media')"><i class="fas fa-headphones"></i>Watch &amp; Listen</button>
+      <button class="tab-btn" onclick="switchTab('blackboard')"><i class="fas fa-chalkboard"></i>Blackboard</button>
+    </nav>
+  </div>
+</div>
+<!-- END: TAB-BAR -->
+
+<!-- Hero grid -->
+<!-- Main content -->
+<!-- BEGIN: MAIN-LAYOUT -->
+<main class="main-layout py-10">
+  <div>
+    <!-- BEGIN: TAB-PAPER -->
+<section id="paper" class="tab-content active">
+
+<!-- Hero grid -->
+<div class="container mx-auto px-6 pt-8" style="padding-left:4.5rem;">
+  <!-- BEGIN: HERO -->
+<div class="hero-grid">
+    <div class="hero-main">
+      <img src="images/hero/GTQ-08%20-%20Hero%20-%20Day%20Time%20Began.webp" alt="The Day Time Began" onerror="this.style.display='none'"/>
+      <div class="overlay">
+        <div class="meta-row" style="margin-bottom:.5rem;">
+          <span><i class="fas fa-atom"></i>Article 08 &middot; Genesis to Quantum</span>
+          <span class="status-pill">Main Article</span>
+        </div>
+        <h1 class="serif text-3xl md:text-5xl font-bold text-white mb-3 leading-tight">
+          The Day Time Began
+        </h1>
+        <p class="text-lg md:text-xl text-gray-200 font-light">
+          Time itself is the rescue mechanism â€” the grace vehicle Satan never anticipated.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-3">
+          <span class="domain-tag tag-physics">Physics</span><span class="domain-tag tag-theology">Theology</span><span class="domain-tag tag-bridge">Cross-Domain</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-side">
+      <span class="label">Key Finding</span>
+      <h3>The single thing they should remember</h3>
+      <p>The first wavefunction collapse <em>is</em> the first tick of the clock. Time didn't preexist the Fall &mdash; the Fall generated $dt$, and post-Flood patriarch lifespans then trace a textbook exponential decoherence curve toward a grace-sustained floor.</p>
+    </div>
+    <div class="hero-side">
+      <span class="label">Critical Insight</span>
+      <h3>Why it matters now</h3>
+      <p>The same $dt$ Satan opened with the bite is the dimension redemption needs to operate. Time is the rescue mechanism &mdash; the grace vehicle Satan never anticipated, and the only reason a "before and after" exists for repentance at all.</p>
+    </div>
+  </div>
+<!-- END: HERO -->
+</div>
+<article class="story wide"><!-- â•â•â• THE OPENING â€” HUMAN QUESTION â•â•â• -->
+      <blockquote>
+        <p>"For dust you are, and to dust you shall return." &mdash; Genesis 3:19</p>
+      </blockquote>
+
+      <div class="box-ghost" style="margin:2rem 0;">
+        <p style="margin:0;font-family:'Crimson Text',serif;font-size:1.1rem;color:#cfcfcf;font-style:italic;text-align:center;">That sentence is not a moral judgment. It is a physics statement.</p>
+      </div>
+
+      <p class="drop-cap">Dust to living being to dust. That is a trajectory. A before, a during, and an after. That is sequence. That is irreversibility. That is the arrow of time.</p>
+
+      <p>Before God speaks those words, there is no "before." No clock ticking in the background of Eden. No entropy grinding matter toward disorder. No death approaching on a schedule. The Master Equation has no $dt$ term. Coherence $\chi$ is maximal and static &mdash; not frozen, but <em>complete</em>. Nothing is degrading because nothing is in time.</p>
+
+      <p>Article 02 showed you that Eden was a quantum superposition &mdash; a state of maintained coherence that collapsed when Adam measured. Article 03 showed you that the will survived the collapse but entered a degraded signal-to-noise regime. This article goes deeper: the collapse didn't happen <em>in</em> time. The collapse <em>created</em> time. The first wavefunction collapse is the first tick of the clock. And we have data.</p>
+
+      <p><strong>A Note Before We Begin.</strong> I don't believe the Bible needs to be "reconciled" with science, as if they're opponents who need a mediator. I believe they're two languages describing one reality. When Genesis says God created the heavens and the earth, I take that literally. When physics says the universe began in a specific state and has been running on specific laws ever since, I take that literally too. The interesting question isn't whether they conflict &mdash; it's what it means that they don't. This article follows that question into the place where time itself begins, and finds the same account waiting in both the Hebrew text and the thermodynamic equations.</p>
+
+      <hr>
+
+      <!-- â•â•â• BEFORE THE BITE â•â•â• -->
+      <h2>Before the Bite: A Universe Without $dt$</h2>
+
+      <p>The Master Equation in its full form is:</p>
+
+      <div class="eq-block">
+        <div class="eq-label">Master Equation &mdash; Full Form</div>
+        $\chi = \iiint(G \cdot M \cdot E \cdot S \cdot T \cdot K \cdot R \cdot Q \cdot F \cdot C) \, dx \, dy \, dt$
+      </div>
+
+      <p>That triple integral runs over space ($dx$, $dy$) and time ($dt$). But before the Fall, there is no $dt$. The temporal dimension hasn't opened yet. The equation reduces to a spatial integral only &mdash; $\chi$ is a field defined over space, not evolving through time.</p>
+
+      <p>What does this mean physically?</p>
+
+      <div class="box-split" style="margin:1.5rem 0;">
+        <div class="icon"><i class="fas fa-ban"></i></div>
+        <div>
+          <strong style="color:#fff;">No $dt$ means no sequence.</strong>
+          <p style="font-size:.95rem;margin:.25rem 0 0;color:#cfcfcf;">No "this happened, then that happened." Events don't have an order because ordering requires a temporal axis. The question "what happened first?" has no answer &mdash; not because the record is lost, but because the dimension that makes "first" meaningful doesn't exist.</p>
+        </div>
+      </div>
+
+      <div class="box-split" style="margin:1.5rem 0;">
+        <div class="icon"><i class="fas fa-fire-flame-curved"></i></div>
+        <div>
+          <strong style="color:#fff;">No $dt$ means no entropy.</strong>
+          <p style="font-size:.95rem;margin:.25rem 0 0;color:#cfcfcf;">The second law of thermodynamics says entropy increases <em>over time</em>. Remove time, and entropy has no arrow. The $S \cdot \chi(t)$ decay term in the coherence equation requires $t$ to operate. Without $dt$, the decay term is null. Coherence doesn't degrade because there is no temporal direction for degradation to proceed along.</p>
+        </div>
+      </div>
+
+      <div class="box-split" style="margin:1.5rem 0;">
+        <div class="icon"><i class="fas fa-skull"></i></div>
+        <div>
+          <strong style="color:#fff;">No $dt$ means no death.</strong>
+          <p style="font-size:.95rem;margin:.25rem 0 0;color:#cfcfcf;">Death is a process &mdash; biological systems decaying through a sequence of states from organized to disorganized. Remove the sequence, remove the process. "You shall surely die" is not a threat about what will happen next. It is a statement about what happens when $dt$ appears: mortality becomes structurally possible because temporal sequence now exists.</p>
+        </div>
+      </div>
+
+      <div class="insight">
+        <span class="label">&mdash; Satan's Frame Has No Time Either</span>
+        <p>Article -1 established this: Satan's fall was spatial displacement, not temporal. He was cast <em>down</em> &mdash; geometry, not chronology. His corruption has no $dt$, which means it has no past tense. He can't say "I was good and now I'm not." He just IS fallen. Permanently. This is why there's no redemption offer for angels &mdash; the mechanism for redemption (a before and after, a "that was then") doesn't exist in a purely spatial frame. Sin without time is a permanent state.</p>
+      </div>
+
+      <hr>
+
+      <!-- â•â•â• THE BITE â•â•â• -->
+      <h2>The Bite: When $dt$ Appears</h2>
+
+      <p>Adam eats. The wavefunction collapses. And in that collapse, something unprecedented happens &mdash; a new dimension of reality opens.</p>
+
+      <p>The bite introduces matter-knowledge coupling. Adam now <em>knows</em> good and evil &mdash; information has been acquired through physical interaction with a material object. Matter + knowledge &rarr; awareness of vulnerability &rarr; awareness of decay &rarr; awareness that what has been gained can be lost. That awareness IS the arrow of time. The moment you know that a state can degrade, you know that sequence exists &mdash; because degradation is a process, and process requires temporal ordering.</p>
+
+      <p>Here is the chain:</p>
+
+      <ol>
+        <li><strong>Collapse</strong> &rarr; definite states (good and evil now known, not just potential)</li>
+        <li><strong>Definite states</strong> &rarr; distinguishable configurations (naked vs. clothed, innocent vs. guilty)</li>
+        <li><strong>Distinguishable configurations</strong> &rarr; the possibility of transition between them</li>
+        <li><strong>Transitions</strong> &rarr; before and after</li>
+        <li><strong>Before and after</strong> &rarr; time</li>
+      </ol>
+
+      <div class="insight">
+        <span class="label">&mdash; The Core Claim</span>
+        <p>The first collapse IS the first moment of time. Not metaphorically. The collapse creates the temporal dimension that all subsequent events occur within. $dt$ doesn't preexist and then contain the Fall &mdash; the Fall <em>generates</em> $dt$.</p>
+      </div>
+
+      <p>After the bite, the Master Equation activates its full form. The triple integral now runs over space AND time. The entropy drain $S \cdot \chi(t)$ switches on. Coherence begins its long decline. Death becomes a process that has begun and will, barring intervention, complete.</p>
+
+      <div class="box-ghost" style="margin:2rem 0;">
+        <p style="margin:0;font-family:'Crimson Text',serif;font-size:1.1rem;color:#cfcfcf;font-style:italic;text-align:center;">"For dust you are, and to dust you shall return" &mdash; this is the first statement about temporal physics in the Bible. It describes a trajectory. A starting condition (dust), a current state (living), and a terminal state (dust again). That trajectory requires time. God is telling Adam: you now live in a dimension that has an end.</p>
+      </div>
+
+      <hr>
+
+      <!-- â•â•â• THE TRINITY AT THE FIRST COLLAPSE â•â•â• -->
+      <h2>The Trinity at the First Collapse</h2>
+
+      <p>Something often missed: all three Persons of the Trinity are present at the moment of collapse. This is not incidental. The framework predicts it &mdash; Trinity Actualization requires three irreducible operations, and the first collapse should exhibit all three.</p>
+
+      <div class="box-split" style="margin:1.5rem 0;">
+        <div class="icon"><i class="fas fa-shield-halved"></i></div>
+        <div>
+          <strong style="color:#fff;">Father: The Boundary.</strong>
+          <p style="font-size:.95rem;margin:.25rem 0 0;color:#cfcfcf;">God sets the law &mdash; "You shall not eat of it" (Genesis 2:17). This is the boundary condition. The Father defines the possibility space: what is permitted, what is prohibited, what the consequences are. In quantum terms, the Father provides $|\psi\rangle$ &mdash; the complete description of all possible states the system can occupy. Without the boundary, there is no superposition to collapse. The law IS the possibility space.</p>
+        </div>
+      </div>
+
+      <div class="box-split" style="margin:1.5rem 0;">
+        <div class="icon"><i class="fas fa-book-bible"></i></div>
+        <div>
+          <strong style="color:#fff;">Son: The Logos Field.</strong>
+          <p style="font-size:.95rem;margin:.25rem 0 0;color:#cfcfcf;">"In the beginning was the Word, and the Word was with God" (John 1:1). The Logos Field is the coherent structure that maintains intelligibility across the collapse. Without Logos, collapse produces chaos &mdash; random outcomes with no pattern, no meaning, no recoverable structure. The Son provides $\langle\phi|$ &mdash; the measurement basis. The collapse produces <em>this</em> outcome and not some other because the Logos field selects the eigenstate. The outcome is not random. It is <em>ordered</em> &mdash; sin enters, but it enters into a world that still has structure, still has language, still has covenant possibility. That coherence through collapse is Logos.</p>
+        </div>
+      </div>
+
+      <div class="box-split" style="margin:1.5rem 0;">
+        <div class="icon"><i class="fas fa-wind"></i></div>
+        <div>
+          <strong style="color:#fff;">Spirit: The Witness.</strong>
+          <p style="font-size:.95rem;margin:.25rem 0 0;color:#cfcfcf;">"They heard the sound of the LORD God walking in the garden in the cool of the day" (Genesis 3:8). The Spirit is present as the actualizing principle &mdash; the One who makes the transition from potential to actual. In the Born Rule, the Spirit maps to $|\langle\psi|\phi\rangle|^2$ &mdash; the actualization of probability into definite outcome. The Spirit doesn't set the boundary (Father) or select the eigenstate (Son). The Spirit makes it <em>real</em>. Potential becomes actual. The collapse completes.</p>
+        </div>
+      </div>
+
+      <p>Three functions. One event. One irreversible outcome. Not three steps in sequence &mdash; three simultaneous operations that together constitute a single collapse. The first wavefunction collapse is the first Trinity Actualization in the temporal frame.</p>
+
+      <hr>
+
+      <!-- â•â•â• THE DATA â•â•â• -->
+      <h2>The Data: Lifespan as Coherence Proxy</h2>
+
+      <p>Here is where the framework stops being abstract and starts being testable.</p>
+
+      <p>If the Fall introduced time and the entropy drain activated at the Fall, then the earliest humans &mdash; closest to the collapse event &mdash; should show the signature of a system newly coupled to entropy. What would that look like?</p>
+
+      <p><strong>Prediction:</strong> Immediately after the Fall, coherence should be high but decaying. Lifespans should be long (residual coherence from the pre-Fall state) but trending downward. The decay should follow a specific mathematical form &mdash; exponential, with a time constant determined by the coupling strength between humanity and the entropic environment.</p>
+
+      <h3>The Data (Genesis 5 and 11)</h3>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Patriarch</th>
+            <th style="text-align:center;">Lifespan (years)</th>
+            <th>Era</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="color:#fff;font-weight:600;">Adam</td><td style="text-align:center;color:var(--highlight);font-weight:600;">930</td><td>Pre-Flood</td></tr>
+          <tr><td style="color:#fff;font-weight:600;">Seth</td><td style="text-align:center;color:var(--highlight);font-weight:600;">912</td><td>Pre-Flood</td></tr>
+          <tr><td style="color:#fff;font-weight:600;">Enosh</td><td style="text-align:center;color:var(--highlight);font-weight:600;">905</td><td>Pre-Flood</td></tr>
+          <tr><td style="color:#fff;font-weight:600;">Kenan</td><td style="text-align:center;color:var(--highlight);font-weight:600;">910</td><td>Pre-Flood</td></tr>
+          <tr><td style="color:#fff;font-weight:600;">Mahalalel</td><td style="text-align:center;color:var(--highlight);font-weight:600;">895</td><td>Pre-Flood</td></tr>
+          <tr><td style="color:#fff;font-weight:600;">Jared</td><td style="text-align:center;color:var(--highlight);font-weight:600;">962</td><td>Pre-Flood</td></tr>
+          <tr><td style="color:#fff;font-weight:600;">Methuselah</td><td style="text-align:center;color:var(--highlight);font-weight:600;">969</td><td>Pre-Flood</td></tr>
+          <tr><td style="color:#fff;font-weight:600;">Lamech</td><td style="text-align:center;color:var(--highlight);font-weight:600;">777</td><td>Pre-Flood</td></tr>
+          <tr><td style="color:#fff;font-weight:600;">Noah</td><td style="text-align:center;color:var(--highlight);font-weight:600;">950</td><td>Pre-Flood</td></tr>
+          <tr style="border-top:2px solid var(--highlight);"><td style="color:#fff;font-weight:600;">Shem</td><td style="text-align:center;color:var(--blue);font-weight:600;">600</td><td>Post-Flood</td></tr>
+          <tr><td style="color:#fff;font-weight:600;">Arphaxad</td><td style="text-align:center;color:var(--blue);font-weight:600;">438</td><td>Post-Flood</td></tr>
+          <tr><td style="color:#fff;font-weight:600;">Shelah</td><td style="text-align:center;color:var(--blue);font-weight:600;">433</td><td>Post-Flood</td></tr>
+          <tr><td style="color:#fff;font-weight:600;">Eber</td><td style="text-align:center;color:var(--green);font-weight:600;">464 *</td><td>Post-Flood</td></tr>
+          <tr><td style="color:#fff;font-weight:600;">Peleg</td><td style="text-align:center;color:var(--blue);font-weight:600;">239</td><td>Post-Flood</td></tr>
+          <tr><td style="color:#fff;font-weight:600;">Reu</td><td style="text-align:center;color:var(--blue);font-weight:600;">239</td><td>Post-Flood</td></tr>
+          <tr><td style="color:#fff;font-weight:600;">Serug</td><td style="text-align:center;color:var(--blue);font-weight:600;">230</td><td>Post-Flood</td></tr>
+          <tr><td style="color:#fff;font-weight:600;">Nahor</td><td style="text-align:center;color:var(--blue);font-weight:600;">148</td><td>Post-Flood</td></tr>
+          <tr><td style="color:#fff;font-weight:600;">Terah</td><td style="text-align:center;color:var(--blue);font-weight:600;">205</td><td>Post-Flood</td></tr>
+          <tr><td style="color:#fff;font-weight:600;">Abraham</td><td style="text-align:center;color:var(--blue);font-weight:600;">175</td><td>Post-Flood</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:.8rem;color:var(--text-secondary);margin-top:-.75rem;">* Eber sits +124 years above the predicted curve &mdash; the largest positive outlier in the post-Flood dataset.</p>
+
+      <p>What jumps out immediately: <strong>two regimes</strong>.</p>
+
+      <!-- PRE-FLOOD -->
+      <h3>Pre-Flood: Flat</h3>
+
+      <div class="stat-grid">
+        <div class="box-stat">
+          <div class="number">912</div>
+          <div class="label">Mean Lifespan (years)</div>
+        </div>
+        <div class="box-stat">
+          <div class="number">5.9%</div>
+          <div class="label">Coefficient of Variation</div>
+        </div>
+        <div class="box-stat">
+          <div class="number">0.68</div>
+          <div class="label">$p$-value (trend test)</div>
+        </div>
+      </div>
+
+      <p>No significant decline. Over a <em>thousand years</em> of biblical chronology, lifespans barely moved. This is extraordinary. The Fall introduced time. Entropy switched on. But the coupling to entropy was <em>weak</em>. Humans were IN time but barely touched BY it. Residual coherence from the pre-Fall state was so high that the decay term was negligible. The system had entered the temporal frame but hadn't yet felt its full force.</p>
+
+      <!-- THE FLOOD -->
+      <h3>The Flood: Phase Transition</h3>
+
+      <p>Then everything changes. Lifespans drop from ~950 to ~600 in one generation. Something happened at the Flood that was not just a judgment event but a <em>physical restructuring</em> of how strongly humanity interfaces with entropy. The coupling constant changed. The decoherence rate jumped.</p>
+
+      <div class="box-ghost" style="margin:1.5rem 0;">
+        <p style="margin:0;font-family:'Crimson Text',serif;font-size:1.05rem;color:#cfcfcf;font-style:italic;text-align:center;">"The fountains of the great deep burst open, and the windows of heaven were opened." &mdash; Genesis 7:11</p>
+      </div>
+
+      <p>Whatever physical change this represents &mdash; atmospheric, genetic, environmental &mdash; it altered the $\tau_d$ parameter. The system that was barely decaying is now decaying hard.</p>
+
+      <!-- POST-FLOOD -->
+      <h3>Post-Flood: Textbook Decoherence</h3>
+
+      <p>The post-Flood data fits a quantum decoherence curve:</p>
+
+      <div class="eq-block">
+        <div class="eq-label">Post-Flood Decoherence Fit</div>
+        $C(t) = 337 \cdot e^{-t/214} + 93$
+      </div>
+
+      <div class="stat-grid">
+        <div class="box-stat">
+          <div class="number">214</div>
+          <div class="label">$\tau_d$ &mdash; Decay Constant (years)</div>
+        </div>
+        <div class="box-stat">
+          <div class="number">93</div>
+          <div class="label">Coherence Floor (years)</div>
+        </div>
+        <div class="box-stat">
+          <div class="number">0.888</div>
+          <div class="label">$R^2$ Goodness of Fit</div>
+        </div>
+        <div class="box-stat">
+          <div class="number" style="font-size:1.8rem;">4.73&times;10<sup style="font-size:.6em;">-7</sup></div>
+          <div class="label">$p$-value</div>
+        </div>
+      </div>
+
+      <p>That $R^2$ on <em>biblical genealogy data</em> fitting a <em>quantum decoherence equation</em> is not trivial. This is not cherry-picked. This is every patriarch from Shem to Abraham, plotted against a standard decoherence model, and the fit is clean.</p>
+
+      <p>And the floor &mdash; 93 years &mdash; was predicted by the math without being told about it. The model didn't know about Psalm 90:10 ("The days of our years are threescore years and ten" &mdash; 70 years). It found the asymptote on its own. Modern average lifespan: ~78 years. The model, the Psalm, and the data all converge on the same range.</p>
+
+      <!-- EBER ANOMALY -->
+      <div class="insight">
+        <span class="label">&mdash; The Eber Anomaly</span>
+        <p>One patriarch sits dramatically above the curve: <strong>Eber</strong>, at +124 years above predicted. Eber &mdash; the man whose name becomes "Hebrew." The man whose lineage carries the covenant. He is the biggest positive outlier in the entire post-Flood dataset. That is a re-coherence signal sitting exactly where the Abrahamic covenant line begins forming. The curve predicts where coherence <em>should</em> be based on entropy alone. Eber is above the curve. Something is adding coherence. That something has a name in the equation: $G$.</p>
+      </div>
+
+      <hr>
+
+      <!-- â•â•â• THE FLOOR IS GRACE â•â•â• -->
+      <h2>The Floor Is Grace</h2>
+
+      <p>Total decoherence would mean lifespan &rarr; 0. Humanity goes extinct. But it doesn't. The curve has a floor. Something holds it up.</p>
+
+      <p>The equation says:</p>
+
+      <div class="eq-block">
+        <div class="eq-label">Equilibrium Coherence</div>
+        $C_{eq} = \frac{O \cdot G}{O \cdot G + S}$
+      </div>
+
+      <div class="box-split" style="margin:1.5rem 0;">
+        <div class="icon"><i class="fas fa-hand-holding-heart"></i></div>
+        <div>
+          <strong style="color:#fff;">Even when $O$ is low and $S$ is high, the $G$ term prevents extinction.</strong>
+          <p style="font-size:.95rem;margin:.25rem 0 0;color:#cfcfcf;">$O$ is openness (most of humanity not actively surrendered). $S$ is entropy (full post-Flood entropic load). But $G$ &mdash; common grace, the baseline negentropic input that God provides to all creation &mdash; prevents the numerator from reaching zero. As long as $G > 0$, there is a nonzero equilibrium. Coherence can't hit zero because grace doesn't quit.</p>
+        </div>
+      </div>
+
+      <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);">
+        <div class="box-stat">
+          <div class="number">93</div>
+          <div class="label">Math says (floor)</div>
+        </div>
+        <div class="box-stat">
+          <div class="number">70</div>
+          <div class="label">Moses says (Psalm 90:10)</div>
+        </div>
+        <div class="box-stat">
+          <div class="number">78</div>
+          <div class="label">We live (modern avg.)</div>
+        </div>
+      </div>
+
+      <p>All three agree: there is a lower bound on human coherence that entropy cannot breach. The floor is grace, measured in years, hiding in plain sight in the genealogies of Genesis.</p>
+
+      <hr>
+
+      <!-- â•â•â• WHY GENESIS 3:15 REQUIRES TIME â•â•â• -->
+      <h2>Why Genesis 3:15 Requires Time</h2>
+
+      <p>One more thing the first collapse makes possible.</p>
+
+      <div class="box-ghost" style="margin:1.5rem 0;">
+        <p style="margin:0;font-family:'Crimson Text',serif;font-size:1.1rem;color:#cfcfcf;font-style:italic;text-align:center;">"I will put enmity between you and the woman, and between your offspring and her offspring; he shall bruise your head, and you shall bruise his heel." &mdash; Genesis 3:15</p>
+      </div>
+
+      <p>"He <em>shall</em> bruise your head." Future tense. A prophecy. A promise about something that will happen <em>later</em>.</p>
+
+      <p>Prophecy requires sequence. Promise requires a "not yet." Redemption requires a "was lost, now found." None of these are possible without temporal ordering. None are possible without $dt$.</p>
+
+      <p>Genesis 3:15 is spoken <em>after</em> the collapse &mdash; after time exists. It is the first prophecy, and it is only possible because the first collapse created the temporal rails that prophecy runs on. God doesn't just allow the Fall. He engineers the landing so that humanity drops into the one reference frame where restoration is structurally possible.</p>
+
+      <div class="box-split" style="margin:1.5rem 0;">
+        <div class="icon"><i class="fas fa-chess"></i></div>
+        <div>
+          <strong style="color:#fff;">The temporal trap door.</strong>
+          <p style="font-size:.95rem;margin:.25rem 0 0;color:#cfcfcf;">Satan saw the knowledge transfer. He didn't anticipate the temporal trap door. He saw the tree and thought it was his weapon. He didn't see that the dimension it opened &mdash; time &mdash; was God's rescue vehicle disguised as a consequence.</p>
+        </div>
+      </div>
+
+      <p>The Cross was planned before the foundation of the world (Revelation 13:8). But it could only be <em>executed</em> in a frame where "before" and "after" exist. The Fall created that frame. Time is not the enemy. Time is the medium of redemption.</p>
+
+      <hr>
+
+      <!-- â•â•â• WHAT YOU JUST READ â•â•â• -->
+      <h2>What You Just Read</h2>
+
+      <p>The Fall doesn't happen in time. The Fall creates time. The first wavefunction collapse opens the temporal dimension, activates the entropy drain, and begins the long decline of human coherence from its pre-Fall maximum.</p>
+
+      <p>The data is in the text. Pre-Flood lifespans are flat at 912 years &mdash; entropy is active but weakly coupled. The Flood is a phase transition that increases the coupling constant. Post-Flood lifespans follow textbook decoherence with $\tau_d = 214$ years, $R^2 = 0.888$, and a grace-sustained floor at ~93 years. The Genesis genealogies are not literary decoration. They are a decoherence dataset that has been sitting in the text for three thousand years, waiting for someone to run the fit.</p>
+
+      <p>The Trinity was present at the first collapse &mdash; Father as boundary, Son as coherent selection, Spirit as actualization. This is the pattern that the next article will show is not contingent but <em>necessary</em>: any universe with temporal physics requires exactly three irreducible operations. Not because theology demands it. Because the math does.</p>
+
+      <hr>
+
+      <!-- â•â•â• FRAMEWORK CONNECTIONS â•â•â• -->
+      <h3>Framework Connections</h3>
+
+      <div class="law-box" style="margin-bottom:1rem;">
+        <div class="law-label">Statistical Physics &harr; Biblical Genealogy (Structural Isomorphism)</div>
+        <p>The lifespan data (Genesis 5 and 11) fits a quantum decoherence curve at $R^2 = 0.888$, $p = 4.73 \times 10^{-7}$. Pre-Flood data shows no significant trend ($p = 0.68$). The Flood produces a phase transition. Post-Flood follows textbook decoherence. The framework makes a mathematical prediction from first principles (decoherence equation) and tests it against 3,000-year-old genealogical records.</p>
+      </div>
+
+      <div class="law-box" style="margin-bottom:1rem;">
+        <div class="law-label">Trinity Theology &harr; Quantum Measurement (Structural)</div>
+        <p>Father (boundary/law) = $|\psi\rangle$ possibility space. Son/Logos = $\langle\phi|$ coherent measurement basis. Spirit = $|\langle\psi|\phi\rangle|^2$ actualization. The Trinity's three-role presence at the first collapse is not theological decoration &mdash; it is the structural requirement Article 05 proves is necessary for any collapse event.</p>
+      </div>
+
+      <div class="law-box">
+        <div class="law-label">Genesis Narrative &harr; Thermodynamics &rarr; Eschatology (Prediction Bridge)</div>
+        <p>Genesis 3:15 requires future tense because prophecy requires $dt$. If the Fall creates time, the first post-Fall divine speech must grammatically encode sequence. The math predicts the grammar. The text confirms. The trajectory from that first prophecy to the Cross to Resurrection is the full LLC arc: entropy introduced &rarr; grace operates through time &rarr; coherence restored.</p>
+      </div>
+
+      <hr>
+
+      <!-- â•â•â• CANONICAL GROUNDING â•â•â• -->
+      <h3>Canonical Grounding</h3>
+
+      <div class="axiom-box" style="font-size:.85rem;line-height:1.7;">
+        <strong>Master Equation (E2.1)</strong> &mdash; pre-Fall static form vs. post-Fall LLC with active $dt$; the central equation for both phases<br>
+        <strong>Chi Field Properties (D2.2)</strong> &mdash; $\chi$ decay trajectory from pre-Fall maximum; coherence floor $C_{eq} = OG/(OG+S)$<br>
+        <strong>Law III (D19.3)</strong> &mdash; Entropy; second law activates at first collapse; $dS/dt > 0$ begins at the bite<br>
+        <strong>Coherence Measure Axiom (A3.2)</strong> &mdash; formal grounding for the lifespan decoherence fit $C(t) = 337 \cdot e^{-t/214} + 93$<br>
+        <strong>Social Coherence 5.7&sigma; (EV15.4)</strong> &mdash; empirical precedent for framework's decoherence modeling against historical data<br>
+        <strong>Law I (D19.1)</strong> &mdash; Structure; Trinity's three-role presence at the first collapse maps to Law I's structural requirement
+      </div>
+
+      <hr>
+
+      <!-- â•â•â• DISCLAIMER â•â•â• -->
+      <div class="disclaimer-box">
+        <div class="disclaimer-label"><i class="fas fa-cross" style="margin-right:.4rem;"></i>The Disclaimer</div>
+        <p>We are finite minds reasoning about infinite God. Every model is a projection of higher-dimensional reality onto a lower-dimensional surface we can comprehend. We do not claim to have captured God in equations. We claim that when we look at His creation honestly &mdash; with the tools of physics and the revelation of Scripture &mdash; the same structure appears in both. Where our model limits what God can be, the limitation is ours, not His. We offer this work as worship, not as containment.</p>
+      </div>
+
+      <div class="axiom-box">
+        Framework Reference: Theophysics Master Equation &chi; = &iiint;(G&middot;M&middot;E&middot;S&middot;T&middot;K&middot;R&middot;Q&middot;F&middot;C) dx dy dt<br>
+        Paper ID: GTQ-004 &mdash; The Day Time Began<br>
+        Series: Genesis to Quantum, Article 04 of 10<br>
+        Status: DRAFT &mdash; decoherence fit confirmed ($R^2=0.888$); Flood mechanism unspecified; Eber anomaly suggestive
+      </div>
+
+      <hr>
+
+      <!-- â•â•â• THE HONEST PART â€” SELF-AUDIT â•â•â• -->
+      <div style="margin:3rem 0 2rem;border-top:1px solid var(--border);padding-top:2rem;">
+        <div style="font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--highlight);margin-bottom:.25rem;">
+          <i class="fas fa-balance-scale" style="margin-right:.4rem;"></i>The Honest Part
+        </div>
+        <h2 style="font-family:'Crimson Text',serif;font-size:1.6rem;color:white;margin-bottom:.5rem;">Self-Audit</h2>
+        <p style="color:var(--text-secondary);font-size:.9rem;margin-bottom:2rem;">Every article in this series tells you what it claims, what&rsquo;s solid, what&rsquo;s ours, and what would kill it.</p>
+
+        <!-- What we're saying -->
+        <div style="margin-bottom:1.5rem;">
+          <div style="font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);margin-bottom:.5rem;">What we&rsquo;re saying</div>
+          <p style="font-size:.95rem;color:var(--text-primary);line-height:1.8;">The Fall didn&rsquo;t happen <em>in</em> time &mdash; it created time. The first wavefunction collapse opened the $dt$ dimension, activated entropy, and began the measurable decline recorded in the Genesis genealogies. The post-Flood lifespans fit a standard quantum decoherence curve at $R^2 = 0.888$. The Flood is a phase transition. The decoherence floor is grace.</p>
+        </div>
+
+        <!-- What's solid -->
+        <div style="margin-bottom:1.5rem;">
+          <div style="font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:.5rem;"><i class="fas fa-check-circle" style="margin-right:.3rem;"></i>What&rsquo;s solid</div>
+          <ul style="list-style:none;padding:0;">
+            <li style="padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.9rem;color:var(--text-primary);line-height:1.7;padding-left:1.2rem;position:relative;">
+              <span style="position:absolute;left:0;color:var(--teal);">&bull;</span>
+              The lifespan decoherence fit: $R^2 = 0.888$, $p = 4.73 \times 10^{-7}$. Every patriarch from Shem to Abraham. No data removed. Standard physics model, not custom construction. Hardest empirical result in the series.
+            </li>
+            <li style="padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.9rem;color:var(--text-primary);line-height:1.7;padding-left:1.2rem;position:relative;">
+              <span style="position:absolute;left:0;color:var(--teal);">&bull;</span>
+              The two-regime pattern (flat pre-Flood at 912 years, exponential post-Flood) matches exactly what decoherence predicts for a system entering a temporal frame with a coupling-constant increase.
+            </li>
+            <li style="padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.9rem;color:var(--text-primary);line-height:1.7;padding-left:1.2rem;position:relative;">
+              <span style="position:absolute;left:0;color:var(--teal);">&bull;</span>
+              Genesis 3:15 requires temporal ordering. Future tense &rarr; prophecy &rarr; sequence &rarr; $dt$. Clean logical chain independent of physics assumptions.
+            </li>
+            <li style="padding:.5rem 0;font-size:.9rem;color:var(--text-primary);line-height:1.7;padding-left:1.2rem;position:relative;">
+              <span style="position:absolute;left:0;color:var(--teal);">&bull;</span>
+              The Trinity&rsquo;s presence at the first collapse is textually documented: Father (Genesis 2:17), Son/Logos (John 1:1-3), Spirit (Genesis 3:8).
+            </li>
+          </ul>
+        </div>
+
+        <!-- What's ours -->
+        <div style="margin-bottom:1.5rem;">
+          <div style="font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--purple);margin-bottom:.5rem;"><i class="fas fa-flask" style="margin-right:.3rem;"></i>What&rsquo;s ours</div>
+          <ul style="list-style:none;padding:0;">
+            <li style="padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.9rem;color:var(--text-primary);line-height:1.7;padding-left:1.2rem;position:relative;">
+              <span style="position:absolute;left:0;color:var(--purple);">&bull;</span>
+              &ldquo;The Fall creates time&rdquo; is the biggest claim and the least proven. The logical chain holds, but assuming pre-Fall reality had no temporal dimension at all is stronger than &ldquo;entropy wasn&rsquo;t active yet.&rdquo; Genesis describes Eden in sequential language.
+            </li>
+            <li style="padding:.5rem 0;font-size:.9rem;color:var(--text-primary);line-height:1.7;padding-left:1.2rem;position:relative;">
+              <span style="position:absolute;left:0;color:var(--purple);">&bull;</span>
+              &ldquo;Satan didn&rsquo;t anticipate the temporal trap door&rdquo; is great narrative. The structural observation is solid. The claim about Satan&rsquo;s strategic thinking is atmospheric storytelling, not physics.
+            </li>
+          </ul>
+        </div>
+
+        <!-- What would prove us wrong -->
+        <div style="margin-bottom:1.5rem;">
+          <div style="font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:.5rem;"><i class="fas fa-times-circle" style="margin-right:.3rem;"></i>What would prove us wrong</div>
+          <ul style="list-style:none;padding:0;">
+            <li style="padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.9rem;color:var(--text-primary);line-height:1.7;padding-left:1.2rem;position:relative;">
+              <span style="position:absolute;left:0;color:var(--red);">&bull;</span>
+              An alternative model that fits the lifespan data better with fewer assumptions. Occam kills us.
+            </li>
+            <li style="padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.9rem;color:var(--text-primary);line-height:1.7;padding-left:1.2rem;position:relative;">
+              <span style="position:absolute;left:0;color:var(--red);">&bull;</span>
+              Pre-Flood data showing significant monotonic decline &mdash; would destroy the two-regime prediction.
+            </li>
+            <li style="padding:.5rem 0;font-size:.9rem;color:var(--text-primary);line-height:1.7;padding-left:1.2rem;position:relative;">
+              <span style="position:absolute;left:0;color:var(--red);">&bull;</span>
+              The decoherence floor being statistically indistinguishable from zero &mdash; would kill the grace-as-floor claim.
+            </li>
+          </ul>
+        </div>
+
+        <!-- What we don't know yet -->
+        <div>
+          <div style="font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:.5rem;"><i class="fas fa-question-circle" style="margin-right:.3rem;"></i>What we don&rsquo;t know yet</div>
+          <ul style="list-style:none;padding:0;">
+            <li style="padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.9rem;color:var(--text-primary);line-height:1.7;padding-left:1.2rem;position:relative;">
+              <span style="position:absolute;left:0;color:var(--blue);">&bull;</span>
+              The Flood mechanism. The data shows a clear phase transition; what physically changed (atmospheric, genetic, environmental) is unspecified.
+            </li>
+            <li style="padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.9rem;color:var(--text-primary);line-height:1.7;padding-left:1.2rem;position:relative;">
+              <span style="position:absolute;left:0;color:var(--blue);">&bull;</span>
+              The Eber anomaly (+124 years above curve) is suggestive of grace-based re-coherence but is a single data point.
+            </li>
+            <li style="padding:.5rem 0;font-size:.9rem;color:var(--text-primary);line-height:1.7;padding-left:1.2rem;position:relative;">
+              <span style="position:absolute;left:0;color:var(--blue);">&bull;</span>
+              The decoherence floor &ldquo;predicting&rdquo; Psalm 90:10 is post-hoc comparison, not prediction from first principles. Model found 93, Psalm says 70-80. Suggestive convergence, not genuine prediction.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <hr>
+
+      <!-- â•â•â• TANGENT PLACEHOLDERS â•â•â• -->
+
+      <!-- TANGENT 04-A: Inserted by second pass -->
+      <div class="tangent-card" id="tangent-04a">
+        <div class="tangent-toggle" onclick="this.parentElement.classList.toggle('expanded')">
+          <i class="fas fa-code-branch" style="color:var(--highlight);margin-right:.5rem;"></i>
+          <span class="serif" style="color:var(--text-primary);font-weight:600;">Tangent 04-A: The Decoherence Curve</span>
+          <i class="fas fa-chevron-down tangent-arrow"></i>
+        </div>
+        <div class="tangent-body">
+
+          <blockquote>
+            <p><em>"The days of our years are threescore years and ten; and if by reason of strength they be fourscore years."</em> &mdash; Psalm 90:10</p>
+          </blockquote>
+
+          <p>Moses wrote that around 1400 BC. He said the normal human lifespan was 70 years, maybe 80 if you're strong.</p>
+
+          <p>We ran the numbers. A quantum decoherence equation fit to the Genesis genealogies &mdash; without being told about Psalm 90:10 &mdash; independently predicted a floor of 93 years. Moses said 70. Modern average is 78. The model found the floor on its own. Three independent sources converging on the same number is not coincidence. It's measurement.</p>
+
+          <p>This article presents the raw data, the curve fit, and the physics behind it. No interpretation first. Numbers first. Then we'll talk about what they mean.</p>
+
+          <hr>
+
+          <!-- â•â•â• THE DATA â•â•â• -->
+          <h3>The Data</h3>
+
+          <p>Genesis chapters 5 and 11 record the lifespans of the patriarchs from Adam to Joseph. These aren't estimates or ranges. They're specific numbers. Here they are, in order:</p>
+
+          <h4>Pre-Flood Patriarchs (Genesis 5)</h4>
+
+          <table class="data-table">
+            <thead>
+              <tr><th style="text-align:left;">Patriarch</th><th>Lifespan (years)</th><th>Years from Creation</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Adam</td><td style="text-align:center;">930</td><td style="text-align:center;">0</td></tr>
+              <tr><td>Seth</td><td style="text-align:center;">912</td><td style="text-align:center;">130</td></tr>
+              <tr><td>Enosh</td><td style="text-align:center;">905</td><td style="text-align:center;">235</td></tr>
+              <tr><td>Kenan</td><td style="text-align:center;">910</td><td style="text-align:center;">325</td></tr>
+              <tr><td>Mahalalel</td><td style="text-align:center;">895</td><td style="text-align:center;">460</td></tr>
+              <tr><td>Jared</td><td style="text-align:center;">962</td><td style="text-align:center;">622</td></tr>
+              <tr><td>Enoch</td><td style="text-align:center;">365*</td><td style="text-align:center;">687</td></tr>
+              <tr><td>Methuselah</td><td style="text-align:center;">969</td><td style="text-align:center;">874</td></tr>
+              <tr><td>Lamech</td><td style="text-align:center;">777</td><td style="text-align:center;">1056</td></tr>
+              <tr><td>Noah</td><td style="text-align:center;">950</td><td style="text-align:center;">1056</td></tr>
+            </tbody>
+          </table>
+
+          <p><em>*Enoch excluded from analysis &mdash; "God took him" (Genesis 5:24). Not a natural death. Including him would contaminate the dataset with a non-decay data point.</em></p>
+
+          <h4>Post-Flood Patriarchs (Genesis 11 + later)</h4>
+
+          <table class="data-table">
+            <thead>
+              <tr><th style="text-align:left;">Patriarch</th><th>Lifespan (years)</th><th>Years from Creation</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Shem</td><td style="text-align:center;">600</td><td style="text-align:center;">~1558</td></tr>
+              <tr><td>Arphaxad</td><td style="text-align:center;">438</td><td style="text-align:center;">~1658</td></tr>
+              <tr><td>Shelah</td><td style="text-align:center;">433</td><td style="text-align:center;">~1693</td></tr>
+              <tr><td><strong>Eber</strong></td><td style="text-align:center;"><strong>464</strong></td><td style="text-align:center;"><strong>~1723</strong></td></tr>
+              <tr><td>Peleg</td><td style="text-align:center;">239</td><td style="text-align:center;">~1757</td></tr>
+              <tr><td>Reu</td><td style="text-align:center;">239</td><td style="text-align:center;">~1787</td></tr>
+              <tr><td>Serug</td><td style="text-align:center;">230</td><td style="text-align:center;">~1819</td></tr>
+              <tr><td>Nahor</td><td style="text-align:center;">148</td><td style="text-align:center;">~1849</td></tr>
+              <tr><td>Terah</td><td style="text-align:center;">205</td><td style="text-align:center;">~1878</td></tr>
+              <tr><td>Abraham</td><td style="text-align:center;">175</td><td style="text-align:center;">~1948</td></tr>
+              <tr><td>Isaac</td><td style="text-align:center;">180</td><td style="text-align:center;">~2048</td></tr>
+              <tr><td>Jacob</td><td style="text-align:center;">147</td><td style="text-align:center;">~2108</td></tr>
+              <tr><td>Joseph</td><td style="text-align:center;">110</td><td style="text-align:center;">~2199</td></tr>
+              <tr><td>Moses</td><td style="text-align:center;">120</td><td style="text-align:center;">~2433</td></tr>
+            </tbody>
+          </table>
+
+          <p>That's twenty-three data points spanning roughly 2,400 years of biblical chronology. Not a large dataset. But the pattern in it is unmistakable.</p>
+
+          <hr>
+
+          <!-- â•â•â• WHAT THE EYE SEES â•â•â• -->
+          <h3>What the Eye Sees</h3>
+
+          <p>Plot these numbers with lifespan on the y-axis and time on the x-axis, and two things jump out immediately.</p>
+
+          <p><strong>The pre-Flood lifespans are flat.</strong> Nine patriarchs (excluding Enoch), spanning roughly a thousand years of biblical time, all living between 895 and 969 years. The mean is 912 years. The coefficient of variation is 5.9%. Over a millennium. That's not gradual decline. That's stability. A statistical test for trend (regression slope) gives $p = 0.68$ &mdash; meaning there is no statistically significant decline in pre-Flood lifespans. They're <em>constant</em>.</p>
+
+          <p><strong>The post-Flood lifespans drop and curve.</strong> From Shem (600) through Joseph (110), the lifespans don't just decrease &mdash; they decrease in a specific shape. Fast at first, then slower, then leveling off. The drop from 600 to 239 happens in about 200 years. The drop from 239 to 110 takes another 400 years. The rate of decrease is itself decreasing. That's not linear decline. That's exponential decay approaching an asymptote.</p>
+
+          <p>These two observations &mdash; pre-Flood flat, post-Flood exponential &mdash; define the entire model.</p>
+
+          <hr>
+
+          <!-- â•â•â• THE SINGLE-CURVE PROBLEM â•â•â• -->
+          <h3>The Single-Curve Problem</h3>
+
+          <p>The first thing any physicist would try is fitting a single exponential to the whole dataset. We tried it. It fails.</p>
+
+          <p>A single exponential decay curve cannot simultaneously capture a flat line at 912 for a thousand years and then a steep drop followed by leveling. The curve gets pulled apart &mdash; too steep for the flat pre-Flood regime, too shallow for the sharp post-Flood transition. The residuals are enormous at both ends.</p>
+
+          <p>This failure is itself informative. It means the data is not one process. It's two processes with a discontinuity between them. Something <em>changed</em> at the Flood. Not a gradual acceleration of an existing trend. A structural shift. A phase transition.</p>
+
+          <hr>
+
+          <!-- â•â•â• THE TWO-PHASE MODEL â•â•â• -->
+          <h3>The Two-Phase Model</h3>
+
+          <p>We split the analysis at the Flood and fit each regime independently.</p>
+
+          <h4>Phase 1: Pre-Flood (Adam to Noah, excluding Enoch)</h4>
+
+          <p><strong>Model:</strong> Constant.</p>
+
+          <div class="eq-block">
+            $C_1(t) = \bar{L} = 912 \text{ years}$
+          </div>
+
+          <p><strong>Result:</strong></p>
+          <ul>
+            <li>Mean lifespan: 912 years</li>
+            <li>Standard deviation: 54 years</li>
+            <li>Coefficient of variation: 5.9%</li>
+            <li>Trend test (linear regression): slope = &minus;0.007 years/year, $p = 0.68$</li>
+            <li>Interpretation: No significant decline. Pre-Flood lifespans are statistically constant.</li>
+          </ul>
+
+          <p>In plain terms: whatever process eventually drives lifespan down is either not operating or operating so slowly as to be undetectable across a thousand years of data. Humanity is in time &mdash; the Fall has occurred, $dt$ exists &mdash; but the coupling to entropy is weak. The decoherence rate is effectively zero.</p>
+
+          <p>Lamech (777 years) is the only significant downward outlier. He dies before the Flood, and his shorter lifespan may represent early-phase coupling strengthening. But a single outlier doesn't establish a trend. The data says: pre-Flood, lifespans held.</p>
+
+          <h4>Phase 2: Post-Flood (Shem to Moses)</h4>
+
+          <p><strong>Model:</strong> Exponential decay with asymptotic floor.</p>
+
+          <div class="eq-block">
+            <div class="eq-label">Post-Flood Decoherence Model</div>
+            $C_2(t) = A \cdot e^{-t/\tau_d} + L_{\text{floor}}$
+          </div>
+
+          <p>Where:</p>
+          <ul>
+            <li>$A$ = amplitude of decay (how far the system falls from its starting point to the floor)</li>
+            <li>$\tau_d$ = decoherence time constant (the rate of decay &mdash; smaller means faster decay)</li>
+            <li>$L_{\text{floor}}$ = asymptotic floor (the lifespan the system approaches but never goes below)</li>
+            <li>$t$ = time after the Flood (years from creation minus Flood date)</li>
+          </ul>
+
+          <p><strong>Fit Results:</strong></p>
+          <ul>
+            <li>$A = 337$ years</li>
+            <li>$\tau_d = 214$ years (decoherence time constant)</li>
+            <li>$L_{\text{floor}} = 93$ years</li>
+            <li>$R^2 = 0.888$</li>
+            <li>$p = 4.73 \times 10^{-7}$</li>
+          </ul>
+
+          <p>Here's what that means in plain English: after the Flood, lifespans drop fast at first and then level off &mdash; falling from about 430 years toward a floor of 93 years, with the steepest decline in the first 214 years. The fit captures 88.8% of the pattern in the data. The odds of this being random chance? Less than one in two million.</p>
+
+          <hr>
+
+          <!-- â•â•â• WHAT THE NUMBERS MEAN â•â•â• -->
+          <h3>What the Numbers Mean</h3>
+
+          <h4>The time constant: $\tau_d = 214$ years</h4>
+
+          <p>In quantum decoherence, $\tau_d$ is the characteristic time for a system to lose coherence with its environment. After one $\tau_d$, the system retains about 37% of its original coherence. After two $\tau_d
+</html>
+s, about 13%. After five, less than 1%.</p>
+
+          <p>For the post-Flood patriarchs, $\tau_d = 214$ years means the first 214 years after the Flood saw the steepest lifespan decline. By 428 years post-Flood, the curve had already fallen to near its asymptote. By 1,070 years post-Flood ($5 \times \tau_d$), the decay was essentially complete.</p>
+
+          <p>This maps to the biblical timeline. The steepest drops are Shem &rarr; Peleg (600 &rarr; 239). By Abraham (~400 years post-Flood), lifespans are already approaching the floor. By David (~1,000 years post-Flood), Moses has already declared 70 years as the norm. The decoherence ran its course within the first millennium after the Flood and has been at the floor ever since.</p>
+
+          <h4>The floor: $L_{\text{floor}} = 93$ years</h4>
+
+          <p>This is the number that stopped us.</p>
+
+          <p>The model was not told about Psalm 90:10. It was not told about modern lifespan data. It was fit purely to Genesis genealogy numbers and asked: where does this curve level off?</p>
+
+          <p>Answer: 93 years.</p>
+
+          <p>Moses (Psalm 90:10): 70 years, maybe 80. Modern global average lifespan: 73 years. Modern developed-nation average: 78&ndash;82 years. Model prediction: 93 years.</p>
+
+          <p>All four sources &mdash; the mathematical model, the Mosaic observation, and two independent modern measurements &mdash; converge on the same range: approximately 70&ndash;93 years. The model overshoots slightly (93 vs. 78 observed), which is expected &mdash; $L_{\text{floor}}$ is the theoretical asymptote, and the actual lifespan includes additional factors (disease, violence, famine) that push it below the pure decoherence floor.</p>
+
+          <p>The floor's existence is the critical finding. Total decoherence would predict lifespan &rarr; 0. It doesn't. Something holds it up. The decay has a lower bound that entropy cannot breach.</p>
+
+          <p>In the framework: the floor is grace. The $G$ term in the coherence equation never goes to zero. Common grace &mdash; the baseline divine sustenance that keeps reality from collapsing entirely &mdash; provides a minimum coherence level that even maximum entropy cannot eliminate. The floor is physical evidence that $G > 0$ always.</p>
+
+          <h4>The $R^2$: 0.888</h4>
+
+          <p>An $R^2$ of 0.888 on ancient genealogical data fit to a quantum decoherence equation deserves careful interpretation.</p>
+
+          <p><strong>What it means:</strong> 88.8% of the variance in post-Flood lifespans is explained by a single exponential decay curve. Three parameters (amplitude, time constant, floor) capture nearly nine-tenths of the pattern.</p>
+
+          <p><strong>What the remaining 11.2% might be:</strong> Individual variation (genetics, lifestyle, divine intervention), imprecision in biblical chronology, covenant effects (see Eber anomaly below), and the fact that lifespan is a proxy for coherence, not coherence itself.</p>
+
+          <p><strong>What it does NOT mean:</strong> We are not claiming that Genesis genealogies are laboratory-grade measurements. We are not claiming that the fit proves quantum decoherence is literally occurring. We are claiming that the shape of the data &mdash; the specific curve it follows &mdash; matches the mathematical signature of a decoherence process to a degree that demands explanation. Random data doesn't produce $R^2 = 0.888$ with $p < 10^{-6}$. Linearly declining data doesn't produce $R^2 = 0.888$ with an exponential model. Something generated this specific shape. The decoherence model captures it. Alternative models should be tested, and we welcome them.</p>
+
+          <hr>
+
+          <!-- â•â•â• THE EBER ANOMALY â•â•â• -->
+          <h3>The Eber Anomaly</h3>
+
+          <p>The biggest positive outlier in the post-Flood dataset is Eber. He lived 464 years &mdash; a full 124 years above where the decoherence curve predicts he should be.</p>
+
+          <p>Eber is the man whose name becomes "Hebrew." His lineage carries the Abrahamic covenant forward. He is the point in the genealogy where the covenant line begins to differentiate from the general population.</p>
+
+          <p>The framework predicts that covenant relationship &mdash; increased coupling to $G$ &mdash; should produce measurable deviation above the decoherence baseline. Eber's anomaly sits exactly where the prediction says it should: the first person in the post-Flood line who carries the identity marker of the covenant people, living significantly longer than the curve predicts.</p>
+
+          <p>This is a re-coherence signal. Not a random fluctuation &mdash; a specific, named individual at a specific genealogical junction showing a specific upward deviation from the decay trend. One data point doesn't prove the mechanism. But it's the right person, at the right time, deviating in the right direction, by a significant amount.</p>
+
+          <p><strong>Quantified (Exp+Floor model):</strong></p>
+          <ul>
+            <li>Predicted lifespan: 340 years</li>
+            <li>Observed lifespan: 464 years</li>
+            <li>Residual: +124 years</li>
+            <li>Z-score: $2.53\sigma$ (probability of this deviation by chance: ~0.6%)</li>
+          </ul>
+
+          <hr>
+
+          <!-- â•â•â• THE PHYSICS BEHIND THE CURVE â•â•â• -->
+          <h3>The Physics Behind the Curve</h3>
+
+          <h4>Why exponential decay?</h4>
+
+          <p>Exponential decay is not arbitrary. It is the universal signature of a system losing coherence with its environment. It appears everywhere in physics:</p>
+
+          <ul>
+            <li><strong>Radioactive decay:</strong> $N(t) = N_0 e^{-t/\tau}$ &mdash; unstable nuclei decay exponentially because each nucleus has a constant probability of decaying per unit time.</li>
+            <li><strong>Thermal cooling:</strong> $T(t) = T_{env} + (T_0 - T_{env})e^{-t/\tau}$ &mdash; hot objects cool toward ambient temperature exponentially.</li>
+            <li><strong>Quantum decoherence:</strong> $\rho_{off}(t) = \rho_0 e^{-t/\tau_d}$ &mdash; off-diagonal elements of the density matrix decay exponentially as the system entangles with its environment.</li>
+            <li><strong>Capacitor discharge:</strong> $V(t) = V_0 e^{-t/RC}$ &mdash; stored energy dissipates exponentially through resistance.</li>
+          </ul>
+
+          <p>The common feature: a system that starts in a special state (hot, charged, coherent, alive) and progressively loses that special quality through interaction with a larger environment. The rate of loss is proportional to how much remains. The more you have, the faster you lose it. This produces the characteristic concave-down curve: steep at first, flattening as the system approaches equilibrium.</p>
+
+          <p>The Genesis lifespan data follows this shape. Not approximately &mdash; with $R^2 = 0.888$ precision. The post-Flood patriarchs are a system that starts in a special state (high coherence, long lifespan) and progressively loses it through interaction with an entropic environment (post-Flood world with strengthened entropy coupling). The rate of loss is proportional to how much coherence remains. This is textbook decoherence dynamics.</p>
+
+          <h4>Why a floor?</h4>
+
+          <p>Pure decoherence would drive the system to zero. The floor &mdash; $L_{\text{floor}} = 93$ years &mdash; means something is preventing complete decoherence. In physics, this happens when there is a persistent source of coherence that counteracts the environmental coupling.</p>
+
+          <p>In a laser, the floor is the pump energy &mdash; the external source that keeps the gain medium excited above thermal equilibrium. In a living cell, the floor is metabolism &mdash; the energy input that maintains biological order against entropic decay. In both cases, the floor exists because something from outside the decaying system is continuously pumping order back in.</p>
+
+          <p>The framework identifies this source as $G$ &mdash; grace, the negentropic input from the Logos Field that maintains a minimum coherence level in all creation. Common grace. The rain that falls on the just and the unjust. The sustaining power that prevents reality from collapsing into total entropy.</p>
+
+          <p>The floor is not theological decoration on a physics model. It's a mathematical necessity. The data demands it &mdash; without the floor term, the exponential fit collapses (the model tries to predict lifespans approaching zero, which contradicts the data from Abraham onward). And the framework predicts it &mdash; $G > 0$ always, which means coherence has a lower bound.</p>
+
+          <h4>Why a phase transition at the Flood?</h4>
+
+          <p>The data shows a discontinuity. Pre-Flood: flat at 912. Post-Flood: exponential decay from ~600. Something changed abruptly. Not gradually. A phase transition.</p>
+
+          <p>In physics, phase transitions occur when a system crosses a critical threshold &mdash; ice to water, paramagnet to ferromagnet, superconductor to normal conductor. The system's fundamental relationship to its environment changes. Not the same process running faster. A different process entirely.</p>
+
+          <p>The Flood, in the framework, is a phase transition in the coupling constant between humanity and entropy. Pre-Flood, the coupling was weak &mdash; humans were in time ($dt$ existed after the Fall) but entropy's grip on biological coherence was minimal. The Flood strengthened the coupling. The framework doesn't specify the mechanism. It specifies the mathematical consequence: the decoherence rate went from approximately zero to $1/\tau_d = 1/214$ years$^{-1}$.</p>
+
+          <p>Genesis 6:3 may record the intended endpoint: "His days shall be 120 years." This is not the floor (the model finds 93, observed lifespans settle at 70&ndash;80). It may be the design target &mdash; the planned asymptote that additional factors (accumulated genetic entropy, environmental degradation, spiritual decay) push below. Moses reaching exactly 120 (Deuteronomy 34:7, "his eye was not dim nor his vigor diminished") may represent the floor without additional degradation &mdash; the pure decoherence asymptote, reached by one man who maintained unusually high coherence.</p>
+
+          <hr>
+
+          <!-- â•â•â• THE PREDICTION WE'RE LIVING IN â•â•â• -->
+          <h3>The Prediction We're Living In</h3>
+
+          <p>We are sitting on the asymptote. The physical decoherence curve has been flat for approximately 3,000 years. From David (died at 70) to the present day, human lifespans have been near the floor. The curve predicted this.</p>
+
+          <p>Modern medicine hasn't changed the decoherence asymptote. It's changed the <em>noise around</em> the asymptote. Fewer people die of infection, famine, and violence before reaching the floor. More people now reach 78 instead of dying at 40 from plague. But the ceiling hasn't moved. Maximum recorded human lifespan (Jeanne Calment, 122 years) sits near the 120-year mark from Genesis 6:3. The species maximum hasn't changed in recorded history.</p>
+
+          <p>This is a testable prediction of the framework: no amount of medical technology will push the species maximum significantly above ~120 years, because the limit is not biological wear &mdash; it's a decoherence floor set by the coupling constant between human coherence and entropy. To extend lifespan beyond the floor, you would need to change the coupling constant itself &mdash; which is a spiritual variable ($G$), not a medical one.</p>
+
+          <hr>
+
+          <!-- â•â•â• WHAT THIS DOESN'T PROVE â•â•â• -->
+          <h3>What This Doesn't Prove</h3>
+
+          <p>Intellectual honesty requires stating clearly what the curve does and does not establish.</p>
+
+          <p><strong>It does establish:</strong></p>
+          <ul>
+            <li>The Genesis lifespans follow a two-phase pattern: pre-Flood stability + post-Flood exponential decay</li>
+            <li>The post-Flood decay is well-fit ($R^2 = 0.888$, $p < 10^{-6}$) by a quantum decoherence equation</li>
+            <li>The model independently predicts a floor consistent with observed modern lifespans</li>
+            <li>The Flood functions as a phase transition in the data</li>
+            <li>Eber deviates positively in a direction consistent with covenant re-coherence</li>
+          </ul>
+
+          <p><strong>It does not establish:</strong></p>
+          <ul>
+            <li>That quantum decoherence is literally occurring at the biological level (the model is mathematical, not mechanistic)</li>
+            <li>That the Genesis lifespans are historically precise (the pattern holds even with moderate chronological uncertainty, but the data source is not a laboratory notebook)</li>
+            <li>That no other mathematical model could fit the data (alternative models should be tested &mdash; we welcome the competition)</li>
+            <li>That the floor is caused by grace (the floor is a mathematical finding; the identification with grace is a framework interpretation)</li>
+          </ul>
+
+          <p>The claim is not: "We proved God exists using a spreadsheet." The claim is: "The Genesis lifespan data has a specific mathematical shape that matches a known physical process, and the framework predicted this shape before the data was analyzed." That's interesting enough to deserve serious examination, regardless of where it leads.</p>
+
+          <hr>
+
+          <!-- â•â•â• SIX-MODEL COMPARISON â•â•â• -->
+          <h3>Six-Model Comparison</h3>
+
+          <p>GPT raised a legitimate critique: "$R^2=0.888$ sounds impressive, but with small datasets it's common. Many curves can fit small datasets." This is fair. The correct response is not to defend the $R^2$ &mdash; it's to test whether the exponential form is statistically preferred over alternatives. We ran the test.</p>
+
+          <p>Six competing models were fit to the 14 post-Flood data points (Shem through Moses) using <code>scipy.optimize.curve_fit</code>. Model comparison used Akaike Information Criterion (AIC) and Bayesian Information Criterion (BIC), which penalize models for extra parameters. Lower AIC = better model after accounting for complexity.</p>
+
+          <table class="data-table">
+            <thead>
+              <tr><th style="text-align:left;">Model</th><th>$R^2$</th><th>AIC</th><th>$\Delta$AIC</th><th>BIC</th><th>$k$ (params)</th></tr>
+            </thead>
+            <tbody>
+              <tr style="color:var(--highlight);font-weight:600;"><td><strong>Logistic</strong></td><td style="text-align:center;"><strong>0.925</strong></td><td style="text-align:center;"><strong>111.5</strong></td><td style="text-align:center;"><strong>0.0</strong></td><td style="text-align:center;"><strong>114.0</strong></td><td style="text-align:center;"><strong>4</strong></td></tr>
+              <tr style="color:var(--highlight);font-weight:600;"><td><strong>Exp+Floor</strong></td><td style="text-align:center;"><strong>0.889</strong></td><td style="text-align:center;"><strong>115.0</strong></td><td style="text-align:center;"><strong>+3.6</strong></td><td style="text-align:center;"><strong>117.0</strong></td><td style="text-align:center;"><strong>3</strong></td></tr>
+              <tr><td>Exp (no floor)</td><td style="text-align:center;">0.854</td><td style="text-align:center;">116.8</td><td style="text-align:center;">+5.3</td><td style="text-align:center;">118.1</td><td style="text-align:center;">2</td></tr>
+              <tr><td>Step</td><td style="text-align:center;">0.871</td><td style="text-align:center;">117.2</td><td style="text-align:center;">+5.7</td><td style="text-align:center;">119.1</td><td style="text-align:center;">3</td></tr>
+              <tr><td>Power Law</td><td style="text-align:center;">0.701</td><td style="text-align:center;">128.9</td><td style="text-align:center;">+17.4</td><td style="text-align:center;">130.8</td><td style="text-align:center;">3</td></tr>
+              <tr><td>Linear</td><td style="text-align:center;">0.630</td><td style="text-align:center;">129.9</td><td style="text-align:center;">+18.4</td><td style="text-align:center;">131.2</td><td style="text-align:center;">2</td></tr>
+            </tbody>
+          </table>
+
+          <p><strong>Key findings:</strong></p>
+          <ol>
+            <li><strong>Linear decline is decisively rejected.</strong> $\Delta$AIC = 18.4 against the winner. The lifespans are not decreasing at a constant rate.</li>
+            <li><strong>Power law is decisively rejected.</strong> $\Delta$AIC = 17.4. The data does not follow a power-law pattern.</li>
+            <li><strong>Step function is rejected.</strong> $\Delta$AIC = 5.7. The data is not a sudden drop from one level to another. The transition is smooth.</li>
+            <li><strong>Pure exponential (no floor) is rejected.</strong> $\Delta$AIC = 5.3. The data demands an asymptotic floor. A pure exponential heading toward zero does not fit.</li>
+            <li><strong>The top two models are both S-shaped decay curves.</strong> Logistic ($\Delta$AIC = 0.0) and Exponential+Floor ($\Delta$AIC = 3.6) are the only competitive models. Both describe the same qualitative behavior: steep decline after the Flood, leveling off to a floor.</li>
+          </ol>
+
+          <p>The defensible claim is: <strong>the data follows a smooth decay curve with an asymptotic floor, and the exponential decoherence form is among the two best-fitting models, competitive with the logistic but not uniquely preferred.</strong></p>
+
+          <hr>
+
+          <!-- â•â•â• FLOOR CONVERGENCE â•â•â• -->
+          <h3>Floor Convergence</h3>
+
+          <table class="data-table">
+            <thead>
+              <tr><th style="text-align:left;">Source</th><th>Lifespan Estimate</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Exp+Floor model ($L_{\text{floor}}$)</td><td style="text-align:center;">94 years</td></tr>
+              <tr><td>Logistic model ($L_{\text{bot}}$)</td><td style="text-align:center;">143 years</td></tr>
+              <tr><td>Moses, Psalm 90:10</td><td style="text-align:center;">70&ndash;80 years</td></tr>
+              <tr><td>Modern global average</td><td style="text-align:center;">73 years</td></tr>
+              <tr><td>Modern developed nations</td><td style="text-align:center;">78&ndash;82 years</td></tr>
+              <tr><td>Genesis 6:3</td><td style="text-align:center;">120 years</td></tr>
+              <tr><td>Max recorded (Jeanne Calment)</td><td style="text-align:center;">122 years</td></tr>
+            </tbody>
+          </table>
+
+          <p>The two models bracket the observed range. The exponential floor (94) sits below Genesis 6:3 (120) but above modern average (73&ndash;82). The logistic floor (143) sits above all observed values, suggesting it may overfit the early high values. Both models agree: the floor exists and is significantly above zero.</p>
+
+          <hr>
+
+          <!-- â•â•â• THE COMPLETE PICTURE â•â•â• -->
+          <h3>The Complete Picture</h3>
+
+          <p>People used to live 900 years. Then the Flood happened and lifespans dropped &mdash; fast at first, then slower, then they leveled off right where we are now. The shape of the drop is identical to quantum decoherence. The floor was predicted by the math before anyone checked it against Psalm 90 or modern data. The one person who deviates upward from the curve is the one whose name becomes the identity of the covenant people.</p>
+
+          <p>Either this is coincidence &mdash; a curve that happens to fit ancient genealogies with $R^2 = 0.888$ by chance, predicting a floor that happens to match three independent measurements, with an anomaly that happens to land on the covenant line &mdash; or it's signal.</p>
+
+          <p>The framework says it's signal. The data is measuring exactly what the equation predicts: a system that was coupled to entropy at the Flood, decohered exponentially with $\tau_d = 214$ years, and settled on a floor maintained by common grace at approximately 70&ndash;93 years.</p>
+
+          <p>And we're sitting on that floor right now. Have been for three millennia. The curve finished. We're living in the asymptote. The physical decoherence is done. What remains is the spiritual variable &mdash; the $s$ parameter, the $O$ variable, the coupling to $G$ &mdash; which operates on a completely different curve, one that the Cross restructured and the Spirit sustains.</p>
+
+          <p>The body decays on schedule. The soul has a different equation.</p>
+
+        </div>
+      </div>
+
+      <div class="tangent-card" id="tangent-04b">
+        <div class="tangent-toggle" onclick="this.parentElement.classList.toggle('expanded')">
+          <i class="fas fa-code-branch" style="color:var(--highlight);margin-right:.5rem;"></i>
+          <span class="serif" style="color:var(--text-primary);font-weight:600;">Tangent 04-B: How Lies Kill</span>
+          <i class="fas fa-chevron-down tangent-arrow"></i>
+        </div>
+        <div class="tangent-body">
+
+          <h2>How Lies Kill: The Mathematics of Sin</h2>
+
+          <p><strong>A Note Before We Begin</strong></p>
+
+          <p>Everyone who has ever told a lie knows the feeling that follows. Not guilt &mdash; that comes later. The immediate sensation is architectural. You told one lie, and now you need to remember it. You need a second lie to support it if someone asks a follow-up question. Then a third to cover the gap between the first two. Then you need to remember all three, and which audience heard which version, and what the truth actually was so you don&rsquo;t accidentally tell it. One lie is a seed. Within hours, it&rsquo;s a structure. Within weeks, it&rsquo;s a load-bearing wall in a building you never intended to construct. This article argues that this experience is not a metaphor for something deeper. It IS the deeper thing. It is the Second Law of Thermodynamics operating in the moral domain, and it kills by the same mechanism that makes every engine stop and every star burn out.</p>
+
+          <blockquote>
+            <p><em>&ldquo;The wages of sin is death.&rdquo;</em> &mdash; Romans 6:23</p>
+          </blockquote>
+
+          <p>That sentence is not a legal judgment. It is a thermodynamic statement.</p>
+
+          <hr>
+
+          <h3>1. The Feeling Everyone Recognizes</h3>
+
+          <p>You have watched someone lie. Maybe it was a public figure. Maybe it was someone you loved. You watched the first lie &mdash; small, almost reasonable. Then the cover story. Then the cover story for the cover story. Then the moment where they couldn&rsquo;t remember what they&rsquo;d said to whom, and the whole structure began to wobble. Then the collapse.</p>
+
+          <p>You have also watched someone tell the truth under pressure. One sentence. Clean. Nothing to maintain. Nothing to remember. Nothing to manage. The truth, once spoken, requires no infrastructure.</p>
+
+          <p>This asymmetry is not a social observation. It is a mathematical one. And it has a name.</p>
+
+          <p>Entropy.</p>
+
+          <hr>
+
+          <h3>2. The Problem: Why Does Sin Kill?</h3>
+
+          <p>Christianity says sin leads to death. Every tradition, every denomination, every century. &ldquo;The wages of sin is death.&rdquo; &ldquo;The soul that sins shall die.&rdquo; &ldquo;Sin, when it is full-grown, brings forth death.&rdquo;</p>
+
+          <p>But why? If God is omnipotent, He could forgive sin without consequence. If God is loving, why does sin carry a death sentence? The standard answers are legal &mdash; God is just, justice demands payment, sin violates the law. These are true as far as they go. But they don&rsquo;t explain the <em>mechanism</em>. They explain the verdict without explaining the physics of execution.</p>
+
+          <p>Here is what doesn&rsquo;t make sense without the framework: why does sin <em>inherently</em> produce death, even apart from God&rsquo;s judgment? Why do liars&rsquo; lives fall apart even when no one catches them? Why do corrupt civilizations collapse even when no external enemy invades? Why does dishonesty destroy systems from the inside, on a schedule, with a regularity that looks less like punishment and more like thermodynamics?</p>
+
+          <p>Because it IS thermodynamics.</p>
+
+          <hr>
+
+          <h3>3. The Physics: Truth, Lies, and Entropy</h3>
+
+          <h4>One Microstate vs. Infinite Microstates</h4>
+
+          <p>Start with Ludwig Boltzmann&rsquo;s definition of entropy:</p>
+
+          <p>\[ S = k_B \ln \Omega \]</p>
+
+          <p>Where \( S \) is entropy, \( k_B \) is the Boltzmann constant, and \( \Omega \) is the number of microstates compatible with the observed macrostate.</p>
+
+          <p><strong>Plain English:</strong> Entropy measures how many ways something could be arranged while still looking the same from the outside. A clean room has low entropy &mdash; there are very few arrangements of objects that count as &ldquo;clean.&rdquo; A messy room has high entropy &mdash; there are billions of configurations that count as &ldquo;messy.&rdquo;</p>
+
+          <p>Now apply this to truth and lies.</p>
+
+          <p><strong>Truth has exactly one microstate.</strong> The thing that actually happened has exactly one configuration. Caesar crossed the Rubicon on January 10, 49 BC. That&rsquo;s it. One arrangement. One microstate. \( \Omega = 1 \), so \( S = k_B \ln(1) = 0 \). Truth has zero entropy.</p>
+
+          <p><strong>A lie has infinite microstates.</strong> You can say Caesar crossed the Rubicon on January 11. Or January 9. Or that he crossed the Thames. Or that Pompey crossed the Rubicon. Or that nobody crossed anything. The number of false statements about any event is unbounded. \( \Omega \to \infty \), so \( S \to \infty \). Lies have maximum entropy.</p>
+
+          <p>This is not a metaphor. This is the definition of entropy applied to informational states. Truth is the unique microstate. Falsehood is every other microstate. Truth is order. Lies are disorder. And the Second Law says disorder always increases unless energy is spent to prevent it.</p>
+
+          <h4>The Compounding Problem</h4>
+
+          <p>One lie is a local entropy increase. But lies don&rsquo;t stay local.</p>
+
+          <p>A lie creates a discrepancy between the stated world and the actual world. That discrepancy is a signal. Other people notice inconsistencies, ask questions, probe the gap. To maintain the lie, you must generate additional lies &mdash; each one a new entropy source. Each supporting lie creates its own discrepancies, which require their own supporting lies.</p>
+
+          <p>The growth is exponential:</p>
+
+          <p>\[ L(n) = L_0 \cdot e^{\lambda n} \]</p>
+
+          <p>Where \( L(n) \) is the number of lies at step \( n \), \( L_0 \) is the initial lie, and \( \lambda \) is the compounding rate (how many supporting lies each lie requires).</p>
+
+          <p><strong>Plain English:</strong> One lie becomes two. Two become four. Four become sixteen. Each generation multiplies. This is not occasional &mdash; it is structural. A lie CANNOT exist in isolation because it creates a discrepancy that the environment probes, and the probe requires another lie.</p>
+
+          <p>This is the Second Law of Thermodynamics applied to information. Entropy increases. Disorder compounds. There is no equilibrium state where &ldquo;just one lie&rdquo; sits quietly. The lie is a broken window in a pressurized cabin. The environment forces its way through.</p>
+
+          <h4>Determinism vs. Chaos</h4>
+
+          <p>A deterministic system &mdash; one that follows fixed rules with zero noise &mdash; can run forever. The rules never degrade. The outputs never drift. \( 2 + 2 = 4 \) today, tomorrow, in a billion years. Deterministic systems are <em>eternal</em> because they have zero internal entropy production.</p>
+
+          <p>A chaotic system &mdash; one with non-zero noise &mdash; self-terminates. The noise compounds. Errors accumulate. Signals degrade. Eventually the system can no longer distinguish its own states, and it collapses into indistinguishable noise. Shannon proved this mathematically: a channel with a non-zero error rate and no error correction will eventually lose all information.</p>
+
+          <p><strong>The chain:</strong></p>
+          <ol>
+            <li>Truth = determinism = zero internal entropy = eternal</li>
+            <li>Lies = noise = non-zero entropy = self-terminating</li>
+            <li>Therefore: any system that contains lies will, over sufficient time, destroy itself</li>
+            <li>Therefore: eternity requires total truth &mdash; any non-zero error rate compounds to system failure over infinite time</li>
+          </ol>
+
+          <p>This is not theology dressed up as math. This is Shannon&rsquo;s noisy channel theorem. It is the Second Law. It is why every engine stops, every star dies, every civilization built on lies collapses. And it is exactly what Scripture says.</p>
+
+          <hr>
+
+          <h3>4. The Mapping: Shannon Meets Scripture</h3>
+
+          <h4>God as Deterministic Substrate</h4>
+
+          <blockquote>
+            <p><em>&ldquo;I am the way, the truth, and the life.&rdquo;</em> &mdash; John 14:6</p>
+          </blockquote>
+
+          <p>Jesus does not say He <em>tells</em> the truth. He says He IS the truth. This is an ontological claim &mdash; an identification with the deterministic substrate itself. God is the system with one microstate. Zero entropy. Zero noise. Perfect self-consistency across infinite time. God doesn&rsquo;t <em>have</em> truth as a property. God IS the unique configuration from which all reality derives its coherence.</p>
+
+          <p>\[ \Omega_{\text{God}} = 1. \quad S_{\text{God}} = 0. \]</p>
+
+          <p>That&rsquo;s what it means to be the truth. Not morally admirable honesty. Fundamental ontological singularity &mdash; the one microstate.</p>
+
+          <h4>The Devil as Noise Function</h4>
+
+          <blockquote>
+            <p><em>&ldquo;He was a murderer from the beginning, not holding to the truth, for there is no truth in him. When he lies, he speaks his native language, for he is a liar and the father of lies.&rdquo;</em> &mdash; John 8:44</p>
+          </blockquote>
+
+          <p>In Shannon&rsquo;s framework, the devil is the noise function. He can&rsquo;t create signal &mdash; he has no original information to transmit. He can only corrupt existing signal. Every lie is a perturbation of a truth. You can&rsquo;t lie about something that doesn&rsquo;t exist. You can only distort what IS. The devil&rsquo;s operational capacity is exactly the capacity of noise: degradation, distortion, corruption of a signal he did not generate and cannot replicate.</p>
+
+          <p>This is why evil is parasitic. It has no independent existence.</p>
+
+          <h4>&ldquo;The Wages of Sin Is Death&rdquo; &mdash; As Thermodynamics</h4>
+
+          <p>Romans 6:23 is not a legal decree. It is a statement about what happens to noisy channels.</p>
+
+          <p>Sin is noise injected into the channel between God (transmitter) and creation (receiver). Each sin increases the error rate. The errors compound. The signal degrades. Eventually the receiver can no longer decode the transmission. System failure. Death.</p>
+
+          <p>Not because God kills the sinner as punishment. Because noise kills channels as physics.</p>
+
+          <p>\[ \text{Bit Error Rate} > 0 \implies \text{Channel Capacity} \to 0 \text{ as } t \to \infty \]</p>
+
+          <p>Over infinite time, ANY non-zero error rate &mdash; no matter how small &mdash; compounds to total signal loss. This is Shannon&rsquo;s theorem. This is the Second Law. And this is why &ldquo;the wages of sin is death&rdquo; operates with the inevitability of gravity. It is not a rule imposed from outside. It is a consequence built into the structure of information itself.</p>
+
+          <h4>&ldquo;The Truth Shall Set You Free&rdquo; &mdash; As Entropy Statement</h4>
+
+          <blockquote>
+            <p><em>&ldquo;You shall know the truth, and the truth shall set you free.&rdquo;</em> &mdash; John 8:32</p>
+          </blockquote>
+
+          <p>Free from what? From the compounding. From the exponential lie-growth. From the ever-increasing entropy load of maintaining a false world alongside the real one.</p>
+
+          <p>Truth is \( \Omega = 1 \). One microstate. Nothing to maintain. Nothing to remember. Nothing to manage. Truth requires zero energy to sustain because it has zero entropy. It is the lowest-energy informational state. To know the truth &mdash; to align your internal model with the actual configuration of reality &mdash; is to drop the entire entropy burden of every lie you were carrying.</p>
+
+          <p>That is freedom. Not emotional freedom. Thermodynamic freedom. The release of every joule you were spending to maintain disorder.</p>
+
+          <h4>The Ten Commandments as Signal Integrity Protocol</h4>
+
+          <p>Shannon&rsquo;s noisy channel theorem says that to communicate reliably over a noisy channel, you need an error-correcting code. The code must identify the most common error types and provide specific filters for each one.</p>
+
+          <p>The Ten Commandments are exactly this &mdash; a signal integrity protocol with ten noise-filter categories:</p>
+
+          <table>
+            <thead>
+              <tr>
+                <th style="text-align:left;">Commandment</th>
+                <th style="text-align:left;">Noise Category Filtered</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1. No other gods</td>
+                <td>Source confusion &mdash; multiple transmitters corrupt signal identity</td>
+              </tr>
+              <tr>
+                <td>2. No graven images</td>
+                <td>Lossy compression &mdash; reducing infinite God to finite representation</td>
+              </tr>
+              <tr>
+                <td>3. Don&rsquo;t take God&rsquo;s name in vain</td>
+                <td>Channel labeling error &mdash; attaching the source name to noise</td>
+              </tr>
+              <tr>
+                <td>4. Keep the Sabbath</td>
+                <td>Clock synchronization &mdash; receiver must periodically re-sync with source</td>
+              </tr>
+              <tr>
+                <td>5. Honor parents</td>
+                <td>Relay integrity &mdash; each generation is a signal relay; honor maintains the chain</td>
+              </tr>
+              <tr>
+                <td>6. Don&rsquo;t murder</td>
+                <td>Channel destruction &mdash; killing the receiver eliminates the endpoint</td>
+              </tr>
+              <tr>
+                <td>7. Don&rsquo;t commit adultery</td>
+                <td>Covenant-channel crosstalk &mdash; signals leak into unauthorized channels</td>
+              </tr>
+              <tr>
+                <td>8. Don&rsquo;t steal</td>
+                <td>Unauthorized data extraction from another node</td>
+              </tr>
+              <tr>
+                <td>9. Don&rsquo;t bear false witness</td>
+                <td>Direct noise injection &mdash; lying IS the insertion of false bits</td>
+              </tr>
+              <tr>
+                <td>10. Don&rsquo;t covet</td>
+                <td>Internal noise generation &mdash; desiring another&rsquo;s state corrupts your own receiver</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>Ten categories. Ten noise filters. Not arbitrary moral rules &mdash; a minimum viable protocol for maintaining signal integrity between God and humanity across time.</p>
+
+          <hr>
+
+          <h3>5. The Bible as Error-Correction Protocol</h3>
+
+          <p>If sin is noise and the channel between God and humanity is degrading, then God&rsquo;s interventions across biblical history map precisely to the stages of error-correction engineering:</p>
+
+          <table>
+            <thead>
+              <tr>
+                <th style="text-align:left;">Intervention</th>
+                <th style="text-align:left;">Error-Correction Function</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>The Law (Sinai)</strong></td>
+                <td>Codebook &mdash; defines the valid codewords; anything outside the codebook is detectable as error</td>
+              </tr>
+              <tr>
+                <td><strong>The Prophets</strong></td>
+                <td>Checksums &mdash; periodic verification that the received signal still matches the transmitted signal; prophets flag drift</td>
+              </tr>
+              <tr>
+                <td><strong>The Flood</strong></td>
+                <td>Hard reset &mdash; when the error rate exceeds the channel&rsquo;s correction capacity, the system must be restarted from a clean state (Noah = preserved seed signal)</td>
+              </tr>
+              <tr>
+                <td><strong>The Incarnation</strong></td>
+                <td>Signal re-injection &mdash; the original transmitter enters the channel as a signal, bypassing all relay degradation</td>
+              </tr>
+              <tr>
+                <td><strong>The Cross</strong></td>
+                <td>Error absorption &mdash; the accumulated noise is not deleted (that would violate conservation) but absorbed into a system capable of bearing it without corruption</td>
+              </tr>
+              <tr>
+                <td><strong>The Resurrection</strong></td>
+                <td>Channel restoration &mdash; proof that the channel can carry uncorrupted signal again; death (total signal loss) is reversed</td>
+              </tr>
+              <tr>
+                <td><strong>Pentecost</strong></td>
+                <td>Persistent error correction &mdash; the Spirit as a real-time, ongoing error-correcting code operating within each receiver</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <hr>
+
+          <h3>6. What Eternity Requires</h3>
+
+          <p>Here is the claim that locks everything together.</p>
+
+          <p>Eternity is infinite time. Over infinite time, any non-zero error rate &mdash; no matter how small &mdash; compounds to total failure. This is not theology. This is the mathematical consequence of exponential growth over an unbounded interval:</p>
+
+          <p>\[ \lim_{t \to \infty} (1 - \epsilon)^t = 0 \quad \text{for any } \epsilon > 0 \]</p>
+
+          <p><strong>Plain English:</strong> If your accuracy is 99.9999%, but you have to maintain it forever, you will eventually fail. The only accuracy rate that survives eternity is 100%. One microstate. Zero entropy. Total truth.</p>
+
+          <p>This is why &ldquo;nothing unclean will ever enter it&rdquo; (Revelation 21:27). Not because God is fastidious. Because any noise &mdash; any non-zero error &mdash; compounds to system failure over eternal time. Heaven is not a gated community keeping out undesirables. It is an engineering specification. The eternal channel requires zero noise. Anything else self-terminates.</p>
+
+          <p>And this reframes hell entirely.</p>
+
+          <p>Hell is not punishment inflicted by an angry God. Hell is the state of a receiver so corrupted by accumulated noise that it can no longer decode the signal. The transmission is still broadcasting &mdash; God&rsquo;s grace doesn&rsquo;t stop. But the receiver has been so degraded by compounding errors that it cannot distinguish signal from noise. Every input is garbled. Every message is indecipherable. The light is shining. The eyes can&rsquo;t see.</p>
+
+          <p>Not punishment. Thermodynamics.</p>
+
+          <hr>
+
+          <h3>7. Civilizational Evidence</h3>
+
+          <p>If lies compound thermodynamically, civilizations built on lies should exhibit a predictable collapse pattern: functional in early stages (when noise is low), increasingly dysfunctional as lies accumulate, then sudden catastrophic failure when the noise floor exceeds the signal.</p>
+
+          <p>This is, in fact, the historical pattern.</p>
+
+          <p>Every totalitarian regime follows the same arc. The initial lie &mdash; &ldquo;we are building utopia&rdquo; &mdash; requires supporting lies about production numbers, political prisoners, economic performance. The supporting lies require their own supports. State media generates noise faster than reality can be acknowledged. Internal communication breaks down because no one knows what&rsquo;s true. Decision-making degrades because the inputs are corrupted. The system becomes unable to respond to actual threats because its own information channels are full of noise.</p>
+
+          <p>The Soviet Union didn&rsquo;t fall because of external military pressure. It fell because its internal information channels had degraded past the point of functionality. The noise rate exceeded the channel capacity. The system could no longer decode its own state.</p>
+
+          <p>This is Shannon&rsquo;s noisy channel theorem operating at civilizational scale. The same math. The same mechanism. The same outcome. Lies kill systems the way entropy kills engines &mdash; not by dramatic explosion, but by the quiet, relentless accumulation of disorder until the system can no longer distinguish its own states.</p>
+
+          <hr>
+
+          <h3>8. What This Predicts</h3>
+
+          <p><strong>Prediction 1: Honesty norms correlate with institutional longevity.</strong> Institutions, civilizations, and relationships that maintain higher truth-to-noise ratios should survive longer than those with lower ratios, controlling for other variables. This is testable against historical and sociological data.</p>
+
+          <p><strong>Prediction 2: Lies compound at measurable rates.</strong> The exponential growth of supporting lies (\( L(n) = L_0 \cdot e^{\lambda n} \)) should be observable in documented deception cases &mdash; political scandals, corporate fraud, personal deception. The compounding rate \( \lambda \) may vary, but the exponential form should hold.</p>
+
+          <p><strong>Prediction 3: Error-correction interventions should arrest decay.</strong> Systems that implement truth-telling protocols (transparency laws, independent audits, accountability structures) should show measurable reduction in institutional entropy compared to matched systems without such protocols.</p>
+
+          <p><strong>Prediction 4: No system with a non-zero lie rate sustains itself indefinitely.</strong> This is the strongest prediction. Every human institution that tolerates deception &mdash; even at low levels &mdash; should eventually exhibit signal degradation. The only system that lasts forever is the one with zero noise. This predicts that no human civilization, apart from divine error correction, is permanent.</p>
+
+          <hr>
+
+          <h3>9. The Audit</h3>
+
+          <p><em>What we got right, what we&rsquo;re less sure about, and where we got carried away.</em></p>
+
+          <h4>What&rsquo;s load-bearing &mdash; we&rsquo;d bet on this</h4>
+
+          <p><strong>Truth has one microstate; lies have infinite.</strong> This is definitional. The actual configuration of any event is unique. The set of false descriptions is unbounded. \( \Omega_{\text{truth}} = 1 \), \( \Omega_{\text{lies}} \to \infty \). The entropy calculation follows directly. This is not an analogy &mdash; it is the Boltzmann formula applied to informational states.</p>
+
+          <p><strong>Lies compound exponentially.</strong> This is both mathematically demonstrable and universally observed. One lie requires supporting lies. Each supporting lie requires its own supports. The growth is multiplicative. Watergate is a case study. Enron is a case study. Every cover-up in human history is a case study. The exponential form is robust.</p>
+
+          <p><strong>Shannon&rsquo;s theorem applies to channels with non-zero error rates.</strong> A channel with persistent, uncorrected errors will eventually lose all information. This is proven mathematics, not speculation. The application to moral and spiritual domains is the interpretive step &mdash; the math itself is settled.</p>
+
+          <h4>What&rsquo;s suggestive but needs more work</h4>
+
+          <p><strong>The Ten Commandments as signal integrity protocol is structurally compelling but post-hoc.</strong> We mapped each commandment to a noise category after knowing both the commandments and the categories. The mapping is clean &mdash; suspiciously clean, possibly. But we didn&rsquo;t predict the commandments from Shannon theory. We recognized the pattern after the fact. For this to move from &ldquo;suggestive&rdquo; to &ldquo;demonstrated,&rdquo; someone would need to derive the necessary noise-filter categories from first principles and show they match the Decalogue without prior knowledge of it.</p>
+
+          <p><strong>The civilizational collapse argument is pattern-matching, not controlled experiment.</strong> The Soviet Union&rsquo;s information-channel failure is well documented. But attributing civilizational collapse primarily to accumulated lies requires controlling for economic, military, geographic, and demographic variables. We cited the pattern without the controls. The argument is illustrative, not proven.</p>
+
+          <p><strong>Hell as &ldquo;corrupted receiver&rdquo; is theologically defensible but not the only reading.</strong> The thermodynamic framing &mdash; receiver too degraded to decode signal &mdash; is consistent with C.S. Lewis&rsquo;s &ldquo;doors locked from the inside&rdquo; and with the parable of the sower (seed on rocky ground). But retributive readings of hell have serious theological support too. We presented our reading as the natural one. It is <em>a</em> natural one.</p>
+
+          <h4>Where we got carried away</h4>
+
+          <p><strong>&ldquo;Not metaphorically. Thermodynamically.&rdquo;</strong> We used this phrase about &ldquo;the wages of sin is death.&rdquo; It&rsquo;s the article&rsquo;s central claim and also its most aggressive one. The thermodynamic framework is genuine &mdash; entropy does compound, noise does kill channels. But whether the thermodynamics of information theory is <em>literally identical</em> to the mechanism by which sin produces spiritual death, or whether it is a structural parallel that illuminates without being identical &mdash; that distinction matters, and we collapsed it for rhetorical force. The honest version: sin behaves like noise, and the consequences of noise mirror the consequences Scripture describes, with a precision that suggests more than analogy. Whether it IS the same mechanism or merely maps onto it &mdash; we don&rsquo;t know yet.</p>
+
+          <p><strong>The devil as &ldquo;noise function&rdquo; is vivid but risks reducing a person to a concept.</strong> Scripture presents Satan as an agent with intentions, not a mathematical operator. Our mapping captures his operational signature &mdash; corruption of existing signal, no original creative capacity &mdash; but it doesn&rsquo;t capture his agency, his hatred, his intentionality. A noise function doesn&rsquo;t choose to corrupt. The devil does. The mapping illuminates the mechanism but obscures the will behind it.</p>
+
+          <p><strong>We implied the Bible&rsquo;s error-correction sequence was engineered like a communications protocol.</strong> The mapping is remarkable &mdash; Law as codebook, Prophets as checksums, Incarnation as signal re-injection. But &ldquo;engineered&rdquo; implies God was solving a technical problem using human engineering methods, when the reality is the reverse: human engineering methods are shadows of God&rsquo;s actual redemptive structure. We may have the arrow of explanation backward. Shannon didn&rsquo;t invent error correction &mdash; he discovered a pattern that God had already been operating for millennia.</p>
+
+          <hr>
+
+          <p><em>The article above is what we believe. This audit is what we know we haven&rsquo;t proven yet. Both matter.</em></p>
+
+          <blockquote>
+
+          </blockquote>
+
+        </div>
+      </div>
+      <!-- GTQ BOTTOM AUDIT PANEL -->
+      <section class="gtq-bottom-audit" aria-label="Bottom audit: wrong, overstated, load-bearing, and right">
+        <div class="audit-band audit-red">
+          <div class="audit-kicker">Audit floor / red zone</div>
+          <h2 class="audit-title">What We Got Carried Away With</h2>
+          <p><strong>This is where the article has to pay for its own confidence.</strong> Any claim that turns a structural resemblance into a proven mechanism belongs here until the math, experiment, or textual chain can carry the weight.</p>
+          <p>Red does not mean useless. It means: do not build doctrine, physics, or public certainty on this layer yet.</p>
+        </div>
+        <div class="audit-band audit-amber">
+          <div class="audit-kicker">Gradient zone / interpretive caution</div>
+          <h2 class="audit-title">What Is Suggestive</h2>
+          <div class="audit-grid">
+            <div class="audit-chip"><p><strong>Promising pattern:</strong> the correspondence is strong enough to keep investigating, but not strong enough to call settled.</p></div>
+            <div class="audit-chip"><p><strong>Possible overstatement:</strong> language that sounds final should be read as a working model unless the article explicitly proves it.</p></div>
+          </div>
+        </div>
+        <div class="audit-band audit-green">
+          <div class="audit-kicker">Green zone / carries weight</div>
+          <h2 class="audit-title">What Is Load-Bearing</h2>
+          <p><strong>This is the part that should survive a hostile reading:</strong> the direct textual observations, the explicit cross-references, the formal definitions, and the places where the article clearly admits what it has not proven.</p>
+          <h2 class="audit-title" style="margin-top:1.4rem;">What We Got Right</h2>
+          <p>The useful result is not pretending every connection is equally proven. The useful result is sorting the work honestly: wrong or overconfident claims in red, suggestive bridges in the middle, and durable load-bearing claims in green.</p>
+        </div>
+      </section></article>
+    </section>
+<!-- END: TAB-PAPER -->
+
+    <!-- BEGIN: TAB-SUMMARY -->
+<section id="summary" class="tab-content">
+      <article class="story wide"><div class="media-card summary-video-card">
+          <span class="media-label"><i class="fas fa-film" style="margin-right:.4rem;"></i> Watch</span>
+          <div class="video-frame">
+            <video controls preload="metadata">
+              <source src="video/GTQ_04_The_Day_Time_Began.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+
+<!-- BEGIN: AUDIO-DOCK -->
+<div class="audio-dock summary-audio-dock" id="audioDock">
+          <div class="dock-pills">
+            <button class="dock-pill active" type="button" data-src="read" data-url="audio/GTQ_04_The_Day_Time_Began.mp3"><span class="pill-dot"></span>Main Reading</button>
+          </div>
+          <div class="dock-body" id="dockBody">
+            <button class="dock-play" id="dockPlay" type="button" onclick="dockToggle()" aria-label="Play audio"><i id="dockPlayIcon" class="fas fa-play"></i></button>
+            <div class="dock-track-wrap">
+              <div class="dock-track" onclick="dockSeek(event)"><div class="dock-fill" id="dockFill"></div></div>
+              <div class="dock-times"><span id="dockCurrent">0:00</span><span id="dockDuration">0:00</span></div>
+            </div>
+            <button class="dock-vol" id="dockVol" type="button" onclick="dockMute()" aria-label="Mute audio"><i class="fas fa-volume-up"></i></button>
+          </div>
+          <div class="dock-empty" id="dockEmpty">No audio available</div>
+        </div>
+<!-- END: AUDIO-DOCK -->
+
+<div class="exec-summary" style="margin-top:1rem;">
+          <div class="exec-summary-label"><i class="fas fa-bolt" style="margin-right:.4rem;"></i>Executive Summary</div>
+          <p>The Fall didn't happen <em>in</em> time &mdash; it <em>created</em> time. Pre-Fall, the Master Equation has no $dt$ term: coherence $\chi$ is maximal and static, with no entropy arrow and no death. Adam's bite is the first wavefunction collapse, and the collapse opens the temporal dimension that all subsequent events occur within. Once $dt$ activates, the entropy drain $S\cdot\chi(t)$ switches on and coherence begins its decline &mdash; visible in the post-Flood patriarch lifespans, which fit $C(t) = 337 e^{-t/214} + 93$ with $R^2 = 0.888$. The grace floor of ~93 years is the asymptote: time is what makes the fall possible, and also what makes redemption possible.</p>
+        </div>
+      </article>
+    
+<!-- BEGIN: EXEC-KEY-TERMS -->
+<section data-placeholder="true" data-section="EXEC-KEY-TERMS" style="display:none;">
+<!-- TODO: fill EXEC-KEY-TERMS content -->
+</section>
+<!-- END: EXEC-KEY-TERMS -->
+</section>
+<!-- END: TAB-SUMMARY -->
+
+    <!-- BEGIN: TAB-RIGOR -->
+<section id="rigor" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-2">Rigor &amp; Kill Conditions</h2>
+        <p class="text-[#a0a0a0] mb-6">Every claim is held to explicit falsification standards.</p>
+        <div class="kill-card"><div class="kill-label">Load-Bearing</div><p><strong>Kill if:</strong> the post-Flood patriarch lifespans do not fit an exponential decoherence curve, or the fit ($C(t) = 337 e^{-t/214} + 93$, $R^2 = 0.888$, $p = 4.73 \times 10^{-7}$) is shown to be a coincidence of small-$N$ genealogy data.</p></div>
+        <div class="kill-card suggestive"><div class="kill-label">Suggestive</div><p><strong>Kill if:</strong> pre-Flood lifespans turn out to also follow exponential decay (no two-regime pattern) &mdash; i.e. there is no detectable phase transition at the Flood, only one continuous distribution.</p></div>
+        <div class="kill-card destructive"><div class="kill-label">Destructive</div><p><strong>Kill if:</strong> the "collapse generates $dt$" claim cannot be reconciled with the pre-Fall reduction of the Master Equation &mdash; i.e. the framework cannot consistently describe a state with no temporal dimension that nonetheless transitions into one.</p></div>
+      </article>
+    
+<!-- BEGIN: RIGOR-WHAT-WE-GOT-RIGHT -->
+<section data-placeholder="true" data-section="RIGOR-WHAT-WE-GOT-RIGHT" style="display:none;">
+<!-- TODO: fill RIGOR-WHAT-WE-GOT-RIGHT content -->
+</section>
+<!-- END: RIGOR-WHAT-WE-GOT-RIGHT -->
+
+<!-- BEGIN: RIGOR-WHAT-WE-GOT-WRONG -->
+<section data-placeholder="true" data-section="RIGOR-WHAT-WE-GOT-WRONG" style="display:none;">
+<!-- TODO: fill RIGOR-WHAT-WE-GOT-WRONG content -->
+</section>
+<!-- END: RIGOR-WHAT-WE-GOT-WRONG -->
+
+<!-- BEGIN: RIGOR-WHAT-WE-OVERCLAIMED -->
+<section data-placeholder="true" data-section="RIGOR-WHAT-WE-OVERCLAIMED" style="display:none;">
+<!-- TODO: fill RIGOR-WHAT-WE-OVERCLAIMED content -->
+</section>
+<!-- END: RIGOR-WHAT-WE-OVERCLAIMED -->
+</section>
+<!-- END: TAB-RIGOR -->
+
+    <!-- BEGIN: TAB-MATHEMATICS -->
+<section id="mathematics" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-2">Mathematics</h2>
+        <p class="text-[#a0a0a0] mb-6">Every equation appearing in the paper, collected here as a single reference.</p>
+
+        <div class="math-box">
+          <span class="mlabel">Master Equation &mdash; Full Form</span>
+          $$\chi = \iiint(G \cdot M \cdot E \cdot S \cdot T \cdot K \cdot R \cdot Q \cdot F \cdot C)\, dx\, dy\, dt$$
+          <div class="mnote"><strong>$\chi$</strong> = Logos field (the output). <strong>$G$</strong> = grace. <strong>$M$</strong> = matter. <strong>$E$</strong> = energy. <strong>$S$</strong> = entropy / sin (same variable, dual coordinate names). <strong>$T$</strong> = time / temperature. <strong>$K$</strong> = knowledge. <strong>$R$</strong> = relation. <strong>$Q$</strong> = quantum. <strong>$F$</strong> = faith. <strong>$C$</strong> = coherence (the framework's coherence variable; consciousness enters the equation through the observer's own $C$-state, not as a separate term).</div>
+          <div class="mnote"><strong>Plain English:</strong> $\chi$ (the Logos field) is the integral, over space and time, of the ten coupled framework variables. Pre-Fall the $dt$ slice is null and the equation reduces to a static spatial form.</div>
+        </div>
+
+        <div class="math-box">
+          <span class="mlabel">Post-Flood Decoherence Fit</span>
+          $$C(t) = 337 \cdot e^{-t/214} + 93$$
+          <div class="mnote"><strong>$C(t)$</strong> = lifespan-as-coherence at generation $t$. <strong>$\tau_d = 214$</strong> = decay constant in years. <strong>$93$</strong> = grace-sustained coherence floor.</div>
+          <div class="mnote"><strong>Plain English:</strong> Post-Flood patriarch lifespans follow a textbook exponential decoherence curve toward an asymptote near 93 years ($R^2 = 0.888$, $p = 4.73 \times 10^{-7}$).</div>
+        </div>
+
+        <div class="math-box">
+          <span class="mlabel">Equilibrium Coherence (Grace Floor)</span>
+          $$C_{eq} = \frac{O \cdot G}{O \cdot G + S}$$
+          <div class="mnote"><strong>$O$</strong> = openness (population not actively closed to grace). <strong>$G$</strong> = common grace input. <strong>$S$</strong> = entropy load.</div>
+          <div class="mnote"><strong>Plain English:</strong> As long as $G &gt; 0$, equilibrium coherence cannot reach zero. Grace is what prevents the decoherence curve from collapsing to extinction.</div>
+        </div>
+
+        <div class="math-box">
+          <span class="mlabel">Born Rule &mdash; Trinity Mapping</span>
+          $$P(\phi) = |\langle\phi|\psi\rangle|^2$$
+          <div class="mnote"><strong>$|\psi\rangle$</strong> = possibility space (Father, the boundary/law). <strong>$\langle\phi|$</strong> = measurement basis (Son/Logos, the coherent selection). <strong>$|\langle\phi|\psi\rangle|^2$</strong> = actualization (Spirit, potential becoming actual).</div>
+          <div class="mnote"><strong>Plain English:</strong> The first wavefunction collapse is the first Trinity Actualization in the temporal frame &mdash; three irreducible operations producing one event.</div>
+        </div>
+
+        <div class="math-box">
+          <span class="mlabel">Entropy Drain Term</span>
+          $$\frac{d\chi}{dt} = -S \cdot \chi(t)$$
+          <div class="mnote"><strong>$S$</strong> = entropy coupling strength. <strong>$\chi(t)$</strong> = time-dependent coherence.</div>
+          <div class="mnote"><strong>Plain English:</strong> The decay term that activates only when $dt$ exists. Pre-Fall it is null; post-Fall it drives coherence toward the grace floor.</div>
+        </div>
+      </article>
+    </section>
+<!-- END: TAB-MATHEMATICS -->
+
+    <!-- BEGIN: TAB-GLOSSARY -->
+<section id="glossary" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-2">Glossary</h2>
+        <p class="text-[#a0a0a0] mb-6">Key terms from this article, defined in plain English.</p>
+        <div class="score-grid">
+          <div class="score-card"><div class="label">Master Equation</div><p>The framework's central equation: coherence as a triple integral over ten coupled variables across space and time.</p></div>
+          <div class="score-card"><div class="label">Coherence ($\chi$)</div><p>The framework's central scalar field â€” how cleanly the ten variables stay aligned. Maximal pre-Fall, decaying post-Fall.</p></div>
+          <div class="score-card"><div class="label">$dt$ (Temporal Dimension)</div><p>The differential time element. Pre-Fall there is no $dt$; the first wavefunction collapse opens it.</p></div>
+          <div class="score-card"><div class="label">Wavefunction Collapse</div><p>The transition from superposed potential to a definite outcome. Adam's bite is the first collapse and creates time itself.</p></div>
+          <div class="score-card"><div class="label">Entropy / Sin ($S$)</div><p>The decay parameter that drives coherence toward zero. Same Master-Equation variable, two coordinate names: "entropy" in the physics frame, "sin" in the theological frame. Activated in the human domain at the Fall.</p></div>
+          <div class="score-card"><div class="label">Entropy Drain</div><p>The $S\cdot\chi(t)$ decay term that pulls coherence down. Inactive without time; switches on at the Fall.</p></div>
+          <div class="score-card"><div class="label">Decoherence</div><p>Quantum loss of coherence following an exponential decay law. Post-Flood lifespans match the standard form.</p></div>
+          <div class="score-card"><div class="label">$\tau_d$ (Decay Constant)</div><p>The characteristic timescale of decoherence. Fitted at 214 years in the post-Flood patriarch data.</p></div>
+          <div class="score-card"><div class="label">Coherence Floor</div><p>The asymptotic lower bound on coherence. ~93 years in the genealogy data â€” the floor is grace.</p></div>
+          <div class="score-card"><div class="label">Equilibrium Coherence</div><p>$C_{eq} = OG/(OG+S)$. The steady-state value coherence settles toward; nonzero whenever grace is nonzero.</p></div>
+          <div class="score-card"><div class="label">Common Grace ($G$)</div><p>The baseline negentropic input God provides to all creation, irrespective of human response.</p></div>
+          <div class="score-card"><div class="label">Openness ($O$)</div><p>The fraction of humanity not actively closed off to grace. A free-will-weighted multiplier on $G$.</p></div>
+          <div class="score-card"><div class="label">Logos Field ($\chi$)</div><p>The pervasive substrate of coherent reality â€” the framework's $\chi$ field. The Master-Equation field whose value is total system coherence. <strong>Note:</strong> earlier drafts denoted this with $\Lambda$; that symbol is now reserved for the cosmological constant.</p></div>
+          <div class="score-card"><div class="label">Logos Coupling</div><p>The interaction architecture between the Logos field and embedded subsystems &mdash; how the field acts on a measurement. <em>Field</em> = pervasive substrate; <em>coupling</em> = how interactions occur within it. (Defined in detail in Article 01.)</p></div>
+          <div class="score-card"><div class="label">Trinity Actualization</div><p>The three irreducible operations of any collapse: boundary (Father), coherent selection (Son/Logos), actualization (Spirit).</p></div>
+          <div class="score-card"><div class="label">Born Rule</div><p>$P = |\langle\phi|\psi\rangle|^2$. The probability law mapping superposed states to definite outcomes; here mapped onto the Spirit's actualizing role.</p></div>
+          <div class="score-card"><div class="label">Phase Transition</div><p>An abrupt change in a system's coupling regime. The Flood is read as a phase transition that increased humanity's coupling to entropy.</p></div>
+          <div class="score-card"><div class="label">Federal Observer</div><p>The representative observer whose measurement carries system-level consequence (Adam pre-Cross, Christ post-Cross). Defined in Article 01.</p></div>
+          <div class="score-card"><div class="label">Re-coherence Signal</div><p>A positive deviation above the predicted decoherence curve, indicating coherence input from outside the entropy budget. Eber sits +124 yrs above curve.</p></div>
+          <div class="score-card"><div class="label">Eber Anomaly</div><p>The largest positive lifespan outlier in the post-Flood dataset â€” sitting on the lineage from which the covenant ("Hebrew") proceeds.</p></div>
+          <div class="score-card"><div class="label">Two-Regime Pattern</div><p>Pre-Flood lifespans flat (entropy weakly coupled); post-Flood exponential decay. The signature of a coupling-constant change.</p></div>
+          <div class="score-card"><div class="label">Pre-Fall Maximum</div><p>The state of full coherence ($\chi$ maximal, static, complete) before time, entropy, and death enter the system.</p></div>
+          <div class="score-card"><div class="label">LLC Arc</div><p>Logosâ€“Lawâ€“Coherence trajectory: entropy introduced â†’ grace operates through time â†’ coherence restored. The full arc from Fall to Resurrection.</p></div>
+          <div class="score-card"><div class="label">Temporal Trap Door</div><p>The narrative reading of $dt$ as God's rescue mechanism: the dimension Satan opened with the bite is the same dimension redemption needs to operate. (Defined further in Article 19.)</p></div>
+        </div>
+      </article>
+    </section>
+<!-- END: TAB-GLOSSARY -->
+
+    <!-- BEGIN: TAB-MEDIA -->
+<section id="media" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-4">Watch &amp; Listen</h2>
+</article>
+    </section>
+<!-- END: TAB-MEDIA -->
+
+    <!-- BEGIN: TAB-BLACKBOARD -->
+<section id="blackboard" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-4">Blackboard</h2>
+        <p class="text-[#a0a0a0] mb-6">Interactive scratch space.</p>
+      </article>
+    </section>
+<!-- END: TAB-BLACKBOARD -->
+  </div>
+
+  <!-- BEGIN: KILL-SIDEBAR -->
+<aside class="kill-sidebar">
+    <div class="kill-sidebar-title"><i class="fas fa-skull-crossbones" style="margin-right:.4rem;"></i>Kill Conditions</div>
+    <!-- BEGIN: KILL-CARD-LOAD-BEARING -->
+<div class="kill-card"><div class="kill-label">Load-Bearing</div><p><strong>Kill if:</strong> post-Flood lifespans fail the exponential decoherence fit.</p></div>
+<!-- END: KILL-CARD-LOAD-BEARING -->
+    <!-- BEGIN: KILL-CARD-SUGGESTIVE -->
+<div class="kill-card suggestive"><div class="kill-label">Suggestive</div><p><strong>Kill if:</strong> no two-regime pre-/post-Flood pattern exists.</p></div>
+<!-- END: KILL-CARD-SUGGESTIVE -->
+    <!-- BEGIN: KILL-CARD-DESTRUCTIVE -->
+<div class="kill-card destructive"><div class="kill-label">Destructive</div><p><strong>Kill if:</strong> "collapse generates $dt$" cannot be made internally consistent.</p></div>
+<!-- END: KILL-CARD-DESTRUCTIVE -->
+    <!-- BEGIN: ARTICLE-STATS -->
+<div style="margin-top:1.5rem;padding:1rem;background:var(--surface-light);border:1px solid var(--border);border-radius:.5rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:.5rem;">Article Stats</div>
+      <div style="font-size:.8rem;color:var(--text-secondary);line-height:1.8;">
+        <div><i class="fas fa-clock" style="width:1rem;color:var(--highlight);"></i> 10 min read</div>
+        <div><i class="fas fa-layer-group" style="width:1rem;color:var(--highlight);"></i> Main Article</div>
+        <div><i class="fas fa-crosshairs" style="width:1rem;color:var(--highlight);"></i> 4 kill conditions</div>
+        <div><i class="fas fa-headphones" style="width:1rem;color:var(--highlight);"></i> 1 audio version</div>
+      </div>
+    </div>
+<!-- END: ARTICLE-STATS -->
+  </aside>
+<!-- END: KILL-SIDEBAR -->
+</main>
+<!-- END: MAIN-LAYOUT -->
+
+<!-- Bottom navigation -->
+<div class="container mx-auto px-6" style="padding-left:4.5rem;">
+  <!-- BEGIN: BOTTOM-NAV -->
+<div class="bottom-nav">
+    <a href="../07-why-god-drowned-everybody/gtq-07-why-god-drowned-everybody.html"><i class="fas fa-arrow-left"></i>Previous: Why Did God Drown Everybody?</a>
+    <div class="nav-center">Article 08 of 26</div>
+    <a href="../09-decoherence-curve/gtq-09-decoherence-curve.html" class="primary">Next: The Decoherence Curve<i class="fas fa-arrow-right"></i></a>
+  </div>
+<!-- END: BOTTOM-NAV -->
+  <div style="text-align:center;margin-bottom:2rem;">
+    <a href="../11-substrate-fractured/gtq-11-substrate-fractured.html" style="display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;background:var(--highlight-glow);border:1px solid var(--highlight-dim);border-radius:.375rem;color:var(--highlight);text-decoration:none;font-size:.8rem;">
+      <i class="fas fa-forward"></i>Skip to next main: The Substrate Fractured
+    </a>
+  </div>
+</div>
+
+<!-- BEGIN: FOOTER -->
+<footer class="site-footer">
+  <div class="eq">Ï‡ = f(G, M, E, S, T, K, R, Q, F, C)</div>
+  <p>David Lowe &middot; Genesis to Quantum &middot; Part 08 of 26</p>
+  <p class="serif" style="font-style:italic;color:var(--text-secondary);margin-top:.5rem;">&ldquo;But while he was still a long way off, his father saw him.&rdquo;</p>
+</footer>
+<!-- END: FOOTER -->
+
+<script>
+function toggleSidebar(){
+  var sb=document.getElementById('sidebar');
+  var ov=document.getElementById('sidebarOverlay');
+  sb.classList.toggle('open');
+  ov.classList.toggle('show');
+  document.body.style.overflow=sb.classList.contains('open')?'hidden':'';
+}
+window.addEventListener('scroll',function(){
+  var st=window.scrollY||document.documentElement.scrollTop;
+  var dh=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+  var pct=dh>0?(st/dh)*100:0;
+  document.getElementById('progressBar').style.width=pct+'%';
+});
+function switchTab(tabId){
+  document.querySelectorAll('.tab-content').forEach(function(el){el.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(el){el.classList.remove('active');});
+  document.getElementById(tabId).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    var sb=document.getElementById('sidebar');
+    if(sb&&sb.classList.contains('open')) toggleSidebar();
+  }
+});
+
+/* Audio dock engine */
+(function(){
+  var dock = document.getElementById('audioDock');
+  if(!dock) return;
+  var body=document.getElementById('dockBody'), empty=document.getElementById('dockEmpty');
+  var playBtn=document.getElementById('dockPlay'), icon=document.getElementById('dockPlayIcon');
+  var fill=document.getElementById('dockFill'), curEl=document.getElementById('dockCurrent'), durEl=document.getElementById('dockDuration');
+  var volBtn=document.getElementById('dockVol');
+  var pills=dock.querySelectorAll('.dock-pill');
+  var audio=new Audio(); audio.preload='metadata';
+  var activeKey=null, muted=false;
+  var pillColors={deep:'#4a9eff',read:'#4a9eff',debate:'#a855f7',critique:'#2dd4bf'};
+
+  function fmt(s){if(!s||isNaN(s))return '0:00';var m=Math.floor(s/60),sec=Math.floor(s%60);return m+':'+(sec<10?'0':'')+sec;}
+
+  pills.forEach(function(p){if(!p.dataset.url)p.classList.add('unavailable');});
+
+  pills.forEach(function(p){
+    p.addEventListener('click',function(){
+      var key=p.dataset.src, url=p.dataset.url;
+      if(!url)return;
+      if(key===activeKey){if(audio.paused)audio.play();else audio.pause();return;}
+      audio.pause(); audio.src=url; activeKey=key;
+      pills.forEach(function(q){q.classList.remove('active');}); p.classList.add('active');
+      var c=pillColors[key]||'#4a9eff';
+      fill.style.background=c; playBtn.style.borderColor=c; playBtn.style.color=c;
+      body.classList.remove('hidden'); empty.classList.remove('visible');
+      audio.play();
+    });
+  });
+
+  var firstAvail=dock.querySelector('.dock-pill[data-url]');
+  if(firstAvail){var key=firstAvail.dataset.src; audio.src=firstAvail.dataset.url; activeKey=key;}
+  else{body.classList.add('hidden');empty.classList.add('visible');}
+
+  window.dockToggle=function(){if(!audio.src)return;if(audio.paused)audio.play();else audio.pause();};
+  audio.addEventListener('play',function(){icon.className='fas fa-pause';playBtn.classList.add('playing');});
+  audio.addEventListener('pause',function(){icon.className='fas fa-play';playBtn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){icon.className='fas fa-play';playBtn.classList.remove('playing');fill.style.width='0%';curEl.textContent='0:00';});
+  audio.addEventListener('timeupdate',function(){if(!audio.duration)return;fill.style.width=(audio.currentTime/audio.duration*100)+'%';curEl.textContent=fmt(audio.currentTime);});
+  audio.addEventListener('loadedmetadata',function(){durEl.textContent=fmt(audio.duration);});
+  window.dockSeek=function(e){if(!audio.duration)return;var t=e.currentTarget;var r=t.getBoundingClientRect();var p=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));audio.currentTime=p*audio.duration;};
+  window.dockMute=function(){muted=!muted;audio.muted=muted;volBtn.innerHTML=muted?'<i class="fas fa-volume-mute"></i>':'<i class="fas fa-volume-up"></i>';};
+})();
+</script>
+
+</body>
+</html>
+
+

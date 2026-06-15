@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paper Grade Dashboard - pa-11-testable-predictions</title>
+<style>
+:root {
+  --ink:#14120d;
+  --paper:#fbf4df;
+  --paper2:#f3e6bf;
+  --line:#d6bd73;
+  --deep:#33250b;
+  --gold:#b8871e;
+  --green:#267a4a;
+  --red:#b3442f;
+  --blue:#2f5f7f;
+  --muted:#786845;
+  --shadow:0 18px 60px rgba(33,24,8,.18);
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  color:var(--ink);
+  font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  background:
+    radial-gradient(circle at top left, rgba(184,135,30,.22), transparent 34rem),
+    linear-gradient(135deg, #fff9e8 0%, #ead38e 100%);
+}
+main { max-width:1280px; margin:0 auto; padding:38px 22px 80px; }
+.hero {
+  border:1px solid rgba(51,37,11,.22);
+  background:rgba(255,251,238,.86);
+  border-radius:28px;
+  padding:30px;
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+.hero:after {
+  content:"";
+  position:absolute;
+  right:-80px; top:-110px;
+  width:340px; height:340px;
+  border-radius:50%;
+  border:38px solid rgba(184,135,30,.16);
+}
+.eyebrow { color:var(--gold); letter-spacing:.16em; text-transform:uppercase; font-size:.76rem; font-weight:800; }
+h1 { margin:.35rem 0 .45rem; font-size:clamp(2.1rem,4vw,4.8rem); line-height:.92; max-width:960px; }
+.sub { color:var(--muted); max-width:940px; line-height:1.65; }
+.grid { display:grid; gap:16px; }
+.metrics { grid-template-columns:repeat(4,minmax(0,1fr)); margin:22px 0; }
+.metric, .panel, .issue {
+  background:rgba(255,252,242,.82);
+  border:1px solid rgba(51,37,11,.18);
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(33,24,8,.08);
+}
+.metric { padding:18px; min-height:112px; }
+.metric strong { display:block; font-size:2rem; line-height:1; color:var(--deep); }
+.metric span { color:var(--muted); font-size:.82rem; text-transform:uppercase; letter-spacing:.09em; }
+.two { grid-template-columns:1.1fr .9fr; align-items:start; margin-top:16px; }
+.panel { padding:20px; overflow:hidden; }
+h2 { margin:.2rem 0 1rem; color:var(--deep); font-size:1.35rem; }
+table { width:100%; border-collapse:collapse; font-size:.92rem; }
+th,td { border-bottom:1px solid rgba(51,37,11,.14); padding:11px 9px; vertical-align:top; text-align:left; }
+th { color:var(--gold); font-size:.72rem; text-transform:uppercase; letter-spacing:.1em; }
+td span { display:block; color:var(--muted); font-size:.78rem; margin-top:.25rem; }
+.bar { display:inline-block; width:120px; height:10px; background:#eadbad; border-radius:999px; overflow:hidden; vertical-align:middle; margin-right:8px; }
+.bar i { display:block; height:100%; background:linear-gradient(90deg,var(--red),var(--gold),var(--green)); border-radius:999px; }
+em { color:var(--muted); font-style:normal; }
+.issues { grid-template-columns:repeat(4,minmax(0,1fr)); }
+.issue { padding:14px; display:flex; justify-content:space-between; gap:12px; align-items:center; }
+.issue strong { font-size:.84rem; color:var(--muted); }
+.issue span { font-size:1.45rem; color:var(--red); font-weight:900; }
+.address {
+  font-family:"Cascadia Mono","Consolas",monospace;
+  font-size:.78rem;
+  line-height:1.65;
+  color:#3c321c;
+  background:#fff7dc;
+  border:1px dashed rgba(51,37,11,.28);
+  border-radius:16px;
+  padding:14px;
+  overflow-wrap:anywhere;
+}
+.claims td:nth-child(3) { min-width:320px; }
+.footer { margin-top:18px; color:var(--muted); font-size:.82rem; line-height:1.55; }
+@media (max-width:900px) { .metrics,.two,.issues { grid-template-columns:1fr; } .hero { padding:22px; border-radius:20px; } }
+</style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <div class="eyebrow">Paper Grader Surface / Canary</div>
+    <h1>pa-11-testable-predictions</h1>
+    <p class="sub">This dashboard pulls the deterministic paper-grader metrics into a review surface: claims, equations, 7Q gaps, evidence markers, maturity distribution, semantic address, and station status. It does not replace the canonical JSON/XLSX; it makes the audit readable.</p>
+    <section class="grid metrics">
+      <div class="metric"><strong>1276</strong><span>Words</span></div>
+      <div class="metric"><strong>21</strong><span>Sections</span></div>
+      <div class="metric"><strong>3</strong><span>Equations</span></div>
+      <div class="metric"><strong>14</strong><span>Claim Candidates</span></div>
+    </section>
+    <div class="address">
+      <b>Semantic Address:</b> SCIENCE/PA-11-TESTABLE-PREDICTIONS-PAPER-GRADE/W/ACADEMIC/R/R4 :: G3M3E0S3T3K3R3Q3F0C0 :: GF-KC-ME-TQ-RS<br>
+      <b>Filename Safe:</b> SCIENCE__PA-11-TESTABLE-PREDICTIONS-PAPER-GRADE__W__ACADEMIC__R__R4__G3M3E0S3T3K3R3Q3F0C0__GF-KC-ME-TQ-RS<br>
+      <b>Vector / Hash:</b> G3M3E0S3T3K3R3Q3F0C0 / GF-KC-ME-TQ-RS<br>
+      <b>Rigor Verdict:</b>  &nbsp; <b>Math Layer:</b>  (0 translated spans)
+    </div>
+  </section>
+
+  <section class="grid two">
+    <div class="panel">
+      <h2>7Q Coverage</h2>
+      <table><thead><tr><th>Question</th><th>Observed Values</th><th>Weak</th><th>Coverage</th></tr></thead><tbody><tr><td><b>Identity</b><span>Q1_identity</span></td><td>implicit: 10, clear: 4</td><td>10</td><td><div class='bar'><i style='width:28.6%'></i></div><em>28.6%</em></td></tr>
+<tr><td><b>Scope</b><span>Q2_scope</span></td><td>broad: 12, bounded: 2</td><td>12</td><td><div class='bar'><i style='width:14.3%'></i></div><em>14.3%</em></td></tr>
+<tr><td><b>Mechanism</b><span>Q3_mechanism</span></td><td>present: 8, missing: 6</td><td>6</td><td><div class='bar'><i style='width:57.1%'></i></div><em>57.1%</em></td></tr>
+<tr><td><b>Evidence</b><span>Q4_evidence</span></td><td>present: 10, missing: 4</td><td>4</td><td><div class='bar'><i style='width:71.4%'></i></div><em>71.4%</em></td></tr>
+<tr><td><b>Falsifiability</b><span>Q5_falsifiability</span></td><td>present: 9, missing: 5</td><td>5</td><td><div class='bar'><i style='width:64.3%'></i></div><em>64.3%</em></td></tr>
+<tr><td><b>Boundary</b><span>Q6_boundary</span></td><td>missing: 7, present: 7</td><td>7</td><td><div class='bar'><i style='width:50.0%'></i></div><em>50.0%</em></td></tr>
+<tr><td><b>Listener Risk</b><span>Q7_listener_risk</span></td><td>normal: 14</td><td>0</td><td><div class='bar'><i style='width:100.0%'></i></div><em>100.0%</em></td></tr></tbody></table>
+    </div>
+    <div class="panel">
+      <h2>Maturity Distribution</h2>
+      <table><thead><tr><th>Level</th><th>Claims</th><th>Share</th></tr></thead><tbody><tr><td>Empirical Support</td><td>8</td><td>57.1%</td></tr>
+<tr><td>Metaphor</td><td>6</td><td>42.9%</td></tr></tbody></table>
+      <h2 style="margin-top:1.4rem;">Evidence Markers</h2>
+      <table><thead><tr><th>Marker</th><th>Claims</th></tr></thead><tbody><tr><td>prediction</td><td>7</td></tr>
+<tr><td>test</td><td>5</td></tr>
+<tr><td>no explicit marker</td><td>4</td></tr>
+<tr><td>data</td><td>3</td></tr></tbody></table>
+    </div>
+  </section>
+
+  <section class="panel" style="margin-top:16px;">
+    <h2>Primary Repair Pressure</h2>
+    <div class="grid issues"><div class='issue'><strong>weak:Q2_scope</strong><span>12</span></div>
+<div class='issue'><strong>weak:Q1_identity</strong><span>10</span></div>
+<div class='issue'><strong>weak:Q6_boundary</strong><span>7</span></div>
+<div class='issue'><strong>weak:Q3_mechanism</strong><span>6</span></div>
+<div class='issue'><strong>weak:Q5_falsifiability</strong><span>5</span></div>
+<div class='issue'><strong>weak:Q4_evidence</strong><span>4</span></div></div>
+  </section>
+
+  <section class="panel" style="margin-top:16px;">
+    <h2>Station Marks</h2>
+    <table><thead><tr><th>Station</th><th>Status</th><th>Warnings</th></tr></thead><tbody><tr><td colspan='3'>No snapshot station marks loaded.</td></tr></tbody></table>
+  </section>
+
+  <section class="panel" style="margin-top:16px;">
+    <h2>Claim Audit Preview</h2>
+    <table class="claims"><thead><tr><th>#</th><th>Section</th><th>Claim</th><th>Maturity</th><th>Evidence</th><th>Kill Condition</th><th>Proof Boundary</th></tr></thead><tbody><tr><td>1</td><td>Testable Predictions</td><td>::: subtitle Experimental Evidence &amp; Future Tests ::: :::: :::::::::: section</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>2</td><td>The PEAR Evidence</td><td>Peer review.** Here\&#x27;s what they found: ::::::: evidence-box</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>3</td><td>Random Event Generator (REG) Experiments</td><td>PEAR exceeded that for consciousness-matter interaction. ::: **What PEAR proved:** - Human intention has measurable effects on quantum systems - The effect is small (\~10⁻⁴ deviation from chance) but highly significant - Effect size correlates with operator pairs who have emotional bonds - The effect is REAL, reproducible, and unexplained by conventional physics **What PEAR couldn\&#x27;t explain:** - WHY consciousness affects quantum systems - WHAT the mechanism is - HOW to predict effect magnitude ::: evidence-box</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>4</td><td>3. Retrocausal Effects (Bem, Radin)</td><td>Information can propagate backward in field time. **Status:** Meta-analysis of 90 studies shows p \&lt; 10⁻⁹.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>5</td><td>Experiment 1: χ-Field Mapping via Consciousness Coherence</td><td>**Hypothesis:** Locations with sustained high consciousness coherence (meditation centers, churches during prayer, etc.) will show measurable differences in quantum random number generator output compared to control locations. **Method:** - Place identical REGs in test locations (active meditation halls) and control locations (similar buildings, no meditation) - Measure output distributions over time (minimum 1 month per location) - Compare entropy deviations from true randomness **Prediction:** Test locations show 10⁻⁴ to 10⁻³ deviation from chance, correlating with meditation schedules. [Easy]{.difficulty .difficulty-easy} [1-3 months]{.timeline} ::: ::: prediction-card</td><td><b>Empirical Support</b><span>Level 6</span></td><td>prediction, test</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>6</td><td>Experiment 2: Faith-Field Decay Measurement</td><td>We predict λ ≈ 0.1/day. **Method:** - Operators perform REG influence experiments at varying time delays after intention formation - Test immediately, 1 day later, 3 days later, 7 days later, 14 days later - Measure effect size vs. time delay **Prediction:** Effect size follows exponential decay with half-life \~7 days. [Easy]{.difficulty .difficulty-easy} [2-4 months]{.timeline} ::: ::: prediction-card</td><td><b>Empirical Support</b><span>Level 6</span></td><td>prediction, test</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>7</td><td>Experiment 3: Bonded Pairs Enhanced Effect</td><td>Our framework predicts this is due to coherent F-field superposition. **Method:** - Test operator pairs with varying relationship strengths (strangers, acquaintances, friends, romantic partners, married couples) - Both operators focus on same intention simultaneously - Measure effect size vs. relationship strength **Prediction:** Effect scales with self-reported relationship strength (correlation r \&gt; 0.6). [Easy]{.difficulty .difficulty-easy} [3-6 months]{.timeline} ::: ::: prediction-card</td><td><b>Empirical Support</b><span>Level 6</span></td><td>prediction, test</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>8</td><td>Experiment 4: Prayer Efficacy in Medical Outcomes</td><td>**Hypothesis:** Focused prayer (high F·C) for specific medical outcomes will show measurable effects beyond placebo. **Method:** - Randomized controlled trial with cancer patients - Control group: standard treatment only - Test group: standard treatment + organized prayer teams (trained in coherent intention) - Measure: tumor regression rates, survival times, symptom severity **Prediction:** Test group shows 5-15% improvement over control, statistically significant at p \&lt; 0.05. [Hard (ethical approval, funding, duration)]{.difficulty .difficulty-hard} [2-5 years]{.timeline} ::: ::: prediction-card</td><td><b>Empirical Support</b><span>Level 6</span></td><td>prediction, test</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>9</td><td>Experiment 5: χ-Field Gradient Detection in Brain States</td><td>**Hypothesis:** Different consciousness states create measurable χ-field gradients detectable via quantum sensors near the brain. **Method:** - Use SQUID (Superconducting Quantum Interference Device) magnetometers near subject\&#x27;s head - Measure quantum coherence times during: normal consciousness, deep meditation, prayer, focused intention - Compare decoherence rates across states **Prediction:** Deep meditation/prayer shows 10-50% longer coherence times than normal consciousness. [Medium (requires specialized quantum equipment)]{.difficulty .difficulty-medium} [6-12 months]{.timeline} ::: ::: prediction-card</td><td><b>Empirical Support</b><span>Level 6</span></td><td>prediction</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>10</td><td>Experiment 6: Cosmological χ-Field Density Mapping</td><td>**Hypothesis:** If dark matter is χ-field at cosmic scales, then χ-field density should correlate with dark matter distributions. **Method:** - Analyze gravitational lensing data from galaxy clusters - Compare dark matter density maps with information-theoretic entropy calculations - Look for correlation between χ = I/V and inferred dark matter ρ_DM **Prediction:** Regions of high dark matter density show high Shannon information content in CMB fluctuations (correlation r \&gt; 0.5). [Hard (requires cosmological data access)]{.difficulty .difficulty-hard} [1-2 years (data analysis)]{.timeline} ::: ::: prediction-card</td><td><b>Empirical Support</b><span>Level 6</span></td><td>data, prediction</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>11</td><td>Experiment 7: Intention-Targeted Quantum Tunneling</td><td>**Hypothesis:** If F·χ biases quantum outcomes, then focused intention should bias tunneling probabilities. **Method:** - Setup: Radioactive decay detector (quantum tunneling events) - Operators attempt to increase/decrease decay detection rates via focused intention - Compare to control periods (no operator, or operator with no intention) **Prediction:** Intention periods show 10⁻⁵ to 10⁻⁴ deviation from expected decay rate. [Medium]{.difficulty .difficulty-medium} [3-6 months]{.timeline} ::: :::::::::: :::: section</td><td><b>Empirical Support</b><span>Level 6</span></td><td>prediction</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>12</td><td>The Call to Physicists</td><td>You\&#x27;ve been avoiding this data for 30 years because you don\&#x27;t have a framework for it. **Now you do.**</td><td><b>Metaphor</b><span>Level 1</span></td><td>data</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>13</td><td>The Logos-field framework:</td><td>- [x] Explains PEAR data - [x] Explains GCP correlations - [x] Explains Radin\&#x27;s meditation effects - [x] Explains retrocausal phenomena - [x] Makes new testable predictions - [x] Unifies GR and QM - [x] Maps onto Information Theory - [x] Preserves all existing physics You can\&#x27;t ignore this anymore.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>data</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>14</td><td>The Logos-field framework:</td><td>The math exists. ::: warning **The only question left:** Are you willing to test it? ::: Or are you going to keep pretending 6σ evidence doesn\&#x27;t exist because it makes you uncomfortable? :::: ::: nav-buttons [← Shannon Symmetry](shannon-symmetry.html){.nav-button} [Continue to The Truth →](the-truth.html){.nav-button} ::: :::::::::::::::::::::::::::::::</td><td><b>Metaphor</b><span>Level 1</span></td><td>test</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr></tbody></table>
+    <p class="footer">Showing first 40 claims. Full canonical claim audit remains in the XLSX/JSON.</p>
+  </section>
+
+  <p class="footer">
+    Generated 2026-05-24T10:56:50 from X:\Backside\workflows\axioms.workflow\01_OUTBOX_REPORTS\pa-11-testable-predictions.paper-grade.json. Snapshot: not loaded.
+  </p>
+</main>
+</body>
+</html>

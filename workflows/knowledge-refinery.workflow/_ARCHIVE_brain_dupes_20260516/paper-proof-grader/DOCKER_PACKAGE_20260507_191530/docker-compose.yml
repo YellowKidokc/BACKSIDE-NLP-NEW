@@ -1,0 +1,18 @@
+services:
+  grader:
+    build: .
+    image: theophysics/paper-intelligence:local
+    environment:
+      OLLAMA_URL: "http://host.docker.internal:11434/api/generate"
+      OLLAMA_MODEL: "qwen2.5:3b"
+    volumes:
+      - ./sample_input:/data/input:ro
+      - ./docker_output:/data/output
+    command: ["all", "--pattern", "*.html"]
+
+  schema:
+    build: .
+    image: theophysics/paper-intelligence:local
+    volumes:
+      - ./docker_output:/data/output
+    command: ["schema"]

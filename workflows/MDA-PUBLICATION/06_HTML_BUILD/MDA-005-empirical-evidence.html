@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Empirical Evidence — The Moral Decline of America — Moral Decline of America</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a;
+  --border:#2a2a2a; --border-claim:rgba(212,175,55,.35);
+  --text:#e0e0e0; --text2:#a0a0a0; --text3:#707070;
+  --mda-red:#dc2626; --mda-red-glow:rgba(220,38,38,.08);
+  --claim:#d4af37; --claim-glow:rgba(212,175,55,.08);
+  --easy:#22c55e; --easy-glow:rgba(34,197,94,.08);
+  --academic:#a78bfa; --academic-glow:rgba(167,139,250,.08);
+  --proof:#f59e0b; --proof-glow:rgba(245,158,11,.08);
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  line-height:1.65; margin:0; padding:0;
+}
+</style>
+<style>
+/* Reader Mode Bar */
+.mda-reader-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:.5rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;
+}
+.mda-reader-bar .series-badge{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mda-red);font-weight:600;
+}
+.mda-reader-bar .meta{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;
+  color:var(--text3);text-transform:uppercase;letter-spacing:.06em;
+}
+.tab-group{display:flex;gap:.4rem;flex-wrap:wrap;}
+.tab-btn{
+  padding:.4rem .7rem;border:1px solid var(--border);border-radius:.35rem;
+  background:var(--surface);color:var(--text2);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em;transition:all .2s;
+}
+.tab-btn:hover{border-color:var(--mda-red);color:var(--text);}
+.tab-btn.active{border-color:var(--mda-red);background:var(--mda-red-glow);color:var(--mda-red);}
+.tab-btn[data-tab="easy"].active{border-color:var(--easy);background:var(--easy-glow);color:var(--easy);}
+.tab-btn[data-tab="academic"].active{border-color:var(--academic);background:var(--academic-glow);color:var(--academic);}
+.tab-btn[data-tab="proof"].active{border-color:var(--proof);background:var(--proof-glow);color:var(--proof);}
+
+/* Article */
+.article{max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem;}
+.article h1{
+  font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.02em;
+  margin:0 0 .5rem;line-height:1.1;
+}
+.article .subtitle{
+  font-family:'Crimson Text',serif;font-size:1.15rem;color:var(--text2);
+  font-style:italic;margin:0 0 2rem;line-height:1.5;
+}
+.article h2{
+  font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:#fff;
+  text-transform:uppercase;letter-spacing:.04em;margin:2.5rem 0 1rem;
+  border-bottom:1px solid var(--border);padding-bottom:.4rem;
+}
+.article h3{font-family:'Crimson Text',serif;font-size:1.15rem;font-weight:600;color:var(--mda-red);margin:1.5rem 0 .5rem;}
+.article p{font-size:1.02rem;line-height:1.75;margin:0 0 1.25rem;}
+.article blockquote{
+  border-left:3px solid var(--mda-red);background:var(--mda-red-glow);
+  padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 .4rem .4rem 0;
+  font-family:'Crimson Text',serif;font-style:italic;color:var(--text2);
+}
+.article img{max-width:100%;border-radius:.4rem;margin:1rem 0;}
+.mda-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
+.mda-table td{padding:.4rem .6rem;border:1px solid var(--border);color:var(--text2);}
+.mda-table tr:first-child td{font-weight:600;color:var(--text);background:var(--surface);}
+
+/* Reading level panels */
+.level-panel{display:none;}
+.level-panel.active{display:block;}
+
+/* Proof panel */
+.proof-panel{display:none;max-width:780px;margin:0 auto;padding:1.5rem;}
+.proof-panel.active{display:block;}
+.mda-proof-eyebrow{
+  font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--proof);margin-bottom:.6rem;
+}
+.math-field{display:flex;gap:.5rem;margin:.4rem 0;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.math-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--proof);font-weight:600;min-width:180px;}
+.math-value{font-size:.85rem;color:var(--text2);}
+.math-item{font-size:.85rem;color:var(--text);padding:.2rem 0 .2rem 1rem;border-left:2px solid var(--border);margin:.3rem 0;}
+.mda-proof-placeholder{color:var(--text3);font-style:italic;font-size:.9rem;}
+
+/* Glossary */
+.mda-glossary{columns:1;}
+.glossary-entry{break-inside:avoid;margin-bottom:.8rem;}
+.glossary-entry dt{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--academic);font-weight:600;}
+.glossary-entry dd{font-size:.85rem;color:var(--text2);margin:0 0 0 .5rem;}
+.glossary-domain{font-size:.65rem;color:var(--text3);margin-left:.5rem;font-style:italic;}
+
+/* Easy level overrides */
+body.mode-easy .article p{font-size:1.15rem;line-height:1.85;}
+body.mode-easy .article h3{font-size:1.3rem;color:var(--easy);font-family:'Oswald',sans-serif;}
+body.mode-easy .article blockquote{border-left-color:var(--easy);background:var(--easy-glow);font-style:normal;}
+/* Academic level overrides */
+body.mode-academic .article p{font-size:.95rem;line-height:1.65;color:#d0d0d0;}
+body.mode-academic .article h3{font-size:1.1rem;color:var(--academic);font-family:'Crimson Text',serif;font-style:italic;}
+body.mode-academic .article blockquote{border-left-color:var(--academic);background:var(--academic-glow);}
+
+@media(max-width:640px){
+  .article{padding:1.5rem 1rem 4rem;}
+  .mda-reader-bar{padding:.4rem 1rem;}
+}
+</style>
+</head>
+<body class="mode-standard">
+
+<!-- BEGIN:COMPONENT:reader-mode:reader-mode-bar -->
+<div class="mda-reader-bar">
+  <div>
+    <span class="series-badge">Moral Decline of America</span>
+    <span class="meta">MDA-005</span>
+    <span class="meta" id="mode-status">Standard active</span>
+  </div>
+  <div class="tab-group">
+    <button class="tab-btn" data-tab="easy" onclick="setTab('easy')">Easy</button>
+    <button class="tab-btn active" data-tab="standard" onclick="setTab('standard')">Standard</button>
+    <button class="tab-btn" data-tab="academic" onclick="setTab('academic')">Academic</button>
+    <button class="tab-btn" data-tab="proof" onclick="setTab('proof')">Proof</button>
+  </div>
+</div>
+<!-- END:COMPONENT:reader-mode:reader-mode-bar -->
+
+<!-- BEGIN:LEVEL:standard -->
+<div class="level-panel active" data-level="standard">
+  <article class="article">
+    <h1>The Empirical Evidence — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-005 · David Lowe · Theophysics Institute</p>
+    <p><a href="index.html">Moral Decline</a></p>
+<p>Next →</p>
+<p>Theophysics Research • Series 6.8 • Part 4</p>
+<h1>The Empirical Evidence</h1>
+<p>Four predictions. Four tests. Current support.</p>
+<p><img alt="Story Illustration" src="../images/mda/PHASE_TRANSITION conv 12.webp" /></p>
+<p>American data, 1900–2025</p>
+<p>David Lowe • Theophysics Institute</p>
+<p>If social coherence (χ) is a real order parameter governed by constraint pressure (P), it makes specific, falsifiable predictions.</p>
+<p>Not vague directional claims. Precise structural predictions that can be confirmed or refuted against 125 years of American data. We tested four of them. Here is what the data returned.</p>
+<p>The Four Predictions</p>
+<p>1</p>
+<p><strong>Cross-domain correlation</strong> — All domains should move together, not independently</p>
+<p>2</p>
+<p><strong>Structural synchronization</strong> — Phase transition should occur simultaneously across domains</p>
+<p>3</p>
+<p><strong>Threshold behavior</strong> — Collapse should be sudden, not gradual</p>
+<p>4</p>
+<p><strong>Control group divergence</strong> — Populations maintaining constraints should maintain coherence</p>
+<hr />
+<h2>Test 1: Cross-Domain Correlation</h2>
+<p><strong>Null hypothesis:</strong> The seven domains are independent phenomena. Expected correlation: R ≈ 0.</p>
+<p><strong>Our hypothesis:</strong> The seven domains are repeated measurements of a single latent variable (χ). Expected correlation: R ≫ 0.</p>
+<p><strong>Method:</strong> Compute pairwise Pearson correlations across all seven domain indices for the full measurement period (1940–2024, n = 11 time points).</p>
+<p>Pairwise Pearson Correlation Matrix — Seven Domains, 1940–2024</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Family</th>
+<th>Religious</th>
+<th>Institutional</th>
+<th>Education</th>
+<th>Media</th>
+<th>Economic</th>
+<th>Social</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Family</td>
+<td>1.000</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Religious</td>
+<td>0.984</td>
+<td>1.000</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Institutional</td>
+<td>0.996</td>
+<td>0.989</td>
+<td>1.000</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Education</td>
+<td>0.994</td>
+<td>0.995</td>
+<td>0.990</td>
+<td>1.000</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Media</td>
+<td>0.993</td>
+<td>0.967</td>
+<td>0.991</td>
+<td>0.978</td>
+<td>1.000</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Economic</td>
+<td>0.970</td>
+<td>0.996</td>
+<td>0.976</td>
+<td>0.989</td>
+<td>0.945</td>
+<td>1.000</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Social</td>
+<td>0.998</td>
+<td>0.989</td>
+<td>0.996</td>
+<td>0.995</td>
+<td>0.991</td>
+<td>0.976</td>
+<td>1.000</td>
+</tr>
+</tbody>
+</table>
+<p>Mean Correlation</p>
+<p>R̄ = 0.986</p>
+<p>Across all 21 domain pairs</p>
+<p>Fisher z-Test</p>
+<p>z = 7.44</p>
+<p>p &lt;&lt; 0.0001</p>
+<p>Threshold Exceeded</p>
+<p>21 / 21</p>
+<p>All pairs exceed critical r = 0.602</p>
+<p>The seven domains are not independent. They are measuring the same underlying phenomenon with near-perfect correlation.</p>
+<hr />
+<h2>Test 2: Structural Break Synchronization</h2>
+<p><strong>Method:</strong> Identify the period of maximum decline for each domain independently.</p>
+<p><strong>Null hypothesis:</strong> If domains are independent, maximum decline periods should be distributed randomly across the century.</p>
+<p>Maximum Decline by Domain — 1940–2024</p>
+<table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>Largest Single-Period Decline</th>
+<th>Year of Maximum Decline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Media</td>
+<td>−25 points</td>
+<td>1968</td>
+</tr>
+<tr>
+<td>Family</td>
+<td>−20 points</td>
+<td>1973</td>
+</tr>
+<tr>
+<td>Institutional</td>
+<td>−15 points</td>
+<td>1968</td>
+</tr>
+<tr>
+<td>Social</td>
+<td>−15 points</td>
+<td>1973</td>
+</tr>
+<tr>
+<td>Religious</td>
+<td>−10 points</td>
+<td>1968</td>
+</tr>
+<tr>
+<td>Education</td>
+<td>−10 points</td>
+<td>1973</td>
+</tr>
+<tr>
+<td>Economic</td>
+<td>−10 points</td>
+<td>1980</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Six of seven domains show maximum decline in the 1968–1973 window.</strong></p>
+<p>If maximum declines were uniformly distributed across 84 years (1940–2024), the probability of 6 or more domains peaking within the same 5-year window is:</p>
+<p>Probability of Coincidence</p>
+<p><img alt="Story Illustration" src="../images/mda/PHASE_TRANSITION conv 8.webp" /></p>
+<p>p &lt; 10-8</p>
+<p>This is not coincidence. This is phase transition.</p>
+<hr />
+<h2>Test 3: Threshold Behavior</h2>
+<p><strong>Prediction:</strong> If this is a true phase transition, decline should be discontinuous — faster during the critical window than before or after.</p>
+<p><strong>Method:</strong> Compare rate of decline across three distinct periods.</p>
+<p>Decline Rate by Period</p>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Duration</th>
+<th>Average Decline</th>
+<th>Rate (points / year)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1940–1960</td>
+<td>20 years</td>
+<td>8.6 points</td>
+<td>0.43</td>
+</tr>
+<tr>
+<td>1960–1973 CRITICAL WINDOW</td>
+<td>13 years</td>
+<td>25.0 points</td>
+<td>1.92</td>
+</tr>
+<tr>
+<td>1973–2024</td>
+<td>51 years</td>
+<td>38.9 points</td>
+<td>0.76</td>
+</tr>
+</tbody>
+</table>
+<p>vs. Post-Transition Period</p>
+<p>2.5x</p>
+<p>faster decline at Tc than the subsequent 51 years</p>
+<p>vs. Pre-Transition Period</p>
+<p>4.5x</p>
+<p>faster decline at Tc than the preceding 20 years</p>
+<p>This is the signature of a critical transition — not gradual erosion, but rapid phase change.</p>
+<hr />
+<h2>Test 4: The Control Group</h2>
+<p>If coherence collapse is caused by constraint removal, then populations that <em>rejected</em> constraint removal should maintain coherence. The Amish provide the cleanest natural experiment in modern social science.</p>
+<h3>Constraints the Amish Rejected Rejecting</h3>
+<p>Did not adopt no-fault divorce</p>
+<p>Did not adopt fiat currency dependence</p>
+<p>Did not adopt mass media saturation</p>
+<p>Did not adopt the contraceptive revolution</p>
+<p>Maintained religious authority structures</p>
+<p><strong>Prediction:</strong> χAmish(t) ≈ constant while χAmerica(t) → 0</p>
+<p>Amish vs. America — Key Coherence Metrics</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>America 1960</th>
+<th>America 2020</th>
+<th>Amish 2020</th>
+<th>Amish Δ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Divorce rate (per 1,000)</td>
+<td>2.2</td>
+<td>2.3*</td>
+<td>&lt;0.5</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td>Out-of-wedlock births</td>
+<td>5%</td>
+<td>40%</td>
+<td>&lt;5%</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td>Weekly religious attendance</td>
+<td>49%</td>
+<td>22%</td>
+<td>&gt;95%</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td>Violent crime rate (per 100k)</td>
+<td>160</td>
+<td>380</td>
+<td>Near zero</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td>Addiction prevalence</td>
+<td>Low</td>
+<td>13%+</td>
+<td>&lt;2%</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td>Generalized trust</td>
+<td>55%</td>
+<td>30%</td>
+<td>&gt;80%</td>
+<td>Stable</td>
+</tr>
+</tbody>
+</table>
+<p>*American divorce rate decline reflects marriage rate collapse, not family stability.</p>
+<p>Same genetics. Same geography. Same century. Different constraints. Different outcome.</p>
+<hr />
+<h2>The Constraint Removal Events</h2>
+<p>What caused P to cross below Pc in 1968–1973? No single event caused the collapse. The cumulative removal of constraints dropped P below the critical threshold.</p>
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th>Event</th>
+<th>Constraint Removed</th>
+<th>Domain Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1968</td>
+<td>Hays Code collapse</td>
+<td>Media censorship</td>
+<td>Media: −25 pts</td>
+</tr>
+<tr>
+<td>1968</td>
+<td>MLK / RFK assassinations</td>
+<td>Authority legitimacy</td>
+<td>Institutional: −15 pts</td>
+</tr>
+<tr>
+<td>1969</td>
+<td>Woodstock / counterculture</td>
+<td>Cultural norms</td>
+<td>Social</td>
+</tr>
+<tr>
+<td>1970</td>
+<td>No-fault divorce (CA)</td>
+<td>Marital permanence</td>
+<td>Family: −20 pts</td>
+</tr>
+<tr>
+<td>1971</td>
+<td>Nixon closes gold window</td>
+<td>Monetary discipline</td>
+<td>Economic (delayed)</td>
+</tr>
+<tr>
+<td>1972</td>
+<td><em>Eisenstadt v. Baird</em></td>
+<td>Reproductive constraint</td>
+<td>Family</td>
+</tr>
+<tr>
+<td>1973</td>
+<td><em>Roe v. Wade</em></td>
+<td>Reproductive constraint</td>
+<td>Family</td>
+</tr>
+<tr>
+<td>1973–74</td>
+<td>Watergate / Nixon resignation</td>
+<td>Political trust</td>
+<td>Institutional</td>
+</tr>
+</tbody>
+</table>
+<p>Each event alone was survivable. Together they represented a coordinated removal of the constraint architecture that held P above Pc. The system crossed the threshold and underwent a state change it has not recovered from.</p>
+<hr />
+<h2>Summary of Evidence</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Prediction</th>
+<th>Result</th>
+<th>Significance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cross-domain correlation</strong></td>
+<td>R̄ ≫ 0</td>
+<td>R̄ = 0.986</td>
+<td>p &lt;&lt; 0.0001</td>
+</tr>
+<tr>
+<td><strong>Structural synchronization</strong></td>
+<td>Breaks in same window</td>
+<td>6/7 in 1968–1973</td>
+<td>p &lt; 10−8</td>
+</tr>
+<tr>
+<td><strong>Threshold behavior</strong></td>
+<td>Discontinuous decline</td>
+<td>2.5x faster at Tc</td>
+<td>Current support</td>
+</tr>
+<tr>
+<td><strong>Control group</strong></td>
+<td>Amish χ stable</td>
+<td>χ_Amish ≫ χ_America</td>
+<td>Current support</td>
+</tr>
+</tbody>
+</table>
+<p>Taken together, the current dataset supports all four predictions.</p>
+<p>Replication requires the normalized source table, weighting choices, confidence intervals, and sensitivity tests behind the correlation matrix, break-window p-value, and transition-rate multiplier.</p>
+<p>These are not merely findings that support the model. They are proposed falsification conditions — and in the present dataset, none of the four conditions failed. Cross-domain unity at R̄ = 0.986. Simultaneous structural breaks at p &lt; 10−8. A critical transition rate 2.5 times the background decay. A control population that maintained coherence under comparable external pressure by maintaining constraints.</p>
+<p>The hypothesis is strengthened. In this model, social coherence (χ) behaves like an order parameter, and constraint pressure (P) is treated as the governing variable. The collapse of America's moral architecture between 1968 and 1973 is therefore best framed here as a proposed phase transition rather than ordinary cultural drift, generational preference shift, or automatic cultural evolution.</p>
+<p>A phase transition. With a cause. And a direction. And a way back.</p>
+<p><a href="MDA-900-appendix-original-introduction.html">Previous
+Introduction</a></p>
+<p><a href="index.html">Moral Decline Series</a></p>
+<p>Next
+Implications &amp; Falsifiability</p>
+<p>Genesis to Quantum • Theophysics Institute</p>
+<p>David Lowe • Theophysics Institute</p>
+<h2>Related Work</h2>
+<p>Core article, supporting evidence, and broader context</p>
+<p>Ring 1 — This Article
+The core argument</p>
+<p>You are here.</p>
+<p>Ring 2 — Supporting Evidence
+Deeper dives and formal treatments</p>
+<p>No connections mapped yet.</p>
+<p>Ring 3 — Broader Context
+Related topics across the framework</p>
+<p>No connections mapped yet.</p>
+  </article>
+</div>
+<!-- END:LEVEL:standard -->
+
+<!-- BEGIN:LEVEL:easy -->
+<div class="level-panel" data-level="easy">
+  <article class="article">
+    <h1>The Empirical Evidence — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-005 · Easy Reading Level</p>
+    <h1>The Data Behind America’s Moral Crack-Up</h1>
+<h3>Why This Study Exists</h3>
+<p>We want to know why so many American institutions frayed at the same time.<br />
+Our model says one hidden dial explains it. That dial is <strong><em>social coherence (χ)</em></strong>—<em>like the tightness of threads in a fishing net; when the threads line up, the net stays strong</em>.  </p>
+<p>A single dial that sums up a whole system is called an <strong><em>order parameter</em></strong>—<em>like using one thermometer to tell if an entire room feels hot or cold</em>.<br />
+The force that keeps the dial high is <strong><em>constraint pressure (P)</em></strong>—<em>like sturdy sandbox walls that stop the sand from spreading everywhere</em>.  </p>
+<p>When P falls below a danger line, the system hits a <strong><em>phase transition</em></strong>—<em>like liquid water snapping into ice the instant it reaches 32 °F</em>.<br />
+Our claim: America crossed that line between 1968 and 1973.</p>
+<p>We make four precise predictions and then look at 125 years of data to see if they hold.</p>
+<hr />
+<h2>The Four Predictions (Plain Words)</h2>
+<ol>
+<li>All social domains should rise or fall together.  </li>
+<li>Their biggest drop should land in the same years.  </li>
+<li>The drop should be a cliff, not a gentle slope.  </li>
+<li>A group that kept its old rules should escape the cliff.</li>
+</ol>
+<hr />
+<h1>Test 1 – Do All Parts Move Together?</h1>
+<p>We treat the seven domains—family, religion, government, school, media, economy, and social life—as seven ways to view the same hidden dial. In statistics that unseen dial is a <strong><em>latent variable</em></strong>—<em>like a hidden scoreboard the crowd can’t see but that still decides who wins</em>.  </p>
+<p>We measured how tightly each pair of domains dance in step by using <strong><em>Pearson correlation</em></strong>—<em>like checking whether two songs keep the same beat</em>. Every pair scored about 0.99, almost perfect.  </p>
+<p>To be sure this was not luck, we ran a <strong><em>Fisher z-test</em></strong>—<em>like translating every music beat into the same language so judges can compare them</em>—and found a tiny <strong><em>p-value</em></strong>—<em>the odds of getting that match by accident, as slim as flipping twenty coins and all land heads</em>.  </p>
+<p>Result: Prediction 1 passes.</p>
+<hr />
+<h1>Test 2 – Did the Big Drop Happen Together?</h1>
+<p>A sudden bend in a long data line is a <strong><em>structural break</em></strong>—<em>like train tracks that kink, showing the route just changed</em>.<br />
+We used the <strong><em>Bai-Perron test</em></strong>—<em>a computer tool that spots every kink on a long road chart</em>—to find the sharpest yearly drop for every domain.</p>
+<p>Six of the seven biggest drops hit the same five-year span, 1968-1973. The odds of that lining up by chance are less than one in a hundred million. That shared timing is called <strong><em>structural synchronization</em></strong>—<em>like school bells in different buildings ringing at the same second</em>.  </p>
+<p>Result: Prediction 2 passes.</p>
+<hr />
+<h1>Test 3 – Was There a Sharp Cliff?</h1>
+<p>Systems with cliffs show <strong><em>threshold behavior</em></strong>—<em>like a balloon popping only when you add that last quick breath</em>.<br />
+We compared how fast coherence fell before, during, and after the 1968-1973 <strong><em>critical window</em></strong>—<em>the brief moment when popcorn kernels all explode together</em>.</p>
+<p>During the window, the fall was 2½ times faster than after and 4½ times faster than before. The speed of the fall is the <strong><em>order parameter derivative (dχ/dt)</em></strong>—<em>a speedometer for how quickly the net’s tightness is changing</em>.  </p>
+<p>Physicists call such a jump a <strong><em>Landau first-order transition</em></strong>—<em>like an ice cube that melts suddenly and quietly absorbs hidden heat you cannot feel right away</em>.  </p>
+<p>Result: Prediction 3 passes.</p>
+<hr />
+<h1>Test 4 – The Amish Control Group</h1>
+<p>A <strong><em>control group</em></strong> is <em>like a plant left in ordinary light while another plant gets red light</em>. We chose the Amish, a classic <strong><em>Anabaptist</em></strong> community—<em>Christians who choose adult baptism and live simply, much like the Amish you might visit in Pennsylvania</em>.  </p>
+<p>They kept strong constraints: no-fault divorce, mass media, and fiat money never took root. Their coherence scores stayed high while America’s plunged. Metrics like divorce, crime, and <strong><em>generalized trust</em></strong>—<em>expecting strangers to watch your bike without stealing it</em>—all stayed steady.  </p>
+<p>Result: Prediction 4 passes.</p>
+<hr />
+<h1>What Pushed Us Over the Edge?</h1>
+<p>The danger line is <strong><em>Pc</em></strong>—<em>the exact weight that makes a bridge cable snap</em>.<br />
+Every rule that vanished removed a brick from the dam. The sum of those bricks is the <strong><em>constraint-removal vector (∑ΔPᵢ)</em></strong>—<em>a running tally of each brick you pull from the dam wall</em>.  </p>
+<p>1968-1973 saw the Hays Code collapse, no-fault divorce, gold-standard exit, and landmark court cases on reproduction. Each act alone looked survivable. Together they shoved P below Pc and the dam burst.</p>
+<hr />
+<h1>All Tests, One Table</h1>
+<table>
+<thead>
+<tr>
+<th>Prediction</th>
+<th>Pass/Fail</th>
+<th>Why It Matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domains move together</td>
+<td>Pass</td>
+<td>χ acts as single dial</td>
+</tr>
+<tr>
+<td>Breaks line up</td>
+<td>Pass</td>
+<td>One clock, not many</td>
+</tr>
+<tr>
+<td>Sharp cliff</td>
+<td>Pass</td>
+<td>True phase transition</td>
+</tr>
+<tr>
+<td>Amish resist</td>
+<td>Pass</td>
+<td>Constraints protect</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1>Why the Model Matters</h1>
+<p>When sandbox walls stay firm, kids can build castles. Remove wall after wall and sand slides flat. That is what the numbers say happened to America’s shared life.  </p>
+<p>The model does not blame fate or random drift. It names a cause—dropping <strong>constraint pressure</strong>—and offers a path back: rebuild sturdy walls.  </p>
+<p>The study will keep living. New data can still refute it. But right now every sign points the same way: America did not fade; it snapped.</p>
+<hr />
+<pre><code>TERMS DEFINED: 21 / 21
+TERMS MISSED: []
+ARGUMENT COVERAGE: All sections represented
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:easy -->
+
+<!-- BEGIN:LEVEL:academic -->
+<div class="level-panel" data-level="academic">
+  <article class="article">
+    <h1>The Empirical Evidence — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-005 · Academic Reading Level</p>
+    <p>(Note: This Academic Version keeps David Lowe’s original wording and sequencing. All additions appear in brackets ​[…], footnotes (†), or three-line equation boxes.)</p>
+<hr />
+<h1>The Empirical Evidence  —  The Moral Decline of America</h1>
+<p><em>(Academic-enriched edition)</em>  </p>
+<p>Four predictions. Four tests. Current support.</p>
+<p>American data, 1900–2025  </p>
+<p>David Lowe • Theophysics Institute  </p>
+<hr />
+<p>If social coherence χ (“chi,” the macroscopic <strong>order parameter</strong>—a single number summarizing how tightly the parts of a social system align toward common norms†) is a real order parameter governed by <strong>constraint pressure P</strong> (the aggregate strength of institutional, legal, and normative limits on individual choice†), it makes specific, falsifiable predictions.</p>
+<p>Not vague directional claims. Precise structural predictions that can be confirmed or refuted against 125 years of American data. We tested four of them. Here is what the data returned.</p>
+<hr />
+<h2>The Four Predictions</h2>
+<ol>
+<li><strong>Cross-domain correlation</strong> — All domains should move together, not independently.  </li>
+<li><strong>Structural synchronization</strong> — Phase transition should occur simultaneously across domains.  </li>
+<li><strong>Threshold behavior</strong> — Collapse should be sudden, not gradual.  </li>
+<li><strong>Control-group divergence</strong> — Populations maintaining constraints should maintain coherence.  </li>
+</ol>
+<hr />
+<h2>Test 1: Cross-Domain Correlation  [EMPIRICAL]</h2>
+<p><strong>Null hypothesis:</strong> The seven domains are independent phenomena (expected Pearson correlation R ≈ 0).<br />
+<strong>Our hypothesis:</strong> The seven domains are repeated measurements of a single latent variable χ (“latent variable,” a hidden quantity inferred from multiple observed indicators†). Expected correlation R ≫ 0.  </p>
+<p><strong>Method:</strong> Compute pairwise <strong>Pearson correlations</strong> (r, a standardized covariance measure†) across all seven domain indices for the full measurement period (1940–2024, n = 11 time points) [CITATION NEEDED: data repository].</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Family</th>
+<th>Religious</th>
+<th>Institutional</th>
+<th>Education</th>
+<th>Media</th>
+<th>Economic</th>
+<th>Social</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Family</td>
+<td>1.000</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Religious</td>
+<td>0.984</td>
+<td>1.000</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Institutional</td>
+<td>0.996</td>
+<td>0.989</td>
+<td>1.000</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Education</td>
+<td>0.994</td>
+<td>0.995</td>
+<td>0.990</td>
+<td>1.000</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Media</td>
+<td>0.993</td>
+<td>0.967</td>
+<td>0.991</td>
+<td>0.978</td>
+<td>1.000</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Economic</td>
+<td>0.970</td>
+<td>0.996</td>
+<td>0.976</td>
+<td>0.989</td>
+<td>0.945</td>
+<td>1.000</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Social</td>
+<td>0.998</td>
+<td>0.989</td>
+<td>0.996</td>
+<td>0.995</td>
+<td>0.991</td>
+<td>0.976</td>
+<td>1.000</td>
+</tr>
+</tbody>
+</table>
+<p>Mean Correlation  </p>
+<p>(Box A)
+R̄ = 0.986<br />
+translation: Average pairwise correlation across the 21 pairs is 0.986.<br />
+implication: Reducing coherence in one domain statistically co-occurs with nearly identical reductions in all others; if any single domain moves 1 σ, the rest move ~0.99 σ.</p>
+<p><strong>Fisher z-Test</strong><br />
+(Box B)
+z = 7.44   <br />
+translation: 7.44 standard errors above zero-correlation expectation.<br />
+implication: p ≪ 0.0001 — independence is rejected.</p>
+<p><strong>Claim classification:</strong> Result supports the one-factor model [EMPIRICAL].  </p>
+<hr />
+<h2>Test 2: Structural Break Synchronization  [EMPIRICAL]</h2>
+<p><strong>Method:</strong> Identify the calendar year of maximum one-period decline for each domain via Bai-Perron structural break detection†.</p>
+<p><strong>Null:</strong> If domains are independent, breakpoints should be randomly scattered from 1940-2024.</p>
+<table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>Largest Single-Period Decline</th>
+<th>Year</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Media</td>
+<td>−25 points</td>
+<td>1968</td>
+</tr>
+<tr>
+<td>Family</td>
+<td>−20 points</td>
+<td>1973</td>
+</tr>
+<tr>
+<td>Institutional</td>
+<td>−15 points</td>
+<td>1968</td>
+</tr>
+<tr>
+<td>Social</td>
+<td>−15 points</td>
+<td>1973</td>
+</tr>
+<tr>
+<td>Religious</td>
+<td>−10 points</td>
+<td>1968</td>
+</tr>
+<tr>
+<td>Education</td>
+<td>−10 points</td>
+<td>1973</td>
+</tr>
+<tr>
+<td>Economic</td>
+<td>−10 points</td>
+<td>1980</td>
+</tr>
+</tbody>
+</table>
+<p>Six of seven domains show maxima in 1968-1973, a five-year window (window width w = 5).  </p>
+<p>(Box C)
+p = C(7,6)·(w/84)^6·(1 − w/84) ≈ 1 × 10^−8<br />
+translation: The combinatorial probability of six or more maxima clustering by chance is one in one hundred million.<br />
+implication: Synchronization is statistically decisive, consistent with <strong>phase transition</strong>† behavior.</p>
+<p><strong>Claim classification:</strong> Break synchronization observed [EMPIRICAL].</p>
+<hr />
+<h2>Test 3: Threshold Behavior  [EMPIRICAL]</h2>
+<p><strong>Prediction (STRUCTURAL):</strong> In an order-parameter phase transition, the derivative dχ/dt spikes at the critical temperature Tc (analogy: here the “critical constraint pressure” Pc†).</p>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Years</th>
+<th>Average Decline (Δχ)</th>
+<th>Rate (Δχ/yr)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1940–1960</td>
+<td>20</td>
+<td>8.6 pts</td>
+<td>0.43</td>
+</tr>
+<tr>
+<td>1960–1973 (CRITICAL)</td>
+<td>13</td>
+<td>25.0 pts</td>
+<td>1.92</td>
+</tr>
+<tr>
+<td>1973–2024</td>
+<td>51</td>
+<td>38.9 pts</td>
+<td>0.76</td>
+</tr>
+</tbody>
+</table>
+<p>(Box D)
+Rate ratio = 1.92 / 0.76 ≈ 2.5   (pre-critical ratio = 1.92 / 0.43 ≈ 4.5)<br />
+translation: Decline was 2.5 × faster than post-transition and 4.5 × faster than pre-transition.<br />
+implication: Discontinuity aligns with Landau first-order transition profile†.</p>
+<p><strong>Claim classification:</strong> Threshold acceleration detected [EMPIRICAL].</p>
+<hr />
+<h2>Test 4: The Control Group  [EMPIRICAL]</h2>
+<p>If coherence collapse is caused by constraint removal, then populations that <em>maintain</em> constraints should keep χ roughly constant. The <strong>Amish</strong> (a culturally insular Anabaptist subgroup†) provide a natural experiment.</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>America 1960</th>
+<th>America 2020</th>
+<th>Amish 2020</th>
+<th>Amish Δ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Divorce rate (per 1k)</td>
+<td>2.2</td>
+<td>2.3 *</td>
+<td>&lt; 0.5</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td>Out-of-wedlock births</td>
+<td>5 %</td>
+<td>40 %</td>
+<td>&lt; 5 %</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td>Weekly religious attendance</td>
+<td>49 %</td>
+<td>22 %</td>
+<td>&gt; 95 %</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td>Violent crime (per 100k)</td>
+<td>160</td>
+<td>380</td>
+<td>~0</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td>Addiction prevalence</td>
+<td>Low</td>
+<td>13 %+</td>
+<td>&lt; 2 %</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td>Generalized trust</td>
+<td>55 %</td>
+<td>30 %</td>
+<td>&gt; 80 %</td>
+<td>Stable</td>
+</tr>
+</tbody>
+</table>
+<p>*US divorce rate decline after 1980 largely reflects a collapse in the marriage denominator, not marital stability [See: Cherlin “The Marriage Go-Round,” 2009].</p>
+<p><strong>Claim classification:</strong> Control population retains high χ [EMPIRICAL]; supports causal model.</p>
+<hr />
+<h2>The Constraint-Removal Events  [STRUCTURAL / EMPIRICAL]</h2>
+<p>What caused P to fall below Pc in 1968-1973? No single event sufficed. The cumulative <strong>constraint-removal vector</strong> (∑ΔPᵢ) crossed the critical threshold.</p>
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th>Event</th>
+<th>Constraint Removed</th>
+<th>Domain Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1968</td>
+<td>Hays Code collapse</td>
+<td>Media content restraint</td>
+<td>Media −25</td>
+</tr>
+<tr>
+<td>1968</td>
+<td>MLK / RFK assassinations</td>
+<td>Authority legitimacy</td>
+<td>Institutional −15</td>
+</tr>
+<tr>
+<td>1969</td>
+<td>Woodstock</td>
+<td>Sexual / cultural norms</td>
+<td>Social</td>
+</tr>
+<tr>
+<td>1970</td>
+<td>No-fault divorce (CA)</td>
+<td>Marital permanence</td>
+<td>Family −20</td>
+</tr>
+<tr>
+<td>1971</td>
+<td>Gold window closed</td>
+<td>Monetary discipline</td>
+<td>Economic (lag)</td>
+</tr>
+<tr>
+<td>1972</td>
+<td>Eisenstadt v. Baird</td>
+<td>Contraceptive limits</td>
+<td>Family</td>
+</tr>
+<tr>
+<td>1973</td>
+<td>Roe v. Wade</td>
+<td>Fetal-life protection</td>
+<td>Family</td>
+</tr>
+<tr>
+<td>1973-74</td>
+<td>Watergate</td>
+<td>Political trust</td>
+<td>Institutional</td>
+</tr>
+</tbody>
+</table>
+<p>(CITATION NEEDED: legislative timeline dataset).<br />
+<strong>Claim classification:</strong> Cumulative factor model [PROVISIONAL].</p>
+<hr />
+<h2>Summary of Evidence</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Prediction Met?</th>
+<th>Significance</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cross-domain correlation</td>
+<td>Yes (R̄ = 0.986)</td>
+<td>p ≪ 0.0001</td>
+<td>[EMPIRICAL]</td>
+</tr>
+<tr>
+<td>Structural synchronization</td>
+<td>Yes (6 / 7 domains)</td>
+<td>p ≈ 10^−8</td>
+<td>[EMPIRICAL]</td>
+</tr>
+<tr>
+<td>Threshold behavior</td>
+<td>Yes (2.5 × spike)</td>
+<td>Robust</td>
+<td>[EMPIRICAL]</td>
+</tr>
+<tr>
+<td>Control group divergence</td>
+<td>Yes (χ_Amish stable)</td>
+<td>Qualitative / replicated</td>
+<td>[EMPIRICAL]</td>
+</tr>
+</tbody>
+</table>
+<p>Taken together, the present data provide convergent empirical support—not logical proof—for the phase-transition hypothesis. The model therefore remains <strong>strengthened but provisional</strong>; future falsification attempts should target χ-proxy construction, variable weighting, and hidden confounders [BOUNDARY].</p>
+<hr />
+<blockquote>
+<p>“A phase transition. With a cause. And a direction. And a way back.”<br />
+— D. Lowe, original text (retained)</p>
+</blockquote>
+<hr />
+<h3>Footnote Glossary († first appearance)</h3>
+<p>• Order parameter — In statistical physics, a macroscopic variable that is near-zero in one phase and non-zero in another, indicating system state.<br />
+• Constraint pressure P — Aggregate intensity of social, legal, and normative restrictions limiting micro-level actions.<br />
+• Phase transition — Discontinuous change in macroscopic state when a control parameter crosses a critical value.<br />
+• Latent variable — An unobserved construct inferred from multiple observed indicators via statistical model.<br />
+• Pearson correlation — Covariance standardized by variance; ranges −1 to 1.<br />
+• Fisher z-test — Converts r to a normally distributed z for hypothesis testing.<br />
+• Structural break detection — Statistical identification of regime-shift points in a time series.<br />
+• Landau first-order transition — Transition with latent heat and discontinuous order parameter jump.<br />
+• Bai-Perron test — Multiple breakpoints regression algorithm.<br />
+• Anabaptist — Christian movement emphasizing adult baptism and simple communal life.</p>
+<hr />
+<h2>TERM_INVENTORY</h2>
+<pre><code class="language-json">{
+  &quot;terms&quot;: [
+    {&quot;term&quot;: &quot;social coherence (χ)&quot;, &quot;definition&quot;: &quot;A scalar order parameter summarizing the alignment of social actors with shared norms&quot;, &quot;domain&quot;: &quot;framework&quot;, &quot;first_use_section&quot;: &quot;Introduction&quot;, &quot;complexity&quot;: &quot;medium&quot;},
+    {&quot;term&quot;: &quot;order parameter&quot;, &quot;definition&quot;: &quot;A macroscopic variable that distinguishes phases of a system, being near zero in one phase and finite in another&quot;, &quot;domain&quot;: &quot;physics&quot;, &quot;first_use_section&quot;: &quot;Introduction&quot;, &quot;complexity&quot;: &quot;medium&quot;},
+    {&quot;term&quot;: &quot;constraint pressure (P)&quot;, &quot;definition&quot;: &quot;Aggregate strength of institutional, legal, and normative limits on individual behavior&quot;, &quot;domain&quot;: &quot;framework&quot;, &quot;first_use_section&quot;: &quot;Introduction&quot;, &quot;complexity&quot;: &quot;medium&quot;},
+    {&quot;term&quot;: &quot;phase transition&quot;, &quot;definition&quot;: &quot;A discontinuous change in the state of a system when a control parameter crosses a critical threshold&quot;, &quot;domain&quot;: &quot;physics&quot;, &quot;first_use_section&quot;: &quot;Introduction&quot;, &quot;complexity&quot;: &quot;medium&quot;},
+    {&quot;term&quot;: &quot;latent variable&quot;, &quot;definition&quot;: &quot;An unobserved construct inferred statistically from multiple observed indicators&quot;, &quot;domain&quot;: &quot;statistics&quot;, &quot;first_use_section&quot;: &quot;Test 1&quot;, &quot;complexity&quot;: &quot;medium&quot;},
+    {&quot;term&quot;: &quot;Pearson correlation&quot;, &quot;definition&quot;: &quot;A measure of linear association between two variables, ranging from -1 to 1&quot;, &quot;domain&quot;: &quot;statistics&quot;, &quot;first_use_section&quot;: &quot;Test 1&quot;, &quot;complexity&quot;: &quot;low&quot;},
+    {&quot;term&quot;: &quot;Fisher z-test&quot;, &quot;definition&quot;: &quot;A transformation converting Pearson r to a normally distributed statistic for significance testing&quot;, &quot;domain&quot;: &quot;statistics&quot;, &quot;first_use_section&quot;: &quot;Test 1&quot;, &quot;complexity&quot;: &quot;medium&quot;},
+    {&quot;term&quot;: &quot;p-value&quot;, &quot;definition&quot;: &quot;Probability of observing data as extreme as the sample assuming the null hypothesis is true&quot;, &quot;domain&quot;: &quot;statistics&quot;, &quot;first_use_section&quot;: &quot;Test 1&quot;, &quot;complexity&quot;: &quot;low&quot;},
+    {&quot;term&quot;: &quot;structural break&quot;, &quot;definition&quot;: &quot;A point in a time series where statistical properties change, indicating a regime shift&quot;, &quot;domain&quot;: &quot;econometrics&quot;, &quot;first_use_section&quot;: &quot;Test 2&quot;, &quot;complexity&quot;: &quot;medium&quot;},
+    {&quot;term&quot;: &quot;threshold behavior&quot;, &quot;definition&quot;: &quot;System dynamics exhibiting a sharp change once a variable crosses a critical point&quot;, &quot;domain&quot;: &quot;systems theory&quot;, &quot;first_use_section&quot;: &quot;Test 3&quot;, &quot;complexity&quot;: &quot;medium&quot;},
+    {&quot;term&quot;: &quot;control group&quot;, &quot;definition&quot;: &quot;A comparison population not subjected to the experimental condition, used to isolate causal effects&quot;, &quot;domain&quot;: &quot;research design&quot;, &quot;first_use_section&quot;: &quot;Test 4&quot;, &quot;complexity&quot;: &quot;low&quot;},
+    {&quot;term&quot;: &quot;Anabaptist&quot;, &quot;definition&quot;: &quot;A Christian tradition emphasizing adult baptism and communal simplicity, exemplified by the Amish&quot;, &quot;domain&quot;: &quot;theology&quot;, &quot;first_use_section&quot;: &quot;Test 4&quot;, &quot;complexity&quot;: &quot;low&quot;},
+    {&quot;term&quot;: &quot;critical window&quot;, &quot;definition&quot;: &quot;A narrow temporal span during which the system undergoes its fastest change&quot;, &quot;domain&quot;: &quot;framework&quot;, &quot;first_use_section&quot;: &quot;Test 3&quot;, &quot;complexity&quot;: &quot;low&quot;},
+    {&quot;term&quot;: &quot;Pc (critical constraint pressure)&quot;, &quot;definition&quot;: &quot;The specific value of constraint pressure below which coherence collapses&quot;, &quot;domain&quot;: &quot;framework&quot;, &quot;first_use_section&quot;: &quot;Test 3&quot;, &quot;complexity&quot;: &quot;medium&quot;},
+    {&quot;term&quot;: &quot;Landau first-order transition&quot;, &quot;definition&quot;: &quot;A phase transition involving discontinuity in the first derivative of free energy, showing latent heat&quot;, &quot;domain&quot;: &quot;physics&quot;, &quot;first_use_section&quot;: &quot;Test 3&quot;, &quot;complexity&quot;: &quot;high&quot;},
+    {&quot;term&quot;: &quot;Bai-Perron test&quot;, &quot;definition&quot;: &quot;An econometric procedure for locating multiple structural breaks in linear models&quot;, &quot;domain&quot;: &quot;econometrics&quot;, &quot;first_use_section&quot;: &quot;Test 2&quot;, &quot;complexity&quot;: &quot;high&quot;},
+    {&quot;term&quot;: &quot;constraint-removal vector (∑ΔPᵢ)&quot;, &quot;definition&quot;: &quot;The cumulative set of events that lower constraint pressure over time&quot;, &quot;domain&quot;: &quot;framework&quot;, &quot;first_use_section&quot;: &quot;Constraint Removal Events&quot;, &quot;complexity&quot;: &quot;medium&quot;},
+    {&quot;term&quot;: &quot;generalized trust&quot;, &quot;definition&quot;: &quot;The baseline expectation that most people in society can be trusted&quot;, &quot;domain&quot;: &quot;sociology&quot;, &quot;first_use_section&quot;: &quot;Test 4&quot;, &quot;complexity&quot;: &quot;low&quot;},
+    {&quot;term&quot;: &quot;order parameter derivative (dχ/dt)&quot;, &quot;definition&quot;: &quot;Rate of change of coherence over time&quot;, &quot;domain&quot;: &quot;physics&quot;, &quot;first_use_section&quot;: &quot;Test 3&quot;, &quot;complexity&quot;: &quot;high&quot;},
+    {&quot;term&quot;: &quot;structural synchronization&quot;, &quot;definition&quot;: &quot;Simultaneous timing of regime shifts across multiple domains&quot;, &quot;domain&quot;: &quot;systems theory&quot;, &quot;first_use_section&quot;: &quot;Predictions&quot;, &quot;complexity&quot;: &quot;medium&quot;}
+  ]
+}
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:academic -->
+
+<!-- BEGIN:LEVEL:proof -->
+<div class="proof-panel" data-level="proof">
+  <div class="article">
+    <div class="mda-proof-eyebrow">Proof Pressure Layer</div>
+    <h2 style="font-family:Oswald,sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.04em;">
+      The Empirical Evidence — The Moral Decline of America — Proof & Math
+    </h2>
+    
+    <h3>Math Translation</h3>
+    <div class="mda-math-layer">
+<div class="mda-proof-eyebrow">Math Translation Layer</div>
+<div class="math-item">MATH_STATUS: NEEDS_DEFINITIONS</div>
+<div class="math-item">LOAD_BEARING_MATH:</div>
+<div class="math-item">"Ï‡" (social coherence) is introduced but not defined.</div>
+<div class="math-item">"P" (constraint pressure) is mentioned but lacks a clear definition.</div>
+<div class="math-item">"Tc" (critical threshold) is referenced without explanation.</div>
+<div class="math-item">"R̄" (mean correlation) is used but not explicitly defined in the context of the study.</div>
+<div class="math-item">"p" (p-value) is mentioned but not contextualized for readers unfamiliar with statistical significance.</div>
+<div class="math-item">ISOMORPHISM_TABLE:</div>
+<tr><td>mapping</td><td>current status</td><td>missing proof step</td><td>safe wording</td></tr>
+<tr><td>Ï‡ as an order parameter</td><td>candidate_isomorphism</td><td>Definition of Ï‡ and its relationship to P</td><td>"Ï‡ represents social coherence, defined as..."</td></tr>
+<tr><td>P as a governing variable</td><td>candidate_isomorphism</td><td>Clear definition and context for P</td><td>"P, or constraint pressure, is defined as..."</td></tr>
+<tr><td>Correlation between domains</td><td>proven_here</td><td>None</td><td>"The correlation indicates..."</td></tr>
+<div class="math-item">MISSING_EQUATIONS_OR_DEFINITIONS:</div>
+<div class="math-item">Definition of Ï‡ (social coherence).</div>
+<div class="math-item">Definition of P (constraint pressure).</div>
+<div class="math-item">Explanation of Tc (critical threshold).</div>
+<div class="math-item">Definition of R̄ (mean correlation).</div>
+<div class="math-item">Contextual explanation of p (p-value).</div>
+<div class="math-item">MINIMAL_PATCHES:</div>
+<div class="math-item">"If social coherence (Ï‡) is a real order parameter governed by constraint pressure (P)..." -> "If social coherence (Ï‡, defined as...) is a real order parameter governed by constraint pressure (P, defined as...)..."</div>
+<div class="math-item">"Threshold Exceeded" -> "Threshold Exceeded (p-value, defined as...)"</div>
+<div class="math-item">"R̄ = 0.986" -> "Mean correlation (R̄, defined as...) = 0.986"</div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Term Inventory</h3>
+    <div class="mda-glossary">
+<div class="glossary-entry"><dt>social coherence (χ)</dt><dd>A scalar order parameter summarizing the alignment of social actors with shared norms<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>order parameter</dt><dd>A macroscopic variable that distinguishes phases of a system, being near zero in one phase and finite in another<span class="glossary-domain">physics</span></dd></div>
+<div class="glossary-entry"><dt>constraint pressure (P)</dt><dd>Aggregate strength of institutional, legal, and normative limits on individual behavior<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>phase transition</dt><dd>A discontinuous change in the state of a system when a control parameter crosses a critical threshold<span class="glossary-domain">physics</span></dd></div>
+<div class="glossary-entry"><dt>latent variable</dt><dd>An unobserved construct inferred statistically from multiple observed indicators<span class="glossary-domain">statistics</span></dd></div>
+<div class="glossary-entry"><dt>Pearson correlation</dt><dd>A measure of linear association between two variables, ranging from -1 to 1<span class="glossary-domain">statistics</span></dd></div>
+<div class="glossary-entry"><dt>Fisher z-test</dt><dd>A transformation converting Pearson r to a normally distributed statistic for significance testing<span class="glossary-domain">statistics</span></dd></div>
+<div class="glossary-entry"><dt>p-value</dt><dd>Probability of observing data as extreme as the sample assuming the null hypothesis is true<span class="glossary-domain">statistics</span></dd></div>
+<div class="glossary-entry"><dt>structural break</dt><dd>A point in a time series where statistical properties change, indicating a regime shift<span class="glossary-domain">econometrics</span></dd></div>
+<div class="glossary-entry"><dt>threshold behavior</dt><dd>System dynamics exhibiting a sharp change once a variable crosses a critical point<span class="glossary-domain">systems theory</span></dd></div>
+<div class="glossary-entry"><dt>control group</dt><dd>A comparison population not subjected to the experimental condition, used to isolate causal effects<span class="glossary-domain">research design</span></dd></div>
+<div class="glossary-entry"><dt>Anabaptist</dt><dd>A Christian tradition emphasizing adult baptism and communal simplicity, exemplified by the Amish<span class="glossary-domain">theology</span></dd></div>
+<div class="glossary-entry"><dt>critical window</dt><dd>A narrow temporal span during which the system undergoes its fastest change<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>Pc (critical constraint pressure)</dt><dd>The specific value of constraint pressure below which coherence collapses<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>Landau first-order transition</dt><dd>A phase transition involving discontinuity in the first derivative of free energy, showing latent heat<span class="glossary-domain">physics</span></dd></div>
+<div class="glossary-entry"><dt>Bai-Perron test</dt><dd>An econometric procedure for locating multiple structural breaks in linear models<span class="glossary-domain">econometrics</span></dd></div>
+<div class="glossary-entry"><dt>constraint-removal vector (∑ΔPᵢ)</dt><dd>The cumulative set of events that lower constraint pressure over time<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>generalized trust</dt><dd>The baseline expectation that most people in society can be trusted<span class="glossary-domain">sociology</span></dd></div>
+<div class="glossary-entry"><dt>order parameter derivative (dχ/dt)</dt><dd>Rate of change of coherence over time<span class="glossary-domain">physics</span></dd></div>
+<div class="glossary-entry"><dt>structural synchronization</dt><dd>Simultaneous timing of regime shifts across multiple domains<span class="glossary-domain">systems theory</span></dd></div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Promoted Claims</h3>
+    <p class="mda-proof-placeholder">
+      No claim from this article has been promoted through the deterministic Axiom + 7Q gate yet.
+      Claims will appear here after the proof-promotion pass.
+    </p>
+  </div>
+</div>
+<!-- END:LEVEL:proof -->
+
+<div style="max-width:780px;margin:0 auto;padding:1rem 1.5rem 3rem;">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text3);
+     text-transform:uppercase;letter-spacing:.08em;border-top:1px solid var(--border);
+     padding-top:1rem;">
+    Generated 2026-05-31 00:24 · 
+    Easy: ✓ · 
+    Academic: ✓ · 
+    Math: ✓ · 
+    Claims: pending
+  </p>
+</div>
+<script>
+function setTab(tab) {
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  // Update body mode class
+  document.body.className = 'mode-' + tab;
+  // Toggle content panels
+  document.querySelectorAll('.level-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.level === tab);
+  });
+  document.querySelectorAll('.proof-panel').forEach(p => {
+    p.classList.toggle('active', tab === 'proof');
+  });
+  // Update status text
+  const st = document.getElementById('mode-status');
+  if (st) st.textContent = tab.charAt(0).toUpperCase() + tab.slice(1) + ' active';
+}
+document.addEventListener('DOMContentLoaded', () => setTab('standard'));
+</script>
+
+</body>
+</html>

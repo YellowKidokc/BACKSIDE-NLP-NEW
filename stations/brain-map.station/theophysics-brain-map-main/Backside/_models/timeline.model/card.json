@@ -1,0 +1,41 @@
+{
+  "name": "timeline.model",
+  "kind": "nlp-lane",
+  "anchor_role": "Build dated project, paper, claim, and session chronologies from messy source material.",
+  "status": "planned",
+  "owner": "shared",
+  "base_model": null,
+  "runtime_path": "X:\\Backside\\_models\\timeline.model",
+  "backing_models": [
+    "mistral-7b-instruct.model",
+    "facts.model"
+  ],
+  "called_by": [
+    "Backside/workflows/handoff-session",
+    "Backside/workflows/grade-paper",
+    "Backside/workflows/build-ai-portal"
+  ],
+  "inputs": [
+    "session handoffs",
+    "repo logs",
+    "paper metadata",
+    "comms records",
+    "dated markdown notes"
+  ],
+  "outputs": [
+    "dated event ledger",
+    "source-linked timeline markdown",
+    "uncertain-date queue"
+  ],
+  "non_goals": [
+    "Do not infer exact dates when only order is known.",
+    "Do not collapse theological/canonical dates with file modification dates.",
+    "Do not overwrite source chronology; emit reviewable ledger rows."
+  ],
+  "verification": [
+    "Every event row has source path or URL.",
+    "Every inferred date is flagged as inferred.",
+    "Contradictory dates are emitted as conflicts, not silently merged."
+  ],
+  "notes": "This lane exists because David thinks in live systems over time. It should make the order of development visible without inventing certainty."
+}

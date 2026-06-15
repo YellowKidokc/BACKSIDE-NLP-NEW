@@ -1,0 +1,95 @@
+{
+  "checkpoints": {},
+  "completed_at": "2026-06-11T07:45:21.325331Z",
+  "current_stage": "archive-input",
+  "errors": [],
+  "history": [
+    {
+      "entered_at": "2026-06-11T07:44:41.072436Z",
+      "exited_at": "2026-06-11T07:44:41.072446Z",
+      "latency_ms": 11220,
+      "notes": "conversion-station: Exit 0. stdout=Export written: X:\\Backside\\workflows\\phase0-graduation-sandbox-20260611\\OUTPUT\\20260611-014432_accessible-layer-translation_d626721464 outputs=2; conversion-station: Exit 0. stdout=Export written: X:\\Backside\\workflows\\phase0-graduation-sandbox-20260611\\OUTPUT\\20260611-014434_executive-summary-layers_87df0af349 outputs=2; conversion-station: Exit 0. stdout=Export written: X:\\Backside\\workflows\\phase0-graduation-sandbox-20260611\\OUTPUT\\20260611-014436_mda-041-statistical-spine-paper-grade_becf26bd4c outputs=2; conversion-station: Exit 0. stdout=Export written: X:\\Backside\\workflows\\phase0-graduation-sandbox-20260611\\OUTPUT\\20260611-014438_proof-explorer-fp-005-enhanced_b5c255de14 outputs=2; conversion-station: Exit 0. stdout=Export written: X:\\Backside\\workflows\\phase0-graduation-sandbox-20260611\\OUTPUT\\20260611-014440_proof-explorer-graph-surface_b1ea40b05e outputs=2",
+      "result": "pass",
+      "score": 1.0,
+      "stage": "intake"
+    },
+    {
+      "entered_at": "2026-06-11T07:45:02.144103Z",
+      "exited_at": "2026-06-11T07:45:02.144112Z",
+      "latency_ms": 104504,
+      "notes": "file-intelligence: Exit 0. stdout=[I] fis.backfill: Backfilling: X:\\Backside\\workflows\\phase0-graduation-sandbox-20260611\\INPUT\n[I] fis.backfill: QUEUE accessible_layer_translation.md -> untitled_MD.AR-LG-GR_005808.md (80%)\n[I] fis.ba; file-intelligence: file-intelligence already ran for packet; file-intelligence: file-intelligence already ran for packet; file-intelligence: file-intelligence already ran for packet; file-intelligence: file-intelligence already ran for packet",
+      "result": "pass",
+      "score": 1.0,
+      "stage": "fis-classify"
+    },
+    {
+      "entered_at": "2026-06-11T07:45:02.232161Z",
+      "exited_at": "2026-06-11T07:45:02.232185Z",
+      "latency_ms": 0,
+      "notes": "manifest checkpoint recorded",
+      "result": "pass",
+      "score": 1.0,
+      "stage": "manifest-entry"
+    },
+    {
+      "entered_at": "2026-06-11T07:45:02.693098Z",
+      "exited_at": "2026-06-11T07:45:02.693106Z",
+      "latency_ms": 1810,
+      "notes": "preference-engine: Exit 2 (review). Preference Engine station scaffold is present.\nLearned model artifacts live under X:\\Backside\\_models\\_Models\\P01-P03 preference folders.\nBuild logger/API/runtime here before enabling RUN.; preference-engine: preference-engine already ran for packet; preference-engine: preference-engine already ran for packet; preference-engine: preference-engine already ran for packet; preference-engine: preference-engine already ran for packet",
+      "result": "review",
+      "score": 0.5,
+      "stage": "bil-score"
+    },
+    {
+      "entered_at": "2026-06-11T07:45:08.446813Z",
+      "exited_at": "2026-06-11T07:45:08.446826Z",
+      "latency_ms": 29834,
+      "notes": "classify-documents: Exit 0. stdout=2026-06-11 01:45:03,677 [INFO] found 5 files in X:\\Backside\\workflows\\phase0-graduation-sandbox-20260611\\INPUT\n2026-06-11 01:45:03,889 [INFO] embedding 5 documents\n2026-06-11 01:45:03,965 [INFO] [5/5] outputs=8; classify-documents: classify-documents already ran for packet; classify-documents: classify-documents already ran for packet; classify-documents: classify-documents already ran for packet; classify-documents: classify-documents already ran for packet; Ollama gate unavailable: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "result": "review",
+      "score": 0.0,
+      "stage": "propose-route"
+    },
+    {
+      "entered_at": "2026-06-11T07:45:08.534044Z",
+      "exited_at": "2026-06-11T07:45:08.534056Z",
+      "latency_ms": 2,
+      "notes": "waiting for human approval \u2014 create CONFIG/approval.json with {\"approved\": true} and re-run",
+      "result": "hold",
+      "score": 0.0,
+      "stage": "await-approval"
+    },
+    {
+      "entered_at": "2026-06-11T07:45:20.757213Z",
+      "exited_at": "2026-06-11T07:45:20.757226Z",
+      "latency_ms": 37,
+      "notes": "approved by Codex Phase 0 graduation sandbox",
+      "result": "pass",
+      "score": 1.0,
+      "stage": "await-approval"
+    },
+    {
+      "entered_at": "2026-06-11T07:45:20.836792Z",
+      "exited_at": "2026-06-11T07:45:20.836802Z",
+      "latency_ms": 2,
+      "notes": "no corrections recorded",
+      "result": "skip",
+      "score": 1.0,
+      "stage": "log-correction"
+    },
+    {
+      "entered_at": "2026-06-11T07:45:21.241296Z",
+      "exited_at": "2026-06-11T07:45:21.241308Z",
+      "latency_ms": 304,
+      "notes": "archived 6 input file(s) (copies; INPUT untouched)",
+      "result": "pass",
+      "score": 1.0,
+      "stage": "archive-input"
+    }
+  ],
+  "input_hash": "2ec6d8cd70fb1604",
+  "packet_id": "phase0-graduation-sandbox-20260611",
+  "started_at": "2026-06-11T07:44:29.776747Z",
+  "status": "completed",
+  "updated_at": "2026-06-11T07:45:21.241313Z",
+  "workflow": "sandbox-file-intake"
+}

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 7Q Tree — One Image, Seven Questions</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0b0f;
+  --bg-card: #12141c;
+  --border: #1e2233;
+  --text: #e8e6e1;
+  --text2: #8a8d9b;
+  --text3: #555869;
+  --gold: #d4a853;
+  --q0: #8a8d9b;
+  --q1: #d4a853;
+  --q2: #7c6340;
+  --q3: #6b8c42;
+  --q4: #38bdf8;
+  --q5: #a0724a;
+  --q6: #34d399;
+  --q7: #ef4444;
+  --soil: #3d2b1f;
+  --bedrock: #2a2035;
+  --trunk: #5c3d2e;
+  --leaf: #3a6b35;
+  --sky: #0d1b2a;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; background:var(--bg); }
+body { font-family:'DM Sans',sans-serif; color:var(--text); background:var(--bg); overflow-x:hidden; }
+
+/* ── HERO ── */
+.hero {
+  height:100vh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; text-align:center;
+  position:relative; padding:0 24px;
+}
+.hero::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse at 50% 60%, rgba(212,168,83,0.06), transparent 60%);
+  pointer-events:none;
+}
+.hero-tag {
+  font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:4px;
+  text-transform:uppercase; color:var(--gold); margin-bottom:20px;
+}
+.hero h1 {
+  font-family:'Cormorant Garamond',serif; font-size:clamp(36px,6vw,64px);
+  font-weight:700; line-height:1.1; margin-bottom:20px;
+}
+.hero .sub {
+  font-size:16px; color:var(--text2); max-width:600px; line-height:1.8;
+}
+.scroll-hint {
+  position:absolute; bottom:40px; font-family:'JetBrains Mono',monospace;
+  font-size:11px; color:var(--text3); letter-spacing:2px; animation:pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+/* ── TREE CONTAINER ── */
+.tree-wrapper {
+  position:relative; width:100%; max-width:800px; margin:0 auto;
+  padding:0 24px;
+}
+
+/* ── SECTION ── */
+.q-section {
+  min-height:100vh; display:flex; align-items:center; gap:40px;
+  padding:80px 24px; position:relative;
+}
+.q-section:nth-child(even) { flex-direction:row-reverse; }
+
+@media(max-width:900px) {
+  .q-section, .q-section:nth-child(even) {
+    flex-direction:column; text-align:center; gap:24px; padding:60px 20px;
+  }
+}
+
+/* ── TREE SVG PANEL ── */
+.tree-panel {
+  flex:0 0 340px; height:500px; position:relative;
+}
+.tree-panel svg { width:100%; height:100%; }
+
+/* Layer visibility */
+.tree-layer { opacity:0.08; transition:opacity 0.8s ease, filter 0.8s ease; }
+.q-section.active .tree-layer { opacity:0.15; }
+.q-section.active .tree-layer.highlight { opacity:1; filter:drop-shadow(0 0 12px var(--layer-glow)); }
+
+/* ── TEXT PANEL ── */
+.text-panel { flex:1; max-width:520px; }
+.q-tag {
+  font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:3px;
+  text-transform:uppercase; margin-bottom:12px; transition:color 0.5s;
+}
+.q-title {
+  font-family:'Cormorant Garamond',serif; font-size:clamp(28px,3.5vw,40px);
+  font-weight:700; line-height:1.15; margin-bottom:16px;
+}
+.q-body { font-size:15px; color:var(--text2); line-height:1.8; margin-bottom:16px; }
+.q-body strong { color:var(--text); }
+.q-insight {
+  font-family:'Cormorant Garamond',serif; font-size:18px; font-style:italic;
+  color:var(--gold); line-height:1.6; padding-left:16px;
+  border-left:2px solid rgba(212,168,83,0.3);
+}
+.q-sub {
+  margin-top:16px; font-size:13px; color:var(--text3); line-height:1.7;
+}
+.q-sub li { margin-bottom:6px; list-style:none; padding-left:16px; position:relative; }
+.q-sub li::before { content:'→'; position:absolute; left:0; color:var(--text3); }
+
+/* ── FOOTER ── */
+.footer {
+  text-align:center; padding:80px 24px 60px; border-top:1px solid var(--border); margin-top:40px;
+}
+.footer p { font-size:13px; color:var(--text3); line-height:1.7; }
+.footer .sig {
+  font-family:'Cormorant Garamond',serif; font-size:22px; color:var(--text);
+  margin-bottom:12px;
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-tag">A New Scientific Method</div>
+  <h1>One Tree.<br>Seven Questions.</h1>
+  <p class="sub">Every claim is a tree. The questions don't change the tree — they show you what was already there. Seed. Soil. Roots. Trunk. Rain. Branches. Axe.</p>
+  <div class="scroll-hint">▼ SCROLL TO SEE</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- Q0 — EMPTY SOIL -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="q-section" data-q="0" data-layer="bedrock">
+  <div class="tree-panel">
+    <svg viewBox="0 0 340 500" xmlns="http://www.w3.org/2000/svg">
+      <!-- Full tree silhouette (dim) -->
+      <!-- Bedrock -->
+      <rect class="tree-layer" data-layer="bedrock" x="0" y="420" width="340" height="80" rx="4" fill="#2a2035" style="--layer-glow:#8a8d9b"/>
+      <!-- Deep soil -->
+      <rect class="tree-layer" data-layer="roots" x="0" y="340" width="340" height="80" rx="0" fill="#3d2b1f" style="--layer-glow:#a0724a"/>
+      <!-- Root shapes -->
+      <path class="tree-layer" data-layer="roots" d="M170 340 C140 370 80 380 40 400 M170 340 C200 370 260 380 300 400 M170 340 C160 360 120 390 90 410 M170 340 C180 360 220 390 250 410" stroke="#5c3d2e" stroke-width="4" fill="none" style="--layer-glow:#a0724a"/>
+      <!-- Ground line -->
+      <rect class="tree-layer" data-layer="soil" x="0" y="300" width="340" height="40" rx="0" fill="#4a3728" style="--layer-glow:#7c6340"/>
+      <!-- Trunk -->
+      <rect class="tree-layer" data-layer="trunk" x="155" y="180" width="30" height="120" rx="4" fill="#5c3d2e" style="--layer-glow:#6b8c42"/>
+      <!-- Trunk rings (cross-section feel) -->
+      <ellipse class="tree-layer" data-layer="trunk" cx="170" cy="300" rx="18" ry="6" fill="none" stroke="#7a5540" stroke-width="1" style="--layer-glow:#6b8c42"/>
+      <!-- Rain/sun -->
+      <circle class="tree-layer" data-layer="rain" cx="170" cy="30" r="20" fill="#38bdf8" opacity="0.3" style="--layer-glow:#38bdf8"/>
+      <line class="tree-layer" data-layer="rain" x1="100" y1="50" x2="110" y2="90" stroke="#38bdf8" stroke-width="1" opacity="0.3" style="--layer-glow:#38bdf8"/>
+      <line class="tree-layer" data-layer="rain" x1="200" y1="40" x2="210" y2="80" stroke="#38bdf8" stroke-width="1" opacity="0.3" style="--layer-glow:#38bdf8"/>
+      <line class="tree-layer" data-layer="rain" x1="150" y1="55" x2="155" y2="95" stroke="#38bdf8" stroke-width="1" opacity="0.3" style="--layer-glow:#38bdf8"/>
+      <!-- Canopy -->
+      <ellipse class="tree-layer" data-layer="canopy" cx="170" cy="130" rx="100" ry="70" fill="#2d5a2a" style="--layer-glow:#34d399"/>
+      <ellipse class="tree-layer" data-layer="canopy" cx="130" cy="110" rx="60" ry="50" fill="#3a6b35" style="--layer-glow:#34d399"/>
+      <ellipse class="tree-layer" data-layer="canopy" cx="210" cy="120" rx="55" ry="45" fill="#336630" style="--layer-glow:#34d399"/>
+      <!-- Fruit -->
+      <circle class="tree-layer" data-layer="canopy" cx="110" cy="150" r="6" fill="#d4a853" style="--layer-glow:#34d399"/>
+      <circle class="tree-layer" data-layer="canopy" cx="230" cy="140" r="6" fill="#d4a853" style="--layer-glow:#34d399"/>
+      <circle class="tree-layer" data-layer="canopy" cx="170" cy="85" r="5" fill="#d4a853" style="--layer-glow:#34d399"/>
+      <!-- Axe mark -->
+      <path class="tree-layer" data-layer="axe" d="M152 240 L162 250 L152 260" stroke="#ef4444" stroke-width="2.5" fill="none" style="--layer-glow:#ef4444"/>
+      <line class="tree-layer" data-layer="axe" x1="130" y1="250" x2="154" y2="250" stroke="#ef4444" stroke-width="2" style="--layer-glow:#ef4444"/>
+      <!-- Seed (tiny, at soil surface) -->
+      <ellipse class="tree-layer" data-layer="seed" cx="170" cy="310" rx="5" ry="3" fill="#d4a853" style="--layer-glow:#d4a853"/>
+    </svg>
+  </div>
+  <div class="text-panel">
+    <div class="q-tag" style="color:var(--q0)">Q0 — Before the First Question</div>
+    <div class="q-title">The Empty Soil</div>
+    <div class="q-body">Before anything grows, there's ground. Not prepared ground. Not good ground. Just ground. <strong>The posture before inquiry is not a question — it's a precondition.</strong> You do not arrive already knowing what will grow here. You arrive open to whatever the soil produces.</div>
+    <div class="q-insight">"The inquirer cannot be the ground of inquiry."</div>
+    <div class="q-sub">
+      <li>Every dead framework in history refused this posture</li>
+      <li>Every breakthrough came from someone who held it</li>
+      <li>This is Q0. The silence before the first letter</li>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- Q1 — THE SEED -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="q-section" data-q="1" data-layer="seed">
+  <div class="tree-panel">
+    <svg viewBox="0 0 340 500" xmlns="http://www.w3.org/2000/svg">
+      <rect class="tree-layer" data-layer="bedrock" x="0" y="420" width="340" height="80" rx="4" fill="#2a2035" style="--layer-glow:#8a8d9b"/>
+      <rect class="tree-layer" data-layer="roots" x="0" y="340" width="340" height="80" fill="#3d2b1f" style="--layer-glow:#a0724a"/>
+      <path class="tree-layer" data-layer="roots" d="M170 340 C140 370 80 380 40 400 M170 340 C200 370 260 380 300 400 M170 340 C160 360 120 390 90 410 M170 340 C180 360 220 390 250 410" stroke="#5c3d2e" stroke-width="4" fill="none" style="--layer-glow:#a0724a"/>
+      <rect class="tree-layer" data-layer="soil" x="0" y="300" width="340" height="40" fill="#4a3728" style="--layer-glow:#7c6340"/>
+      <rect class="tree-layer" data-layer="trunk" x="155" y="180" width="30" height="120" rx="4" fill="#5c3d2e" style="--layer-glow:#6b8c42"/>
+      <ellipse class="tree-layer" data-layer="trunk" cx="170" cy="300" rx="18" ry="6" fill="none" stroke="#7a5540" stroke-width="1" style="--layer-glow:#6b8c42"/>
+      <circle class="tree-layer" data-layer="rain" cx="170" cy="30" r="20" fill="#38bdf8" opacity="0.3" style="--layer-glow:#38bdf8"/>
+      <line class="tree-layer" data-layer="rain" x1="100" y1="50" x2="110" y2="90" stroke="#38bdf8" stroke-width="1" opacity="0.3" style="--layer-glow:#38bdf8"/>
+      <line class="tree-layer" data-layer="rain" x1="200" y1="40" x2="210" y2="80" stroke="#38bdf8" stroke-width="1" opacity="0.3" style="--layer-glow:#38bdf8"/>
+      <ellipse class="tree-layer" data-layer="canopy" cx="170" cy="130" rx="100" ry="70" fill="#2d5a2a" style="--layer-glow:#34d399"/>
+      <ellipse class="tree-layer" data-layer="canopy" cx="130" cy="110" rx="60" ry="50" fill="#3a6b35" style="--layer-glow:#34d399"/>
+      <ellipse class="tree-layer" data-layer="canopy" cx="210" cy="120" rx="55" ry="45" fill="#336630" style="--layer-glow:#34d399"/>
+      <circle class="tree-layer" data-layer="canopy" cx="110" cy="150" r="6" fill="#d4a853" style="--layer-glow:#34d399"/>
+      <circle class="tree-layer" data-layer="canopy" cx="230" cy="140" r="6" fill="#d4a853" style="--layer-glow:#34d399"/>
+      <path class="tree-layer" data-layer="axe" d="M152 240 L162 250 L152 260" stroke="#ef4444" stroke-width="2.5" fill="none" style="--layer-glow:#ef4444"/>
+      <line class="tree-layer" data-layer="axe" x1="130" y1="250" x2="154" y2="250" stroke="#ef4444" stroke-width="2" style="--layer-glow:#ef4444"/>
+      <!-- SEED highlighted -->
+      <ellipse class="tree-layer highlight" data-layer="seed" cx="170" cy="310" rx="8" ry="5" fill="#d4a853" style="--layer-glow:#d4a853"/>
+      <ellipse cx="170" cy="310" rx="14" ry="9" fill="none" stroke="#d4a853" stroke-width="1" opacity="0.3"/>
+    </svg>
+  </div>
+  <div class="text-panel">
+    <div class="q-tag" style="color:var(--q1)">Q1 — What Is It?</div>
+    <div class="q-title">The Seed</div>
+    <div class="q-body">Every tree starts as a seed. Not a generic seed — <strong>this specific seed.</strong> It has DNA. It has identity. It's an oak, not a pine. It's a causal claim, not a descriptive one. Before anything else, you name it. You classify it. You prevent the confusion that kills everything downstream.</div>
+    <div class="q-insight">"If you can't name what you're holding, you don't know what you planted."</div>
+    <div class="q-sub">
+      <li>What type of claim is this? (descriptive, causal, ontological, mathematical, normative)</li>
+      <li>What tier? (foundational, derived, constraint)</li>
+      <li>Has it been named before — and does that name carry assumptions you haven't checked?</li>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- Q2 — THE SOIL -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="q-section" data-q="2" data-layer="soil">
+  <div class="tree-panel">
+    <svg viewBox="0 0 340 500" xmlns="http://www.w3.org/2000/svg">
+      <rect class="tree-layer" data-layer="bedrock" x="0" y="420" width="340" height="80" rx="4" fill="#2a2035" style="--layer-glow:#8a8d9b"/>
+      <rect class="tree-layer" data-layer="roots" x="0" y="340" width="340" height="80" fill="#3d2b1f" style="--layer-glow:#a0724a"/>
+      <path class="tree-layer" data-layer="roots" d="M170 340 C140 370 80 380 40 400 M170 340 C200 370 260 380 300 400" stroke="#5c3d2e" stroke-width="4" fill="none" style="--layer-glow:#a0724a"/>
+      <!-- SOIL highlighted -->
+      <rect class="tree-layer highlight" data-layer="soil" x="0" y="300" width="340" height="40" fill="#4a3728" style="--layer-glow:#7c6340"/>
+      <!-- Soil layers visible -->
+      <line class="tree-layer highlight" data-layer="soil" x1="0" y1="315" x2="340" y2="315" stroke="#5a4535" stroke-width="0.5" style="--layer-glow:#7c6340"/>
+      <line class="tree-layer highlight" data-layer="soil" x1="0" y1="325" x2="340" y2="325" stroke="#4d3a2c" stroke-width="0.5" style="--layer-glow:#7c6340"/>
+      <rect class="tree-layer" data-layer="trunk" x="155" y="180" width="30" height="120" rx="4" fill="#5c3d2e" style="--layer-glow:#6b8c42"/>
+      <circle class="tree-layer" data-layer="rain" cx="170" cy="30" r="20" fill="#38bdf8" opacity="0.3" style="--layer-glow:#38bdf8"/>
+      <ellipse class="tree-layer" data-layer="canopy" cx="170" cy="130" rx="100" ry="70" fill="#2d5a2a" style="--layer-glow:#34d399"/>
+      <ellipse class="tree-layer" data-layer="canopy" cx="130" cy="110" rx="60" ry="50" fill="#3a6b35" style="--layer-glow:#34d399"/>
+      <ellipse class="tree-layer" data-layer="canopy" cx="210" cy="120" rx="55" ry="45" fill="#336630" style="--layer-glow:#34d399"/>
+      <path class="tree-layer" data-layer="axe" d="M152 240 L162 250 L152 260" stroke="#ef4444" stroke-width="2.5" fill="none" style="--layer-glow:#ef4444"/>
+      <ellipse class="tree-layer" data-layer="seed" cx="170" cy="310" rx="5" ry="3" fill="#d4a853" style="--layer-glow:#d4a853"/>
+    </svg>
+  </div>
+  <div class="text-panel">
+    <div class="q-tag" style="color:var(--q2)">Q2 — Where Does It Live?</div>
+    <div class="q-title">The Soil</div>
+    <div class="q-body">An oak seed in sand grows differently than one in clay. <strong>Domain is destiny.</strong> A physics claim and a theology claim might contain the same seed — but the soil determines what's possible. And if the same seed grows in two different soils and produces the same tree? That's not coincidence. That's isomorphism.</div>
+    <div class="q-insight">"The soil doesn't change the DNA. It reveals what the DNA can do."</div>
+    <div class="q-sub">
+      <li>What domain owns this? (physics, theology, mathematics, consciousness, information)</li>
+      <li>Does it appear in more than one domain? If so — analogy or isomorphism?</li>
+      <li>At what scale? (quantum, neural, individual, social, cosmic)</li>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- Q3 — THE SPROUT -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="q-section" data-q="3" data-layer="trunk">
+  <div class="tree-panel">
+    <svg viewBox="0 0 340 500" xmlns="http://www.w3.org/2000/svg">
+      <rect class="tree-layer" data-layer="bedrock" x="0" y="420" width="340" height="80" rx="4" fill="#2a2035" style="--layer-glow:#8a8d9b"/>
+      <rect class="tree-layer" data-layer="roots" x="0" y="340" width="340" height="80" fill="#3d2b1f" style="--layer-glow:#a0724a"/>
+      <path class="tree-layer" data-layer="roots" d="M170 340 C140 370 80 380 40 400 M170 340 C200 370 260 380 300 400" stroke="#5c3d2e" stroke-width="4" fill="none" style="--layer-glow:#a0724a"/>
+      <rect class="tree-layer" data-layer="soil" x="0" y="300" width="340" height="40" fill="#4a3728" style="--layer-glow:#7c6340"/>
+      <!-- TRUNK/SPROUT highlighted -->
+      <rect class="tree-layer highlight" data-layer="trunk" x="155" y="180" width="30" height="120" rx="4" fill="#5c3d2e" style="--layer-glow:#6b8c42"/>
+      <ellipse class="tree-layer highlight" data-layer="trunk" cx="170" cy="300" rx="18" ry="6" fill="none" stroke="#7a5540" stroke-width="1.5" style="--layer-glow:#6b8c42"/>
+      <!-- Growth direction arrow -->
+      <line class="tree-layer highlight" data-layer="trunk" x1="170" y1="290" x2="170" y2="185" stroke="#6b8c42" stroke-width="1" stroke-dasharray="4,4" style="--layer-glow:#6b8c42"/>
+      <polygon class="tree-layer highlight" data-layer="trunk" points="165,190 170,178 175,190" fill="#6b8c42" style="--layer-glow:#6b8c42"/>
+      <circle class="tree-layer" data-layer="rain" cx="170" cy="30" r="20" fill="#38bdf8" opacity="0.3" style="--layer-glow:#38bdf8"/>
+      <ellipse class="tree-layer" data-layer="canopy" cx="170" cy="130" rx="100" ry="70" fill="#2d5a2a" style="--layer-glow:#34d399"/>
+      <ellipse class="tree-layer" data-layer="canopy" cx="130" cy="110" rx="60" ry="50" fill="#3a6b35" style="--layer-glow:#34d399"/>
+      <ellipse class="tree-layer" data-layer="canopy" cx="210" cy="120" rx="55" ry="45" fill="#336630" style="--layer-glow:#34d399"/>
+      <path class="tree-layer" data-layer="axe" d="M152 240 L162 250 L152 260" stroke="#ef4444" stroke-width="2.5" fill="none" style="--layer-glow:#ef4444"/>
+      <ellipse class="tree-layer" data-layer="seed" cx="170" cy="310" rx="5" ry="3" fill="#d4a853" style="--layer-glow:#d4a853"/>
+    </svg>
+  </div>
+  <div class="text-panel">
+    <div class="q-tag" style="color:var(--q3)">Q3 — What Does It Say?</div>
+    <div class="q-title">The Sprout Commits</div>
+    <div class="q-body">The sprout breaks surface and goes <strong>up, not sideways.</strong> It picks a direction and can't take it back. That's what a precise claim does — it commits. No hedging. No "it might be related to." It says one thing, clearly, and now it can be tested.</div>
+    <div class="q-insight">"If your opponent can't restate your claim accurately, it isn't precise enough to grow."</div>
+    <div class="q-sub">
+      <li>State the claim in one sentence with no hedging</li>
+      <li>What type? (descriptive, causal, ontological, predictive, normative)</li>
+      <li>Generate the negation — that becomes the seed for Q7</li>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- Q4 — THE RAIN -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="q-section" data-q="4" data-layer="rain">
+  <div class="tree-panel">
+    <svg viewBox="0 0 340 500" xmlns="http://www.w3.org/2000/svg">
+      <rect class="tree-layer" data-layer="bedrock" x="0" y="420" width="340" height="80" rx="4" fill="#2a2035" style="--layer-glow:#8a8d9b"/>
+      <rect class="tree-layer" data-layer="roots" x="0" y="340" width="340" height="80" fill="#3d2b1f" style="--layer-glow:#a0724a"/>
+      <path class="tree-layer" data-layer="roots" d="M170 340 C140 370 80 380 40 400 M170 340 C200 370 260 380 300 400" stroke="#5c3d2e" stroke-width="4" fill="none" style="--layer-glow:#a0724a"/>
+      <rect class="tree-layer" data-layer="soil" x="0" y="300" width="340" height="40" fill="#4a3728" style="--layer-glow:#7c6340"/>
+      <rect class="tree-layer" data-layer="trunk" x="155" y="180" width="30" height="120" rx="4" fill="#5c3d2e" style="--layer-glow:#6b8c42"/>
+      <!-- RAIN highlighted -->
+      <circle class="tree-layer highlight" data-layer="rain" cx="170" cy="30" r="24" fill="#38bdf8" opacity="0.5" style="--layer-glow:#38bdf8"/>
+      <line class="tree-layer highlight" data-layer="rain" x1="80" y1="45" x2="95" y2="100" stroke="#38bdf8" stroke-width="1.5" opacity="0.7" style="--layer-glow:#38bdf8"/>
+      <line class="tree-layer highlight" data-layer="rain" x1="130" y1="35" x2="140" y2="90" stroke="#38bdf8" stroke-width="1.5" opacity="0.6" style="--layer-glow:#38bdf8"/>
+      <line class="tree-layer highlight" data-layer="rain" x1="200" y1="40" x2="215" y2="95" stroke="#38bdf8" stroke-width="1.5" opacity="0.7" style="--layer-glow:#38bdf8"/>
+      <line class="tree-layer highlight" data-layer="rain" x1="260" y1="50" x2="250" y2="105" stroke="#38bdf8" stroke-width="1.5" opacity="0.5" style="--layer-glow:#38bdf8"/>
+      <line class="tree-layer highlight" data-layer="rain" x1="155" y1="55" x2="160" y2="110" stroke="#38bdf8" stroke-width="1.5" opacity="0.6" style="--layer-glow:#38bdf8"/>
+      <!-- Rays from sun -->
+      <line class="tree-layer highlight" data-layer="rain" x1="170" y1="30" x2="120" y2="70" stroke="#d4a853" stroke-width="0.5" opacity="0.4" style="--layer-glow:#38bdf8"/>
+      <line class="tree-layer highlight" data-layer="rain" x1="170" y1="30" x2="220" y2="70" stroke="#d4a853" stroke-width="0.5" opacity="0.4" style="--layer-glow:#38bdf8"/>
+      <ellipse class="tree-layer" data-layer="canopy" cx="170" cy="130" rx="100" ry="70" fill="#2d5a2a" style="--layer-glow:#34d399"/>
+      <ellipse class="tree-layer" data-layer="canopy" cx="130" cy="110" rx="60" ry="50" fill="#3a6b35" style="--layer-glow:#34d399"/>
+      <ellipse class="tree-layer" data-layer="canopy" cx="210" cy="120" rx="55" ry="45" fill="#336630" style="--layer-glow:#34d399"/>
+      <path class="tree-layer" data-layer="axe" d="M152 240 L162 250 L152 260" stroke="#ef4444" stroke-width="2.5" fill="none" style="--layer-glow:#ef4444"/>
+      <ellipse class="tree-layer" data-layer="seed" cx="170" cy="310" rx="5" ry="3" fill="#d4a853" style="--layer-glow:#d4a853"/>
+    </svg>
+  </div>
+  <div class="text-panel">
+    <div class="q-tag" style="color:var(--q4)">Q4 — What Supports It?</div>
+    <div class="q-title">The Rain and Sun</div>
+    <div class="q-body">A tree doesn't feed itself from nothing. <strong>Rain comes from outside.</strong> Evidence is external support — data, observation, replication. Without it, the tree dries up. But here's the real question: could this same rain fall on a different tree and feed it just as well?</div>
+    <div class="q-insight">"If your evidence equally supports a competing explanation, you haven't proven anything yet."</div>
+    <div class="q-sub">
+      <li>Is the evidence empirical, mathematical, logical, or inferential?</li>
+      <li>Has it been replicated? By whom? Under what conditions?</li>
+      <li>Could the same evidence support a competing model equally well?</li>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- Q5 — THE ROOTS -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="q-section" data-q="5" data-layer="roots">
+  <div class="tree-panel">
+    <svg viewBox="0 0 340 500" xmlns="http://www.w3.org/2000/svg">
+      <rect class="tree-layer" data-layer="bedrock" x="0" y="420" width="340" height="80" rx="4" fill="#2a2035" style="--layer-glow:#8a8d9b"/>
+      <!-- ROOTS highlighted -->
+      <rect class="tree-layer highlight" data-layer="roots" x="0" y="340" width="340" height="80" fill="#3d2b1f" style="--layer-glow:#a0724a"/>
+      <path class="tree-layer highlight" data-layer="roots" d="M170 340 C140 365 80 380 30 405" stroke="#a0724a" stroke-width="5" fill="none" style="--layer-glow:#a0724a"/>
+      <path class="tree-layer highlight" data-layer="roots" d="M170 340 C200 365 260 380 310 405" stroke="#a0724a" stroke-width="5" fill="none" style="--layer-glow:#a0724a"/>
+      <path class="tree-layer highlight" data-layer="roots" d="M170 340 C155 365 110 385 70 415" stroke="#8a6040" stroke-width="3" fill="none" style="--layer-glow:#a0724a"/>
+      <path class="tree-layer highlight" data-layer="roots" d="M170 340 C185 365 230 385 270 415" stroke="#8a6040" stroke-width="3" fill="none" style="--layer-glow:#a0724a"/>
+      <path class="tree-layer highlight" data-layer="roots" d="M170 340 C170 370 170 400 170 420" stroke="#6b4830" stroke-width="4" fill="none" style="--layer-glow:#a0724a"/>
+      <!-- One root that loops back (circularity!) -->
+      <path class="tree-layer highlight" data-layer="roots" d="M100 390 C80 400 75 380 95 375" stroke="#ef4444" stroke-width="2" fill="none" stroke-dasharray="3,3" style="--layer-glow:#ef4444"/>
+      <rect class="tree-layer" data-layer="soil" x="0" y="300" width="340" height="40" fill="#4a3728" style="--layer-glow:#7c6340"/>
+      <rect class="tree-layer" data-layer="trunk" x="155" y="180" width="30" height="120" rx="4" fill="#5c3d2e" style="--layer-glow:#6b8c42"/>
+      <circle class="tree-layer" data-layer="rain" cx="170" cy="30" r="20" fill="#38bdf8" opacity="0.3" style="--layer-glow:#38bdf8"/>
+      <ellipse class="tree-layer" data-layer="canopy" cx="170" cy="130" rx="100" ry="70" fill="#2d5a2a" style="--layer-glow:#34d399"/>
+      <ellipse class="tree-layer" data-layer="canopy" cx="130" cy="110" rx="60" ry="50" fill="#3a6b35" style="--layer-glow:#34d399"/>
+      <ellipse class="tree-layer" data-layer="canopy" cx="210" cy="120" rx="55" ry="45" fill="#336630" style="--layer-glow:#34d399"/>
+      <path class="tree-layer" data-layer="axe" d="M152 240 L162 250 L152 260" stroke="#ef4444" stroke-width="2.5" fill="none" style="--layer-glow:#ef4444"/>
+      <ellipse class="tree-layer" data-layer="seed" cx="170" cy="310" rx="5" ry="3" fill="#d4a853" style="--layer-glow:#d4a853"/>
+    </svg>
+  </div>
+  <div class="text-panel">
+    <div class="q-tag" style="color:var(--q5)">Q5 — What Does It Depend On?</div>
+    <div class="q-title">The Root System</div>
+    <div class="q-body">Everything above ground depends on what's below it. <strong>Roots are invisible dependencies.</strong> Some go deep to bedrock — those are axioms. Some spread wide but stay shallow — those are assumptions. And some loop back into themselves. <span style="color:var(--q7)">That's circularity. Flag it.</span></div>
+    <div class="q-insight">"The tree you see is only as strong as the roots you can't."</div>
+    <div class="q-sub">
+      <li>What must already be true for this to stand?</li>
+      <li>Trace the chain all the way down — where does it end? Axiom, brute fact, or loop?</li>
+      <li>If a root fails, does the whole tree fall or just one branch?</li>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- Q6 — THE CANOPY -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="q-section" data-q="6" data-layer="canopy">
+  <div class="tree-panel">
+    <svg viewBox="0 0 340 500" xmlns="http://www.w3.org/2000/svg">
+      <rect class="tree-layer" data-layer="bedrock" x="0" y="420" width="340" height="80" rx="4" fill="#2a2035" style="--layer-glow:#8a8d9b"/>
+      <rect class="tree-layer" data-layer="roots" x="0" y="340" width="340" height="80" fill="#3d2b1f" style="--layer-glow:#a0724a"/>
+      <path class="tree-layer" data-layer="roots" d="M170 340 C140 370 80 380 40 400 M170 340 C200 370 260 380 300 400" stroke="#5c3d2e" stroke-width="4" fill="none" style="--layer-glow:#a0724a"/>
+      <rect class="tree-layer" data-layer="soil" x="0" y="300" width="340" height="40" fill="#4a3728" style="--layer-glow:#7c6340"/>
+      <rect class="tree-layer" data-layer="trunk" x="155" y="180" width="30" height="120" rx="4" fill="#5c3d2e" style="--layer-glow:#6b8c42"/>
+      <circle class="tree-layer" data-layer="rain" cx="170" cy="30" r="20" fill="#38bdf8" opacity="0.3" style="--layer-glow:#38bdf8"/>
+      <!-- CANOPY highlighted -->
+      <ellipse class="tree-layer highlight" data-layer="canopy" cx="170" cy="130" rx="105" ry="75" fill="#2d5a2a" style="--layer-glow:#34d399"/>
+      <ellipse class="tree-layer highlight" data-layer="canopy" cx="130" cy="110" rx="65" ry="55" fill="#3a6b35" style="--layer-glow:#34d399"/>
+      <ellipse class="tree-layer highlight" data-layer="canopy" cx="210" cy="120" rx="60" ry="48" fill="#336630" style="--layer-glow:#34d399"/>
+      <!-- Fruit (consequences) -->
+      <circle class="tree-layer highlight" data-layer="canopy" cx="100" cy="155" r="8" fill="#d4a853" style="--layer-glow:#34d399"/>
+      <circle class="tree-layer highlight" data-layer="canopy" cx="240" cy="142" r="8" fill="#d4a853" style="--layer-glow:#34d399"/>
+      <circle class="tree-layer highlight" data-layer="canopy" cx="170" cy="80" r="7" fill="#d4a853" style="--layer-glow:#34d399"/>
+      <circle class="tree-layer highlight" data-layer="canopy" cx="135" cy="170" r="6" fill="#d4a853" style="--layer-glow:#34d399"/>
+      <!-- Seeds falling (new claims) -->
+      <ellipse class="tree-layer highlight" data-layer="canopy" cx="95" cy="185" rx="4" ry="2.5" fill="#d4a853" opacity="0.6" style="--layer-glow:#34d399"/>
+      <ellipse class="tree-layer highlight" data-layer="canopy" cx="245" cy="178" rx="4" ry="2.5" fill="#d4a853" opacity="0.6" style="--layer-glow:#34d399"/>
+      <!-- Dotted lines showing seeds falling to new ground -->
+      <line class="tree-layer highlight" data-layer="canopy" x1="95" y1="188" x2="85" y2="300" stroke="#d4a853" stroke-width="0.5" stroke-dasharray="3,5" opacity="0.4" style="--layer-glow:#34d399"/>
+      <line class="tree-layer highlight" data-layer="canopy" x1="245" y1="181" x2="260" y2="300" stroke="#d4a853" stroke-width="0.5" stroke-dasharray="3,5" opacity="0.4" style="--layer-glow:#34d399"/>
+      <path class="tree-layer" data-layer="axe" d="M152 240 L162 250 L152 260" stroke="#ef4444" stroke-width="2.5" fill="none" style="--layer-glow:#ef4444"/>
+      <ellipse class="tree-layer" data-layer="seed" cx="170" cy="310" rx="5" ry="3" fill="#d4a853" style="--layer-glow:#d4a853"/>
+    </svg>
+  </div>
+  <div class="text-panel">
+    <div class="q-tag" style="color:var(--q6)">Q6 — What Does It Force?</div>
+    <div class="q-title">Branches, Fruit, and Falling Seeds</div>
+    <div class="q-body">A living tree doesn't just stand there. It <strong>produces.</strong> Branches reach into new space. Fruit appears. Seeds drop into new soil and start the whole cycle somewhere else. If your claim is true, what else MUST be true that nobody has checked? Those falling seeds are your untested predictions. <strong>And if a seed lands in a different domain's soil and grows the same tree — that's isomorphism.</strong></div>
+    <div class="q-insight">"A claim that produces nothing is a dead tree. It explains nothing. It predicts nothing. It occupies space."</div>
+    <div class="q-sub">
+      <li>If true, what else must follow that nobody has checked?</li>
+      <li>Does it generate testable predictions?</li>
+      <li>Does it force consequences in a different domain? (That's where isomorphisms live)</li>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- Q7 — THE AXE -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="q-section" data-q="7" data-layer="axe">
+  <div class="tree-panel">
+    <svg viewBox="0 0 340 500" xmlns="http://www.w3.org/2000/svg">
+      <rect class="tree-layer" data-layer="bedrock" x="0" y="420" width="340" height="80" rx="4" fill="#2a2035" style="--layer-glow:#8a8d9b"/>
+      <rect class="tree-layer" data-layer="roots" x="0" y="340" width="340" height="80" fill="#3d2b1f" style="--layer-glow:#a0724a"/>
+      <path class="tree-layer" data-layer="roots" d="M170 340 C140 370 80 380 40 400 M170 340 C200 370 260 380 300 400" stroke="#5c3d2e" stroke-width="4" fill="none" style="--layer-glow:#a0724a"/>
+      <rect class="tree-layer" data-layer="soil" x="0" y="300" width="340" height="40" fill="#4a3728" style="--layer-glow:#7c6340"/>
+      <rect class="tree-layer" data-layer="trunk" x="155" y="180" width="30" height="120" rx="4" fill="#5c3d2e" style="--layer-glow:#6b8c42"/>
+      <circle class="tree-layer" data-layer="rain" cx="170" cy="30" r="20" fill="#38bdf8" opacity="0.3" style="--layer-glow:#38bdf8"/>
+      <ellipse class="tree-layer" data-layer="canopy" cx="170" cy="130" rx="100" ry="70" fill="#2d5a2a" style="--layer-glow:#34d399"/>
+      <ellipse class="tree-layer" data-layer="canopy" cx="130" cy="110" rx="60" ry="50" fill="#3a6b35" style="--layer-glow:#34d399"/>
+      <ellipse class="tree-layer" data-layer="canopy" cx="210" cy="120" rx="55" ry="45" fill="#336630" style="--layer-glow:#34d399"/>
+      <ellipse class="tree-layer" data-layer="seed" cx="170" cy="310" rx="5" ry="3" fill="#d4a853" style="--layer-glow:#d4a853"/>
+      <!-- AXE highlighted -->
+      <path class="tree-layer highlight" data-layer="axe" d="M148 235 L163 250 L148 265" stroke="#ef4444" stroke-width="3.5" fill="none" style="--layer-glow:#ef4444"/>
+      <line class="tree-layer highlight" data-layer="axe" x1="115" y1="250" x2="150" y2="250" stroke="#ef4444" stroke-width="3" style="--layer-glow:#ef4444"/>
+      <!-- Axe head -->
+      <polygon class="tree-layer highlight" data-layer="axe" points="108,240 115,250 108,260 100,250" fill="#ef4444" opacity="0.8" style="--layer-glow:#ef4444"/>
+      <!-- Crack radiating -->
+      <path class="tree-layer highlight" data-layer="axe" d="M163 250 C170 245 175 240 180 238" stroke="#ef4444" stroke-width="1" opacity="0.5" style="--layer-glow:#ef4444"/>
+      <path class="tree-layer highlight" data-layer="axe" d="M163 250 C172 255 178 260 182 265" stroke="#ef4444" stroke-width="1" opacity="0.5" style="--layer-glow:#ef4444"/>
+    </svg>
+  </div>
+  <div class="text-panel">
+    <div class="q-tag" style="color:var(--q7)">Q7 — What Kills It?</div>
+    <div class="q-title">The Axe</div>
+    <div class="q-body">Every tree can be cut down. <strong>The question is where to swing.</strong> Self-refutation — the tree's own weight snaps its trunk. Infinite regress — the roots never reach bedrock. Empirical contradiction — the rain carries poison. Logical incoherence — the rings contradict the bark. Explanatory failure — the tree stops bearing fruit. Five ways to die. A tree that can't be cut isn't a tree. It's a painting of one.</div>
+    <div class="q-insight">"Every object carries its own death warrant. If it doesn't, it isn't science."</div>
+    <div class="q-sub">
+      <li>Name the death condition — which of the five types?</li>
+      <li>What breaks downstream if this fails?</li>
+      <li>Has anyone actually tried to kill it — or has it only survived friendly examination?</li>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="footer">
+  <div class="sig">One tree. Seven lenses. Nothing hidden.</div>
+  <p>Seven questions forward: classify anything.<br>Seven questions reversed: prove anything.<br>Q0: arrive humble or don't arrive at all.</p>
+  <p style="margin-top:16px;"><strong>David Lowe · POF 2828 · Theophysics</strong></p>
+</div>
+
+
+<script>
+// Intersection Observer for scroll-driven activation
+const sections = document.querySelectorAll('.q-section');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('active');
+    } else {
+      entry.target.classList.remove('active');
+    }
+  });
+}, { threshold: 0.35 });
+
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>1940-1949: Peak Coherence — The Crucible of Consensus — Moral Decline of America</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a;
+  --border:#2a2a2a; --border-claim:rgba(212,175,55,.35);
+  --text:#e0e0e0; --text2:#a0a0a0; --text3:#707070;
+  --mda-red:#dc2626; --mda-red-glow:rgba(220,38,38,.08);
+  --claim:#d4af37; --claim-glow:rgba(212,175,55,.08);
+  --easy:#22c55e; --easy-glow:rgba(34,197,94,.08);
+  --academic:#a78bfa; --academic-glow:rgba(167,139,250,.08);
+  --proof:#f59e0b; --proof-glow:rgba(245,158,11,.08);
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  line-height:1.65; margin:0; padding:0;
+}
+</style>
+<style>
+/* Reader Mode Bar */
+.mda-reader-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:.5rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;
+}
+.mda-reader-bar .series-badge{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mda-red);font-weight:600;
+}
+.mda-reader-bar .meta{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;
+  color:var(--text3);text-transform:uppercase;letter-spacing:.06em;
+}
+.tab-group{display:flex;gap:.4rem;flex-wrap:wrap;}
+.tab-btn{
+  padding:.4rem .7rem;border:1px solid var(--border);border-radius:.35rem;
+  background:var(--surface);color:var(--text2);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em;transition:all .2s;
+}
+.tab-btn:hover{border-color:var(--mda-red);color:var(--text);}
+.tab-btn.active{border-color:var(--mda-red);background:var(--mda-red-glow);color:var(--mda-red);}
+.tab-btn[data-tab="easy"].active{border-color:var(--easy);background:var(--easy-glow);color:var(--easy);}
+.tab-btn[data-tab="academic"].active{border-color:var(--academic);background:var(--academic-glow);color:var(--academic);}
+.tab-btn[data-tab="proof"].active{border-color:var(--proof);background:var(--proof-glow);color:var(--proof);}
+
+/* Article */
+.article{max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem;}
+.article h1{
+  font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.02em;
+  margin:0 0 .5rem;line-height:1.1;
+}
+.article .subtitle{
+  font-family:'Crimson Text',serif;font-size:1.15rem;color:var(--text2);
+  font-style:italic;margin:0 0 2rem;line-height:1.5;
+}
+.article h2{
+  font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:#fff;
+  text-transform:uppercase;letter-spacing:.04em;margin:2.5rem 0 1rem;
+  border-bottom:1px solid var(--border);padding-bottom:.4rem;
+}
+.article h3{font-family:'Crimson Text',serif;font-size:1.15rem;font-weight:600;color:var(--mda-red);margin:1.5rem 0 .5rem;}
+.article p{font-size:1.02rem;line-height:1.75;margin:0 0 1.25rem;}
+.article blockquote{
+  border-left:3px solid var(--mda-red);background:var(--mda-red-glow);
+  padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 .4rem .4rem 0;
+  font-family:'Crimson Text',serif;font-style:italic;color:var(--text2);
+}
+.article img{max-width:100%;border-radius:.4rem;margin:1rem 0;}
+.mda-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
+.mda-table td{padding:.4rem .6rem;border:1px solid var(--border);color:var(--text2);}
+.mda-table tr:first-child td{font-weight:600;color:var(--text);background:var(--surface);}
+
+/* Reading level panels */
+.level-panel{display:none;}
+.level-panel.active{display:block;}
+
+/* Proof panel */
+.proof-panel{display:none;max-width:780px;margin:0 auto;padding:1.5rem;}
+.proof-panel.active{display:block;}
+.mda-proof-eyebrow{
+  font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--proof);margin-bottom:.6rem;
+}
+.math-field{display:flex;gap:.5rem;margin:.4rem 0;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.math-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--proof);font-weight:600;min-width:180px;}
+.math-value{font-size:.85rem;color:var(--text2);}
+.math-item{font-size:.85rem;color:var(--text);padding:.2rem 0 .2rem 1rem;border-left:2px solid var(--border);margin:.3rem 0;}
+.mda-proof-placeholder{color:var(--text3);font-style:italic;font-size:.9rem;}
+
+/* Glossary */
+.mda-glossary{columns:1;}
+.glossary-entry{break-inside:avoid;margin-bottom:.8rem;}
+.glossary-entry dt{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--academic);font-weight:600;}
+.glossary-entry dd{font-size:.85rem;color:var(--text2);margin:0 0 0 .5rem;}
+.glossary-domain{font-size:.65rem;color:var(--text3);margin-left:.5rem;font-style:italic;}
+
+/* Easy level overrides */
+body.mode-easy .article p{font-size:1.15rem;line-height:1.85;}
+body.mode-easy .article h3{font-size:1.3rem;color:var(--easy);font-family:'Oswald',sans-serif;}
+body.mode-easy .article blockquote{border-left-color:var(--easy);background:var(--easy-glow);font-style:normal;}
+/* Academic level overrides */
+body.mode-academic .article p{font-size:.95rem;line-height:1.65;color:#d0d0d0;}
+body.mode-academic .article h3{font-size:1.1rem;color:var(--academic);font-family:'Crimson Text',serif;font-style:italic;}
+body.mode-academic .article blockquote{border-left-color:var(--academic);background:var(--academic-glow);}
+
+@media(max-width:640px){
+  .article{padding:1.5rem 1rem 4rem;}
+  .mda-reader-bar{padding:.4rem 1rem;}
+}
+</style>
+</head>
+<body class="mode-standard">
+
+<!-- BEGIN:COMPONENT:reader-mode:reader-mode-bar -->
+<div class="mda-reader-bar">
+  <div>
+    <span class="series-badge">Moral Decline of America</span>
+    <span class="meta">MDA-013</span>
+    <span class="meta" id="mode-status">Standard active</span>
+  </div>
+  <div class="tab-group">
+    <button class="tab-btn" data-tab="easy" onclick="setTab('easy')">Easy</button>
+    <button class="tab-btn active" data-tab="standard" onclick="setTab('standard')">Standard</button>
+    <button class="tab-btn" data-tab="academic" onclick="setTab('academic')">Academic</button>
+    <button class="tab-btn" data-tab="proof" onclick="setTab('proof')">Proof</button>
+  </div>
+</div>
+<!-- END:COMPONENT:reader-mode:reader-mode-bar -->
+
+<!-- BEGIN:LEVEL:standard -->
+<div class="level-panel active" data-level="standard">
+  <article class="article">
+    <h1>1940-1949: Peak Coherence — The Crucible of Consensus</h1>
+    <p class="subtitle">MDA-013 · David Lowe · Theophysics Institute</p>
+    <p><a href="index.html">Moral Decline</a></p>
+<p><a href="index.html">Genesis to Quantum</a></p>
+<p>Decade Analysis · 02C
+1940–1949</p>
+<p>Decade Analysis • 02C of 02G</p>
+<h1>The Crucible of Consensus</h1>
+<p>1940–1949: The Peak Coherence Decade</p>
+<p><img alt="Story Illustration" src="../images/mda/The_1962_Software_Crash conv 3.webp" /></p>
+<p>When external discipline forged a façade strong enough to last twenty years</p>
+<p>David Lowe • Theophysics Institute</p>
+<p>If you want to know what peak American coherence looked like, you look at the 1940s.</p>
+<p>Not because Americans in the 1940s were uniformly virtuous. They weren’t. Kinsey would prove that in 1948 with one of the most disturbing data points in twentieth-century social science. The 1940s were the peak of <em>coherence</em>, not the peak of <em>virtue</em>. And the distinction matters more than almost anything else in this series.</p>
+<p>The decade is the provisional statistical baseline for American civilizational coherence — what the current Theophysics calibration estimates as a chi value of approximately <strong>0.85 to 0.90</strong>. That estimate is not a moral verdict and not yet a closed proof. It is a composite reading of multiple visible coherence indicators: family formation, institutional trust, religious participation, union density, media centralization, crime/social pathology, and economic compression. The high reading appears to coincide with three reinforcing forces: <strong>maximal institutional legitimacy</strong> (record union density, near-total compliance with wartime mandates), <strong>structural family rigidity</strong> (the dominance of the married-couple household), and <strong>centralized cultural control</strong> (the Hays Code enforcing a single moral narrative across mass media).</p>
+<p><strong>Method note.</strong> In this series, chi is treated as an operational coherence index, not a directly observed physical quantity. Public-facing chi claims remain provisional until the appendix supplies the full table: raw indicator, source, normalization range, weight, uncertainty, and sensitivity test. Any article using chi must therefore distinguish three layers: measured social indicator, constructed coherence index, and Theophysics interpretation.</p>
+<p>The 1940s consensus was not internally virtuous. It was externally enforced. That is the entire story of why it held — and why it shattered the moment the enforcement stopped.</p>
+<hr />
+<h2>A. Family Structure</h2>
+<p>The decade established the maximal demographic coherence of the traditional family unit, driven by rapid post-war marriage formation and strict containment of non-marital childbearing.</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>1940</th>
+<th>1945</th>
+<th>1949</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Marriage rate (per 1,000)</td>
+<td>12.1</td>
+<td>12.2</td>
+<td>10.6</td>
+<td>NCHS</td>
+</tr>
+<tr>
+<td>Divorce rate (per 1,000)</td>
+<td>~2.0</td>
+<td>3.5</td>
+<td>2.7</td>
+<td>NCHS</td>
+</tr>
+<tr>
+<td>Median age at first marriage (Men)</td>
+<td>24.3</td>
+<td>—</td>
+<td>22.7</td>
+<td>U.S. Census</td>
+</tr>
+<tr>
+<td>Median age at first marriage (Women)</td>
+<td>21.5</td>
+<td>—</td>
+<td>20.3</td>
+<td>U.S. Census</td>
+</tr>
+<tr>
+<td>Out-of-wedlock births (per 1,000 unmarried women 15–44)</td>
+<td>7.1</td>
+<td>10.1</td>
+<td>13.3</td>
+<td>NCHS</td>
+</tr>
+<tr>
+<td>Single-parent families (% of households)</td>
+<td>4.3%</td>
+<td>—</td>
+<td>4.1% (1960)</td>
+<td>U.S. Census</td>
+</tr>
+<tr>
+<td>Average household size</td>
+<td>3.7</td>
+<td>—</td>
+<td>3.3 (1950)</td>
+<td>U.S. Census</td>
+</tr>
+</tbody>
+</table>
+<p>A note on the volatility hiding inside that table: the divorce rate spiked to a post-war high of <strong>4.3 per 1,000 in 1946</strong> as wartime separations triggered mass dissolution of brittle unions. By 1949 it had fallen back to 2.7. Median age at first marriage simultaneously dropped sharply (men: 24.3 to 22.7, women: 21.5 to 20.3), confirming an intense post-war commitment to rapid family formation — the leading edge of the Baby Boom. The decade’s domestic coherence was defined by structural <em>impulse</em> toward marriage, not by internal stability.</p>
+<hr />
+<h2>B. The Kinsey Paradox</h2>
+<p>This is the section that complicates the nostalgia. In 1948, Alfred Kinsey published <em>Sexual Behavior in the Human Male</em> based on thousands of face-to-face interviews. The headline number stopped the country cold:</p>
+<p>85%</p>
+<p>of American men reported premarital sex</p>
+<table>
+<thead>
+<tr>
+<th>Kinsey Metric (1948)</th>
+<th>Value</th>
+<th>Significance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Men reporting premarital sex</td>
+<td>85%</td>
+<td>Strong evidence of widespread private non-conformity</td>
+</tr>
+<tr>
+<td>Married men reporting extramarital sex</td>
+<td>~50%</td>
+<td>Widespread non-conformity, war-separation context</td>
+</tr>
+<tr>
+<td>Exclusively homosexual males</td>
+<td>4%</td>
+<td>Quantification of a strictly suppressed demographic</td>
+</tr>
+<tr>
+<td>Media content standard</td>
+<td>Hays Code</td>
+<td>Profanity, suggestive nudity, divorce sympathy banned</td>
+</tr>
+<tr>
+<td>Contraception legality</td>
+<td>Restricted</td>
+<td>SCOTUS avoided challenges (pre-Griswold)</td>
+</tr>
+</tbody>
+</table>
+<p>Read those numbers carefully. The 1940s did not maintain coherence because Americans behaved well. They maintained coherence because the institutions <strong>punished public revelation of how they actually behaved</strong>. The Hays Code policed the screen. State law restricted contraception. Stigma policed the neighbor. The behavior was already endemic. The façade was the achievement.</p>
+<p>That distinction is the key to everything that follows in this series. When Kinsey’s data dropped, it didn’t create the deviance. It revealed that the deviance was already there. It armed the next generation with the implicit knowledge that the formal moral code was a fiction — and once the institutions enforcing the fiction collapsed in 1968, there was nothing underneath to keep public behavior tethered.</p>
+<p>The moral failure was already endemic. The institutional power was strong enough to enforce concealment, but never compliance.</p>
+<hr />
+<h2>C. Education &amp; Intellectual Climate</h2>
+<p>The 1940s were the high-water mark of a common, standardized, religiously inflected school system serving as the primary engine of human capital formation.</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>1939–1940</th>
+<th>1949–1950</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>High school graduation rate (% of 17-year-olds)</td>
+<td>50.8%</td>
+<td>59.0%</td>
+<td>NCES</td>
+</tr>
+<tr>
+<td>High school attainment (% age 25+)</td>
+<td>24.5%</td>
+<td>34.3%</td>
+<td>U.S. Census</td>
+</tr>
+<tr>
+<td>Median school years completed (age 25+)</td>
+<td>8.4</td>
+<td>—</td>
+<td>U.S. Census</td>
+</tr>
+<tr>
+<td>College enrollment (age 18–24, metro)</td>
+<td>—</td>
+<td>21%</td>
+<td>CPS</td>
+</tr>
+<tr>
+<td>Religious instruction / prayer in public schools</td>
+<td>Routine</td>
+<td>Routine</td>
+<td>State law (pre-1962)</td>
+</tr>
+</tbody>
+</table>
+<p>The primary moral function of the public school system in this era was not constitutional secularism — it was the delivery of a standardized civic and moral curriculum. Daily prayer and Bible reading were widely sustained by state law until the early 1960s. The decade’s critical structural shift was the <strong>9.8-point jump</strong> in adult high school attainment, building the intellectual workforce that would carry American technocratic dominance for thirty years.</p>
+<hr />
+<h2>D. The Great Compression</h2>
+<p>The economic settlement of the 1940s was the material foundation that made single-income family coherence possible. The data shows it: top-decile income share collapsed, union density peaked, homeownership exploded.</p>
+<p>Inequality Compression</p>
+<p>Top 10% Income Share (1940)44.4%</p>
+<p>Top 10% Income Share (1942)35.5%</p>
+<p>Top 10% Income Share (1949)33.8%</p>
+<p>A 10.6-point drop in nine years. Source: Piketty &amp; Saez.</p>
+<p>Middle-Class Anchors</p>
+<p>Homeownership (1940)43.6%</p>
+<p>Homeownership (1947)53%</p>
+<p>Union Density (1940)24.3%</p>
+<p>Union Density (1945 peak)34.2%</p>
+<p>Median Family Income (1948)$3,200</p>
+<p>Peak union density of 34.2% in 1945 is the cleanest single proxy for institutional trust in the entire dataset. A third of all non-farm employees voluntarily belonged to a complex collective organization that expected dues, demanded loyalty, and could call them out on strike. That number never recovered. By 2024 it sits below 10%.</p>
+<p>The combination of rising wages, falling top-decile share, and surging homeownership produced what economists later named the <strong>Great Compression</strong>. The single-income household became viable not as ideology but as arithmetic. That arithmetic underwrote the structural family of the era. When it broke in the 1970s, the family broke with it.</p>
+<hr />
+<h2>E. Censored Consensus</h2>
+<p>Two centralized media forms saturated the population: radio (over 90% of households) and cinema (an all-time-peak <strong>30 per-capita annual admissions in 1946</strong>). Nearly every American consumed a near-identical pool of information and entertainment. In the language of the model, cultural entropy appears to have been constrained by gatekeepers; the public evidence supports homogenized signal control, while the thermodynamic mapping remains a formal analogy unless the entropy measure is explicitly computed.</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>1940</th>
+<th>1946 Peak</th>
+<th>1949</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Radio penetration (% of households)</td>
+<td>&gt;90%</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Weekly movie attendance (millions)</td>
+<td>80</td>
+<td>95</td>
+<td>~60</td>
+</tr>
+<tr>
+<td>Annual per-capita movie admissions</td>
+<td>~24.7</td>
+<td>30 (all-time peak)</td>
+<td>21</td>
+</tr>
+<tr>
+<td>Daily newspaper circulation (millions)</td>
+<td>41.1</td>
+<td>50.9</td>
+<td>52.8</td>
+</tr>
+<tr>
+<td>Content standard</td>
+<td>Hays Code</td>
+<td>Hays Code</td>
+<td>Hays Code</td>
+</tr>
+</tbody>
+</table>
+<p>The Hays Code prohibited profanity, suggestive nudity, sexual persuasion, and sympathetic depictions of divorce. It was administered by the Production Code Administration with absolute authority over what could appear in mass-distribution film. The result was what cultural analysts call a <strong>binary moral universe</strong>: wrongdoing on screen was never sympathetically portrayed, and consequence was always visible. The Code did not reflect public morality. The Code <em>manufactured</em> public morality through repetition.</p>
+<p>Hold on to this fact: in 1968 the Hays Code was replaced by the MPAA rating system. That single institutional change is one of the six simultaneous structural breaks in the 1968–1973 decoupling that the framework predicts. The censored consensus was load-bearing.</p>
+<hr />
+<h2>F. Religious &amp; Institutional Authority</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>1940</th>
+<th>1944–1945</th>
+<th>1949</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Weekly church attendance</td>
+<td>~40%</td>
+<td>—</td>
+<td>~40%</td>
+</tr>
+<tr>
+<td>Religious affiliation</td>
+<td>—</td>
+<td>52.5%</td>
+<td>54%</td>
+</tr>
+<tr>
+<td>Church membership (% adults)</td>
+<td>73%</td>
+<td>—</td>
+<td>held high</td>
+</tr>
+<tr>
+<td>Voter turnout (presidential)</td>
+<td>59.1%</td>
+<td>53.0%</td>
+<td>51.5% (1948)</td>
+</tr>
+<tr>
+<td>Union density (non-farm)</td>
+<td>24.3%</td>
+<td>34.2%</td>
+<td>29.6%</td>
+</tr>
+<tr>
+<td>Military service rate (1941–1945)</td>
+<td>—</td>
+<td>61.2% draftees</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Moral authority in the 1940s was concentrated. Church, family, and state operated as a <em>synergistic</em> authority structure rather than competing centers of legitimacy. Weekly church attendance held a high floor of approximately 40%. Church membership stood at 73% of adults. Voluntary union membership peaked. Voter turnout exceeded 50% in every election. Sixty-one percent of military service was draftees who reported when called.</p>
+<p><img alt="Story Illustration" src="../images/mda/Signal_Blackout conv 11.webp" /></p>
+<p>None of those numbers survives intact past 1973. Together they describe a population that <em>received</em> coherent signals from multiple reinforcing institutions and oriented behavior toward them. In Theophysics terms, this is the article's working interpretation: the observer function O was high, the negentropic input G was high, and the system absorbed disruption without immediately losing public structure. That last sentence is a model claim, not a completed derivation; the proof layer must show the substitution table before promoting it as isomorphism.</p>
+<hr />
+<h2>G. Social Pathologies — The Hidden Cost</h2>
+<p>Economic integration and institutional containment kept severe social pathologies low. Suicide rates dropped below the Depression-era mark of 15.0 per 100,000 and stabilized at 12–14 per 100,000 — a range that would hold from 1945 until 1992. Homicide rates fell from the 1933 peak.</p>
+<p>But there is a number you have to look at squarely if you are going to be honest about this decade.</p>
+<p>564,160</p>
+<p>resident mental-health patients in 1949 (NIMH)</p>
+<p>More than half a million Americans were institutionalized in 1949. The 1940s consensus did not reduce deviance — it <strong>relocated</strong> it. Pathological non-conformity was managed through large-scale, centralized institutional isolation rather than integration. The deinstitutionalization wave that began in the 1960s would collide with a society no longer capable of absorbing the population it had previously sequestered.</p>
+<p>This is a piece of the 1940s coherence that nostalgia tends to airbrush. The façade was held together not only by enforcement but also by removal.</p>
+<hr />
+<h2>The 1940s Moral Signature</h2>
+<p>1</p>
+<h3>Nuclear Family as Moral &amp; Economic Unit</h3>
+<p>Statistical dominance and rapid post-war formation. The single-income household was viable arithmetic, not ideology.</p>
+<p>2</p>
+<h3>Institutional Authority at High-Water Mark</h3>
+<p>Peak functional power of unions (34.2%), high voter turnout, 73% church membership, 61% draftee compliance.</p>
+<p>3</p>
+<h3>Performative Coherence — The Kinsey Paradox</h3>
+<p>Rigid public morality masking widespread private deviance. Concealment, not compliance.</p>
+<p>4</p>
+<h3>The Great Compression</h3>
+<p>Top decile share fell from 44.4% to 33.8%. Homeownership rose from 43.6% to 53%. Material conditions for shared identity.</p>
+<p>5</p>
+<h3>Censored Consensus</h3>
+<p>Total cultural homogeneity enforced by centralized media gatekeepers. Hays Code, ubiquitous radio, peak cinema.</p>
+<hr />
+<h2>Two Figures, One Decade</h2>
+<p>Zeitgeist</p>
+<h3>George C. Marshall</h3>
+<p>1880–1959 · Chief of Staff → Secretary of State</p>
+<p>Marshall embodied the subordination of the individual to collective purpose. He coordinated the mobilization of over <strong>16 million men</strong> into military service — 61.2% of them draftees — and then engineered the Marshall Plan to stabilize post-war Europe. His authority was wielded with demonstrable humility. He was the non-ideological, duty-bound technocrat whose character supplied the moral mandate for centralized action. The 1940s could produce him. No subsequent decade could.</p>
+<p>Counter-Current</p>
+<h3>Alfred Kinsey</h3>
+<p>1894–1956 · Zoologist, author of Sexual Behavior in the Human Male (1948)</p>
+<p>Kinsey was a tectonic force. His painstaking statistical research quantified behaviors the consensus desperately needed to keep hidden. He represented the rising authority of <strong>empirical science</strong>, which by treating moral norms as mere objects of measurement irrevocably challenged the prescriptive authority of Church and Law. The Rockefeller Foundation later terminated his funding under public pressure — proof of how dangerous a single dataset could be to a façade-based order.</p>
+<hr />
+<h2>Bridge: The Brittle Consensus</h2>
+<p>The coherence of the 1940s was simultaneously robust and fundamentally fragile. The decade planted three seeds that would flower into the catastrophic inflection of 1968–1973.</p>
+<h3>The Rise of Affluence</h3>
+<p>Massive wartime savings combined with rapid post-war income growth produced unprecedented material comfort. That comfort gave the next generation the economic freedom to break free from family and institutional controls — rendering the single-income model unnecessary, and therefore negotiable.</p>
+<h3>The Weaponization of Empiricism</h3>
+<p>Kinsey demonstrated that objective, non-moralistic scientific data could directly delegitimize traditional moral authority. The model would be replicated by academic research challenging segregated institutions and inherited norms — catalyzing the authority shift away from moralists and toward technocrats.</p>
+<h3>The Unstoppable March of Women into the Workforce</h3>
+<p>Wartime mobilization pushed millions of women into non-traditional, higher-paying jobs. The 1950 female labor-force participation rate of <strong>33.9%</strong> established a baseline significantly higher than the 1930s and initiated a long-term economic realignment that permanently eroded the structural necessity of the single-income nuclear family.</p>
+<p>The stabilizing forces — the high floor of church attendance, the dominance of centralized media control, and the shared geopolitical purpose of the emerging Cold War — provided a thick buffer (the <a href="/glossary/?term=grace-function" title="See glossary: Grace Function">Grace Function</a> in Theophysics terms) that delayed the moral reckoning for almost two decades. The consensus was already irrevocably changed, however, because the public was now armed with the implicit knowledge that the formal moral code was a façade. It needed only one more thing: the breakdown of the institutions enforcing it.</p>
+<p>That breakdown is what the next four decades will document. The 1950s will quietly stress the seams. The 1960s will tear them. And by 1973 the façade will be on the floor.</p>
+<p>The 1940s were not a moral golden age. They were a coherence peak built on a façade that the next twenty years would slowly reveal — and the five years after that would tear apart.</p>
+<p><a href="MDA-011-collective-security-1930.html">Prev: 02B
+1930s — Collective Security</a></p>
+<p>Decade 02C of 02G</p>
+<p><a href="MDA-014-fissure-1950.html">Next: 02D
+1950s — Fissure in Conformity</a></p>
+<p>Genesis to Quantum • Theophysics Institute</p>
+<p>David Lowe • Theophysics Institute</p>
+  </article>
+</div>
+<!-- END:LEVEL:standard -->
+
+<!-- BEGIN:LEVEL:easy -->
+<div class="level-panel" data-level="easy">
+  <article class="article">
+    <h1>1940-1949: Peak Coherence — The Crucible of Consensus</h1>
+    <p class="subtitle">MDA-013 · Easy Reading Level</p>
+    <h1>1940–1949: When America Held Together</h1>
+<p><strong>Coherence</strong> is like a puzzle where every piece locks in place to show one clear picture.<br />
+During the 1940s, almost every American piece clicked together. That picture looked solid, proud, and ready to last forever. It did not last, and understanding why is the heart of this story.</p>
+<p><strong>Virtue</strong> is like driving the speed limit because you believe it is right, not because a police car is behind you.<br />
+The 1940s were high in coherence, not in virtue. People often broke the rules in private, yet the public picture stayed neat because strong guards stood everywhere.</p>
+<p><strong>Chi (χ)</strong> is like a school report card that turns many grades into one overall score.<br />
+Historians give the 1940s a chi of about 0.85–0.90, the highest in modern U-S records.</p>
+<p>Three giant guards held the picture in place:</p>
+<ol>
+<li>
+<p><strong>Institutional legitimacy</strong> is like a teacher whose rules the class obeys without rolling their eyes.<br />
+   Unions, the draft, and wartime rules all drew near-total compliance.</p>
+</li>
+<li>
+<p><strong>Structural family rigidity</strong> is like a board game that forces everyone to stay in fixed seats; switching costs you turns.<br />
+   Marriage was the only easy way to build a household.</p>
+</li>
+<li>
+<p><strong>Centralized cultural control</strong> is like one DJ choosing every song on every radio station.<br />
+   Movies, radio, and newspapers all pumped out one moral tune.</p>
+</li>
+</ol>
+<hr />
+<h2>Family: The Fast-Forming Nucleus</h2>
+<p>Young adults married fast after the war. Divorce spiked in 1946 when fragile wartime vows cracked, but the rate dropped again by 1949. One income could buy a home, feed kids, and let Mom stay out of the factory. Arithmetic, not sermons, made the “traditional family” possible.</p>
+<hr />
+<h2>The Kinsey Shock</h2>
+<p>In 1948 Alfred Kinsey interviewed thousands of men and dropped a bomb: 85 percent admitted to premarital sex, and about half of married men confessed affairs.<br />
+<strong>Performative coherence</strong> is like tidying your room only when guests come while the closet stays a mess.<br />
+The 1940s looked spotless because churches, neighbors, and censors hid the mess, not because the mess was small.</p>
+<hr />
+<h2>School and Mind-Molding</h2>
+<p>High-school graduation climbed from 51 percent to 59 percent in the decade. Daily prayer and Bible reading were normal in public classrooms. The country built a workforce ready for the coming tech boom—and taught one shared civic story to almost every child.</p>
+<hr />
+<h2>Money: The <strong>Great Compression</strong></h2>
+<p>The <strong>Great Compression</strong> is like trimming the tallest branches of a tree so sunlight reaches the lower leaves.<br />
+War taxes and strong unions shoved the top income share down from 44 percent to 34 percent. Wages rose, home-buying soared, and union membership hit one-third of all workers. One pay­check truly could carry a family.</p>
+<hr />
+<h2>Media: The <strong>Hays Code</strong> Cage</h2>
+<p>The <strong>Hays Code</strong> is like a strict movie-theater usher who stops any film that shows bad behavior.<br />
+Radio reached 90 percent of homes and movies sold 30 tickets per person in 1946. Swearing, nudity, and even sympathetic divorce vanished from screens. <strong>Entropy (cultural)</strong> is like a messy backpack filling with random papers unless you organize it; the Hays Code kept the backpack zipped tight.</p>
+<hr />
+<h2>Authority in Full Voice</h2>
+<p>Church membership hit 73 percent. Voter turnout stayed above half. Unions and the draft showed people would still answer organized calls. In the Theophysics model, the <strong>observer function O</strong> is like the hallway monitor who reports every rule break, and the <strong>negentropic input G</strong> is like fresh batteries that keep a flashlight from dimming. Both were high, so small shocks never blew the lights out.</p>
+<hr />
+<h2>Hidden Costs</h2>
+<p>Suicide and murder stayed low, yet more than half a million people lived in mental hospitals by 1949. The system often solved deviance by locking it away.</p>
+<hr />
+<h2>Five Traits That Mark the 1940s</h2>
+<ol>
+<li>Nuclear family powered by one paycheck.  </li>
+<li>Peak strength of churches, unions, and the draft.  </li>
+<li>Public order built on private hiding—the Kinsey paradox.  </li>
+<li>Narrow gap between rich and middle.  </li>
+<li>Mass media speaking with one censored voice.</li>
+</ol>
+<hr />
+<h2>Two Faces of the Decade</h2>
+<p>George C. Marshall, the quiet general-statesman, showed how a single dutiful leader could mobilize sixteen million soldiers and rebuild Europe.</p>
+<p>Alfred Kinsey, the careful scientist, showed how one dataset could shatter the moral story the gatekeepers told.</p>
+<hr />
+<h2>The Brittle Consensus</h2>
+<p>Three seeds inside the decade would split the puzzle later:</p>
+<p>• Rising affluence gave children money to ignore old rules.<br />
+• Empirical science, proven by Kinsey, could embarrass moral claims.<br />
+• Wartime jobs pulled women into paid work; by 1950 one-third stayed.</p>
+<p>The model calls the long delay before collapse a <strong>grace function</strong>—like a free homework extension that buys time but never cancels the due date. When church power weakened, the Hays Code died in 1968, and new choices flooded in, the puzzle pieces no longer snapped back. The next chapters tell how the neat picture fell to the floor.</p>
+<p>The 1940s were not a golden age of virtue. They were a peak of coherence built on strict rules, loud censors, and hidden cracks—cracks that the 1950s would widen and the 1960s would finally burst.</p>
+<hr />
+<pre><code>TERMS DEFINED: 13 / 13
+TERMS MISSED: []
+ARGUMENT COVERAGE: All major sections (Intro, Family, Kinsey, Education, Great Compression, Media, Authority, Pathologies, Moral Traits, Figures, Bridge) represented
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:easy -->
+
+<!-- BEGIN:LEVEL:academic -->
+<div class="level-panel" data-level="academic">
+  <article class="article">
+    <h1>1940-1949: Peak Coherence — The Crucible of Consensus</h1>
+    <p class="subtitle">MDA-013 · Academic Reading Level</p>
+    <h1>1940-1949: Peak Coherence — The Crucible of Consensus</h1>
+<p><em>(Academic Enrichment Layer | v.1.0 | Theophysics Institute)</em>  </p>
+<hr />
+<h3>Pre-amble on Method</h3>
+<p>Throughout this enrichment layer, additions appear in <strong>italics inside parentheses</strong> or as <em>inline footnotes</em>.<br />
+Square brackets containing capitals identify epistemic status: <strong>[EMPIRICAL]</strong>, <strong>[STRUCTURAL]</strong>, <strong>[PROVISIONAL]</strong>, <strong>[BOUNDARY]</strong>.<br />
+Citation markers are formatted “[Author, Year]” or “[CITATION NEEDED: …]”.<br />
+Where formulae occur, the mandated three-line treatment follows immediately.</p>
+<hr />
+<h2>Introduction</h2>
+<p>If you want to know what <em>peak American coherence</em> (coherence: the measurable degree to which the parts of a complex social system act in mutually reinforcing ways toward shared goals, drawing on systems theory and information theory) looked like, you look at the 1940s.  </p>
+<p>Not because Americans in the 1940s were uniformly virtuous. They weren’t. Kinsey would prove that in 1948 with one of the most disturbing data points in twentieth-century social science [Kinsey, 1948]. The 1940s were the peak of <em>coherence</em>, not the peak of <em>virtue</em> (virtue: adherence to a moral norm; distinguished here from structural alignment). And the distinction matters more than almost anything else in this series.</p>
+<p>The decade is the <em>provisional</em> statistical baseline for American civilizational coherence — what the current Theophysics calibration estimates as a <strong>χ (chi) value</strong> of approximately <strong>0.85–0.90</strong>.  </p>
+<p>Equation 1 — Operational Coherence Index<br />
+(1) χ = Σᵢ wᵢ · (Nᵢ − N_min,ᵢ)/(N_max,ᵢ − N_min,ᵢ)  </p>
+<p>• Line-by-line: each indicator Nᵢ (family formation, institutional trust, etc.) is first normalized to a 0–1 range; it is then weighted by wᵢ reflecting presumed causal leverage.<br />
+• Implication: raising any high-weight indicator (e.g., union density) proportionally lifts χ; reducing such an indicator lowers χ with equal sensitivity.<br />
+• Epistemic status: χ is <em>constructed</em>, not directly observed — therefore claims using χ are <strong>[STRUCTURAL]</strong> until validated by external datasets.</p>
+<p>That estimate is not a moral verdict and not yet a closed proof. It is a composite reading of multiple visible coherence indicators: family formation, institutional trust, religious participation, union density, media centralization, crime/social pathology, and economic compression [Piketty &amp; Saez, 2003; NCES, 2023].  </p>
+<p>The high reading appears to coincide with three reinforcing forces:</p>
+<ol>
+<li><strong>Maximal institutional legitimacy</strong> (institutional legitimacy: the perceived right of an institution to command compliance; proxied here by record union density and near-total compliance with wartime mandates)  </li>
+<li><strong>Structural family rigidity</strong> (structural family rigidity: a social configuration in which the married-couple household is treated as the default economic and moral unit, with high switching costs for alternatives)  </li>
+<li><strong>Centralized cultural control</strong> (centralized cultural control: the ability of a small set of gatekeepers to constrain the entropy of the public information stream — here, the Hays Code and network radio)</li>
+</ol>
+<p><strong>Method note.</strong> In this series, χ is treated as an operational coherence index, not a directly observed physical quantity. Public-facing χ claims remain provisional until the appendix supplies the full table: raw indicator, source, normalization range, weight, uncertainty, and sensitivity test. Any article using χ must therefore distinguish three layers: measured social indicator, constructed coherence index, and Theophysics interpretation <strong>[BOUNDARY]</strong>.</p>
+<p>The 1940s consensus was not internally virtuous. It was externally enforced. That is the entire story of why it held — and why it shattered the moment the enforcement stopped <strong>[STRUCTURAL]</strong>.</p>
+<hr />
+<h2>A. Family Structure</h2>
+<p>The decade established the maximal demographic coherence of the traditional family unit, driven by rapid post-war marriage formation and strict containment of non-marital child-bearing <strong>[EMPIRICAL]</strong>.</p>
+<p><em>(See Table A1 for quantitative detail; original data from NCHS and U.S. Census.)</em></p>
+<p>A note on the volatility hiding inside that table: the divorce rate spiked to a post-war high of <strong>4.3 per 1,000 in 1946</strong> as wartime separations triggered mass dissolution of brittle unions [NCHS, 1950]. By 1949 it had fallen back to 2.7. Median age at first marriage simultaneously dropped sharply (men: 24.3 → 22.7, women: 21.5 → 20.3), confirming an intense post-war commitment to rapid family formation — the leading edge of the Baby Boom [U.S. Census, 1951]. The decade’s domestic coherence was defined by structural impulse toward marriage, not by internal stability <strong>[STRUCTURAL]</strong>.</p>
+<hr />
+<h2>B. The Kinsey Paradox</h2>
+<p>In 1948, Alfred Kinsey published <em>Sexual Behavior in the Human Male</em> based on 5,300 face-to-face interviews [Kinsey, 1948]. The headline number stopped the country cold: <strong>85 %</strong> of American men reported premarital sex, directly contradicting prevailing public moral claims <strong>[EMPIRICAL]</strong>.</p>
+<p><em>(Table B1 reproduces Kinsey’s core findings.)</em></p>
+<p>Read those numbers carefully. The 1940s did not maintain coherence because Americans behaved well. They maintained coherence because the institutions punished public revelation of how they actually behaved — a mechanism we label <strong>performative coherence</strong> (performative coherence: the maintenance of public alignment through concealment rather than behavioral compliance). This distinction is central to the Theophysics model’s later phase-transition analysis <strong>[STRUCTURAL]</strong>.  </p>
+<p>When Kinsey’s data dropped, it didn’t create the deviance. It revealed that the deviance was already there. It armed the next generation with the implicit knowledge that the formal moral code was a fiction — and once the institutions enforcing the fiction collapsed in 1968, there was nothing underneath to keep public behavior tethered <strong>[PROVISIONAL]</strong>.</p>
+<hr />
+<h2>C. Education &amp; Intellectual Climate</h2>
+<p>The 1940s were the high-water mark of a common, standardized, religiously inflected school system serving as the primary engine of human-capital formation. High-school graduation climbed from <strong>50.8 % to 59.0 %</strong> across the decade [NCES, 2023]. Daily prayer and Bible reading remained routine until <em>Engel v. Vitale</em> (1962) [U.S. Supreme Court].  </p>
+<p>A <strong>9.8-point jump</strong> in adult high-school attainment built the intellectual workforce that would carry American technocratic dominance for thirty years <strong>[EMPIRICAL]</strong>.</p>
+<hr />
+<h2>D. The Great Compression</h2>
+<p><em>Great Compression</em> (Great Compression: the mid-20th-century collapse of top-decile income share and simultaneous rise in median purchasing power in the United States) supplied the material foundation that made single-income family coherence possible <strong>[STRUCTURAL]</strong>.  </p>
+<p>Top-10 % income share fell from <strong>44.4 % (1940)</strong> to <strong>33.8 % (1949)</strong> [Piketty &amp; Saez, 2003]. Union density peaked at <strong>34.2 % in 1945</strong> [BLS, 1950]. Home-ownership rose from <strong>43.6 % to 53 %</strong> [HUD, 1952].  </p>
+<p>Equation 2 — Household Viability Condition<br />
+(2) Yₘ ≥ C_f + C_v  </p>
+<p>Where Yₘ = median male earnings; C_f = fixed household cost; C_v = variable dependents cost.  </p>
+<p>• In plain English: A single-income household is viable when the median male wage meets or exceeds total family cost.<br />
+• Raising Yₘ (through unions or compression) or lowering costs (through subsidized housing) expands viable single-income share.<br />
+• When Yₘ &lt; C_f + C_v the household must add a second income or dissolve; this condition becomes visible in the 1970s data <strong>[STRUCTURAL]</strong>.</p>
+<hr />
+<h2>E. Censored Consensus</h2>
+<p>Two centralized media forms — radio (&gt; 90 % penetration) and cinema (30 annual admissions per capita in 1946) — saturated the population [FCC, 1947; MPAA, 1950]. The <strong>Hays Code</strong> (Hays Code: the 1934–1968 Motion Picture Production Code that mandated moral content standards) enforced a binary moral universe: wrongdoing could be depicted only if punished on screen.  </p>
+<p>Theophysics formalism interprets this as <em>reduced cultural entropy</em> (entropy, cultural: the uncertainty or diversity in the cultural information stream; lower entropy implies more uniform messaging). Empirically, gatekeeping constrained on-screen variance, though a quantitative entropy measure would require content analysis of primary sources <strong>[BOUNDARY]</strong>.</p>
+<hr />
+<h2>F. Religious &amp; Institutional Authority</h2>
+<p>Weekly church attendance hovered near <strong>40 %</strong>, church membership around <strong>73 %</strong> [Gallup, 1950]. Voter turnout remained above <strong>50 %</strong> in every presidential election [ICPSR, 2022]. Union density has been noted above. Together, these numbers describe a population that received coherent signals from multiple reinforcing institutions.  </p>
+<p>Within the Theophysics causal diagram, this is represented as a high-magnitude <strong>observer function O</strong> (observer function O: the combined monitoring and feedback capacity of moral-regulatory institutions) and sustained <strong>negentropic input G</strong> (negentropic input: ordered energy injected into a system to counteract entropy). Full derivation is forthcoming in Appendix C <strong>[BOUNDARY]</strong>.</p>
+<hr />
+<h2>G. Social Pathologies — The Hidden Cost</h2>
+<p>Suicide rates stabilized at <strong>12–14 / 100 000</strong> from 1945–1992 [CDC, 1995]. Homicide dropped from its 1933 peak [FBI UCR, 1950]. Yet <strong>564 160</strong> Americans were institutionalized for mental illness in 1949 [NIMH, 1950] — evidence that deviance was managed by removal rather than reform <strong>[EMPIRICAL]</strong>.</p>
+<hr />
+<h2>The 1940s Moral Signature (Five-Point Summary)</h2>
+<ol>
+<li><strong>Nuclear Family as Moral &amp; Economic Unit</strong> — viability grounded in single-earner arithmetic <strong>[STRUCTURAL]</strong>  </li>
+<li><strong>Institutional Authority at High-Water Mark</strong> — unions, churches, and state acting synergistically <strong>[EMPIRICAL]</strong>  </li>
+<li><strong>Performative Coherence — The Kinsey Paradox</strong> — concealment masking widespread private deviance <strong>[STRUCTURAL]</strong>  </li>
+<li><strong>The Great Compression</strong> — income redistribution compressing class distance <strong>[EMPIRICAL]</strong>  </li>
+<li><strong>Censored Consensus</strong> — centralized media gatekeepers manufacturing moral homogeneity <strong>[EMPIRICAL]</strong></li>
+</ol>
+<hr />
+<h2>Two Figures, One Decade</h2>
+<p>• <strong>George C. Marshall (1880–1959)</strong> — Embodiment of duty-bound technocratic authority; coordinated the mobilization of <strong>16 million</strong> service personnel [U.S. War Dept., 1947].<br />
+• <strong>Alfred Kinsey (1894–1956)</strong> — Empirical challenger; data set that delegitimized facade-based moral codes. Funding terminated by Rockefeller Foundation 1954 [Jones, 1997].</p>
+<hr />
+<h2>Bridge: The Brittle Consensus</h2>
+<p>Three seed stresses planted during the 1940s:  </p>
+<ol>
+<li><strong>Rise of Affluence</strong> — wartime savings + post-war growth grant autonomy that later undermines institutional control <strong>[STRUCTURAL]</strong>  </li>
+<li><strong>Weaponization of Empiricism</strong> — data-driven challenges erode prescriptive moral authority <strong>[STRUCTURAL]</strong>  </li>
+<li><strong>Female Labor-Force Inflection</strong> — participation rose to <strong>33.9 % by 1950</strong> [DOL, 1951], beginning long-run erosion of the single-income paradigm <strong>[EMPIRICAL]</strong></li>
+</ol>
+<p>Stabilizing buffers (high church attendance, centralized media, Cold-War consensus) function as the system’s <strong>Grace Function</strong> (grace function: an exogenous infusion of order that delays but does not eliminate decay) <strong>[STRUCTURAL]</strong>. Once those buffers weaken (1968–1973), the facade collapses — the subject of the next installment.</p>
+<hr />
+<h3>Kill Conditions &amp; Posted Risks</h3>
+<p>(Original language retained — no change.)</p>
+<hr />
+<h1>TERM_INVENTORY</h1>
+<pre><code class="language-json">{
+  &quot;terms&quot;: [
+    {
+      &quot;term&quot;: &quot;coherence&quot;,
+      &quot;definition&quot;: &quot;The measurable degree to which parts of a complex social system act in mutually reinforcing ways toward shared goals.&quot;,
+      &quot;domain&quot;: &quot;framework&quot;,
+      &quot;first_use_section&quot;: &quot;Introduction&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;virtue&quot;,
+      &quot;definition&quot;: &quot;Adherence to a prescriptive moral norm, distinguished from structural alignment.&quot;,
+      &quot;domain&quot;: &quot;theology/ethics&quot;,
+      &quot;first_use_section&quot;: &quot;Introduction&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;chi (χ)&quot;,
+      &quot;definition&quot;: &quot;Composite operational index aggregating normalized social indicators to approximate systemic coherence.&quot;,
+      &quot;domain&quot;: &quot;quantitative model&quot;,
+      &quot;first_use_section&quot;: &quot;Introduction&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;institutional legitimacy&quot;,
+      &quot;definition&quot;: &quot;The perceived right of an institution to command compliance from its members or constituents.&quot;,
+      &quot;domain&quot;: &quot;political science&quot;,
+      &quot;first_use_section&quot;: &quot;Introduction&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;structural family rigidity&quot;,
+      &quot;definition&quot;: &quot;A social configuration in which the married-couple household is treated as the default economic and moral unit, with high switching costs for alternatives.&quot;,
+      &quot;domain&quot;: &quot;sociology&quot;,
+      &quot;first_use_section&quot;: &quot;Introduction&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;centralized cultural control&quot;,
+      &quot;definition&quot;: &quot;The ability of a small set of gatekeepers to constrain the entropy of the public information stream.&quot;,
+      &quot;domain&quot;: &quot;media studies&quot;,
+      &quot;first_use_section&quot;: &quot;Introduction&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;performative coherence&quot;,
+      &quot;definition&quot;: &quot;Maintenance of public alignment through concealment of private deviance rather than behavioral compliance.&quot;,
+      &quot;domain&quot;: &quot;framework&quot;,
+      &quot;first_use_section&quot;: &quot;Section B&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Great Compression&quot;,
+      &quot;definition&quot;: &quot;Mid-20th-century U.S. collapse of top-decile income share paired with rising median purchasing power.&quot;,
+      &quot;domain&quot;: &quot;economic history&quot;,
+      &quot;first_use_section&quot;: &quot;Section D&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Hays Code&quot;,
+      &quot;definition&quot;: &quot;The 1934–1968 Motion Picture Production Code that imposed moral content rules on U.S. cinema.&quot;,
+      &quot;domain&quot;: &quot;media history&quot;,
+      &quot;first_use_section&quot;: &quot;Section E&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;entropy (cultural)&quot;,
+      &quot;definition&quot;: &quot;The uncertainty or diversity in the cultural information stream; lower entropy implies more uniform messaging.&quot;,
+      &quot;domain&quot;: &quot;information theory&quot;,
+      &quot;first_use_section&quot;: &quot;Section E&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;observer function O&quot;,
+      &quot;definition&quot;: &quot;The combined monitoring and feedback capacity of moral-regulatory institutions within the Theophysics model.&quot;,
+      &quot;domain&quot;: &quot;framework mathematics&quot;,
+      &quot;first_use_section&quot;: &quot;Section F&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;negentropic input G&quot;,
+      &quot;definition&quot;: &quot;Ordered energy injected into a system to counteract entropy, maintaining structure.&quot;,
+      &quot;domain&quot;: &quot;thermodynamics (analogical)&quot;,
+      &quot;first_use_section&quot;: &quot;Section F&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;grace function&quot;,
+      &quot;definition&quot;: &quot;An exogenous infusion of order that delays but does not eliminate systemic decay.&quot;,
+      &quot;domain&quot;: &quot;theology/framework&quot;,
+      &quot;first_use_section&quot;: &quot;Bridge&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    }
+  ]
+}
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:academic -->
+
+<!-- BEGIN:LEVEL:proof -->
+<div class="proof-panel" data-level="proof">
+  <div class="article">
+    <div class="mda-proof-eyebrow">Proof Pressure Layer</div>
+    <h2 style="font-family:Oswald,sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.04em;">
+      1940-1949: Peak Coherence — The Crucible of Consensus — Proof & Math
+    </h2>
+    
+    <h3>Math Translation</h3>
+    <div class="mda-math-layer">
+<div class="mda-proof-eyebrow">Math Translation Layer</div>
+<div class="math-field"><span class="math-label">MATH_STATUS:</span><span class="math-value">NEEDS_DEFINITIONS</span></div>
+<div class="math-field"><span class="math-label">LOAD_BEARING_MATH:</span><span class="math-value"></span></div>
+<div class="math-item">Chi value (coherence metric) is referenced but not defined.</div>
+<div class="math-item">"Statistical proof of pervasive private anomie" lacks a clear statistical framework.</div>
+<div class="math-item">"Great Compression" is mentioned but not quantitatively defined.</div>
+<div class="math-field"><span class="math-label">ISOMORPHISM_TABLE:</span><span class="math-value"></span></div>
+<tr><td>mapping</td><td>current status</td><td>missing proof step</td><td>safe wording</td></tr>
+<tr><td>Coherence and institutional legitimacy</td><td>candidate_isomorphism</td><td>Definition of coherence metric and its derivation</td><td>"Coherence as defined by chi values indicates institutional legitimacy."</td></tr>
+<tr><td>Economic factors and family structure</td><td>structural_correspondence</td><td>Quantitative model linking economic data to family structure</td><td>"Economic data correlates with family structure stability."</td></tr>
+<tr><td>Media control and moral authority</td><td>analogy_only</td><td>Empirical data linking media control to moral authority</td><td>"Media control is suggested to influence moral authority."</td></tr>
+<div class="math-field"><span class="math-label">MISSING_EQUATIONS_OR_DEFINITIONS:</span><span class="math-value"></span></div>
+<div class="math-item">Definition of "chi value" or coherence metric.</div>
+<div class="math-item">Formal definition of "Great Compression" in economic terms.</div>
+<div class="math-item">Statistical framework for "private anomie."</div>
+<div class="math-field"><span class="math-label">MINIMAL_PATCHES:</span><span class="math-value"></span></div>
+<div class="math-item">"chi value of approximately 0.85 to 0.90" -> "chi value, a measure of coherence defined as [insert definition], of approximately 0.85 to 0.90."</div>
+<div class="math-item">"Statistical proof of pervasive private anomie" -> "Statistical proof of pervasive private anomie, defined as [insert statistical framework]."</div>
+<div class="math-item">"Great Compression" -> "Great Compression, defined as [insert quantitative definition], is evident in the economic data presented."</div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Term Inventory</h3>
+    <div class="mda-glossary">
+<div class="glossary-entry"><dt>coherence</dt><dd>The measurable degree to which parts of a complex social system act in mutually reinforcing ways toward shared goals.<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>virtue</dt><dd>Adherence to a prescriptive moral norm, distinguished from structural alignment.<span class="glossary-domain">theology/ethics</span></dd></div>
+<div class="glossary-entry"><dt>chi (χ)</dt><dd>Composite operational index aggregating normalized social indicators to approximate systemic coherence.<span class="glossary-domain">quantitative model</span></dd></div>
+<div class="glossary-entry"><dt>institutional legitimacy</dt><dd>The perceived right of an institution to command compliance from its members or constituents.<span class="glossary-domain">political science</span></dd></div>
+<div class="glossary-entry"><dt>structural family rigidity</dt><dd>A social configuration in which the married-couple household is treated as the default economic and moral unit, with high switching costs for alternatives.<span class="glossary-domain">sociology</span></dd></div>
+<div class="glossary-entry"><dt>centralized cultural control</dt><dd>The ability of a small set of gatekeepers to constrain the entropy of the public information stream.<span class="glossary-domain">media studies</span></dd></div>
+<div class="glossary-entry"><dt>performative coherence</dt><dd>Maintenance of public alignment through concealment of private deviance rather than behavioral compliance.<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>Great Compression</dt><dd>Mid-20th-century U.S. collapse of top-decile income share paired with rising median purchasing power.<span class="glossary-domain">economic history</span></dd></div>
+<div class="glossary-entry"><dt>Hays Code</dt><dd>The 1934–1968 Motion Picture Production Code that imposed moral content rules on U.S. cinema.<span class="glossary-domain">media history</span></dd></div>
+<div class="glossary-entry"><dt>entropy (cultural)</dt><dd>The uncertainty or diversity in the cultural information stream; lower entropy implies more uniform messaging.<span class="glossary-domain">information theory</span></dd></div>
+<div class="glossary-entry"><dt>observer function O</dt><dd>The combined monitoring and feedback capacity of moral-regulatory institutions within the Theophysics model.<span class="glossary-domain">framework mathematics</span></dd></div>
+<div class="glossary-entry"><dt>negentropic input G</dt><dd>Ordered energy injected into a system to counteract entropy, maintaining structure.<span class="glossary-domain">thermodynamics (analogical)</span></dd></div>
+<div class="glossary-entry"><dt>grace function</dt><dd>An exogenous infusion of order that delays but does not eliminate systemic decay.<span class="glossary-domain">theology/framework</span></dd></div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Promoted Claims</h3>
+    <p class="mda-proof-placeholder">
+      No claim from this article has been promoted through the deterministic Axiom + 7Q gate yet.
+      Claims will appear here after the proof-promotion pass.
+    </p>
+  </div>
+</div>
+<!-- END:LEVEL:proof -->
+
+<div style="max-width:780px;margin:0 auto;padding:1rem 1.5rem 3rem;">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text3);
+     text-transform:uppercase;letter-spacing:.08em;border-top:1px solid var(--border);
+     padding-top:1rem;">
+    Generated 2026-05-31 00:24 · 
+    Easy: ✓ · 
+    Academic: ✓ · 
+    Math: ✓ · 
+    Claims: pending
+  </p>
+</div>
+<script>
+function setTab(tab) {
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  // Update body mode class
+  document.body.className = 'mode-' + tab;
+  // Toggle content panels
+  document.querySelectorAll('.level-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.level === tab);
+  });
+  document.querySelectorAll('.proof-panel').forEach(p => {
+    p.classList.toggle('active', tab === 'proof');
+  });
+  // Update status text
+  const st = document.getElementById('mode-status');
+  if (st) st.textContent = tab.charAt(0).toUpperCase() + tab.slice(1) + ' active';
+}
+document.addEventListener('DOMContentLoaded', () => setTab('standard'));
+</script>
+
+</body>
+</html>

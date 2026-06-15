@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paper Grade Dashboard - gtq-05-macarthur-equation</title>
+<style>
+:root {
+  --ink:#14120d;
+  --paper:#fbf4df;
+  --paper2:#f3e6bf;
+  --line:#d6bd73;
+  --deep:#33250b;
+  --gold:#b8871e;
+  --green:#267a4a;
+  --red:#b3442f;
+  --blue:#2f5f7f;
+  --muted:#786845;
+  --shadow:0 18px 60px rgba(33,24,8,.18);
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  color:var(--ink);
+  font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  background:
+    radial-gradient(circle at top left, rgba(184,135,30,.22), transparent 34rem),
+    linear-gradient(135deg, #fff9e8 0%, #ead38e 100%);
+}
+main { max-width:1280px; margin:0 auto; padding:38px 22px 80px; }
+.hero {
+  border:1px solid rgba(51,37,11,.22);
+  background:rgba(255,251,238,.86);
+  border-radius:28px;
+  padding:30px;
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+.hero:after {
+  content:"";
+  position:absolute;
+  right:-80px; top:-110px;
+  width:340px; height:340px;
+  border-radius:50%;
+  border:38px solid rgba(184,135,30,.16);
+}
+.eyebrow { color:var(--gold); letter-spacing:.16em; text-transform:uppercase; font-size:.76rem; font-weight:800; }
+h1 { margin:.35rem 0 .45rem; font-size:clamp(2.1rem,4vw,4.8rem); line-height:.92; max-width:960px; }
+.sub { color:var(--muted); max-width:940px; line-height:1.65; }
+.grid { display:grid; gap:16px; }
+.metrics { grid-template-columns:repeat(4,minmax(0,1fr)); margin:22px 0; }
+.metric, .panel, .issue {
+  background:rgba(255,252,242,.82);
+  border:1px solid rgba(51,37,11,.18);
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(33,24,8,.08);
+}
+.metric { padding:18px; min-height:112px; }
+.metric strong { display:block; font-size:2rem; line-height:1; color:var(--deep); }
+.metric span { color:var(--muted); font-size:.82rem; text-transform:uppercase; letter-spacing:.09em; }
+.two { grid-template-columns:1.1fr .9fr; align-items:start; margin-top:16px; }
+.panel { padding:20px; overflow:hidden; }
+h2 { margin:.2rem 0 1rem; color:var(--deep); font-size:1.35rem; }
+table { width:100%; border-collapse:collapse; font-size:.92rem; }
+th,td { border-bottom:1px solid rgba(51,37,11,.14); padding:11px 9px; vertical-align:top; text-align:left; }
+th { color:var(--gold); font-size:.72rem; text-transform:uppercase; letter-spacing:.1em; }
+td span { display:block; color:var(--muted); font-size:.78rem; margin-top:.25rem; }
+.bar { display:inline-block; width:120px; height:10px; background:#eadbad; border-radius:999px; overflow:hidden; vertical-align:middle; margin-right:8px; }
+.bar i { display:block; height:100%; background:linear-gradient(90deg,var(--red),var(--gold),var(--green)); border-radius:999px; }
+em { color:var(--muted); font-style:normal; }
+.issues { grid-template-columns:repeat(4,minmax(0,1fr)); }
+.issue { padding:14px; display:flex; justify-content:space-between; gap:12px; align-items:center; }
+.issue strong { font-size:.84rem; color:var(--muted); }
+.issue span { font-size:1.45rem; color:var(--red); font-weight:900; }
+.address {
+  font-family:"Cascadia Mono","Consolas",monospace;
+  font-size:.78rem;
+  line-height:1.65;
+  color:#3c321c;
+  background:#fff7dc;
+  border:1px dashed rgba(51,37,11,.28);
+  border-radius:16px;
+  padding:14px;
+  overflow-wrap:anywhere;
+}
+.claims td:nth-child(3) { min-width:320px; }
+.footer { margin-top:18px; color:var(--muted); font-size:.82rem; line-height:1.55; }
+@media (max-width:900px) { .metrics,.two,.issues { grid-template-columns:1fr; } .hero { padding:22px; border-radius:20px; } }
+</style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <div class="eyebrow">Paper Grader Surface / Canary</div>
+    <h1>gtq-05-macarthur-equation</h1>
+    <p class="sub">This dashboard pulls the deterministic paper-grader metrics into a review surface: claims, equations, 7Q gaps, evidence markers, maturity distribution, semantic address, and station status. It does not replace the canonical JSON/XLSX; it makes the audit readable.</p>
+    <section class="grid metrics">
+      <div class="metric"><strong>5332</strong><span>Words</span></div>
+      <div class="metric"><strong>68</strong><span>Sections</span></div>
+      <div class="metric"><strong>51</strong><span>Equations</span></div>
+      <div class="metric"><strong>64</strong><span>Claim Candidates</span></div>
+    </section>
+    <div class="address">
+      <b>Semantic Address:</b> THEOPHYSICS/GTQ-05-MACARTHUR-EQUATION-PAPER-GRADE/W/PUBLIC/B/R1 :: G3M3E0S3T3K3R3Q3F0C3 :: CF-GE-KQ-MS-TR<br>
+      <b>Filename Safe:</b> THEOPHYSICS__GTQ-05-MACARTHUR-EQUATION-PAPER-GRADE__W__PUBLIC__B__R1__G3M3E0S3T3K3R3Q3F0C3__CF-GE-KQ-MS-TR<br>
+      <b>Vector / Hash:</b> G3M3E0S3T3K3R3Q3F0C3 / CF-GE-KQ-MS-TR<br>
+      <b>Rigor Verdict:</b>  &nbsp; <b>Math Layer:</b>  (0 translated spans)
+    </div>
+  </section>
+
+  <section class="grid two">
+    <div class="panel">
+      <h2>7Q Coverage</h2>
+      <table><thead><tr><th>Question</th><th>Observed Values</th><th>Weak</th><th>Coverage</th></tr></thead><tbody><tr><td><b>Identity</b><span>Q1_identity</span></td><td>implicit: 40, clear: 24</td><td>40</td><td><div class='bar'><i style='width:37.5%'></i></div><em>37.5%</em></td></tr>
+<tr><td><b>Scope</b><span>Q2_scope</span></td><td>broad: 55, bounded: 9</td><td>55</td><td><div class='bar'><i style='width:14.1%'></i></div><em>14.1%</em></td></tr>
+<tr><td><b>Mechanism</b><span>Q3_mechanism</span></td><td>missing: 45, present: 19</td><td>45</td><td><div class='bar'><i style='width:29.7%'></i></div><em>29.7%</em></td></tr>
+<tr><td><b>Evidence</b><span>Q4_evidence</span></td><td>missing: 62, present: 2</td><td>62</td><td><div class='bar'><i style='width:3.1%'></i></div><em>3.1%</em></td></tr>
+<tr><td><b>Falsifiability</b><span>Q5_falsifiability</span></td><td>missing: 64</td><td>64</td><td><div class='bar'><i style='width:0.0%'></i></div><em>0.0%</em></td></tr>
+<tr><td><b>Boundary</b><span>Q6_boundary</span></td><td>missing: 60, present: 4</td><td>60</td><td><div class='bar'><i style='width:6.2%'></i></div><em>6.2%</em></td></tr>
+<tr><td><b>Listener Risk</b><span>Q7_listener_risk</span></td><td>normal: 62, high: 2</td><td>2</td><td><div class='bar'><i style='width:96.9%'></i></div><em>96.9%</em></td></tr></tbody></table>
+    </div>
+    <div class="panel">
+      <h2>Maturity Distribution</h2>
+      <table><thead><tr><th>Level</th><th>Claims</th><th>Share</th></tr></thead><tbody><tr><td>Formal Model</td><td>44</td><td>68.8%</td></tr>
+<tr><td>Metaphor</td><td>15</td><td>23.4%</td></tr>
+<tr><td>Public Proof Claim</td><td>4</td><td>6.2%</td></tr>
+<tr><td>Analogy</td><td>1</td><td>1.6%</td></tr></tbody></table>
+      <h2 style="margin-top:1.4rem;">Evidence Markers</h2>
+      <table><thead><tr><th>Marker</th><th>Claims</th></tr></thead><tbody><tr><td>no explicit marker</td><td>62</td></tr>
+<tr><td>experiment</td><td>1</td></tr>
+<tr><td>reference</td><td>1</td></tr></tbody></table>
+    </div>
+  </section>
+
+  <section class="panel" style="margin-top:16px;">
+    <h2>Primary Repair Pressure</h2>
+    <div class="grid issues"><div class='issue'><strong>weak:Q5_falsifiability</strong><span>64</span></div>
+<div class='issue'><strong>weak:Q4_evidence</strong><span>62</span></div>
+<div class='issue'><strong>weak:Q6_boundary</strong><span>60</span></div>
+<div class='issue'><strong>weak:Q2_scope</strong><span>55</span></div>
+<div class='issue'><strong>weak:Q3_mechanism</strong><span>45</span></div>
+<div class='issue'><strong>weak:Q1_identity</strong><span>40</span></div>
+<div class='issue'><strong>risk:Q7_listener_risk</strong><span>2</span></div></div>
+  </section>
+
+  <section class="panel" style="margin-top:16px;">
+    <h2>Station Marks</h2>
+    <table><thead><tr><th>Station</th><th>Status</th><th>Warnings</th></tr></thead><tbody><tr><td colspan='3'>No snapshot station marks loaded.</td></tr></tbody></table>
+  </section>
+
+  <section class="panel" style="margin-top:16px;">
+    <h2>Claim Audit Preview</h2>
+    <table class="claims"><thead><tr><th>#</th><th>Section</th><th>Claim</th><th>Maturity</th><th>Evidence</th><th>Kill Condition</th><th>Proof Boundary</th></tr></thead><tbody><tr><td>1</td><td>Deep Dive</td><td>MacArthur and the Equation Mapping the Calvinistâ€“Arminian war onto the math, and resolving it.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>2</td><td>The single thing they should remember</td><td>One equation, two terms, both real.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>3</td><td>Critical Insight</td><td>The equation doesn&#x27;t replace the preaching.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>4</td><td>Critical Insight</td><td>It shows why the preaching was more precise than anyone realized.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>5</td><td>A Note Before We Begin</td><td>When MacArthur says dead in sin , that maps to a specific value in a specific equation.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>6</td><td>A Note Before We Begin</td><td>The equation doesn&#x27;t replace his preaching.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>7</td><td>A Note Before We Begin</td><td>It shows why his preaching is more precise than he may realize.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>8</td><td>The Enigma</td><td>If God decided everything in advance and you had no real say, then every altar call is theater, every prayer of repentance is scripted, and whosoever will is a lie.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>9</td><td>Coupling Function</td><td>Not reluctantly, not under coercion, but freely — because God changes their nature first.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>10</td><td>Coupling Function</td><td>MacArthur&#x27;s analogy: a sheep follows the shepherd because it&#x27;s a sheep.</td><td><b>Analogy</b><span>Level 2</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Analogy, not a final proof.</td></tr>
+<tr><td>11</td><td>Coupling Function</td><td>He calls the tension an antinomy — two truths that appear to contradict but don&#x27;t, because the reconciliation lies beyond our finite comprehension.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>12</td><td>Revelation 3:20</td><td>And both are doing it because they believe the alternative is contradiction.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>13</td><td>Revelation 3:20</td><td>If God really chose the elect before time, then whoever believes can&#x27;t mean what it seems to mean.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>14</td><td>Revelation 3:20</td><td>If whoever believes really means whoever, then chose before the foundation of the world can&#x27;t mean what it seems to mean.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>15</td><td>Revelation 3:20</td><td>It requires a specific kind of mathematics that wasn&#x27;t available until the 20th century.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>16</td><td>Revelation 3:20</td><td>You&#x27;re not making a choice because you don&#x27;t have the capacity to make one.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>17</td><td>Revelation 3:20</td><td>It must, because the dead cannot initiate their own resurrection.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>18</td><td>After God has opened the door</td><td>Not because you earned the opportunity (God provided that) but because within the open channel, your response is real.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>19</td><td>After God has opened the door</td><td>But what if God has harmonized them — in one equation, with both terms present, both terms necessary, and neither alone sufficient?</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>20</td><td>After God has opened the door</td><td>The Equation For readers who want the formal machinery, here it is.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>21</td><td>Surrender Coupling</td><td>The equation reduces to pure decay: dC/dt = −S · C .</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>22</td><td>Surrender Coupling</td><td>This is MacArthur&#x27;s &quot;dead in trespasses and sins.&quot; The math proves what he preaches: the first move must come from outside.</td><td><b>Public Proof Claim</b><span>Level 7</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Boundary needed: currently reads stronger than Public Proof Claim.</td></tr>
+<tr><td>23</td><td>Surrender Coupling</td><td>The growth term — O · G(1−C) — requires both God&#x27;s input AND human openness.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>24</td><td>Camp Describes s Transition Mechanism</td><td>MacArthur&#x27;s Specific Claims, Mapped For those who want to see how precisely MacArthur&#x27;s language maps to the equation:</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>25</td><td>MacArthur Phrase</td><td>Once you have the equation, the antinomy dissolves.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>26</td><td>MacArthur Phrase</td><td>The grammatical evidence is striking: Romans 9:22–23 uses a passive verb for &quot;vessels of wrath fitted for destruction&quot; but an active verb for &quot;vessels of mercy, whom He prepared beforehand for glory.&quot; The equation maps this cleanly.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>27</td><td>MacArthur Phrase</td><td>At s = −1 with the coupling function at zero, the equation is just dC/dt = −S · C .</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>28</td><td>Passive Reprobation</td><td>Fitted for destruction by its own trajectory. — The Asymmetry Is Not Arbitrary Salvation requires external input.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>29</td><td>Passive Reprobation</td><td>Destruction requires only the absence of that input.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>30</td><td>Passive Reprobation</td><td>Romans 9 got the grammar right because the grammar reflects the actual dynamics.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>31</td><td>Passive Reprobation</td><td>What Augustine Already Knew Twelve centuries before this equation was written, Augustine mapped four states of the human will that correspond precisely to specific values: Augustine&#x27;s State Latin Phrase Equation Value Description Before the Fall posse peccare, posse non peccare Channel open Able to sin, able not to sin.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>32</td><td>Passive Reprobation</td><td>The person&#x27;s will and God&#x27;s will produce identical output — not because the person was overwritten but because they&#x27;re fully transparent to grace.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>33</td><td>What the Equation Cannot Do</td><td>The equation cannot answer this either.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>34</td><td>What the Equation Cannot Do</td><td>The initial conditions — who receives the effectual call — are set by a Person with reasons the equation doesn&#x27;t access.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>35</td><td>What the Equation Cannot Do</td><td>The equation dissolves the mechanism of the contradiction.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>36</td><td>What the Equation Cannot Do</td><td>Some questions sit outside the equation, inside the character of God.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>37</td><td>What the Equation Cannot Do</td><td>What This Means Philippians 2:12–13 — the verse MacArthur preaches constantly — states the entire equation in one sentence: &quot;Work out your salvation with fear and trembling, for it is God who works in you, both to will and to work for His good pleasure.&quot; &quot;Work out your salvation&quot; = keep the channel open.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>38</td><td>What the Equation Cannot Do</td><td>&quot;With fear and trembling&quot; = because entropy is always active, always pulling downward, and complacency closes the channel.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>39</td><td>Audit floor / red zone</td><td>Any claim that turns a structural resemblance into a proven mechanism belongs here until the math, experiment, or textual chain can carry the weight.</td><td><b>Metaphor</b><span>Level 1</span></td><td>experiment</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>40</td><td>Gradient zone / interpretive caution</td><td>Possible overstatement: language that sounds final should be read as a working model unless the article explicitly proves it.</td><td><b>Public Proof Claim</b><span>Level 7</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Boundary needed: currently reads stronger than Public Proof Claim.</td></tr></tbody></table>
+    <p class="footer">Showing first 40 claims. Full canonical claim audit remains in the XLSX/JSON.</p>
+  </section>
+
+  <p class="footer">
+    Generated 2026-05-24T10:55:30 from X:\Backside\workflows\axioms.workflow\01_OUTBOX_REPORTS\gtq-05-macarthur-equation.paper-grade.json. Snapshot: not loaded.
+  </p>
+</main>
+</body>
+</html>

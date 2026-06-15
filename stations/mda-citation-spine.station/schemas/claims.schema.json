@@ -1,0 +1,33 @@
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["article_id", "claim_id", "statement", "status"],
+    "properties": {
+      "article_id": {"type": "string"},
+      "claim_id": {"type": "string"},
+      "statement": {"type": "string"},
+      "kill_condition": {"type": "string"},
+      "status": {"type": "string"},
+      "source_stage": {"type": "string"},
+      "location": {
+        "type": "object",
+        "properties": {
+          "source_article_path": {"type": "string"},
+          "canonical_html_hint": {"type": "string"},
+          "proof_anchor": {"type": "string"},
+          "section": {"type": "string"},
+          "paragraph_index": {"type": "string"},
+          "sentence_index": {"type": "string"},
+          "matched_heading": {"type": "string"},
+          "matched_excerpt": {"type": "string"},
+          "locator_status": {"type": "string"},
+          "locator_confidence": {"type": "string"}
+        }
+      },
+      "seven_q": {"type": "object"},
+      "triage": {"type": "object"},
+      "notes": {"type": "string"}
+    }
+  }
+}

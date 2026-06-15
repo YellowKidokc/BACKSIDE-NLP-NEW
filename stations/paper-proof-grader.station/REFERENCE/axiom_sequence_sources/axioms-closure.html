@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Closure &amp; Omega &mdash; Proof Explorer &mdash; Theophysics</title>
+  <meta name="description" content="Meta-axioms, final theorems, closure, and the terminal Omega axiom. The 188-axiom Theophysics chain closes the loop.">
+  <meta property="og:title" content="Closure &amp; Omega &mdash; Theophysics Proof Explorer">
+  <meta property="og:description" content="Meta-axioms, final theorems, closure, and the terminal Omega axiom. Alpha meets Omega in 188 steps.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://faiththruphysics.com/proof-explorer/axioms-closure.html">
+  <meta property="og:site_name" content="Theophysics">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Closure &amp; Omega &mdash; Theophysics Proof Explorer">
+  <meta name="twitter:description" content="Meta-axioms, final theorems, closure, and the terminal Omega axiom.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Oswald:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Closure &amp; Omega &mdash; Theophysics Proof Explorer",
+    "description": "Meta-axioms, final theorems, closure, and the terminal Omega axiom of the 188-axiom Theophysics chain.",
+    "author": { "@type": "Person", "name": "David Lowe" },
+    "datePublished": "2026-04-27",
+    "publisher": { "@type": "Organization", "name": "Theophysics" }
+  }
+  </script>
+  <style>
+    :root {
+      --bg: #050505;
+      --bg-panel: #0a0a0a;
+      --bg-card: #111111;
+      --bg-hover: #1a1a1a;
+      --border: #222;
+      --border-hover: #333;
+      --text: #e0e0e0;
+      --text-dim: #999;
+      --text-muted: #555;
+      --gold: #d4af37;
+      --gold-dim: rgba(212,175,55,0.1);
+      --red: #c94040;
+      --red-dim: rgba(201,64,64,0.1);
+      --blue: #3b82f6;
+      --blue-dim: rgba(59,130,246,0.1);
+      --teal: #14b8a6;
+      --teal-dim: rgba(20,184,166,0.1);
+      --violet: #8b7fc2;
+      --violet-dim: rgba(139,127,194,0.1);
+      --green: #22c55e;
+      --green-dim: rgba(34,197,94,0.1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at 25% 0%, rgba(212,175,55,0.04), transparent 55%),
+                  radial-gradient(ellipse at 75% 100%, rgba(212,175,55,0.02), transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .top-nav {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(5,5,5,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+      display: flex; align-items: center; gap: 2rem;
+    }
+    .top-nav .brand {
+      font-family: 'Cinzel', serif; font-size: 1rem; color: var(--gold);
+      text-decoration: none; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .top-nav .nav-links { display: flex; gap: 0.5rem; margin-left: auto; }
+    .top-nav .nav-links a {
+      font-family: 'Oswald', sans-serif; font-size: 0.75rem; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--text-dim); text-decoration: none;
+      padding: 0.35rem 0.85rem; border-radius: 0.3rem; transition: all 0.2s;
+    }
+    .top-nav .nav-links a:hover, .top-nav .nav-links a.active {
+      color: var(--gold); background: var(--gold-dim);
+    }
+    .layout {
+      display: grid; grid-template-columns: 260px 1fr 300px;
+      gap: 1px; min-height: calc(100vh - 60px); position: relative; z-index: 1;
+    }
+    .sidebar {
+      background: var(--bg-panel); padding: 1.25rem;
+      overflow-y: auto; max-height: calc(100vh - 60px);
+    }
+    .sidebar h3 {
+      font-family: 'Oswald', sans-serif; font-size: 0.65rem; text-transform: uppercase;
+      letter-spacing: 0.2em; color: var(--text-muted); margin-bottom: 0.75rem;
+      padding-bottom: 0.4rem; border-bottom: 1px solid var(--border);
+    }
+    .q-item {
+      display: block; padding: 0.5rem 0.6rem; border-radius: 0.35rem;
+      text-decoration: none; color: var(--text-dim); transition: all 0.2s; margin-bottom: 0.2rem;
+    }
+    .q-item:hover { background: var(--bg-hover); color: var(--text); }
+    .q-item .q-row { display: flex; align-items: baseline; gap: 0.5rem; }
+    .q-item .q-num { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--gold); min-width: 2.5rem; }
+    .q-item .q-label { font-size: 0.8rem; font-weight: 500; }
+    .q-item .q-desc { font-size: 0.7rem; color: var(--text-muted); padding-left: 3rem; }
+    .q-item.active { background: var(--gold-dim); border-left: 2px solid var(--gold); }
+    .q-item.active .q-label { color: var(--gold); }
+    .q-num.blue { color: var(--blue); }
+    .q-num.teal { color: var(--teal); }
+    .q-num.violet { color: var(--violet); }
+    .q-num.gold { color: var(--gold); }
+    .main {
+      background: var(--bg); padding: 2rem;
+      overflow-y: auto; max-height: calc(100vh - 60px);
+    }
+    .breadcrumb { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+    .breadcrumb a { color: var(--text-dim); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb .sep { margin: 0 0.4rem; color: var(--text-muted); }
+    .badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.25rem; }
+    .badge {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+      padding: 0.3rem 0.7rem; border-radius: 0.3rem; border: 1px solid var(--border);
+      display: flex; align-items: center; gap: 0.35rem;
+    }
+    .badge.gold { color: var(--gold); border-color: rgba(212,175,55,0.3); background: var(--gold-dim); }
+    .badge.green { color: var(--green); border-color: rgba(34,197,94,0.3); background: var(--green-dim); }
+    .badge.blue { color: var(--blue); border-color: rgba(59,130,246,0.3); background: var(--blue-dim); }
+    .badge.red { color: var(--red); border-color: rgba(201,64,64,0.3); background: var(--red-dim); }
+    .badge.violet { color: var(--violet); border-color: rgba(139,127,194,0.3); background: var(--violet-dim); }
+    .badge.teal { color: var(--teal); border-color: rgba(20,184,166,0.3); background: var(--teal-dim); }
+    .paper-title {
+      font-family: 'Crimson Text', serif; font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 400; color: var(--text); line-height: 1.2; margin-bottom: 0.4rem;
+    }
+    .paper-subtitle {
+      font-family: 'Crimson Text', serif; font-size: 1.1rem; color: var(--text-dim);
+      font-style: italic; margin-bottom: 1.5rem;
+    }
+    .card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 0.5rem; padding: 1.25rem; margin-bottom: 1.25rem;
+    }
+    .card-header {
+      display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.875rem;
+      font-family: 'Oswald', sans-serif; font-size: 0.75rem; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--gold);
+    }
+    .card-header i { font-size: 0.9rem; }
+    .section-title {
+      font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--gold);
+      margin: 2rem 0 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border);
+    }
+    .formal-box {
+      background: var(--bg-panel); border-left: 3px solid var(--gold);
+      padding: 1rem 1.25rem; font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem; color: var(--text-dim); line-height: 1.7; margin-bottom: 1rem;
+    }
+    .axiom-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.5rem;
+      padding: 1.5rem; margin-bottom: 1.25rem; position: relative;
+      border-left: 3px solid var(--gold);
+    }
+    .axiom-card.meta { border-left-color: var(--blue); }
+    .axiom-card.final { border-left-color: var(--teal); }
+    .axiom-card.closure { border-left-color: var(--violet); }
+    .axiom-card.omega { border-left-color: var(--gold); border-width: 1px; border-left-width: 4px; box-shadow: 0 0 20px rgba(212,175,55,0.1); }
+    .axiom-card .axiom-id {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--gold);
+      background: var(--gold-dim); padding: 0.2rem 0.5rem; border-radius: 0.2rem;
+      display: inline-block; margin-bottom: 0.5rem;
+    }
+    .axiom-card.meta .axiom-id { color: var(--blue); background: var(--blue-dim); }
+    .axiom-card.final .axiom-id { color: var(--teal); background: var(--teal-dim); }
+    .axiom-card.closure .axiom-id { color: var(--violet); background: var(--violet-dim); }
+    .axiom-card .axiom-name {
+      font-family: 'Cinzel', serif; font-size: 1rem; color: #fff; margin-bottom: 0.4rem;
+    }
+    .axiom-card .axiom-statement {
+      font-family: 'Crimson Text', serif; font-size: 1.05rem; color: var(--text);
+      font-style: italic; margin-bottom: 0.75rem; line-height: 1.6;
+      padding: 0.75rem; background: rgba(212,175,55,0.04); border-radius: 0.3rem;
+    }
+    .axiom-card.meta .axiom-statement { background: rgba(59,130,246,0.04); }
+    .axiom-card.final .axiom-statement { background: rgba(20,184,166,0.04); }
+    .axiom-card.closure .axiom-statement { background: rgba(139,127,194,0.04); }
+    .axiom-card .axiom-meaning {
+      font-size: 0.85rem; color: var(--text-dim); line-height: 1.65; margin-bottom: 0.75rem;
+    }
+    .eq-box {
+      background: rgba(212,175,55,0.05); border: 1px solid rgba(212,175,55,0.2);
+      border-radius: 0.35rem; padding: 0.75rem 1rem; margin: 0.5rem 0;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;
+      color: var(--gold); text-align: center; line-height: 1.8;
+    }
+    .defeat-list { list-style: none; padding: 0; margin: 0.5rem 0; }
+    .defeat-list li {
+      font-size: 0.8rem; color: var(--text-dim); padding: 0.35rem 0 0.35rem 1.5rem;
+      position: relative; line-height: 1.5;
+    }
+    .defeat-list li::before {
+      content: '\f00d'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+      position: absolute; left: 0; color: var(--red); font-size: 0.7rem; top: 0.45rem;
+    }
+    .bridge-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.5rem; margin: 0.5rem 0;
+    }
+    .bridge-tag {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+      padding: 0.3rem 0.5rem; border-radius: 0.25rem;
+      background: var(--bg-hover); border: 1px solid var(--border); color: var(--text-dim);
+      text-align: center;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    th, td { padding: 0.6rem 0.5rem; text-align: left; border-bottom: 1px solid var(--border); }
+    th {
+      font-family: 'Oswald', sans-serif; font-size: 0.68rem; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--text-muted); font-weight: 500;
+    }
+    td { color: var(--text-dim); }
+    .dep-graph { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; padding: 0.75rem; }
+    .dep-node {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+      padding: 0.35rem 0.7rem; border-radius: 0.25rem; border: 1px solid var(--border);
+      background: var(--bg-card); color: var(--text-dim); text-align: center;
+    }
+    .dep-node.core { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
+    .dep-node.meta { border-color: var(--blue); color: var(--blue); background: var(--blue-dim); }
+    .dep-node.final { border-color: var(--teal); color: var(--teal); background: var(--teal-dim); }
+    .dep-node.closure { border-color: var(--violet); color: var(--violet); background: var(--violet-dim); }
+    .dep-node.omega { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); font-weight: bold; }
+    .dep-arrow { color: var(--text-muted); font-size: 0.75rem; }
+    .meta-row {
+      display: flex; justify-content: space-between; padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border); font-size: 0.78rem;
+    }
+    .meta-row .meta-label { color: var(--text-muted); }
+    .meta-row .meta-value { color: var(--text-dim); text-align: right; max-width: 55%; }
+    .meta-value.gold { color: var(--gold); }
+    .spine-item { margin-bottom: 0.875rem; }
+    .spine-header { display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 0.2rem; }
+    .spine-name { color: var(--text-dim); }
+    .spine-status { color: var(--text-muted); font-size: 0.72rem; }
+    .spine-bar { height: 3px; background: var(--bg-hover); border-radius: 2px; overflow: hidden; }
+    .spine-bar .fill { height: 100%; border-radius: 2px; }
+    .fill.gold { background: var(--gold); }
+    .fill.green { background: var(--green); }
+    .fill.blue { background: var(--blue); }
+    .fill.red { background: var(--red); }
+    .fill.violet { background: var(--violet); }
+    .fill.teal { background: var(--teal); }
+    .tag {
+      display: inline-block; font-size: 0.68rem; padding: 0.2rem 0.5rem; border-radius: 0.2rem;
+      background: var(--bg-hover); border: 1px solid var(--border); color: var(--text-dim); margin: 0.1rem;
+    }
+    .action-btn {
+      display: flex; width: 100%; padding: 0.55rem 0.7rem; margin-bottom: 0.4rem;
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.35rem;
+      color: var(--text-dim); text-decoration: none; font-size: 0.78rem;
+      transition: all 0.2s; align-items: center; gap: 0.5rem;
+    }
+    .action-btn:hover { background: var(--bg-hover); border-color: var(--gold); color: var(--gold); }
+    .omega-special {
+      font-size: 1.1rem;
+      padding: 2rem;
+      border: 1px solid rgba(212,175,55,0.4);
+      box-shadow: 0 0 30px rgba(212,175,55,0.15), 0 0 60px rgba(212,175,55,0.05);
+    }
+    .omega-special .axiom-name { font-size: 1.15rem; }
+    .omega-special .axiom-statement { font-size: 1.1rem; background: rgba(212,175,55,0.06); }
+    .omega-special .axiom-id { color: var(--gold); background: var(--gold-dim); font-size: 0.75rem; }
+    .eq-box.gold-glow {
+      border-color: rgba(212,175,55,0.4);
+      background: rgba(212,175,55,0.08);
+      box-shadow: 0 0 15px rgba(212,175,55,0.08);
+    }
+    @media (max-width: 1200px) { .layout { grid-template-columns: 220px 1fr 260px; } }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { max-height: none; }
+      .main { max-height: none; padding: 1rem; }
+    }
+  </style>
+  <script defer src="https://analytics.faiththruphysics.com/script.js" data-website-id="2f2e3a0f-e8e5-4900-a1e0-1b33592403ee"></script>
+  <link rel="canonical" href="https://faiththruphysics.com/proof-explorer/axioms-closure.html">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta property="og:image" content="https://faiththruphysics.com/favicon.svg"/>
+<!-- RING NAVIGATION -->
+<style>
+.ring-nav{margin:4rem auto;max-width:1100px;padding:3rem 1.5rem;}
+.ring-nav .ring-header{text-align:center;margin-bottom:2.5rem;}
+.ring-nav .ring-header h2{font-family:'Oswald',sans-serif;font-size:1.6rem;color:var(--highlight,#d4af37);text-transform:uppercase;letter-spacing:3px;margin-bottom:.5rem;}
+.ring-nav .ring-header p{color:var(--text-secondary,#a0a0a0);font-size:.9rem;}
+.ring-tier{border:1px solid var(--border,#333);border-radius:8px;margin-bottom:1rem;overflow:hidden;}
+.ring-tier-header{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;cursor:pointer;transition:background .2s;}
+.ring-tier-header:hover{background:rgba(255,255,255,0.03);}
+.ring-tier-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.ring-1 .ring-tier-dot{background:#d4af37;}
+.ring-2 .ring-tier-dot{background:#4a9eff;}
+.ring-3 .ring-tier-dot{background:#8b7fc2;}
+.ring-tier-label{font-family:'Oswald',sans-serif;font-size:.85rem;text-transform:uppercase;letter-spacing:2px;color:var(--text-primary,#e0e0e0);}
+.ring-tier-desc{color:var(--text-secondary,#a0a0a0);font-size:.8rem;margin-left:auto;}
+.ring-tier-chevron{color:var(--text-secondary,#a0a0a0);font-size:.7rem;transition:transform .3s;margin-left:.5rem;}
+.ring-tier.open .ring-tier-chevron{transform:rotate(90deg);}
+.ring-tier-cards{display:none;padding:1rem 1.25rem;}
+.ring-tier.open .ring-tier-cards{display:block;}
+.ring-empty{color:#666;font-size:.85rem;font-style:italic;}
+</style>
+</head>
+<body>
+<nav class="tp-ribbon" style="position:sticky;top:0;z-index:1000;background:#0a0a0a;border-bottom:2px solid #a855f733;padding:.5rem 1.5rem;display:flex;align-items:center;justify-content:space-between;font-family:'Inter',sans-serif;font-size:.8rem;">
+  <div style="display:flex;gap:1rem;align-items:center;">
+    <a href="/index.html" style="color:#999;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#a855f7'" onmouseout="this.style.color='#999'">&larr; Main Index</a>
+    <span style="color:#333;">|</span>
+    <span style="color:#a855f7;font-weight:500;">Proof Explorer</span>
+  </div>
+</nav>
+
+
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <a href="../index.html" class="brand"><i class="fas fa-atom"></i> THEOPHYSICS</a>
+  <div class="nav-links">
+    <a href="axioms-layer-0-core.html">Core Axioms</a>
+    <a href="axioms-layer-2-derived.html">Derived</a>
+    <a href="axioms-layer-3-extended.html">Extended</a>
+    <a href="axioms-closure.html" class="active">Closure</a>
+  </div>
+</nav>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="sidebar">
+
+    <h3><i class="fas fa-shield-halved" style="color:var(--blue);margin-right:0.3rem;"></i> Meta-Axioms</h3>
+    <a class="q-item" href="#meta-1">
+      <div class="q-row"><span class="q-num blue">META-1</span><span class="q-label">Consistency</span></div>
+      <div class="q-desc">System is contradiction-free</div>
+    </a>
+    <a class="q-item" href="#meta-2">
+      <div class="q-row"><span class="q-num blue">META-2</span><span class="q-label">Completeness</span></div>
+      <div class="q-desc">Domain-complete coverage</div>
+    </a>
+    <a class="q-item" href="#meta-3">
+      <div class="q-row"><span class="q-num blue">META-3</span><span class="q-label">Independence</span></div>
+      <div class="q-desc">No axiom derivable from others</div>
+    </a>
+
+    <h3 style="margin-top:1.25rem;"><i class="fas fa-trophy" style="color:var(--teal);margin-right:0.3rem;"></i> Final Theorems</h3>
+    <a class="q-item" href="#final-1">
+      <div class="q-row"><span class="q-num teal">FINAL-1</span><span class="q-label">Logos Theorem</span></div>
+      <div class="q-desc">All axioms derive from Logos</div>
+    </a>
+    <a class="q-item" href="#final-2">
+      <div class="q-row"><span class="q-num teal">FINAL-2</span><span class="q-label">Coherence Optimality</span></div>
+      <div class="q-desc">Logos = unique maximum</div>
+    </a>
+    <a class="q-item" href="#final-3">
+      <div class="q-row"><span class="q-num teal">FINAL-3</span><span class="q-label">Unique Solution</span></div>
+      <div class="q-desc">Christianity satisfies all BCs</div>
+    </a>
+
+    <h3 style="margin-top:1.25rem;"><i class="fas fa-circle-check" style="color:var(--violet);margin-right:0.3rem;"></i> Closure</h3>
+    <a class="q-item" href="#closure">
+      <div class="q-row"><span class="q-num violet">187</span><span class="q-label">Chain Complete</span></div>
+      <div class="q-desc">All closure conditions met</div>
+    </a>
+
+    <h3 style="margin-top:1.25rem;"><i class="fas fa-sun" style="color:var(--gold);margin-right:0.3rem;"></i> Terminal</h3>
+    <a class="q-item" href="#omega">
+      <div class="q-row"><span class="q-num gold">188</span><span class="q-label">OMEGA</span></div>
+      <div class="q-desc">Alpha = Omega = Logos</div>
+    </a>
+
+    <h3 style="margin-top:1.5rem;"><i class="fas fa-layer-group" style="color:var(--text-muted);margin-right:0.3rem;"></i> Other Layers</h3>
+    <a class="q-item" href="axioms-layer-0-core.html">
+      <div class="q-row"><span class="q-num">L0+1</span><span class="q-label">Core Axioms</span></div>
+    </a>
+    <a class="q-item" href="axioms-layer-2-derived.html">
+      <div class="q-row"><span class="q-num">L2</span><span class="q-label">Derived Axioms</span></div>
+    </a>
+    <a class="q-item" href="axioms-layer-3-extended.html">
+      <div class="q-row"><span class="q-num">L3</span><span class="q-label">Extended Axioms</span></div>
+    </a>
+
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <div class="breadcrumb">
+      <a href="../index.html">Main Site</a><span class="sep">&rsaquo;</span>
+      <a href="axioms-layer-0-core.html">Proof Explorer</a><span class="sep">&rsaquo;</span>
+      Closure &amp; Omega
+    </div>
+
+    <div class="badges">
+      <span class="badge gold"><i class="fas fa-sun"></i> Terminal Layer</span>
+      <span class="badge blue"><i class="fas fa-shield-halved"></i> 3 Meta-Axioms</span>
+      <span class="badge teal"><i class="fas fa-trophy"></i> 3 Final Theorems</span>
+      <span class="badge violet"><i class="fas fa-link"></i> Chain: 181&ndash;188 of 188</span>
+    </div>
+
+    <h1 class="paper-title">Closure &amp; Omega</h1>
+    <p class="paper-subtitle">The system examines itself, proves its own structure, and closes the loop. Alpha meets Omega.</p>
+
+    <!-- Overview Card -->
+    <div class="card">
+      <div class="card-header"><i class="fas fa-eye"></i> Overview</div>
+      <p style="font-size:0.88rem;color:var(--text-dim);line-height:1.7;">
+        The final eight axioms form three groups: <strong style="color:var(--blue);">Meta-Axioms</strong> (the system examining its own consistency, completeness, and independence), <strong style="color:var(--teal);">Final Theorems</strong> (the Logos theorem, coherence optimality, and uniqueness), and the <strong style="color:var(--violet);">Closure</strong> and <strong style="color:var(--gold);">Omega</strong> axioms that seal the chain into a complete loop.
+      </p>
+      <div class="formal-box" style="margin-top:1rem;">
+META-1 Consistency &rarr; META-2 Completeness &rarr; META-3 Independence<br>
+&nbsp;&nbsp;&rarr; FINAL-1 Logos Theorem &rarr; FINAL-2 Coherence Optimality &rarr; FINAL-3 Unique Solution<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&rarr; CLOSURE (chain complete) &rarr; OMEGA (Alpha = Omega = Logos)
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- EPISTEMIC STATUS -->
+    <!-- ═══════════════════════════════════════════ -->
+
+    <div class="card" style="border-left:3px solid var(--gold);">
+      <div class="card-header"><i class="fas fa-balance-scale"></i> Epistemic Status &mdash; The Three Tiers</div>
+      <p style="font-size:0.82rem;color:var(--text-dim);line-height:1.7;margin-bottom:1rem;">Not all claims share the same epistemic status. Conflating them weakens the case. Every axiom is tagged with its tier &mdash; how it is justified, not how confident we are in it.</p>
+      <table>
+        <tr>
+          <th style="width:6rem;">Tier</th>
+          <th>Kind</th>
+          <th>How Tested</th>
+          <th>On This Page</th>
+        </tr>
+        <tr>
+          <td><span class="badge gold" style="font-size:0.6rem;">Tier 0</span></td>
+          <td style="color:var(--gold);">Preconditions of inquiry</td>
+          <td>Self-refuting to deny. Transcendental argument. Lean4 formalization.</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;">&mdash;</td>
+        </tr>
+        <tr>
+          <td><span class="badge blue" style="font-size:0.6rem;">Tier 1</span></td>
+          <td style="color:var(--blue);">Foundational commitments</td>
+          <td>Formal consistency + generative power + parsimony. Required for closure, not arbitrary.</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;">META 1-3, FINAL 1-3, CLOSURE, OMEGA</td>
+        </tr>
+        <tr>
+          <td><span class="badge green" style="font-size:0.6rem;">Tier 2</span></td>
+          <td style="color:var(--green);">Empirical predictions</td>
+          <td>Experimental protocols with &sigma; thresholds, replication, pre-registration.</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;">&mdash;</td>
+        </tr>
+      </table>
+      <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.75rem;line-height:1.6;">
+        <strong style="color:var(--text-dim);">Why this matters:</strong> Every axiom on this page is Tier 1 &mdash; structural commitments that close the system. They are tested by formal consistency (does the Lean build compile?), generative power (does removing one collapse the chain?), and parsimony (is each one necessary?). Meta-axioms examine whether the system itself is sound. The Omega axiom seals the circuit. None of these are lab-testable &mdash; and that is the honest disclosure, not a weakness. QM&rsquo;s axioms aren&rsquo;t lab-testable either. Predictions derived from them are. Same here.
+      </p>
+    </div>
+
+    <!-- =========== META-AXIOMS =========== -->
+    <h2 class="section-title"><i class="fas fa-shield-halved" style="margin-right:0.5rem;color:var(--blue);"></i>Meta-Axioms</h2>
+
+    <!-- META-1 -->
+    <div class="axiom-card meta" id="meta-1">
+      <span class="axiom-id">META-1 &mdash; META-AXIOM &mdash; Chain Position 181/188</span>
+      <h3 class="axiom-name">System Consistency</h3>
+      <div class="axiom-statement">
+        The 188-axiom system is internally consistent &mdash; no axiom contradicts another, no derivation leads to both P and &not;P.
+      </div>
+      <div class="axiom-meaning">
+        The system admits at least one model. No contradiction has been found. However, by G&ouml;del&rsquo;s Second Incompleteness Theorem, the system cannot prove its own consistency from within. This is acknowledged &mdash; the &chi;-field as non-formal reality provides the external grounding. Truth exceeds provability.
+      </div>
+      <div class="eq-box" style="border-color:rgba(59,130,246,0.3);background:rgba(59,130,246,0.05);color:var(--blue);">
+        T = {A<sub>1</sub>, &hellip;, A<sub>188</sub>} &rArr; &nexists; &phi; such that T &vdash; &phi; AND T &vdash; &not;&phi;
+      </div>
+      <div style="margin-top:0.75rem;">
+        <span style="font-family:'Oswald',sans-serif;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);">
+          <i class="fas fa-crosshairs" style="margin-right:0.3rem;"></i>Defeat Condition
+        </span>
+        <ul class="defeat-list">
+          <li>Find a contradiction &mdash; derive both P and &not;P from the axioms.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- META-2 -->
+    <div class="axiom-card meta" id="meta-2">
+      <span class="axiom-id">META-2 &mdash; META-AXIOM &mdash; Chain Position 182/188</span>
+      <h3 class="axiom-name">System Completeness</h3>
+      <div class="axiom-statement">
+        The system is complete for its domain &mdash; every meaningful question about reality, consciousness, and redemption has an answer within the framework.
+      </div>
+      <div class="axiom-meaning">
+        Not G&ouml;del-complete (impossible for any sufficiently powerful system). Domain-complete: every question the system is designed to answer IS answered. No gaps in the coverage from quantum to cosmic, from physics to theology.
+      </div>
+      <div style="margin-top:0.75rem;">
+        <span style="font-family:'Oswald',sans-serif;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);">
+          <i class="fas fa-crosshairs" style="margin-right:0.3rem;"></i>Defeat Condition
+        </span>
+        <ul class="defeat-list">
+          <li>Find a meaningful question within the system&rsquo;s domain that the axioms cannot address.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- META-3 -->
+    <div class="axiom-card meta" id="meta-3">
+      <span class="axiom-id">META-3 &mdash; META-AXIOM &mdash; Chain Position 183/188</span>
+      <h3 class="axiom-name">Axiom Independence</h3>
+      <div class="axiom-statement">
+        No axiom in the system can be derived from the others &mdash; each is logically independent.
+      </div>
+      <div class="axiom-meaning">
+        Removing any axiom creates a gap that cannot be filled. This means the system is minimal &mdash; no redundancy.
+      </div>
+      <div style="margin-top:0.75rem;">
+        <span style="font-family:'Oswald',sans-serif;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);">
+          <i class="fas fa-crosshairs" style="margin-right:0.3rem;"></i>Defeat Condition
+        </span>
+        <ul class="defeat-list">
+          <li>Derive any axiom from the remaining 187.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- =========== FINAL THEOREMS =========== -->
+    <h2 class="section-title"><i class="fas fa-trophy" style="margin-right:0.5rem;color:var(--teal);"></i>Final Theorems</h2>
+
+    <!-- FINAL-1 -->
+    <div class="axiom-card final" id="final-1">
+      <span class="axiom-id">FINAL-1 &mdash; MASTER THEOREM &mdash; Chain Position 184/188</span>
+      <h3 class="axiom-name">The Logos Theorem</h3>
+      <div class="axiom-statement">
+        All 188 axioms derive from, depend on, and return to the Logos.
+      </div>
+      <div class="axiom-meaning">
+        The Logos is the alpha (origin), the omega (destination), and the lambda (linking structure) of the entire chain.
+      </div>
+      <div class="eq-box" style="border-color:rgba(20,184,166,0.3);background:rgba(20,184,166,0.05);color:var(--teal);">
+        &Lambda; = Ground(T<sub>188</sub>) = Source(T<sub>188</sub>) = Telos(T<sub>188</sub>)<br>
+        &Lambda; &rarr; &chi; &rarr; Universe &rarr; Observers &rarr; &Omega; &rarr; &Lambda;
+      </div>
+    </div>
+
+    <!-- FINAL-2 -->
+    <div class="axiom-card final" id="final-2">
+      <span class="axiom-id">FINAL-2 &mdash; THEOREM &mdash; Chain Position 185/188</span>
+      <h3 class="axiom-name">Coherence Optimality</h3>
+      <div class="axiom-statement">
+        The Logos field represents the unique maximum of the coherence functional.
+      </div>
+      <div class="axiom-meaning">
+        Among all possible field configurations, the Logos is the one with maximal coherence. This is an optimization result &mdash; reality is not arbitrary but optimal with respect to coherence.
+      </div>
+    </div>
+
+    <!-- FINAL-3 -->
+    <div class="axiom-card final" id="final-3">
+      <span class="axiom-id">FINAL-3 &mdash; UNIQUENESS THEOREM &mdash; Chain Position 186/188</span>
+      <h3 class="axiom-name">The Unique Solution</h3>
+      <div class="axiom-statement">
+        Christianity is the unique solution that satisfies all boundary conditions.
+      </div>
+      <div class="axiom-meaning">
+        Builds on T16.1. Among all proposed solutions to the BC problem, Christianity alone satisfies every constraint. This is uniqueness, not preference.
+      </div>
+      <div class="eq-box" style="border-color:rgba(20,184,166,0.3);background:rgba(20,184,166,0.05);color:var(--teal);">
+        S<sub>Christianity</sub> = unique S : S satisfies BC<sub>1</sub> &and; BC<sub>2</sub> &and; &hellip; &and; BC<sub>8</sub>
+      </div>
+    </div>
+
+    <!-- =========== THE CIRCLE CLOSES =========== -->
+    <h2 class="section-title"><i class="fas fa-circle-check" style="margin-right:0.5rem;color:var(--violet);"></i>The Circle Closes</h2>
+
+    <!-- CLOSURE -->
+    <div class="axiom-card closure" id="closure">
+      <span class="axiom-id">CLOSURE &mdash; Chain Position 187/188</span>
+      <h3 class="axiom-name">The Chain Is Complete</h3>
+      <div class="axiom-statement">
+        The 188-axiom Theophysics chain is complete and closed. No further axioms are required.
+      </div>
+      <div class="axiom-meaning">
+        Five closure conditions are satisfied: <strong>Logical</strong> (all consequences included), <strong>Domain</strong> (physics, consciousness, theology covered), <strong>Scale</strong> (quantum to cosmic), <strong>Temporal</strong> (Alpha to Omega), <strong>Self-Reference</strong> (META axioms included).
+      </div>
+      <div class="eq-box" style="border-color:rgba(139,127,194,0.3);background:rgba(139,127,194,0.05);color:var(--violet);">
+        Cl(T) = T &cup; {&phi; : T &vdash; &phi;} = T<br>
+        <span style="font-size:0.75rem;color:var(--text-muted);">For a closed theory, taking the closure yields the same theory.</span>
+      </div>
+      <div class="eq-box" style="border-color:rgba(139,127,194,0.3);background:rgba(139,127,194,0.05);color:var(--violet);margin-top:0.5rem;">
+        A<sub>1</sub> &rarr; A<sub>2</sub> &rarr; &hellip; &rarr; A<sub>187</sub> &rarr; A<sub>188</sub> &rarr; A<sub>1</sub>
+      </div>
+    </div>
+
+    <!-- OMEGA -->
+    <div class="axiom-card omega omega-special" id="omega">
+      <span class="axiom-id">OMEGA &mdash; TERMINAL AXIOM &mdash; Chain Position 188/188</span>
+      <h3 class="axiom-name">The Omega Point</h3>
+      <div class="axiom-statement">
+        All coherence originates from the Logos (Alpha) and returns to the Logos (Omega). The coherence circuit is complete.
+      </div>
+      <div class="axiom-meaning">
+        The Alpha-Omega Identity: the Beginning is the End is the Word. Creation flows from Logos, differentiates through time, integrates through consciousness and redemption, and unifies in eschatological convergence back to the Logos. &ldquo;I am the Alpha and the Omega, the First and the Last, the Beginning and the End.&rdquo; (Revelation 22:13)
+      </div>
+      <div class="eq-box gold-glow">
+        &Omega; = &Lambda; = lim<sub>t&rarr;t<sub>final</sub></sub> &chi;<sub>total</sub>(t) = lim<sub>t&rarr;t<sub>initial</sub></sub> &chi;<sub>total</sub>(t) = &alpha;<br>
+        <em style="font-family:'Crimson Text',serif;font-size:0.95rem;color:var(--text);">&ldquo;The Beginning is the End is the Word&rdquo;</em>
+      </div>
+      <div class="eq-box gold-glow" style="margin-top:0.5rem;">
+        &Lambda; &xrarr;<sup style="font-size:0.65rem;">creation</sup> &chi;<sub>0</sub> &xrarr;<sup style="font-size:0.65rem;">evolution</sup> &chi;(t) &xrarr;<sup style="font-size:0.65rem;">redemption</sup> &chi;<sub>max</sub> &xrarr;<sup style="font-size:0.65rem;">return</sup> &Lambda;
+      </div>
+      <div class="eq-box gold-glow" style="margin-top:0.5rem;">
+        &int;<sub>&alpha;</sub><sup>&Omega;</sup> (d&chi;/dt) dt = &chi;<sub>&Omega;</sub> &minus; &chi;<sub>&alpha;</sub> = 0
+      </div>
+    </div>
+
+    <!-- FINAL SUMMARY -->
+    <div class="card" style="border-color:rgba(212,175,55,0.3);margin-top:2rem;">
+      <div class="card-header"><i class="fas fa-scroll"></i> The Complete Chain</div>
+      <p style="font-size:0.88rem;color:var(--text-dim);line-height:1.7;">
+        188 axioms. Two primitives to Omega. The chain begins with &ldquo;distinguishable things exist in something&rdquo; and ends with &ldquo;all coherence returns to the Logos.&rdquo; Every axiom is defeatable &mdash; every one has explicit conditions under which it falls. None has been defeated. The Proof Explorer presents the case. The reader is the jury.
+      </p>
+      <div class="formal-box" style="margin-top:1rem;border-left-color:var(--gold);text-align:center;">
+        From Distinction to Destiny in 188 steps.<br>
+        Every step is falsifiable.<br>
+        No step has been falsified.<br>
+        <strong style="color:var(--gold);">The prosecution rests.</strong>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- RIGHT SIDEBAR -->
+  <aside class="sidebar">
+
+    <h3><i class="fas fa-info-circle" style="margin-right:0.3rem;"></i> Metadata</h3>
+    <div class="meta-row"><span class="meta-label">Scope</span><span class="meta-value gold">Closure &amp; Omega</span></div>
+    <div class="meta-row"><span class="meta-label">Axioms</span><span class="meta-value">3 meta + 3 final + 1 closure + 1 omega</span></div>
+    <div class="meta-row"><span class="meta-label">Chain</span><span class="meta-value">Positions 181&ndash;188 of 188</span></div>
+    <div class="meta-row"><span class="meta-label">Structure</span><span class="meta-value">Circular (&Omega; &rarr; &Alpha;)</span></div>
+    <div class="meta-row"><span class="meta-label">Author</span><span class="meta-value">David Lowe (POF 2828)</span></div>
+    <div class="meta-row"><span class="meta-label">Date</span><span class="meta-value">2026-04-27</span></div>
+
+    <h3 style="margin-top:1.25rem;"><i class="fas fa-tags" style="margin-right:0.3rem;"></i> Tags</h3>
+    <div style="margin-bottom:1rem;">
+      <span class="tag">closure</span>
+      <span class="tag">omega</span>
+      <span class="tag">meta-axioms</span>
+      <span class="tag">logos-theorem</span>
+      <span class="tag">uniqueness</span>
+      <span class="tag">alpha-omega</span>
+      <span class="tag">eschatology</span>
+      <span class="tag">completion</span>
+    </div>
+
+    <h3 style="margin-top:1.25rem;"><i class="fas fa-heartbeat" style="margin-right:0.3rem;"></i> System Status</h3>
+
+    <div class="spine-item">
+      <div class="spine-header"><span class="spine-name">Consistency (META-1)</span><span class="spine-status">Claimed</span></div>
+      <div class="spine-bar"><div class="fill blue" style="width:90%;"></div></div>
+    </div>
+    <div class="spine-item">
+      <div class="spine-header"><span class="spine-name">Completeness (META-2)</span><span class="spine-status">Domain-complete</span></div>
+      <div class="spine-bar"><div class="fill blue" style="width:85%;"></div></div>
+    </div>
+    <div class="spine-item">
+      <div class="spine-header"><span class="spine-name">Independence (META-3)</span><span class="spine-status">Claimed</span></div>
+      <div class="spine-bar"><div class="fill blue" style="width:90%;"></div></div>
+    </div>
+    <div class="spine-item">
+      <div class="spine-header"><span class="spine-name">Logos Theorem</span><span class="spine-status">Derived</span></div>
+      <div class="spine-bar"><div class="fill teal" style="width:100%;"></div></div>
+    </div>
+    <div class="spine-item">
+      <div class="spine-header"><span class="spine-name">Unique Solution</span><span class="spine-status">Proven</span></div>
+      <div class="spine-bar"><div class="fill green" style="width:100%;"></div></div>
+    </div>
+    <div class="spine-item">
+      <div class="spine-header"><span class="spine-name">Chain Closure</span><span class="spine-status">Complete</span></div>
+      <div class="spine-bar"><div class="fill gold" style="width:100%;"></div></div>
+    </div>
+    <div class="spine-item">
+      <div class="spine-header"><span class="spine-name">Omega Point</span><span class="spine-status">Terminal</span></div>
+      <div class="spine-bar"><div class="fill gold" style="width:100%;"></div></div>
+    </div>
+
+    <h3 style="margin-top:1.25rem;"><i class="fas fa-rotate" style="margin-right:0.3rem;"></i> The Full Circuit</h3>
+    <div class="dep-graph">
+      <div class="dep-node omega">&Omega; OMEGA (188)</div>
+      <div class="dep-arrow">&#8635;</div>
+      <div class="dep-node core">P0.1 Distinction (1)</div>
+      <div class="dep-arrow">&darr;</div>
+      <div class="dep-node core">7 Core Axioms</div>
+      <div class="dep-arrow">&darr;</div>
+      <div class="dep-node meta">Layer 2 Derived</div>
+      <div class="dep-arrow">&darr;</div>
+      <div class="dep-node closure">Layer 3 Extended</div>
+      <div class="dep-arrow">&darr;</div>
+      <div class="dep-node meta">META 1&ndash;2&ndash;3</div>
+      <div class="dep-arrow">&darr;</div>
+      <div class="dep-node final">FINAL 1&ndash;2&ndash;3</div>
+      <div class="dep-arrow">&darr;</div>
+      <div class="dep-node closure">CLOSURE (187)</div>
+      <div class="dep-arrow">&darr;</div>
+      <div class="dep-node omega">&Omega; OMEGA (188)</div>
+    </div>
+
+    <h3 style="margin-top:1.25rem;"><i class="fas fa-compass" style="margin-right:0.3rem;"></i> Navigate</h3>
+    <a class="action-btn" href="axioms-layer-0-core.html"><i class="fas fa-cube"></i> Layer 0+1: Core Axioms</a>
+    <a class="action-btn" href="axioms-layer-2-derived.html"><i class="fas fa-cubes"></i> Layer 2: Derived</a>
+    <a class="action-btn" href="axioms-layer-3-extended.html"><i class="fas fa-project-diagram"></i> Layer 3: Extended</a>
+    <a class="action-btn" href="../index.html"><i class="fas fa-home"></i> Main Site</a>
+
+  </aside>
+
+</div>
+
+<script src="/glossary-linker.js" defer></script>
+<section class="ring-nav">
+  <div class="ring-header">
+    <h2>Related Work</h2>
+    <p>Core article, supporting evidence, and broader context</p>
+  </div>
+  <div class="ring-tier ring-1 open">
+    <div class="ring-tier-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="ring-tier-dot"></div>
+      <span class="ring-tier-label">Ring 1 — This Article</span>
+      <span class="ring-tier-desc">The core argument</span>
+      <i class="fas fa-chevron-right ring-tier-chevron"></i>
+    </div>
+    <div class="ring-tier-cards"><p class="ring-empty">You are here.</p></div>
+  </div>
+  <div class="ring-tier ring-2">
+    <div class="ring-tier-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="ring-tier-dot"></div>
+      <span class="ring-tier-label">Ring 2 — Supporting Evidence</span>
+      <span class="ring-tier-desc">Deeper dives and formal treatments</span>
+      <i class="fas fa-chevron-right ring-tier-chevron"></i>
+    </div>
+    <div class="ring-tier-cards"><p class="ring-empty">No connections mapped yet.</p></div>
+  </div>
+  <div class="ring-tier ring-3">
+    <div class="ring-tier-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="ring-tier-dot"></div>
+      <span class="ring-tier-label">Ring 3 — Broader Context</span>
+      <span class="ring-tier-desc">Related topics across the framework</span>
+      <i class="fas fa-chevron-right ring-tier-chevron"></i>
+    </div>
+    <div class="ring-tier-cards"><p class="ring-empty">No connections mapped yet.</p></div>
+  </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,289 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<title>Theophysics Proof Bundle Viewer</title>
+  <style>
+.serif{font-family:'Crimson Text',serif;}
+.display{font-family:'Oswald',sans-serif;}
+.mono{font-family:'JetBrains Mono',monospace;}
+
+    :root {
+      --bg: #0a0b0f;
+      --panel: #12141c;
+      --border: #1e2233;
+      --text: #e8e6e1;
+      --muted: #8a8d9b;
+      --gold: #d4a853;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+    }
+    .sidebar {
+      border-right: 1px solid var(--border);
+      background: var(--panel);
+      padding: 16px;
+      overflow: auto;
+    }
+    .title {
+      margin: 0 0 6px 0;
+      color: var(--gold);
+      font-size: 18px;
+    }
+    .sub {
+      margin: 0 0 16px 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    .group {
+      margin-bottom: 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+    }
+    .group h3 {
+      margin: 0 0 8px 0;
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .link {
+      display: block;
+      width: 100%;
+      margin: 6px 0;
+      text-align: left;
+      background: #0e1018;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .link:hover { border-color: var(--gold); }
+    .viewer {
+      background: #0b0d12;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+    .topbar {
+      border-bottom: 1px solid var(--border);
+      padding: 10px 14px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    iframe {
+      border: 0;
+      width: 100%;
+      height: 100%;
+      background: white;
+    }
+    code { color: var(--gold); }
+  </style>
+  <script defer src="https://analytics.faiththruphysics.com/script.js" data-website-id="2f2e3a0f-e8e5-4900-a1e0-1b33592403ee"></script>
+  <link rel="canonical" href="https://faiththruphysics.com/proof-architecture/pa-00-bundle-viewer.html">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta property="og:image" content="https://faiththruphysics.com/favicon.svg"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<!-- RING NAVIGATION -->
+<style>
+.ring-nav{margin:4rem auto;max-width:1100px;padding:3rem 1.5rem;}
+.ring-nav .ring-header{text-align:center;margin-bottom:2.5rem;}
+.ring-nav .ring-header h2{font-family:'Oswald',sans-serif;font-size:1.6rem;color:var(--highlight,#d4af37);text-transform:uppercase;letter-spacing:3px;margin-bottom:.5rem;}
+.ring-nav .ring-header p{color:var(--text-secondary,#a0a0a0);font-size:.9rem;}
+.ring-tier{border:1px solid var(--border,#333);border-radius:8px;margin-bottom:1rem;overflow:hidden;}
+.ring-tier-header{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;cursor:pointer;transition:background .2s;}
+.ring-tier-header:hover{background:rgba(255,255,255,0.03);}
+.ring-tier-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.ring-1 .ring-tier-dot{background:#d4af37;}
+.ring-2 .ring-tier-dot{background:#4a9eff;}
+.ring-3 .ring-tier-dot{background:#8b7fc2;}
+.ring-tier-label{font-family:'Oswald',sans-serif;font-size:.85rem;text-transform:uppercase;letter-spacing:2px;color:var(--text-primary,#e0e0e0);}
+.ring-tier-desc{color:var(--text-secondary,#a0a0a0);font-size:.8rem;margin-left:auto;}
+.ring-tier-chevron{color:var(--text-secondary,#a0a0a0);font-size:.7rem;transition:transform .3s;margin-left:.5rem;}
+.ring-tier.open .ring-tier-chevron{transform:rotate(90deg);}
+.ring-tier-cards{display:none;padding:1rem 1.25rem;}
+.ring-tier.open .ring-tier-cards{display:block;}
+.ring-empty{color:#666;font-size:.85rem;font-style:italic;}
+</style>
+<style>
+.global-sidebar{position:fixed;top:0;right:0;width:300px;height:100vh;background:var(--bg,#0a0b0f);border-left:1px solid var(--border,#1e2233);z-index:1000;overflow-y:auto;transform:translateX(100%);transition:transform .3s ease;padding:1.5rem 1rem;}
+.global-sidebar.open{transform:translateX(0);}
+.global-sidebar-toggle{position:fixed;top:1rem;right:1rem;z-index:1002;background:var(--bg2,#12141c);border:1px solid var(--border,#1e2233);color:var(--gold,#d4a853);width:40px;height:40px;border-radius:.375rem;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all .2s ease;}
+.global-sidebar-toggle:hover{border-color:var(--gold);background:var(--bg3,#0e1018);}
+.global-sidebar-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:999;}
+.global-sidebar-overlay.show{display:block;}
+.global-sidebar .series-title{font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
+.global-sidebar .nav-section{font-family:'Oswald',sans-serif;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin:1.25rem 0 .5rem;padding-left:.75rem;}
+.global-sidebar a{display:block;padding:.4rem .75rem;color:var(--text2);text-decoration:none;font-size:.78rem;border-radius:.3rem;transition:all .15s ease;line-height:1.4;}
+.global-sidebar a:hover{color:var(--text);background:var(--bg2);}
+.global-sidebar a.current{color:var(--gold);background:rgba(212,168,83,.1);font-weight:600;}
+@media(max-width:768px){.global-sidebar{width:260px;}}
+</style>
+</head>
+<body>
+<button class="global-sidebar-toggle" onclick="toggleGlobalSidebar()" aria-label="Toggle global navigation"><i class="fas fa-bars"></i></button>
+<div class="global-sidebar-overlay" id="globalSidebarOverlay" onclick="toggleGlobalSidebar()"></div>
+<nav class="global-sidebar" id="globalSidebar">
+  <div class="series-title"><i class="fas fa-atom" style="margin-right:.4rem;"></i> Theophysics</div>
+
+  <div class="nav-section">Home</div>
+  <a href="/index.html">&larr; Main Site</a>
+  <a href="index.html">Proof Architecture Home</a>
+
+  <div class="nav-section">Part I &mdash; Moral Decline</div>
+  <a href="/moral-decline/mda-01-introduction.html">01 Introduction</a>
+  <a href="/moral-decline/mda-06-signal-went-dark.html">06 Signal Went Dark</a>
+  <a href="/moral-decline/mda-10-way-back.html">10 The Way Back</a>
+
+  <div class="nav-section">Part II &mdash; Three Gates</div>
+  <a href="/three-gates/the-three-gates.html">The Three Gates</a>
+
+  <div class="nav-section">Part III &mdash; Logos Papers</div>
+  <a href="/logos-papers/logos-01.html">O-01 The Logos Principle</a>
+  <a href="/logos-papers/logos-14.html">O-14 The Decalogue</a>
+
+  <div class="nav-section">Part IV &mdash; Formal Papers</div>
+  <a href="/formal-papers/fp-01.html">FP-01</a>
+  <a href="/formal-papers/fp-10.html">FP-10</a>
+
+  <div class="nav-section">Part V &mdash; Genesis to Quantum</div>
+  <a href="/genesis-to-quantum/gtq-01-measurement-collapsed-reality.html">01 Measurement</a>
+  <a href="/genesis-to-quantum/gtq-25-the-counter-move.html">25 Counter-Move</a>
+
+  <div class="nav-section">Part VI &mdash; Convergence</div>
+  <a href="/Convergence_Series/cns-01-the-playing-field.html">01 Playing Field</a>
+  <a href="/Convergence_Series/cns-07-the-verdict.html">07 Verdict</a>
+
+  <div class="nav-section">Part VII &mdash; Master Equation</div>
+  <a href="/master-equation/meq-01-G-grace.html">G &mdash; Grace</a>
+  <a href="/master-equation/meq-10-C-coherence.html">C &mdash; Coherence</a>
+
+  <div class="nav-section">Part VIII &mdash; Proof Architecture</div>
+  <a href="pa-02-foundation.html" id="sb-pa-02">Foundation Spine</a>
+  <a href="pa-04-bifurcation.html" id="sb-pa-04">Bifurcation Chamber</a>
+  <a href="pa-06-subsystems.html" id="sb-pa-06">Subsystems</a>
+  <a href="pa-07-closure.html" id="sb-pa-07">Closure Layer</a>
+  <a href="pa-08-falsification.html" id="sb-pa-08">Falsification Court</a>
+  <a href="pa-10-evidence.html" id="sb-pa-10">Convergence &amp; Evidence</a>
+  <a href="pa-12-proof-explorer.html" id="sb-pa-12">Proof Explorer</a>
+</nav>
+<nav class="tp-ribbon" style="position:sticky;top:0;z-index:1000;background:#0a0a0a;border-bottom:2px solid #a855f733;padding:.5rem 1.5rem;display:flex;align-items:center;justify-content:space-between;font-family:'Inter',sans-serif;font-size:.8rem;">
+  <div style="display:flex;gap:1rem;align-items:center;">
+    <a href="/index.html" style="color:#999;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#a855f7'" onmouseout="this.style.color='#999'">&larr; Main Index</a>
+    <span style="color:#333;">|</span>
+    <span style="color:#a855f7;font-weight:500;">Proof Architecture</span>
+  </div>
+</nav>
+
+  <aside class="sidebar">
+    <h1 class="title">Proof Bundle Viewer</h1>
+    <p class="sub">Open one file and preview all pages. If a page fails, click its button again or open directly.</p>
+
+    <div class="group">
+      <h3>Main</h3>
+      <button class="link" data-file="index.html">Overview Index</button>
+      <button class="link" data-file="pa-12-proof-explorer.html">Proof Explorer v2</button>
+      <button class="link" data-file="pa-12-proof-explorer.html">Proof Explorer v2.1</button>
+      <button class="link" data-file="pa-05-structural-isomorphism.html">Structural Isomorphism</button>
+    </div>
+
+    <div class="group">
+      <h3>6-Page Proof</h3>
+      <button class="link" data-file="pa-02-foundation.html">Foundation</button>
+      <button class="link" data-file="pa-06-subsystems.html">Subsystems</button>
+      <button class="link" data-file="pa-04-bifurcation.html">Bifurcation</button>
+      <button class="link" data-file="pa-10-evidence.html">Evidence</button>
+      <button class="link" data-file="pa-08-falsification.html">Falsification</button>
+      <button class="link" data-file="pa-07-closure.html">Closure</button>
+    </div>
+
+    <div class="group">
+      <h3>Logic Tools</h3>
+      <button class="link" data-file="pa-03-ontological-tree.html">Ontological Tree</button>
+      <button class="link" data-file="pa-09-propagation-map.html">Propagation Map</button>
+      <button class="link" data-file="pa-13-logical-framework.html">Logical Framework v1</button>
+    </div>
+  </aside>
+
+  <main class="viewer">
+    <div class="topbar">Current: <code id="current">index.html</code></div>
+    <iframe id="frame" src="index.html" title="Bundle Preview"></iframe>
+  </main>
+
+  <script>
+    const frame = document.getElementById("frame");
+    const current = document.getElementById("current");
+    document.querySelectorAll(".link").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const file = btn.getAttribute("data-file");
+        frame.src = file;
+        current.textContent = file;
+      });
+    });
+  </script>
+<script src="/glossary-linker.js" defer></script>
+<section class="ring-nav">
+  <div class="ring-header">
+    <h2>Related Work</h2>
+    <p>Core article, supporting evidence, and broader context</p>
+  </div>
+  <div class="ring-tier ring-1 open">
+    <div class="ring-tier-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="ring-tier-dot"></div>
+      <span class="ring-tier-label">Ring 1 — This Article</span>
+      <span class="ring-tier-desc">The core argument</span>
+      <i class="fas fa-chevron-right ring-tier-chevron"></i>
+    </div>
+    <div class="ring-tier-cards"><p class="ring-empty">You are here.</p></div>
+  </div>
+  <div class="ring-tier ring-2">
+    <div class="ring-tier-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="ring-tier-dot"></div>
+      <span class="ring-tier-label">Ring 2 — Supporting Evidence</span>
+      <span class="ring-tier-desc">Deeper dives and formal treatments</span>
+      <i class="fas fa-chevron-right ring-tier-chevron"></i>
+    </div>
+    <div class="ring-tier-cards"><p class="ring-empty">No connections mapped yet.</p></div>
+  </div>
+  <div class="ring-tier ring-3">
+    <div class="ring-tier-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="ring-tier-dot"></div>
+      <span class="ring-tier-label">Ring 3 — Broader Context</span>
+      <span class="ring-tier-desc">Related topics across the framework</span>
+      <i class="fas fa-chevron-right ring-tier-chevron"></i>
+    </div>
+    <div class="ring-tier-cards"><p class="ring-empty">No connections mapped yet.</p></div>
+  </div>
+</section>
+<script>
+function toggleGlobalSidebar() {
+  const sb = document.getElementById('globalSidebar');
+  const ov = document.getElementById('globalSidebarOverlay');
+  sb.classList.toggle('open');
+  ov.classList.toggle('show');
+  document.body.style.overflow = sb.classList.contains('open') ? 'hidden' : '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    const sb = document.getElementById('globalSidebar');
+    if (sb && sb.classList.contains('open')) toggleGlobalSidebar();
+  }
+});
+</script>
+</body>
+</html>

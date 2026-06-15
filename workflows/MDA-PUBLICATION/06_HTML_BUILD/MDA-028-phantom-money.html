@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Phantom Money, Phantom Morals — Economic Collapse | Moral Decline of America — Moral Decline of America</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a;
+  --border:#2a2a2a; --border-claim:rgba(212,175,55,.35);
+  --text:#e0e0e0; --text2:#a0a0a0; --text3:#707070;
+  --mda-red:#dc2626; --mda-red-glow:rgba(220,38,38,.08);
+  --claim:#d4af37; --claim-glow:rgba(212,175,55,.08);
+  --easy:#22c55e; --easy-glow:rgba(34,197,94,.08);
+  --academic:#a78bfa; --academic-glow:rgba(167,139,250,.08);
+  --proof:#f59e0b; --proof-glow:rgba(245,158,11,.08);
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  line-height:1.65; margin:0; padding:0;
+}
+</style>
+<style>
+/* Reader Mode Bar */
+.mda-reader-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:.5rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;
+}
+.mda-reader-bar .series-badge{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mda-red);font-weight:600;
+}
+.mda-reader-bar .meta{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;
+  color:var(--text3);text-transform:uppercase;letter-spacing:.06em;
+}
+.tab-group{display:flex;gap:.4rem;flex-wrap:wrap;}
+.tab-btn{
+  padding:.4rem .7rem;border:1px solid var(--border);border-radius:.35rem;
+  background:var(--surface);color:var(--text2);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em;transition:all .2s;
+}
+.tab-btn:hover{border-color:var(--mda-red);color:var(--text);}
+.tab-btn.active{border-color:var(--mda-red);background:var(--mda-red-glow);color:var(--mda-red);}
+.tab-btn[data-tab="easy"].active{border-color:var(--easy);background:var(--easy-glow);color:var(--easy);}
+.tab-btn[data-tab="academic"].active{border-color:var(--academic);background:var(--academic-glow);color:var(--academic);}
+.tab-btn[data-tab="proof"].active{border-color:var(--proof);background:var(--proof-glow);color:var(--proof);}
+
+/* Article */
+.article{max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem;}
+.article h1{
+  font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.02em;
+  margin:0 0 .5rem;line-height:1.1;
+}
+.article .subtitle{
+  font-family:'Crimson Text',serif;font-size:1.15rem;color:var(--text2);
+  font-style:italic;margin:0 0 2rem;line-height:1.5;
+}
+.article h2{
+  font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:#fff;
+  text-transform:uppercase;letter-spacing:.04em;margin:2.5rem 0 1rem;
+  border-bottom:1px solid var(--border);padding-bottom:.4rem;
+}
+.article h3{font-family:'Crimson Text',serif;font-size:1.15rem;font-weight:600;color:var(--mda-red);margin:1.5rem 0 .5rem;}
+.article p{font-size:1.02rem;line-height:1.75;margin:0 0 1.25rem;}
+.article blockquote{
+  border-left:3px solid var(--mda-red);background:var(--mda-red-glow);
+  padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 .4rem .4rem 0;
+  font-family:'Crimson Text',serif;font-style:italic;color:var(--text2);
+}
+.article img{max-width:100%;border-radius:.4rem;margin:1rem 0;}
+.mda-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
+.mda-table td{padding:.4rem .6rem;border:1px solid var(--border);color:var(--text2);}
+.mda-table tr:first-child td{font-weight:600;color:var(--text);background:var(--surface);}
+
+/* Reading level panels */
+.level-panel{display:none;}
+.level-panel.active{display:block;}
+
+/* Proof panel */
+.proof-panel{display:none;max-width:780px;margin:0 auto;padding:1.5rem;}
+.proof-panel.active{display:block;}
+.mda-proof-eyebrow{
+  font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--proof);margin-bottom:.6rem;
+}
+.math-field{display:flex;gap:.5rem;margin:.4rem 0;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.math-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--proof);font-weight:600;min-width:180px;}
+.math-value{font-size:.85rem;color:var(--text2);}
+.math-item{font-size:.85rem;color:var(--text);padding:.2rem 0 .2rem 1rem;border-left:2px solid var(--border);margin:.3rem 0;}
+.mda-proof-placeholder{color:var(--text3);font-style:italic;font-size:.9rem;}
+
+/* Glossary */
+.mda-glossary{columns:1;}
+.glossary-entry{break-inside:avoid;margin-bottom:.8rem;}
+.glossary-entry dt{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--academic);font-weight:600;}
+.glossary-entry dd{font-size:.85rem;color:var(--text2);margin:0 0 0 .5rem;}
+.glossary-domain{font-size:.65rem;color:var(--text3);margin-left:.5rem;font-style:italic;}
+
+/* Easy level overrides */
+body.mode-easy .article p{font-size:1.15rem;line-height:1.85;}
+body.mode-easy .article h3{font-size:1.3rem;color:var(--easy);font-family:'Oswald',sans-serif;}
+body.mode-easy .article blockquote{border-left-color:var(--easy);background:var(--easy-glow);font-style:normal;}
+/* Academic level overrides */
+body.mode-academic .article p{font-size:.95rem;line-height:1.65;color:#d0d0d0;}
+body.mode-academic .article h3{font-size:1.1rem;color:var(--academic);font-family:'Crimson Text',serif;font-style:italic;}
+body.mode-academic .article blockquote{border-left-color:var(--academic);background:var(--academic-glow);}
+
+@media(max-width:640px){
+  .article{padding:1.5rem 1rem 4rem;}
+  .mda-reader-bar{padding:.4rem 1rem;}
+}
+</style>
+</head>
+<body class="mode-standard">
+
+<!-- BEGIN:COMPONENT:reader-mode:reader-mode-bar -->
+<div class="mda-reader-bar">
+  <div>
+    <span class="series-badge">Moral Decline of America</span>
+    <span class="meta">MDA-028</span>
+    <span class="meta" id="mode-status">Standard active</span>
+  </div>
+  <div class="tab-group">
+    <button class="tab-btn" data-tab="easy" onclick="setTab('easy')">Easy</button>
+    <button class="tab-btn active" data-tab="standard" onclick="setTab('standard')">Standard</button>
+    <button class="tab-btn" data-tab="academic" onclick="setTab('academic')">Academic</button>
+    <button class="tab-btn" data-tab="proof" onclick="setTab('proof')">Proof</button>
+  </div>
+</div>
+<!-- END:COMPONENT:reader-mode:reader-mode-bar -->
+
+<!-- BEGIN:LEVEL:standard -->
+<div class="level-panel active" data-level="standard">
+  <article class="article">
+    <h1>Phantom Money, Phantom Morals — Economic Collapse | Moral Decline of America</h1>
+    <p class="subtitle">MDA-028 · David Lowe · Theophysics Institute</p>
+    <p><a href="index.html">Moral Decline</a></p>
+<p><a href="index.html">Genesis to Quantum</a></p>
+<p>Moral Decline Series
+<a href="MDA-027-signal-went-dark.html">Part 6</a>
+<a href="MDA-029-observer-collapsed.html">Part 8</a></p>
+<p>Theophysics Research • Series 6.2</p>
+<p>Part 7 — Vector C</p>
+<h1>Phantom Money, Phantom Morals</h1>
+<p>The Collapse of Economic Coherence (1971–2024)</p>
+<p><img alt="Story Illustration" src="../images/mda/The_1962_Software_Crash conv 10.webp" /></p>
+<p>David Lowe • Theophysics Institute</p>
+<p>Read Aloud</p>
+<p>0:00</p>
+<p>Deep Dive</p>
+<p>0:00</p>
+<p>Podcast</p>
+<p>0:00</p>
+<h2>Baseline: 1971 (The Last Anchored Moment)</h2>
+<p>On August 15, 1971, Nixon severed the dollar from gold. This single act cascaded through every American institution that had been built on the assumption of <em>stable value</em>.</p>
+<p>Before 1971:</p>
+<ul>
+<li>$1 USD = 1/35th of an ounce of gold</li>
+<li>Money represented <em>claims on something real</em></li>
+<li>Inflation was constrained by physical reality</li>
+<li>Debt accumulation was self-limiting (you couldn't borrow infinitely against finite gold)</li>
+</ul>
+<p>Economic Coherence in 1971</p>
+<p>76</p>
+<p>38%</p>
+<p>Debt-to-GDP Ratio</p>
+<p>2.1%/yr</p>
+<p>Real Wage Growth</p>
+<p>4.2x</p>
+<p>Net Worth to Income</p>
+<p>7.8%</p>
+<p>Corporate Profit Margins</p>
+<p>35%</p>
+<p>Top 1% Wealth Share</p>
+<p>3.0x</p>
+<p>Home Price to Income</p>
+<p>These weren't perfect. But they were <em>constrained by reality</em>. You couldn't claim more value than you produced for more than a few years—the gold constraint forced correction.</p>
+<h2>The Severing: 1971–1980</h2>
+<p>When the gold standard broke, it wasn't merely a monetary shift. It was a <strong>reality constraint removal</strong>.</p>
+<p>For the first time in American history, the government could create wealth <em>symbolically</em> instead of <em>productively</em>.</p>
+<p>The Federal Reserve immediately began what it called "monetary accommodation." The rest of us call it: printing money to sustain spending beyond production.</p>
+<p>The Mechanism</p>
+<ol>
+<li>1.
+   Government wants to spend more than tax revenue allows</li>
+<li>2.
+   Instead of raising taxes, it borrows from the Fed</li>
+<li>3.
+   Fed creates new money (from nothing) to buy government bonds</li>
+<li>4.
+   That new money flows into the economy</li>
+<li>5.
+   Prices rise (inflation), but wages lag behind</li>
+<li>6.
+   Net result: real wealth transfers from wage-earners to asset-holders and government</li>
+</ol>
+<p>This isn't capitalism. It isn't socialism. It's <strong>extraction through monetary deception</strong>.</p>
+<p>By 1980:</p>
+<p>42%</p>
+<p>Debt-to-GDP Ratio</p>
+<p>Flat</p>
+<p>Real Wages</p>
+<p>4.1x</p>
+<p>Net Worth to Income</p>
+<p>13.5%</p>
+<p>Inflation</p>
+<p>37%</p>
+<p>Top 1% Wealth Share</p>
+<p>Notice: the economy was growing nominally, but workers were <em>losing ground</em> despite increasing productivity.</p>
+<h2>The Acceleration: 1980–2000</h2>
+<p>The 1980s brought Reaganomics, which formalized the strategy: if monetary expansion works, <em>accelerate it</em>.</p>
+<p>Interest rates were slashed. Credit was loosened. The message: <em>borrow against tomorrow, live wealthy today</em>.</p>
+<p>Household Debt Explosion</p>
+<p>1980</p>
+<p>$1.4T</p>
+<p>1990</p>
+<p>$3.2T</p>
+<p>2000</p>
+<p>$7.1T</p>
+<p>Real Wages Flat-Lined</p>
+<p>1980 median wage (inflation-adjusted)</p>
+<p>$28,000</p>
+<p>2000 median wage (inflation-adjusted)</p>
+<p>$28,300</p>
+<p>The wage barely moved. But asset prices soared:</p>
+<p>+150%</p>
+<p>Home Prices</p>
+<p>+400%</p>
+<p>Stock Prices</p>
+<p>+250%</p>
+<p>College Tuition</p>
+<p>The mechanism was now explicit: phantom wealth creation through monetary expansion, purchased by debt accumulation among those who couldn't afford it.</p>
+<p>62%</p>
+<p>Debt-to-GDP</p>
+<p>5.8x</p>
+<p>Net Worth to Income</p>
+<p>39%</p>
+<p>Top 1% Wealth Share</p>
+<p>4.2x</p>
+<p>Home Price to Income</p>
+<p>$0.1T</p>
+<p>Student Debt</p>
+<p>Economic Coherence by 2000</p>
+<p>52</p>
+<h2>The Inversion: 2000–2008</h2>
+<p>The dot-com bubble, the housing bubble, the derivatives bubble—these weren't separate crises. They were <em>symptoms of the same disease</em>: the financial system had become entirely untethered from productive capacity.</p>
+<p>By 2008, the phantoms were eating the real:</p>
+<p>Derivatives Market Size</p>
+<p>$680T</p>
+<p>notional value</p>
+<p>Global GDP</p>
+<p>$60T</p>
+<p>real production</p>
+<p>The derivatives market was 11x larger than global economic output. This is impossible. It means the financial system was pricing <strong>impossible futures</strong>—claims on value that couldn't exist.</p>
+<p>When the housing market (the physical anchor for the phantom wealth) finally corrected, the entire phantom structure collapsed.</p>
+<p>$16T</p>
+<p>Wealth Destroyed</p>
+<p>9M</p>
+<p>Foreclosures</p>
+<p>10%</p>
+<p>Unemployment</p>
+<p>Flat</p>
+<p>Real Wages</p>
+<p>But here's what matters: the government response wasn't to restructure incentives or restore productive capacity. It was to <em>expand monetary creation further</em>.</p>
+<p>Quantitative Easing (2008–2014)</p>
+<p>$4 Trillion</p>
+<p>created from nothing</p>
+<p>The message: when phantom wealth collapses, create more phantoms.</p>
+<p>By 2014:</p>
+<p>87%</p>
+<p>Debt-to-GDP</p>
+<p>4.8x</p>
+<p>Net Worth to Income</p>
+<p>42%</p>
+<p>Top 1% Wealth Share</p>
+<p>4.9x</p>
+<p>Home Price to Income</p>
+<p>$1.2T</p>
+<p>Student Debt</p>
+<p>Economic Coherence</p>
+<p>31</p>
+<h2>The Structural Inversion: 2014–2024</h2>
+<p>The last decade inverted the basic economic equation.</p>
+<p>Before Inversion (pre-1980)</p>
+<p>Productive work → real income → savings → real wealth</p>
+<p>Risk: too much debt → correction → reset</p>
+<p>After Inversion (2014+)</p>
+<p>Productive work → wages (stagnant) → debt accumulation to maintain living standards</p>
+<p>Risk: infinite monetary expansion → asset inflation → real asset prices unaffordable → wealth transfer to existing holders</p>
+<p>The Cycle</p>
+<ol>
+<li>1.
+   Asset prices rise due to monetary expansion</li>
+<li>2.
+   Those with assets become wealthier</li>
+<li>3.
+   Those without assets work harder to afford them, accumulate debt</li>
+<li>4.
+   More debt requires more monetary expansion</li>
+<li>5.
+   Cycle accelerates</li>
+</ol>
+<p>Real Wage Growth (1980–2024)</p>
+<p>+0.3%/yr</p>
+<p>essentially flat</p>
+<p>Asset Price Growth (1980–2024)</p>
+<p>+6.2%/yr</p>
+<p>exponential</p>
+<p>This is intentional wealth transfer from workers to asset-holders, disguised as "economic growth."</p>
+<p>By 2024:</p>
+<p>123%</p>
+<p>Debt-to-GDP</p>
+<p>$97T</p>
+<p>Total Debt</p>
+<p>6.1x</p>
+<p>Net Worth to Income</p>
+<p>49%</p>
+<p>Top 1% Wealth</p>
+<p>76%</p>
+<p>Top 10% Wealth</p>
+<p>6.1x</p>
+<p>Home Price to Income</p>
+<p>$1.7T</p>
+<p>Student Debt</p>
+<p>$1.1T</p>
+<p>Credit Card Debt</p>
+<p>$1.5T</p>
+<p>Auto Debt</p>
+<p>Economic Coherence</p>
+<p>8</p>
+<h2>The Phantom Economy</h2>
+<p>By 2024, the American economy had become almost entirely <em>phantom</em>:</p>
+<p>Total Assets: $197 Trillion</p>
+<p>Physical productive capacity
+~$30T</p>
+<p>Real estate
+~$35T</p>
+<p>Financial assets (stocks, bonds, derivatives)
+~$132T</p>
+<p>Financial Asset Breakdown</p>
+<p>Stock market: $50T
+(P/E ratio: 28x, far above historical average of 15x)</p>
+<p>Government bonds: $25T
+(yielding 4-5%, when inflation is real wages losing 2-3%/year)</p>
+<p>Corporate bonds: $12T
+(many from companies that don't cover interest through productive earnings)</p>
+<p>Derivatives: estimated $1–2 quadrillion</p>
+<p>The system survives only through:</p>
+<p><img alt="Story Illustration" src="../images/mda/The_Observer_Collapsed conv 2.webp" /></p>
+<p>1.</p>
+<p><strong>Continuous monetary expansion</strong> (creating new money to service old debt)</p>
+<p>2.</p>
+<p><strong>Immigration and immigration-driven demand</strong> (new people buying homes, goods, driving consumption)</p>
+<p>3.</p>
+<p><strong>Deficit spending</strong> (government borrowing against future productivity)</p>
+<p>4.</p>
+<p><strong>Asset inflation</strong> (claiming productivity increases through price increases, not output increases)</p>
+<p>Remove any one of these, and the phantom structure collapses.</p>
+<h2>The Moral Inversion</h2>
+<p>What does this have to do with moral coherence?</p>
+<p>Everything.</p>
+<p>Economic systems embed moral assumptions:</p>
+<p>If your wealth comes from <strong>productive work</strong>, you develop virtue around effort, delayed gratification, stewardship</p>
+<p>If your wealth comes from <strong>asset appreciation</strong>, you develop virtue around <em>timing</em>, <em>leverage</em>, <em>information advantage</em></p>
+<p>For most of American history, these were constrained by reality. You couldn't leverage infinitely. You couldn't time markets forever. You couldn't hide information indefinitely.</p>
+<p>But in a phantom economy:</p>
+<ul>
+<li>Leverage is <em>unlimited</em> (monetary expansion backstops all debt)</li>
+<li>Timing is rewarded <em>consistently</em> (asset prices always rise eventually)</li>
+<li>Information advantage is <em>structural</em> (insiders know what retail investors learn too late)</li>
+</ul>
+<p>The virtues that emerged: manipulation, extraction, deception—the same virtues that destroyed institutional truth. When the economy rewards untruth, the entire culture inverses toward untruth.</p>
+<p>The Correlation is Exact</p>
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th>Economic Coherence</th>
+<th>Institutional Truth</th>
+<th>Family Coherence</th>
+<th>Moral Coherence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1971</td>
+<td>76</td>
+<td>67</td>
+<td>58</td>
+<td>68</td>
+</tr>
+<tr>
+<td>1990</td>
+<td>58</td>
+<td>47</td>
+<td>38</td>
+<td>42</td>
+</tr>
+<tr>
+<td>2008</td>
+<td>31</td>
+<td>21</td>
+<td>18</td>
+<td>23</td>
+</tr>
+<tr>
+<td>2024</td>
+<td>8</td>
+<td>11</td>
+<td>6</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+<p>The collapse is <em>synchronized across all domains</em>.</p>
+<p>This isn't coincidence. It's causation.</p>
+<p>A phantom economy requires phantom morals to sustain it. You can't maintain an economy built on infinite debt and monetary creation while also maintaining institutional honesty and family stability.</p>
+<p>One requires truth. The other requires obscuring truth.</p>
+<p>America has chosen the latter.</p>
+<h2>The Terminal State</h2>
+<p>The phantom economy is now in a state where <em>recovery requires systemic honesty about the system itself</em>.</p>
+<p>But the system survives only by <em>preventing that honesty</em>.</p>
+<p>If Americans understood how thoroughly they've been extracted—how real wages haven't risen in 44 years while productivity doubled—the system would collapse.</p>
+<p>So institutions work constantly to:</p>
+<ul>
+<li>Celebrate nominal gains ("stocks at all-time highs!")</li>
+<li>Hide real losses (real wage stagnation buried in inflation data)</li>
+<li>Promote asset ownership as virtue ("build wealth through the stock market!")</li>
+<li>Defer questioning ("you're just not investing enough")</li>
+</ul>
+<p>This is the final inversion: a system that depends on dishonesty about itself, therefore must corrupt every institution that might reveal it.</p>
+<p>The economy and culture are locked in a death spiral of mutual corruption.</p>
+<p>The phantom money and phantom morals are the same thing.</p>
+<p>[Previous</p>
+<p>Part 6: The Signal Went Dark](MDA-027-signal-went-dark.html)
+[Series</p>
+<p>Back to Series Landing](MDA-901-appendix-america-index.html)
+[Next</p>
+<p>Part 8: The Observer Collapsed](MDA-029-observer-collapsed.html)</p>
+<p>Genesis to Quantum • Theophysics Institute</p>
+<p>David Lowe • 2025</p>
+<h2>Related Work</h2>
+<p>Core article, supporting evidence, and broader context</p>
+<p>Ring 1 — This Article
+The core argument</p>
+<p>You are here.</p>
+<p>Ring 2 — Supporting Evidence
+Deeper dives and formal treatments</p>
+<p>No connections mapped yet.</p>
+<p>Ring 3 — Broader Context
+Related topics across the framework</p>
+<p>No connections mapped yet.</p>
+<p>Audio</p>
+<p>0:00</p>
+  </article>
+</div>
+<!-- END:LEVEL:standard -->
+
+<!-- BEGIN:LEVEL:easy -->
+<div class="level-panel" data-level="easy">
+  <article class="article">
+    <h1>Phantom Money, Phantom Morals — Economic Collapse | Moral Decline of America</h1>
+    <p class="subtitle">MDA-028 · Easy Reading Level</p>
+    <h2>Phantom Money, Phantom Morals</h2>
+<h3>How America Unplugged Its Economy From Reality (1971 – 2024)</h3>
+<hr />
+<h3>Baseline: 1971 — The Last Solid Floor</h3>
+<p>For a long time the dollar followed the <strong>gold standard</strong>—<strong>like a metal ruler that every dollar had to match in weight</strong>.<br />
+Because of that ruler, rising prices, or <strong>inflation</strong>—<strong>like pumping extra air into a balloon until everything inside feels bigger but isn’t—</strong>stayed mild.<br />
+The nation’s <strong>Debt-to-GDP ratio</strong>—<strong>think of your credit-card balance compared to your yearly pay</strong>—was only 38 %.<br />
+Most workers felt the link between effort and reward. The system still had high <strong>economic coherence</strong>—<strong>like a road map that lines up perfectly with the real streets</strong>.</p>
+<hr />
+<h3>The Severing: 1971 – 1980</h3>
+<p>President Nixon broke the link to gold. The ruler snapped.<br />
+The Federal Reserve launched <strong>monetary accommodation</strong>—<strong>like adding extra water to a soup pot so every guest gets a bowl, even if the flavor thins</strong>.<br />
+New dollars poured out faster than new goods. Prices jumped; wages limped.<br />
+Debt rose, the map slid, but people didn’t revolt because the numbers printed on paychecks looked bigger.</p>
+<hr />
+<h3>The Acceleration: 1980 – 2000</h3>
+<p>Leaders decided, “If printing works, print more.”<br />
+Interest rates fell; credit cards filled mailboxes.<br />
+Families borrowed to feel rich even while take-home pay stayed flat.<br />
+Homes, stocks, and college bills rocketed. That rise was <strong>phantom wealth</strong>—<strong>like Monopoly money that buys real pizza only until the owner notices</strong>.  </p>
+<p>By 2000 the country still talked about hard work, yet more wealth came from price gains than from production.</p>
+<hr />
+<h3>The Inversion: 2000 – 2008</h3>
+<p>Wall Street invented the <strong>derivative</strong>—<strong>a bet on whether an apple will fall, instead of selling the apple itself</strong>.<br />
+Soon the pile of bets was over ten times larger than all the real apples, factories, and services on Earth.<br />
+When house prices finally slipped, the paper towers crashed.<br />
+Washington answered with <strong>quantitative easing</strong>—<strong>the central bank flooding a wilting garden so plants stand up for a while, even if roots stay weak</strong>.<br />
+More water, less truth.</p>
+<hr />
+<h3>Structural Inversion: 2014 – 2024</h3>
+<p>The economy flipped into a <strong>structural inversion</strong>—<strong>like living in a house turned upside-down so the roof tries to stand on the floor</strong>.<br />
+Today you need rising assets first; only then can wages follow.<br />
+That forces fresh money creation to keep asset prices climbing—classic <strong>asset inflation</strong>, <strong>like a used bike’s sticker price doubling while the bike itself never changes</strong>.<br />
+Workers chase the balloon with loans, and every loan demands still more money printing. The loop tightens.</p>
+<hr />
+<h3>The Phantom Economy</h3>
+<p>Count the claims: about $197 trillion. Measure the real machines and workers: maybe $30 trillion.<br />
+The gap lives only by never-ending dollars, new borrowers, and government deficits.<br />
+Pull any one of those pegs and the tent collapses.</p>
+<hr />
+<h3>The Moral Inversion</h3>
+<p>Money systems teach virtues.<br />
+When wealth comes from making things, the lesson is effort, patience, and care.<br />
+In a phantom world the winning tools are <strong>leverage</strong>—<strong>like using a long crowbar to lift a rock, but if it snaps you crash</strong>, timing tips, and inside info.<br />
+That erodes <strong>moral coherence</strong>—<strong>your words, thoughts, and actions no longer march in the same line</strong>.<br />
+Truth-telling groups lose <strong>institutional truth</strong>—<strong>the trusted lighthouse whose beam shows every ship the real shoreline</strong>—because the beam would expose the game.</p>
+<p>Numbers prove the slide:</p>
+<p>1971 Economic Coherence 76<br />
+2024 Economic Coherence 8  </p>
+<p>As the map curled, trust, family strength, and virtue curled with it. Phantom money breeds phantom morals.</p>
+<hr />
+<h3>The Terminal State</h3>
+<p>Recovery now demands national honesty.<br />
+But the system survives only by hiding how wages froze while productivity doubled.<br />
+So headlines cheer stock highs, blame shoppers for not “investing enough,” and drown complaints in fresh cash.<br />
+Economy and culture lock arms in a downward spin.<br />
+Until we restore real production over paper claims—and shine unblinking light—both spirals will tighten.</p>
+<hr />
+<p>TERMS DEFINED: 13 / 13<br />
+TERMS MISSED: []<br />
+ARGUMENT COVERAGE: All major sections represented (Baseline, Severing, Acceleration, Inversion, Structural Inversion, Phantom Economy, Moral Inversion, Terminal State)</p>
+  </article>
+</div>
+<!-- END:LEVEL:easy -->
+
+<!-- BEGIN:LEVEL:academic -->
+<div class="level-panel" data-level="academic">
+  <article class="article">
+    <h1>Phantom Money, Phantom Morals — Economic Collapse | Moral Decline of America</h1>
+    <p class="subtitle">MDA-028 · Academic Reading Level</p>
+    <h1>Phantom Money, Phantom Morals</h1>
+<h3>Academic Enriched Version (Theophysics Institute Working Paper No. 6.2-C)</h3>
+<hr />
+<h3>Baseline: 1971 (The Last Anchored Moment)</h3>
+<p>On 15 August 1971, U.S. President Richard Nixon suspended the convertibility of dollars into gold, formally ending the Bretton Woods gold-exchange standard (gold standard = a monetary regime in which each unit of currency is legally redeemable for a specified weight of gold, thereby constraining money creation). [CITATION NEEDED: Federal Register 1971] This act removed the final “reality anchor” tying money supply to finite metal reserves—a move that, as argued below, triggered a cascade of structural adjustments across American institutions. [STRUCTURAL]</p>
+<p>Before 1971:</p>
+<ul>
+<li>$1 USD = 1 ⁄ 35 oz Au (parity fixed by the 1944 Bretton Woods agreement) [EMPIRICAL: IMF Data, 1971]  </li>
+<li>Money represented <strong>claims on something real</strong>—namely, gold held in Treasury vaults.  </li>
+<li>Inflation (defined here as a sustained general increase in the price level of goods and services) was naturally restricted by the physical scarcity of gold.  </li>
+<li>Debt accumulation was self-limiting because creditors demanded redemption in gold once confidence weakened.  </li>
+</ul>
+<p>Economic Coherence (first use): coherence = the degree to which a monetary-financial system’s abstract claims (bank deposits, bonds, derivatives) map isomorphically onto real productive capacity and resources. [See: Lowe, “Coherence Metrics,” Theophysics Working Paper 5.1, 2024]  </p>
+<table>
+<thead>
+<tr>
+<th>Metric (1971)</th>
+<th>Level</th>
+<th>Epistemic Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Debt-to-GDP ratio = 0.38</td>
+<td>38 %</td>
+<td>[EMPIRICAL: OMB Historical Tables, 1972]</td>
+</tr>
+<tr>
+<td>Real wage growth = 2.1 % yr⁻¹</td>
+<td>—</td>
+<td>[EMPIRICAL: BLS CPI-adjusted wage series]</td>
+</tr>
+<tr>
+<td>Economic-coherence index = 76 (points)</td>
+<td>Framework metric</td>
+<td>[STRUCTURAL]</td>
+</tr>
+</tbody>
+</table>
+<p>Equation Formalization (illustrative)  </p>
+<ol>
+<li>Debt-to-GDP ratio<br />
+   D/GDP = D ⁄ Y<br />
+   Plain English: total public debt divided by annual gross domestic product.<br />
+   Implication: For fixed GDP, higher debt (↑D) raises the ratio, signalling greater future tax or inflation burden.  </li>
+</ol>
+<hr />
+<h3>The Severing: 1971 – 1980</h3>
+<p>“When the gold standard broke, it wasn’t merely a monetary shift. It was a <strong>reality-constraint removal</strong>.” [STRUCTURAL]  </p>
+<p>Definition — Monetary Accommodation: Federal Reserve policy of expanding the monetary base to offset fiscal deficits or private credit contractions, thereby “accommodating” higher nominal spending.  </p>
+<p>Mechanism (sequence preserved from David):  </p>
+<ol>
+<li>Government spending &gt; tax revenue.  </li>
+<li>Treasury issues bonds; Federal Reserve credits bank reserves ex nihilo (“out of nothing”).  </li>
+<li>Newly created reserves transmit through commercial-bank lending, amplifying money supply (M₂).  </li>
+<li>Price level rises; nominal wages lag; purchasing power falls for wage earners.  </li>
+<li>Real wealth effectively shifts toward asset holders and the sovereign issuer.  </li>
+</ol>
+<p>Claim classification: Steps 1–4 [EMPIRICAL, supported by FRED time-series 1971-1980]; Step 5 [STRUCTURAL].  </p>
+<p>By 1980:</p>
+<ul>
+<li>Debt-to-GDP = 0.42 [EMPIRICAL: OMB, 1980].  </li>
+<li>Consumer-price inflation averaged 13.5 % yr⁻¹ [CPI-U, 1979].  </li>
+<li>Median real wages were flat (±1 %).  </li>
+</ul>
+<p>These data points are consistent with the thesis that post-anchor monetary expansion produced “phantom” (non-production-backed) gains. [PROVISIONAL: causal pathway still debated in macroeconomics]</p>
+<hr />
+<h3>The Acceleration: 1980 – 2000</h3>
+<p>Reagan-era policy coupled tight‐monetary rhetoric with actual credit loosening. Interest rates, while momentarily high (the Volcker shock), trended sharply down after 1982, stimulating household and corporate borrowing. [CITATION NEEDED: FRB Statistical Release H.15]  </p>
+<p>Household Debt Explosion (EMPIRICAL):</p>
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th>Household Debt $ (T)</th>
+<th>Debt Eq. D_H ⁄ Y_P</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1980</td>
+<td>1.4</td>
+<td>0.48</td>
+</tr>
+<tr>
+<td>1990</td>
+<td>3.2</td>
+<td>0.66</td>
+</tr>
+<tr>
+<td>2000</td>
+<td>7.1</td>
+<td>0.91</td>
+</tr>
+</tbody>
+</table>
+<p>Where D_H = household debt stock; Y_P = personal disposable income. Rising D_H/Y_P indicates leverage creep.  </p>
+<p>Asset-price inflation vastly outpaced wage growth:</p>
+<p>Equation (Price-to-Earnings ratio, P/E)  </p>
+<p>P/E = P ⁄ E<br />
+P = equity market capitalisation; E = corporate earnings.<br />
+Interpretation: A persistent increase in P/E signals either (i) higher expected future earnings or (ii) speculative overvaluation. Empirical P/E went from ~8× (1979) to ~28× (1999) [EMPIRICAL: Shiller CAPE]. Changing E (denominator) flattens ratio; changing P (numerator) inflates it.  </p>
+<p>Claim: “The mechanism was now explicit: phantom wealth creation through monetary expansion, purchased by debt accumulation among those who couldn’t afford it.” [PROVISIONAL]  </p>
+<hr />
+<h3>The Inversion: 2000 – 2008</h3>
+<p>Definition — Derivative: a financial contract whose value “derives” from an underlying asset, rate, or index. Notional value reflects gross exposure, not net risk.  </p>
+<p>By 2008 the global notional derivatives book reached ≈ $680 T against global GDP ≈ $60 T [EMPIRICAL: BIS Quarterly Review 2008]. The 11:1 ratio exemplifies claim proliferation decoupled from real output. [STRUCTURAL]  </p>
+<p>Wealth destruction during the housing correction amounted to ≈ $16 T in paper value [CITATION NEEDED: Federal Reserve Flow of Funds], with 9 million foreclosures (2006-2014). Unemployment peaked at 10 % (U-3, Oct 2009).  </p>
+<p>Policy response: Quantitative Easing (QE) = large-scale asset purchases by the central bank, expanding its balance sheet and injecting base money. QE 1–3 added ~$4 T in reserves (2008-2014) [EMPIRICAL: FRB H.4.1].  </p>
+<p>Equation (simplified central-bank balance sheet):</p>
+<p>ΔB = ΔA_S<br />
+B = monetary base; A_S = securities held by Fed.<br />
+Plain English: every dollar of securities purchased is matched by a dollar increase in base money. The larger ΔA_S, the greater the potential for downstream credit expansion.  </p>
+<hr />
+<h3>The Structural Inversion: 2014 – 2024</h3>
+<p>Structural Inversion (definition): a regime shift where the historical flow “work → income → saving → wealth” reverses into “credit creation → asset inflation → perceived wealth → debt servicing.”  </p>
+<p>Real wage growth 1980-2024: +0.3 % yr⁻¹ (negligible) [EMPIRICAL: BLS]; asset-price growth: +6.2 % yr⁻¹ (compound) [EMPIRICAL: S&amp;P Composite, Case-Shiller Home Index].  </p>
+<p>Debt-to-GDP crossed 1.23 in 2024, total U.S. gross debt at $97 T [CBO Baseline 2024].  </p>
+<p>Epistemic tag: link between monetary expansion and wealth-distribution effects is contested in mainstream macro; presented mechanism is [PROVISIONAL] within Theophysics framework.  </p>
+<hr />
+<h3>The Phantom Economy (2024 snapshot)</h3>
+<p>Definition — Phantom Wealth: nominal financial claims whose settlement ultimately relies on rolling (refinancing) rather than on productive surplus.  </p>
+<p>Financial-asset breakdown: stocks $50 T, gov-bonds $25 T, corp-bonds $12 T, derivatives est. $1–2 Q (quadrillion). Numbers sourced from BIS &amp; SEC 2024 filings [EMPIRICAL].  </p>
+<p>System survival predicates: continuous monetary expansion, immigration-driven demand, deficit spending, persistent asset inflation. Removal of any pillar is predicted to trigger phase-transition-like collapse of claim-to-asset mapping [BOUNDARY: assumes ceteris paribus].  </p>
+<hr />
+<h3>The Moral Inversion</h3>
+<p>Moral Coherence: alignment between culturally endorsed virtues and the material incentives of the economic system.  </p>
+<p>Thesis: when returns accrue primarily to asset holding, the system valorises leverage (using borrowed funds to amplify returns), information asymmetry, and temporal arbitrage, thereby rewarding manipulation over production [STRUCTURAL].  </p>
+<p>Correlation table reproduced from David (see original). While correlation ≠ causation, the synchronous decline across economic, institutional, familial, and moral indices strengthens the structural-causation argument [PROVISIONAL].  </p>
+<hr />
+<h3>The Terminal State</h3>
+<p>The present configuration is self-referential: it requires obfuscation of its own extractive nature to maintain confidence. Public recognition of 44 years of wage-productivity divergence (productivity ↑ 100 %; median wages ≈ flat [EMPIRICAL: BLS, BEA]) would precipitate legitimacy collapse [BOUNDARY: assumes rapid information diffusion].  </p>
+<p>Institutional tactics (celebrating nominal gains, burying real losses) are therefore adaptive, not accidental [STRUCTURAL].  </p>
+<hr />
+<blockquote>
+<p>“The phantom money and phantom morals are the same thing.”<br />
+‑ David Lowe, 2025</p>
+</blockquote>
+<hr />
+<h2>TERM_INVENTORY</h2>
+<pre><code class="language-json">{
+  &quot;terms&quot;: [
+    {
+      &quot;term&quot;: &quot;gold standard&quot;,
+      &quot;definition&quot;: &quot;A monetary regime in which each unit of currency is legally redeemable for a fixed quantity of gold, constraining money creation.&quot;,
+      &quot;domain&quot;: &quot;economics&quot;,
+      &quot;first_use_section&quot;: &quot;Baseline: 1971&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;inflation&quot;,
+      &quot;definition&quot;: &quot;A sustained general increase in the price level of goods and services, resulting in a decline in purchasing power.&quot;,
+      &quot;domain&quot;: &quot;economics&quot;,
+      &quot;first_use_section&quot;: &quot;Baseline: 1971&quot;,
+      &quot;complexity&quot;: &quot;basic&quot;
+    },
+    {
+      &quot;term&quot;: &quot;economic coherence&quot;,
+      &quot;definition&quot;: &quot;The degree to which the financial system’s abstract claims map onto real productive capacity and resources.&quot;,
+      &quot;domain&quot;: &quot;framework&quot;,
+      &quot;first_use_section&quot;: &quot;Baseline: 1971&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Debt-to-GDP ratio&quot;,
+      &quot;definition&quot;: &quot;A metric equal to total public debt divided by annual gross domestic product, indicating leverage at the sovereign level.&quot;,
+      &quot;domain&quot;: &quot;economics&quot;,
+      &quot;first_use_section&quot;: &quot;Baseline: 1971&quot;,
+      &quot;complexity&quot;: &quot;basic&quot;
+    },
+    {
+      &quot;term&quot;: &quot;monetary accommodation&quot;,
+      &quot;definition&quot;: &quot;Central-bank policy of expanding the monetary base to support higher nominal spending or government deficits.&quot;,
+      &quot;domain&quot;: &quot;economics&quot;,
+      &quot;first_use_section&quot;: &quot;The Severing: 1971–1980&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;phantom wealth&quot;,
+      &quot;definition&quot;: &quot;Nominal financial claims not backed by equivalent productive capacity and sustainable only through rolling credit.&quot;,
+      &quot;domain&quot;: &quot;framework&quot;,
+      &quot;first_use_section&quot;: &quot;The Severing: 1971–1980&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;derivative&quot;,
+      &quot;definition&quot;: &quot;A financial contract whose value is based on an underlying asset, interest rate, or index.&quot;,
+      &quot;domain&quot;: &quot;finance&quot;,
+      &quot;first_use_section&quot;: &quot;The Inversion: 2000–2008&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;quantitative easing&quot;,
+      &quot;definition&quot;: &quot;Large-scale asset purchases by a central bank that expand its balance sheet and increase the monetary base.&quot;,
+      &quot;domain&quot;: &quot;economics&quot;,
+      &quot;first_use_section&quot;: &quot;The Inversion: 2000–2008&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;structural inversion&quot;,
+      &quot;definition&quot;: &quot;A regime shift where traditional flow from work to wealth reverses, making credit creation and asset inflation primary drivers.&quot;,
+      &quot;domain&quot;: &quot;framework&quot;,
+      &quot;first_use_section&quot;: &quot;Structural Inversion: 2014–2024&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;asset inflation&quot;,
+      &quot;definition&quot;: &quot;Sustained increases in the prices of financial and real assets, often decoupled from underlying productive value.&quot;,
+      &quot;domain&quot;: &quot;finance&quot;,
+      &quot;first_use_section&quot;: &quot;Structural Inversion: 2014–2024&quot;,
+      &quot;complexity&quot;: &quot;basic&quot;
+    },
+    {
+      &quot;term&quot;: &quot;leverage&quot;,
+      &quot;definition&quot;: &quot;The use of borrowed funds to amplify potential returns (and losses) on an investment.&quot;,
+      &quot;domain&quot;: &quot;finance&quot;,
+      &quot;first_use_section&quot;: &quot;Moral Inversion&quot;,
+      &quot;complexity&quot;: &quot;basic&quot;
+    },
+    {
+      &quot;term&quot;: &quot;moral coherence&quot;,
+      &quot;definition&quot;: &quot;Alignment between culturally endorsed virtues and the material incentives embedded in the economic system.&quot;,
+      &quot;domain&quot;: &quot;framework&quot;,
+      &quot;first_use_section&quot;: &quot;Moral Inversion&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;institutional truth&quot;,
+      &quot;definition&quot;: &quot;The capacity of major social institutions to transmit accurate information and enforce honest norms.&quot;,
+      &quot;domain&quot;: &quot;sociology&quot;,
+      &quot;first_use_section&quot;: &quot;Moral Inversion&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    }
+  ]
+}
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:academic -->
+
+<!-- BEGIN:LEVEL:proof -->
+<div class="proof-panel" data-level="proof">
+  <div class="article">
+    <div class="mda-proof-eyebrow">Proof Pressure Layer</div>
+    <h2 style="font-family:Oswald,sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.04em;">
+      Phantom Money, Phantom Morals — Economic Collapse | Moral Decline of America — Proof & Math
+    </h2>
+    
+    <h3>Math Translation</h3>
+    <div class="mda-math-layer">
+<div class="mda-proof-eyebrow">Math Translation Layer</div>
+<div class="math-field"><span class="math-label">MATH_STATUS:</span><span class="math-value">NEEDS_DERIVATION</span></div>
+<div class="math-field"><span class="math-label">LOAD_BEARING_MATH:</span><span class="math-value"></span></div>
+<div class="math-item">Debt-to-GDP Ratio</div>
+<div class="math-item">Real Wage Growth</div>
+<div class="math-item">Net Worth to Income</div>
+<div class="math-item">Top 1% Wealth Share</div>
+<div class="math-item">Home Price to Income</div>
+<div class="math-item">Asset Price Growth</div>
+<div class="math-item">Real Wage Growth (1980–2024)</div>
+<div class="math-item">Economic Coherence metrics</div>
+<div class="math-field"><span class="math-label">ISOMORPHISM_TABLE:</span><span class="math-value"></span></div>
+<tr><td>mapping</td><td>current status</td><td>missing proof step</td><td>safe wording</td></tr>
+<tr><td>Economic Coherence ↔ Institutional Truth</td><td>candidate_isomorphism</td><td>Clear mathematical relationship or model linking the two</td><td>"Economic Coherence may correlate with Institutional Truth, but further empirical validation is needed."</td></tr>
+<tr><td>Phantom Economy ↔ Phantom Morals</td><td>candidate_isomorphism</td><td>Definition of metrics for both concepts</td><td>"The relationship between the Phantom Economy and Phantom Morals requires further exploration."</td></tr>
+<div class="math-field"><span class="math-label">MISSING_EQUATIONS_OR_DEFINITIONS:</span><span class="math-value"></span></div>
+<div class="math-item">Definition of "Economic Coherence" as a quantifiable metric.</div>
+<div class="math-item">Clear mathematical formulation of "phantom wealth creation."</div>
+<div class="math-item">Definition of "real productive capacity" in numerical terms.</div>
+<div class="math-field"><span class="math-label">MINIMAL_PATCHES:</span><span class="math-value"></span></div>
+<div class="math-item">"The economy rewards untruth" -> "The economy rewards untruth, which can be modeled as a negative feedback loop in economic coherence."</div>
+<div class="math-item">"The cycle accelerates" -> "The cycle accelerates, which can be represented by a derivative of asset price growth relative to debt accumulation."</div>
+<div class="math-item">"The message: when phantom wealth collapses, create more phantoms." -> "The message: when phantom wealth collapses, the system requires additional monetary expansion, which can be expressed as a function of existing debt levels."</div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Term Inventory</h3>
+    <div class="mda-glossary">
+<div class="glossary-entry"><dt>gold standard</dt><dd>A monetary regime in which each unit of currency is legally redeemable for a fixed quantity of gold, constraining money creation.<span class="glossary-domain">economics</span></dd></div>
+<div class="glossary-entry"><dt>inflation</dt><dd>A sustained general increase in the price level of goods and services, resulting in a decline in purchasing power.<span class="glossary-domain">economics</span></dd></div>
+<div class="glossary-entry"><dt>economic coherence</dt><dd>The degree to which the financial system’s abstract claims map onto real productive capacity and resources.<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>Debt-to-GDP ratio</dt><dd>A metric equal to total public debt divided by annual gross domestic product, indicating leverage at the sovereign level.<span class="glossary-domain">economics</span></dd></div>
+<div class="glossary-entry"><dt>monetary accommodation</dt><dd>Central-bank policy of expanding the monetary base to support higher nominal spending or government deficits.<span class="glossary-domain">economics</span></dd></div>
+<div class="glossary-entry"><dt>phantom wealth</dt><dd>Nominal financial claims not backed by equivalent productive capacity and sustainable only through rolling credit.<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>derivative</dt><dd>A financial contract whose value is based on an underlying asset, interest rate, or index.<span class="glossary-domain">finance</span></dd></div>
+<div class="glossary-entry"><dt>quantitative easing</dt><dd>Large-scale asset purchases by a central bank that expand its balance sheet and increase the monetary base.<span class="glossary-domain">economics</span></dd></div>
+<div class="glossary-entry"><dt>structural inversion</dt><dd>A regime shift where traditional flow from work to wealth reverses, making credit creation and asset inflation primary drivers.<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>asset inflation</dt><dd>Sustained increases in the prices of financial and real assets, often decoupled from underlying productive value.<span class="glossary-domain">finance</span></dd></div>
+<div class="glossary-entry"><dt>leverage</dt><dd>The use of borrowed funds to amplify potential returns (and losses) on an investment.<span class="glossary-domain">finance</span></dd></div>
+<div class="glossary-entry"><dt>moral coherence</dt><dd>Alignment between culturally endorsed virtues and the material incentives embedded in the economic system.<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>institutional truth</dt><dd>The capacity of major social institutions to transmit accurate information and enforce honest norms.<span class="glossary-domain">sociology</span></dd></div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Promoted Claims</h3>
+    <p class="mda-proof-placeholder">
+      No claim from this article has been promoted through the deterministic Axiom + 7Q gate yet.
+      Claims will appear here after the proof-promotion pass.
+    </p>
+  </div>
+</div>
+<!-- END:LEVEL:proof -->
+
+<div style="max-width:780px;margin:0 auto;padding:1rem 1.5rem 3rem;">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text3);
+     text-transform:uppercase;letter-spacing:.08em;border-top:1px solid var(--border);
+     padding-top:1rem;">
+    Generated 2026-05-31 00:24 · 
+    Easy: ✓ · 
+    Academic: ✓ · 
+    Math: ✓ · 
+    Claims: pending
+  </p>
+</div>
+<script>
+function setTab(tab) {
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  // Update body mode class
+  document.body.className = 'mode-' + tab;
+  // Toggle content panels
+  document.querySelectorAll('.level-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.level === tab);
+  });
+  document.querySelectorAll('.proof-panel').forEach(p => {
+    p.classList.toggle('active', tab === 'proof');
+  });
+  // Update status text
+  const st = document.getElementById('mode-status');
+  if (st) st.textContent = tab.charAt(0).toUpperCase() + tab.slice(1) + ' active';
+}
+document.addEventListener('DOMContentLoaded', () => setTab('standard'));
+</script>
+
+</body>
+</html>

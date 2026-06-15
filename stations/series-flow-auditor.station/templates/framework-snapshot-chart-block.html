@@ -1,0 +1,493 @@
+<!-- BEGIN:COMPONENT:section:framework-snapshot-chart-block -->
+<!--
+  COMPONENT_META
+  name: framework-snapshot-chart-block
+  purpose: Core proof-packet chart block for framework snapshot summaries.
+  consumes: .paper-snapshot.json, series-grade.json, paper-grade.json, claim-ledger.csv, trace-ledger.json/csv
+  boundary: Placeholder data only. Do not fill real scores in this template.
+
+  TRACE CONTRACT
+  No chart without a trace. Every chart card includes:
+  - data-chart-id
+  - data-chart-type
+  - data-source-artifact
+  - data-trace-required="true"
+  - data-trace-status="{{TRACE_STATUS}}"
+  - a click target placeholder for the trace drawer
+
+  Generator requirement:
+  Each JSON slot must resolve to chart signals that map to one or more trace rows:
+    chart_id -> signal_id -> claim_uuid -> section_id -> paragraph_index -> sentence_index -> char_start/char_end -> quoted_span
+-->
+
+<style>
+/* BEGIN:COMPONENT:style:framework-snapshot-chart-block */
+.fs-snapshot {
+  max-width: var(--max, 1000px);
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+}
+
+.fs-snapshot * {
+  box-sizing: border-box;
+}
+
+.fs-snapshot-head {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  margin-bottom: .5rem;
+}
+
+.fs-snapshot-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold, #d4af37);
+}
+
+.fs-snapshot-kicker {
+  font-family: var(--mono, 'JetBrains Mono', ui-monospace, monospace);
+  font-size: .62rem;
+  color: var(--text-muted, #5a5a5a);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+.fs-snapshot h2 {
+  font-family: var(--serif, 'Crimson Text', Georgia, serif);
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  font-weight: 400;
+  color: #fff;
+  margin: 0 0 .25rem;
+}
+
+.fs-snapshot-desc {
+  font-size: .85rem;
+  color: var(--text-dim, #9a9a9a);
+  max-width: 680px;
+  margin: 0 0 1.25rem;
+  line-height: 1.55;
+}
+
+.fs-chart-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: .7rem;
+}
+
+.fs-chart-card {
+  grid-column: span 6;
+  display: flex;
+  flex-direction: column;
+  min-height: 260px;
+  padding: 1rem 1.1rem;
+  background: var(--surface2, #111);
+  border: 1px solid var(--border, #222);
+  border-radius: 6px;
+  transition: border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+
+.fs-chart-card:hover {
+  border-color: var(--gold, #d4af37);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .3);
+}
+
+.fs-chart-card:focus-within {
+  border-color: var(--gold, #d4af37);
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, .18);
+}
+
+.fs-chart-card-wide {
+  grid-column: span 12;
+}
+
+.fs-chart-row {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: .5rem;
+  font-family: var(--mono, 'JetBrains Mono', ui-monospace, monospace);
+  font-size: .58rem;
+  letter-spacing: .08em;
+  flex-wrap: wrap;
+}
+
+.fs-chart-code {
+  color: var(--gold, #d4af37);
+  background: var(--gold-dim, rgba(212, 175, 55, .1));
+  padding: .1rem .4rem;
+  border-radius: 3px;
+}
+
+.fs-trace-pill {
+  padding: .08rem .35rem;
+  border-radius: 3px;
+  font-size: .52rem;
+  font-weight: 600;
+  background: var(--info-dim, rgba(56, 189, 248, .1));
+  color: var(--info, #38bdf8);
+}
+
+.fs-trace-pill[data-trace-status="traced"] {
+  background: rgba(74, 222, 128, .12);
+  color: var(--rung-easy, #4ade80);
+}
+
+.fs-trace-pill[data-trace-status="missing-span"],
+.fs-trace-pill[data-trace-status="needs-review"] {
+  background: rgba(251, 146, 60, .12);
+  color: var(--rung-med, #fb923c);
+}
+
+.fs-chart-card h3 {
+  font-family: var(--serif, 'Crimson Text', Georgia, serif);
+  font-size: 1.02rem;
+  color: #fff;
+  font-weight: 400;
+  line-height: 1.25;
+  margin: 0 0 .25rem;
+}
+
+.fs-chart-note {
+  font-size: .78rem;
+  color: var(--text-dim, #9a9a9a);
+  line-height: 1.45;
+  margin: 0 0 .75rem;
+}
+
+.fs-chart-shell {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: 1;
+  min-height: 155px;
+  background:
+    linear-gradient(rgba(212, 175, 55, .045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 55, .045) 1px, transparent 1px),
+    var(--surface, #0a0a0a);
+  background-size: 22px 22px;
+  border: 1px solid var(--border, #222);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.fs-chart-shell::before {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border: 1px solid rgba(212, 175, 55, .14);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.fs-chart-shell::after {
+  content: "";
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  background: rgba(212, 175, 55, .12);
+  transform: rotate(35deg);
+  pointer-events: none;
+}
+
+.fs-chart-placeholder {
+  position: relative;
+  z-index: 1;
+  width: min(72%, 260px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(212, 175, 55, .28);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--gold, #d4af37);
+  font-family: var(--mono, 'JetBrains Mono', ui-monospace, monospace);
+  font-size: .58rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  text-align: center;
+  background: radial-gradient(circle, rgba(212, 175, 55, .08), transparent 62%);
+}
+
+.fs-chart-placeholder strong {
+  display: block;
+  color: #fff;
+  font-family: var(--display, 'Oswald', 'Inter', sans-serif);
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  margin-bottom: .35rem;
+}
+
+.fs-chart-placeholder span {
+  display: block;
+  max-width: 16ch;
+  color: var(--text-muted, #5a5a5a);
+  font-size: .5rem;
+  line-height: 1.4;
+  letter-spacing: .1em;
+}
+
+.fs-chart-placeholder.bar,
+.fs-chart-placeholder.mix,
+.fs-chart-placeholder.kill {
+  width: min(88%, 420px);
+  aspect-ratio: auto;
+  height: 84px;
+  border-radius: 4px;
+}
+
+.fs-bar-stack {
+  position: relative;
+  z-index: 1;
+  width: min(88%, 460px);
+  display: grid;
+  gap: 6px;
+}
+
+.fs-bar-line {
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, rgba(74, 222, 128, .25), rgba(212, 175, 55, .25), rgba(248, 113, 113, .25));
+  border: 1px solid rgba(212, 175, 55, .12);
+}
+
+.fs-chart-foot {
+  margin-top: .7rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  flex-wrap: wrap;
+  font-family: var(--mono, 'JetBrains Mono', ui-monospace, monospace);
+  font-size: .55rem;
+  color: var(--text-muted, #5a5a5a);
+}
+
+.fs-trace-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  border: 1px solid rgba(212, 175, 55, .28);
+  border-radius: 4px;
+  padding: .32rem .48rem;
+  color: var(--gold, #d4af37);
+  background: var(--gold-dim, rgba(212, 175, 55, .1));
+  font-family: var(--mono, 'JetBrains Mono', ui-monospace, monospace);
+  font-size: .56rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.fs-trace-link:hover {
+  border-color: var(--gold, #d4af37);
+  background: rgba(212, 175, 55, .16);
+}
+
+.fs-json-slot {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .fs-chart-card,
+  .fs-chart-card-wide {
+    grid-column: span 12;
+  }
+}
+/* END:COMPONENT:style:framework-snapshot-chart-block */
+</style>
+
+<section
+  class="fs-snapshot"
+  id="framework-snapshot"
+  data-component="section"
+  data-name="framework-snapshot-chart-block"
+  data-source-artifact="{{FRAMEWORK_SNAPSHOT_SOURCE_ARTIFACT}}"
+>
+  <div class="fs-snapshot-head">
+    <span class="fs-snapshot-dot"></span>
+    <span class="fs-snapshot-kicker">Framework Snapshot</span>
+  </div>
+  <h2>Framework Snapshot Boom</h2>
+  <p class="fs-snapshot-desc">A compact proof-packet chart block for the series-level snapshot. Every card is a trace entry point, not a final claim surface; generator output must keep each signal tied to source spans.</p>
+
+  <div class="fs-chart-grid">
+    <article
+      class="fs-chart-card"
+      data-chart-id="fruits-radar"
+      data-chart-type="radar"
+      data-source-artifact="{{FRUITS_RADAR_SOURCE_ARTIFACT}}"
+      data-trace-required="true"
+      data-trace-status="{{TRACE_STATUS}}"
+      data-trace-drawer-target="#trace-drawer-fruits-radar"
+    >
+      <div class="fs-chart-row">
+        <span class="fs-chart-code">FRUITS</span>
+        <span class="fs-trace-pill" data-trace-status="{{TRACE_STATUS}}">{{TRACE_STATUS}}</span>
+      </div>
+      <h3>Fruits Radar</h3>
+      <p class="fs-chart-note">Structural fruit profile across scored article spans. Placeholder only until trace ledger links are present.</p>
+      <div class="fs-chart-shell" role="img" aria-label="Fruits radar chart placeholder">
+        <div class="fs-chart-placeholder"><strong>Radar</strong><span>Fruits vector slot</span></div>
+      </div>
+      <div class="fs-chart-foot">
+        <span>Source: {{FRUITS_RADAR_SOURCE_ARTIFACT}}</span>
+        <button class="fs-trace-link" type="button" data-click-target="trace-drawer" data-trace-drawer-target="#trace-drawer-fruits-radar">Open Trace</button>
+      </div>
+      <script type="application/json" class="fs-json-slot" data-json-slot="fruits-radar">{{FRUITS_RADAR_JSON}}</script>
+    </article>
+
+    <article
+      class="fs-chart-card"
+      data-chart-id="master-equation-radar"
+      data-chart-type="radar"
+      data-source-artifact="{{MASTER_EQUATION_RADAR_SOURCE_ARTIFACT}}"
+      data-trace-required="true"
+      data-trace-status="{{TRACE_STATUS}}"
+      data-trace-drawer-target="#trace-drawer-master-equation-radar"
+    >
+      <div class="fs-chart-row">
+        <span class="fs-chart-code">CHI</span>
+        <span class="fs-trace-pill" data-trace-status="{{TRACE_STATUS}}">{{TRACE_STATUS}}</span>
+      </div>
+      <h3>Master Equation Radar</h3>
+      <p class="fs-chart-note">Ten-variable Master Equation profile for the packet. Values remain generator placeholders until audited.</p>
+      <div class="fs-chart-shell" role="img" aria-label="Master Equation radar chart placeholder">
+        <div class="fs-chart-placeholder"><strong>Radar</strong><span>Master Equation slot</span></div>
+      </div>
+      <div class="fs-chart-foot">
+        <span>Source: {{MASTER_EQUATION_RADAR_SOURCE_ARTIFACT}}</span>
+        <button class="fs-trace-link" type="button" data-click-target="trace-drawer" data-trace-drawer-target="#trace-drawer-master-equation-radar">Open Trace</button>
+      </div>
+      <script type="application/json" class="fs-json-slot" data-json-slot="master-equation-radar">{{MASTER_EQUATION_RADAR_JSON}}</script>
+    </article>
+
+    <article
+      class="fs-chart-card"
+      data-chart-id="7q-completeness-wheel"
+      data-chart-type="wheel"
+      data-source-artifact="{{SEVEN_Q_COMPLETENESS_SOURCE_ARTIFACT}}"
+      data-trace-required="true"
+      data-trace-status="{{TRACE_STATUS}}"
+      data-trace-drawer-target="#trace-drawer-7q-completeness-wheel"
+    >
+      <div class="fs-chart-row">
+        <span class="fs-chart-code">7Q</span>
+        <span class="fs-trace-pill" data-trace-status="{{TRACE_STATUS}}">{{TRACE_STATUS}}</span>
+      </div>
+      <h3>7Q Completeness Wheel</h3>
+      <p class="fs-chart-note">Forward and reverse 7Q coverage. Missing Q6/Q7 traces should route to repair, not readiness.</p>
+      <div class="fs-chart-shell" role="img" aria-label="7Q completeness wheel chart placeholder">
+        <div class="fs-chart-placeholder"><strong>Wheel</strong><span>7Q completeness slot</span></div>
+      </div>
+      <div class="fs-chart-foot">
+        <span>Source: {{SEVEN_Q_COMPLETENESS_SOURCE_ARTIFACT}}</span>
+        <button class="fs-trace-link" type="button" data-click-target="trace-drawer" data-trace-drawer-target="#trace-drawer-7q-completeness-wheel">Open Trace</button>
+      </div>
+      <script type="application/json" class="fs-json-slot" data-json-slot="7q-completeness-wheel">{{SEVEN_Q_COMPLETENESS_JSON}}</script>
+    </article>
+
+    <article
+      class="fs-chart-card"
+      data-chart-id="claim-readiness-bar"
+      data-chart-type="bar"
+      data-source-artifact="{{CLAIM_READINESS_SOURCE_ARTIFACT}}"
+      data-trace-required="true"
+      data-trace-status="{{TRACE_STATUS}}"
+      data-trace-drawer-target="#trace-drawer-claim-readiness-bar"
+    >
+      <div class="fs-chart-row">
+        <span class="fs-chart-code">CLAIMS</span>
+        <span class="fs-trace-pill" data-trace-status="{{TRACE_STATUS}}">{{TRACE_STATUS}}</span>
+      </div>
+      <h3>Claim Readiness Bar</h3>
+      <p class="fs-chart-note">Claim maturity and publish-readiness distribution. No high-readiness label is valid without source span coverage.</p>
+      <div class="fs-chart-shell" role="img" aria-label="Claim readiness bar chart placeholder">
+        <div class="fs-bar-stack" aria-hidden="true">
+          <span class="fs-bar-line"></span>
+          <span class="fs-bar-line"></span>
+          <span class="fs-bar-line"></span>
+        </div>
+        <div class="fs-chart-placeholder bar"><strong>Bar</strong><span>Claim readiness slot</span></div>
+      </div>
+      <div class="fs-chart-foot">
+        <span>Source: {{CLAIM_READINESS_SOURCE_ARTIFACT}}</span>
+        <button class="fs-trace-link" type="button" data-click-target="trace-drawer" data-trace-drawer-target="#trace-drawer-claim-readiness-bar">Open Trace</button>
+      </div>
+      <script type="application/json" class="fs-json-slot" data-json-slot="claim-readiness-bar">{{CLAIM_READINESS_JSON}}</script>
+    </article>
+
+    <article
+      class="fs-chart-card"
+      data-chart-id="evidence-type-mix"
+      data-chart-type="mix"
+      data-source-artifact="{{EVIDENCE_TYPE_MIX_SOURCE_ARTIFACT}}"
+      data-trace-required="true"
+      data-trace-status="{{TRACE_STATUS}}"
+      data-trace-drawer-target="#trace-drawer-evidence-type-mix"
+    >
+      <div class="fs-chart-row">
+        <span class="fs-chart-code">EVIDENCE</span>
+        <span class="fs-trace-pill" data-trace-status="{{TRACE_STATUS}}">{{TRACE_STATUS}}</span>
+      </div>
+      <h3>Evidence Type Mix</h3>
+      <p class="fs-chart-note">Evidence class distribution across claims, papers, citations, equations, scripture, and formal targets.</p>
+      <div class="fs-chart-shell" role="img" aria-label="Evidence type mix chart placeholder">
+        <div class="fs-chart-placeholder mix"><strong>Mix</strong><span>Evidence type slot</span></div>
+      </div>
+      <div class="fs-chart-foot">
+        <span>Source: {{EVIDENCE_TYPE_MIX_SOURCE_ARTIFACT}}</span>
+        <button class="fs-trace-link" type="button" data-click-target="trace-drawer" data-trace-drawer-target="#trace-drawer-evidence-type-mix">Open Trace</button>
+      </div>
+      <script type="application/json" class="fs-json-slot" data-json-slot="evidence-type-mix">{{EVIDENCE_TYPE_MIX_JSON}}</script>
+    </article>
+
+    <article
+      class="fs-chart-card"
+      data-chart-id="kill-condition-status"
+      data-chart-type="status"
+      data-source-artifact="{{KILL_CONDITION_STATUS_SOURCE_ARTIFACT}}"
+      data-trace-required="true"
+      data-trace-status="{{TRACE_STATUS}}"
+      data-trace-drawer-target="#trace-drawer-kill-condition-status"
+    >
+      <div class="fs-chart-row">
+        <span class="fs-chart-code">KILL</span>
+        <span class="fs-trace-pill" data-trace-status="{{TRACE_STATUS}}">{{TRACE_STATUS}}</span>
+      </div>
+      <h3>Kill Condition Status</h3>
+      <p class="fs-chart-note">Fatal, wounding, open, and cleared falsification checks. Open conditions stay visible by design.</p>
+      <div class="fs-chart-shell" role="img" aria-label="Kill condition status chart placeholder">
+        <div class="fs-chart-placeholder kill"><strong>Status</strong><span>Kill condition slot</span></div>
+      </div>
+      <div class="fs-chart-foot">
+        <span>Source: {{KILL_CONDITION_STATUS_SOURCE_ARTIFACT}}</span>
+        <button class="fs-trace-link" type="button" data-click-target="trace-drawer" data-trace-drawer-target="#trace-drawer-kill-condition-status">Open Trace</button>
+      </div>
+      <script type="application/json" class="fs-json-slot" data-json-slot="kill-condition-status">{{KILL_CONDITION_STATUS_JSON}}</script>
+    </article>
+  </div>
+
+  <!-- TRACE DRAWER PLACEHOLDERS: generator or page shell replaces these with inline trace rows. -->
+  <aside class="claim-audit-drawer" id="trace-drawer-fruits-radar" data-drawer-for-chart="fruits-radar">
+    {{FRUITS_RADAR_TRACE_DRAWER}}
+  </aside>
+  <aside class="claim-audit-drawer" id="trace-drawer-master-equation-radar" data-drawer-for-chart="master-equation-radar">
+    {{MASTER_EQUATION_RADAR_TRACE_DRAWER}}
+  </aside>
+  <aside class="claim-audit-drawer" id="trace-drawer-7q-completeness-wheel" data-drawer-for-chart="7q-completeness-wheel">
+    {{SEVEN_Q_COMPLETENESS_TRACE_DRAWER}}
+  </aside>
+  <aside class="claim-audit-drawer" id="trace-drawer-claim-readiness-bar" data-drawer-for-chart="claim-readiness-bar">
+    {{CLAIM_READINESS_TRACE_DRAWER}}
+  </aside>
+  <aside class="claim-audit-drawer" id="trace-drawer-evidence-type-mix" data-drawer-for-chart="evidence-type-mix">
+    {{EVIDENCE_TYPE_MIX_TRACE_DRAWER}}
+  </aside>
+  <aside class="claim-audit-drawer" id="trace-drawer-kill-condition-status" data-drawer-for-chart="kill-condition-status">
+    {{KILL_CONDITION_STATUS_TRACE_DRAWER}}
+  </aside>
+</section>
+<!-- END:COMPONENT:section:framework-snapshot-chart-block -->

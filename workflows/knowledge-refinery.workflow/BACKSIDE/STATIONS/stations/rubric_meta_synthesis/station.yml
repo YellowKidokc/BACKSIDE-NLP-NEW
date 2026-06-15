@@ -1,0 +1,54 @@
+# Station contract — copy from _TEMPLATE/
+# Mirrors the shape of MODELS/_TEMPLATE/model.yml so stations and models read alike.
+# new_station.py substitutes every {{PLACEHOLDER}} from CLI args.
+
+station_id: ST-SCORE-003              # e.g. ST-EMB-SCI-001
+name: Rubric Meta Synthesis                  # human-readable
+lane: score                          # lowercase: embed, nli, rerank, time, sevenq, axiom, route, conv, claim, sum, graph, pub
+status: draft                      # draft | active | paused | retired
+order: 48                        # display/sort hint within lane (integer, not strict)
+purpose: >
+  Scoring step 3: meta-synthesis (combine multi-run outputs into consensus).
+
+# What this station calls. For model-wrapper stations this is the bound model.
+# For LLM stations this is the API model id (gpt-4o-mini, claude-opus-4-7, etc.).
+model:
+  primary:   M-REASON-001          # e.g. M-EMB-SCI-001 or gpt-4o-mini
+  fallback:  
+  provider:  local_wrapper         # local_wrapper | openai | anthropic | hf
+
+prompt:
+  primary:   PROMPT_SYSTEM.md         # filename in this folder, e.g. PROMPT_SYSTEM.md
+  fallback:  
+
+script:
+  runner:    scripts/03_run_prompt.bat          # entry point, e.g. scripts/run.py or scripts/03_run_prompt.bat
+
+input:
+  accepts:
+    - markdown_article                    # e.g. markdown_article, text_pair, query_passages
+  required_files:
+    - source.md                    # primary input filename convention
+
+output:
+  produces:
+    - result.json
+    - result.md
+  required_format: json
+
+healthcheck:
+  prompt: "Return JSON: {\"status\":\"ok\"}"
+  expected_contains: "\"status\""
+
+gate:
+  pass_if:
+    - valid_json: true
+    - output_file_exists: result.json
+  fail_to: 99_ERROR
+  review_to: 03_REVIEW
+
+next:
+  pass:
+    - ST-TBD-000
+  fail:
+    - ST-ERR-001

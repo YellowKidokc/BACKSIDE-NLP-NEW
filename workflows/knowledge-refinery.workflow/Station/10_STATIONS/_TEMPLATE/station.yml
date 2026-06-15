@@ -1,0 +1,45 @@
+# Station contract — copy of _TEMPLATE/station.yml
+# Replace every {{PLACEHOLDER}} before activating the station.
+# Generator: new_station.py fills these in from CLI args.
+
+station_id: {{STATION_ID}}          # e.g. ST-AXIOM-001
+name: {{STATION_NAME}}              # human-readable, e.g. "Axiom Promotion Gate"
+lane: {{LANE}}                      # lowercase lane code, e.g. axiom, 7qs, route
+status: draft                       # draft | active | paused | retired
+purpose: >
+  {{PURPOSE}}
+
+model:
+  primary: {{MODEL_PRIMARY}}        # e.g. M-REASON-001
+  fallback: {{MODEL_FALLBACK}}      # e.g. M-REASON-002
+
+prompt:
+  primary: {{PROMPT_PRIMARY}}       # e.g. P-AXIOM-001
+  fallback: {{PROMPT_FALLBACK}}     # optional, blank if none
+
+script:
+  runner: {{SCRIPT_RUNNER}}         # e.g. S-AXIOM-001
+
+input:
+  accepts:
+    - {{INPUT_TYPE}}                # e.g. markdown_article
+  required_files:
+    - {{INPUT_FILE}}                # e.g. source.md
+
+output:
+  produces:
+    - {{OUTPUT_FILE_JSON}}          # e.g. result.json
+    - {{OUTPUT_FILE_MD}}            # e.g. result.md
+
+gate:
+  pass_if:
+    - valid_json: true
+    - {{GATE_RULE}}
+  fail_to: 99_ERROR
+  review_to: 03_REVIEW
+
+next:
+  pass:
+    - {{NEXT_STATION_PASS}}         # downstream station id
+  fail:
+    - ST-ERR-001

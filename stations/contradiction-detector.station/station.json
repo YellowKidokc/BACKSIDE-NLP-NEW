@@ -1,0 +1,44 @@
+{
+  "station_id": "ST-NLP-CONTRADICTION-001",
+  "name": "contradiction-detector",
+  "role": "Pairwise NLI contradiction station",
+  "status": "draft",
+  "category": "nlp",
+  "model_front_door": "X:\\Models\\front-doors\\03_contradiction_FD\\config.json",
+  "model_path": "X:\\Models\\M03_contradiction",
+  "inputs": [
+    "premise",
+    "hypothesis"
+  ],
+  "outputs": [
+    "nli_label",
+    "confidence",
+    "evidence_json"
+  ],
+  "notes": [
+    "Use for fast contradiction checks before deep NLI escalation."
+  ],
+  "folder_contract": {
+    "exports": [
+      "EXPORTS\\json",
+      "EXPORTS\\markdown",
+      "EXPORTS\\evidence-chains",
+      "EXPORTS\\contradiction-matrix",
+      "EXPORTS\\audit"
+    ],
+    "output": [
+      "OUTPUT\\verdicts",
+      "OUTPUT\\scores",
+      "OUTPUT\\explanations"
+    ],
+    "logs": [
+      "_LOGS\\runs",
+      "_LOGS\\errors"
+    ],
+    "input": [
+      "INPUT\\pairs",
+      "INPUT\\claims",
+      "INPUT\\contexts"
+    ]
+  }
+}

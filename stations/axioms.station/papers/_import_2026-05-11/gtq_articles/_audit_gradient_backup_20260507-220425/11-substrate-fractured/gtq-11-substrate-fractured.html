@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="paper-slug" content="GTQ-11">
+<title>GTQ-11 The Substrate Fractured — Genesis to Quantum</title>
+<meta name="description" content="Reality itself split into two incompatible physics frameworks."/>
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<!-- MathJax -->
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']] }, svg: { fontCache: 'global' } };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+:root{
+  --primary:#1a1a1a;
+  --accent:#2c2c2c;
+  --text-primary:#e0e0e0;
+  --text-secondary:#a0a0a0;
+  --highlight:#d4af37;
+  --highlight-bright:#f4d03f;
+  --highlight-dim:#8b7a1e;
+  --highlight-glow:rgba(212,175,55,0.12);
+  --border:#333333;
+  --surface:#0a0a0a;
+  --surface-light:#1a1a1a;
+  --surface-hover:#2a2a2a;
+  --red:#ef4444;
+  --blue:#4a9eff;
+  --teal:#2dd4bf;
+  --purple:#a855f7;
+  --green:#22c55e;
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--surface);
+  color:var(--text-primary);
+  line-height:1.65;
+  margin:0;
+  padding:0;
+  overflow-x:hidden;
+}
+.serif{font-family:'Crimson Text',serif;}
+.display{font-family:'Oswald',sans-serif;}
+.mono{font-family:'JetBrains Mono',monospace;}
+
+/* ─────────── SIDEBAR NAV ─────────── */
+.sidebar{
+  position:fixed;top:0;left:0;width:300px;height:100vh;
+  background:var(--surface);border-right:1px solid var(--border);
+  z-index:100;overflow-y:auto;
+  transform:translateX(-100%);transition:transform .3s ease;
+  padding:1.5rem 1rem;
+}
+.sidebar.open{transform:translateX(0);}
+.sidebar-toggle{
+  position:fixed;top:1rem;left:1rem;z-index:101;
+  background:var(--surface-light);border:1px solid var(--border);
+  color:var(--highlight);width:40px;height:40px;border-radius:.375rem;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:1rem;transition:all .2s ease;
+}
+.sidebar-toggle:hover{border-color:var(--highlight);background:var(--surface-hover);}
+.sidebar-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:99;}
+.sidebar-overlay.show{display:block;}
+.sidebar .series-title{
+  font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--highlight);margin-bottom:1rem;
+  padding-bottom:.5rem;border-bottom:1px solid var(--border);
+}
+.sidebar a{display:block;padding:.45rem .75rem;color:var(--text-secondary);text-decoration:none;font-size:.8rem;border-radius:.3rem;transition:all .15s ease;line-height:1.4;}
+.sidebar a:hover{color:var(--text-primary);background:var(--surface-hover);}
+.sidebar a.current{color:var(--highlight);background:var(--highlight-glow);font-weight:600;}
+.sidebar .nav-section{padding:.5rem .75rem .25rem;font-family:'Oswald',sans-serif;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);opacity:.6;margin-top:.5rem;}
+.sidebar a.main-article{font-weight:500;color:var(--text-primary);}
+.sidebar a.deep-dive{padding-left:1.25rem;font-size:.78rem;opacity:.85;}
+.sidebar a.deep-dive::before{content:"└ ";color:var(--border);}
+
+/* ─────────── PROGRESS BAR ─────────── */
+.progress-track{position:fixed;top:0;left:0;right:0;height:3px;background:var(--border);z-index:90;}
+.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--highlight),var(--highlight-bright));transition:width 0.1s ease;border-radius:0 2px 2px 0;}
+
+/* ─────────── HERO GRID ─────────── */
+.hero-grid{
+  display:grid;grid-template-columns:2fr 1fr;grid-template-rows:auto auto;
+  gap:1.25rem;min-height:420px;margin-bottom:2.5rem;
+}
+.hero-main{
+  grid-column:1/2;grid-row:1/3;position:relative;overflow:hidden;
+  border-radius:.75rem;background:linear-gradient(135deg,var(--surface-light) 0%,var(--accent,#2c2c2c) 100%);
+  border:1px solid var(--border);min-height:420px;
+}
+.hero-main img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35;}
+.hero-main .overlay{
+  position:relative;z-index:2;height:100%;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:2.5rem;
+  background:linear-gradient(0deg,rgba(10,10,10,.85) 0%,rgba(10,10,10,0) 60%);
+}
+.hero-side{
+  background:var(--surface-light);border:1px solid var(--border);border-radius:.75rem;
+  padding:1.5rem;transition:border-color .25s ease;
+}
+.hero-side:hover{border-color:var(--highlight);}
+.hero-side h3{font-family:'Crimson Text',serif;font-size:1.05rem;font-weight:600;color:#fff;margin:0 0 .65rem;}
+.hero-side p{font-size:.875rem;color:var(--text-secondary);margin:0;}
+.hero-side .label{display:block;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);margin-bottom:.4rem;font-weight:700;}
+@media(max-width:1024px){
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-main{grid-column:1;grid-row:1;min-height:300px;}
+  .hero-main .overlay{padding:1.5rem;}
+}
+.meta-row{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;font-size:.8125rem;color:var(--text-secondary);margin-bottom:1rem;}
+.meta-row i{color:var(--highlight);margin-right:.4rem;}
+.status-pill{
+  padding:.25rem .65rem;background:var(--highlight-glow);color:var(--highlight);
+  border-radius:.25rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+}
+.domain-tag{display:inline-block;padding:.2rem .65rem;border-radius:999px;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+.tag-physics{background:rgba(74,158,255,.15);color:#4a9eff;}
+.tag-theology{background:rgba(212,175,55,.15);color:#d4af37;}
+.tag-quantum{background:rgba(201,64,64,.15);color:var(--red);}
+.tag-bridge{background:rgba(45,212,191,.15);color:#2dd4bf;}
+.tag-data{background:rgba(34,197,94,.15);color:var(--green);}
+.tag-consciousness{background:rgba(168,85,247,.15);color:var(--purple);}
+.tag-history{background:rgba(212,175,55,.12);color:#caa040;}
+.tag-moral{background:rgba(239,68,68,.15);color:var(--red);}
+.tag-civilizational{background:rgba(168,85,247,.12);color:#b594d8;}
+
+/* ─────────── STICKY TAB BAR ─────────── */
+.tab-shell{
+  position:sticky;top:0;z-index:50;
+  background:rgba(10,10,10,.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.tab-nav{display:flex;gap:.125rem;overflow-x:auto;scrollbar-width:none;}
+.tab-nav::-webkit-scrollbar{display:none;}
+.tab-btn{
+  padding:.85rem 1.1rem;background:transparent;border:none;color:var(--text-secondary);
+  font-size:.825rem;font-weight:500;cursor:pointer;white-space:nowrap;
+  transition:all .2s ease;border-bottom:2px solid transparent;margin-bottom:-1px;letter-spacing:.02em;
+}
+.tab-btn:hover{color:var(--text-primary);background:var(--surface-light);}
+.tab-btn.active{color:var(--highlight);border-bottom-color:var(--highlight);background:var(--surface-light);}
+.tab-btn i{margin-right:.4rem;}
+
+/* ─────────── TAB CONTENT ─────────── */
+.tab-content{display:none;animation:fadeIn .3s ease;}
+.tab-content.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* ─────────── LAYOUT: MAIN ─────────── */
+.main-layout{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:grid;grid-template-columns:1fr 280px;gap:3rem;}
+@media(max-width:1024px){.main-layout{grid-template-columns:1fr;}}
+
+.story{max-width:900px;margin:0 auto;}
+.story.wide{max-width:100%;}
+.story h2{
+  font-family:'Oswald',sans-serif;font-size:1.6rem;font-weight:600;color:#fff;
+  margin:3rem 0 1.25rem;letter-spacing:.03em;text-transform:uppercase;
+  border-bottom:1px solid var(--border);padding-bottom:.5rem;
+}
+.story h3{font-family:'Crimson Text',serif;font-size:1.3rem;font-weight:600;color:#fff;margin:2rem 0 .75rem;}
+.story h4{font-family:'Crimson Text',serif;font-size:1.1rem;font-weight:600;color:var(--highlight);margin:1.5rem 0 .5rem;}
+.story p{font-size:1.0625rem;color:#cfcfcf;margin:0 0 1.25rem;line-height:1.75;}
+.story p strong{color:#fff;}
+.story p em{color:var(--highlight);font-style:italic;}
+.story li{color:#cfcfcf;margin-bottom:.5rem;line-height:1.65;}
+.story li strong{color:#fff;}
+.story ul,.story ol{margin:0 0 1.25rem 1.5rem;}
+.story blockquote{
+  border-left:4px solid var(--highlight);background:var(--highlight-glow);
+  padding:1rem 1.5rem;margin:1.5rem 0;border-radius:0 .5rem .5rem 0;
+  font-family:'Crimson Text',serif;font-size:1.05rem;font-style:italic;color:#cfcfcf;
+}
+.story blockquote p{margin:0;font-size:1.05rem;}
+
+.drop-cap::first-letter{font-family:'Crimson Text',serif;font-size:4.5rem;float:left;line-height:.85;padding:.4rem .6rem 0 0;color:var(--highlight);font-weight:600;}
+
+.exec-summary{
+  background:var(--highlight-glow);border:1px solid var(--highlight-dim);
+  border-radius:.5rem;padding:1.5rem;margin:2rem 0;
+}
+.exec-summary-label{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);margin-bottom:.75rem;
+}
+.exec-summary p{font-size:1rem;color:#e0e0e0;margin:0;line-height:1.7;}
+
+.insight{border-left:4px solid var(--highlight);background:var(--highlight-glow);padding:1.25rem 1.5rem;margin:2rem 0;border-radius:0 .5rem .5rem 0;}
+.insight .label{font-family:'Crimson Text',serif;font-style:italic;color:var(--highlight);font-size:.85rem;letter-spacing:.05em;display:block;margin-bottom:.4rem;}
+.insight p{margin:0;color:#fff;font-size:1.05rem;}
+
+/* ─────────── KILL CONDITIONS ─────────── */
+.kill-sidebar{position:sticky;top:120px;height:fit-content;}
+.kill-sidebar-title{
+  font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);
+  margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);
+}
+.kill-card{
+  background:rgba(34,197,94,.04);border:1px solid rgba(34,197,94,.2);
+  border-radius:.5rem;padding:1rem;margin-bottom:.75rem;
+}
+.kill-card.suggestive{background:var(--highlight-glow);border-color:var(--highlight-dim);}
+.kill-card.destructive{background:rgba(239,68,68,.04);border-color:rgba(239,68,68,.2);}
+.kill-label{font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.35rem;}
+.kill-card .kill-label{color:var(--green);}
+.kill-card.suggestive .kill-label{color:var(--highlight);}
+.kill-card.destructive .kill-label{color:var(--red);}
+.kill-card p{margin:.25rem 0 0;color:#cfcfcf;font-size:.85rem;line-height:1.5;}
+.kill-card .kill-detail{font-size:.75rem;color:var(--text-secondary);margin-top:.35rem;}
+
+/* ─────────── AUDIO DOCK ─────────── */
+.audio-dock{width:100%;background:var(--surface-light);border:1px solid var(--border);border-radius:.625rem;overflow:hidden;transition:border-color .3s ease;margin:2rem 0;}
+.audio-dock:hover{border-color:var(--highlight-dim);}
+.dock-pills{display:flex;gap:0;border-bottom:1px solid var(--border);}
+.dock-pill{flex:1;display:flex;align-items:center;justify-content:center;gap:.4rem;padding:.6rem .5rem;background:transparent;border:none;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);transition:all .25s ease;position:relative;}
+.dock-pill::after{content:'';position:absolute;bottom:0;left:15%;right:15%;height:2px;border-radius:1px;background:transparent;transition:all .25s ease;}
+.dock-pill:hover{color:var(--text-primary);background:rgba(255,255,255,.03);}
+.dock-pill[data-src="deep"]{--pill-c:var(--blue);}
+.dock-pill[data-src="read"]{--pill-c:var(--highlight);}
+.dock-pill[data-src="debate"]{--pill-c:var(--purple);}
+.dock-pill[data-src="critique"]{--pill-c:var(--teal);}
+.dock-pill.active{color:var(--pill-c);background:rgba(255,255,255,.02);}
+.dock-pill.active::after{background:var(--pill-c);}
+.dock-pill .pill-dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.5;transition:opacity .25s;}
+.dock-pill.active .pill-dot{opacity:1;}
+.dock-pill.unavailable{opacity:.3;cursor:default;pointer-events:none;}
+.dock-body{display:flex;align-items:center;gap:.65rem;padding:.65rem .85rem;}
+.dock-play{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--highlight);background:transparent;color:var(--highlight);font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s ease;}
+.dock-play:hover{background:var(--highlight-glow);transform:scale(1.05);}
+.dock-play.playing{animation:pulse-dock 2s ease-in-out infinite;}
+@keyframes pulse-dock{0%,100%{box-shadow:0 0 0 0 var(--highlight-glow);}50%{box-shadow:0 0 0 4px transparent;}}
+.dock-track-wrap{flex:1;display:flex;flex-direction:column;gap:.25rem;min-width:0;}
+.dock-track{width:100%;height:4px;background:#222;border-radius:2px;cursor:pointer;overflow:hidden;position:relative;}
+.dock-fill{height:100%;width:0%;border-radius:2px;background:var(--highlight);transition:width .15s linear,background .3s;}
+.dock-times{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--text-secondary);}
+.dock-vol{background:none;border:none;color:var(--text-secondary);cursor:pointer;font-size:.75rem;flex-shrink:0;padding:2px;transition:color .2s;}
+.dock-vol:hover{color:var(--text-primary);}
+.dock-empty{display:none;align-items:center;justify-content:center;padding:.85rem;font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);opacity:.5;font-style:italic;}
+.dock-body.hidden{display:none;}.dock-empty.visible{display:flex;}
+
+/* ─────────── BOTTOM NAVIGATION ─────────── */
+.bottom-nav{
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:1.5rem 0;margin:3rem 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+.bottom-nav a{
+  display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;
+  background:var(--surface-light);border:1px solid var(--border);border-radius:.375rem;
+  color:var(--text-secondary);text-decoration:none;font-size:.85rem;transition:all .2s ease;
+}
+.bottom-nav a:hover{border-color:var(--highlight);color:var(--text-primary);background:var(--highlight-glow);}
+.bottom-nav a.primary{border-color:var(--highlight);color:var(--highlight);}
+.bottom-nav a.primary:hover{background:var(--highlight-glow);}
+.bottom-nav .nav-center{font-size:.8rem;color:var(--text-secondary);text-align:center;}
+
+/* ─────────── FOOTER ─────────── */
+.site-footer{text-align:center;padding:3rem 1.5rem;color:var(--text-secondary);font-size:.8rem;border-top:1px solid var(--border);margin-top:2rem;}
+.site-footer .eq{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--highlight);opacity:.6;margin-bottom:.5rem;}
+
+@media(max-width:1024px){
+  .kill-sidebar{display:none;}
+  .main-layout{grid-template-columns:1fr;padding:0 1rem;}
+  .story{max-width:100%;}
+}
+@media(max-width:640px){
+  .tab-btn{padding:.65rem .8rem;font-size:.75rem;}
+  .story h2{font-size:1.3rem;}
+  .bottom-nav{flex-direction:column;align-items:stretch;}
+  .bottom-nav a{justify-content:center;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Progress bar -->
+<div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+
+<!-- GTQ CANON HEADER: managed by tools/apply_article_topbars.py -->
+<style>
+.gtq-canon-shell{
+  min-height:214px;background:#070707;border-bottom:1px solid rgba(212,175,55,.34);
+  color:var(--text-primary);position:relative;z-index:50;overflow:hidden;
+  box-shadow:0 18px 36px rgba(0,0,0,.28);
+}
+.gtq-canon-shell::before{
+  content:"";position:absolute;inset:0;background:
+    radial-gradient(circle at var(--canon-glow-x,18%) 18%,rgba(212,175,55,.16),transparent 30%),
+    linear-gradient(90deg,rgba(212,175,55,.08),transparent 35%);
+  pointer-events:none;
+}
+.gtq-canon-topline{
+  height:40px;padding:0 1.5rem 0 4.5rem;border-bottom:1px solid rgba(212,175,55,.22);
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;position:relative;z-index:1;
+  background:rgba(5,5,5,.72);
+}
+.gtq-canon-chip,.gtq-canon-link{
+  height:26px;display:inline-flex;align-items:center;gap:.38rem;border:1px solid rgba(212,175,55,.24);
+  background:rgba(255,255,255,.025);border-radius:4px;padding:0 .65rem;
+  color:var(--text-dim);font-family:'JetBrains Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;
+  text-decoration:none;white-space:nowrap;
+}
+.gtq-canon-chip strong{color:var(--highlight);font-weight:700;}
+.gtq-canon-link{font-family:'Inter',sans-serif;font-size:.68rem;letter-spacing:.04em;font-weight:700;}
+.gtq-canon-link:hover{border-color:var(--highlight);color:var(--highlight);background:var(--highlight-glow);}
+.gtq-canon-nav{display:flex;align-items:center;gap:.4rem;}
+.gtq-canon-header{
+  min-height:174px;padding:1.45rem 1.5rem 1.4rem 4.5rem;position:relative;z-index:1;
+  display:grid;align-items:center;gap:1.2rem;
+}
+.gtq-canon-kicker{
+  color:var(--highlight);font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;
+  margin-bottom:.58rem;font-weight:700;
+}
+.gtq-canon-title{
+  font-family:'Crimson Text',serif;font-size:clamp(2rem,4.5vw,3.8rem);line-height:.96;
+  color:#fff;font-weight:700;letter-spacing:0;margin:0;
+}
+.gtq-canon-sub{
+  color:var(--text-secondary);font-size:.94rem;line-height:1.55;max-width:780px;margin-top:.78rem;
+}
+.gtq-canon-meta{display:flex;align-items:center;flex-wrap:wrap;gap:.55rem;margin-top:1rem;}
+.gtq-canon-meta span{
+  height:28px;display:inline-flex;align-items:center;gap:.38rem;padding:0 .7rem;border-radius:999px;
+  border:1px solid rgba(212,175,55,.22);background:rgba(212,175,55,.07);color:var(--text-dim);
+  font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.045em;
+}
+.gtq-canon-meta i{color:var(--highlight);}
+.gtq-canon-mark{
+  color:var(--highlight);font-family:'Oswald',sans-serif;font-size:7.8rem;line-height:.8;font-weight:700;
+  letter-spacing:.02em;user-select:none;text-shadow:0 0 30px rgba(212,175,55,.16);
+}
+.gtq-canon-formula{
+  color:rgba(212,175,55,.48);font-family:'JetBrains Mono',monospace;font-size:.72rem;line-height:1.8;
+  border-left:1px solid rgba(212,175,55,.35);padding-left:1rem;
+}
+.gtq-canon-classic{grid-template-columns:minmax(0,1fr) 170px;--canon-glow-x:16%;}
+.gtq-canon-classic .gtq-canon-mark{justify-self:end;opacity:.72;}
+.gtq-canon-spine{grid-template-columns:104px minmax(0,1fr) 250px;--canon-glow-x:50%;}
+.gtq-canon-spine::before{
+  content:"";position:absolute;left:4.5rem;right:1.5rem;top:0;height:4px;
+  background:linear-gradient(90deg,var(--highlight),var(--highlight-dim),var(--highlight-bright));
+}
+.gtq-canon-spine .gtq-canon-mark{
+  color:#050505;background:var(--highlight);width:74px;height:74px;display:grid;place-items:center;
+  font-size:2.15rem;border-radius:3px;box-shadow:0 0 34px rgba(212,175,55,.14);
+}
+.gtq-canon-edge{grid-template-columns:minmax(0,1fr) 330px;--canon-glow-x:86%;}
+.gtq-canon-edge .gtq-canon-title{max-width:760px;}
+.gtq-canon-edge .gtq-canon-mark{justify-self:end;opacity:.82;}
+.gtq-canon-edge .gtq-canon-formula{
+  border-left:0;border-top:1px solid rgba(212,175,55,.35);padding:1rem 0 0;text-align:right;
+}
+@media(max-width:900px){
+  .gtq-canon-topline{height:auto;min-height:40px;padding-right:.8rem;align-items:flex-start;flex-direction:column;padding-top:.55rem;padding-bottom:.55rem;}
+  .gtq-canon-nav{flex-wrap:wrap;}
+  .gtq-canon-header,.gtq-canon-classic,.gtq-canon-spine,.gtq-canon-edge{grid-template-columns:1fr;padding-right:1rem;}
+  .gtq-canon-mark,.gtq-canon-formula{display:none;}
+  .gtq-canon-title{font-size:clamp(1.8rem,9vw,2.55rem);}
+}
+</style>
+<section class="gtq-canon-shell" aria-label="Article identity">
+  <nav class="gtq-canon-topline" aria-label="Article navigation">
+    <div class="gtq-canon-chip"><i class="fas fa-atom"></i><strong>Genesis to Quantum</strong></div>
+    <div class="gtq-canon-nav">
+      <a class="gtq-canon-link" href="../index.html"><i class="fas fa-th-list"></i>Index</a>
+      <a class="gtq-canon-link" href="../10-how-lies-kill/gtq-10-how-lies-kill.html"><i class="fas fa-arrow-left"></i>Prev</a>
+      <a class="gtq-canon-link" href="../15-why-reality-needs-three/gtq-15-why-reality-needs-three.html">Next<i class="fas fa-arrow-right"></i></a>
+    </div>
+  </nav>
+  <header class="gtq-canon-header gtq-canon-spine">
+    <div>
+      <div class="gtq-canon-kicker">Origin Story / Article 11 / Formal Canon</div>
+      <h1 class="gtq-canon-title">The Substrate Fractured</h1>
+      <p class="gtq-canon-sub">Reality itself split into two incompatible physics frameworks.</p>
+      <div class="gtq-canon-meta">
+        <span><i class="fas fa-fingerprint"></i>GTQ-11</span>
+        <span><i class="fas fa-layer-group"></i>Foundation Track</span>
+        <span><i class="fas fa-scale-balanced"></i>Bounded Claim</span>
+      </div>
+    </div>
+    <div class="gtq-canon-mark">#11</div>
+    <div class="gtq-canon-formula">
+      chi_local = G * M * E * S_eff * T * K * R * Q * F * C<br/>
+      C is factor / chi is output / no drift
+    </div>
+  </header>
+</section>
+<!-- /GTQ CANON HEADER -->
+
+<!-- Sidebar toggle -->
+<button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle series navigation"><i class="fas fa-bars"></i></button>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- Sidebar nav -->
+<nav class="sidebar" id="sidebar">
+  <div class="series-title"><i class="fas fa-atom" style="margin-right:.4rem;"></i> Genesis to Quantum</div>
+  <a href="../../index.html"><i class="fas fa-home" style="width:1.2rem;"></i> Series Home</a>
+
+  <div class="nav-section">Main Articles</div>
+  <a href="../01-measurement-collapsed-reality/gtq-01-measurement-collapsed-reality.html" class="main-article">01 The Measurement That Collapsed Reality</a>
+  <a href="../03-first-quantum-state/gtq-03-first-quantum-state.html" class="main-article">03 The First Quantum State</a>
+  <a href="../04-free-will-two-frames/gtq-04-free-will-two-frames.html" class="main-article">04 Free Will in Two Frames</a>
+  <a href="../08-day-time-began/gtq-08-day-time-began.html" class="main-article">08 The Day Time Began</a>
+  <a href="../11-substrate-fractured/gtq-11-substrate-fractured.html" class="main-article current">11 The Substrate Fractured</a>
+  <a href="../15-why-reality-needs-three/gtq-15-why-reality-needs-three.html" class="main-article">15 Why Reality Needs Three</a>
+  <a href="../16-photon-isnt-watching/gtq-16-photon-isnt-watching.html" class="main-article">16 The Photon Isn't Watching You Back</a>
+  <a href="../18-eraser-and-the-cross/gtq-18-eraser-and-the-cross.html" class="main-article">18 The Eraser and the Cross</a>
+  <a href="../22-same-god-both-testaments/gtq-22-same-god-both-testaments.html" class="main-article">22 The Same God in Both Testaments</a>
+  <a href="../25-counter-move/gtq-25-counter-move.html" class="main-article">25 The Counter-Move</a>
+  <div class="nav-section">Deep Dives</div>
+  <a href="../02-collapse-threshold/gtq-02-collapse-threshold.html" class="deep-dive">02 The Collapse Threshold</a>
+  <a href="../05-macarthur-equation/gtq-05-macarthur-equation.html" class="deep-dive">05 MacArthur and the Equation</a>
+  <a href="../06-three-pathways/gtq-06-three-pathways.html" class="deep-dive">06 The Three Pathways</a>
+  <a href="../07-why-god-drowned-everybody/gtq-07-why-god-drowned-everybody.html" class="deep-dive">07 Why Did God Drown Everybody?</a>
+  <a href="../09-decoherence-curve/gtq-09-decoherence-curve.html" class="deep-dive">09 The Decoherence Curve</a>
+  <a href="../10-how-lies-kill/gtq-10-how-lies-kill.html" class="deep-dive">10 How Lies Kill</a>
+  <a href="../12-trinity-mechanism/gtq-12-trinity-mechanism.html" class="deep-dive">12 The Trinity Mechanism</a>
+  <a href="../13-trinity-timeline/gtq-13-trinity-timeline.html" class="deep-dive">13 The Trinity Timeline</a>
+  <a href="../14-physics-broken-in-two/gtq-14-physics-broken-in-two.html" class="deep-dive">14 Why Physics Is Broken in Two</a>
+  <a href="../17-ran-the-numbers/gtq-17-ran-the-numbers.html" class="deep-dive">17 We Actually Ran the Numbers</a>
+  <a href="../19-temporal-trap/gtq-19-temporal-trap.html" class="deep-dive">19 The Temporal Trap</a>
+  <a href="../20-how-god-restores/gtq-20-how-god-restores.html" class="deep-dive">20 How God Restores</a>
+  <a href="../21-science-behind-restoration/gtq-21-science-behind-restoration.html" class="deep-dive">21 The Science Behind the Restoration</a>
+  <a href="../23-regime-dependent-theology/gtq-23-regime-dependent-theology.html" class="deep-dive">23 The Structural Case for Regime-Dependent Theology</a>
+  <a href="../24-societies-die/gtq-24-societies-die.html" class="deep-dive">24 Societies Die the Same Way People Do</a>
+  <a href="../26-pattern-is-the-signal/gtq-26-pattern-is-the-signal.html" class="deep-dive">26 Why the Pattern Is the Signal</a>
+</nav>
+
+<!-- Hero grid -->
+<div class="container mx-auto px-6 pt-8" style="padding-left:4.5rem;">
+  <div class="hero-grid">
+    <div class="hero-main">
+      <img src="images/hero/hero.jpg" alt="The Substrate Fractured" onerror="this.style.display='none'"/>
+      <div class="overlay">
+        <div class="meta-row" style="margin-bottom:.5rem;">
+          <span><i class="fas fa-atom"></i>Article 11 &middot; Genesis to Quantum</span>
+          <span class="status-pill">Main Article</span>
+        </div>
+        <h1 class="serif text-3xl md:text-5xl font-bold text-white mb-3 leading-tight">
+          The Substrate Fractured
+        </h1>
+        <p class="text-lg md:text-xl text-gray-200 font-light">
+          Reality itself split into two incompatible physics frameworks.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-3">
+          <span class="domain-tag tag-physics">Physics</span><span class="domain-tag tag-quantum">Quantum</span><span class="domain-tag tag-bridge">Cross-Domain</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-side">
+      <span class="label">Key Finding</span>
+      <h3>The single thing they should remember</h3>
+      <p>[[One short paragraph. Make it count.]]</p>
+    </div>
+    <div class="hero-side">
+      <span class="label">Critical Insight</span>
+      <h3>Why it matters now</h3>
+      <p>[[Different angle from the first.]]</p>
+    </div>
+  </div>
+</div>
+
+<!-- Sticky tab bar -->
+<div class="tab-shell">
+  <div class="container mx-auto px-6" style="padding-left:4.5rem;">
+    <nav class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('paper')"><i class="fas fa-scroll"></i>The Paper</button>
+      <button class="tab-btn" onclick="switchTab('summary')"><i class="fas fa-compress-alt"></i>Executive Summary</button>
+      <button class="tab-btn" onclick="switchTab('rigor')"><i class="fas fa-crosshairs"></i>Rigor &amp; Kill Conditions</button>
+      <button class="tab-btn" onclick="switchTab('media')"><i class="fas fa-headphones"></i>Watch &amp; Listen</button>
+      <button class="tab-btn" onclick="switchTab('blackboard')"><i class="fas fa-chalkboard"></i>Blackboard</button>
+    </nav>
+  </div>
+</div>
+
+<!-- Main content -->
+<main class="main-layout py-10">
+  <div>
+    <section id="paper" class="tab-content active">
+      <article class="story wide"><!-- ═══ OPENING ═══ -->
+      <blockquote>
+        <p>"But while he was still a long way off, his father saw him and felt compassion, and ran and embraced him and kissed him." &mdash; Luke 15:20</p>
+      </blockquote>
+
+      <p class="drop-cap">There are two stories running underneath every argument about origins. One is about science. One is about what science is allowed to mean. The YEC position insists the earth is young because the text says so. The OEC position insists the earth is old because the data says so. Both sides assume the question is: how long did it take? Neither side has asked the prior question: <em>what kind of physics are we in?</em></p>
+
+      <p>That is the question this article forces. And the answer dissolves the debate entirely &mdash; not by arbitrating between the two sides, but by showing that both are arguing about the wrong thing.</p>
+
+      <p>The thesis is this: <strong>Quantum mechanics is not the physics of the universe as God designed it. It is the physics of the universe after the substrate fractured.</strong> General relativity remembers what the pre-Fall structure looked like. Quantum mechanics shows us what happened when the coupling broke. The two theories cannot be reconciled from inside physics because they are not describing the same substrate. One describes the skeleton. The other describes the wound.</p>
+
+      <hr>
+
+      <!-- ═══ I ═══ -->
+      <h2>I. Two Physics, Not Two Perspectives</h2>
+
+      <p>Every undergraduate physics student learns that the two pillars of modern physics are mutually incompatible. General relativity describes gravity and spacetime as a smooth, continuous, deterministic fabric. Quantum mechanics describes matter and energy as discrete, probabilistic, and fundamentally indeterminate. You cannot write one theory that contains both without the equations breaking down &mdash; specifically at the Planck scale, where the curvature of spacetime becomes so extreme that quantum effects should dominate, and neither theory has anything meaningful to say.</p>
+
+      <p>The standard move is to call this an <em>open problem</em> and hope that string theory or loop quantum gravity or some other framework will eventually unify them. That has been the hope for a hundred years. It has not been fulfilled.</p>
+
+      <p>The framework proposes a different reading of the incompatibility. GR and QM are not two incomplete descriptions of the same underlying reality waiting to be unified. They are descriptions of <em>two different states</em> of the same underlying substrate &mdash; the pre-Fall state and the post-Fall state. The incompatibility is not a bug in our mathematics. It is a scar in the physics itself.</p>
+
+      <div class="insight">
+        <span class="label">&mdash; Central Claim</span>
+        <p>General relativity encodes the structural memory of a universe that was once fully coupled and deterministic. Quantum mechanics is what that structure looks like after the coupling between the divine observer and the physical substrate was severed.</p>
+      </div>
+
+      <p>This is a strong claim. It needs unpacking before it can be evaluated. We begin with what the unbroken state would have looked like, and then trace precisely what changed when it broke.</p>
+
+      <hr>
+
+      <!-- ═══ II ═══ -->
+      <h2>II. What the Unbroken State Looked Like</h2>
+
+      <p>Four properties characterized the pre-Fall substrate. These are not theological assertions grafted onto physics. They are what the Genesis text describes, and they map precisely onto physical concepts:</p>
+
+      <h4>Determinate.</h4>
+      <p>In Eden, things were what they were. The animals had names &mdash; Adam named them, and the names stuck (Genesis 2:19&ndash;20). There was no superposition of possible states waiting to collapse. God speaks, and things exist. "Let there be light" is not a probability distribution. It is a definite event. The pre-Fall universe was not probabilistic. It was determinate in the sense that the Logos field was fully coupled to every subsystem, determining their states without residual uncertainty.</p>
+
+      <h4>Directly coupled.</h4>
+      <p>"The LORD God was walking in the garden in the cool of the day" (Genesis 3:8). This is the most physically significant sentence in the pre-Fall description. The divine observer was present in the system &mdash; not transcendent and remote, but immanent and directly coupled. Every physical system in creation was coupled to its Designer through a coherence channel that operated without loss. The Logos field $\Lambda$ threaded through everything.</p>
+
+      <h4>Maximally coherent.</h4>
+      <p>In quantum terms, a coherent state is one where all the sub-systems maintain fixed phase relationships with each other. Decoherence is what happens when a system interacts with an environment and loses those fixed relationships &mdash; which is what produces the appearance of classical, definite states from quantum superpositions. In the pre-Fall state, the universe was maximally coherent: every subsystem in phase with every other, all anchored to the Logos. No entropy. No loss of information to the environment. The system was closed in the sense that mattered: perfectly ordered.</p>
+
+      <h4>Timeless in the relevant sense.</h4>
+      <p>"In the day that you eat of it you shall surely die" (Genesis 2:17). Death did not exist. Decay did not exist. The arrow of entropy &mdash; the physical process that gives time its direction &mdash; had not been activated in the human domain. This does not mean there was no sequence of events. It means the second law of thermodynamics, as the driver of irreversible time, was not yet operational. The system was not running down.</p>
+
+      <div class="eq-block">
+        <div class="eq-label">Pre-Fall State (Theophysics Framework)</div>
+        $\chi_{\text{Eden}} = \iiint (G \cdot M \cdot E \cdot S_{\min} \cdot T \cdot K \cdot R \cdot Q \cdot F_{\max} \cdot C_{\max}) \, dx \, dy \, dt$
+        <p style="font-size:.8rem;color:var(--text-secondary);margin:.75rem 0 0;text-align:center;">Entropy $S$ at minimum; Faith $F$ and Coherence $C$ at maximum; Grace $G$ fully coupled.</p>
+      </div>
+
+      <hr>
+
+      <!-- ═══ III ═══ -->
+      <h2>III. The Probe That Stopped This Article Twelve Times</h2>
+
+      <p>A physicist reading this will raise the objection immediately, and it is a genuine one: <strong>classical physics already existed before the Fall.</strong> Atoms were quantum systems before Adam ate the fruit. Electrons were probabilistic before Genesis 3:7. The double-slit experiment produces interference patterns for photons regardless of what happened in a garden. Quantum mechanics is not a new phenomenon that entered history at a specific moment &mdash; it is the bedrock description of matter at the smallest scales, and there is no evidence it ever looked different.</p>
+
+      <p>This stopped the article twelve times. It is not a weak objection. It needs a direct answer.</p>
+
+      <p>The answer is a narrower claim than the one the objection assumes we are making. We are not claiming that <em>all</em> indeterminacy entered the universe at the Fall. We are not claiming that electrons were classical before Genesis 3 and became quantum afterward. The claim is more specific:</p>
+
+      <div class="axiom-box">
+        The indeterminacy at the level of <em>human agency, moral reality, and the coupling between consciousness and the physical substrate</em> is post-Fall. The structural mathematics of quantum mechanics as applied to subatomic particles may have always been what it is. What changed at the Fall was the <em>relationship</em> between the conscious observer and the system &mdash; the coupling that determined whether the universe was experienced as coherent or probabilistic.
+      </div>
+
+      <p>Put differently: the Born Rule has always governed how quantum states actualize. What changed is <em>who</em> was doing the actualizing and through what coupling channel. Before the Fall, the divine observer's continuous presence in the system meant that actualization was immediate, direct, and lossless. The universe was not experienced as probabilistic because the system designer was the primary observer, maintaining coherence. After the Fall, the coupling broke. The human observer was left alone with the mathematics &mdash; and the mathematics, without the Logos threading through it, looks like probability.</p>
+
+      <p>This is the narrower claim. General relativity still encodes the structural memory of fully-coupled determinism. Quantum mechanics shows what that structure looks like when the observer coupling degrades. The incompatibility between them is the incompatibility between the two states.</p>
+
+      <hr>
+
+      <!-- ═══ IV ═══ -->
+      <h2>IV. What Probability Is Evidence Of</h2>
+
+      <p>The Born Rule states that the probability of a quantum measurement outcome is given by the squared modulus of the wavefunction's inner product with the measurement basis:</p>
+
+      <div class="eq-block">
+        <div class="eq-label">Born Rule</div>
+        $P(\text{outcome}) = |\langle \phi | \psi \rangle|^2$
+      </div>
+
+      <p>This is the most empirically confirmed equation in all of physics. It has never failed. It is also the most conceptually puzzling equation in all of physics, because no one has satisfactorily explained <em>why</em> measurement produces definite outcomes with those specific probabilities rather than something else.</p>
+
+      <p>The standard interpretations each have crippling problems. Copenhagen says "shut up and calculate" &mdash; it works, but it doesn't tell you what's actually happening. Many-worlds says every outcome occurs in some branch of the universal wavefunction &mdash; it's mathematically elegant but empirically unfalsifiable. Pilot wave theory restores determinism but requires non-local hidden variables that most physicists find implausible. None of these is satisfying.</p>
+
+      <p>The framework proposes that the Born Rule is not a fundamental feature of reality. It is a <em>signature of broken coupling.</em> When the Logos field is fully coupled to a system &mdash; when the divine observer is the primary observer &mdash; outcomes do not need to be probabilistic because the Logos determines them directly. The Born Rule is what you get when you try to describe a system that was designed to be operated by a fully-coupled primary observer, but you are now operating it as a secondary observer with a degraded coupling channel.</p>
+
+      <div class="insight">
+        <span class="label">&mdash; The Reframe</span>
+        <p>Probability is not fundamental. Probability is what determination looks like through a broken coupling. The Born Rule is evidence of the Fall, not evidence of the nature of God's creation.</p>
+      </div>
+
+      <p>This is a falsifiable claim. If the framework is correct, then there should be measurable differences in quantum measurement statistics depending on the quality of the observer's coupling to the Logos field. The PEAR Lab results (6.35&sigma; over 2.5 million trials) and the Global Consciousness Project (6&sigma; over 325+ events) are precisely this kind of data &mdash; they show that observer states affect physical measurement outcomes in ways that standard QM cannot account for. They do not prove the framework. But they are consistent with it in a way that should not be dismissed.</p>
+
+      <hr>
+
+      <!-- ═══ V ═══ -->
+      <h2>V. The Clock That Started When the Coupling Broke</h2>
+
+      <p>The second law of thermodynamics says entropy always increases in a closed system. This is the physical basis of the arrow of time: the universe becomes less ordered over time, and that direction &mdash; from order to disorder &mdash; is what we experience as "forward." Without entropy increase, there is no distinction between past and future.</p>
+
+      <p>Several physical processes are tied directly to quantum indeterminacy and are relevant here:</p>
+
+      <h4>Radioactive decay.</h4>
+      <p>Radioactive nuclei decay at rates governed by quantum tunneling &mdash; a purely quantum phenomenon with no classical analogue. A nucleus has some probability per unit time of tunneling through its potential barrier and emitting a particle. The half-life is determined by the Born Rule applied to the tunneling probability. This is precisely the process used in radiometric dating &mdash; the measurement at the center of the YEC/OEC debate. If radioactive decay is a post-Fall quantum phenomenon (in the sense that the coupling that governed it changed at the Fall), then radiometric dating is measuring the behavior of a post-Fall substrate and projecting it backward into a pre-Fall regime where the physics was different. The numbers may not mean what we assume they mean.</p>
+
+      <h4>Quantum tunneling and biology.</h4>
+      <p>Tunneling is not only relevant to radioactive decay. It is essential to enzyme catalysis, DNA mutation rates, and photosynthesis. If the coupling between the Logos field and biological systems changed at the Fall, then the rates of these processes &mdash; including mutation and death at the cellular level &mdash; would have changed. Death entering creation at the Fall is not just a theological claim. It is a physical claim about the activation of entropy-driven processes in biology.</p>
+
+      <h4>Retrocausality.</h4>
+      <p>Several interpretations of quantum mechanics (including some serious proposals by mainstream physicists like Yakir Aharonov and Howard Wiseman) allow for retrocausal effects &mdash; where future measurements affect past states. If the fabric of time itself operates differently in a pre-Fall versus post-Fall substrate, then the assumption that physical constants and decay rates were identical before and after the Fall is not safe. The starlight problem (how could distant starlight reach us if the universe is young?) dissolves if the physical constants governing light propagation were different before the substrate fractured.</p>
+
+      <div class="axiom-box">
+        The YEC/OEC debate assumes the substrate is uniform across time. The framework denies this. The substrate fractured. The clock that radiometric dating measures may have started at the Fall, not at creation.
+      </div>
+
+      <hr>
+
+      <!-- ═══ VI ═══ -->
+      <h2>VI. The Debate That Dissolves</h2>
+
+      <p>Return to the YEC/OEC debate with this framework in place.</p>
+
+      <p>The YEC position holds that the earth is approximately 6,000&ndash;10,000 years old because Genesis 1 describes six literal 24-hour days of creation and the genealogies allow a roughly calculable date. The problem has always been radiometric dating, which consistently returns ages of billions of years for rocks and the universe.</p>
+
+      <p>The OEC position holds that the "days" of Genesis 1 are not literal 24-hour periods &mdash; they are ages, epochs, literary devices, or the "framework hypothesis" applies &mdash; and the earth is as old as the physics says it is. The problem has always been death before the Fall: if the earth is 4.5 billion years old, then animals were dying for hundreds of millions of years before Adam sinned, which seems to contradict the framework that death entered through sin (Romans 5:12).</p>
+
+      <p>The framework cuts the knot differently. <strong>Both sides are assuming that the physics we measure today was operating identically before the Fall.</strong> The YEC side knows something is wrong with this assumption and tries to solve it by compressing the timeline. The OEC side accepts the timeline but struggles to explain death before sin. Neither side has considered the possibility that the substrate itself was different.</p>
+
+      <p>If quantum mechanics is the physics of a fractured substrate, then:</p>
+
+      <ul>
+        <li>Radiometric dating measures post-Fall decay rates projected backward into a pre-Fall regime. The numbers are internally consistent (the physics works the way the physics works) but they are measuring the wrong substrate when they reach back before the Fall event.</li>
+        <li>The death-before-sin problem for OEC dissolves: there was no death before the Fall because the coupling that drives entropic biological processes had not yet broken. Pre-Fall biology operated on a different substrate.</li>
+        <li>The starlight problem for YEC dissolves (or at least changes shape): the speed of light and other constants that determine how old the universe "looks" may have been governed differently in the pre-Fall substrate.</li>
+      </ul>
+
+      <p>This does not resolve every difficulty. It trades some problems for others. But it does something more important: it shows that the debate as currently framed is asking a question that the substrate fracture makes unanswerable from within the current physics. You cannot use post-Fall instruments to measure pre-Fall states. The clock started when the coupling broke.</p>
+
+      <hr>
+
+      <!-- ═══ VII ═══ -->
+      <h2>VII. What Survived</h2>
+
+      <p>The prodigal son returns. "But while he was still a long way off, his father saw him and felt compassion, and ran and embraced him and kissed him" (Luke 15:20). The father does not wait for a formal accounting. He does not require a proof that the son has fully reconstituted his pre-departure state. He runs. He embraces. He restores.</p>
+
+      <p>The Cross is this event at the level of the substrate. What survived the fracture was not the unbroken coupling &mdash; that was lost. What survived was the <em>structure</em>. General relativity still encodes the skeleton of a fully-coupled, fully-coherent universe. The equations of GR describe spacetime as smooth, continuous, deterministic &mdash; exactly what the pre-Fall substrate was. That structure was not destroyed. It was fractured. And fractured things can be restored.</p>
+
+      <p>The Resurrection is the proof of concept. A single physical system &mdash; the body of Christ &mdash; was taken through death (maximum entropy, complete decoherence) and restored to a state that is explicitly described as both continuous with the pre-death body (the wounds were still there, Thomas could touch them) and discontinuous with the post-Fall substrate (walls could not stop him, he appeared and disappeared, he ascended). The resurrection body is not the pre-Fall body. It is something new: a post-Fall body that has passed through the fracture and come out the other side with the coupling restored.</p>
+
+      <p>This is the anti-gnostic answer. Gnosticism says matter is evil and spirit is good and salvation is escape from the physical. The framework says matter is not evil &mdash; it is fractured. And fractured things are not abandoned. They are restored. The resurrection of the body is not a theological accident. It is a physics claim: the substrate that fractured will be re-coupled. The coherence that broke will be restored. General relativity and quantum mechanics will not need to be unified by human mathematicians. They will be unified by the event that the Cross made possible: the restoration of the substrate to its pre-Fall state, and beyond.</p>
+
+      <hr>
+
+      <!-- ═══ FALSIFICATION ═══ -->
+      <h2>Falsification Criteria</h2>
+
+      <p><strong>Prediction 1:</strong> If the Born Rule is a signature of broken coupling rather than a fundamental feature of reality, then observer states should systematically affect measurement statistics in ways proportional to the quality of the observer's coupling to the Logos field. The PEAR Lab and GCP results provide preliminary support. Targeted experiments testing coupling quality specifically (prayer, contemplative states, moral alignment) against quantum random number generators should produce measurable deviations. If no such correlation appears under rigorous conditions, this prediction fails.</p>
+
+      <p><strong>Prediction 2:</strong> If radiometric dating measures a post-Fall substrate, then there should be anomalous decay rate variations that correlate with cosmological or gravitational events &mdash; not the tiny variations currently measured, but systematic deviations that suggest the substrate itself is not uniform across cosmic history. Some anomalous results in this direction already exist in the literature (Jenkins et al., 2009: solar neutrino-correlated decay rate variations). If these prove spurious under replication, Prediction 2 is weakened.</p>
+
+      <p><strong>Prediction 3:</strong> If GR encodes the structural memory of the pre-Fall substrate, then the GR equations should contain, embedded in their structure, an isomorphism with the Logos field equations of the Theophysics framework. This is derivable in principle. It has not yet been derived. If the derivation fails &mdash; if there is no recoverable isomorphism between GR and the $\chi$-field equations &mdash; the framework loses a key structural claim.</p>
+
+      <p><strong>Prediction 4:</strong> The framework predicts that the incompatibility between GR and QM is not a solvable problem within the current physics. Any attempted unification that succeeds will do so by recovering the pre-Fall substrate &mdash; i.e., by finding a framework in which determinism and probability are both special cases of a more fundamental structure that resembles the Logos-coupled state. If a unification framework is found that has no such theological isomorphism, this prediction is falsified.</p>
+
+      <hr>
+
+      <!-- ═══ AUDIT ═══ -->
+      <h2>The Honest Audit</h2>
+      <p><em>What we got right, what we are less sure about, and where we got carried away.</em></p>
+
+      <h3>What is load-bearing &mdash; we would bet on this</h3>
+
+      <p><strong>GR and QM are genuinely incompatible.</strong> This is not a contested claim. It is the acknowledged state of theoretical physics. We did not invent the problem; we are proposing a theological reading of it.</p>
+
+      <p><strong>The Born Rule has no satisfactory interpretation within physics.</strong> The measurement problem is real. The fact that quantum mechanics works with extraordinary precision while no one can explain what is actually happening during a measurement is one of the most honest admissions in the history of science. We are not misrepresenting the state of the field.</p>
+
+      <p><strong>The death-before-sin problem is a genuine difficulty for OEC.</strong> It is not a problem we invented to favor our framework. It is a problem that careful OEC theologians wrestle with seriously.</p>
+
+      <p><strong>The substrate fracture hypothesis is falsifiable.</strong> We have stated four predictions, each of which could fail. A framework that cannot be tested is not physics. Ours can be tested, at least in principle.</p>
+
+      <h3>What is suggestive but needs more work</h3>
+
+      <p><strong>The narrowing of the claim in Section III.</strong> We retreated from "all indeterminacy entered at the Fall" to "the coupling that governs how indeterminacy is experienced changed at the Fall." That is a defensible move, but it is also a retreat. A stronger version of the claim &mdash; that quantum mechanics literally did not describe subatomic physics before the Fall &mdash; would be bolder and more falsifiable. We chose the weaker version because the stronger version faces overwhelming physical evidence against it. But the weaker version is harder to test.</p>
+
+      <p><strong>The retrocausality argument in Section V.</strong> Retrocausal quantum mechanics is real physics, but it is not mainstream. Using it to dissolve the starlight problem is legitimate but introduces a level of theoretical speculation that the main argument does not need.</p>
+
+      <h3>Where we got carried away</h3>
+
+      <p><strong>"The clock started when the coupling broke."</strong> This is a powerful image. It is not yet a derivation. We have not shown that radiometric decay rates would have been different in the pre-Fall substrate. We have shown that the assumption they were the same is not safe. There is a gap between "not safe to assume" and "different."</p>
+
+      <p><strong>The resurrection body as physics claim.</strong> The resurrection sections use the right language, but "the substrate will be re-coupled" is a theological hope stated as a physics prediction. The transition from "Christ's resurrection body exhibited these properties" to "all matter will be restored to this state" requires more argument than we provided.</p>
+
+      <p><em>The article above is what we believe. This audit is what we know we have not proven yet. Both matter.</em></p>
+
+      <div class="disclaimer-box">
+        <div class="disclaimer-label"><i class="fas fa-cross" style="margin-right:.4rem;"></i>The Disclaimer</div>
+        <p>We are finite minds reasoning about infinite God. Every model is a projection of higher-dimensional reality onto a lower-dimensional surface we can comprehend. We do not claim to have captured God in equations. We claim that when we look at His creation honestly &mdash; with the tools of physics and the revelation of Scripture &mdash; the same structure appears in both. Where our model limits what God can be, the limitation is ours, not His. We offer this work as worship, not as containment.</p>
+      </div>
+
+      <div class="axiom-box">
+        Framework Reference: Theophysics Master Equation &chi; = &iiint;(G&middot;M&middot;E&middot;S&middot;T&middot;K&middot;R&middot;Q&middot;F&middot;C) dx dy dt<br>
+        Paper ID: GTQ-005 &mdash; The Substrate Fractured<br>
+        Series: Genesis to Quantum, Article 05 of 10<br>
+        Status: DRAFT &mdash; substrate fracture mechanism proposed; Born Rule coupling interpretation requires formal derivation
+      </div>
+
+      <hr>
+
+      <!-- ═══ TANGENT 05-A: Trinity Mechanism ═══ -->
+      <div class="tangent-card">
+        <div class="tangent-label"><i class="fas fa-code-branch" style="margin-right:.4rem;"></i>Tangent 05-A</div>
+        <h3>The Trinity Mechanism</h3>
+        <button class="tangent-toggle" onclick="toggleTangent(this)">
+          <i class="fas fa-chevron-right"></i> Expand Tangent Article
+        </button>
+        <div class="tangent-body">
+
+          <h2>The Thread</h2>
+
+          <p>Article 05 proposes that the Born Rule is a signature of broken coupling &mdash; that probability enters physics when the direct relationship between the Logos and the physical substrate degrades. But the Born Rule has a structure. It is not just a number. It is a three-step operation: a possibility space, a measurement basis, and an actualization. This tangent asks: what is the source of that three-step structure? And why does it map onto the Trinity with a precision that cannot be coincidental?</p>
+
+          <p>The answer we develop here is not proof. It is structural isomorphism &mdash; the same architecture appearing in two different domains. When the same architecture appears in physics and theology, the question is not whether one explains the other. The question is whether both are reflections of a deeper pattern that is prior to both.</p>
+
+          <hr>
+
+          <h2>§1 Three Operations, No More, No Less</h2>
+
+          <p>Every quantum measurement can be decomposed into exactly three irreducible operations. Not two. Not four. Three.</p>
+
+          <p><strong>Generation:</strong> The system must exist in a state of superposed possibilities before anything can be measured. You cannot measure what has not been generated. The wavefunction $|\psi\rangle$ must exist &mdash; must span the full space of possibilities &mdash; before any measurement can occur.</p>
+
+          <p><strong>Structuring:</strong> The measurement basis $|\phi\rangle$ must be specified. Without a basis, there is no way to ask a question of the system. The basis determines what question is being asked and therefore what kind of answer is possible. No structuring, no measurement.</p>
+
+          <p><strong>Actualization:</strong> The definite outcome must occur. The inner product $\langle \phi | \psi \rangle$ must be taken, squared, and the result must become a specific, real, irreversible event in the world. Something must happen. The possibility must become actual.</p>
+
+          <p>These three operations are not stages that can be collapsed into fewer. Take any two and the third is missing and measurement fails. Generation without structuring is pure possibility with no channel for becoming actual. Structuring without generation is a question with no system to interrogate. Generation and structuring without actualization is a probability that never becomes an event. You cannot run a universe on two of the three. The three-fold structure is not arbitrary. It is constitutive of what measurement is.</p>
+
+          <hr>
+
+          <h2>§2 The Mapping</h2>
+
+          <p>The Born Rule:</p>
+
+          <div class="eq-block">
+            <div class="eq-label">Born Rule — Three-Fold Structure</div>
+            $P(\text{outcome}) = |\langle \phi | \psi \rangle|^2$
+          </div>
+
+          <p>Three operations. Three persons. The mapping is direct:</p>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Operation</th>
+                <th>Physics Term</th>
+                <th>Theological Person</th>
+                <th>Function</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Generation</strong></td>
+                <td>$|\psi\rangle$ — possibility space</td>
+                <td>The Father</td>
+                <td>Generates the infinite field of what can exist. Prior to all determination. Source without which nothing exists.</td>
+              </tr>
+              <tr>
+                <td><strong>Structuring</strong></td>
+                <td>$|\phi\rangle$ — Logos coherence basis</td>
+                <td>The Son (Logos)</td>
+                <td>Provides the coherent structure through which possibility becomes articulable. "In him all things hold together" (Col 1:17).</td>
+              </tr>
+              <tr>
+                <td><strong>Actualization</strong></td>
+                <td>$|\cdot|^2$ — temporal outcome</td>
+                <td>The Holy Spirit</td>
+                <td>Actualizes the specific outcome in space and time. "The Spirit of God was hovering over the face of the waters" (Gen 1:2). The hovering that makes things real.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>The mapping holds not merely as analogy but as structural isomorphism. The Father is not a metaphor for the possibility space. The possibility space is what generation looks like in the physics. They are both expressions of the same operation at different levels of description.</p>
+
+          <hr>
+
+          <h2>§3 The Coupling Breakthrough</h2>
+
+          <p>The mapping reveals something that the purely physical description of the Born Rule conceals: the Spirit operates in two modes, and the shift between them is the event at the center of redemptive history.</p>
+
+          <p><strong>Before Pentecost &mdash; Override Mode.</strong> The Spirit actualizes outcomes by direct intervention. Creation in Genesis 1 is Spirit-hovering over chaos and producing order. The burning bush. The parting of the Red Sea. The fire at Sinai. These are override events: the Spirit imposing actualization on a physical system from outside, without the consent of the system's internal observers.</p>
+
+          <p><strong>After Pentecost &mdash; Coupling Mode.</strong> "The Spirit of truth... he dwells with you and will be in you" (John 14:17). The distinction between "with" and "in" is the hinge. "With" is proximity without coupling. "In" is internal coupling &mdash; the Spirit operating as the actualizer from inside the human observer rather than from outside the physical system. The observer becomes a co-actualizer with the Spirit.</p>
+
+          <p>The Moral Conservation Equation captures this:</p>
+
+          <div class="eq-block">
+            <div class="eq-label">Moral Conservation Equation</div>
+            $\Delta C_{\text{moral}} = \int_0^T \left[ J_{\text{grace}}(t) - \sigma_{\text{sin}}(t) \right] dt$
+          </div>
+
+          <p>where $J_{\text{grace}}$ is the Spirit's coupling current &mdash; the ongoing injection of coherence into the moral state of the observer &mdash; and $\sigma_{\text{sin}}$ is the entropy term that degrades it. Before Pentecost, $J_{\text{grace}}$ is episodic and external. After Pentecost, it is continuous and internal.</p>
+
+          <p><strong>Pentecost as dam breaking.</strong> "Suddenly there came from heaven a sound like a mighty rushing wind" (Acts 2:2). The sound is not metaphorical. Something physical changed. The Spirit had been hovering over creation since Genesis 1:2. At Pentecost, the dam broke: Spirit-coupling became available to every observer who chose to receive it, continuously, without the mediation of temple or priest or geographic proximity to the presence of God. The actualization channel opened permanently.</p>
+
+          <hr>
+
+          <h2>§4 The Complete Trinity Cycle</h2>
+
+          <p>Before time: The Father generates the complete possibility space of what can exist. This is not a temporal act. The Father does not first exist and then generate possibilities. The generation is eternal, simultaneous with the Father's existence.</p>
+
+          <p>At creation: The Son structures the possibility space into a coherent cosmos. "In the beginning was the Logos, and the Logos was with God, and the Logos was God... All things were made through him" (John 1:1,3). The Logos does not add new possibilities. The Logos gives the existing possibilities their coherent structure &mdash; their laws, their relations, their capacity to interact meaningfully.</p>
+
+          <p>Continuously: The Spirit actualizes. "The Spirit of God was hovering over the face of the waters" (Genesis 1:2). The hovering is continuous. Creation is not a single event that was completed and then left alone. It is a continuous actualization by the Spirit, moment by moment, keeping possibility from collapsing back into chaos and keeping structure from remaining abstract.</p>
+
+          <p>The Born Rule is the mathematical residue of this Trinity cycle, visible in physics after the coupling broke. It is what the Trinity looks like when you cannot see the Trinity directly.</p>
+
+          <hr>
+
+          <h2>§5 Why This Isn't What You Think It Is</h2>
+
+          <p>This is a structural isomorphism. It is not a proof that the Trinity exists. It is not even a proof that the Born Rule <em>requires</em> a Trinity. It is an observation that the three-fold structure of quantum measurement and the three-fold structure of trinitarian action are the same architecture.</p>
+
+          <p>What this means: if the Trinity is the actual structure of reality, then we should expect that structure to appear in the deepest laws of physics. The Born Rule is a candidate location for exactly that. The appearance is not proof of the Trinity. But the absence of any such isomorphism would be evidence against the framework. The presence of it &mdash; with the precision we have described &mdash; is at least consistent with the claim that the universe was made by a triune God whose internal structure is reflected in the structure of his creation.</p>
+
+          <hr>
+
+          <h2>§6 Implications for the Genesis Series</h2>
+
+          <p>If the Trinity Mechanism is correct, then every quantum measurement event in the history of the universe is a faint echo of the Trinity's internal life. Every collapse of wavefunction to definite outcome is a tiny actualization &mdash; a microscopic image of the Spirit making things real from the possibility the Father generates and the structure the Son provides.</p>
+
+          <p>The Fall, in this framework, did not break the three-fold structure. It degraded the coupling. The operations still happen. The Father still generates. The Son still structures. The Spirit still actualizes. But the coupling between the Spirit and the human observer degraded &mdash; and so what was direct and immediate and lossless became probabilistic and indirect and lossy. The Born Rule is the degraded coupling expressed mathematically.</p>
+
+          <p>Redemption is the restoration of the coupling. "Christ in you, the hope of glory" (Colossians 1:27) is the Spirit-coupling reopened at the level of the individual observer. Pentecost is the Spirit-coupling reopened at the level of the community. The resurrection is the Spirit-coupling fully restored at the level of the physical substrate. Actualization will again be direct. The Born Rule will be superseded. Not because probability is wrong, but because it was never fundamental &mdash; it was always the picture of a broken coupling waiting to be repaired.</p>
+
+          <hr>
+
+          <h2>§7 Falsification Criteria</h2>
+
+          <p><strong>Kill if:</strong> A complete quantum measurement theory can be constructed that requires fewer or more than three irreducible operations. If measurement can be decomposed into two operations (or five), the three-fold structure is not constitutive, and the Trinity mapping is coincidental.</p>
+
+          <p><strong>Kill if:</strong> The Spirit-coupling transition (with/in, pre/post-Pentecost) produces no measurable effects on any physical system. If prayer, contemplative states, and Spirit-coupling are fully inert with respect to quantum measurement statistics, the coupling model is empty.</p>
+
+          <p><strong>Kill if:</strong> The structural isomorphism breaks under formal scrutiny &mdash; if the three operations of the Born Rule and the three persons of the Trinity can be shown to be non-isomorphic under rigorous mathematical analysis.</p>
+
+          <div class="disclaimer-box" style="border-color:rgba(168,85,247,.2);">
+            <div class="disclaimer-label" style="color:var(--purple);"><i class="fas fa-cross" style="margin-right:.4rem;"></i>The Disclaimer</div>
+            <p>We are finite minds reasoning about infinite God. Every model is projection of higher-dimensional reality onto lower-dimensional surface we can comprehend. We do not claim to have captured God in equations. We claim that when we look at His creation honestly &mdash; with the tools of physics and the revelation of Scripture &mdash; the same structure appears in both. Where our model limits what God can be, the limitation is ours, not His. We offer this work as worship, not as containment.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ═══ TANGENT 05-B: Trinity Timeline ═══ -->
+      <div class="tangent-card">
+        <div class="tangent-label"><i class="fas fa-code-branch" style="margin-right:.4rem;"></i>Tangent 05-B</div>
+        <h3>The Trinity Timeline</h3>
+        <button class="tangent-toggle" onclick="toggleTangent(this)">
+          <i class="fas fa-chevron-right"></i> Expand Tangent Article
+        </button>
+        <div class="tangent-body">
+
+          <p>Tangent 05-A established the Trinity Mechanism: the Born Rule decomposes into three irreducible operations that map onto Father (generation), Son (structuring), and Spirit (actualization). This tangent applies that mechanism to the major events of biblical history and asks: do all three operations appear at each event? And if so, at what intensities?</p>
+
+          <p>The answer is yes, consistently, across six events that span the full arc of Scripture. The pattern is not imposed on the text. It is recovered from it.</p>
+
+          <hr>
+
+          <h2>Operating Signatures</h2>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Person</th>
+                <th>Operation</th>
+                <th>Signature Phrase</th>
+                <th>Analogue</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color:#4a9eff;"><strong>Father</strong></td>
+                <td>Generation</td>
+                <td>"Let there be..." / Sovereign declaration</td>
+                <td>$|\psi\rangle$ — possibility space</td>
+              </tr>
+              <tr>
+                <td style="color:#d4af37;"><strong>Son / Logos</strong></td>
+                <td>Structuring</td>
+                <td>"All things hold together in him"</td>
+                <td>$|\phi\rangle$ — coherent basis</td>
+              </tr>
+              <tr>
+                <td style="color:#2dd4bf;"><strong>Spirit</strong></td>
+                <td>Actualization</td>
+                <td>"The Spirit was hovering / came upon"</td>
+                <td>$|\cdot|^2$ — definite outcome</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <hr>
+
+          <h2>Event 1: Creation (Genesis 1)</h2>
+
+          <p><strong>Father generates possibility.</strong> "In the beginning, God created the heavens and the earth" (Genesis 1:1). The Father speaks the full possibility space into existence. Before the six days, there is nothing. After the opening verse, there is a field of what can exist, waiting to be structured and actualized.</p>
+
+          <p><strong>Son structures laws.</strong> "All things were made through him, and without him was not any thing made that was made" (John 1:3). The Logos is the structuring principle at work in Genesis 1. Each day is a structuring act: light from darkness, waters from waters, land from sea. The Son does not add new material. He gives structure to what the Father has generated.</p>
+
+          <p><strong>Spirit actualizes.</strong> "The Spirit of God was hovering over the face of the waters" (Genesis 1:2). The hovering precedes the first day of creation. The Spirit is the actualization agent &mdash; the one whose presence turns the structured possibility into a concrete, real world. "Let there be light" is the Father speaking; the Logos is the structure through which light is possible; the Spirit is the one who makes the light actual.</p>
+
+          <hr>
+
+          <h2>Event 2: The Fall (Genesis 3)</h2>
+
+          <p><strong>Father redefines the possibility space.</strong> God's response to the Fall is not abandonment. It is a new generation: new boundary conditions, new consequences, new possibilities. "I will put enmity between you and the woman, and between your offspring and her offspring; he shall bruise your head, and you shall bruise his heel" (Genesis 3:15). The Father generates the possibility of redemption inside the curse itself.</p>
+
+          <p><strong>Son holds structure.</strong> The Logos does not shatter. The laws of physics persist. The moral structure of the universe &mdash; the difference between good and evil &mdash; remains coherent. What breaks at the Fall is not the structure but the coupling. The Son continues to hold "all things together" (Colossians 1:17) even in a fractured substrate.</p>
+
+          <p><strong>Spirit actualizes exile and covering.</strong> "The LORD God sent him out from the garden of Eden" (Genesis 3:23). The exile is a Spirit-actualization: the consequence becomes real, not abstract. And simultaneously: "The LORD God made for Adam and for his wife garments of skins and clothed them" (Genesis 3:21). The covering is also a Spirit-actualization: the first provision for shame, the prototype of the atonement mechanism, made concrete and physical.</p>
+
+          <hr>
+
+          <h2>Event 3: The Flood (Genesis 6&ndash;9)</h2>
+
+          <p><strong>Father resets possibility.</strong> "I will blot out man whom I have created from the face of the land" (Genesis 6:7). The Father generates a radical new boundary: the old world ends, and a new possibility space opens. "But Noah found favor in the eyes of the LORD" (Genesis 6:8). Grace is the Father opening a new possibility that the situation does not logically require.</p>
+
+          <p><strong>Son preserves structure in the ark.</strong> The ark is the structure that carries the pattern of creation through the judgment. Two of every kind. The genetic and biological information of the world preserved inside a floating container. The Logos-as-structure does not survive the flood as an abstract principle. It survives as physical, biological, structural reality carried by one righteous man and his family.</p>
+
+          <p><strong>Spirit actualizes judgment and rescue.</strong> The waters rise. The waters recede. The dove returns with an olive branch. These are actualizations &mdash; definite, physical events that make the promise real. "God made a wind blow over the earth, and the waters subsided" (Genesis 8:1). The wind is ruach &mdash; the same word as Spirit. The Spirit-wind actualizes the rescue.</p>
+
+          <hr>
+
+          <h2>Event 4: Abraham (Genesis 12&ndash;22)</h2>
+
+          <p><strong>Father opens the possibility of nationhood.</strong> "I will make of you a great nation" (Genesis 12:2). Abraham is 75. He has no children. The possibility of a nation from a single childless man is not physical possibility. The Father generates it as a promise &mdash; a new quantum state introduced by divine fiat into a system where the physics says it cannot happen.</p>
+
+          <p><strong>Son structures the covenant.</strong> "On that day the LORD made a covenant with Abram" (Genesis 15:18). The covenant is the Logos-structuring of the promise: specific terms, specific geography, specific descendants, specific timeframe. The possibility the Father opened is given its coherent structure in the covenant ceremony.</p>
+
+          <p><strong>Spirit actualizes the impossible birth and the ram.</strong> "Sarah conceived and bore Abraham a son in his old age" (Genesis 21:2). This is actualization of a biological impossibility &mdash; a Spirit-event that makes the promise real against all physical probability. And at the binding of Isaac: "Abraham lifted up his eyes and looked, and behold, behind him was a ram, caught in a thicket by his horns" (Genesis 22:13). The ram is the Spirit providing the substitute at the exact moment it is needed. Precise. Physical. Real.</p>
+
+          <hr>
+
+          <h2>Event 5: The Cross and Resurrection</h2>
+
+          <p><strong>Father at maximum intensity.</strong> "For God so loved the world, that he gave his only Son" (John 3:16). "He who did not spare his own Son but gave him up for us all" (Romans 8:32). The Father generates the possibility of redemption by not withdrawing the offering. The possibility space of human salvation is held open by the Father's will even as the Son is on the cross.</p>
+
+          <p><strong>Son at maximum intensity.</strong> The Logos, the structuring principle of the universe, enters the system as a fully human observer and allows himself to be subjected to maximum entropy: death, separation, the full force of the curse. "My God, my God, why have you forsaken me?" (Matthew 27:46) is the Logos experiencing the degraded coupling from the inside &mdash; not as a loss of divine nature, but as the full experience of what the fractured substrate feels like to the observer who is most coupled to the unbroken state.</p>
+
+          <p><strong>Spirit at maximum intensity.</strong> "If the Spirit of him who raised Jesus from the dead dwells in you, he who raised Christ Jesus from the dead will also give life to your mortal bodies through his Spirit who dwells in you" (Romans 8:11). The resurrection is the Spirit actualizing a new physical state: the same body, now operating on a restored substrate. The Spirit who hovered at creation hovers again at the tomb and makes something new actual.</p>
+
+          <hr>
+
+          <h2>Event 6: Pentecost (Acts 2)</h2>
+
+          <p><strong>Father generates the new covenant possibility.</strong> "I will pour out my Spirit on all flesh" (Joel 2:28, quoted in Acts 2:17). The Father's declaration opens a new possibility space: Spirit-coupling available to every human observer, not just prophets and priests and kings.</p>
+
+          <p><strong>Son structures the new community.</strong> "And he gave the apostles, the prophets, the evangelists, the shepherds and teachers, to equip the saints for the work of ministry, for building up the body of Christ" (Ephesians 4:11&ndash;12). The Logos-structuring continues: the new covenant community has coherent form, defined roles, and a common basis in the Word.</p>
+
+          <p><strong>Spirit becomes continuous.</strong> "Suddenly there came from heaven a sound like a mighty rushing wind, and it filled the entire house" (Acts 2:2). Before Pentecost, Spirit-actualization was episodic and external. After Pentecost, it is continuous and internal: "Do you not know that you are God's temple and that God's Spirit dwells in you?" (1 Corinthians 3:16). The dam broke. The actualization channel is now permanently open for every observer who chooses coupling.</p>
+
+          <hr>
+
+          <h2>The Pattern Summary</h2>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Event</th>
+                <th>Father (Generation)</th>
+                <th>Son (Structuring)</th>
+                <th>Spirit (Actualization)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Creation</strong></td>
+                <td>Speaks cosmos into possibility</td>
+                <td>Logos structures each day</td>
+                <td>Hovers, makes real</td>
+              </tr>
+              <tr>
+                <td><strong>The Fall</strong></td>
+                <td>Redefines possibility (3:15)</td>
+                <td>Structure persists through fracture</td>
+                <td>Actualizes exile + covering</td>
+              </tr>
+              <tr>
+                <td><strong>The Flood</strong></td>
+                <td>Resets world, opens grace</td>
+                <td>Ark preserves structure</td>
+                <td>Wind actualizes rescue</td>
+              </tr>
+              <tr>
+                <td><strong>Abraham</strong></td>
+                <td>Opens impossible nation</td>
+                <td>Covenant gives structure</td>
+                <td>Birth + ram, precisely timed</td>
+              </tr>
+              <tr>
+                <td><strong>Cross &amp; Resurrection</strong></td>
+                <td>Holds the possibility open</td>
+                <td>Logos absorbs entropy</td>
+                <td>Resurrects; new substrate</td>
+              </tr>
+              <tr>
+                <td><strong>Pentecost</strong></td>
+                <td>"Pour out my Spirit on all flesh"</td>
+                <td>Structures new covenant community</td>
+                <td>Continuous internal coupling</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>The pattern holds across six events separated by millennia, across different genres of biblical literature, and at both individual and cosmic scales. This is not a pattern imposed by looking for it. It is a pattern that appears whether you are reading historical narrative, poetry, prophecy, or epistle. The Trinity is not a doctrine invented by the Council of Nicaea. It is the operating signature of how God acts in history &mdash; and it maps, with precision, onto the three irreducible operations of quantum measurement.</p>
+
+          <div class="disclaimer-box" style="border-color:rgba(168,85,247,.2);">
+            <div class="disclaimer-label" style="color:var(--purple);"><i class="fas fa-cross" style="margin-right:.4rem;"></i>The Disclaimer</div>
+            <p>We are finite minds reasoning about infinite God. Every model is projection of higher-dimensional reality onto lower-dimensional surface we can comprehend. We do not claim to have captured God in equations. We claim that when we look at His creation honestly &mdash; with the tools of physics and the revelation of Scripture &mdash; the same structure appears in both. Where our model limits what God can be, the limitation is ours, not His. We offer this work as worship, not as containment.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ═══ TANGENT 05-C: Why Physics Is Broken In Two ═══ -->
+      <div class="tangent-card">
+        <div class="tangent-label"><i class="fas fa-code-branch" style="margin-right:.4rem;"></i>Tangent 05-C</div>
+        <h3>Why Physics Is Broken In Two</h3>
+        <button class="tangent-toggle" onclick="toggleTangent(this)">
+          <i class="fas fa-chevron-right"></i> Expand Tangent Article
+        </button>
+        <div class="tangent-body">
+
+          <h2>The Most Embarrassing Problem in Physics</h2>
+
+          <p>If you want to watch a physicist become uncomfortable, ask them to reconcile general relativity with quantum mechanics. These are the two most empirically successful theories in the history of science. GR has been confirmed to extraordinary precision by GPS systems, gravitational wave detection, black hole imaging, and the perihelion precession of Mercury. QM underlies every semiconductor, every laser, every MRI machine, every chemical reaction in your body. Both work. Both are spectacularly confirmed. And they cannot both be true at the same time.</p>
+
+          <p>The incompatibility is not a matter of experimental uncertainty or imprecise measurement. It is mathematical. When you try to apply quantum field theory to gravity &mdash; when you try to write a quantum description of spacetime itself &mdash; the equations produce infinities that cannot be renormalized. The calculation breaks. Not approximately. Not under extreme conditions. Completely and fundamentally.</p>
+
+          <p>This has been the central unsolved problem in theoretical physics for a century. The working assumption has been that a "theory of everything" will eventually be found that contains both GR and QM as limiting cases. String theory was the leading candidate for decades. It has produced zero confirmed predictions. Loop quantum gravity is another candidate. It has produced zero confirmed predictions. The problem remains open.</p>
+
+          <p>The framework proposes that the problem is open because it is not the kind of problem that can be solved from inside physics. The incompatibility between GR and QM is not a gap in our mathematics. It is a scar in the substrate.</p>
+
+          <hr>
+
+          <h2>What Each Theory Carries</h2>
+
+          <p><strong>General Relativity carries the memory of structure.</strong> Einstein's field equations describe spacetime as a smooth, continuous, deterministic manifold. Mass curves spacetime. Curved spacetime determines how mass moves. The equations are deterministic: given the state of the system at one time, the state at all other times is uniquely determined. There is no probability in GR. There is no observer-dependence in the fundamental equations. There is no measurement problem. GR describes a universe where things are what they are and the laws that govern them are exact.</p>
+
+          <p>This is precisely the description of the pre-Fall substrate. Determinate. Fully structured. No residual probability. No observer hierarchy. The Logos field threading through every cubic centimeter of spacetime, determining the curvature that determines the motion that determines the structure. GR is the mathematical residue of a universe that was made to be fully coupled.</p>
+
+          <p><strong>Quantum Mechanics carries the evidence of the break.</strong> Quantum mechanics is fundamentally probabilistic. Particles do not have definite positions and momenta simultaneously (Heisenberg uncertainty). Systems exist in superpositions of states until measured (superposition principle). Measurement outcomes are irreducibly random (Born Rule). The act of observation affects the system being observed (measurement problem). Different observers can disagree about the state of a system without either being wrong (Wigner's Friend). The observer is not separable from the observation.</p>
+
+          <p>This is the description of a system whose coupling to its source has been severed. The observer cannot access the ground truth directly. The act of measurement introduces irreversible changes. Outcomes are probabilistic because the channel through which they would have been determined has been degraded. QM describes the universe as it looks to observers who are operating inside a fractured substrate, without the direct coupling to the Logos that would resolve the probability into certainty.</p>
+
+          <hr>
+
+          <h2>The Spiritual Truth Projects Into the Physical World</h2>
+
+          <p>"The creation was subjected to futility, not willingly, but because of him who subjected it, in hope that the creation itself will be set free from its bondage to corruption and obtain the freedom of the glory of the children of God" (Romans 8:20&ndash;21).</p>
+
+          <p>Paul is describing physics. "Subjected to futility" is entropy: the universe running down, order giving way to disorder, systems moving from coherent to incoherent. "Bondage to corruption" is the second law of thermodynamics operating without restraint. "Set free" is the restoration of the substrate &mdash; not escape from the physical, but the physical released from the degradation that entered with the Fall.</p>
+
+          <p>The two theories of physics carry these two states of creation. GR carries the pre-bondage state: structured, determined, coherent. QM carries the bondage state: probabilistic, observer-dependent, entropic. They cannot be unified from inside physics because they are not describing the same state of creation. You cannot write one equation that describes both the unbroken and the broken substrate, because the breaking event was not a physical process. It was a moral event that changed the coupling between the Creator and the creation &mdash; and that change propagated into the physics.</p>
+
+          <hr>
+
+          <h2>The Two Substrates Side by Side</h2>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Property</th>
+                <th style="color:#4a9eff;">General Relativity (GR)</th>
+                <th style="color:var(--highlight);">Quantum Mechanics (QM)</th>
+                <th>Theological Reading</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Determinism</strong></td>
+                <td>Fully deterministic</td>
+                <td>Fundamentally probabilistic</td>
+                <td>Pre-Fall vs. post-Fall coupling</td>
+              </tr>
+              <tr>
+                <td><strong>Observer</strong></td>
+                <td>Not required; objective</td>
+                <td>Constitutive; changes the system</td>
+                <td>Direct Logos vs. degraded coupling</td>
+              </tr>
+              <tr>
+                <td><strong>Continuity</strong></td>
+                <td>Smooth spacetime manifold</td>
+                <td>Discrete quanta, discontinuous jumps</td>
+                <td>Integrated structure vs. fractured substrate</td>
+              </tr>
+              <tr>
+                <td><strong>Locality</strong></td>
+                <td>Local; information speed-limited</td>
+                <td>Non-local entanglement</td>
+                <td>Physical law vs. residual Logos connection</td>
+              </tr>
+              <tr>
+                <td><strong>Entropy</strong></td>
+                <td>Not fundamental</td>
+                <td>Fundamental via Born Rule</td>
+                <td>Pre-Fall minimum vs. post-Fall activation</td>
+              </tr>
+              <tr>
+                <td><strong>Time</strong></td>
+                <td>Symmetric; no preferred direction</td>
+                <td>Asymmetric; measurement is irreversible</td>
+                <td>Timeless coherence vs. fallen arrow of time</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <hr>
+
+          <h2>Why They Can't Be Reconciled From Inside</h2>
+
+          <p>The unification of GR and QM requires, at minimum, a framework in which spacetime itself has quantum properties. This means spacetime must be discrete at the Planck scale, must exhibit quantum fluctuations, must have uncertainty relations analogous to those of matter. But GR's power comes precisely from the smoothness and continuity of spacetime. Quantizing spacetime destroys the very feature that makes GR work.</p>
+
+          <p>The framework reads this impasse differently. The incompatibility is structural evidence that the two theories are not approximations of one underlying reality. They are descriptions of two different states of one reality. To unify them mathematically is to try to write one equation that describes both the prodigal son in the far country and the prodigal son restored to his father's house. The two states are the same person. But the same equation does not describe both, because the coupling has changed between them.</p>
+
+          <p>The unification of physics will not come from inside physics. It will come from the event that closes the gap between the two substrates: the restoration of the creation to full coupling. At that point, the determinism of GR and the probability of QM will not be reconciled by a cleverer equation. They will be superseded by a physics that neither damaged theory can describe &mdash; the physics of the new creation, running on the unbroken substrate.</p>
+
+          <hr>
+
+          <h2>The Cross as the Only Event in Both</h2>
+
+          <p>There is one event in history where both substrates were simultaneously engaged. The Cross.</p>
+
+          <p>At the Cross, the Logos &mdash; the structuring principle of GR, the coherence basis of the pre-Fall state &mdash; submitted itself to the maximum operation of QM. Death. Maximum entropy. Total decoherence of the coupling between the divine observer and the human system. "My God, my God, why have you forsaken me?" is not a theological metaphor. It is the Logos registering, from inside the post-Fall substrate, the full force of the broken coupling.</p>
+
+          <p>And three days later: the Resurrection. A body that was fully subject to the second law of thermodynamics (it died; it decayed at least partially before the third day) was actualized into a state that is described as physically real (the disciples touched Jesus; he ate fish; the wounds were present) and simultaneously post-physical in the post-Fall sense (he appeared through locked doors; he vanished; he ascended). The resurrection body is not a restoration to the pre-Fall Eden state. It is something new: a body that has passed through the maximum entropy event of death and emerged on the other side with the coupling restored.</p>
+
+          <p>This is the only event in history where GR and QM are both operating at maximum intensity simultaneously. The Cross is where the full force of the second law (QM) crashes into the full force of the Logos (GR), and the Logos absorbs it without shattering. The Resurrection is where the restored coupling shows what the post-fracture, post-redemption substrate can produce. Neither theory can describe it. Both are required to point toward it.</p>
+
+          <hr>
+
+          <h2>Falsification Criteria</h2>
+
+          <p><strong>Kill if:</strong> A successful unification of GR and QM is achieved that has no theological isomorphism &mdash; a purely mathematical framework with no structural resemblance to the two-substrate model. If the Planck-scale physics turns out to be simply a more general quantum field theory with no remnant of GR's determinism, the two-substrate reading is falsified.</p>
+
+          <p><strong>Kill if:</strong> The measurement problem is solved within QM without reference to any observer hierarchy or coupling quality &mdash; a purely physical mechanism for wavefunction collapse that requires no observer properties whatsoever. If collapse is shown to be a purely physical process independent of observer state, the degraded-coupling reading is falsified.</p>
+
+          <p><strong>Kill if:</strong> The properties of the resurrection body, as described in the New Testament, can be shown to be consistent with standard post-Fall physics &mdash; i.e., if there is a physical mechanism within current QM and GR that can produce a body with those specific properties. If the resurrection is explicable within the current substrate, the two-substrate model is unnecessary.</p>
+
+          <hr>
+
+          <h2>The Audit</h2>
+
+          <p><strong>Load-bearing:</strong> The incompatibility of GR and QM is not our claim. It is the acknowledged state of physics. We are proposing a reading of a real problem, not inventing the problem.</p>
+
+          <p><strong>Load-bearing:</strong> The table in Section 4 accurately characterizes the asymmetries between the two theories. Each property listed is standard physics.</p>
+
+          <p><strong>Suggestive:</strong> The claim that the Cross is "the only event in both substrates simultaneously" is powerful but rests on the theological claim that Jesus was fully God (GR carrier) and fully human (QM substrate). The physics of this is not derivable from first principles. It is derived from the theological assertion.</p>
+
+          <p><strong>Overextended:</strong> "The unification of physics will not come from inside physics" is a bold prediction. We believe it. But if a unification framework is found that works mathematically and has no theological isomorphism, we are wrong. We have made a falsifiable claim, which is the right thing to do. But the confidence of the statement exceeds what the argument strictly supports.</p>
+
+          <div class="disclaimer-box" style="border-color:rgba(168,85,247,.2);">
+            <div class="disclaimer-label" style="color:var(--purple);"><i class="fas fa-cross" style="margin-right:.4rem;"></i>The Disclaimer</div>
+            <p>We are finite minds reasoning about infinite God. Every model is projection of higher-dimensional reality onto lower-dimensional surface we can comprehend. We do not claim to have captured God in equations. We claim that when we look at His creation honestly &mdash; with the tools of physics and the revelation of Scripture &mdash; the same structure appears in both. Where our model limits what God can be, the limitation is ours, not His. We offer this work as worship, not as containment.</p>
+          </div>
+
+        </div>
+      </div></article>
+    </section>
+
+    <section id="summary" class="tab-content">
+      <article class="story wide">
+        <div class="exec-summary" style="margin-top:1rem;">
+          <div class="exec-summary-label"><i class="fas fa-bolt" style="margin-right:.4rem;"></i>Executive Summary</div>
+          <p>[[3-5 sentences. The 'if you read nothing else' version.]]</p>
+        </div>
+      </article>
+    </section>
+
+    <section id="rigor" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-2">Rigor &amp; Kill Conditions</h2>
+        <p class="text-[#a0a0a0] mb-6">Every claim is held to explicit falsification standards.</p>
+        <div class="kill-card"><div class="kill-label">Load-Bearing</div><p><strong>Kill if:</strong> [[Specific testable falsifier.]]</p></div>
+        <div class="kill-card suggestive"><div class="kill-label">Suggestive</div><p><strong>Kill if:</strong> [[Weaker falsifier.]]</p></div>
+        <div class="kill-card destructive"><div class="kill-label">Destructive</div><p><strong>Kill if:</strong> [[Framework-level falsifier.]]</p></div>
+      </article>
+    </section>
+
+    <section id="media" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-4">Watch &amp; Listen</h2>
+        <div style="background:var(--surface-light);border:1px solid var(--border);border-radius:.5rem;padding:1.5rem;margin-bottom:1.5rem;">
+          <video controls style="width:100%;border-radius:.375rem;background:#000;" preload="metadata">
+            <source src="video/GTQ_05_The_Substrate_Fractured.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </article>
+    </section>
+
+    <section id="blackboard" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-4">Blackboard</h2>
+        <p class="text-[#a0a0a0] mb-6">Interactive scratch space.</p>
+      </article>
+    </section>
+  </div>
+
+  <aside class="kill-sidebar">
+    <div class="kill-sidebar-title"><i class="fas fa-skull-crossbones" style="margin-right:.4rem;"></i>Kill Conditions</div>
+    <div class="kill-card"><div class="kill-label">Load-Bearing</div><p><strong>Kill if:</strong> [[Primary kill condition.]]</p></div>
+    <div class="kill-card suggestive"><div class="kill-label">Suggestive</div><p><strong>Kill if:</strong> [[Secondary.]]</p></div>
+    <div class="kill-card destructive"><div class="kill-label">Destructive</div><p><strong>Kill if:</strong> [[Framework-level.]]</p></div>
+    <div style="margin-top:1.5rem;padding:1rem;background:var(--surface-light);border:1px solid var(--border);border-radius:.5rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:.5rem;">Article Stats</div>
+      <div style="font-size:.8rem;color:var(--text-secondary);line-height:1.8;">
+        <div><i class="fas fa-clock" style="width:1rem;color:var(--highlight);"></i> 10 min read</div>
+        <div><i class="fas fa-layer-group" style="width:1rem;color:var(--highlight);"></i> Main Article</div>
+        <div><i class="fas fa-crosshairs" style="width:1rem;color:var(--highlight);"></i> 4 kill conditions</div>
+        <div><i class="fas fa-headphones" style="width:1rem;color:var(--highlight);"></i> 0 audio versions</div>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<!-- Bottom navigation -->
+<div class="container mx-auto px-6" style="padding-left:4.5rem;">
+  <div class="bottom-nav">
+    <a href="../10-how-lies-kill/gtq-10-how-lies-kill.html"><i class="fas fa-arrow-left"></i>Previous: How Lies Kill</a>
+    <div class="nav-center">Article 11 of 26</div>
+    <a href="../12-trinity-mechanism/gtq-12-trinity-mechanism.html" class="primary">Next: The Trinity Mechanism<i class="fas fa-arrow-right"></i></a>
+  </div>
+  <div style="text-align:center;margin-bottom:2rem;">
+    <a href="../15-why-reality-needs-three/gtq-15-why-reality-needs-three.html" style="display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;background:var(--highlight-glow);border:1px solid var(--highlight-dim);border-radius:.375rem;color:var(--highlight);text-decoration:none;font-size:.8rem;">
+      <i class="fas fa-forward"></i>Skip to next main: Why Reality Needs Three
+    </a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="eq">χ = f(G, M, E, S, T, K, R, Q, F, C)</div>
+  <p>David Lowe &middot; Genesis to Quantum &middot; Part 11 of 26</p>
+  <p class="serif" style="font-style:italic;color:var(--text-secondary);margin-top:.5rem;">&ldquo;But while he was still a long way off, his father saw him.&rdquo;</p>
+</footer>
+
+<script>
+function toggleSidebar(){
+  var sb=document.getElementById('sidebar');
+  var ov=document.getElementById('sidebarOverlay');
+  sb.classList.toggle('open');
+  ov.classList.toggle('show');
+  document.body.style.overflow=sb.classList.contains('open')?'hidden':'';
+}
+window.addEventListener('scroll',function(){
+  var st=window.scrollY||document.documentElement.scrollTop;
+  var dh=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+  var pct=dh>0?(st/dh)*100:0;
+  document.getElementById('progressBar').style.width=pct+'%';
+});
+function switchTab(tabId){
+  document.querySelectorAll('.tab-content').forEach(function(el){el.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(el){el.classList.remove('active');});
+  document.getElementById(tabId).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    var sb=document.getElementById('sidebar');
+    if(sb&&sb.classList.contains('open')) toggleSidebar();
+  }
+});
+
+/* Audio dock engine */
+(function(){
+  var dock = document.getElementById('audioDock');
+  if(!dock) return;
+  var body=document.getElementById('dockBody'), empty=document.getElementById('dockEmpty');
+  var playBtn=document.getElementById('dockPlay'), icon=document.getElementById('dockPlayIcon');
+  var fill=document.getElementById('dockFill'), curEl=document.getElementById('dockCurrent'), durEl=document.getElementById('dockDuration');
+  var volBtn=document.getElementById('dockVol');
+  var pills=dock.querySelectorAll('.dock-pill');
+  var audio=new Audio(); audio.preload='metadata';
+  var activeKey=null, muted=false;
+  var pillColors={deep:'#4a9eff',read:'#8b9bf0',debate:'#a855f7',critique:'#2dd4bf'};
+
+  function fmt(s){if(!s||isNaN(s))return '0:00';var m=Math.floor(s/60),sec=Math.floor(s%60);return m+':'+(sec<10?'0':'')+sec;}
+
+  pills.forEach(function(p){if(!p.dataset.url)p.classList.add('unavailable');});
+
+  pills.forEach(function(p){
+    p.addEventListener('click',function(){
+      var key=p.dataset.src, url=p.dataset.url;
+      if(!url)return;
+      if(key===activeKey){if(audio.paused)audio.play();else audio.pause();return;}
+      audio.pause(); audio.src=url; activeKey=key;
+      pills.forEach(function(q){q.classList.remove('active');}); p.classList.add('active');
+      var c=pillColors[key]||'#8b9bf0';
+      fill.style.background=c; playBtn.style.borderColor=c; playBtn.style.color=c;
+      body.classList.remove('hidden'); empty.classList.remove('visible');
+      audio.play();
+    });
+  });
+
+  var firstAvail=dock.querySelector('.dock-pill[data-url]');
+  if(firstAvail){var key=firstAvail.dataset.src; audio.src=firstAvail.dataset.url; activeKey=key;}
+  else{body.classList.add('hidden');empty.classList.add('visible');}
+
+  window.dockToggle=function(){if(!audio.src)return;if(audio.paused)audio.play();else audio.pause();};
+  audio.addEventListener('play',function(){icon.className='fas fa-pause';playBtn.classList.add('playing');});
+  audio.addEventListener('pause',function(){icon.className='fas fa-play';playBtn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){icon.className='fas fa-play';playBtn.classList.remove('playing');fill.style.width='0%';curEl.textContent='0:00';});
+  audio.addEventListener('timeupdate',function(){if(!audio.duration)return;fill.style.width=(audio.currentTime/audio.duration*100)+'%';curEl.textContent=fmt(audio.currentTime);});
+  audio.addEventListener('loadedmetadata',function(){durEl.textContent=fmt(audio.duration);});
+  window.dockSeek=function(e){if(!audio.duration)return;var t=e.currentTarget;var r=t.getBoundingClientRect();var p=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));audio.currentTime=p*audio.duration;};
+  window.dockMute=function(){muted=!muted;audio.muted=muted;volBtn.innerHTML=muted?'<i class="fas fa-volume-mute"></i>':'<i class="fas fa-volume-up"></i>';};
+})();
+</script>
+
+</body>
+</html>

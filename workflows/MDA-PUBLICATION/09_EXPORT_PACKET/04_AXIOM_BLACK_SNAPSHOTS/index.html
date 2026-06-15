@@ -1,0 +1,942 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MDA Axiom Black Snapshots</title>
+  <style>
+    :root {
+      --bg: #050608;
+      --panel: #0d1117;
+      --panel2: #111821;
+      --ink: #e8edf2;
+      --muted: #8d9baa;
+      --line: #25313f;
+      --gold: #d7b56d;
+      --cyan: #78c7d6;
+      --green: #80c783;
+      --red: #d77b7b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: ui-sans-serif, system-ui, Segoe UI, Arial, sans-serif;
+      line-height: 1.45;
+    }
+    a { color: inherit; }
+    .hero {
+      padding: 48px clamp(20px, 5vw, 72px) 28px;
+      border-bottom: 1px solid var(--line);
+      background: #070a0f;
+    }
+    .hero.compact { padding-top: 28px; }
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    h1 { margin: 0; font-size: clamp(30px, 5vw, 64px); line-height: 1.02; letter-spacing: 0; }
+    h2 { margin: 0 0 14px; font-size: 16px; color: var(--gold); }
+    .hero p { max-width: 900px; color: var(--muted); font-size: 17px; }
+    .hero-actions a, .back {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      text-decoration: none;
+      border-radius: 6px;
+    }
+    .dashboard {
+      padding: 26px clamp(16px, 4vw, 46px) 60px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 14px;
+    }
+    .paper-card, section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .paper-card.high { border-color: rgba(128,199,131,.55); }
+    .paper-card.mid { border-color: rgba(120,199,214,.45); }
+    .paper-card.low { border-color: rgba(215,123,123,.45); }
+    .paper-title {
+      display: block;
+      color: var(--ink);
+      font-weight: 800;
+      text-decoration: none;
+      font-size: 16px;
+      overflow-wrap: anywhere;
+    }
+    .paper-sub { color: var(--muted); font-size: 13px; margin: 4px 0 12px; }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin: 10px 0;
+    }
+    .metric-grid.big { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .metric-grid div {
+      background: var(--panel2);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px;
+      min-width: 0;
+    }
+    .metric-grid span { display: block; color: var(--muted); font-size: 11px; }
+    .metric-grid strong { display: block; margin-top: 2px; font-size: 13px; overflow-wrap: anywhere; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+    .chips span {
+      border: 1px solid #33465a;
+      background: #121b25;
+      color: #cdd7e1;
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 12px;
+    }
+    .chips.large span { font-size: 13px; padding: 6px 10px; }
+    .risk, .quote { color: #bac6d2; font-size: 13px; margin-bottom: 0; }
+    .paper-layout {
+      padding: 24px clamp(16px, 4vw, 46px) 60px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 16px;
+    }
+    .wide { grid-column: 1 / -1; }
+    .bar { margin: 13px 0; }
+    .bar-top { display: flex; justify-content: space-between; color: var(--muted); font-size: 13px; gap: 12px; }
+    .bar-top strong { color: var(--ink); }
+    .rail { height: 7px; background: #1a2330; border-radius: 999px; overflow: hidden; margin-top: 6px; }
+    .rail span { display: block; height: 100%; background: linear-gradient(90deg, var(--cyan), var(--gold)); }
+    pre {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      background: #070b10;
+      border: 1px solid #1c2633;
+      border-radius: 6px;
+      padding: 12px;
+      color: #bac6d2;
+      max-height: 520px;
+      overflow: auto;
+    }
+  </style>
+</head>
+<body>
+
+        <header class="hero">
+          <p class="eyebrow">MDA Snapshot View</p>
+          <h1>Axiom Black Snapshots</h1>
+          <p>One black-panel audit card for every deploy-ready MDA paper. These pages read the existing 61 JSON snapshots and expose the useful paper metrics in a browsable view.</p>
+        </header>
+        <main class="dashboard">
+          
+    <article class="paper-card high">
+      <a class="paper-title" href="papers/MDA-000-series-map-md.html">MDA-000-series-map.md</a>
+      <div class="paper-sub">Series Map | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.637</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>9.78</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>map</span><span>empirical evidence</span><span>analysis</span><span>investigation</span><span>papers</span><span>actualize every quantum</span><span>analysis trans-domain analysis</span><span>bad easier good</span></div>
+      <p class="risk">The Ï‡-field measured across a civilization.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-001-story-introduction-md.html">MDA-001-story-introduction.md</a>
+      <div class="paper-sub">An American Story | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5169</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>3.54</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>delta</span><span>samuel</span><span>jake</span><span>tom</span><span>father</span><span>story</span><span>shapes</span><span>chosen</span></div>
+      <p class="risk">But optional is not impossible.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-002-samuel-1900-md.html">MDA-002-samuel-1900.md</a>
+      <div class="paper-sub">When Distance Still Had Moral Weight | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5356</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>3.0</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>distance still weight</span><span>distance still</span><span>still weight</span><span>miles</span><span>weight</span><span>samuel</span><span>mda-002</span><span>distance</span></div>
+      <p class="risk">A world small enough to be whole.</p>
+    </article>
+    
+    <article class="paper-card high">
+      <a class="paper-title" href="papers/MDA-003-measuring-moral-health-md.html">MDA-003-measuring-moral-health.md</a>
+      <div class="paper-sub">Can We Measure Moral Health? | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5064</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>8.89</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>coherence factor</span><span>without coherence</span><span>factor</span><span>low coherence</span><span>measures whether</span><span>measure health</span><span>whether</span><span>measures</span></div>
+      <p class="risk">﻿
+Can We Measure Moral Health?</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-005-empirical-evidence-md.html">MDA-005-empirical-evidence.md</a>
+      <div class="paper-sub">The Empirical Evidence | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.6109</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>3.87</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>points</span><span>seven domains</span><span>correlation</span><span>constraint</span><span>confirmed</span><span>check reports whether</span><span>english statistical check</span><span>enough treat evidence</span></div>
+      <p class="risk">Not vague directional claims.</p>
+    </article>
+    
+    <article class="paper-card low">
+      <a class="paper-title" href="papers/MDA-006-research-method-md.html">MDA-006-research-method.md</a>
+      <div class="paper-sub">How We Measure Decline | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5495</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>2.35</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>contradictions</span><span>file</span><span>inquiry</span><span>prompt</span><span>links</span><span>quotes domains links</span><span>quotes</span><span>terrain</span></div>
+      <p class="risk">Some outputs may be incomplete or wrong.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-007-nine-domains-md.html">MDA-007-nine-domains.md</a>
+      <div class="paper-sub">What America Is Made Of | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5422</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>6.82</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>question people</span><span>indicators</span><span>matters</span><span>families fragment</span><span>civic participation</span><span>participation</span><span>civic</span><span>coherence factor</span></div>
+      <p class="risk">When people fear each other, community becomes impossible.</p>
+    </article>
+    
+    <article class="paper-card low">
+      <a class="paper-title" href="papers/MDA-008-henry-1926-md.html">MDA-008-henry-1926.md</a>
+      <div class="paper-sub">When Voices Entered the Home | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5195</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>1.66</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>henry</span><span>dorothy</span><span>samuel</span><span>still</span><span>radio</span><span>farm</span><span>father</span><span>mother</span></div>
+      <p class="risk">Moments in the car when he could push further.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-009-the-1900-baseline-md.html">MDA-009-the-1900-baseline.md</a>
+      <div class="paper-sub">The 1900 Baseline | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.4662</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>4.22</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>meant practice</span><span>meant</span><span>practice</span><span>supported</span><span>numbers</span><span>wasn</span><span>today</span><span>everyone</span></div>
+      <p class="risk">They&#x27;ve never experienced it.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-010-pre-modern-baseline-md.html">MDA-010-pre-modern-baseline.md</a>
+      <div class="paper-sub">The Pre-Modern Baseline | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5773</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>3.45</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>key statistics metric</span><span>federal</span><span>key statistics</span><span>statistics metric</span><span>standardized</span><span>pre-modern baseline</span><span>child labor</span><span>legal</span></div>
+      <p class="risk">Everything we measure later, we measure against this.</p>
+    </article>
+    
+    <article class="paper-card low">
+      <a class="paper-title" href="papers/MDA-011-collective-security-1930-md.html">MDA-011-collective-security-1930.md</a>
+      <div class="paper-sub">The Age of Collective Security | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.6002</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>1.7</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>security</span><span>new deal</span><span>deal</span><span>repeal</span><span>collective security</span><span>code</span><span>age</span><span>age collective security</span></div>
+      <p class="risk">This act was the formal, constitutional rejection of the core belief of the Progressive movement: that government could â€” or should â€” enforce personal moral virtue.</p>
+    </article>
+    
+    <article class="paper-card low">
+      <a class="paper-title" href="papers/MDA-012-william-1950-md.html">MDA-012-william-1950.md</a>
+      <div class="paper-sub">When Comfort Replaced Necessity | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5329</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>0.93</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>bill</span><span>mary</span><span>henry</span><span>hendricks</span><span>father</span><span>television</span><span>room</span><span>william</span></div>
+      <p class="risk">He could have chosen that.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-013-peak-coherence-1940-md.html">MDA-013-peak-coherence-1940.md</a>
+      <div class="paper-sub">The Crucible of Consensus | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5579</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>4.59</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>kinsey</span><span>code</span><span>union density</span><span>consensus</span><span>peak</span><span>single-income</span><span>income share</span><span>decade</span></div>
+      <p class="risk">The result was what cultural analysts call a binary moral universe: wrongdoing on screen was never sympathetically portrayed, and consequence was always visible.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-014-fissure-1950-md.html">MDA-014-fissure-1950.md</a>
+      <div class="paper-sub">The Fissure in Conformity | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5739</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>2.91</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>fissure</span><span>conformity</span><span>fissure conformity</span><span>decade</span><span>national</span><span>veneer</span><span>television</span><span>peak</span></div>
+      <p class="risk">There has never been another technology that achieved that kind of saturation that quickly.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-015-long-decline-md.html">MDA-015-long-decline.md</a>
+      <div class="paper-sub">The Long Decline | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.4831</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>8.03</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>impact family</span><span>mass media</span><span>mass media created</span><span>wave</span><span>noticed</span><span>weakened</span><span>still</span><span>civic</span></div>
+      <p class="risk">Who could see the pattern?</p>
+    </article>
+    
+    <article class="paper-card low">
+      <a class="paper-title" href="papers/MDA-016-thomas-1974-md.html">MDA-016-thomas-1974.md</a>
+      <div class="paper-sub">When Freedom Became Exit | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.4966</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>0.86</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>tommy</span><span>bill</span><span>father</span><span>karen</span><span>find good woman</span><span>thomas</span><span>feels</span><span>find good</span></div>
+      <p class="risk">maybe it sounds like peace?</p>
+    </article>
+    
+    <article class="paper-card low">
+      <a class="paper-title" href="papers/MDA-017-unraveling-1960-md.html">MDA-017-unraveling-1960.md</a>
+      <div class="paper-sub">The Unraveling Begins | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.6263</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>1.52</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>kinsey</span><span>high school</span><span>cohort</span><span>trust government</span><span>influential</span><span>high school graduation</span><span>school graduation rate</span><span>vietnam war</span></div>
+      <p class="risk">The unraveling did not break the rope.</p>
+    </article>
+    
+    <article class="paper-card low">
+      <a class="paper-title" href="papers/MDA-018-great-decoupling-1968-md.html">MDA-018-great-decoupling-1968.md</a>
+      <div class="paper-sub">The Great Decoupling | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5621</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>1.39</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>technocratic</span><span>traditional</span><span>medical</span><span>fiat</span><span>fiat morality</span><span>new technocratic</span><span>traditional institutions</span><span>credentialed</span></div>
+      <p class="risk">It has, with few exceptions, never recovered.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-019-current-state-2024-md.html">MDA-019-current-state-2024.md</a>
+      <div class="paper-sub">Where Coherence Still Lives | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.6022</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>2.01</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>amish</span><span>county</span><span>holmes</span><span>holmes county</span><span>land</span><span>amish population</span><span>coherence still lives</span><span>coherence still</span></div>
+      <p class="risk">Without high retention, no fertility rate could keep up.</p>
+    </article>
+    
+    <article class="paper-card high">
+      <a class="paper-title" href="papers/MDA-020-phase-transition-md.html">MDA-020-phase-transition.md</a>
+      <div class="paper-sub">When Decline Becomes Collapse | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.4936</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>9.21</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>coherence impact</span><span>five years</span><span>shared meaning</span><span>impact</span><span>becomes collapse</span><span>phase transition</span><span>coherence impact shared</span><span>coherence impact trust</span></div>
+      <p class="risk">The institutions that could have restored coherence were themselves damaged.</p>
+    </article>
+    
+    <article class="paper-card high">
+      <a class="paper-title" href="papers/MDA-021-anatomy-of-phase-transition-md.html">MDA-021-anatomy-of-phase-transition.md</a>
+      <div class="paper-sub">Anatomy of a Phase Transition | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.4869</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>10</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>entropy</span><span>peak window</span><span>composite</span><span>index composite</span><span>anatomy phase transition</span><span>reinforced</span><span>anatomy phase</span><span>window</span></div>
+      <p class="risk">The question was whether it could do so without losing structural integrity.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-022-cascade-md.html">MDA-022-cascade.md</a>
+      <div class="paper-sub">The Cascade | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5121</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>7.69</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>fragments</span><span>key metric</span><span>felt like</span><span>cascade</span><span>made worse</span><span>felt</span><span>worse</span><span>shared meaning</span></div>
+      <p class="risk">Self-correction is now statistically impossible.</p>
+    </article>
+    
+    <article class="paper-card high">
+      <a class="paper-title" href="papers/MDA-023-coherence-cascade-md.html">MDA-023-coherence-cascade.md</a>
+      <div class="paper-sub">The Coherence Cascade | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5723</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>9.95</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>coherence cascade</span><span>cascade</span><span>semantic</span><span>familial</span><span>mda-023</span><span>words</span><span>california no-fault divorce</span><span>cascade layer vetted</span></div>
+      <p class="risk">Words fail first—semantic meaning erodes before structures collapse.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-024-semantic-collapse-md.html">MDA-024-semantic-collapse.md</a>
+      <div class="paper-sub">Semantic Collapse | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5718</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>3.36</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>virtue terms</span><span>semantic</span><span>terms</span><span>modesty chastity</span><span>chastity</span><span>individualistic</span><span>modesty</span><span>immune system</span></div>
+      <p class="risk">We were trying to run a &quot;High-Trust&quot; society on a &quot;Low-Duty&quot; dictionary.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-025-cognitive-decline-md.html">MDA-025-cognitive-decline.md</a>
+      <div class="paper-sub">Cognitive System Stress | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.6062</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>2.35</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>excellence</span><span>self-esteem</span><span>cognitive system stress</span><span>objective</span><span>affirmation</span><span>subjective</span><span>cognitive system</span><span>college gpa</span></div>
+      <p class="risk">The Great Divergence: Objective vs.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-026-spiritual-collapse-md.html">MDA-026-spiritual-collapse.md</a>
+      <div class="paper-sub">The Spiritual and Psychological Collapse | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.6304</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>4.58</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>mainline</span><span>valium</span><span>spiritual psychological</span><span>pharmacological</span><span>pharmacological management</span><span>pills sold</span><span>stoic endurance</span><span>spiritual psychological collapse</span></div>
+      <p class="risk">Cultural gatekeepers stop attending the institutions that taught virtue.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-027-signal-went-dark-md.html">MDA-027-signal-went-dark.md</a>
+      <div class="paper-sub">The Signal Went Dark | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5164</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>7.39</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>signal</span><span>truth</span><span>church corporate educational</span><span>government media science</span><span>media science medical</span><span>medical church corporate</span><span>science medical church</span><span>church corporate</span></div>
+      <p class="risk">The Unrecoverable State
+There&#x27;s a threshold in signal systems beyond which recovery becomes mathematically impossible.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-028-phantom-money-md.html">MDA-028-phantom-money.md</a>
+      <div class="paper-sub">Phantom Money, Phantom Morals | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5491</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>6.37</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>phantom</span><span>wealth</span><span>monetary</span><span>monetary expansion</span><span>asset</span><span>debt</span><span>top wealth</span><span>net worth income</span></div>
+      <p class="risk">It means the financial system was pricing impossible futures—claims on value that couldn&#x27;t exist.</p>
+    </article>
+    
+    <article class="paper-card high">
+      <a class="paper-title" href="papers/MDA-029-observer-collapsed-md.html">MDA-029-observer-collapsed.md</a>
+      <div class="paper-sub">The Observer Collapsed | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.4914</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>10</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>identity</span><span>self</span><span>individual coherence</span><span>agency depression rate</span><span>consistency personal agency</span><span>identity consistency personal</span><span>personal agency depression</span><span>observer</span></div>
+      <p class="risk">Constant connectivity meant you were always available to multiple audiences.</p>
+    </article>
+    
+    <article class="paper-card high">
+      <a class="paper-title" href="papers/MDA-030-trinity-mechanism-md.html">MDA-030-trinity-mechanism.md</a>
+      <div class="paper-sub">Trinity-Wave Collapse | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5877</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>10</strong></div>
+        <div><span>Grade</span><strong>B — Supported</strong></div>
+      </div>
+      <div class="chips"><span>potential</span><span>spirit</span><span>actualization</span><span>cdot</span><span>son</span><span>cdot cdot cdot</span><span>trinity</span><span>cdot cdot</span></div>
+      <p class="risk">The Wave Function (|ψ⟩) contains everything that could happen.</p>
+    </article>
+    
+    <article class="paper-card low">
+      <a class="paper-title" href="papers/MDA-031-jacob-1998-md.html">MDA-031-jacob-1998.md</a>
+      <div class="paper-sub">When Place Disappeared | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.4947</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>1.29</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>jake</span><span>infinite</span><span>bill</span><span>jacob</span><span>options</span><span>find</span><span>internet</span><span>find good woman</span></div>
+      <p class="risk">His parents divorced before he could remember them together.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-032-why-bad-is-easier-md.html">MDA-032-why-bad-is-easier.md</a>
+      <div class="paper-sub">Why the Bad Is Easier Than the Good | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.4741</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>6.43</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>shortcut</span><span>easier</span><span>bad easier good</span><span>book</span><span>bad easier</span><span>easier good</span><span>bad</span><span>virtue</span></div>
+      <p class="risk">They always invoice you later — with interest.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-033-entropic-society-md.html">MDA-033-entropic-society.md</a>
+      <div class="paper-sub">The Entropic Society | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.6367</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>5.48</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>technological</span><span>psychological entropy</span><span>relational coherence</span><span>aesthetic</span><span>entropy</span><span>psychological</span><span>design</span><span>relational</span></div>
+      <p class="risk">The machine optimizes.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-034-technology-entropy-md.html">MDA-034-technology-entropy.md</a>
+      <div class="paper-sub">Technology and Entropy | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.6103</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>5.5</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>technological</span><span>entropy</span><span>aesthetic</span><span>design</span><span>social media</span><span>digital</span><span>obsolescence</span><span>psychological entropy</span></div>
+      <p class="risk">Broadcast television, radio, landlines.</p>
+    </article>
+    
+    <article class="paper-card low">
+      <a class="paper-title" href="papers/MDA-035-great-reconfiguration-md.html">MDA-035-great-reconfiguration.md</a>
+      <div class="paper-sub">The Great Reconfiguration | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.6525</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>1.29</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>membership</span><span>religious</span><span>affiliation</span><span>cohort</span><span>attendance</span><span>christian</span><span>ntf</span><span>religion</span></div>
+      <p class="risk">Executive Synthesis &amp; Methodological Foundation
+I.A.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-036-regulatory-impulse-1900-md.html">MDA-036-regulatory-impulse-1900.md</a>
+      <div class="paper-sub">The Regulatory Impulse | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.6221</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>1.83</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>percent</span><span>mann act</span><span>progressive</span><span>social gospel</span><span>mann</span><span>censorship</span><span>legal</span><span>national</span></div>
+      <p class="risk">It established the method: when traditional moral authority fails to contain social chaos, the state steps in â€” and never steps out.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-037-biaxiosum-audit-md.html">MDA-037-biaxiosum-audit.md</a>
+      <div class="paper-sub">The Biaxiosum Audit | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.488</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>5.59</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>biaxiosum</span><span>biased</span><span>rights</span><span>axiom</span><span>biased toward</span><span>biaxiosum score</span><span>truths</span><span>bias</span></div>
+      <p class="risk">I believe consciousness matters.</p>
+    </article>
+    
+    <article class="paper-card high">
+      <a class="paper-title" href="papers/MDA-038-coherence-metric-md.html">MDA-038-coherence-metric.md</a>
+      <div class="paper-sub">The Coherence Metric | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5458</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>10</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>constraint</span><span>domains</span><span>constraint removal</span><span>independent</span><span>window</span><span>synchronized</span><span>critical phenomena</span><span>structural integrity</span></div>
+      <p class="risk">The same mathematical structure appears wherever constraint is removed and entropy is free to operate.</p>
+    </article>
+    
+    <article class="paper-card high">
+      <a class="paper-title" href="papers/MDA-039-physics-of-coherence-md.html">MDA-039-physics-of-coherence.md</a>
+      <div class="paper-sub">The Physics of Coherence | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5469</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>10</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>order parameter</span><span>parameter</span><span>physics coherence</span><span>cooper</span><span>order</span><span>cooper pairs</span><span>formal paper</span><span>ordered</span></div>
+      <p class="risk">The ordered phase has a definable baseline.</p>
+    </article>
+    
+    <article class="paper-card low">
+      <a class="paper-title" href="papers/MDA-040-statistical-synthesis-md.html">MDA-040-statistical-synthesis.md</a>
+      <div class="paper-sub">Moral Decline by the Numbers | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.4992</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>1.84</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>children per woman</span><span>children per</span><span>society faith</span><span>family structure divorce</span><span>structure divorce rate</span><span>per woman</span><span>structure divorce</span><span>church attendance peak</span></div>
+      <p class="risk">Each generation faced constraints their ancestors could not imagine losing, and freedoms their ancestors could not imagine wanting.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-041-statistical-spine-md.html">MDA-041-statistical-spine.md</a>
+      <div class="paper-sub">The Statistical Spine | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5989</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>4.8</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>outside voices per</span><span>voices per day</span><span>comparison coherence factor</span><span>life expectancy yrs</span><span>others premarital sex</span><span>premarital sex violent</span><span>sex violent crime</span><span>trust others premarital</span></div>
+      <p class="risk">The numbers don&#x27;t argue â€” they just move.</p>
+    </article>
+    
+    <article class="paper-card high">
+      <a class="paper-title" href="papers/MDA-042-amish-exception-THE-CLAIM-md.html">MDA-042-amish-exception-THE-CLAIM.md</a>
+      <div class="paper-sub">The Amish Exception | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.4856</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>10</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>amish</span><span>principle</span><span>principle coherence</span><span>amish exception</span><span>different choices</span><span>principle coherence requires</span><span>outside</span><span>century different choices</span></div>
+      <p class="risk">They filtered the threats before they could damage the system.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-043-amish-proof-THE-PROOF-md.html">MDA-043-amish-proof-THE-PROOF.md</a>
+      <div class="paper-sub">The Amish Control Case | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5178</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>5.92</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>amish</span><span>mainstream usa amish</span><span>metric mainstream usa</span><span>usa amish ratio</span><span>amish ratio</span><span>mainstream usa</span><span>metric mainstream</span><span>usa amish</span></div>
+      <p class="risk">Maybe friction isn&#x27;t the enemy.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-044-amish-control-study-THE-METHOD-md.html">MDA-044-amish-control-study-THE-METHOD.md</a>
+      <div class="paper-sub">Amish vs. America | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5325</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>3.8</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>metricmainstream usaamishratio</span><span>metricmainstream</span><span>usaamishratio</span><span>amish</span><span>zero</span><span>lower</span><span>modern</span><span>constraint</span></div>
+      <p class="risk">Same access to modern medicine, modern law, modern infrastructure.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-045-amish-control-group-THE-DATA-md.html">MDA-045-amish-control-group-THE-DATA.md</a>
+      <div class="paper-sub">The Amish Anomaly | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.586</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>3.82</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>amish</span><span>amish population</span><span>binding variable</span><span>million0 million0 million0</span><span>million0 million0</span><span>million0</span><span>settlements</span><span>binding</span></div>
+      <p class="risk">It produced committed members who chose to stay at rates their grandparents never achieved.</p>
+    </article>
+    
+    <article class="paper-card low">
+      <a class="paper-title" href="papers/MDA-046-amish-demographics-THE-NUMBERS-md.html">MDA-046-amish-demographics-THE-NUMBERS.md</a>
+      <div class="paper-sub">Amish Demographics | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.6123</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>1.08</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>amish</span><span>county</span><span>holmes</span><span>holmes county</span><span>amish population</span><span>land</span><span>fertility</span><span>growth</span></div>
+      <p class="risk">Rumspringa â€” the adolescent period of relative freedom â€” appears to function as inoculation: youth experience the world enough to make an informed, usually affirmative, return.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-047-amish-tech-filter-THE-FILTER-md.html">MDA-047-amish-tech-filter-THE-FILTER.md</a>
+      <div class="paper-sub">The Amish Tech Filter | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.4971</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>4.29</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>filter</span><span>relational coherence</span><span>mass mediation</span><span>amish</span><span>psychological entropy</span><span>relational</span><span>technological</span><span>phase mass mediation</span></div>
+      <p class="risk">The smartphone never crosses the threshold.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-048-ordnung-algorithm-THE-MECHANISM-md.html">MDA-048-ordnung-algorithm-THE-MECHANISM.md</a>
+      <div class="paper-sub">The Ordnung Algorithm | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5993</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>4.56</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>amish</span><span>rule</span><span>finite</span><span>shanty</span><span>algorithm</span><span>grid</span><span>aid</span><span>mutual aid</span></div>
+      <p class="risk">It travels at roughly 10 miles per hour.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-049-coherence-factory-THE-SYNTHESIS-md.html">MDA-049-coherence-factory-THE-SYNTHESIS.md</a>
+      <div class="paper-sub">The Coherence Factory | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5299</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>4.89</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>rule</span><span>membrane</span><span>amish</span><span>artifact</span><span>algorithm</span><span>sanctuary</span><span>friction</span><span>grid</span></div>
+      <p class="risk">The intuition driving it: frictionless interaction produces frictionless abandonment.</p>
+    </article>
+    
+    <article class="paper-card low">
+      <a class="paper-title" href="papers/MDA-050-jacob-2025-md.html">MDA-050-jacob-2025.md</a>
+      <div class="paper-sub">When Constraint Had to Be Chosen | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.4888</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>1.18</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>jake</span><span>tyler</span><span>sarah</span><span>stay</span><span>grandfather</span><span>jake says</span><span>staying</span><span>find good woman</span></div>
+      <p class="risk">They&#x27;re always available, always supportive, always exactly what you want them to be.</p>
+    </article>
+    
+    <article class="paper-card high">
+      <a class="paper-title" href="papers/MDA-051-korea-experiment-md.html">MDA-051-korea-experiment.md</a>
+      <div class="paper-sub">The Korea Experiment | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5751</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>8.52</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>korea</span><span>south korea</span><span>north korea</span><span>south</span><span>north</span><span>grace</span><span>divergence</span><span>people starting point</span></div>
+      <p class="risk">Same starting point.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-052-individual-recovery-md.html">MDA-052-individual-recovery.md</a>
+      <div class="paper-sub">Individual Recovery | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.4691</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>6.95</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>recovery</span><span>submission</span><span>below threshold</span><span>restoration</span><span>protocol</span><span>coefficient</span><span>pattern</span><span>coherence restoration</span></div>
+      <p class="risk">Not &quot;might exist.&quot; Not &quot;would be nice.&quot;
+Came to believe.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-053-the-question-md.html">MDA-053-the-question.md</a>
+      <div class="paper-sub">The Question | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.4723</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>7.83</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>below threshold</span><span>recovery</span><span>documented</span><span>submission</span><span>mechanism</span><span>below</span><span>generate coherence</span><span>question question</span></div>
+      <p class="risk">We could have maintained coherence.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-054-way-back-md.html">MDA-054-way-back.md</a>
+      <div class="paper-sub">The Way Back | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5056</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>7.23</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>semantic</span><span>sequence</span><span>reform</span><span>internal reform</span><span>iii institutional ratification</span><span>familial</span><span>semantic reconstruction</span><span>recovery</span></div>
+      <p class="risk">That&#x27;s roughly where we are.</p>
+    </article>
+    
+    <article class="paper-card high">
+      <a class="paper-title" href="papers/MDA-900-appendix-original-introduction-md.html">MDA-900-appendix-original-introduction.md</a>
+      <div class="paper-sub">Appendix: Original Introduction | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5078</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>9.12</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>equation</span><span>appendix original introduction</span><span>signal</span><span>appendix original</span><span>original introduction</span><span>original</span><span>composite coherence index</span><span>nine parts</span></div>
+      <p class="risk">The entropy S existed â€” it always does â€” but it was contained.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-901-appendix-america-index-md.html">MDA-901-appendix-america-index.md</a>
+      <div class="paper-sub">Appendix: America Index | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.4977</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>4.94</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>appendix index</span><span>begins declining</span><span>critical thresholds</span><span>index</span><span>appendix</span><span>begins</span><span>thresholds</span><span>facts</span></div>
+      <p class="risk">The inflection point across multiple independent datasets.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-902-appendix-trans-domain-analysis-md.html">MDA-902-appendix-trans-domain-analysis.md</a>
+      <div class="paper-sub">Appendix: Trans-Domain Analysis | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5283</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>4.6</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>semantic</span><span>familial institutional economic</span><span>familial</span><span>semantic familial</span><span>semantic familial institutional</span><span>yrs</span><span>domains</span><span>familial institutional</span></div>
+      <p class="risk">Data could have refuted this.</p>
+    </article>
+    
+    <article class="paper-card high">
+      <a class="paper-title" href="papers/MDA-903-appendix-series-home-md.html">MDA-903-appendix-series-home.md</a>
+      <div class="paper-sub">Appendix: Series Home | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5347</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>10</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>decoherence</span><span>internal alignment</span><span>across multiple domains</span><span>institutional signal</span><span>multiple domains</span><span>loses</span><span>chapter</span><span>domains</span></div>
+      <p class="risk">Without shared definitions, coordination becomes impossible.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-904-appendix-sample-md.html">MDA-904-appendix-sample.md</a>
+      <div class="paper-sub">Appendix: Sample | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5408</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>7.48</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>appendix sample</span><span>sample</span><span>appendix</span><span>semantic collapse</span><span>civilizational</span><span>aloud critical thresholds</span><span>becomes impossible cognitive</span><span>court removes prayer</span></div>
+      <p class="risk">03
+Semantic Collapse
+When words lose meaning, consensus becomes impossible.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-905-appendix-timeline-md.html">MDA-905-appendix-timeline.md</a>
+      <div class="paper-sub">Appendix: Timeline | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.6665</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>2.33</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>ethics</span><span>digital</span><span>political</span><span>purity</span><span>parental</span><span>traditional</span><span>ethical</span><span>parental advisory</span></div>
+      <p class="risk">Messages containing moral and emotional words are significantly more likely to be shared.</p>
+    </article>
+    
+    <article class="paper-card mid">
+      <a class="paper-title" href="papers/MDA-906-appendix-93-year-floor-md.html">MDA-906-appendix-93-year-floor.md</a>
+      <div class="paper-sub">Appendix: The 93-Year Floor | Moral Decline of America</div>
+      <div class="metric-grid">
+        <div><span>Truth</span><strong>0.5689</strong></div>
+        <div><span>Coherence</span><strong>0.775</strong></div>
+        <div><span>Chi</span><strong>6.47</strong></div>
+        <div><span>Grade</span><strong>A — Evidence-Rich</strong></div>
+      </div>
+      <div class="chips"><span>floor</span><span>moses</span><span>lifespan</span><span>curve</span><span>exponential</span><span>psalm</span><span>genesis</span><span>exponential decay</span></div>
+      <p class="risk">A gradual erosion produces a roughly straight downward line.</p>
+    </article>
+    
+        </main>
+        
+</body>
+</html>

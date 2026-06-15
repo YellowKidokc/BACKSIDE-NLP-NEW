@@ -1,0 +1,995 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>04-TURTLES-TERMINAL-NODE-HYPOTHESES - Axiom + 7Q</title>
+  <style>
+    :root {
+      --bg: #f6f7f3;
+      --panel: #ffffff;
+      --ink: #1d2524;
+      --muted: #586260;
+      --line: #d8ded8;
+      --navy: #1f4e78;
+      --ok: #dcebd8;
+      --ok-ink: #24522b;
+      --repair: #fff0bf;
+      --repair-ink: #6a4a00;
+      --weak: #f7d6c7;
+      --weak-ink: #743716;
+      --fail: #f3c4c4;
+      --fail-ink: #7d2020;
+      --neutral: #e8eceb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 15px/1.55 "Segoe UI", Arial, sans-serif;
+    }
+    header {
+      background: #172b33;
+      color: #fff;
+      padding: 24px clamp(18px, 4vw, 48px);
+      border-bottom: 5px solid #b78f3b;
+    }
+    header h1 { margin: 0 0 6px; font-size: clamp(24px, 3vw, 38px); letter-spacing: 0; }
+    header p { margin: 0; color: #d7e2e0; max-width: 1100px; }
+    main { width: min(1360px, calc(100vw - 32px)); margin: 22px auto 44px; }
+    h2 { margin: 26px 0 10px; font-size: 22px; }
+    h3 { margin: 0 0 8px; font-size: 18px; }
+    a { color: var(--navy); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+    .metric, .claim, .table-wrap {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    }
+    .metric { padding: 14px; }
+    .metric .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
+    .metric .value { font-size: 26px; font-weight: 700; margin-top: 3px; }
+    .claim { padding: 16px; margin: 14px 0; }
+    .claim-text { white-space: pre-wrap; }
+    .meta { color: var(--muted); font-size: 13px; }
+    .badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 10px; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.12);
+      font-size: 12px;
+      font-weight: 650;
+    }
+    .ok { background: var(--ok); color: var(--ok-ink); }
+    .repair { background: var(--repair); color: var(--repair-ink); }
+    .weak { background: var(--weak); color: var(--weak-ink); }
+    .fail { background: var(--fail); color: var(--fail-ink); }
+    .neutral { background: var(--neutral); color: var(--ink); }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; text-align: left; }
+    th { background: #edf2f0; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+    .table-wrap { overflow-x: auto; }
+    .two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+    .note { background: #eef3f6; border-left: 4px solid var(--navy); padding: 10px 12px; margin: 10px 0; }
+    code { background: #eef0ed; padding: 1px 4px; border-radius: 4px; }
+    @media (max-width: 820px) {
+      main { width: min(100% - 18px, 1360px); }
+      .two-col { grid-template-columns: 1fr; }
+      th, td { padding: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>04-TURTLES-TERMINAL-NODE-HYPOTHESES</h1>
+  <p>Axiom + 7Q station report. Generated 2026-05-18T03:21:20.</p>
+</header>
+<main>
+  <section class="grid">
+    <div class="metric"><div class="label">Claims</div><div class="value">9</div></div>
+    <div class="metric"><div class="label">Average 7Q Forward</div><div class="value">2.22/7</div></div>
+    <div class="metric"><div class="label">Reverse Verdicts</div><div class="value">{&#x27;FAIL_REVIEW&#x27;: 8, &#x27;WEAKENED&#x27;: 1}</div></div>
+    <div class="metric"><div class="label">Axiom Hits</div><div class="value">30</div></div>
+    <div class="metric"><div class="label">Registry Nodes Loaded</div><div class="value">29</div></div>
+  </section>
+  <section>
+    <h2>Claim Review</h2>
+    
+      <article class="claim">
+        <div class="meta">Claim 1 / HYPOTHESES FROM &quot;THE TURTLES AND THE FLOOR&quot;</div>
+        <h3>HYPOTHESES FROM &quot;THE TURTLES AND THE FLOOR&quot;</h3>
+        <div class="badges">
+          <span class="badge neutral">7Q 3/7</span>
+          <span class="badge fail">FAIL_REVIEW</span>
+          <span class="badge neutral">Formal Model</span>
+        </div>
+        <p><strong>Weaknesses:</strong> missing_evidence, missing_kill_condition, missing_mechanism, overbroad_scope</p>
+        <p class="claim-text">The Standard Model describes 17 particles with extraordinary precision and cannot define what any of them are. ---</p>
+        <h3>Matched Axiom Sequence</h3>
+        
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Seq</th><th>Chain</th><th>ID</th><th>Axiom</th><th>Layer</th><th>Source</th><th>Matched</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>10</td>
+                <td>25</td>
+                <td>T3.1</td>
+                <td>Coherence Cannot Self-Increase</td>
+                <td>Layer 2</td>
+                <td>registry</td>
+                <td>cannot</td>
+              </tr>
+
+              <tr>
+                <td>12</td>
+                <td>58</td>
+                <td>BC1</td>
+                <td>Terminal Observer Exists</td>
+                <td>Layer 3</td>
+                <td>registry</td>
+                <td>with</td>
+              </tr>
+
+              <tr>
+                <td>14</td>
+                <td>61</td>
+                <td>BC4</td>
+                <td>Three Observers Required</td>
+                <td>Layer 0 + Tier 1</td>
+                <td>registry</td>
+                <td>model</td>
+              </tr>
+
+              <tr>
+                <td>17</td>
+                <td>65</td>
+                <td>BC8</td>
+                <td>Voluntary Coupling</td>
+                <td>Layer 2</td>
+                <td>registry</td>
+                <td>cannot</td>
+              </tr>
+
+              <tr>
+                <td>24</td>
+                <td>183</td>
+                <td>META-3</td>
+                <td>Axiom Independence</td>
+                <td>Closure</td>
+                <td>registry</td>
+                <td>from</td>
+              </tr>
+
+              <tr>
+                <td>25</td>
+                <td>184</td>
+                <td>FINAL-1</td>
+                <td>The Logos Theorem</td>
+                <td>Closure</td>
+                <td>registry</td>
+                <td>from</td>
+              </tr>
+
+              <tr>
+                <td>29</td>
+                <td>188</td>
+                <td>OMEGA</td>
+                <td>The Omega Point</td>
+                <td>Closure</td>
+                <td>registry</td>
+                <td>from</td>
+              </tr>
+
+              <tr>
+                <td>10007</td>
+                <td></td>
+                <td>model_coupling</td>
+                <td>Model coupling / susceptibility</td>
+                <td>Fallback</td>
+                <td>fallback</td>
+                <td>model</td>
+              </tr>
+</tbody>
+          </table>
+        </div>
+
+        <p class="note">OpenAI verifier not run for this claim.</p>
+      </article>
+
+      <article class="claim">
+        <div class="meta">Claim 2 / H-TF-02: The Self-Grounding Substrate Hypothesis</div>
+        <h3>H-TF-02: The Self-Grounding Substrate Hypothesis</h3>
+        <div class="badges">
+          <span class="badge neutral">7Q 1/7</span>
+          <span class="badge fail">FAIL_REVIEW</span>
+          <span class="badge neutral">Formal Model</span>
+        </div>
+        <p><strong>Weaknesses:</strong> missing_evidence, missing_kill_condition, missing_mechanism, overbroad_scope, missing_boundary</p>
+        <p class="claim-text">The Q5 derivation in the Master Equation demonstrates necessity of all six properties. ---</p>
+        <h3>Matched Axiom Sequence</h3>
+        
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Seq</th><th>Chain</th><th>ID</th><th>Axiom</th><th>Layer</th><th>Source</th><th>Matched</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2</td>
+                <td></td>
+                <td>P0.2</td>
+                <td>Substrate</td>
+                <td>Layer 0 + Tier 1</td>
+                <td>registry</td>
+                <td>substrate</td>
+              </tr>
+
+              <tr>
+                <td>7</td>
+                <td>3</td>
+                <td>A1.3</td>
+                <td>Information Primacy</td>
+                <td>Layer 2</td>
+                <td>registry_hint</td>
+                <td>substrate</td>
+              </tr>
+
+              <tr>
+                <td>8</td>
+                <td>8</td>
+                <td>A2.1</td>
+                <td>Substrate Requirement</td>
+                <td>Layer 0 + Tier 1</td>
+                <td>registry</td>
+                <td>substrate</td>
+              </tr>
+
+              <tr>
+                <td>9</td>
+                <td>9</td>
+                <td>A2.2</td>
+                <td>Self-Grounding</td>
+                <td>Layer 0 + Tier 1</td>
+                <td>registry</td>
+                <td>self-grounding, substrate</td>
+              </tr>
+
+              <tr>
+                <td>16</td>
+                <td>64</td>
+                <td>BC7</td>
+                <td>Information Conservation</td>
+                <td>Layer 2</td>
+                <td>registry_hint</td>
+                <td>substrate</td>
+              </tr>
+
+              <tr>
+                <td>18</td>
+                <td>66</td>
+                <td>ID7.1</td>
+                <td>Terminal Observer Is God</td>
+                <td>Layer 3</td>
+                <td>registry</td>
+                <td>properties</td>
+              </tr>
+
+              <tr>
+                <td>20</td>
+                <td>114</td>
+                <td>T16.1</td>
+                <td>Christianity 8 of 8 BCs</td>
+                <td>Layer 3</td>
+                <td>registry</td>
+                <td>equation</td>
+              </tr>
+
+              <tr>
+                <td>21</td>
+                <td>146</td>
+                <td>E19.1</td>
+                <td>Full Master Equation</td>
+                <td>Layer 3</td>
+                <td>registry</td>
+                <td>equation, master</td>
+              </tr>
+
+              <tr>
+                <td>22</td>
+                <td>181</td>
+                <td>META-1</td>
+                <td>System Consistency</td>
+                <td>Closure</td>
+                <td>registry</td>
+                <td>derivation</td>
+              </tr>
+
+              <tr>
+                <td>10009</td>
+                <td></td>
+                <td>information_substrate</td>
+                <td>Information substrate</td>
+                <td>Fallback</td>
+                <td>fallback</td>
+                <td>substrate</td>
+              </tr>
+
+              <tr>
+                <td>10010</td>
+                <td></td>
+                <td>master_equation</td>
+                <td>Master Equation / chi field</td>
+                <td>Fallback</td>
+                <td>fallback</td>
+                <td>master equation</td>
+              </tr>
+</tbody>
+          </table>
+        </div>
+
+        <p class="note">OpenAI verifier not run for this claim.</p>
+      </article>
+
+      <article class="claim">
+        <div class="meta">Claim 3 / H-TF-03: The Structural Isomorphism Hypothesis</div>
+        <h3>H-TF-03: The Structural Isomorphism Hypothesis</h3>
+        <div class="badges">
+          <span class="badge neutral">7Q 1/7</span>
+          <span class="badge fail">FAIL_REVIEW</span>
+          <span class="badge neutral">Metaphor</span>
+        </div>
+        <p><strong>Weaknesses:</strong> missing_evidence, missing_kill_condition, missing_mechanism, overbroad_scope, missing_boundary</p>
+        <p class="claim-text">One confirmed asymmetry kills the isomorphism claim. **Status:** Unfalsified.</p>
+        <h3>Matched Axiom Sequence</h3>
+        
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Seq</th><th>Chain</th><th>ID</th><th>Axiom</th><th>Layer</th><th>Source</th><th>Matched</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>22</td>
+                <td>181</td>
+                <td>META-1</td>
+                <td>System Consistency</td>
+                <td>Closure</td>
+                <td>registry_hint</td>
+                <td>kill</td>
+              </tr>
+
+              <tr>
+                <td>24</td>
+                <td>183</td>
+                <td>META-3</td>
+                <td>Axiom Independence</td>
+                <td>Closure</td>
+                <td>registry_hint</td>
+                <td>kill</td>
+              </tr>
+
+              <tr>
+                <td>10002</td>
+                <td></td>
+                <td>falsifiability</td>
+                <td>Falsification / kill condition</td>
+                <td>Fallback</td>
+                <td>fallback</td>
+                <td>kill</td>
+              </tr>
+</tbody>
+          </table>
+        </div>
+
+        <p class="note">OpenAI verifier not run for this claim.</p>
+      </article>
+
+      <article class="claim">
+        <div class="meta">Claim 4 / H-TF-04: The Convergence Hypothesis</div>
+        <h3>H-TF-04: The Convergence Hypothesis</h3>
+        <div class="badges">
+          <span class="badge neutral">7Q 3/7</span>
+          <span class="badge fail">FAIL_REVIEW</span>
+          <span class="badge neutral">Formal Model</span>
+        </div>
+        <p><strong>Weaknesses:</strong> missing_evidence, missing_kill_condition, overbroad_scope, missing_boundary</p>
+        <p class="claim-text">**Statement:** The conclusions forced by the Master Equation are independently confirmed by convergent research from Oxford theology-physics programs.</p>
+        <h3>Matched Axiom Sequence</h3>
+        
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Seq</th><th>Chain</th><th>ID</th><th>Axiom</th><th>Layer</th><th>Source</th><th>Matched</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>11</td>
+                <td>35</td>
+                <td>A5.1</td>
+                <td>Observation Requirement</td>
+                <td>Layer 0 + Tier 1</td>
+                <td>registry</td>
+                <td>physics</td>
+              </tr>
+
+              <tr>
+                <td>20</td>
+                <td>114</td>
+                <td>T16.1</td>
+                <td>Christianity 8 of 8 BCs</td>
+                <td>Layer 3</td>
+                <td>registry</td>
+                <td>equation</td>
+              </tr>
+
+              <tr>
+                <td>21</td>
+                <td>146</td>
+                <td>E19.1</td>
+                <td>Full Master Equation</td>
+                <td>Layer 3</td>
+                <td>registry</td>
+                <td>equation, master</td>
+              </tr>
+
+              <tr>
+                <td>24</td>
+                <td>183</td>
+                <td>META-3</td>
+                <td>Axiom Independence</td>
+                <td>Closure</td>
+                <td>registry</td>
+                <td>from, independent</td>
+              </tr>
+
+              <tr>
+                <td>25</td>
+                <td>184</td>
+                <td>FINAL-1</td>
+                <td>The Logos Theorem</td>
+                <td>Closure</td>
+                <td>registry</td>
+                <td>depend, from</td>
+              </tr>
+
+              <tr>
+                <td>29</td>
+                <td>188</td>
+                <td>OMEGA</td>
+                <td>The Omega Point</td>
+                <td>Closure</td>
+                <td>registry</td>
+                <td>from</td>
+              </tr>
+
+              <tr>
+                <td>10006</td>
+                <td></td>
+                <td>master_equation</td>
+                <td>Master Equation / chi field</td>
+                <td>Fallback</td>
+                <td>fallback</td>
+                <td>master equation</td>
+              </tr>
+</tbody>
+          </table>
+        </div>
+
+        <p class="note">OpenAI verifier not run for this claim.</p>
+      </article>
+
+      <article class="claim">
+        <div class="meta">Claim 5 / H-TF-04: The Convergence Hypothesis</div>
+        <h3>H-TF-04: The Convergence Hypothesis</h3>
+        <div class="badges">
+          <span class="badge neutral">7Q 3/7</span>
+          <span class="badge fail">FAIL_REVIEW</span>
+          <span class="badge neutral">Metaphor</span>
+        </div>
+        <p><strong>Weaknesses:</strong> missing_evidence, missing_kill_condition, overbroad_scope, missing_boundary</p>
+        <p class="claim-text">This convergence is evidence of structural truth, not coincidence. **Falsification:** Calculate the probability of 4/7 independent convergence by chance alone.</p>
+        <h3>Matched Axiom Sequence</h3>
+        
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Seq</th><th>Chain</th><th>ID</th><th>Axiom</th><th>Layer</th><th>Source</th><th>Matched</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>5</td>
+                <td>1</td>
+                <td>A1.1</td>
+                <td>Existence</td>
+                <td>Layer 0 + Tier 1</td>
+                <td>registry_hint</td>
+                <td>truth</td>
+              </tr>
+
+              <tr>
+                <td>22</td>
+                <td>181</td>
+                <td>META-1</td>
+                <td>System Consistency</td>
+                <td>Closure</td>
+                <td>registry_hint</td>
+                <td>falsification</td>
+              </tr>
+
+              <tr>
+                <td>24</td>
+                <td>183</td>
+                <td>META-3</td>
+                <td>Axiom Independence</td>
+                <td>Closure</td>
+                <td>registry</td>
+                <td>independent</td>
+              </tr>
+
+              <tr>
+                <td>25</td>
+                <td>184</td>
+                <td>FINAL-1</td>
+                <td>The Logos Theorem</td>
+                <td>Closure</td>
+                <td>registry</td>
+                <td>depend</td>
+              </tr>
+
+              <tr>
+                <td>10003</td>
+                <td></td>
+                <td>truth_ground</td>
+                <td>Truth / Logos ground</td>
+                <td>Fallback</td>
+                <td>fallback</td>
+                <td>truth</td>
+              </tr>
+
+              <tr>
+                <td>10005</td>
+                <td></td>
+                <td>falsifiability</td>
+                <td>Falsification / kill condition</td>
+                <td>Fallback</td>
+                <td>fallback</td>
+                <td>falsification</td>
+              </tr>
+</tbody>
+          </table>
+        </div>
+
+        <p class="note">OpenAI verifier not run for this claim.</p>
+      </article>
+
+      <article class="claim">
+        <div class="meta">Claim 6 / H-TF-04: The Convergence Hypothesis</div>
+        <h3>H-TF-04: The Convergence Hypothesis</h3>
+        <div class="badges">
+          <span class="badge neutral">7Q 2/7</span>
+          <span class="badge fail">FAIL_REVIEW</span>
+          <span class="badge neutral">Metaphor</span>
+        </div>
+        <p><strong>Weaknesses:</strong> missing_evidence, missing_kill_condition, missing_mechanism, missing_boundary</p>
+        <p class="claim-text">If the probability exceeds 5% (p &gt; 0.05), the convergence claim has no statistical weight.</p>
+        <h3>Matched Axiom Sequence</h3>
+        <p><strong>Axiom hits:</strong> none</p>
+        <p class="note">OpenAI verifier not run for this claim.</p>
+      </article>
+
+      <article class="claim">
+        <div class="meta">Claim 7 / H-TF-05: The Moral Field Hypothesis</div>
+        <h3>H-TF-05: The Moral Field Hypothesis</h3>
+        <div class="badges">
+          <span class="badge neutral">7Q 2/7</span>
+          <span class="badge weak">WEAKENED</span>
+          <span class="badge neutral">Metaphor</span>
+        </div>
+        <p><strong>Weaknesses:</strong> missing_evidence, missing_mechanism, overbroad_scope, missing_boundary</p>
+        <p class="claim-text">The conservation law div(C) = 0 predicts that the moral signal cannot be created or destroyed, only received or attenuated. **Falsification:** Identify a human culture with zero moral concepts (no justice, no sacrifice, no duty, no concept of fairness).</p>
+        <h3>Matched Axiom Sequence</h3>
+        
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Seq</th><th>Chain</th><th>ID</th><th>Axiom</th><th>Layer</th><th>Source</th><th>Matched</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>10</td>
+                <td>25</td>
+                <td>T3.1</td>
+                <td>Coherence Cannot Self-Increase</td>
+                <td>Layer 2</td>
+                <td>registry</td>
+                <td>cannot</td>
+              </tr>
+
+              <tr>
+                <td>12</td>
+                <td>58</td>
+                <td>BC1</td>
+                <td>Terminal Observer Exists</td>
+                <td>Layer 3</td>
+                <td>registry</td>
+                <td>with</td>
+              </tr>
+
+              <tr>
+                <td>13</td>
+                <td>59</td>
+                <td>BC2</td>
+                <td>Grace External to System</td>
+                <td>Layer 2</td>
+                <td>registry</td>
+                <td>moral, that</td>
+              </tr>
+
+              <tr>
+                <td>15</td>
+                <td>63</td>
+                <td>BC6</td>
+                <td>Infinite Energy Source</td>
+                <td>Layer 0 + Tier 1</td>
+                <td>registry</td>
+                <td>created</td>
+              </tr>
+
+              <tr>
+                <td>16</td>
+                <td>64</td>
+                <td>BC7</td>
+                <td>Information Conservation</td>
+                <td>Layer 2</td>
+                <td>registry</td>
+                <td>conservation</td>
+              </tr>
+
+              <tr>
+                <td>17</td>
+                <td>65</td>
+                <td>BC8</td>
+                <td>Voluntary Coupling</td>
+                <td>Layer 2</td>
+                <td>registry</td>
+                <td>cannot</td>
+              </tr>
+
+              <tr>
+                <td>21</td>
+                <td>146</td>
+                <td>E19.1</td>
+                <td>Full Master Equation</td>
+                <td>Layer 3</td>
+                <td>registry_hint</td>
+                <td>field</td>
+              </tr>
+
+              <tr>
+                <td>22</td>
+                <td>181</td>
+                <td>META-1</td>
+                <td>System Consistency</td>
+                <td>Closure</td>
+                <td>registry_hint</td>
+                <td>falsification</td>
+              </tr>
+
+              <tr>
+                <td>24</td>
+                <td>183</td>
+                <td>META-3</td>
+                <td>Axiom Independence</td>
+                <td>Closure</td>
+                <td>registry_hint</td>
+                <td>falsification</td>
+              </tr>
+
+              <tr>
+                <td>26</td>
+                <td>185</td>
+                <td>FINAL-2</td>
+                <td>Coherence Optimality</td>
+                <td>Closure</td>
+                <td>registry</td>
+                <td>field</td>
+              </tr>
+
+              <tr>
+                <td>27</td>
+                <td>186</td>
+                <td>FINAL-3</td>
+                <td>The Unique Solution</td>
+                <td>Closure</td>
+                <td>registry</td>
+                <td>that</td>
+              </tr>
+
+              <tr>
+                <td>10010</td>
+                <td></td>
+                <td>falsifiability</td>
+                <td>Falsification / kill condition</td>
+                <td>Fallback</td>
+                <td>fallback</td>
+                <td>falsification</td>
+              </tr>
+
+              <tr>
+                <td>10012</td>
+                <td></td>
+                <td>master_equation</td>
+                <td>Master Equation / chi field</td>
+                <td>Fallback</td>
+                <td>fallback</td>
+                <td>field</td>
+              </tr>
+
+              <tr>
+                <td>10013</td>
+                <td></td>
+                <td>moral_conservation</td>
+                <td>Moral conservation</td>
+                <td>Fallback</td>
+                <td>fallback</td>
+                <td>moral, justice, fairness, duty, sacrifice</td>
+              </tr>
+</tbody>
+          </table>
+        </div>
+
+        <p class="note">OpenAI verifier not run for this claim.</p>
+      </article>
+
+      <article class="claim">
+        <div class="meta">Claim 8 / H-TF-06: The Intelligibility Hypothesis</div>
+        <h3>H-TF-06: The Intelligibility Hypothesis</h3>
+        <div class="badges">
+          <span class="badge neutral">7Q 4/7</span>
+          <span class="badge fail">FAIL_REVIEW</span>
+          <span class="badge neutral">Metaphor</span>
+        </div>
+        <p><strong>Weaknesses:</strong> missing_evidence, missing_kill_condition, missing_boundary</p>
+        <p class="claim-text">If the substrate is the Logos — coherent, self-consistent, non-deceptive information authored by a rational mind — then math works because the universe was designed in a language math can read.</p>
+        <h3>Matched Axiom Sequence</h3>
+        
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Seq</th><th>Chain</th><th>ID</th><th>Axiom</th><th>Layer</th><th>Source</th><th>Matched</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2</td>
+                <td></td>
+                <td>P0.2</td>
+                <td>Substrate</td>
+                <td>Layer 0 + Tier 1</td>
+                <td>registry</td>
+                <td>substrate</td>
+              </tr>
+
+              <tr>
+                <td>3</td>
+                <td></td>
+                <td>THEOREM</td>
+                <td>Information Primacy</td>
+                <td>Layer 0 + Tier 1</td>
+                <td>registry</td>
+                <td>information</td>
+              </tr>
+
+              <tr>
+                <td>5</td>
+                <td>1</td>
+                <td>A1.1</td>
+                <td>Existence</td>
+                <td>Layer 0 + Tier 1</td>
+                <td>registry_hint</td>
+                <td>logos</td>
+              </tr>
+
+              <tr>
+                <td>7</td>
+                <td>3</td>
+                <td>A1.3</td>
+                <td>Information Primacy</td>
+                <td>Layer 2</td>
+                <td>registry</td>
+                <td>information</td>
+              </tr>
+
+              <tr>
+                <td>8</td>
+                <td>8</td>
+                <td>A2.1</td>
+                <td>Substrate Requirement</td>
+                <td>Layer 0 + Tier 1</td>
+                <td>registry</td>
+                <td>information, substrate</td>
+              </tr>
+
+              <tr>
+                <td>9</td>
+                <td>9</td>
+                <td>A2.2</td>
+                <td>Self-Grounding</td>
+                <td>Layer 0 + Tier 1</td>
+                <td>registry</td>
+                <td>substrate</td>
+              </tr>
+
+              <tr>
+                <td>16</td>
+                <td>64</td>
+                <td>BC7</td>
+                <td>Information Conservation</td>
+                <td>Layer 2</td>
+                <td>registry</td>
+                <td>information</td>
+              </tr>
+
+              <tr>
+                <td>22</td>
+                <td>181</td>
+                <td>META-1</td>
+                <td>System Consistency</td>
+                <td>Closure</td>
+                <td>registry</td>
+                <td>consistent</td>
+              </tr>
+
+              <tr>
+                <td>25</td>
+                <td>184</td>
+                <td>FINAL-1</td>
+                <td>The Logos Theorem</td>
+                <td>Closure</td>
+                <td>registry</td>
+                <td>logos</td>
+              </tr>
+
+              <tr>
+                <td>26</td>
+                <td>185</td>
+                <td>FINAL-2</td>
+                <td>Coherence Optimality</td>
+                <td>Closure</td>
+                <td>registry</td>
+                <td>logos</td>
+              </tr>
+
+              <tr>
+                <td>29</td>
+                <td>188</td>
+                <td>OMEGA</td>
+                <td>The Omega Point</td>
+                <td>Closure</td>
+                <td>registry</td>
+                <td>logos</td>
+              </tr>
+
+              <tr>
+                <td>10011</td>
+                <td></td>
+                <td>truth_ground</td>
+                <td>Truth / Logos ground</td>
+                <td>Fallback</td>
+                <td>fallback</td>
+                <td>logos</td>
+              </tr>
+
+              <tr>
+                <td>10012</td>
+                <td></td>
+                <td>information_substrate</td>
+                <td>Information substrate</td>
+                <td>Fallback</td>
+                <td>fallback</td>
+                <td>information, substrate</td>
+              </tr>
+</tbody>
+          </table>
+        </div>
+
+        <p class="note">OpenAI verifier not run for this claim.</p>
+      </article>
+
+      <article class="claim">
+        <div class="meta">Claim 9 / H-TF-06: The Intelligibility Hypothesis</div>
+        <h3>H-TF-06: The Intelligibility Hypothesis</h3>
+        <div class="badges">
+          <span class="badge neutral">7Q 1/7</span>
+          <span class="badge fail">FAIL_REVIEW</span>
+          <span class="badge neutral">Metaphor</span>
+        </div>
+        <p><strong>Weaknesses:</strong> missing_evidence, missing_kill_condition, missing_mechanism, overbroad_scope, missing_boundary</p>
+        <p class="claim-text">The non-deception axiom guarantees intelligibility: an unintelligible universe would be a form of structural deception. **Falsification:** Derive a non-theistic explanation for why mathematics describes physical reality with arbitrary precision.</p>
+        <h3>Matched Axiom Sequence</h3>
+        
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Seq</th><th>Chain</th><th>ID</th><th>Axiom</th><th>Layer</th><th>Source</th><th>Matched</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>12</td>
+                <td>58</td>
+                <td>BC1</td>
+                <td>Terminal Observer Exists</td>
+                <td>Layer 3</td>
+                <td>registry</td>
+                <td>with</td>
+              </tr>
+
+              <tr>
+                <td>22</td>
+                <td>181</td>
+                <td>META-1</td>
+                <td>System Consistency</td>
+                <td>Closure</td>
+                <td>registry_hint</td>
+                <td>falsification</td>
+              </tr>
+
+              <tr>
+                <td>23</td>
+                <td>182</td>
+                <td>META-2</td>
+                <td>System Completeness</td>
+                <td>Closure</td>
+                <td>registry</td>
+                <td>reality</td>
+              </tr>
+
+              <tr>
+                <td>24</td>
+                <td>183</td>
+                <td>META-3</td>
+                <td>Axiom Independence</td>
+                <td>Closure</td>
+                <td>registry_hint</td>
+                <td>falsification</td>
+              </tr>
+
+              <tr>
+                <td>25</td>
+                <td>184</td>
+                <td>FINAL-1</td>
+                <td>The Logos Theorem</td>
+                <td>Closure</td>
+                <td>registry</td>
+                <td>derive</td>
+              </tr>
+
+              <tr>
+                <td>10005</td>
+                <td></td>
+                <td>falsifiability</td>
+                <td>Falsification / kill condition</td>
+                <td>Fallback</td>
+                <td>fallback</td>
+                <td>falsification</td>
+              </tr>
+</tbody>
+          </table>
+        </div>
+
+        <p class="note">OpenAI verifier not run for this claim.</p>
+      </article>
+
+  </section>
+</main>
+
+</body>
+</html>

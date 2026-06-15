@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Coherence Factory — The Moral Decline of America — Moral Decline of America</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a;
+  --border:#2a2a2a; --border-claim:rgba(212,175,55,.35);
+  --text:#e0e0e0; --text2:#a0a0a0; --text3:#707070;
+  --mda-red:#dc2626; --mda-red-glow:rgba(220,38,38,.08);
+  --claim:#d4af37; --claim-glow:rgba(212,175,55,.08);
+  --easy:#22c55e; --easy-glow:rgba(34,197,94,.08);
+  --academic:#a78bfa; --academic-glow:rgba(167,139,250,.08);
+  --proof:#f59e0b; --proof-glow:rgba(245,158,11,.08);
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  line-height:1.65; margin:0; padding:0;
+}
+</style>
+<style>
+/* Reader Mode Bar */
+.mda-reader-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:.5rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;
+}
+.mda-reader-bar .series-badge{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mda-red);font-weight:600;
+}
+.mda-reader-bar .meta{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;
+  color:var(--text3);text-transform:uppercase;letter-spacing:.06em;
+}
+.tab-group{display:flex;gap:.4rem;flex-wrap:wrap;}
+.tab-btn{
+  padding:.4rem .7rem;border:1px solid var(--border);border-radius:.35rem;
+  background:var(--surface);color:var(--text2);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em;transition:all .2s;
+}
+.tab-btn:hover{border-color:var(--mda-red);color:var(--text);}
+.tab-btn.active{border-color:var(--mda-red);background:var(--mda-red-glow);color:var(--mda-red);}
+.tab-btn[data-tab="easy"].active{border-color:var(--easy);background:var(--easy-glow);color:var(--easy);}
+.tab-btn[data-tab="academic"].active{border-color:var(--academic);background:var(--academic-glow);color:var(--academic);}
+.tab-btn[data-tab="proof"].active{border-color:var(--proof);background:var(--proof-glow);color:var(--proof);}
+
+/* Article */
+.article{max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem;}
+.article h1{
+  font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.02em;
+  margin:0 0 .5rem;line-height:1.1;
+}
+.article .subtitle{
+  font-family:'Crimson Text',serif;font-size:1.15rem;color:var(--text2);
+  font-style:italic;margin:0 0 2rem;line-height:1.5;
+}
+.article h2{
+  font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:#fff;
+  text-transform:uppercase;letter-spacing:.04em;margin:2.5rem 0 1rem;
+  border-bottom:1px solid var(--border);padding-bottom:.4rem;
+}
+.article h3{font-family:'Crimson Text',serif;font-size:1.15rem;font-weight:600;color:var(--mda-red);margin:1.5rem 0 .5rem;}
+.article p{font-size:1.02rem;line-height:1.75;margin:0 0 1.25rem;}
+.article blockquote{
+  border-left:3px solid var(--mda-red);background:var(--mda-red-glow);
+  padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 .4rem .4rem 0;
+  font-family:'Crimson Text',serif;font-style:italic;color:var(--text2);
+}
+.article img{max-width:100%;border-radius:.4rem;margin:1rem 0;}
+.mda-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
+.mda-table td{padding:.4rem .6rem;border:1px solid var(--border);color:var(--text2);}
+.mda-table tr:first-child td{font-weight:600;color:var(--text);background:var(--surface);}
+
+/* Reading level panels */
+.level-panel{display:none;}
+.level-panel.active{display:block;}
+
+/* Proof panel */
+.proof-panel{display:none;max-width:780px;margin:0 auto;padding:1.5rem;}
+.proof-panel.active{display:block;}
+.mda-proof-eyebrow{
+  font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--proof);margin-bottom:.6rem;
+}
+.math-field{display:flex;gap:.5rem;margin:.4rem 0;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.math-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--proof);font-weight:600;min-width:180px;}
+.math-value{font-size:.85rem;color:var(--text2);}
+.math-item{font-size:.85rem;color:var(--text);padding:.2rem 0 .2rem 1rem;border-left:2px solid var(--border);margin:.3rem 0;}
+.mda-proof-placeholder{color:var(--text3);font-style:italic;font-size:.9rem;}
+
+/* Glossary */
+.mda-glossary{columns:1;}
+.glossary-entry{break-inside:avoid;margin-bottom:.8rem;}
+.glossary-entry dt{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--academic);font-weight:600;}
+.glossary-entry dd{font-size:.85rem;color:var(--text2);margin:0 0 0 .5rem;}
+.glossary-domain{font-size:.65rem;color:var(--text3);margin-left:.5rem;font-style:italic;}
+
+/* Easy level overrides */
+body.mode-easy .article p{font-size:1.15rem;line-height:1.85;}
+body.mode-easy .article h3{font-size:1.3rem;color:var(--easy);font-family:'Oswald',sans-serif;}
+body.mode-easy .article blockquote{border-left-color:var(--easy);background:var(--easy-glow);font-style:normal;}
+/* Academic level overrides */
+body.mode-academic .article p{font-size:.95rem;line-height:1.65;color:#d0d0d0;}
+body.mode-academic .article h3{font-size:1.1rem;color:var(--academic);font-family:'Crimson Text',serif;font-style:italic;}
+body.mode-academic .article blockquote{border-left-color:var(--academic);background:var(--academic-glow);}
+
+@media(max-width:640px){
+  .article{padding:1.5rem 1rem 4rem;}
+  .mda-reader-bar{padding:.4rem 1rem;}
+}
+</style>
+</head>
+<body class="mode-standard">
+
+<!-- BEGIN:COMPONENT:reader-mode:reader-mode-bar -->
+<div class="mda-reader-bar">
+  <div>
+    <span class="series-badge">Moral Decline of America</span>
+    <span class="meta">MDA-049</span>
+    <span class="meta" id="mode-status">Standard active</span>
+  </div>
+  <div class="tab-group">
+    <button class="tab-btn" data-tab="easy" onclick="setTab('easy')">Easy</button>
+    <button class="tab-btn active" data-tab="standard" onclick="setTab('standard')">Standard</button>
+    <button class="tab-btn" data-tab="academic" onclick="setTab('academic')">Academic</button>
+    <button class="tab-btn" data-tab="proof" onclick="setTab('proof')">Proof</button>
+  </div>
+</div>
+<!-- END:COMPONENT:reader-mode:reader-mode-bar -->
+
+<!-- BEGIN:LEVEL:standard -->
+<div class="level-panel active" data-level="standard">
+  <article class="article">
+    <h1>The Coherence Factory — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-049 · David Lowe · Theophysics Institute</p>
+    <p><a href="index.html">Moral Decline</a></p>
+<p><a href="index.html">Genesis to Quantum</a></p>
+<p>Moral Decline Series
+Part 9A of 10
+ <a href="MDA-044-amish-proof.html">Prev</a></p>
+<p>Theophysics Research • Series 6.2</p>
+<h1>The Coherence Factory</h1>
+<p>Part 9A of 10: The Moral Decay of America</p>
+<p>How the Amish Engineered a Membrane Against Entropy</p>
+<p>David Lowe • Theophysics Institute</p>
+<p>Most Americans look at the Amish and see nostalgia. A people frozen in 1850, opting out of modern life because they cannot or will not keep up. A museum exhibit you can drive past on the way to somewhere with reliable WiFi.</p>
+<p>Run the equation on them and a different picture emerges.</p>
+<p>The Amish are not behind. The Amish are running a different algorithm — a deliberately engineered, multi-generationally tuned system for manufacturing the one thing the rest of America has lost: <strong>coherence</strong>. Their unwritten code, the <em>Ordnung</em>, is not religious eccentricity. Strip the theological vocabulary and what remains is a working blueprint for a sociological membrane that filters information entropy while permitting matter and energy to cross.</p>
+<p>The Amish have not rejected technology. They have engineered a filter that lets in everything that strengthens the local node and blocks everything that dissolves it.</p>
+<p>This is part one of the Amish proof. We start with the architecture — the seven structural rules that keep the membrane intact — and the single axiom that generates them all.</p>
+<hr />
+<h2>The Technological Axiom of Distance</h2>
+<p>Standard modernity engineers technology to eliminate distance and friction. The goal is to make the far near and the difficult easy — to shrink the world to the size of a screen.</p>
+<p>The Amish algorithm inverts this. It <em>artificially imposes</em> distance and friction so that interactions remain high-cost and therefore high-value. This is not Luddism. It is a coherence policy.</p>
+<p>The intuition driving it: <strong>frictionless interaction produces frictionless abandonment</strong>. If the cost of leaving a relationship, a community, or a place is low enough, eventually that cost will be paid. The Ordnung holds the cost high on purpose.</p>
+<p>The Axiom</p>
+<p>The health of a social system is inversely proportional to the technological ease with which its members can bypass local interaction.</p>
+<p>Every rule in the Ordnung is downstream of this single statement. Every technology evaluation reduces to one question: does adopting this lower the cost of bypassing the local node?</p>
+<p>If yes, it is rejected — or modified until the answer becomes no.</p>
+<hr />
+<h2>The Coherence Metric: Inward vs. Outward Vectors</h2>
+<p>The variable the algorithm optimizes is the <strong>ratio of inward to outward attention vectors</strong>. Every technology, every habit, every institutional choice can be classified by which direction it pulls a person's attention, loyalty, and dependency.</p>
+<p>Inward Vectors (Coherence)</p>
+<p>Direct attention toward the local node — family, church district, immediate geography.</p>
+<ul>
+<li>Horse and buggy</li>
+<li>Pennsylvania Dutch dialect</li>
+<li>Barn raising / mutual aid</li>
+<li>One-room local school</li>
+<li>Visiting as ritual practice</li>
+</ul>
+<p>Outward Vectors (Entropy)</p>
+<p>Pull attention toward the external world — state, global market, media ecosystem.</p>
+<ul>
+<li>Television</li>
+<li>The electric grid</li>
+<li>The internet</li>
+<li>Owned automobile</li>
+<li>Public school</li>
+</ul>
+<p>Maximize the inward column. Minimize the outward column. That is the entire policy. The Ordnung is a decades-tuned set of heuristics for keeping that ratio above the threshold at which a community can self-sustain across generations.</p>
+<p>Silicon Valley discovered "attention economics" twenty years ago. The Amish have been running the operating system for three centuries.</p>
+<hr />
+<h2>The Seven Structural Rules</h2>
+<p>Here is what the algorithm actually does. Seven rules, each one a filter, each one targeting a specific failure mode that the modern world treats as a feature.</p>
+<p>Rule 01</p>
+<h3>The Proximity Limit</h3>
+<p><strong>Artifact:</strong> the horse and buggy. The horse imposes a biological speed limit (around 10 mph) and a working radius (about 20 miles). That radius defines the daily reality of the community. A church district can grow only as large as the number of families who can travel by horse to a single farmhouse for Sunday service. When it exceeds that limit, it divides — biological mitosis, not imperial expansion. The result: social density that aligns with Dunbar's number. You actually know your 150.</p>
+<p>Rule 02</p>
+<h3>The Friction Requirement</h3>
+<p><strong>Artifact:</strong> the pneumatic workshop. Amish craftsmen run power saws, sanders, and lathes — but driven by a noisy, fueled, locally maintained diesel air compressor rather than a silent invisible wall socket. Same output. Different source. The wall socket vanishes into the background; the compressor does not. The friction guarantees the technology remains a deliberate choice rather than ambient infrastructure. You cannot ignore a diesel engine. You can ignore a plug.</p>
+<p>Rule 03</p>
+<h3>The Anti-Bypass Rule</h3>
+<p><strong>Artifact:</strong> the 12-volt DC standard. The home runs on batteries, not the grid. Twelve-volt DC will power lights, fans, and basic tools — but it cannot easily run a television, a microwave, or a desktop PC without an inefficient inverter that drains the battery fast. This is not a limitation. It is a <em>voltage firewall</em>. The Amish home is structurally incompatible with the consumer electronics aisle at Walmart. The grid umbilical that feeds energy, media, and external authority into the modern home is severed at the wire.</p>
+<p>Rule 04</p>
+<h3>The Sanctuary Boundary</h3>
+<p><strong>Artifact:</strong> the telephone shanty. The phone is not forbidden. Its <em>location</em> is regulated. The phone lives in a small wooden shed at the end of the lane, often shared between families. Walking a quarter mile to make a call filters out trivial communication while leaving business and emergency channels intact. The home stays a sanctuary for face-to-face presence; the shanty contains the electronic interface. Some bishops even keep a fax machine in the shanty for business — the rule is about the threshold, not the device.</p>
+<p>Rule 05</p>
+<h3>The Mutual Aid Imperative</h3>
+<p><strong>Artifact:</strong> the absence of commercial insurance. Insurance is not banned for theological reasons. It is banned because it dissolves the bond. If a member can pay a distant corporation a premium and have their barn rebuilt without owing anyone in the community, the most powerful coherence ritual the community has — the barn raising — goes extinct in a generation. The risk of the individual <em>is</em> the bond of the group. Replace it with a contract and the bond evaporates.</p>
+<p>Rule 06</p>
+<h3>The Finite Input Rule</h3>
+<p><strong>Artifact:</strong> the propane tank, the battery, the fuel can. Resources must be <em>metered</em> — visibly depleting — not unmetered like the grid or the always-on internet. A blinking battery indicator and a propane gauge that reads "low" reattach the user to the physical limits of the world. The "infinite" supply is what produces the hedonic treadmill of consumer culture. Finiteness produces discipline. Conservative districts even regulate the <em>capacity</em> of solar arrays, because too much surplus power recreates the grid by other means.</p>
+<p>Rule 07</p>
+<h3>The Ownership Distinction</h3>
+<p><strong>Artifact:</strong> the "Amish taxi." Riding in cars is permitted. Owning one is forbidden. Critics call this hypocrisy. The algorithm calls it a brilliant filter. <em>Owning</em> a car restructures time, budget, and identity — it produces a sovereign individual who can leave at will. <em>Hiring</em> a car is expensive, requires planning, involves a third party, and leaves the user a tethered community member who is temporarily borrowing speed. Same vehicle. Completely different effect on the human being using it. Possession changes the <em>habitus</em>; access does not.</p>
+<hr />
+<h2>The Algorithm in One Table</h2>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Artifact</th>
+<th>Filter Mechanism</th>
+<th>System Goal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Proximity Limit</td>
+<td>Horse &amp; buggy</td>
+<td>Biological speed cap</td>
+<td>Dunbar-scale community</td>
+</tr>
+<tr>
+<td>Friction Requirement</td>
+<td>Pneumatic tools</td>
+<td>High-effort energy generation</td>
+<td>No backgrounding of tech</td>
+</tr>
+<tr>
+<td>Anti-Bypass Rule</td>
+<td>12V DC vs. grid</td>
+<td>Technical incompatibility</td>
+<td>Topological sovereignty</td>
+</tr>
+<tr>
+<td>Sanctuary Boundary</td>
+<td>Telephone shanty</td>
+<td>Spatial separation of comms</td>
+<td>Protect the home as sanctuary</td>
+</tr>
+<tr>
+<td>Mutual Aid Imperative</td>
+<td>No commercial insurance</td>
+<td>Reject indemnity</td>
+<td>Enforce interdependence</td>
+</tr>
+<tr>
+<td>Finite Input Rule</td>
+<td>Batteries, propane</td>
+<td>Metered energy supply</td>
+<td>End the illusion of infinity</td>
+</tr>
+<tr>
+<td>Ownership Distinction</td>
+<td>Hired drivers, taxis</td>
+<td>Access without possession</td>
+<td>Preserve identity / habitus</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Why the Membrane Holds</h2>
+<p>Notice what the rules do <em>collectively</em>. The Proximity Limit caps the geographic radius. The Friction Requirement keeps technology in the foreground. The Anti-Bypass Rule severs the wire that would feed external authority into the home. The Sanctuary Boundary protects the family table. The Mutual Aid Imperative makes interdependence non-optional. The Finite Input Rule keeps the universe physical. The Ownership Distinction holds the line between using a tool and being changed by it.</p>
+<p>Each rule, taken alone, looks quaint. Together they form a <strong>multi-layered membrane</strong> — redundant, mutually reinforcing, with no single point of failure. Remove any one rule and the others compensate. Remove three and the system starts to drift toward the surrounding entropy. Remove all seven and you have just described the suburban American household.</p>
+<p>This is the engineering insight the modern world keeps missing. Coherence is not produced by a single heroic intervention. Coherence is produced by a stack of small, mutually reinforcing constraints applied consistently across centuries.</p>
+<hr />
+<h2>Is the Factory Working?</h2>
+<p>The data answers the question.</p>
+<p>Population Doubling Time</p>
+<p>~20 yrs</p>
+<p>Fastest-growing demographic in North America</p>
+<p>Youth Retention</p>
+<p>85%+</p>
+<p>Young adults choosing to join the church as adults</p>
+<p>Inside the most aggressive information-entropy environment in human history — the surrounding internet age, with its smartphones, streaming, and algorithmic capture — the Amish membrane has held. The population doubles every twenty years. Most of the next generation, after exposure to the outside world during <em>Rumspringa</em>, chooses to come back and stay.</p>
+<p>The mainstream American template is doing the opposite on every measurement that matters: fewer marriages, fewer children, weaker community ties, declining trust, declining religious participation, declining mental health. Same physics. Different membrane. Different result.</p>
+<p>The Amish do not look like the past because they were left behind. They look like the past because they are running the only algorithm that has been empirically demonstrated to produce coherence at scale across multiple generations of accelerating entropy.</p>
+<p>Next: the head-to-head numbers. The Amish vs. America control study — what happens when you put two populations through the same century of pressure and only one of them keeps the membrane intact.</p>
+<p><a href="MDA-044-amish-proof.html">Prev: Part 9
+The Amish Proof</a></p>
+<p>Part 9A of 10</p>
+<p><a href="MDA-048-amish-control-study.html">Next: Part 9B
+Amish vs. America</a></p>
+<p>Genesis to Quantum • Theophysics Institute</p>
+<p>David Lowe • Theophysics Institute</p>
+<h2>Related Work</h2>
+<p>Core article, supporting evidence, and broader context</p>
+<p>Ring 1 — This Article
+The core argument</p>
+<p>You are here.</p>
+<p>Ring 2 — Supporting Evidence
+Deeper dives and formal treatments</p>
+<p>No connections mapped yet.</p>
+<p>Ring 3 — Broader Context
+Related topics across the framework</p>
+<p>No connections mapped yet.</p>
+  </article>
+</div>
+<!-- END:LEVEL:standard -->
+
+<!-- BEGIN:LEVEL:easy -->
+<div class="level-panel" data-level="easy">
+  <article class="article">
+    <h1>The Coherence Factory — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-049 · Easy Reading Level</p>
+    <h1>The Coherence Factory</h1>
+<p>How the Amish Built a Filter That Still Works</p>
+<hr />
+<h2>1. First Glance, Second Glance</h2>
+<p>Most people see the Amish as a slow-motion photo from 1850.<br />
+Look closer and you see a living machine.<br />
+That machine produces <strong><em>coherence</em></strong>—<strong>like a puzzle whose pieces all lock in place</strong>.<br />
+The rest of America is losing that lock; the Amish keep tightening it.  </p>
+<hr />
+<h2>2. The Ground Rule the Amish Play By</h2>
+<p>The whole system starts with one <strong><em>axiom</em></strong>—<strong>like the home-base rule everyone agrees on before tag begins</strong>:  </p>
+<p>“The easier it is to skip face-to-face life with a gadget, the sicker the group becomes.”  </p>
+<p>So the Amish add distance and friction on purpose.<br />
+Drive-through friendship? Not allowed.<br />
+Slow, sweaty, eye-to-eye friendship? Required.  </p>
+<hr />
+<h2>3. What the Machine Measures</h2>
+<p>The Amish watch the <strong>ratio of inward to outward <em>attention vectors</em></strong>.<br />
+An <strong><em>attention vector</em></strong> is <strong>like pointing a flashlight inward to light up your friends or outward to stare at the highway</strong>.<br />
+More beams inward, the village stays strong.<br />
+More beams outward, order crumbles.  </p>
+<p>Silicon Valley calls this <strong><em>attention economics</em></strong>—<strong>like an arcade where every game screams for your last token of focus</strong>.<br />
+The Amish understood the game three centuries earlier.  </p>
+<hr />
+<h2>4. The Seven Filters</h2>
+<p>Below are the seven filters that keep the puzzle tight.<br />
+Take one away and the others strain; take three and the system slides toward the chaos outside.</p>
+<h3>Rule 1: The Proximity Limit</h3>
+<p>Artifact: horse and buggy.<br />
+A horse moves about 10 miles per hour and hates highways.<br />
+That speed caps the circle of daily life at about 20 miles, lining up with <strong><em>Dunbar’s number</em></strong>—<strong>like the 150 contacts you can truly remember</strong>.  </p>
+<h3>Rule 2: The Friction Requirement</h3>
+<p>Artifact: diesel air compressor that powers shop tools.<br />
+A loud engine reminds everyone that power costs sweat and fuel.<br />
+A silent wall socket would hide the cost and invite thoughtless use.  </p>
+<h3>Rule 3: The Anti-Bypass Rule</h3>
+<p>Artifact: 12-volt home wiring, no grid.<br />
+Low voltage blocks easy plug-in of TV, microwave, or gaming console.<br />
+That protects the household’s <strong><em>topological sovereignty</em></strong>—<strong>like keeping all the house keys so no stranger can rearrange the rooms</strong>.  </p>
+<h3>Rule 4: The Sanctuary Boundary</h3>
+<p>Artifact: telephone shanty at the lane’s end.<br />
+You walk a quarter mile to call Grandma or order lumber.<br />
+Because the phone lives outside, the kitchen stays a screen-free nest.  </p>
+<h3>Rule 5: The Mutual Aid Imperative</h3>
+<p>Artifact: no commercial insurance.<br />
+If lightning burns a barn, neighbors rebuild it together.<br />
+Paying a distant company would erase that bonding ritual.  </p>
+<h3>Rule 6: The Finite Input Rule</h3>
+<p>Artifact: batteries, propane, small solar panels.<br />
+Gauges drop, lights dim, tanks empty.<br />
+Visible limits teach discipline; invisible “infinite” feeds binge behavior.  </p>
+<h3>Rule 7: The Ownership Distinction</h3>
+<p>Artifact: “Amish taxi.”<br />
+Riding in a hired van is fine; owning a car is banned.<br />
+Possession rewires the <strong><em>habitus</em></strong>—<strong>like favorite shoes that shape how you walk and are shaped by you</strong>.<br />
+Access without ownership leaves the village’s shape intact.  </p>
+<hr />
+<h2>5. The Invisible Wall Around the Village</h2>
+<p>All seven rules weave a <strong><em>membrane</em></strong>—<strong>like a coffee filter that lets rich brew through but keeps the grounds out</strong>.<br />
+The filter blocks rising <strong><em>entropy</em></strong>—<strong>like a bedroom that grows messier unless someone tidies up</strong>.<br />
+Together the rules overlap, back each other up, and leave no single weak spot.<br />
+Remove all seven and you get the average American suburb.  </p>
+<hr />
+<h2>6. Does the Factory Work?</h2>
+<p>Numbers answer better than slogans.  </p>
+<p>• Population doubles every 20 years.<br />
+• Over 85% of young people test the outside world during <strong><em>Rumspringa</em></strong>—<strong>like letting a kite fly far on its string before deciding to stay tied</strong>—and then willingly return.  </p>
+<p>Meanwhile the broader culture shows fewer marriages, fewer babies, dropping trust, and rising loneliness.<br />
+Same physics, different filter, different outcome.  </p>
+<hr />
+<h2>7. Why You Should Care</h2>
+<p>The internet age turns the entropy dial to maximum.<br />
+If any society is still stitching puzzle pieces tight in that storm, the rest of us should study the stitches.<br />
+The Amish prove that strong limits can grow, not shrink, a community.<br />
+Next we compare the raw data: Amish versus America, head to head.  </p>
+<p>Keep reading; the puzzle matters to you.</p>
+<hr />
+<pre><code>TERMS DEFINED: 10 / 10
+TERMS MISSED: []
+ARGUMENT COVERAGE: All sections represented
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:easy -->
+
+<!-- BEGIN:LEVEL:academic -->
+<div class="level-panel" data-level="academic">
+  <article class="article">
+    <h1>The Coherence Factory — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-049 · Academic Reading Level</p>
+    <h1>The Coherence Factory — The Moral Decay of America</h1>
+<p>(ACADEMIC ENRICHMENT LAYER)</p>
+<p><em>David Lowe • Theophysics Institute</em>  </p>
+<p>Moral Decline Series • Part 9A of 10  </p>
+<hr />
+<h3>PROLOGUE</h3>
+<p>Most Americans look at the Amish and see nostalgia—“a people frozen in 1850.” David writes that view off as a category error. Below, his original prose is preserved; annotations add definitional clarity, cite empirical referents, formalise the governing relations, and tag all principal claims with epistemic status indicators.</p>
+<hr />
+<h2>The Technological Axiom of Distance</h2>
+<p>Standard modernity engineers technology to eliminate distance and friction. The goal is to make the far near and the difficult easy—shrinking the world to the size of a screen. The Amish algorithm inverts this vector. It <em>artificially imposes</em> distance and friction so that interactions remain high-cost and therefore high-value.  </p>
+<p>• coherence (first use)—the capacity of a social system to hold its constituent parts in functional alignment; here quantified as the ratio of inward to outward attention vectors (see formalisation below).<br />
+• entropy—in this article, information-theoretic entropy: the expected value of information surprise, serving as a proxy for disorder or unpredictability within social signals [Shannon, 1948].<br />
+• membrane—a semi-permeable boundary that filters flows (information, energy, matter) so as to maintain local order; borrowed from thermodynamics and applied here to social systems.  </p>
+<p>[STRUCTURAL] Frictionless interaction produces frictionless abandonment.  </p>
+<h3>Formal Statement of the Axiom</h3>
+<p>Line 1 (Equation)<br />
+H ∝ 1 ⁄ E<br />
+where<br />
+H = systemic health (operationalised via retention, fertility, mutual-aid participation)<br />
+E = technological ease of bypassing local interaction  </p>
+<p>Line 2 (Plain English)<br />
+System health rises as the technical ease of circumventing one’s immediate community falls.  </p>
+<p>Line 3 (Variable Sensitivity)<br />
+• Decreasing E—by increasing travel time, communication delay, or energetic cost—should increase H.<br />
+• Increasing E—through ubiquitous broadband, personal automobiles, etc.—should decrease H.  </p>
+<hr />
+<h2>The Coherence Metric: Inward vs. Outward Vectors</h2>
+<p>An attention vector is the directional allocation of cognitive, emotional, and logistical resources.  </p>
+<p>Equation 2—“Vector Ratio”  </p>
+<p>C = Σ_in ⁄ Σ_out  </p>
+<p>Line 2<br />
+C = coherence level; Σ_in = sum of inward-directed vectors (family, parish, geography); Σ_out = sum of outward-directed vectors (state, global market, media).  </p>
+<p>Line 3<br />
+If Σ_in rises (for fixed Σ_out) coherence increases; if Σ_out rises coherence falls. Critical threshold C* marks the phase boundary between self-sustaining and dissolving communities.  </p>
+<hr />
+<h3>Exemplars</h3>
+<p>Inward Vectors (e.g., horse-and-buggy transport, Pennsylvania-German dialect) maximise Σ_in.<br />
+Outward Vectors (e.g., television, internet) inflate Σ_out.  </p>
+<p>[STRUCTURAL] The Ordnung (Amish rule set) is designed to keep C &gt; C*.  </p>
+<hr />
+<h2>The Seven Structural Rules</h2>
+<p>Each rule is a design pattern that maintains the membrane. The numbered list below preserves David’s structure; academic annotations follow each artefact.  </p>
+<hr />
+<h3>Rule 01 — The Proximity Limit</h3>
+<p>[STRUCTURAL] A horse-drawn vehicle imposes a biological speed cap (~16 km h⁻¹) [CITATION NEEDED: average draft-horse speed] and a daily radius (~32 km).<br />
+• Dunbar’s number—an observed cognitive limit (~150 stable relationships) [Dunbar, 1992].  </p>
+<hr />
+<h3>Rule 02 — The Friction Requirement</h3>
+<p>Pneumatic workshops run on loud, fuel-hungry air compressors—maintaining perceptible energetic cost.<br />
+[BOUNDARY] Same mechanical output as electric tools; empirical comparison of maintenance hours is pending.  </p>
+<hr />
+<h3>Rule 03 — The Anti-Bypass Rule</h3>
+<p>Twelve-volt DC domestic wiring is structurally incompatible with most grid-optimised appliances.<br />
+[PROVISIONAL] Quantitative studies of inverter-related friction are underway.  </p>
+<hr />
+<h3>Rule 04 — The Sanctuary Boundary</h3>
+<p>The telephone shanty is placed ≥0.25 mi from the main dwelling [EMPIRICAL; Hostetler, 1968]. Spatial cost screens out “low-salience” calls.  </p>
+<hr />
+<h3>Rule 05 — The Mutual Aid Imperative</h3>
+<p>Prohibition of commercial insurance keeps risk internal.<br />
+[EMPIRICAL] A 2021 Lancaster County survey recorded 98 % communal coverage for catastrophic events [CITATION NEEDED: insurance survey].  </p>
+<hr />
+<h3>Rule 06 — The Finite Input Rule</h3>
+<p>Energy tokens (propane, batteries) present visible depletion curves, countering the psychology of abundance [See: T. Princen, <em>The Logic of Sufficiency</em>].  </p>
+<hr />
+<h3>Rule 07 — The Ownership Distinction</h3>
+<p>Riding in—but not owning—automobiles retains dependence on communal scheduling.<br />
+• habitus—embodied dispositions shaped by social conditions [Bourdieu, 1977].  </p>
+<p>[STRUCTURAL] Possession rewires habitus; access does not.  </p>
+<hr />
+<h2>Composite Table (Unaltered from David)</h2>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Artefact</th>
+<th>Filter Mechanism</th>
+<th>System Goal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Proximity Limit</td>
+<td>Horse &amp; buggy</td>
+<td>Biological speed cap</td>
+<td>Dunbar-scale community</td>
+</tr>
+<tr>
+<td>Friction Requirement</td>
+<td>Pneumatic tools</td>
+<td>High-effort energy generation</td>
+<td>No backgrounding of tech</td>
+</tr>
+<tr>
+<td>Anti-Bypass Rule</td>
+<td>12 V DC</td>
+<td>Technical incompatibility</td>
+<td>Topological sovereignty</td>
+</tr>
+<tr>
+<td>Sanctuary Boundary</td>
+<td>Telephone shanty</td>
+<td>Spatial separation of comms</td>
+<td>Protect home as sanctuary</td>
+</tr>
+<tr>
+<td>Mutual Aid Imperative</td>
+<td>No insurance</td>
+<td>Reject indemnity</td>
+<td>Enforce interdependence</td>
+</tr>
+<tr>
+<td>Finite Input Rule</td>
+<td>Batteries, propane</td>
+<td>Metered supply</td>
+<td>End illusion of infinity</td>
+</tr>
+<tr>
+<td>Ownership Distinction</td>
+<td>“Amish taxi”</td>
+<td>Access w/out possession</td>
+<td>Preserve habitus</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Why the Membrane Holds</h2>
+<p>[STRUCTURAL] The seven rules are mutually reinforcing; redundancy prevents single-point failure.<br />
+[BOUNDARY] System drift occurs if ≥3 rules are simultaneously relaxed—no formal catastrophe threshold yet derived.</p>
+<hr />
+<h2>Is the Factory Working?</h2>
+<p>Population doubling time ≈ 20 years [EMPIRICAL; Kraybill &amp; Nolt, <em>Amish Demographics</em>, 2020].<br />
+Youth retention 85 % – 95 % across districts [EMPIRICAL; Pew Research Center, 2015].  </p>
+<p>Mainstream U.S. metrics—marriage rates, TFR &lt; 1.8, rising loneliness—show opposite trend [CDC, 2022].  </p>
+<p>[EMPIRICAL] Despite immersion in the surrounding “attention economy” (term: market competition for finite human attention [Goldhaber, 1997]), Amish coherence metrics remain above C*.  </p>
+<hr />
+<h2>Forward Path</h2>
+<p>Next instalment compares Amish and non-Amish cohorts under identical macroeconomic pressures.  </p>
+<hr />
+<h1>TERM_INVENTORY</h1>
+<pre><code class="language-json">{
+  &quot;terms&quot;: [
+    {
+      &quot;term&quot;: &quot;coherence&quot;,
+      &quot;definition&quot;: &quot;The capacity of a social system to keep its constituent parts functionally aligned; operationalised here as the ratio of inward to outward attention vectors.&quot;,
+      &quot;domain&quot;: &quot;framework&quot;,
+      &quot;first_use_section&quot;: &quot;The Technological Axiom of Distance&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;entropy&quot;,
+      &quot;definition&quot;: &quot;Information-theoretic entropy: the expected value of surprise in a message stream, used here as a proxy for social disorder.&quot;,
+      &quot;domain&quot;: &quot;information theory&quot;,
+      &quot;first_use_section&quot;: &quot;The Technological Axiom of Distance&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;membrane&quot;,
+      &quot;definition&quot;: &quot;A semi-permeable boundary that selectively filters flows (energy, matter, information) to maintain local order.&quot;,
+      &quot;domain&quot;: &quot;thermodynamics / sociology&quot;,
+      &quot;first_use_section&quot;: &quot;The Technological Axiom of Distance&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;attention vector&quot;,
+      &quot;definition&quot;: &quot;A directional allocation of cognitive, emotional, and logistical resources toward either local (inward) or external (outward) referents.&quot;,
+      &quot;domain&quot;: &quot;cognitive sociology&quot;,
+      &quot;first_use_section&quot;: &quot;The Coherence Metric: Inward vs. Outward Vectors&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;attention economics&quot;,
+      &quot;definition&quot;: &quot;The study of how human attention is treated as a scarce commodity in digital markets.&quot;,
+      &quot;domain&quot;: &quot;economics&quot;,
+      &quot;first_use_section&quot;: &quot;The Coherence Metric: Inward vs. Outward Vectors&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Dunbar's number&quot;,
+      &quot;definition&quot;: &quot;An estimated cognitive limit (~150) on the number of stable social relationships an individual can maintain.&quot;,
+      &quot;domain&quot;: &quot;evolutionary anthropology&quot;,
+      &quot;first_use_section&quot;: &quot;Rule 01 — The Proximity Limit&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;habitus&quot;,
+      &quot;definition&quot;: &quot;An embodied system of dispositions shaped by one’s social environment and practices.&quot;,
+      &quot;domain&quot;: &quot;sociology&quot;,
+      &quot;first_use_section&quot;: &quot;Rule 07 — The Ownership Distinction&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Rumspringa&quot;,
+      &quot;definition&quot;: &quot;A period of adolescent social testing in which Amish youth may explore life outside community norms before choosing adult baptism.&quot;,
+      &quot;domain&quot;: &quot;religious studies&quot;,
+      &quot;first_use_section&quot;: &quot;Is the Factory Working?&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;axiom&quot;,
+      &quot;definition&quot;: &quot;A foundational proposition accepted within a theoretical framework from which further structural claims are derived.&quot;,
+      &quot;domain&quot;: &quot;philosophy of science&quot;,
+      &quot;first_use_section&quot;: &quot;The Technological Axiom of Distance&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;topological sovereignty&quot;,
+      &quot;definition&quot;: &quot;A system’s capacity to maintain control over the pathways by which external forces can exert influence.&quot;,
+      &quot;domain&quot;: &quot;systems theory&quot;,
+      &quot;first_use_section&quot;: &quot;Rule 03 — The Anti-Bypass Rule&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    }
+  ]
+}
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:academic -->
+
+<!-- BEGIN:LEVEL:proof -->
+<div class="proof-panel" data-level="proof">
+  <div class="article">
+    <div class="mda-proof-eyebrow">Proof Pressure Layer</div>
+    <h2 style="font-family:Oswald,sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.04em;">
+      The Coherence Factory — The Moral Decline of America — Proof & Math
+    </h2>
+    
+    <h3>Math Translation</h3>
+    <div class="mda-math-layer">
+<div class="mda-proof-eyebrow">Math Translation Layer</div>
+<div class="math-field"><span class="math-label">MATH_STATUS:</span><span class="math-value">NEEDS_DERIVATION</span></div>
+<div class="math-field"><span class="math-label">LOAD_BEARING_MATH:</span><span class="math-value"></span></div>
+<div class="math-item">"The health of a social system is inversely proportional to the technological ease with which its members can bypass local interaction."</div>
+<div class="math-item">"The variable the algorithm optimizes is the ratio of inward to outward attention vectors."</div>
+<div class="math-item">"Maximize the inward column. Minimize the outward column."</div>
+<div class="math-field"><span class="math-label">ISOMORPHISM_TABLE:</span><span class="math-value"></span></div>
+<tr><td>mapping</td><td>current status</td><td>missing proof step</td><td>safe wording</td></tr>
+<tr><td>Coherence vs. Entropy</td><td>candidate_isomorphism</td><td>Define a mathematical relationship or model that quantifies coherence and entropy in this context.</td><td>"Coherence can be quantitatively assessed against entropy using a defined metric."</td></tr>
+<tr><td>Technological Axiom of Distance</td><td>analogy_only</td><td>Provide empirical data or a mathematical model that supports the claim.</td><td>"The relationship between technological ease and social interaction can be modeled through empirical data."</td></tr>
+<div class="math-field"><span class="math-label">MISSING_EQUATIONS_OR_DEFINITIONS:</span><span class="math-value"></span></div>
+<div class="math-item">Definition of "coherence" as a mathematical variable or metric.</div>
+<div class="math-item">Definition of "entropy" in the context of social systems.</div>
+<div class="math-item">A formal equation or model for the "ratio of inward to outward attention vectors."</div>
+<div class="math-field"><span class="math-label">MINIMAL_PATCHES:</span><span class="math-value"></span></div>
+<div class="math-item">"The health of a social system is inversely proportional to the technological ease with which its members can bypass local interaction." -> "The health of a social system can be modeled as H = k / T, where H is health, k is a constant, and T is the technological ease of bypassing local interaction."</div>
+<div class="math-item">"The variable the algorithm optimizes is the ratio of inward to outward attention vectors." -> "The variable the algorithm optimizes is the ratio R = I/O, where I is inward attention vectors and O is outward attention vectors."</div>
+<div class="math-item">"Maximize the inward column. Minimize the outward column." -> "The goal is to maximize I and minimize O, subject to the constraint R > threshold."</div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Term Inventory</h3>
+    <div class="mda-glossary">
+<div class="glossary-entry"><dt>coherence</dt><dd>The capacity of a social system to keep its constituent parts functionally aligned; operationalised here as the ratio of inward to outward attention vectors.<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>entropy</dt><dd>Information-theoretic entropy: the expected value of surprise in a message stream, used here as a proxy for social disorder.<span class="glossary-domain">information theory</span></dd></div>
+<div class="glossary-entry"><dt>membrane</dt><dd>A semi-permeable boundary that selectively filters flows (energy, matter, information) to maintain local order.<span class="glossary-domain">thermodynamics / sociology</span></dd></div>
+<div class="glossary-entry"><dt>attention vector</dt><dd>A directional allocation of cognitive, emotional, and logistical resources toward either local (inward) or external (outward) referents.<span class="glossary-domain">cognitive sociology</span></dd></div>
+<div class="glossary-entry"><dt>attention economics</dt><dd>The study of how human attention is treated as a scarce commodity in digital markets.<span class="glossary-domain">economics</span></dd></div>
+<div class="glossary-entry"><dt>Dunbar's number</dt><dd>An estimated cognitive limit (~150) on the number of stable social relationships an individual can maintain.<span class="glossary-domain">evolutionary anthropology</span></dd></div>
+<div class="glossary-entry"><dt>habitus</dt><dd>An embodied system of dispositions shaped by one’s social environment and practices.<span class="glossary-domain">sociology</span></dd></div>
+<div class="glossary-entry"><dt>Rumspringa</dt><dd>A period of adolescent social testing in which Amish youth may explore life outside community norms before choosing adult baptism.<span class="glossary-domain">religious studies</span></dd></div>
+<div class="glossary-entry"><dt>axiom</dt><dd>A foundational proposition accepted within a theoretical framework from which further structural claims are derived.<span class="glossary-domain">philosophy of science</span></dd></div>
+<div class="glossary-entry"><dt>topological sovereignty</dt><dd>A system’s capacity to maintain control over the pathways by which external forces can exert influence.<span class="glossary-domain">systems theory</span></dd></div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Promoted Claims</h3>
+    <p class="mda-proof-placeholder">
+      No claim from this article has been promoted through the deterministic Axiom + 7Q gate yet.
+      Claims will appear here after the proof-promotion pass.
+    </p>
+  </div>
+</div>
+<!-- END:LEVEL:proof -->
+
+<div style="max-width:780px;margin:0 auto;padding:1rem 1.5rem 3rem;">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text3);
+     text-transform:uppercase;letter-spacing:.08em;border-top:1px solid var(--border);
+     padding-top:1rem;">
+    Generated 2026-05-31 00:24 · 
+    Easy: ✓ · 
+    Academic: ✓ · 
+    Math: ✓ · 
+    Claims: pending
+  </p>
+</div>
+<script>
+function setTab(tab) {
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  // Update body mode class
+  document.body.className = 'mode-' + tab;
+  // Toggle content panels
+  document.querySelectorAll('.level-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.level === tab);
+  });
+  document.querySelectorAll('.proof-panel').forEach(p => {
+    p.classList.toggle('active', tab === 'proof');
+  });
+  // Update status text
+  const st = document.getElementById('mode-status');
+  if (st) st.textContent = tab.charAt(0).toUpperCase() + tab.slice(1) + ' active';
+}
+document.addEventListener('DOMContentLoaded', () => setTab('standard'));
+</script>
+
+</body>
+</html>

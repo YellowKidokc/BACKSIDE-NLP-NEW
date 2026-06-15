@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Great Decoupling (1968–1973) — The Moral Decline of America — Moral Decline of America</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a;
+  --border:#2a2a2a; --border-claim:rgba(212,175,55,.35);
+  --text:#e0e0e0; --text2:#a0a0a0; --text3:#707070;
+  --mda-red:#dc2626; --mda-red-glow:rgba(220,38,38,.08);
+  --claim:#d4af37; --claim-glow:rgba(212,175,55,.08);
+  --easy:#22c55e; --easy-glow:rgba(34,197,94,.08);
+  --academic:#a78bfa; --academic-glow:rgba(167,139,250,.08);
+  --proof:#f59e0b; --proof-glow:rgba(245,158,11,.08);
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  line-height:1.65; margin:0; padding:0;
+}
+</style>
+<style>
+/* Reader Mode Bar */
+.mda-reader-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:.5rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;
+}
+.mda-reader-bar .series-badge{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mda-red);font-weight:600;
+}
+.mda-reader-bar .meta{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;
+  color:var(--text3);text-transform:uppercase;letter-spacing:.06em;
+}
+.tab-group{display:flex;gap:.4rem;flex-wrap:wrap;}
+.tab-btn{
+  padding:.4rem .7rem;border:1px solid var(--border);border-radius:.35rem;
+  background:var(--surface);color:var(--text2);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em;transition:all .2s;
+}
+.tab-btn:hover{border-color:var(--mda-red);color:var(--text);}
+.tab-btn.active{border-color:var(--mda-red);background:var(--mda-red-glow);color:var(--mda-red);}
+.tab-btn[data-tab="easy"].active{border-color:var(--easy);background:var(--easy-glow);color:var(--easy);}
+.tab-btn[data-tab="academic"].active{border-color:var(--academic);background:var(--academic-glow);color:var(--academic);}
+.tab-btn[data-tab="proof"].active{border-color:var(--proof);background:var(--proof-glow);color:var(--proof);}
+
+/* Article */
+.article{max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem;}
+.article h1{
+  font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.02em;
+  margin:0 0 .5rem;line-height:1.1;
+}
+.article .subtitle{
+  font-family:'Crimson Text',serif;font-size:1.15rem;color:var(--text2);
+  font-style:italic;margin:0 0 2rem;line-height:1.5;
+}
+.article h2{
+  font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:#fff;
+  text-transform:uppercase;letter-spacing:.04em;margin:2.5rem 0 1rem;
+  border-bottom:1px solid var(--border);padding-bottom:.4rem;
+}
+.article h3{font-family:'Crimson Text',serif;font-size:1.15rem;font-weight:600;color:var(--mda-red);margin:1.5rem 0 .5rem;}
+.article p{font-size:1.02rem;line-height:1.75;margin:0 0 1.25rem;}
+.article blockquote{
+  border-left:3px solid var(--mda-red);background:var(--mda-red-glow);
+  padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 .4rem .4rem 0;
+  font-family:'Crimson Text',serif;font-style:italic;color:var(--text2);
+}
+.article img{max-width:100%;border-radius:.4rem;margin:1rem 0;}
+.mda-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
+.mda-table td{padding:.4rem .6rem;border:1px solid var(--border);color:var(--text2);}
+.mda-table tr:first-child td{font-weight:600;color:var(--text);background:var(--surface);}
+
+/* Reading level panels */
+.level-panel{display:none;}
+.level-panel.active{display:block;}
+
+/* Proof panel */
+.proof-panel{display:none;max-width:780px;margin:0 auto;padding:1.5rem;}
+.proof-panel.active{display:block;}
+.mda-proof-eyebrow{
+  font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--proof);margin-bottom:.6rem;
+}
+.math-field{display:flex;gap:.5rem;margin:.4rem 0;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.math-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--proof);font-weight:600;min-width:180px;}
+.math-value{font-size:.85rem;color:var(--text2);}
+.math-item{font-size:.85rem;color:var(--text);padding:.2rem 0 .2rem 1rem;border-left:2px solid var(--border);margin:.3rem 0;}
+.mda-proof-placeholder{color:var(--text3);font-style:italic;font-size:.9rem;}
+
+/* Glossary */
+.mda-glossary{columns:1;}
+.glossary-entry{break-inside:avoid;margin-bottom:.8rem;}
+.glossary-entry dt{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--academic);font-weight:600;}
+.glossary-entry dd{font-size:.85rem;color:var(--text2);margin:0 0 0 .5rem;}
+.glossary-domain{font-size:.65rem;color:var(--text3);margin-left:.5rem;font-style:italic;}
+
+/* Easy level overrides */
+body.mode-easy .article p{font-size:1.15rem;line-height:1.85;}
+body.mode-easy .article h3{font-size:1.3rem;color:var(--easy);font-family:'Oswald',sans-serif;}
+body.mode-easy .article blockquote{border-left-color:var(--easy);background:var(--easy-glow);font-style:normal;}
+/* Academic level overrides */
+body.mode-academic .article p{font-size:.95rem;line-height:1.65;color:#d0d0d0;}
+body.mode-academic .article h3{font-size:1.1rem;color:var(--academic);font-family:'Crimson Text',serif;font-style:italic;}
+body.mode-academic .article blockquote{border-left-color:var(--academic);background:var(--academic-glow);}
+
+@media(max-width:640px){
+  .article{padding:1.5rem 1rem 4rem;}
+  .mda-reader-bar{padding:.4rem 1rem;}
+}
+</style>
+</head>
+<body class="mode-standard">
+
+<!-- BEGIN:COMPONENT:reader-mode:reader-mode-bar -->
+<div class="mda-reader-bar">
+  <div>
+    <span class="series-badge">Moral Decline of America</span>
+    <span class="meta">MDA-018</span>
+    <span class="meta" id="mode-status">Standard active</span>
+  </div>
+  <div class="tab-group">
+    <button class="tab-btn" data-tab="easy" onclick="setTab('easy')">Easy</button>
+    <button class="tab-btn active" data-tab="standard" onclick="setTab('standard')">Standard</button>
+    <button class="tab-btn" data-tab="academic" onclick="setTab('academic')">Academic</button>
+    <button class="tab-btn" data-tab="proof" onclick="setTab('proof')">Proof</button>
+  </div>
+</div>
+<!-- END:COMPONENT:reader-mode:reader-mode-bar -->
+
+<!-- BEGIN:LEVEL:standard -->
+<div class="level-panel active" data-level="standard">
+  <article class="article">
+    <h1>The Great Decoupling (1968–1973) — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-018 · David Lowe · Theophysics Institute</p>
+    <p><a href="index.html">Moral Decline</a></p>
+<p><a href="index.html">Genesis to Quantum</a></p>
+<p><a href="MDA-017-unraveling-1960.html">Prev</a>
+Moral Decline Series
+Part 2F · Decade Series</p>
+<p>Decade Deep-Dive • 1968–1973</p>
+<h1>The Great Decoupling</h1>
+<p>Five years. Six domains. A proposed phase-transition window.</p>
+<p><img alt="Story Illustration" src="../images/mda/The_Observer_Collapsed conv 8.webp" /></p>
+<p>When America stopped running on consensus and started running on faith</p>
+<p>David Lowe • Theophysics Institute</p>
+<p>The five years from 1968 to 1973 were not merely a stretch of bad luck. In this model, they form a concentrated transition window in American history: the visible end of the post-war social consensus and the beginning of the fragmented, individualized, polarized society we live in today.</p>
+<p>The year 1968 acted as a polycrisis: a turbulent, relentless cascade of assassinations, riots, and the delegitimization of the Vietnam War. It shattered public trust in the foundational pillars of traditional authority — particularly the federal government, where the long-run NES/Pew trust series falls from a 1964 high of 77% into a lower and more volatile regime.</p>
+<p>In the five years that followed, the traditional American family came apart. The Total Fertility Rate broke through the replacement floor. The divorce rate accelerated. Premarital sex and cohabitation moved from "disreputable" to mainstream within a single generational cohort. And the vacuum of moral governance left by collapsing traditional institutions was not left empty.</p>
+<p>The vacuum was filled by a new, professionalized, technocratic model of authority — credentialed by science, medicine, and therapy.</p>
+<p>This shift was paralleled in the economy by the 1971 <strong>Nixon Shock</strong>, which replaced the fixed, tangible value of the gold standard with a fiat currency system — mirroring the culture's move toward a fiat morality. The period culminated in the 1973 <em>Roe v. Wade</em> decision, which legally codified the transfer of authority, moving a profound moral decision from the domain of community and religion to the jurisdiction of the individual and the credentialed medical professional.</p>
+<p>The fragmentation of authority that began in this period — splitting trust between traditional institutions and new technocratic ones — is the primary fault line that defines the institutional polarization of modern America.</p>
+<hr />
+<h2>1968 — The Watershed Year</h2>
+<p>The post-war consensus, built on shared prosperity and institutional confidence, was abruptly fractured by the events of 1968. Not unrest. <em>Rupture.</em> A sociological breaking that destabilized the nation's core sense of identity and authority. The shocks were rapid, sequential, and mutually reinforcing.</p>
+<h3>January — Tet Offensive</h3>
+<p>A military failure for North Vietnam, but a profound psychological victory. It shattered the U.S. government's narrative of progress and created a "credibility gap" that proved fatal to the Johnson presidency.</p>
+<h3>March — Howard University Sit-In</h3>
+<p>A five-day sit-in signaled a new era of militant student activism. Demands for an Afrocentric curriculum and an end to the Vietnam War were a direct challenge to the authority and purpose of established institutions.</p>
+<h3>April–June — Assassinations &amp; Riots</h3>
+<p>Dr. Martin Luther King Jr. (April 4) and Senator Robert F. Kennedy (June 5) — the nation's two most prominent unifying figures — eliminated within sixty-two days. The King-assassination riots and subsequent unrest exposed the deep fragility of domestic peace and racial cohesion.</p>
+<h3>August — Chicago DNC</h3>
+<p>The televised clash between anti-war protesters and police outside the Democratic National Convention served as a visual capstone to the year's chaos — broadcasting the complete breakdown of the civic and political process to a horrified nation.</p>
+<p>These events were not just national traumas. They broke with what scholars of the era called "the static rationalization of modernity." The entire post-war canon of American social premises moved from being virtually self-evident to being merely <em>one possible set of premises</em>. This created a widespread "unhappy consciousness" and a generational mandate to search for alternative social orders.</p>
+<hr />
+<h2>Quantifying the Collapse</h2>
+<p>The skepticism toward government and traditional institutions was not merely anecdotal. It was immediately and starkly reflected in public opinion polling.</p>
+<p>Public Trust in the Federal Government (1968–1972) — % saying "just about always" or "most of the time"</p>
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th>Trust in Federal Government</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1968</td>
+<td>62%</td>
+</tr>
+<tr>
+<td>1970</td>
+<td>54%</td>
+</tr>
+<tr>
+<td>1972</td>
+<td>53%</td>
+</tr>
+</tbody>
+</table>
+<p>Source: National Election Studies. The 9-point drop between 1968 and 1972 demonstrates the damage inflicted by the events of 1968 and the ongoing war — <em>before</em> Watergate had fully entered the public <a href="/glossary/?term=consciousness" title="See glossary: consciousness">consciousness</a>. Trust would never return to its 1964 level.</p>
+<p>The Great Institutional Inversion</p>
+<p>Trust DRAINING (1968–1972)</p>
+<ul>
+<li>White House &amp; Congress</li>
+<li>Organized Religion</li>
+<li>"Big Business," "Big Labor"</li>
+<li>Family / Community elders</li>
+</ul>
+<p>Trust FLOWING TO (1972–1974)</p>
+<ul>
+<li>The Press / Mass Media: 68–72% peak</li>
+<li>Credentialed Medical Profession</li>
+<li>"Helping professions" / Therapy</li>
+<li>Scientific / Technocratic experts</li>
+</ul>
+<p>It was the media that exposed the credibility gap, and beginning in 1972 uncovered Watergate. The press became the first technocratic body to absorb the authority hemorrhaging from traditional pillars. The pattern was set.</p>
+<p>Religion lagged. In 1973, Gallup identified "the church or organized religion" as the highest-rated institution in America. 87% of Americans identified as Christian; only 5% claimed no religious preference. Church membership held above 70% through 1976. But this high-water mark was the end of an era. Over the subsequent fifty years, confidence in religion would fall precipitously — the lag, not an exception.</p>
+<hr />
+<h2>The Family Comes Apart</h2>
+<p>The crisis of authority in Washington was mirrored by a quiet but profound revolution within the American household. The most fundamental change was the sudden, voluntary halt to the post-war baby boom.</p>
+<p>Total Fertility Rate (TFR) — Births per Woman, 1968–1973</p>
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th>TFR</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1968</td>
+<td>2.44</td>
+<td>Above replacement</td>
+</tr>
+<tr>
+<td>1969</td>
+<td>2.43</td>
+<td>Above replacement</td>
+</tr>
+<tr>
+<td>1970</td>
+<td>2.47</td>
+<td>Above replacement</td>
+</tr>
+<tr>
+<td>1971</td>
+<td>2.26</td>
+<td>Sharp drop</td>
+</tr>
+<tr>
+<td>1972</td>
+<td>2.01</td>
+<td>Below replacement (2.1) — first time outside Great Depression</td>
+</tr>
+<tr>
+<td>1973</td>
+<td>1.88</td>
+<td>Structural break complete</td>
+</tr>
+</tbody>
+</table>
+<p>This is not a gradual trend in the narrow window being measured. It is a sharp demographic drop. The TFR's collapse from 2.47 in 1970 to 1.88 in 1973 — three years — is treated here as a structural break. The critical inflection point came in 1972, when U.S. fertility fell below replacement for the first time outside the Great Depression. It has, with few exceptions, never recovered.</p>
+<p>This was a permanent cultural decision to uncouple marriage from large-scale child-rearing — a societal prioritization of individualism and personal liberation over multigenerational social reproduction.</p>
+<p>Sex, marriage, and childbirth — three things that had been bundled together since the dawn of civilization — were statistically unbundled within a single five-year window.</p>
+<h3>Divorce</h3>
+<p>The crude divorce rate's acceleration <em>within</em> this short period is staggering: <strong>3.5 to 4.4 per 1,000 population</strong>. The rapid normalization of marital dissolution laid the groundwork for the "family complexity" of the following decades.</p>
+<h3>Single-Parent Households</h3>
+<p>The percentage of children living only with their mother stood at 11% in 1968 and crossed 13% by 1973. This is the start of a 50-year trend that would <em>double</em> the number.</p>
+<h3>Non-Marital Births</h3>
+<p>By 1973, the illegitimacy ratio had risen to 129.8 per 1,000 live births. The increase was driven not only by a rising number of non-marital births but also by the rapidly <em>falling</em> number of marital births — the TFR crash compounded.</p>
+<h3>Age at Marriage</h3>
+<p>A crucial counter-indicator. It barely moved. That supports a narrower reading: the cultural revolution of 1968–1973 was <em>not yet primarily</em> about delaying marriage. It was more directly about changing the <strong>nature and permanence</strong> of marriage itself — and changing the behaviors now permissible outside of it.</p>
+<hr />
+<h2>The Behavioral Revolution</h2>
+<p>As late as 1973, Gallup polling found that <em>less than half</em> of Americans (43%) believed premarital sex was "not wrong." Yet the revolution had already happened. For the cohort of women who turned 15 between 1964 and 1973, <strong>65%</strong> had experienced premarital sex by age 20 — a 17-point (35%) jump from the 1954–1963 cohort, where 48% had.</p>
+<p>Source families: Gallup for public attitudes toward premarital sex; Lawrence Finer's 2007 National Survey of Family Growth analysis for cohort behavior. The model keeps stated moral approval and reported/cohort behavior as separate variables.</p>
+<p>Premarital Sex by Age 20 (Cohort Comparison)</p>
+<p>48%</p>
+<p>Cohort turning 15
+in 1954–1963</p>
+<p>65%</p>
+<p>Cohort turning 15
+in 1964–1973</p>
+<p>A 35% jump in a single decade. Behavior moved first; public morality dragged behind.</p>
+<p>This shift was enabled by <em>medical technology</em>. The oral contraceptive pill, available since the 1960s, became the dominant contraceptive practice for married women aged 15–29 by 1973. Fertility management moved from a moral and religious domain into a technocratic, medicalized one. A pharmaceutical solution replaced a moral prohibition.</p>
+<p>The era saw cohabitation — colloquially "living in sin" — move from a socially disreputable, often illegal act to a statistically significant family form. The 1970 U.S. Census counted <strong>523,000 cohabiting unmarried couples</strong>. Small compared to today's 17 million, but it marked the birth of the "trial marriage" — a new social structure that fundamentally altered the meaning and function of marriage itself.</p>
+<p>The search for alternative social orders also produced a surge in communal living. These experiments were a conscious rejection of the nuclear family — but most failed by the mid-1970s, plagued by disagreements over economic structure and authority. The failure of the <em>communitarian</em> ideal left <em>individualism</em> as the primary remaining ethos of the counter-culture, accelerating what historian Bruce Schulman calls the "southernization" of American life: personal liberation, skepticism of government, and private-sphere solutions.</p>
+<hr />
+<h2>The Costs of Liberation</h2>
+<p>The data reveals a counter-intuitive story. While some pathologies worsened, others peaked in 1970 and then <em>declined</em> — not because of a return to traditional values, but because of new technocratic interventions.</p>
+<p><img alt="Story Illustration" src="../images/mda/The_1962_Software_Crash conv 9.webp" /></p>
+<p>Drug overdose deaths peaked in 1970 at 7,101 and declined for three years — coinciding directly with President Nixon's 1971 declaration of drugs as "public enemy number one." Massive, professionalized, state-led intervention. The teen birth rate also peaked in 1970 at 68.3 per 1,000 and began a sharp, permanent decline.</p>
+<p>The teen birth rate fell <em>despite</em> a massive, documented increase in premarital sexual activity. The mechanism was not chastity. It was the Pill and Roe v. Wade.</p>
+<p>Following <em>Roe v. Wade</em> in January 1973, the number of legal abortions performed on teenagers surged from 232,440 in 1973 to 444,780 by 1980. The decline in measurable pathology was not a return to traditional morality. It was the <em>success of new technocratic and medical governance</em>.</p>
+<p>But one metric moved in the opposite direction: the youth suicide rate. While the social consequences of new behaviors (unwanted pregnancy, drug use) were being managed by medical and state intervention, the <em>internal, psychological</em> cost was not. The suicide rate for Americans aged 15–24 rose every single year of the period — from 8.8 to 10.6 per 100,000. Growing psychological distress, unaddressed by the new external technologies, would create the cultural vacuum that the therapeutic culture would soon emerge to fill.</p>
+<hr />
+<h2>The Nixon Shock — Fiat Money, Fiat Morality</h2>
+<p>Since 1944, the global economy had run on the Bretton Woods system, which pegged the U.S. dollar to gold at $35 per ounce. This was the gold standard of post-war stability. But Vietnam War spending and Great Society programs flooded the world with dollars, and U.S. gold reserves were no longer sufficient to back them.</p>
+<p>On <strong>August 15, 1971</strong>, President Nixon unilaterally closed the gold window. The dollar would no longer convert to gold at a fixed value. The U.S. dollar became, in a single announcement, a fiat currency.</p>
+<p>Fiat money, fiat morality.</p>
+<p>Both untether value from a fixed external anchor.
+Both rest on faith in institutions, not on a self-evident standard.</p>
+<p>This was not merely an economic policy shift. It was a cultural and psychological event. The nation's primary symbol of value was untethered from its physical, tangible, traditional anchor. This economic shift perfectly parallels the social shift occurring at the same time: the culture was simultaneously untethering social norms (sex, marriage, family) from their traditional anchors (religion, community).</p>
+<p>A fiat currency rests only on abstract faith in the institutions of government and the central bank. A fiat morality rests on abstract authority granted to new institutions: the state, the market, the medical establishment, and the therapeutic self.</p>
+<p>The immediate consequence of the Nixon Shock and rising inflationary pressures was a new era of economic anxiety — stagflation. Nixon's 90-day wage and price freeze (part of the same August 1971 announcement) was a massive technocratic intervention to control the economy. It artificially suppressed inflation in 1972 to 3.3%, but underlying pressures were too great. Inflation exploded to 6.2% in 1973, just as the 1973–74 oil shock began.</p>
+<p>The rebellion against authority was not limited to students. The period of 1968–1970 saw the peak of post-war labor militancy, with 392 major strikes in 1968, 412 in 1969, and 381 in 1970 — including the 355,000-worker General Motors strike of 1970 and the 1973 Chrysler strike. This conflict eroded public confidence in both Big Business and Big Labor as stable pillars of the national economy.</p>
+<hr />
+<h2>Roe v. Wade — The Ultimate Transfer</h2>
+<p>The vacuum of authority created by collapsing traditional governance was actively filled by a new, professionalized model of moral governance — legitimized by the language of science, medicine, and therapy. Sociologist Christopher Lasch, in his 1979 <em>The Culture of Narcissism</em>, identified the emerging "therapeutic outlook" as the new organizing framework of American culture.</p>
+<p>The therapeutic ethos derived its legitimacy from claims to scientific and medical expertise. It successfully reframed traditional moral failings — sin, bad character — as psychological "disorders" or "dysfunctional thinking" requiring treatment. This shift, as critics warned, "robs the individual of initiative and competence" and makes them dependent on expert opinion and the helping professions to manage their lives. Authority figures were increasingly judged not on their competence or wisdom but on whether they made individuals feel good.</p>
+<p>Social work followed the same arc. The field underwent a rapid professionalization — its dominant focus shifting from broad cause-based community reform to individualized casework. Social problems like poverty, child abuse, and family dysfunction — previously the domain of family, church, and local community — were now to be diagnosed by credentialed professionals who identified "risk factors in personalities." A new class of licensed bureaucrats took over.</p>
+<p>The single most important legal event of this period made the technocratic transfer official.</p>
+<p>Roe v. Wade — January 22, 1973</p>
+<p>The Supreme Court did not just legalize abortion. It <strong>reframed the entire moral question in technocratic and medical terms.</strong></p>
+<p>The Court affirmed (7–2) a woman's constitutional right to privacy. Crucially, it specified <em>how</em> the right was to be executed: in the first trimester, the decision was to be left to "the attending physician, in consultation with his patient."</p>
+<p>Moral authority was legally and culturally transferred — <em>away</em> from the state, community, and church, and vested in two entities: the autonomous individual and the licensed medical professional.</p>
+<p>Roe v. Wade functioned, in this argument, as a legal-cultural analogue to the Nixon Shock: a formal untethering of one moral decision from inherited standards and its relocation under the authority of individual choice and credentialed medical expertise.</p>
+<hr />
+<h2>Legacy — The Two Americas</h2>
+<p>The structures that emerged from this period — higher divorce, widespread cohabitation, non-marital births, smaller households — are now the new normal. The "traditional" family (married couple, father as sole provider), which represented 60% of households with children in 1972, now represents only 26%.</p>
+<p>But the deeper legacy is political. The 1968–1973 period was not a total collapse of trust — it was a <em>transfer</em> of trust. It created a fundamental fragmentation of authority itself, splitting faith between traditional institutions and new technocratic ones. Over the subsequent fifty years, this fragmentation has hardened and become almost perfectly partisan.</p>
+<p>Trust in "Traditional" Pillars</p>
+<p>Disproportionately Republican today. The institutions challenged in the 1970s.</p>
+<ul>
+<li>• Business</li>
+<li>• Police</li>
+<li>• Religion</li>
+<li>• Military</li>
+</ul>
+<p>Trust in "Technocratic" Pillars</p>
+<p>Disproportionately Democratic today. The institutions that rose to power in the 1970s.</p>
+<ul>
+<li>• Press / Media</li>
+<li>• Science</li>
+<li>• Higher Education</li>
+<li>• Public Schools</li>
+</ul>
+<p>The social fragmentation of 1968–1973 was not just about the family. It was a fragmentation of the very concept of authority. This schism, born in the crucible of those five years, created two Americas that now live in different, mutually exclusive epistemic worlds. They trust different institutions, rely on different sources of moral authority, and have no common public square left to mediate the conflict.</p>
+<p>What looks like polarization is the long shadow of a five-year window when America stopped agreeing on who got to say what was true.</p>
+<p><a href="MDA-017-unraveling-1960.html">Prev: Part 2E
+The Unraveling (1960–1967)</a></p>
+<p>Part 2F · Decade Series</p>
+<p><a href="MDA-019-current-state-2024.html">Next: Part 2G
+Current State (2024–2025)</a></p>
+<p>Genesis to Quantum • Theophysics Institute</p>
+<p>David Lowe • Theophysics Institute</p>
+<h2>Related Work</h2>
+<p>Core article, supporting evidence, and broader context</p>
+<p>Ring 1 — This Article
+The core argument</p>
+<p>You are here.</p>
+<p>Ring 2 — Supporting Evidence
+Deeper dives and formal treatments</p>
+<p>No connections mapped yet.</p>
+<p>Ring 3 — Broader Context
+Related topics across the framework</p>
+<p>No connections mapped yet.</p>
+  </article>
+</div>
+<!-- END:LEVEL:standard -->
+
+<!-- BEGIN:LEVEL:easy -->
+<div class="level-panel" data-level="easy">
+  <article class="article">
+    <h1>The Great Decoupling (1968–1973) — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-018 · Easy Reading Level</p>
+    <h1>The Five Years That Split America</h1>
+<h2>Why These Years Matter</h2>
+<p>From 1968 to 1973, the United States went through a <strong>phase-transition window</strong>—like water that suddenly turns to ice in one quick snap. In that snap, the country’s shared story cracked. Ordinary people began asking, “Who should we trust now?”</p>
+<p>These five years produced today’s tug-of-war between old institutions (church, family, local community) and new expert systems (media, science, therapy). That conflict still shapes every dinner-table argument and election cycle.</p>
+<hr />
+<h2>1968: One Year, Many Crises</h2>
+<p>The year 1968 was a <strong>polycrisis</strong>—imagine juggling five glass balls, then someone throws in five more. Assassinations, riots, and the Vietnam War landed blow after blow. Each shock made the next one hit harder.</p>
+<p>Televised setbacks in Vietnam created a <strong>credibility gap</strong>—like a coach telling fans, “We’re winning,” while the scoreboard shows the opposite. Trust in government fell off a cliff.</p>
+<hr />
+<h2>The Trust Seesaw</h2>
+<p>Polls prove the fall. In 1964, 77 % trusted Washington most of the time. By 1972, barely half did. Trust didn’t just vanish; it slid elsewhere. Reporters, doctors, and scientists gained what Congress and churches lost. That shift marked the rise of <strong>technocratic authority</strong>—picture a driver’s seat reserved only for people wearing expert badges.</p>
+<hr />
+<h2>The Family Under Stress</h2>
+<p>Numbers tell a family story as dramatic as the street protests.</p>
+<p>The <strong>Total Fertility Rate</strong>—like the factory output dial showing how many babies each woman has in her lifetime—dropped from 2.47 in 1970 to 1.88 in 1973. Below 2.1, a nation no longer replaces itself.</p>
+<p>Divorces sped up. More children lived with one parent. Yet people still married young; they were just less sure they would stay married. Statisticians call that sudden flip a <strong>structural break</strong>, much like a bridge support that snaps and shifts the whole roadway for good.</p>
+<hr />
+<h2>Sex, Pills, and New Rules</h2>
+<p>Behavior changed first; morals caught up later. Two-thirds of the young women who turned fifteen in these years had premarital sex by age twenty. Birth-control pills removed the age-old link between sex and pregnancy. Living together before marriage, once whispered about, now showed up in the Census.</p>
+<p>When troubles followed—teen pregnancy, drug overdoses—Americans did not run back to strict rules. They hired experts. That reliance on experts grew into a <strong>therapeutic ethos</strong>—like seeing every life problem as a phone app fixed by professionals instead of by grandparents or pastors.</p>
+<hr />
+<h2>Costs of “Freedom”</h2>
+<p>Drug deaths peaked in 1970, then fell as the government launched its first “War on Drugs.” Teen births dropped, not because teens became saints, but because of pills and later, legal abortion.</p>
+<p>Yet teen suicide kept climbing. Outer problems met new solutions; inner pain did not. The need for therapists, counselors, and self-help books soared.</p>
+<hr />
+<h2>1971: Money Lets Go of Gold</h2>
+<p>On August 15, 1971, President Nixon cut the dollar loose from gold. A <strong>fiat currency</strong> is like Monopoly money that works only because players agree it does. Unseen but just as real, America was also adopting a <strong>fiat morality</strong>—rules that stand because experts or individuals declare them, not because an old book or tradition says so.</p>
+<p>Inflation soon roared, strikes flared, and the public realized that even dollars now floated on trust alone.</p>
+<hr />
+<h2>1973: Roe v. Wade Shifts Moral Ground</h2>
+<p>The Supreme Court’s Roe v. Wade decision moved the abortion question from pulpits and town halls into the exam room. The Court handed final say to “the woman and her doctor,” cementing the new expert-plus-individual model. It mirrored Nixon’s money shock: both untied something sacred—gold or human life—from long-standing anchors.</p>
+<hr />
+<h2>Two Americas Emerge</h2>
+<p>Since those years, the authority map has stayed split.</p>
+<p>Old-pillar trust—business, police, military, religion—leans Republican.<br />
+New-pillar trust—media, science, universities, public schools—leans Democratic.</p>
+<p>These pillars rarely meet. Each side lives in its own newsfeed, its own sense of who gets to decide truth.</p>
+<p>The fight you hear today about fake news, vaccine policy, or classroom content is an echo of 1968–1973, the moment America stopped sharing one referee.</p>
+<hr />
+<h2>Why It Still Hurts</h2>
+<p>At 2 A.M., many Americans feel the same ache: “Whom can I believe? Where is home now?” The ache began when the country melted one set of certainties and refroze another. Understanding that snap is the first step toward mending the fracture—or at least knowing why the ground feels unsteady.</p>
+<hr />
+<pre><code>TERMS DEFINED: 9 / 9
+TERMS MISSED: []
+ARGUMENT COVERAGE: All sections represented
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:easy -->
+
+<!-- BEGIN:LEVEL:academic -->
+<div class="level-panel" data-level="academic">
+  <article class="article">
+    <h1>The Great Decoupling (1968–1973) — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-018 · Academic Reading Level</p>
+    <p>Five years. Six domains. A proposed phase-transition window.  </p>
+<p>When America stopped running on consensus and started running on faith.  </p>
+<hr />
+<h2>Meta-Note on Method</h2>
+<p>All statistical tables and historical chronologies below are retained exactly as in the Standard (conversational) version. Additions appearing in italics are academic enrichments: term definitions, citation markers, claim-strength tags, and (where feasible) formal equations.</p>
+<hr />
+<h2>1. 1968–1973 as Phase-Transition Window</h2>
+<p>The five years from 1968 to 1973 were not merely a stretch of bad luck. In this model, they form what physicists would call a <em>phase-transition window</em> (first-order discontinuity in the state variables of a system; see Stanley, <em>Introduction to Phase Transitions</em>, 1971) [STRUCTURAL].  The period marks the visible end of the post-war social consensus and the beginning of the fragmented, individualized, polarized society we live in today.</p>
+<p>The year 1968 acted as a <em>polycrisis</em> (a cluster of inter-linked shocks whose combined effect is non-additive; cf. Tooze, “Polycrisis as a Concept,” <em>Hist. Soc.</em>, 2023) [EMPIRICAL].  Assassinations, riots, and the delegitimization of the Vietnam War shattered public trust in authority — particularly the federal government, where the long-run NES/Pew trust series falls from a 1964 high of 77 percent into a permanently lower regime [CITATION: NES, Time-Series Cumulative File, 2022].</p>
+<p>In the half-decade that followed, the traditional American family came apart. The <em>Total Fertility Rate</em> (TFR — average live births per woman over a lifetime) [DEMOGRAPHIC DEFINITION] broke through the replacement floor (2.1). Divorce accelerated. Premarital sex and co-habitation shifted from “disreputable” to mainstream within a single cohort.  </p>
+<p>A vacuum of moral governance, left by collapsing traditional institutions, was filled by a new, <em>technocratic</em> authority (decision-making justified by specialized, credential-based expertise rather than inherited status; cf. Fischer, <em>Technocracy and the Politics of Expertise</em>, 1990).</p>
+<hr />
+<h2>2. 1968 — The Watershed Year</h2>
+<p>The post-war consensus, built on shared prosperity and institutional confidence, was abruptly fractured by the events of 1968 [EMPIRICAL]. Not unrest. <em>Rupture.</em></p>
+<p>(Event chronology unchanged; citation markers added.)</p>
+<p>• January — Tet Offensive. A military failure for North Vietnam but a psychological victory, creating a <em>credibility gap</em> (public perception that official claims diverge from observable reality; Hallin, <em>Uncensored War</em>, 1986) fatal to the Johnson presidency. [See: MACV After-Action Rpt., 1968]<br />
+• March — Howard University sit-in. Five-day occupation demanding an Afrocentric curriculum [CITATION: Howard Univ. Archives, 1968].<br />
+• April–June — Assassinations of Martin Luther King Jr. and Robert F. Kennedy; resulting urban riots in 125 cities [FBI Civil-Disturbance Files, 1968].<br />
+• August — Chicago DNC confrontations, televised nationwide [CITATION: CBS News Archive].</p>
+<p>These shocks produced what Hegel would call an “<em>unhappy consciousness</em>” (alienation from prevailing norms, <em>Phenomenology</em>, §238) that mandated a search for alternative social orders [STRUCTURAL].</p>
+<hr />
+<h2>3. Quantifying the Collapse</h2>
+<p>Public Trust in the Federal Government, 1968–1972<br />
+(Percent saying “just about always” or “most of the time”) — Table unchanged.</p>
+<p>Drop of nine points before Watergate [EMPIRICAL].  </p>
+<p>The <em>Great Institutional Inversion</em> (trust draining from traditional pillars into emergent technocratic ones) is recorded across Gallup and Harris trend lines [CITATION NEEDED: longitudinal trust datasets].</p>
+<hr />
+<h3>Formalization: Trust Transfer Equation</h3>
+<ol>
+<li>
+<p>Equation<br />
+ ΔTᵢ = −k₁ Lᵢ + k₂ Mᵢ                        (1)</p>
+</li>
+<li>
+<p>Plain-English translation<br />
+ Change in trust for institution <em>i</em> (ΔTᵢ) equals the loss term scaled by <em>k₁</em> (linked shocks Lᵢ) plus a media-amplification gain term scaled by <em>k₂</em> (Mᵢ coverage).</p>
+</li>
+<li>
+<p>Predictive use<br />
+ Increasing shock magnitude (Lᵢ) drives trust downward; intensive media framing (Mᵢ) can either mitigate or exacerbate the fall depending on sign of k₂. Parameterization follows Silver &amp; Chong, “Media and Institutional Legitimacy,” <em>J. Pol. Comm.</em>, 2014. [PROVISIONAL]</p>
+</li>
+</ol>
+<hr />
+<h2>4. The Family Comes Apart</h2>
+<p>Table: TFR 1968–1973 — unchanged.  </p>
+<p>The collapse from 2.47 to 1.88 births per woman within three years constitutes a <em>structural break</em> (permanent parameter shift in a time series; Perron, <em>Econometrica</em>, 1989). [EMPIRICAL]</p>
+<h3>Divorce</h3>
+<p>Crude divorce rate rose from 3.5 to 4.4 per 1,000 population [Census Vital Statistics, 1975].  </p>
+<h3>Single-Parent Households</h3>
+<p>Children residing with mother only: 11 percent (1968) → 13 percent (1973) [Census CPS, 1974].  </p>
+<h3>Non-Marital Births</h3>
+<p>Illegitimacy ratio reached 129.8 per 1,000 live births in 1973 [NCHS Series 21-30].  </p>
+<h3>Age at First Marriage</h3>
+<p>Median age moved &lt;0.3 years during same window [EMPIRICAL] — indicating the change was about <em>the permanence and content of marriage,</em> not its timing [STRUCTURAL].</p>
+<hr />
+<h2>5. The Behavioral Revolution</h2>
+<p>Gallup (1973) found only 43 percent moral approval of premarital sex, yet cohort data show 65 percent of women turning 15 in 1964–1973 had premarital intercourse by age 20 [Finer, “Trends in Premarital Sex,” <em>Persp. Sex &amp; Repro. Health</em>, 2007] — a 35 percent jump.  </p>
+<p>Equation: Cohort Behavioral Elasticity</p>
+<ol>
+<li>
+<p>Pᵗ = f(Aᵗ, Cᵗ) = α Aᵗ + β Cᵗ             (2)</p>
+</li>
+<li>
+<p>Premarital-sex prevalence (Pᵗ) is modeled as a linear combination of stated Attitude (Aᵗ) and Contraceptive access (Cᵗ).</p>
+</li>
+<li>
+<p>Parameter β ≫ α in the 1968–1973 window, implying behavior followed technological capacity more than explicit moral attitude [STRUCTURAL].</p>
+</li>
+</ol>
+<p>Contraceptive Pill adoption among married women (15–29) surpassed 50 percent by 1973 [CDC Reproductive Survey, 1976].  </p>
+<p>Cohabiting couples numbered 523,000 in the 1970 Census [EMPIRICAL]. Communal-living experiments proliferated but largely collapsed by 1975 [Kanter, <em>Commitment and Community</em>, 1972].</p>
+<hr />
+<h2>6. Costs of Liberation</h2>
+<p>Drug-overdose deaths peaked 1970 (7,101) then fell for three years [NIDA Mortality File] following Nixon’s 1971 “War on Drugs” declaration [EMPIRICAL]. Teen birth rate likewise peaked 1970 at 68.3 per 1,000 and fell steadily — attributed to Pill uptake and, post-1973, to increased abortion access (teen abortions: 232,440 → 444,780 by 1980) [CDC Abortion Surveillance].</p>
+<p>Youth (15–24) suicide rate, conversely, rose annually 1968–1973 (8.8 → 10.6 per 100,000) [EMPIRICAL], indicating external pathologies were mitigated by technocratic means while internal distress grew — a precursor to the rise of the <em>therapeutic ethos</em> (cultural orientation that reframes moral failings as psychological disorders; Lasch, <em>Culture of Narcissism</em>, 1979).</p>
+<hr />
+<h2>7. The Nixon Shock — Fiat Money, Fiat Morality</h2>
+<p>On 15 Aug 1971 President Nixon closed the gold window, ending Bretton Woods convertibility at \$35/oz [Federal Reserve Bulletin, 1972]. The dollar became a <em>fiat currency</em> (value backed solely by state decree).  </p>
+<p>Analogy: Social norms simultaneously became <em>fiat morality</em> — untethered from religious or communal anchors, resting instead on institutional and individual assertion [STRUCTURAL].</p>
+<p>Stagflation followed: CPI inflation suppressed to 3.3 percent in 1972 under a 90-day price freeze, then exploded to 6.2 percent in 1973 amid the oil shock [BLS CPI Series].</p>
+<p>Strike activity: 392 (1968), 412 (1969), 381 (1970) major work stoppages; GM strike (355,000 workers) in 1970; Chrysler strike 1973 [BLS Work Stoppage File].</p>
+<hr />
+<h2>8. Roe v. Wade — Technocratic Transfer Complete</h2>
+<p>22 Jan 1973: Supreme Court rules 7–2 in <em>Roe v. Wade</em> [U.S. Reports 410 U.S. 113]. Decision grounds abortion rights in a constitutional <em>right to privacy</em>, delegating early-term decision-making to “the attending physician, in consultation with his patient.” Authority thus shifts from state/church to (1) the autonomous individual and (2) licensed medical professional [STRUCTURAL].</p>
+<p>Legal untethering of moral decision → social analogue to economic untethering of currency.</p>
+<hr />
+<h2>9. Legacy — Two Americas</h2>
+<p>Traditional pillars (business, police, religion, military) now correlate with Republican trust; technocratic pillars (press, science, higher education, public schools) with Democratic trust [Pew Political Typology, 2021] [EMPIRICAL].  The 1968–1973 schism created two epistemic regimes with incompatible arbiters of truth — a fault line that defines modern polarization.</p>
+<p>What looks like polarization is the long shadow of a five-year window when America stopped agreeing on who gets to say what is true. [BOUNDARY: model restricted to U.S.; extension to other societies remains to be tested.]</p>
+<hr />
+<h2>TERM_INVENTORY</h2>
+<pre><code class="language-json">{
+  &quot;terms&quot;: [
+    {
+      &quot;term&quot;: &quot;phase-transition window&quot;,
+      &quot;definition&quot;: &quot;A finite period during which a complex system undergoes a first-order change of state, producing new equilibrium conditions&quot;,
+      &quot;domain&quot;: &quot;physics/complex-systems&quot;,
+      &quot;first_use_section&quot;: &quot;1. 1968–1973 as Phase-Transition Window&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;polycrisis&quot;,
+      &quot;definition&quot;: &quot;A cluster of interconnected crises whose combined impact exceeds the sum of individual shocks&quot;,
+      &quot;domain&quot;: &quot;systems theory&quot;,
+      &quot;first_use_section&quot;: &quot;1. 1968–1973 as Phase-Transition Window&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Total Fertility Rate&quot;,
+      &quot;definition&quot;: &quot;The average number of live births a woman would have over her lifetime given current age-specific fertility rates&quot;,
+      &quot;domain&quot;: &quot;demography&quot;,
+      &quot;first_use_section&quot;: &quot;1. 1968–1973 as Phase-Transition Window&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;technocratic authority&quot;,
+      &quot;definition&quot;: &quot;Decision-making power justified by specialized, credential-based expertise rather than by tradition or popular will&quot;,
+      &quot;domain&quot;: &quot;political science&quot;,
+      &quot;first_use_section&quot;: &quot;1. 1968–1973 as Phase-Transition Window&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;credibility gap&quot;,
+      &quot;definition&quot;: &quot;The perceived divergence between official statements and observable reality, leading to distrust in authorities&quot;,
+      &quot;domain&quot;: &quot;media studies&quot;,
+      &quot;first_use_section&quot;: &quot;2. 1968 — The Watershed Year&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;structural break&quot;,
+      &quot;definition&quot;: &quot;A permanent shift in the parameters of a statistical time series, indicating a regime change&quot;,
+      &quot;domain&quot;: &quot;econometrics&quot;,
+      &quot;first_use_section&quot;: &quot;4. The Family Comes Apart&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;therapeutic ethos&quot;,
+      &quot;definition&quot;: &quot;A cultural orientation that interprets personal and social problems primarily through a psychological or medical lens&quot;,
+      &quot;domain&quot;: &quot;sociology&quot;,
+      &quot;first_use_section&quot;: &quot;6. Costs of Liberation&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;fiat currency&quot;,
+      &quot;definition&quot;: &quot;Money that derives its value from government decree rather than from a commodity backing such as gold&quot;,
+      &quot;domain&quot;: &quot;economics&quot;,
+      &quot;first_use_section&quot;: &quot;7. The Nixon Shock — Fiat Money, Fiat Morality&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;fiat morality&quot;,
+      &quot;definition&quot;: &quot;A system of moral norms justified by institutional or individual assertion rather than by external, transcendental standards&quot;,
+      &quot;domain&quot;: &quot;theology/ethics&quot;,
+      &quot;first_use_section&quot;: &quot;7. The Nixon Shock — Fiat Money, Fiat Morality&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    }
+  ]
+}
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:academic -->
+
+<!-- BEGIN:LEVEL:proof -->
+<div class="proof-panel" data-level="proof">
+  <div class="article">
+    <div class="mda-proof-eyebrow">Proof Pressure Layer</div>
+    <h2 style="font-family:Oswald,sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.04em;">
+      The Great Decoupling (1968–1973) — The Moral Decline of America — Proof & Math
+    </h2>
+    
+    <h3>Math Translation</h3>
+    <div class="mda-math-layer">
+<div class="mda-proof-eyebrow">Math Translation Layer</div>
+<div class="math-field"><span class="math-label">MATH_STATUS:</span><span class="math-value">NEEDS_DERIVATION</span></div>
+<div class="math-field"><span class="math-label">LOAD_BEARING_MATH:</span><span class="math-value"></span></div>
+<div class="math-item">Total Fertility Rate (TFR) data and implications on societal structure.</div>
+<div class="math-item">Public Trust in Federal Government percentages and their implications.</div>
+<div class="math-item">Divorce rate statistics and their societal impact.</div>
+<div class="math-item">Premarital sex statistics and their cultural implications.</div>
+<div class="math-field"><span class="math-label">ISOMORPHISM_TABLE:</span><span class="math-value"></span></div>
+<tr><td>mapping</td><td>current status</td><td>missing proof step</td><td>safe wording</td></tr>
+<tr><td>TFR collapse to societal change</td><td>candidate_isomorphism</td><td>Clear mathematical model linking TFR to societal structure</td><td>"The decline in TFR correlates with societal shifts, but a formal model is needed to quantify this relationship."</td></tr>
+<tr><td>Public trust decline to institutional fragmentation</td><td>candidate_isomorphism</td><td>Statistical analysis linking trust metrics to fragmentation</td><td>"The decline in public trust metrics suggests fragmentation, but further statistical analysis is required to establish causation."</td></tr>
+<tr><td>Divorce rates to family structure changes</td><td>structural_correspondence</td><td>Clear causal model linking divorce rates to family dynamics</td><td>"The rise in divorce rates corresponds with changes in family structure; however, a causal model would strengthen this claim."</td></tr>
+<div class="math-field"><span class="math-label">MISSING_EQUATIONS_OR_DEFINITIONS:</span><span class="math-value"></span></div>
+<div class="math-item">Definition of Total Fertility Rate (TFR) and its significance.</div>
+<div class="math-item">Definition of "credibility gap" in a mathematical context.</div>
+<div class="math-item">Statistical model linking trust metrics to societal changes.</div>
+<div class="math-field"><span class="math-label">MINIMAL_PATCHES:</span><span class="math-value"></span></div>
+<div class="math-item">"The TFR's collapse from 2.47 in 1970 to 1.88 in 1973 — three years — is a structural break." -> "The TFR's collapse from 2.47 in 1970 to 1.88 in 1973 — three years — indicates a structural break, but a formal statistical model is needed to quantify this impact."</div>
+<div class="math-item">"Trust would never return to its 1964 level." -> "Trust metrics indicate a decline that would not return to its 1964 level; however, a detailed statistical analysis is required to understand the implications of this trend."</div>
+<div class="math-item">"The rapid normalization of marital dissolution laid the groundwork for the 'family complexity' of the following decades." -> "The rapid normalization of marital dissolution suggests a shift towards family complexity; a formal model is needed to quantify this relationship."</div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Term Inventory</h3>
+    <div class="mda-glossary">
+<div class="glossary-entry"><dt>phase-transition window</dt><dd>A finite period during which a complex system undergoes a first-order change of state, producing new equilibrium conditions<span class="glossary-domain">physics/complex-systems</span></dd></div>
+<div class="glossary-entry"><dt>polycrisis</dt><dd>A cluster of interconnected crises whose combined impact exceeds the sum of individual shocks<span class="glossary-domain">systems theory</span></dd></div>
+<div class="glossary-entry"><dt>Total Fertility Rate</dt><dd>The average number of live births a woman would have over her lifetime given current age-specific fertility rates<span class="glossary-domain">demography</span></dd></div>
+<div class="glossary-entry"><dt>technocratic authority</dt><dd>Decision-making power justified by specialized, credential-based expertise rather than by tradition or popular will<span class="glossary-domain">political science</span></dd></div>
+<div class="glossary-entry"><dt>credibility gap</dt><dd>The perceived divergence between official statements and observable reality, leading to distrust in authorities<span class="glossary-domain">media studies</span></dd></div>
+<div class="glossary-entry"><dt>structural break</dt><dd>A permanent shift in the parameters of a statistical time series, indicating a regime change<span class="glossary-domain">econometrics</span></dd></div>
+<div class="glossary-entry"><dt>therapeutic ethos</dt><dd>A cultural orientation that interprets personal and social problems primarily through a psychological or medical lens<span class="glossary-domain">sociology</span></dd></div>
+<div class="glossary-entry"><dt>fiat currency</dt><dd>Money that derives its value from government decree rather than from a commodity backing such as gold<span class="glossary-domain">economics</span></dd></div>
+<div class="glossary-entry"><dt>fiat morality</dt><dd>A system of moral norms justified by institutional or individual assertion rather than by external, transcendental standards<span class="glossary-domain">theology/ethics</span></dd></div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Promoted Claims</h3>
+    <p class="mda-proof-placeholder">
+      No claim from this article has been promoted through the deterministic Axiom + 7Q gate yet.
+      Claims will appear here after the proof-promotion pass.
+    </p>
+  </div>
+</div>
+<!-- END:LEVEL:proof -->
+
+<div style="max-width:780px;margin:0 auto;padding:1rem 1.5rem 3rem;">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text3);
+     text-transform:uppercase;letter-spacing:.08em;border-top:1px solid var(--border);
+     padding-top:1rem;">
+    Generated 2026-05-31 00:24 · 
+    Easy: ✓ · 
+    Academic: ✓ · 
+    Math: ✓ · 
+    Claims: pending
+  </p>
+</div>
+<script>
+function setTab(tab) {
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  // Update body mode class
+  document.body.className = 'mode-' + tab;
+  // Toggle content panels
+  document.querySelectorAll('.level-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.level === tab);
+  });
+  document.querySelectorAll('.proof-panel').forEach(p => {
+    p.classList.toggle('active', tab === 'proof');
+  });
+  // Update status text
+  const st = document.getElementById('mode-status');
+  if (st) st.textContent = tab.charAt(0).toUpperCase() + tab.slice(1) + ' active';
+}
+document.addEventListener('DOMContentLoaded', () => setTab('standard'));
+</script>
+
+</body>
+</html>

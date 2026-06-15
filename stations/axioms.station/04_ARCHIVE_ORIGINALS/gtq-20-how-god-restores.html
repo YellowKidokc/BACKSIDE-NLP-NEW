@@ -1,0 +1,1016 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="paper-slug" content="GTQ-20">
+<title>GTQ-20 How God Restores â€” Genesis to Quantum</title>
+<meta name="description" content="The mechanism, step by step."/>
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<!-- MathJax -->
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']] }, svg: { fontCache: 'global' } };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+:root{
+  --primary:#1a1a1a;
+  --accent:#2c2c2c;
+  --text-primary:#e0e0e0;
+  --text-secondary:#a0a0a0;
+  --highlight:#d4af37;
+  --highlight-bright:#f4d03f;
+  --highlight-dim:#8b7a1e;
+  --highlight-glow:rgba(212,175,55,0.12);
+  --border:#333333;
+  --surface:#0a0a0a;
+  --surface-light:#1a1a1a;
+  --surface-hover:#2a2a2a;
+  --red:#ef4444;
+  --blue:#4a9eff;
+  --teal:#2dd4bf;
+  --purple:#a855f7;
+  --green:#22c55e;
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--surface);
+  color:var(--text-primary);
+  line-height:1.65;
+  margin:0;
+  padding:0;
+  overflow-x:hidden;
+}
+.serif{font-family:'Crimson Text',serif;}
+.display{font-family:'Oswald',sans-serif;}
+.mono{font-family:'JetBrains Mono',monospace;}
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ SIDEBAR NAV â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.sidebar{
+  position:fixed;top:0;left:0;width:300px;height:100vh;
+  background:var(--surface);border-right:1px solid var(--border);
+  z-index:100;overflow-y:auto;
+  transform:translateX(-100%);transition:transform .3s ease;
+  padding:1.5rem 1rem;
+}
+.sidebar.open{transform:translateX(0);}
+.sidebar-toggle{
+  position:fixed;top:1rem;left:1rem;z-index:101;
+  background:var(--surface-light);border:1px solid var(--border);
+  color:var(--highlight);width:40px;height:40px;border-radius:.375rem;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:1rem;transition:all .2s ease;
+}
+.sidebar-toggle:hover{border-color:var(--highlight);background:var(--surface-hover);}
+.sidebar-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:99;}
+.sidebar-overlay.show{display:block;}
+.sidebar .series-title{
+  font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--highlight);margin-bottom:1rem;
+  padding-bottom:.5rem;border-bottom:1px solid var(--border);
+}
+.sidebar a{display:block;padding:.45rem .75rem;color:var(--text-secondary);text-decoration:none;font-size:.8rem;border-radius:.3rem;transition:all .15s ease;line-height:1.4;}
+.sidebar a:hover{color:var(--text-primary);background:var(--surface-hover);}
+.sidebar a.current{color:var(--highlight);background:var(--highlight-glow);font-weight:600;}
+.sidebar .nav-section{padding:.5rem .75rem .25rem;font-family:'Oswald',sans-serif;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);opacity:.6;margin-top:.5rem;}
+.sidebar a.main-article{font-weight:500;color:var(--text-primary);}
+.sidebar a.deep-dive{padding-left:1.25rem;font-size:.78rem;opacity:.85;}
+.sidebar a.deep-dive::before{content:"â”” ";color:var(--border);}
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ PROGRESS BAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.progress-track{position:fixed;top:0;left:0;right:0;height:3px;background:var(--border);z-index:90;}
+.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--highlight),var(--highlight-bright));transition:width 0.1s ease;border-radius:0 2px 2px 0;}
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ HERO GRID â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.hero-grid{
+  display:grid;grid-template-columns:2fr 1fr;grid-template-rows:auto auto;
+  gap:1.25rem;min-height:420px;margin-bottom:2.5rem;
+}
+.hero-main{
+  grid-column:1/2;grid-row:1/3;position:relative;overflow:hidden;
+  border-radius:.75rem;background:linear-gradient(135deg,var(--surface-light) 0%,var(--accent,#2c2c2c) 100%);
+  border:1px solid var(--border);min-height:420px;
+}
+.hero-main img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35;}
+.hero-main .overlay{
+  position:relative;z-index:2;height:100%;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:2.5rem;
+  background:linear-gradient(0deg,rgba(10,10,10,.85) 0%,rgba(10,10,10,0) 60%);
+}
+.hero-side{
+  background:var(--surface-light);border:1px solid var(--border);border-radius:.75rem;
+  padding:1.5rem;transition:border-color .25s ease;
+}
+.hero-side:hover{border-color:var(--highlight);}
+.hero-side h3{font-family:'Crimson Text',serif;font-size:1.05rem;font-weight:600;color:#fff;margin:0 0 .65rem;}
+.hero-side p{font-size:.875rem;color:var(--text-secondary);margin:0;}
+.hero-side .label{display:block;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);margin-bottom:.4rem;font-weight:700;}
+@media(max-width:1024px){
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-main{grid-column:1;grid-row:1;min-height:300px;}
+  .hero-main .overlay{padding:1.5rem;}
+}
+.meta-row{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;font-size:.8125rem;color:var(--text-secondary);margin-bottom:1rem;}
+.meta-row i{color:var(--highlight);margin-right:.4rem;}
+.status-pill{
+  padding:.25rem .65rem;background:var(--highlight-glow);color:var(--highlight);
+  border-radius:.25rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+}
+.domain-tag{display:inline-block;padding:.2rem .65rem;border-radius:999px;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+.tag-physics{background:rgba(74,158,255,.15);color:#4a9eff;}
+.tag-theology{background:rgba(212,175,55,.15);color:#d4af37;}
+.tag-quantum{background:rgba(201,64,64,.15);color:var(--red);}
+.tag-bridge{background:rgba(45,212,191,.15);color:#2dd4bf;}
+.tag-data{background:rgba(34,197,94,.15);color:var(--green);}
+.tag-consciousness{background:rgba(168,85,247,.15);color:var(--purple);}
+.tag-history{background:rgba(212,175,55,.12);color:#caa040;}
+.tag-moral{background:rgba(239,68,68,.15);color:var(--red);}
+.tag-civilizational{background:rgba(168,85,247,.12);color:#b594d8;}
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ STICKY TAB BAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.tab-shell{
+  position:sticky;top:0;z-index:50;
+  background:rgba(10,10,10,.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.tab-nav{display:flex;gap:.125rem;overflow-x:auto;scrollbar-width:none;}
+.tab-nav::-webkit-scrollbar{display:none;}
+.tab-btn{
+  padding:.85rem 1.1rem;background:transparent;border:none;color:var(--text-secondary);
+  font-size:.825rem;font-weight:500;cursor:pointer;white-space:nowrap;
+  transition:all .2s ease;border-bottom:2px solid transparent;margin-bottom:-1px;letter-spacing:.02em;
+}
+.tab-btn:hover{color:var(--text-primary);background:var(--surface-light);}
+.tab-btn.active{color:var(--highlight);border-bottom-color:var(--highlight);background:var(--surface-light);}
+.tab-btn i{margin-right:.4rem;}
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ TAB CONTENT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.tab-content{display:none;animation:fadeIn .3s ease;}
+.tab-content.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ LAYOUT: MAIN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.main-layout{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:grid;grid-template-columns:1fr 280px;gap:3rem;}
+@media(max-width:1024px){.main-layout{grid-template-columns:1fr;}}
+
+.story{max-width:900px;margin:0 auto;}
+.story.wide{max-width:100%;}
+.story h2{
+  font-family:'Oswald',sans-serif;font-size:1.6rem;font-weight:600;color:#fff;
+  margin:3rem 0 1.25rem;letter-spacing:.03em;text-transform:uppercase;
+  border-bottom:1px solid var(--border);padding-bottom:.5rem;
+}
+.story h3{font-family:'Crimson Text',serif;font-size:1.3rem;font-weight:600;color:#fff;margin:2rem 0 .75rem;}
+.story h4{font-family:'Crimson Text',serif;font-size:1.1rem;font-weight:600;color:var(--highlight);margin:1.5rem 0 .5rem;}
+.story p{font-size:1.0625rem;color:#cfcfcf;margin:0 0 1.25rem;line-height:1.75;}
+.story p strong{color:#fff;}
+.story p em{color:var(--highlight);font-style:italic;}
+.story li{color:#cfcfcf;margin-bottom:.5rem;line-height:1.65;}
+.story li strong{color:#fff;}
+.story ul,.story ol{margin:0 0 1.25rem 1.5rem;}
+.story blockquote{
+  border-left:4px solid var(--highlight);background:var(--highlight-glow);
+  padding:1rem 1.5rem;margin:1.5rem 0;border-radius:0 .5rem .5rem 0;
+  font-family:'Crimson Text',serif;font-size:1.05rem;font-style:italic;color:#cfcfcf;
+}
+.story blockquote p{margin:0;font-size:1.05rem;}
+
+.drop-cap::first-letter{font-family:'Crimson Text',serif;font-size:4.5rem;float:left;line-height:.85;padding:.4rem .6rem 0 0;color:var(--highlight);font-weight:600;}
+
+.exec-summary{
+  background:var(--highlight-glow);border:1px solid var(--highlight-dim);
+  border-radius:.5rem;padding:1.5rem;margin:2rem 0;
+}
+.exec-summary-label{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);margin-bottom:.75rem;
+}
+.exec-summary p{font-size:1rem;color:#e0e0e0;margin:0;line-height:1.7;}
+
+.insight{border-left:4px solid var(--highlight);background:var(--highlight-glow);padding:1.25rem 1.5rem;margin:2rem 0;border-radius:0 .5rem .5rem 0;}
+.insight .label{font-family:'Crimson Text',serif;font-style:italic;color:var(--highlight);font-size:.85rem;letter-spacing:.05em;display:block;margin-bottom:.4rem;}
+.insight p{margin:0;color:#fff;font-size:1.05rem;}
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ KILL CONDITIONS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.kill-sidebar{position:sticky;top:120px;height:fit-content;}
+.kill-sidebar-title{
+  font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);
+  margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);
+}
+.kill-card{
+  background:rgba(34,197,94,.04);border:1px solid rgba(34,197,94,.2);
+  border-radius:.5rem;padding:1rem;margin-bottom:.75rem;
+}
+.kill-card.suggestive{background:var(--highlight-glow);border-color:var(--highlight-dim);}
+.kill-card.destructive{background:rgba(239,68,68,.04);border-color:rgba(239,68,68,.2);}
+.kill-label{font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.35rem;}
+.kill-card .kill-label{color:var(--green);}
+.kill-card.suggestive .kill-label{color:var(--highlight);}
+.kill-card.destructive .kill-label{color:var(--red);}
+.kill-card p{margin:.25rem 0 0;color:#cfcfcf;font-size:.85rem;line-height:1.5;}
+.kill-card .kill-detail{font-size:.75rem;color:var(--text-secondary);margin-top:.35rem;}
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ AUDIO DOCK â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.audio-dock{width:100%;background:var(--surface-light);border:1px solid var(--border);border-radius:.625rem;overflow:hidden;transition:border-color .3s ease;margin:2rem 0;}
+.audio-dock:hover{border-color:var(--highlight-dim);}
+.dock-pills{display:flex;gap:0;border-bottom:1px solid var(--border);}
+.dock-pill{flex:1;display:flex;align-items:center;justify-content:center;gap:.4rem;padding:.6rem .5rem;background:transparent;border:none;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);transition:all .25s ease;position:relative;}
+.dock-pill::after{content:'';position:absolute;bottom:0;left:15%;right:15%;height:2px;border-radius:1px;background:transparent;transition:all .25s ease;}
+.dock-pill:hover{color:var(--text-primary);background:rgba(255,255,255,.03);}
+.dock-pill[data-src="deep"]{--pill-c:var(--blue);}
+.dock-pill[data-src="read"]{--pill-c:var(--highlight);}
+.dock-pill[data-src="debate"]{--pill-c:var(--purple);}
+.dock-pill[data-src="critique"]{--pill-c:var(--teal);}
+.dock-pill.active{color:var(--pill-c);background:rgba(255,255,255,.02);}
+.dock-pill.active::after{background:var(--pill-c);}
+.dock-pill .pill-dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.5;transition:opacity .25s;}
+.dock-pill.active .pill-dot{opacity:1;}
+.dock-pill.unavailable{opacity:.3;cursor:default;pointer-events:none;}
+.dock-body{display:flex;align-items:center;gap:.65rem;padding:.65rem .85rem;}
+.dock-play{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--highlight);background:transparent;color:var(--highlight);font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s ease;}
+.dock-play:hover{background:var(--highlight-glow);transform:scale(1.05);}
+.dock-play.playing{animation:pulse-dock 2s ease-in-out infinite;}
+@keyframes pulse-dock{0%,100%{box-shadow:0 0 0 0 var(--highlight-glow);}50%{box-shadow:0 0 0 4px transparent;}}
+.dock-track-wrap{flex:1;display:flex;flex-direction:column;gap:.25rem;min-width:0;}
+.dock-track{width:100%;height:4px;background:#222;border-radius:2px;cursor:pointer;overflow:hidden;position:relative;}
+.dock-fill{height:100%;width:0%;border-radius:2px;background:var(--highlight);transition:width .15s linear,background .3s;}
+.dock-times{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--text-secondary);}
+.dock-vol{background:none;border:none;color:var(--text-secondary);cursor:pointer;font-size:.75rem;flex-shrink:0;padding:2px;transition:color .2s;}
+.dock-vol:hover{color:var(--text-primary);}
+.dock-empty{display:none;align-items:center;justify-content:center;padding:.85rem;font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);opacity:.5;font-style:italic;}
+.dock-body.hidden{display:none;}.dock-empty.visible{display:flex;}
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ BOTTOM NAVIGATION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.bottom-nav{
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:1.5rem 0;margin:3rem 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+.bottom-nav a{
+  display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;
+  background:var(--surface-light);border:1px solid var(--border);border-radius:.375rem;
+  color:var(--text-secondary);text-decoration:none;font-size:.85rem;transition:all .2s ease;
+}
+.bottom-nav a:hover{border-color:var(--highlight);color:var(--text-primary);background:var(--highlight-glow);}
+.bottom-nav a.primary{border-color:var(--highlight);color:var(--highlight);}
+.bottom-nav a.primary:hover{background:var(--highlight-glow);}
+.bottom-nav .nav-center{font-size:.8rem;color:var(--text-secondary);text-align:center;}
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ FOOTER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.site-footer{text-align:center;padding:3rem 1.5rem;color:var(--text-secondary);font-size:.8rem;border-top:1px solid var(--border);margin-top:2rem;}
+.site-footer .eq{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--highlight);opacity:.6;margin-bottom:.5rem;}
+
+@media(max-width:1024px){
+  .kill-sidebar{display:none;}
+  .main-layout{grid-template-columns:1fr;padding:0 1rem;}
+  .story{max-width:100%;}
+}
+@media(max-width:640px){
+  .tab-btn{padding:.65rem .8rem;font-size:.75rem;}
+  .story h2{font-size:1.3rem;}
+  .bottom-nav{flex-direction:column;align-items:stretch;}
+  .bottom-nav a{justify-content:center;}
+}
+
+/* GTQ bottom audit gradient: what we overstated vs. what still carries weight */
+.gtq-bottom-audit{margin:4rem 0 2rem;border:1px solid rgba(255,255,255,.12);border-radius:1rem;overflow:hidden;background:#080808;box-shadow:0 24px 80px rgba(0,0,0,.35);}
+.gtq-bottom-audit .audit-band{padding:2rem clamp(1.25rem,3vw,2.5rem);border-bottom:1px solid rgba(255,255,255,.08);}
+.gtq-bottom-audit .audit-band:last-child{border-bottom:0;}
+.gtq-bottom-audit .audit-red{background:linear-gradient(135deg,rgba(239,68,68,.28),rgba(127,29,29,.12) 62%,rgba(8,8,8,.96));border-left:6px solid #ef4444;}
+.gtq-bottom-audit .audit-amber{background:linear-gradient(135deg,rgba(239,68,68,.14),rgba(245,158,11,.18) 48%,rgba(8,8,8,.96));border-left:6px solid #f59e0b;}
+.gtq-bottom-audit .audit-green{background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(34,197,94,.22) 56%,rgba(8,8,8,.96));border-left:6px solid #22c55e;}
+.gtq-bottom-audit .audit-kicker{font-family:'Oswald',sans-serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.62);margin-bottom:.55rem;}
+.gtq-bottom-audit .audit-title{font-family:'Oswald',sans-serif;font-size:clamp(2rem,6vw,4.6rem);line-height:.92;letter-spacing:.02em;text-transform:uppercase;margin:0 0 1rem;}
+.gtq-bottom-audit .audit-red .audit-title{color:#ff5a5a;}
+.gtq-bottom-audit .audit-amber .audit-title{color:#fbbf24;}
+.gtq-bottom-audit .audit-green .audit-title{color:#4ade80;}
+.gtq-bottom-audit p{font-size:1.05rem;line-height:1.75;color:#d6d6d6;margin:.7rem 0 0;max-width:76ch;}
+.gtq-bottom-audit strong{color:#fff;}
+.gtq-bottom-audit .audit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1rem;}
+.gtq-bottom-audit .audit-chip{background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.1);border-radius:.65rem;padding:1rem;}
+@media(max-width:720px){.gtq-bottom-audit .audit-grid{grid-template-columns:1fr}.gtq-bottom-audit .audit-band{padding:1.35rem}.gtq-bottom-audit .audit-title{font-size:2.2rem}}
+/* BEGIN: HERO-BELOW-TABS NORMALIZATION */
+.article-hero-wrap{
+  max-width:1380px;
+  margin:0 auto;
+  padding:3.5rem 1.5rem 0;
+}
+.article-hero-wrap .hero-grid{
+  width:100%;
+  gap:1.5rem;
+  min-height:480px;
+  margin-bottom:3rem;
+}
+.article-hero-wrap .hero-main{
+  min-height:480px;
+}
+@media(max-width:1024px){
+  .article-hero-wrap{padding:2rem 1rem 0;}
+  .article-hero-wrap .hero-grid{min-height:0;}
+  .article-hero-wrap .hero-main{min-height:340px;}
+}
+/* END: HERO-BELOW-TABS NORMALIZATION */
+
+
+/* BEGIN: SUMMARY MEDIA NORMALIZATION */
+#summary .story.wide{
+  max-width:780px;
+}
+#summary .summary-video-card{
+  width:min(980px,calc(100% + 6rem));
+  margin:0 -3rem 1.15rem;
+  padding:1rem;
+}
+.main-layout.sidebar-collapsed #summary .summary-video-card{
+  width:min(1160px,calc(100% + 10rem));
+  margin-left:-5rem;
+  margin-right:-5rem;
+}
+#summary .summary-video-card .video-frame{
+  position:relative;
+  width:100%;
+  padding-top:56.25%;
+  border-radius:.5rem;
+  overflow:hidden;
+  background:#000;
+}
+#summary .summary-video-card video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+#summary .summary-audio-dock{
+  max-width:680px;
+  margin:0 auto 2.5rem;
+}
+#summary .summary-audio-dock .dock-body{
+  padding:.75rem .9rem;
+}
+#summary .summary-audio-dock .dock-pill:nth-child(n+2){
+  display:none;
+}
+@media(max-width:1180px){
+  #summary .summary-video-card,
+  .main-layout.sidebar-collapsed #summary .summary-video-card{
+    width:100%;
+    margin-left:0;
+    margin-right:0;
+  }
+}
+@media(max-width:760px){
+  #summary .story.wide{
+    max-width:100%;
+  }
+  #summary .summary-video-card{
+    padding:.75rem;
+  }
+  #summary .summary-audio-dock{
+    max-width:100%;
+  }
+}
+/* END: SUMMARY MEDIA NORMALIZATION */
+
+/* BEGIN: MATH + GLOSSARY TABS */
+.math-box{background:var(--surface-light);border:1px solid var(--border);border-left:3px solid var(--highlight);border-radius:.5rem;padding:1.1rem 1.25rem;margin:1.1rem 0;}
+.math-box .mlabel{display:block;font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--highlight);margin-bottom:.55rem;}
+.math-box .mnote{font-family:'Crimson Text',serif;font-size:.95rem;line-height:1.6;color:var(--text-secondary);margin-top:.6rem;}
+.math-box .mnote strong{color:var(--text-primary);}
+/* END: MATH + GLOSSARY TABS */
+
+
+/* GLOSSARY + MATH GRID (canonical schema, Job B sweep) */
+.score-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:1.5rem 0;}
+.score-card{background:var(--surface-light);border:1px solid var(--border);border-radius:.65rem;padding:1rem;}
+.score-card .label{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);margin-bottom:.5rem;display:block;}
+.score-card p{font-size:.92rem;color:#cfcfcf;margin:0;line-height:1.5;}
+@media(max-width:760px){.score-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+
+<body>
+
+<!-- Progress bar -->
+<div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+
+<!-- GTQ CANON HEADER: managed by tools/apply_article_topbars.py -->
+<style>
+.gtq-canon-shell{
+  min-height:214px;background:#070707;border-bottom:1px solid rgba(212,175,55,.34);
+  color:var(--text-primary);position:relative;z-index:50;overflow:hidden;
+  box-shadow:0 18px 36px rgba(0,0,0,.28);
+}
+.gtq-canon-shell::before{
+  content:"";position:absolute;inset:0;background:
+    radial-gradient(circle at var(--canon-glow-x,18%) 18%,rgba(212,175,55,.16),transparent 30%),
+    linear-gradient(90deg,rgba(212,175,55,.08),transparent 35%);
+  pointer-events:none;
+}
+.gtq-canon-topline{
+  height:40px;padding:0 1.5rem 0 4.5rem;border-bottom:1px solid rgba(212,175,55,.22);
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;position:relative;z-index:1;
+  background:rgba(5,5,5,.72);
+}
+.gtq-canon-chip,.gtq-canon-link{
+  height:26px;display:inline-flex;align-items:center;gap:.38rem;border:1px solid rgba(212,175,55,.24);
+  background:rgba(255,255,255,.025);border-radius:4px;padding:0 .65rem;
+  color:var(--text-dim);font-family:'JetBrains Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;
+  text-decoration:none;white-space:nowrap;
+}
+.gtq-canon-chip strong{color:var(--highlight);font-weight:700;}
+.gtq-canon-link{font-family:'Inter',sans-serif;font-size:.68rem;letter-spacing:.04em;font-weight:700;}
+.gtq-canon-link:hover{border-color:var(--highlight);color:var(--highlight);background:var(--highlight-glow);}
+.gtq-canon-nav{display:flex;align-items:center;gap:.4rem;}
+.gtq-canon-header{
+  min-height:174px;padding:1.45rem 1.5rem 1.4rem 4.5rem;position:relative;z-index:1;
+  display:grid;align-items:center;gap:1.2rem;
+}
+.gtq-canon-kicker{
+  color:var(--highlight);font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;
+  margin-bottom:.58rem;font-weight:700;
+}
+.gtq-canon-title{
+  font-family:'Crimson Text',serif;font-size:clamp(2rem,4.5vw,3.8rem);line-height:.96;
+  color:#fff;font-weight:700;letter-spacing:0;margin:0;
+}
+.gtq-canon-sub{
+  color:var(--text-secondary);font-size:.94rem;line-height:1.55;max-width:780px;margin-top:.78rem;
+}
+.gtq-canon-meta{display:flex;align-items:center;flex-wrap:wrap;gap:.55rem;margin-top:1rem;}
+.gtq-canon-meta span{
+  height:28px;display:inline-flex;align-items:center;gap:.38rem;padding:0 .7rem;border-radius:999px;
+  border:1px solid rgba(212,175,55,.22);background:rgba(212,175,55,.07);color:var(--text-dim);
+  font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.045em;
+}
+.gtq-canon-meta i{color:var(--highlight);}
+.gtq-canon-mark{
+  color:var(--highlight);font-family:'Oswald',sans-serif;font-size:7.8rem;line-height:.8;font-weight:700;
+  letter-spacing:.02em;user-select:none;text-shadow:0 0 30px rgba(212,175,55,.16);
+}
+.gtq-canon-formula{
+  color:rgba(212,175,55,.48);font-family:'JetBrains Mono',monospace;font-size:.72rem;line-height:1.8;
+  border-left:1px solid rgba(212,175,55,.35);padding-left:1rem;
+}
+.gtq-canon-classic{grid-template-columns:minmax(0,1fr) 170px;--canon-glow-x:16%;}
+.gtq-canon-classic .gtq-canon-mark{justify-self:end;opacity:.72;}
+.gtq-canon-spine{grid-template-columns:104px minmax(0,1fr) 250px;--canon-glow-x:50%;}
+.gtq-canon-spine::before{
+  content:"";position:absolute;left:4.5rem;right:1.5rem;top:0;height:4px;
+  background:linear-gradient(90deg,var(--highlight),var(--highlight-dim),var(--highlight-bright));
+}
+.gtq-canon-spine .gtq-canon-mark{
+  color:#050505;background:var(--highlight);width:74px;height:74px;display:grid;place-items:center;
+  font-size:2.15rem;border-radius:3px;box-shadow:0 0 34px rgba(212,175,55,.14);
+}
+.gtq-canon-edge{grid-template-columns:minmax(0,1fr) 330px;--canon-glow-x:86%;}
+.gtq-canon-edge .gtq-canon-title{max-width:760px;}
+.gtq-canon-edge .gtq-canon-mark{justify-self:end;opacity:.82;}
+.gtq-canon-edge .gtq-canon-formula{
+  border-left:0;border-top:1px solid rgba(212,175,55,.35);padding:1rem 0 0;text-align:center;
+}
+@media(max-width:900px){
+  .gtq-canon-topline{height:auto;min-height:40px;padding-right:.8rem;align-items:flex-start;flex-direction:column;padding-top:.55rem;padding-bottom:.55rem;}
+  .gtq-canon-nav{flex-wrap:wrap;}
+  .gtq-canon-header,.gtq-canon-classic,.gtq-canon-spine,.gtq-canon-edge{grid-template-columns:1fr;padding-right:1rem;}
+  .gtq-canon-mark,.gtq-canon-formula{display:none;}
+  .gtq-canon-title{font-size:clamp(1.8rem,9vw,2.55rem);}
+}
+</style>
+<!-- BEGIN: TOPBAR -->
+<section class="gtq-canon-shell" aria-label="Article identity">
+  <nav class="gtq-canon-topline" aria-label="Article navigation">
+    <div class="gtq-canon-chip"><i class="fas fa-atom"></i><strong>Genesis to Quantum</strong></div>
+    <div class="gtq-canon-nav">
+      <a class="gtq-canon-link" href="../index.html"><i class="fas fa-th-list"></i>Index</a>
+      <a class="gtq-canon-link" href="../19-temporal-trap/gtq-19-temporal-trap.html"><i class="fas fa-arrow-left"></i>Prev</a>
+      <a class="gtq-canon-link" href="../21-science-behind-restoration/gtq-21-science-behind-restoration.html">Next<i class="fas fa-arrow-right"></i></a>
+    </div>
+  </nav>
+  <header class="gtq-canon-header gtq-canon-spine">
+    <div>
+      <div class="gtq-canon-kicker">Origin Story / Article 20 / Formal Canon</div>
+      <h1 class="gtq-canon-title">How God Restores</h1>
+      <p class="gtq-canon-sub">The mechanism, step by step.</p>
+      <div class="gtq-canon-meta">
+        <span><i class="fas fa-fingerprint"></i>GTQ-20</span>
+        <span><i class="fas fa-layer-group"></i>Foundation Track</span>
+        <span><i class="fas fa-scale-balanced"></i>Bounded Claim</span>
+      </div>
+    </div>
+    <div class="gtq-canon-mark">#20</div>
+    <div class="gtq-canon-formula">
+      chi_local = G * M * E * S_eff * T * K * R * Q * F * C<br/>
+      C is factor / chi is output / no drift
+    </div>
+  </header>
+</section>
+<!-- END: TOPBAR -->
+<!-- /GTQ CANON HEADER -->
+
+<!-- Sidebar toggle -->
+<button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle series navigation"><i class="fas fa-bars"></i></button>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- Sidebar nav -->
+<!-- BEGIN: SIDEBAR-NAV -->
+<nav class="sidebar" id="sidebar" aria-label="Series navigation">
+  <div class="sidebar-header">
+    <a href="https://faiththruphysics.com" class="sidebar-home-btn home-main" title="Main Site Home">
+      <span class="sidebar-home-code">H</span>
+      <span>Home</span>
+    </a>
+    <a href="../index.html" class="sidebar-home-btn home-series" title="Series Index">
+      <span class="sidebar-home-code">S</span>
+      <span>Series</span>
+    </a>
+    <button class="sidebar-close" type="button" aria-label="Close series navigation" onclick="toggleSidebar()">&times;</button>
+  </div>
+  <div class="series-title"><i class="fas fa-atom" style="margin-right:.4rem;"></i> Genesis to Quantum</div>
+
+  <div class="nav-section">Main Articles</div>
+  <a href="../01-measurement-collapsed-reality/gtq-01-measurement-collapsed-reality.html" class="main-article">01 The Measurement That Collapsed Reality</a>
+  <a href="../03-first-quantum-state/gtq-03-first-quantum-state.html" class="main-article">03 The First Quantum State</a>
+  <a href="../04-free-will-two-frames/gtq-04-free-will-two-frames.html" class="main-article">04 Free Will in Two Frames</a>
+  <a href="../08-day-time-began/gtq-08-day-time-began.html" class="main-article">08 The Day Time Began</a>
+  <a href="../11-substrate-fractured/gtq-11-substrate-fractured.html" class="main-article">11 The Substrate Fractured</a>
+  <a href="../15-why-reality-needs-three/gtq-15-why-reality-needs-three.html" class="main-article">15 Why Reality Needs Three</a>
+  <a href="../16-photon-isnt-watching/gtq-16-photon-isnt-watching.html" class="main-article">16 The Photon Isn't Watching You Back</a>
+  <a href="../18-eraser-and-the-cross/gtq-18-eraser-and-the-cross.html" class="main-article">18 The Eraser and the Cross</a>
+  <a href="../22-same-god-both-testaments/gtq-22-same-god-both-testaments.html" class="main-article">22 The Same God in Both Testaments</a>
+  <a href="../25-counter-move/gtq-25-counter-move.html" class="main-article">25 The Counter-Move</a>
+  <div class="nav-section">Deep Dives</div>
+  <a href="../02-collapse-threshold/gtq-02-collapse-threshold.html" class="deep-dive">02 The Collapse Threshold</a>
+  <a href="../05-macarthur-equation/gtq-05-macarthur-equation.html" class="deep-dive">05 MacArthur and the Equation</a>
+  <a href="../06-three-pathways/gtq-06-three-pathways.html" class="deep-dive">06 The Three Pathways</a>
+  <a href="../07-why-god-drowned-everybody/gtq-07-why-god-drowned-everybody.html" class="deep-dive">07 Why Did God Drown Everybody?</a>
+  <a href="../09-decoherence-curve/gtq-09-decoherence-curve.html" class="deep-dive">09 The Decoherence Curve</a>
+  <a href="../10-how-lies-kill/gtq-10-how-lies-kill.html" class="deep-dive">10 How Lies Kill</a>
+  <a href="../12-trinity-mechanism/gtq-12-trinity-mechanism.html" class="deep-dive">12 The Trinity Mechanism</a>
+  <a href="../13-trinity-timeline/gtq-13-trinity-timeline.html" class="deep-dive">13 The Trinity Timeline</a>
+  <a href="../14-physics-broken-in-two/gtq-14-physics-broken-in-two.html" class="deep-dive">14 Why Physics Is Broken in Two</a>
+  <a href="../17-ran-the-numbers/gtq-17-ran-the-numbers.html" class="deep-dive">17 We Actually Ran the Numbers</a>
+  <a href="../19-temporal-trap/gtq-19-temporal-trap.html" class="deep-dive">19 The Temporal Trap</a>
+  <a href="../20-how-god-restores/gtq-20-how-god-restores.html" class="deep-dive current">20 How God Restores</a>
+  <a href="../21-science-behind-restoration/gtq-21-science-behind-restoration.html" class="deep-dive">21 The Science Behind the Restoration</a>
+  <a href="../23-regime-dependent-theology/gtq-23-regime-dependent-theology.html" class="deep-dive">23 The Structural Case for Regime-Dependent Theology</a>
+  <a href="../24-societies-die/gtq-24-societies-die.html" class="deep-dive">24 Societies Die the Same Way People Do</a>
+  <a href="../26-pattern-is-the-signal/gtq-26-pattern-is-the-signal.html" class="deep-dive">26 Why the Pattern Is the Signal</a>
+</nav>
+<!-- END: SIDEBAR-NAV -->
+
+<!-- Sticky tab bar -->
+<!-- BEGIN: TAB-BAR -->
+<div class="tab-shell">
+  <div class="container mx-auto px-6" style="padding-left:4.5rem;">
+    <nav class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('paper')"><i class="fas fa-scroll"></i>The Paper</button>
+      <button class="tab-btn" onclick="switchTab('summary')"><i class="fas fa-compress-alt"></i>Executive Summary</button>
+      <button class="tab-btn" onclick="switchTab('rigor')"><i class="fas fa-crosshairs"></i>Rigor &amp; Kill Conditions</button>
+      <button class="tab-btn" onclick="switchTab('mathematics')"><i class="fas fa-square-root-alt"></i>Mathematics</button>
+      <button class="tab-btn" onclick="switchTab('glossary')"><i class="fas fa-book"></i>Glossary</button>
+      <button class="tab-btn" onclick="switchTab('media')"><i class="fas fa-headphones"></i>Watch &amp; Listen</button>
+      <button class="tab-btn" onclick="switchTab('blackboard')"><i class="fas fa-chalkboard"></i>Blackboard</button>
+    </nav>
+  </div>
+</div>
+<!-- END: TAB-BAR -->
+
+<!-- Hero grid -->
+<!-- Main content -->
+<!-- BEGIN: MAIN-LAYOUT -->
+<main class="main-layout py-10">
+  <div>
+    <!-- BEGIN: TAB-PAPER -->
+<section id="paper" class="tab-content active">
+
+<!-- Hero grid -->
+<div class="container mx-auto px-6 pt-8" style="padding-left:4.5rem;">
+  <!-- BEGIN: HERO -->
+<div class="hero-grid">
+    <div class="hero-main">
+      <img src="images/hero/GTQ-08B%20-%20Hero%20-%20How%20God%20Restores.webp" alt="How God Restores" onerror="this.style.display='none'"/>
+      <div class="overlay">
+        <div class="meta-row" style="margin-bottom:.5rem;">
+          <span><i class="fas fa-atom"></i>Article 20 &middot; Genesis to Quantum</span>
+          <span class="status-pill">Deep Dive</span>
+        </div>
+        <h1 class="serif text-3xl md:text-5xl font-bold text-white mb-3 leading-tight">
+          How God Restores
+        </h1>
+        <p class="text-lg md:text-xl text-gray-200 font-light">
+          The mechanism, step by step.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-3">
+          <span class="domain-tag tag-theology">Theology</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-side">
+      <span class="label">Key Finding</span>
+      <h3>The single thing they should remember</h3>
+      <p>Restoration is not a self-improvement program. It is pit, surrender, thanksgiving, asking permission, listening, daily practice &mdash; the moment the self-improvement program dies is the moment God starts doing the saving.</p>
+    </div>
+    <div class="hero-side">
+      <span class="label">Critical Insight</span>
+      <h3>Why it matters now</h3>
+      <p>Everything in the human column is receptive &mdash; surrender, thank, ask, listen, remain. Nothing in it is "produce" or "achieve." The connection IS the life; the science is the evidence trail, not the trail itself.</p>
+    </div>
+  </div>
+<!-- END: HERO -->
+</div>
+<article class="story wide"><blockquote>
+<p><strong>A Note Before We Begin</strong></p>
+<p>This article contains no physics. No equations. No neuroscience. Just Scripture and the process it describes for how God brings a person from the bottom back to life. I&rsquo;m writing it this way on purpose â€” because the Bible described this process completely, precisely, and practically long before anyone knew what a neurotransmitter was. The science comes later, in a companion piece. But the Bible doesn&rsquo;t need the science. The science needs the Bible. What follows is what Scripture says, taken at its word.</p>
+</blockquote>
+<hr />
+<h2>The Bottom</h2>
+<p>Every restoration begins in the same place. Not in church. Not in a moment of inspiration. In the dirt.</p>
+<p>David â€” the king, the warrior, the man after God&rsquo;s own heart â€” wrote from there: &ldquo;I waited patiently for the Lord; he turned to me and heard my cry. He lifted me out of the slimy pit, out of the mud and mire; he set my feet on a rock and gave me a firm place to stand&rdquo; (Psalm 40:1-2).</p>
+<p>The pit is real. Not metaphorical. Ask anyone who&rsquo;s been addicted, depressed, imprisoned by their own choices. There&rsquo;s a place where every strategy has failed, every relationship has been burned, every promise you made to yourself lies broken on the ground. The pit is where you run out of you.</p>
+<p>The Bible doesn&rsquo;t shy away from it. It names it repeatedly:</p>
+<p>&ldquo;Save me, O God, for the waters have come up to my neck. I sink in the miry depths, where there is no foothold&rdquo; (Psalm 69:1-2).</p>
+<p>&ldquo;Out of the depths I cry to you, Lord&rdquo; (Psalm 130:1).</p>
+<p>&ldquo;My God, my God, why have you forsaken me?&rdquo; (Psalm 22:1) â€” words the Messiah Himself would speak from the Cross.</p>
+<p>The pit is not the failure. The pit is the prerequisite. Because in the pit, one thing happens that cannot happen anywhere else: you stop trusting yourself.</p>
+<hr />
+<h2>The Surrender</h2>
+<p>&ldquo;I can&rsquo;t do this.&rdquo;</p>
+<p>Four words that change everything. Not a prayer formula. Not a theological position. A fact. Spoken from the floor of the pit by a person who has exhausted every alternative.</p>
+<p>The Bible has a name for this. It calls it brokenness.</p>
+<p>&ldquo;The Lord is close to the brokenhearted and saves those who are crushed in spirit&rdquo; (Psalm 34:18).</p>
+<p>&ldquo;My sacrifice, O God, is a broken spirit; a broken and contrite heart you, God, will not despise&rdquo; (Psalm 51:17).</p>
+<p>Notice what&rsquo;s happening. God doesn&rsquo;t show up when you&rsquo;ve cleaned yourself up. God shows up when you&rsquo;ve stopped trying to clean yourself up. The condition for receiving isn&rsquo;t performance â€” it&rsquo;s the end of performance. David didn&rsquo;t write Psalm 51 after he&rsquo;d fixed his life. He wrote it from the wreckage of adultery and murder, covered in the consequences of his own choices, with nothing to offer except the admission that he had nothing to offer.</p>
+<p>This is the hinge. Everything before it is the person trying to save themselves. Everything after it is God doing the saving. The surrender isn&rsquo;t the first step of a self-improvement program. It&rsquo;s the moment the self-improvement program dies.</p>
+<p>&ldquo;God, if You&rsquo;re real, I need help.&rdquo;</p>
+<p>Jesus told a story about this exact moment. Two men go to the temple to pray. The Pharisee stands and catalogs his accomplishments â€” fasting, tithing, not being like other sinners. The tax collector &ldquo;stood at a distance. He would not even look up to heaven, but beat his breast and said, &lsquo;God, have mercy on me, a sinner&rsquo;&rdquo; (Luke 18:13).</p>
+<p>Jesus said the tax collector went home justified. Not the performer. The surrenderer. The one who came with nothing and asked for everything.</p>
+<p>&ldquo;Behold, I stand at the door and knock. If anyone hears my voice and opens the door, I will come in&rdquo; (Revelation 3:20). God doesn&rsquo;t break the door down. He waits for the invitation. The surrender IS the opened door. Not because God needs permission â€” because love doesn&rsquo;t override. It receives.</p>
+<hr />
+<h2>The First Practice: Thanksgiving</h2>
+<p>The person who has just surrendered doesn&rsquo;t know what to do next. They&rsquo;ve never operated from this position before. Every prior instinct was either &ldquo;grab what you want&rdquo; or &ldquo;try harder to be good.&rdquo; Both are gone. What&rsquo;s left?</p>
+<p>Scripture answers with extraordinary consistency: start by giving thanks.</p>
+<p>&ldquo;Give thanks to the Lord, for he is good; his love endures forever&rdquo; (Psalm 107:1).</p>
+<p>&ldquo;Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus&rdquo; (Philippians 4:6-7).</p>
+<p>Paul doesn&rsquo;t say &ldquo;pray and you&rsquo;ll feel better.&rdquo; He says pray WITH THANKSGIVING and peace will guard your heart and mind. The thanksgiving isn&rsquo;t decorative. It&rsquo;s operative. It does something.</p>
+<p>What does it do? It reverses the fundamental orientation of the soul. Addiction, depression, self-destruction â€” they all share one feature: the person is turned inward. Consuming. Taking. Grasping. Thanksgiving turns the soul outward. Toward a Giver. Toward gratitude. Toward the acknowledgment that something good exists outside yourself and you didn&rsquo;t create it.</p>
+<p>&ldquo;Thank you I woke up today.&rdquo;</p>
+<p>That sounds small. It isn&rsquo;t. For a person coming off the floor of the pit, acknowledging that waking up is a gift â€” not a right, not an accident, but a gift from Someone â€” is a revolution. It&rsquo;s the first moment the soul faces outward instead of inward. The first moment of receiving instead of consuming.</p>
+<p>&ldquo;Enter his gates with thanksgiving and his courts with praise; give thanks to him and praise his name&rdquo; (Psalm 100:4). You don&rsquo;t enter God&rsquo;s presence through achievement. You enter through thanksgiving. The door is gratitude.</p>
+<hr />
+<h2>The Second Practice: Asking Permission</h2>
+<p>This one sounds strange to modern ears. Asking permission? For what?</p>
+<p>For everything. For every choice. &ldquo;May I eat this? May I go here? May I say this?&rdquo;</p>
+<p>It sounds childish until you realize what it&rsquo;s doing. It&rsquo;s acknowledging that God is Lord over the small things â€” not just the big spiritual decisions, but the Tuesday afternoon snack, the evening screen time, the words you&rsquo;re about to say to your spouse. Every &ldquo;May I?&rdquo; is an act of submission that reestablishes the relationship the pit destroyed.</p>
+<p>Jesus said it plainly: &ldquo;Whoever can be trusted with very little can also be trusted with much&rdquo; (Luke 16:10). The restoration doesn&rsquo;t start with big victories over major sins. It starts with asking permission before a meal. With checking before you click. With pausing before you speak.</p>
+<p>&ldquo;Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight&rdquo; (Proverbs 3:5-6). &ldquo;In ALL your ways&rdquo; â€” not just the spiritual ones. The practical ones. The boring ones. The ones you think are too small to matter. Those are exactly the ones that rebuild the trust.</p>
+<p>The person in the pit got there by trusting their own judgment on a thousand small decisions that each seemed insignificant. The path out is rebuilt one small permission at a time. Each &ldquo;May I?&rdquo; is a brick in the road back.</p>
+<p>And here&rsquo;s what Scripture says happens when you ask: God answers. Not always with words. Sometimes with peace. Sometimes with a check â€” a hesitation, a feeling that this isn&rsquo;t right. Sometimes with a redirection you didn&rsquo;t expect.</p>
+<p>&ldquo;Whether you turn to the right or to the left, your ears will hear a voice behind you, saying, &lsquo;This is the way; walk in it&rsquo;&rdquo; (Isaiah 30:21). That voice requires a listening posture. The asking creates the posture.</p>
+<hr />
+<h2>The Third Practice: Listening</h2>
+<p>&ldquo;Be still, and know that I am God&rdquo; (Psalm 46:10).</p>
+<p>The hardest practice for a person coming out of the pit. Stillness. Silence. Waiting. The addict&rsquo;s brain screams for stimulation. The performer&rsquo;s brain screams for activity. The anxious mind screams for resolution. And God says: be still.</p>
+<p>This is where the Holy Spirit does His distinctive work. Not in the noise. In the quiet.</p>
+<p>&ldquo;The Lord was not in the wind&hellip; the Lord was not in the earthquake&hellip; the Lord was not in the fire. And after the fire came a gentle whisper&rdquo; (1 Kings 19:11-12). Elijah â€” exhausted, suicidal, hiding in a cave â€” heard God not in the dramatic display but in the whisper that came after.</p>
+<p>&ldquo;My sheep hear my voice, and I know them, and they follow me&rdquo; (John 10:27). Jesus doesn&rsquo;t say &ldquo;my sheep hear my voice after years of training.&rdquo; He says they hear it. Present tense. The capacity is already there. What&rsquo;s needed is the quiet to receive it.</p>
+<p>The listening practice looks like this: after thanksgiving, after asking, you wait. You don&rsquo;t fill the silence. You don&rsquo;t generate the answer yourself. You hold the space open and let the Spirit speak into it. Sometimes the answer is clear. Sometimes it&rsquo;s a gentle check â€” &ldquo;not this, not now.&rdquo; Sometimes it&rsquo;s peace that settles the question without words.</p>
+<p>&ldquo;When he, the Spirit of truth, comes, he will guide you into all the truth&rdquo; (John 16:13). The Spirit guides. Guidance requires a follower. Following requires listening. Listening requires stillness.</p>
+<p>This is the practice that distinguishes surrender from passivity. The surrendered person isn&rsquo;t doing nothing. They&rsquo;re doing the hardest thing: holding the channel open and waiting for the signal.</p>
+<hr />
+<h2>The Daily Architecture</h2>
+<p>Scripture doesn&rsquo;t leave this as abstract spirituality. It gives a daily structure:</p>
+<p><strong>Morning:</strong> &ldquo;In the morning, Lord, you hear my voice; in the morning I lay my requests before you and wait expectantly&rdquo; (Psalm 5:3). The day begins with thanksgiving and expectation. Before the first decision, before the first temptation, the orientation is set: outward, toward God, waiting for guidance.</p>
+<p><strong>Throughout the day:</strong> &ldquo;Pray without ceasing&rdquo; (1 Thessalonians 5:17). Not monastic withdrawal. Continuous awareness. The &ldquo;May I?&rdquo; before choices. The pause before reactions. The thanksgiving for small gifts noticed in passing. A running conversation with God that keeps the channel open all day.</p>
+<p><strong>Meals:</strong> &ldquo;So whether you eat or drink or whatever you do, do it all for the glory of God&rdquo; (1 Corinthians 10:31). Every meal becomes a practice. Thanksgiving before eating. Permission asked. Gratitude expressed. The most ordinary human activity becomes a training ground for the surrendered life.</p>
+<p><strong>Evening:</strong> &ldquo;I will praise the Lord, who counsels me; even at night my heart instructs me&rdquo; (Psalm 16:7). The day closes with review. Thank you for today. Forgive what I missed. Show me tomorrow. The cycle completes and resets.</p>
+<p>This isn&rsquo;t religious routine. It&rsquo;s relationship architecture. Each practice pre-loads the soul so that when the real test comes â€” the craving, the temptation, the crisis â€” the orientation is already set. You don&rsquo;t have to decide in the moment whether to surrender. You&rsquo;ve been surrendering all day in the small things. The big moment is just the next small moment.</p>
+<hr />
+<h2>The Transformation</h2>
+<p>Here&rsquo;s what Scripture says happens over time when a person lives this way:</p>
+<p>&ldquo;And we all, who with unveiled faces contemplate the Lord&rsquo;s glory, are being transformed into his image with ever-increasing glory, which comes from the Lord, who is the Spirit&rdquo; (2 Corinthians 3:18).</p>
+<p>&ldquo;Being transformed.&rdquo; Present tense, continuous action. Not &ldquo;were transformed&rdquo; (one-time event) or &ldquo;will be transformed&rdquo; (future hope). Being transformed. Right now. Ongoing. The Spirit doing the work in real time.</p>
+<p>And the transformation is specific. Paul catalogs it:</p>
+<p>&ldquo;But the fruit of the Spirit is love, joy, peace, patience, kindness, goodness, faithfulness, gentleness, self-control&rdquo; (Galatians 5:22-23).</p>
+<p>These aren&rsquo;t goals to achieve. They&rsquo;re fruit â€” things that grow naturally from a tree that&rsquo;s connected to the right source. &ldquo;I am the vine; you are the branches. If you remain in me and I in you, you will bear much fruit; apart from me you can do nothing&rdquo; (John 15:5).</p>
+<p>The person who was in the pit â€” angry, addicted, isolated, self-destructing â€” begins to experience love where there was bitterness. Joy where there was numbness. Peace where there was chaos. Not because they tried harder. Because the connection was restored and the life flows.</p>
+<p>&ldquo;Therefore, if anyone is in Christ, the new creation has come: The old has gone, the new is here!&rdquo; (2 Corinthians 5:17).</p>
+<p>People notice. The person looks different. Lighter. Something changed and it&rsquo;s visible. The family member who expected another relapse sees consistency instead. The friend who wrote them off sees someone showing up. The change isn&rsquo;t performance â€” it&rsquo;s overflow. The tree doesn&rsquo;t strain to produce fruit. It produces fruit because it&rsquo;s alive.</p>
+<hr />
+<h2>What God Does vs. What You Do</h2>
+<p>Scripture is precise about the division of labor:</p>
+<p><strong>What God does:</strong>
+- Responds to surrender: &ldquo;Draw near to God, and he will draw near to you&rdquo; (James 4:8)
+- Provides the power: &ldquo;For it is God who works in you to will and to act in order to fulfill his good purpose&rdquo; (Philippians 2:13)
+- Sends the Spirit: &ldquo;And I will ask the Father, and he will give you another advocate to help you and be with you forever â€” the Spirit of truth&rdquo; (John 14:16-17)
+- Changes desires: &ldquo;Delight yourself in the Lord, and he will give you the desires of your heart&rdquo; (Psalm 37:4) â€” not &ldquo;He gives you what you desire&rdquo; but &ldquo;He changes what you desire&rdquo;
+- Completes the work: &ldquo;He who began a good work in you will carry it on to completion&rdquo; (Philippians 1:6)</p>
+<p><strong>What you do:</strong>
+- Surrender: &ldquo;Submit yourselves, then, to God&rdquo; (James 4:7)
+- Give thanks: &ldquo;Give thanks in all circumstances; for this is God&rsquo;s will for you&rdquo; (1 Thessalonians 5:18)
+- Ask: &ldquo;You do not have because you do not ask God&rdquo; (James 4:2)
+- Listen: &ldquo;Be still, and know that I am God&rdquo; (Psalm 46:10)
+- Stay connected: &ldquo;Remain in me, as I also remain in you&rdquo; (John 15:4)</p>
+<p>Notice: everything in your column is receptive. Surrender, thank, ask, listen, remain. Nothing in your column is &ldquo;produce,&rdquo; &ldquo;achieve,&rdquo; &ldquo;earn,&rdquo; or &ldquo;prove.&rdquo; Your job is to stay connected. God&rsquo;s job is everything else.</p>
+<p>&ldquo;Apart from me you can do nothing&rdquo; (John 15:5). That&rsquo;s not a threat. It&rsquo;s a description. A branch disconnected from the vine doesn&rsquo;t need to be punished. It just dies. The vine isn&rsquo;t withholding life to teach the branch a lesson. The connection IS the life.</p>
+<hr />
+<h2>The Promise</h2>
+<p>&ldquo;He lifted me out of the slimy pit, out of the mud and mire; he set my feet on a rock and gave me a firm place to stand. He put a new song in my mouth, a hymn of praise to our God. Many will see and fear the Lord and put their trust in him&rdquo; (Psalm 40:2-3).</p>
+<p>New song. Not patched up. Not &ldquo;better this time, probably.&rdquo; NEW. The person who comes through this process isn&rsquo;t the old person with better habits. They&rsquo;re a new creation with a new source and a new song â€” and other people can see it.</p>
+<p>That&rsquo;s the process. Pit to surrender to thanksgiving to permission to listening to daily practice to transformation to testimony. Not self-help with Scripture references. God doing what only God can do, through a person who finally stopped trying to do it themselves.</p>
+<p>Everything that follows in the companion article â€” every piece of neuroscience, every brain scan, every clinical trial â€” will confirm exactly what you just read. The science will show that the brain physically changes when a person walks this path. But the Bible described the path first, named the mechanism first, and promised the outcome first.</p>
+<p>The science is the evidence trail.</p>
+<p>God is the trail.</p>
+<hr />
+      <!-- GTQ BOTTOM AUDIT PANEL -->
+      <section class="gtq-bottom-audit" aria-label="Bottom audit: wrong, overstated, load-bearing, and right">
+        <div class="audit-band audit-red">
+          <div class="audit-kicker">Audit floor / red zone</div>
+          <h2 class="audit-title">What We Got Carried Away With</h2>
+          <p><strong>This is where the article has to pay for its own confidence.</strong> Any claim that turns a structural resemblance into a proven mechanism belongs here until the math, experiment, or textual chain can carry the weight.</p>
+          <p>Red does not mean useless. It means: do not build doctrine, physics, or public certainty on this layer yet.</p>
+        </div>
+        <div class="audit-band audit-amber">
+          <div class="audit-kicker">Gradient zone / interpretive caution</div>
+          <h2 class="audit-title">What Is Suggestive</h2>
+          <div class="audit-grid">
+            <div class="audit-chip"><p><strong>Promising pattern:</strong> the correspondence is strong enough to keep investigating, but not strong enough to call settled.</p></div>
+            <div class="audit-chip"><p><strong>Possible overstatement:</strong> language that sounds final should be read as a working model unless the article explicitly proves it.</p></div>
+          </div>
+        </div>
+        <div class="audit-band audit-green">
+          <div class="audit-kicker">Green zone / carries weight</div>
+          <h2 class="audit-title">What Is Load-Bearing</h2>
+          <p><strong>This is the part that should survive a hostile reading:</strong> the direct textual observations, the explicit cross-references, the formal definitions, and the places where the article clearly admits what it has not proven.</p>
+          <h2 class="audit-title" style="margin-top:1.4rem;">What We Got Right</h2>
+          <p>The useful result is not pretending every connection is equally proven. The useful result is sorting the work honestly: wrong or overconfident claims in red, suggestive bridges in the middle, and durable load-bearing claims in green.</p>
+        </div>
+      </section></article>
+    </section>
+<!-- END: TAB-PAPER -->
+
+    <!-- BEGIN: TAB-SUMMARY -->
+<section id="summary" class="tab-content">
+      <article class="story wide">
+        <div class="exec-summary" style="margin-top:1rem;">
+          <div class="exec-summary-label"><i class="fas fa-bolt" style="margin-right:.4rem;"></i>Executive Summary</div>
+          <p>This article describes how Scripture says God brings a person from the bottom back to life &mdash; with no equations, no neuroscience, just the biblical process taken at its word. The path is pit &rarr; surrender &rarr; thanksgiving &rarr; asking permission &rarr; listening &rarr; daily architecture (morning, throughout, meals, evening) &rarr; transformation &rarr; testimony. The hinge is "I can't do this": everything before is the person trying to save themselves, everything after is God doing the saving. The transformation Paul catalogs as the fruit of the Spirit (Galatians 5:22&ndash;23) is overflow from a restored connection, not the result of trying harder. The companion neuroscience piece confirms what the Bible described first.</p>
+        </div>
+      </article>
+    
+<!-- BEGIN: EXEC-KEY-TERMS -->
+<section data-placeholder="true" data-section="EXEC-KEY-TERMS" style="display:none;">
+<!-- TODO: fill EXEC-KEY-TERMS content -->
+</section>
+<!-- END: EXEC-KEY-TERMS -->
+</section>
+<!-- END: TAB-SUMMARY -->
+
+    <!-- BEGIN: TAB-RIGOR -->
+<section id="rigor" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-2">Rigor &amp; Kill Conditions</h2>
+        <p class="text-[#a0a0a0] mb-6">Every claim is held to explicit falsification standards.</p>
+        <div class="kill-card"><div class="kill-label">Load-Bearing</div><p><strong>Kill if:</strong> The companion neuroscience piece (and the broader recovery literature) shows no measurable physical change in the brain along the surrender &rarr; thanksgiving &rarr; listening pathway &mdash; the "evidence trail" then doesn't exist.</p></div>
+        <div class="kill-card suggestive"><div class="kill-label">Suggestive</div><p><strong>Kill if:</strong> Pure-willpower interventions (CBT-only, with no surrender component) produce equivalent outcomes to faith-based pathways under controlled comparison &mdash; the "I can't do this" hinge becomes optional.</p></div>
+        <div class="kill-card destructive"><div class="kill-label">Destructive</div><p><strong>Kill if:</strong> The fruit-of-the-Spirit transformation (Galatians 5:22&ndash;23) is not observable as overflow in long-term practitioners of the daily architecture &mdash; the connection-IS-the-life claim has no behavioral signature.</p></div>
+      </article>
+    
+<!-- BEGIN: RIGOR-WHAT-WE-GOT-RIGHT -->
+<section data-placeholder="true" data-section="RIGOR-WHAT-WE-GOT-RIGHT" style="display:none;">
+<!-- TODO: fill RIGOR-WHAT-WE-GOT-RIGHT content -->
+</section>
+<!-- END: RIGOR-WHAT-WE-GOT-RIGHT -->
+
+<!-- BEGIN: RIGOR-WHAT-WE-GOT-WRONG -->
+<section data-placeholder="true" data-section="RIGOR-WHAT-WE-GOT-WRONG" style="display:none;">
+<!-- TODO: fill RIGOR-WHAT-WE-GOT-WRONG content -->
+</section>
+<!-- END: RIGOR-WHAT-WE-GOT-WRONG -->
+
+<!-- BEGIN: RIGOR-WHAT-WE-OVERCLAIMED -->
+<section data-placeholder="true" data-section="RIGOR-WHAT-WE-OVERCLAIMED" style="display:none;">
+<!-- TODO: fill RIGOR-WHAT-WE-OVERCLAIMED content -->
+</section>
+<!-- END: RIGOR-WHAT-WE-OVERCLAIMED -->
+</section>
+<!-- END: TAB-RIGOR -->
+
+    <!-- BEGIN: TAB-MEDIA -->
+<section id="media" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-4">Watch &amp; Listen</h2>
+        <div style="background:var(--surface-light);border:1px solid var(--border);border-radius:.5rem;padding:2rem;margin-bottom:1.5rem;text-align:center;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);opacity:.7;">
+            <i class="fas fa-headphones" style="margin-right:.4rem;"></i>Audio &amp; video coming soon for this article.
+          </div>
+        </div>
+      </article>
+    </section>
+<!-- END: TAB-MEDIA -->
+
+    <!-- BEGIN: TAB-BLACKBOARD -->
+<section id="blackboard" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-4">Blackboard</h2>
+        <p class="text-[#a0a0a0] mb-6">Interactive scratch space.</p>
+      </article>
+    </section>
+<!-- END: TAB-BLACKBOARD -->
+
+    <!-- BEGIN: TAB-MATHEMATICS -->
+<section id="mathematics" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-2">Mathematics</h2>
+        <p class="text-[#a0a0a0] mb-6">By design, this article contains no equations &mdash; it is the Scripture-only walk through the restoration process. The companion article carries the math.</p>
+
+        <div class="math-box">
+          <span class="mlabel">Why This Tab Is Empty</span>
+          <div class="mnote">From the article's own opening note: &ldquo;This article contains no physics. No equations. No neuroscience. Just Scripture and the process it describes for how God brings a person from the bottom back to life.&rdquo; The Bible described the path first; the science is the evidence trail.</div>
+        </div>
+
+        <div class="math-box">
+          <span class="mlabel">Where the Math Lives</span>
+          <div class="mnote">The mechanism in equation form &mdash; coherence dynamics dC/dt = O&middot;G(t)&middot;(1&minus;C) &minus; S&middot;C, the surrender parameter s, the coupling function &alpha;(s), Cochrane N=10,565 clinical results &mdash; appears in <a href="../21-science-behind-restoration/gtq-21-science-behind-restoration.html" style="color:var(--highlight);">Article 21: The Science Behind the Restoration</a>.</div>
+          <div class="mnote"><strong>Plain English:</strong> This article is the Scripture statement. Article 21 is the equation statement. They are the same process described from two measurement frames.</div>
+        </div>
+      </article>
+    </section>
+<!-- END: TAB-MATHEMATICS -->
+
+    <!-- BEGIN: TAB-GLOSSARY -->
+<section id="glossary" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-4">Glossary</h2>
+        <p class="text-[#a0a0a0] mb-6">Key terms used in this article, defined as the article itself uses them.</p>
+        <div class="score-grid">
+          <div class="score-card"><div class="label">The Pit</div><p>The article's name for rock-bottom &mdash; the place where every strategy has failed and every promise to yourself lies broken. &ldquo;Where you run out of you.&rdquo; Not metaphorical; named throughout Scripture (Psalm 40:1&ndash;2; 69:1&ndash;2; 130:1; 22:1). The prerequisite, not the failure.</p></div>
+          <div class="score-card"><div class="label">Surrender</div><p>&ldquo;I can't do this.&rdquo; The four words from the floor of the pit by a person who has exhausted every alternative. Not a prayer formula but a fact &mdash; the moment the self-improvement program dies and God begins doing the saving.</p></div>
+          <div class="score-card"><div class="label">Brokenness</div><p>The biblical name for the surrender state. &ldquo;The Lord is close to the brokenhearted and saves those who are crushed in spirit&rdquo; (Psalm 34:18). The article's claim: God shows up when you've stopped trying to clean yourself up, not after.</p></div>
+          <div class="score-card"><div class="label">Thanksgiving (First Practice)</div><p>The first daily practice for the surrendered person. Not decorative &mdash; operative. Reverses the soul's orientation from inward (consuming, taking) to outward (toward a Giver). Philippians 4:6&ndash;7: thanksgiving is the condition for the peace that guards heart and mind.</p></div>
+          <div class="score-card"><div class="label">Asking Permission (Second Practice)</div><p>&ldquo;May I eat this? May I go here? May I say this?&rdquo; Re-establishes God as Lord over the small things. Each &ldquo;May I?&rdquo; is a brick in the road back &mdash; rebuilding trust one practical decision at a time. Proverbs 3:5&ndash;6.</p></div>
+          <div class="score-card"><div class="label">Listening (Third Practice)</div><p>Stillness, silence, waiting. The practice that distinguishes surrender from passivity &mdash; holding the channel open and letting the Spirit speak into it. &ldquo;Be still, and know that I am God&rdquo; (Psalm 46:10). The whisper after the wind, earthquake, and fire (1 Kings 19).</p></div>
+          <div class="score-card"><div class="label">Daily Architecture</div><p>Morning thanksgiving, continuous &ldquo;May I?&rdquo;, meals as practice, evening review. Pre-loads the soul so when the real test comes, the orientation is already set. Relationship architecture, not religious routine.</p></div>
+          <div class="score-card"><div class="label">Transformation</div><p>2 Corinthians 3:18: &ldquo;being transformed&rdquo; &mdash; present continuous, the Spirit doing the work in real time. Not goals to achieve but fruit that grows naturally from a tree connected to the right source.</p></div>
+          <div class="score-card"><div class="label">Fruit of the Spirit</div><p>Galatians 5:22&ndash;23: love, joy, peace, patience, kindness, goodness, faithfulness, gentleness, self-control. Things that grow from connection to the vine, not goals reached by effort.</p></div>
+          <div class="score-card"><div class="label">The Vine and the Branches</div><p>John 15:4&ndash;5. The metaphor for the connection that produces fruit. &ldquo;Apart from me you can do nothing&rdquo; is described as a fact, not a threat &mdash; a disconnected branch dies; the connection IS the life.</p></div>
+          <div class="score-card"><div class="label">What God Does vs. What You Do</div><p>The article's division of labor. God: responds, provides power, sends the Spirit, changes desires, completes the work. You: surrender, give thanks, ask, listen, stay connected. Everything in your column is receptive.</p></div>
+          <div class="score-card"><div class="label">Holy Spirit</div><p>The Person who does the distinctive work in the quiet, transforms the heart, changes desires (Psalm 37:4 read as &ldquo;He changes what you desire&rdquo;), and bears fruit through the connected branch. John 14:16&ndash;17, 16:13.</p></div>
+          <div class="score-card"><div class="label">New Creation</div><p>2 Corinthians 5:17: &ldquo;If anyone is in Christ, the new creation has come: the old has gone, the new is here.&rdquo; The end-state of the process &mdash; not the old person with better habits but a new creation with a new source and a new song.</p></div>
+          <div class="score-card"><div class="label">New Song</div><p>Psalm 40:3. The transformed person doesn't get patched up; they receive a new song that other people can hear. Testimony as evidence: &ldquo;Many will see and fear the Lord and put their trust in him.&rdquo;</p></div>
+          <div class="score-card"><div class="label">Hope</div><p>In this article, hope is what becomes possible once the surrendered person stops trusting themselves and starts receiving. It is the natural posture of someone whose source has changed.</p></div>
+          <div class="score-card"><div class="label">Truth</div><p>&ldquo;The Spirit of truth&hellip; will guide you into all the truth&rdquo; (John 16:13). In this article, truth is what the listening practice gives access to &mdash; received, not generated.</p></div>
+          <div class="score-card"><div class="label">Chaos</div><p>The pre-surrender state &mdash; addiction, depression, isolation, self-destruction &mdash; described throughout the article as what gets replaced by peace once the connection is restored.</p></div>
+          <div class="score-card"><div class="label">Scripture</div><p>The article's only data source by deliberate design &mdash; the Bible described this process completely and practically long before neuroscience existed. &ldquo;The science is the evidence trail. God is the trail.&rdquo;</p></div>
+          <div class="score-card"><div class="label">Neuroscience</div><p>Not used in this article (by design). Companion piece (Article 21) confirms each stage of the process &mdash; thanksgiving lowers cortisol, surrender activates vmPFC rather than dlPFC, listening remodels the PFC, oxytocin and serotonin pathways rebuild &mdash; with clinical evidence (Cochrane N=10,565).</p></div>
+          <div class="score-card"><div class="label">Physics</div><p>Not used in this article (by design). The framework's coherence equation describing the same process &mdash; dC/dt with surrender parameter s and coupling &alpha;(s) &mdash; lives in Article 21 and is referenced from Article 18.</p></div>
+          <div class="score-card"><div class="label">Entropy / Sin ($S$)</div><p>Framework reference. Not surfaced in this article's body (no equations by design), but for canonical consistency: $S$ is the Master-Equation decay parameter that drives coherence toward zero. Same variable, two coordinate names &mdash; &ldquo;entropy&rdquo; in the physics frame, &ldquo;sin&rdquo; in the theological frame.</p></div>
+          <div class="score-card"><div class="label">Logos Field ($\chi$)</div><p>The pervasive substrate of coherent reality &mdash; the framework's $\chi$ field; the Master-Equation field whose value is total system coherence. (Earlier drafts denoted this with $\Lambda$; that symbol is now reserved for the cosmological constant.) <em>Field</em> &ne; <em>coupling</em>: this entry locks the substrate sense.</p></div>
+          <div class="score-card"><div class="label">Logos Coupling</div><p>The interaction architecture between the Logos field and the systems embedded in it &mdash; the channel structure ($C_0$, $C_1$, inter-substrate coupling) that determines how the field acts on a subsystem. Distinct from the field itself: <em>field</em> = pervasive substrate; <em>coupling</em> = how interaction happens. Both terms stay; they are not interchangeable.</p></div>
+
+        </div>
+      </article>
+    </section>
+<!-- END: TAB-GLOSSARY -->
+  </div>
+
+  <!-- BEGIN: KILL-SIDEBAR -->
+<aside class="kill-sidebar">
+    <div class="kill-sidebar-title"><i class="fas fa-skull-crossbones" style="margin-right:.4rem;"></i>Kill Conditions</div>
+    <!-- BEGIN: KILL-CARD-LOAD-BEARING -->
+<div class="kill-card"><div class="kill-label">Load-Bearing</div><p><strong>Kill if:</strong> Recovery neuroscience shows no signature along this pathway.</p></div>
+<!-- END: KILL-CARD-LOAD-BEARING -->
+    <!-- BEGIN: KILL-CARD-SUGGESTIVE -->
+<div class="kill-card suggestive"><div class="kill-label">Suggestive</div><p><strong>Kill if:</strong> Willpower-only interventions match faith-based outcomes.</p></div>
+<!-- END: KILL-CARD-SUGGESTIVE -->
+    <!-- BEGIN: KILL-CARD-DESTRUCTIVE -->
+<div class="kill-card destructive"><div class="kill-label">Destructive</div><p><strong>Kill if:</strong> Fruit of the Spirit shows no behavioral signature.</p></div>
+<!-- END: KILL-CARD-DESTRUCTIVE -->
+    <!-- BEGIN: ARTICLE-STATS -->
+<div style="margin-top:1.5rem;padding:1rem;background:var(--surface-light);border:1px solid var(--border);border-radius:.5rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:.5rem;">Article Stats</div>
+      <div style="font-size:.8rem;color:var(--text-secondary);line-height:1.8;">
+        <div><i class="fas fa-clock" style="width:1rem;color:var(--highlight);"></i> 10 min read</div>
+        <div><i class="fas fa-layer-group" style="width:1rem;color:var(--highlight);"></i> Deep Dive</div>
+        <div><i class="fas fa-crosshairs" style="width:1rem;color:var(--highlight);"></i> 4 kill conditions</div>
+        <div><i class="fas fa-headphones" style="width:1rem;color:var(--highlight);"></i> 0 audio versions</div>
+      </div>
+    </div>
+<!-- END: ARTICLE-STATS -->
+  </aside>
+<!-- END: KILL-SIDEBAR -->
+</main>
+<!-- END: MAIN-LAYOUT -->
+
+<!-- Bottom navigation -->
+<div class="container mx-auto px-6" style="padding-left:4.5rem;">
+  <!-- BEGIN: BOTTOM-NAV -->
+<div class="bottom-nav">
+    <a href="../19-temporal-trap/gtq-19-temporal-trap.html"><i class="fas fa-arrow-left"></i>Previous: The Temporal Trap</a>
+    <div class="nav-center">Article 20 of 26</div>
+    <a href="../21-science-behind-restoration/gtq-21-science-behind-restoration.html" class="primary">Next: The Science Behind the Restoration<i class="fas fa-arrow-right"></i></a>
+  </div>
+<!-- END: BOTTOM-NAV -->
+  <div style="text-align:center;margin-bottom:2rem;">
+    <a href="../22-same-god-both-testaments/gtq-22-same-god-both-testaments.html" style="display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;background:var(--highlight-glow);border:1px solid var(--highlight-dim);border-radius:.375rem;color:var(--highlight);text-decoration:none;font-size:.8rem;">
+      <i class="fas fa-forward"></i>Skip to next main: The Same God in Both Testaments
+    </a>
+  </div>
+</div>
+
+<!-- BEGIN: FOOTER -->
+<footer class="site-footer">
+  <div class="eq">Ï‡ = f(G, M, E, S, T, K, R, Q, F, C)</div>
+  <p>David Lowe &middot; Genesis to Quantum &middot; Part 20 of 26</p>
+  <p class="serif" style="font-style:italic;color:var(--text-secondary);margin-top:.5rem;">&ldquo;But while he was still a long way off, his father saw him.&rdquo;</p>
+</footer>
+<!-- END: FOOTER -->
+
+<script>
+function toggleSidebar(){
+  var sb=document.getElementById('sidebar');
+  var ov=document.getElementById('sidebarOverlay');
+  sb.classList.toggle('open');
+  ov.classList.toggle('show');
+  document.body.style.overflow=sb.classList.contains('open')?'hidden':'';
+}
+window.addEventListener('scroll',function(){
+  var st=window.scrollY||document.documentElement.scrollTop;
+  var dh=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+  var pct=dh>0?(st/dh)*100:0;
+  document.getElementById('progressBar').style.width=pct+'%';
+});
+function switchTab(tabId){
+  document.querySelectorAll('.tab-content').forEach(function(el){el.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(el){el.classList.remove('active');});
+  document.getElementById(tabId).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    var sb=document.getElementById('sidebar');
+    if(sb&&sb.classList.contains('open')) toggleSidebar();
+  }
+});
+
+/* Audio dock engine */
+(function(){
+  var dock = document.getElementById('audioDock');
+  if(!dock) return;
+  var body=document.getElementById('dockBody'), empty=document.getElementById('dockEmpty');
+  var playBtn=document.getElementById('dockPlay'), icon=document.getElementById('dockPlayIcon');
+  var fill=document.getElementById('dockFill'), curEl=document.getElementById('dockCurrent'), durEl=document.getElementById('dockDuration');
+  var volBtn=document.getElementById('dockVol');
+  var pills=dock.querySelectorAll('.dock-pill');
+  var audio=new Audio(); audio.preload='metadata';
+  var activeKey=null, muted=false;
+  var pillColors={deep:'#4a9eff',read:'#c89432',debate:'#a855f7',critique:'#2dd4bf'};
+
+  function fmt(s){if(!s||isNaN(s))return '0:00';var m=Math.floor(s/60),sec=Math.floor(s%60);return m+':'+(sec<10?'0':'')+sec;}
+
+  pills.forEach(function(p){if(!p.dataset.url)p.classList.add('unavailable');});
+
+  pills.forEach(function(p){
+    p.addEventListener('click',function(){
+      var key=p.dataset.src, url=p.dataset.url;
+      if(!url)return;
+      if(key===activeKey){if(audio.paused)audio.play();else audio.pause();return;}
+      audio.pause(); audio.src=url; activeKey=key;
+      pills.forEach(function(q){q.classList.remove('active');}); p.classList.add('active');
+      var c=pillColors[key]||'#c89432';
+      fill.style.background=c; playBtn.style.borderColor=c; playBtn.style.color=c;
+      body.classList.remove('hidden'); empty.classList.remove('visible');
+      audio.play();
+    });
+  });
+
+  var firstAvail=dock.querySelector('.dock-pill[data-url]');
+  if(firstAvail){var key=firstAvail.dataset.src; audio.src=firstAvail.dataset.url; activeKey=key;}
+  else{body.classList.add('hidden');empty.classList.add('visible');}
+
+  window.dockToggle=function(){if(!audio.src)return;if(audio.paused)audio.play();else audio.pause();};
+  audio.addEventListener('play',function(){icon.className='fas fa-pause';playBtn.classList.add('playing');});
+  audio.addEventListener('pause',function(){icon.className='fas fa-play';playBtn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){icon.className='fas fa-play';playBtn.classList.remove('playing');fill.style.width='0%';curEl.textContent='0:00';});
+  audio.addEventListener('timeupdate',function(){if(!audio.duration)return;fill.style.width=(audio.currentTime/audio.duration*100)+'%';curEl.textContent=fmt(audio.currentTime);});
+  audio.addEventListener('loadedmetadata',function(){durEl.textContent=fmt(audio.duration);});
+  window.dockSeek=function(e){if(!audio.duration)return;var t=e.currentTarget;var r=t.getBoundingClientRect();var p=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));audio.currentTime=p*audio.duration;};
+  window.dockMute=function(){muted=!muted;audio.muted=muted;volBtn.innerHTML=muted?'<i class="fas fa-volume-mute"></i>':'<i class="fas fa-volume-up"></i>';};
+})();
+</script>
+
+</body>
+</html>
+
+

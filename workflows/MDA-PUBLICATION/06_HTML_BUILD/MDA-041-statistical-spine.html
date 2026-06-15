@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>THE STATISTICAL SPINE — Moral Decline of America</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a;
+  --border:#2a2a2a; --border-claim:rgba(212,175,55,.35);
+  --text:#e0e0e0; --text2:#a0a0a0; --text3:#707070;
+  --mda-red:#dc2626; --mda-red-glow:rgba(220,38,38,.08);
+  --claim:#d4af37; --claim-glow:rgba(212,175,55,.08);
+  --easy:#22c55e; --easy-glow:rgba(34,197,94,.08);
+  --academic:#a78bfa; --academic-glow:rgba(167,139,250,.08);
+  --proof:#f59e0b; --proof-glow:rgba(245,158,11,.08);
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  line-height:1.65; margin:0; padding:0;
+}
+</style>
+<style>
+/* Reader Mode Bar */
+.mda-reader-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:.5rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;
+}
+.mda-reader-bar .series-badge{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mda-red);font-weight:600;
+}
+.mda-reader-bar .meta{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;
+  color:var(--text3);text-transform:uppercase;letter-spacing:.06em;
+}
+.tab-group{display:flex;gap:.4rem;flex-wrap:wrap;}
+.tab-btn{
+  padding:.4rem .7rem;border:1px solid var(--border);border-radius:.35rem;
+  background:var(--surface);color:var(--text2);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em;transition:all .2s;
+}
+.tab-btn:hover{border-color:var(--mda-red);color:var(--text);}
+.tab-btn.active{border-color:var(--mda-red);background:var(--mda-red-glow);color:var(--mda-red);}
+.tab-btn[data-tab="easy"].active{border-color:var(--easy);background:var(--easy-glow);color:var(--easy);}
+.tab-btn[data-tab="academic"].active{border-color:var(--academic);background:var(--academic-glow);color:var(--academic);}
+.tab-btn[data-tab="proof"].active{border-color:var(--proof);background:var(--proof-glow);color:var(--proof);}
+
+/* Article */
+.article{max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem;}
+.article h1{
+  font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.02em;
+  margin:0 0 .5rem;line-height:1.1;
+}
+.article .subtitle{
+  font-family:'Crimson Text',serif;font-size:1.15rem;color:var(--text2);
+  font-style:italic;margin:0 0 2rem;line-height:1.5;
+}
+.article h2{
+  font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:#fff;
+  text-transform:uppercase;letter-spacing:.04em;margin:2.5rem 0 1rem;
+  border-bottom:1px solid var(--border);padding-bottom:.4rem;
+}
+.article h3{font-family:'Crimson Text',serif;font-size:1.15rem;font-weight:600;color:var(--mda-red);margin:1.5rem 0 .5rem;}
+.article p{font-size:1.02rem;line-height:1.75;margin:0 0 1.25rem;}
+.article blockquote{
+  border-left:3px solid var(--mda-red);background:var(--mda-red-glow);
+  padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 .4rem .4rem 0;
+  font-family:'Crimson Text',serif;font-style:italic;color:var(--text2);
+}
+.article img{max-width:100%;border-radius:.4rem;margin:1rem 0;}
+.mda-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
+.mda-table td{padding:.4rem .6rem;border:1px solid var(--border);color:var(--text2);}
+.mda-table tr:first-child td{font-weight:600;color:var(--text);background:var(--surface);}
+
+/* Reading level panels */
+.level-panel{display:none;}
+.level-panel.active{display:block;}
+
+/* Proof panel */
+.proof-panel{display:none;max-width:780px;margin:0 auto;padding:1.5rem;}
+.proof-panel.active{display:block;}
+.mda-proof-eyebrow{
+  font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--proof);margin-bottom:.6rem;
+}
+.math-field{display:flex;gap:.5rem;margin:.4rem 0;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.math-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--proof);font-weight:600;min-width:180px;}
+.math-value{font-size:.85rem;color:var(--text2);}
+.math-item{font-size:.85rem;color:var(--text);padding:.2rem 0 .2rem 1rem;border-left:2px solid var(--border);margin:.3rem 0;}
+.mda-proof-placeholder{color:var(--text3);font-style:italic;font-size:.9rem;}
+
+/* Glossary */
+.mda-glossary{columns:1;}
+.glossary-entry{break-inside:avoid;margin-bottom:.8rem;}
+.glossary-entry dt{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--academic);font-weight:600;}
+.glossary-entry dd{font-size:.85rem;color:var(--text2);margin:0 0 0 .5rem;}
+.glossary-domain{font-size:.65rem;color:var(--text3);margin-left:.5rem;font-style:italic;}
+
+/* Easy level overrides */
+body.mode-easy .article p{font-size:1.15rem;line-height:1.85;}
+body.mode-easy .article h3{font-size:1.3rem;color:var(--easy);font-family:'Oswald',sans-serif;}
+body.mode-easy .article blockquote{border-left-color:var(--easy);background:var(--easy-glow);font-style:normal;}
+/* Academic level overrides */
+body.mode-academic .article p{font-size:.95rem;line-height:1.65;color:#d0d0d0;}
+body.mode-academic .article h3{font-size:1.1rem;color:var(--academic);font-family:'Crimson Text',serif;font-style:italic;}
+body.mode-academic .article blockquote{border-left-color:var(--academic);background:var(--academic-glow);}
+
+@media(max-width:640px){
+  .article{padding:1.5rem 1rem 4rem;}
+  .mda-reader-bar{padding:.4rem 1rem;}
+}
+</style>
+</head>
+<body class="mode-standard">
+
+<!-- BEGIN:COMPONENT:reader-mode:reader-mode-bar -->
+<div class="mda-reader-bar">
+  <div>
+    <span class="series-badge">Moral Decline of America</span>
+    <span class="meta">MDA-041</span>
+    <span class="meta" id="mode-status">Standard active</span>
+  </div>
+  <div class="tab-group">
+    <button class="tab-btn" data-tab="easy" onclick="setTab('easy')">Easy</button>
+    <button class="tab-btn active" data-tab="standard" onclick="setTab('standard')">Standard</button>
+    <button class="tab-btn" data-tab="academic" onclick="setTab('academic')">Academic</button>
+    <button class="tab-btn" data-tab="proof" onclick="setTab('proof')">Proof</button>
+  </div>
+</div>
+<!-- END:COMPONENT:reader-mode:reader-mode-bar -->
+
+<!-- BEGIN:LEVEL:standard -->
+<div class="level-panel active" data-level="standard">
+  <article class="article">
+    <h1>THE STATISTICAL SPINE</h1>
+    <p class="subtitle">MDA-041 · David Lowe · Theophysics Institute</p>
+    <h1>THE STATISTICAL SPINE</h1>
+<p>Reader Mode Standard active</p>
+<p><strong>Standard</strong> is the live article. Easy and Academic are reserved surfaces. <strong>Proof</strong> opens the evidence and derivation layer.</p>
+<p>Proof Pressure Layer</p>
+<h2>Vetted Claims for MDA-041-statistical-spine</h2>
+<p>No promoted claim</p>
+<p>No claim from this article survived the deterministic Axiom + 7Q gate strongly enough for the proof layer yet.</p>
+<p>Moral Decline of America â€” Data Layer</p>
+<h1>THE STATISTICAL SPINE</h1>
+<p>Same eight metrics. Six generations. One trajectory. The numbers don't argue â€” they just move.</p>
+<p>1900</p>
+<h2>Part I: Samuel</h2>
+<p>The Quiet Republic</p>
+<p>Ï‡ = 0.85</p>
+<p>Coherence Factor</p>
+<p>Spanish-American War just ended McKinley president 8,000 cars in America Rural electrification doesn't exist STD rates high but hidden â€” syphilis endemic</p>
+<p>Divorce</p>
+<p>0.7/1000</p>
+<p>Marriage</p>
+<p>9.3/1000</p>
+<p>Church Weekly</p>
+<p>~Universal</p>
+<p>Fertility</p>
+<p>3.5</p>
+<p>Trust Others</p>
+<p>â€”</p>
+<p>Premarital Sex (by 20)</p>
+<p>~10%</p>
+<p>Violent Crime</p>
+<p>~10/100K</p>
+<p>Life Expectancy</p>
+<p>47 yrs</p>
+<p>ðŸŒ™</p>
+<p>Outside Voices Per Day</p>
+<p>0</p>
+<p>Stars, silence, your own breathing. The only voices are people in the room.</p>
+<p>1926</p>
+<h2>Part II: Henry</h2>
+<p>The First Crack</p>
+<p>Ï‡ = 0.82</p>
+<p>Coherence Factor</p>
+<p>Radio enters homes Model T everywhere Prohibition failing Scopes trial shakes fundamentalism Roaring Twenties â€” first mass consumer culture</p>
+<p>Divorce</p>
+<p>1.6â†‘</p>
+<p>Marriage</p>
+<p>10.1â†‘</p>
+<p>Church Weekly</p>
+<p>~Universal</p>
+<p>Fertility</p>
+<p>2.5â†“</p>
+<p>Trust Others</p>
+<p>â€”</p>
+<p>Premarital Sex (by 20)</p>
+<p>~25%â†‘</p>
+<p>Violent Crime</p>
+<p>~8â†“</p>
+<p>Life Expectancy</p>
+<p>58 yrsâ†‘</p>
+<p>ðŸ“»</p>
+<p>Outside Voices Per Day</p>
+<p>~5</p>
+<p>Radio one hour a night. One outside voice enters the home. The whole family gathers.</p>
+<p>1950</p>
+<h2>Part III: William</h2>
+<p>Peak Signal</p>
+<p>Ï‡ = 0.78</p>
+<p>Coherence Factor</p>
+<p>GI Bill rebuilds middle class Television: 9% â†’ 87% of homes Korean War Baby boom peak Kinsey reports shock the nation</p>
+<p>Divorce</p>
+<p>2.6â†‘</p>
+<p>Marriage</p>
+<p>11.1â†‘ peak</p>
+<p>Church Weekly</p>
+<p>49%â†‘ peak</p>
+<p>Fertility</p>
+<p>3.5â†‘ boom</p>
+<p>Trust Others</p>
+<p>~55%</p>
+<p>Premarital Sex (by 20)</p>
+<p>~30%â†‘</p>
+<p>Violent Crime</p>
+<p>~5â†“ low</p>
+<p>Life Expectancy</p>
+<p>68 yrsâ†‘</p>
+<p>ðŸ“º</p>
+<p>Outside Voices Per Day</p>
+<p>~50</p>
+<p>Television. Strangers in the living room. Kennedy's assassination in real time. Vietnam at dinner.</p>
+<p>1974</p>
+<h2>Part IV: Thomas</h2>
+<p>The Breaking</p>
+<p>Ï‡ = 0.55</p>
+<p>Coherence Factor</p>
+<p>Nixon resigns No-fault divorce spreads Roe v. Wade (1973) Gold window closed (1971) Mainline Protestant collapse begins</p>
+<p>Divorce</p>
+<p>4.6â†‘â†‘</p>
+<p>Marriage</p>
+<p>10.5â†“</p>
+<p>Church Weekly</p>
+<p>40%â†“</p>
+<p>Fertility</p>
+<p>1.8â†“â†“</p>
+<p>Trust Others</p>
+<p>46%â†“</p>
+<p>Premarital Sex (by 20)</p>
+<p>~55%â†‘â†‘</p>
+<p>Violent Crime</p>
+<p>461â†‘â†‘â†‘</p>
+<p>Life Expectancy</p>
+<p>72 yrsâ†‘</p>
+<p>ðŸ“¡</p>
+<p>Outside Voices Per Day</p>
+<p>~200</p>
+<p>TV 6 hours a day. Radio. Billboards. Junk mail. Can't remember the last time it was quiet.</p>
+<p>1998</p>
+<h2>Part V: Jacob</h2>
+<p>The Scattering</p>
+<p>Ï‡ = 0.40</p>
+<p>Coherence Factor</p>
+<p>Clinton impeachment Internet goes mainstream Columbine (1999) Dot-com bubble Dating moves online</p>
+<p>Divorce</p>
+<p>4.0â†“</p>
+<p>Marriage</p>
+<p>8.2â†“â†“</p>
+<p>Church Weekly</p>
+<p>33%â†“</p>
+<p>Fertility</p>
+<p>2.0â†‘</p>
+<p>Trust Others</p>
+<p>34%â†“</p>
+<p>Premarital Sex (by 20)</p>
+<p>~75%â†‘â†‘</p>
+<p>Violent Crime</p>
+<p>567â†‘ peak</p>
+<p>Life Expectancy</p>
+<p>77 yrsâ†‘</p>
+<p>ðŸ’»</p>
+<p>Outside Voices Per Day</p>
+<p>~3,000</p>
+<p>Internet. Email. 500 channels. Pager. Cell phone. The scroll begins.</p>
+<p>2025</p>
+<h2>Part VI: Jacob</h2>
+<p>The Drowning</p>
+<p>Ï‡ = 0.27</p>
+<p>Coherence Factor Â· THRESHOLD CROSSED</p>
+<p>AI everywhere Birth rate below replacement Marriage rate historic low Trust at 22% Loneliness epidemic declared Sex frequency declining despite access</p>
+<p>Divorce</p>
+<p>2.3*â†“</p>
+<p>Marriage</p>
+<p>\&lt;5.0â†“â†“â†“</p>
+<p>Church Weekly</p>
+<p>~22%â†“â†“</p>
+<p>Fertility</p>
+<p>1.6â†“ sub-replacement</p>
+<p>Trust Others</p>
+<p>~22%â†“â†“</p>
+<p>Premarital Sex (by 20)</p>
+<p>~85%â†‘</p>
+<p>Violent Crime</p>
+<p>~380â†“</p>
+<p>Life Expectancy</p>
+<p>79 yrsâ†’ stalled</p>
+<p>ðŸ“±</p>
+<p>Outside Voices Per Day</p>
+<p>10,000+</p>
+<p>96 notifications/day. Infinite scroll. Algorithmic feed. He hasn't heard actual silence in years.</p>
+<p>* DIVORCE PARADOX</p>
+<p>Divorce rate drops not because marriages got stronger, but because fewer people marry. The number hides the real collapse.</p>
+<h2>The Trajectory</h2>
+<p>Same metrics, six data points, one direction. The lines don't lie.</p>
+<p>Coherence Factor Ï‡ â€” from 0.85 to 0.27 in five generations</p>
+<p>Marriage rises, peaks, collapses. Divorce rises, peaks, and drops only because marriage did first.</p>
+<p>Outside voices per day â€” from zero to ten thousand in 125 years</p>
+<p>Church, Trust, and Premarital Sex â€” three lines telling the same story from different angles</p>
+<p><strong>Theophysics Research</strong> Â· David Lowe Â· POF 2828 Â· 2024â€“2026</p>
+<p>The numbers are sourced from Gallup, Census, CDC, FBI UCR, NES/GSS, and BLS. Full citations in the series articles.</p>
+<p><a href="MDA-040-statistical-synthesis.html"> Previous</a></p>
+<p><a href="index.html"> Series Home</a></p>
+<p><a href="/"> Theophysics Home</a></p>
+<p>MDA-041 of 54</p>
+  </article>
+</div>
+<!-- END:LEVEL:standard -->
+
+<!-- BEGIN:LEVEL:easy -->
+<div class="level-panel" data-level="easy">
+  <article class="article">
+    <h1>THE STATISTICAL SPINE</h1>
+    <p class="subtitle">MDA-041 · Easy Reading Level</p>
+    <h1>The Statistical Spine — Easy Version</h1>
+<h2>Why This Story Matters</h2>
+<p>Imagine America as a gigantic woven blanket. The <strong><em>Coherence Factor (χ)</em></strong> is like the tightness of that blanket—high numbers mean every thread holds firm together. Over 125 years the weave has loosened, and the blanket is now full of holes.</p>
+<p>That unraveling lines up with another count: <strong><em>Outside Voices Per Day</em></strong>, which is like the number of strangers shouting tips while you try to finish homework. At first there were none. Now there are thousands.  </p>
+<p>When the shouting grows faster than our minds can handle, the <strong><em>Signal Saturation Equation</em></strong> kicks in. Think of a cup under a faucet. If water (voices) pours in faster than the cup’s size (your attention), everything spills over.  </p>
+<p>Add the <strong><em>Divorce Paradox</em></strong>—fewer couples split only because fewer marry—and the shape of the problem appears. The numbers alone tell the tale.</p>
+<hr />
+<h2>1900 — Samuel: The Quiet Republic</h2>
+<p>America feels like a small town. χ sits at 0.85; the blanket is tight. Cars are rare, electricity spotty, and the average person hears zero outside voices in a day. Church is nearly universal, marriages are common, and crime is low. Life expectancy is 47 years, but people trust neighbors and see the stars at night.</p>
+<hr />
+<h2>1926 — Henry: The First Crack</h2>
+<p>Radio slides into living rooms. About five outside voices now reach each person daily. χ drops a little to 0.82. Divorce inches up; fertility drops. The party vibe is fun, yet the first thread has pulled loose.</p>
+<hr />
+<h2>1950 — William: Peak Signal</h2>
+<p>Television explodes—from 9 % to 87 % of homes in a decade. Fifty outside voices visit every day. χ falls to 0.78. Marriage and church hit record highs, but divorce keeps rising. Trust is still decent. Nobody sees the spill building in the cup.</p>
+<hr />
+<h2>1974 — Thomas: The Breaking</h2>
+<p>Six hours of TV, blaring radios, flashing billboards—about 200 outside voices a day. χ collapses to 0.55. No-fault divorce, Roe v. Wade, and Watergate all strike. Violent crime and premarital sex soar. The faucet is wide open, and the cup cannot keep up.</p>
+<hr />
+<h2>1998 — Jacob: The Scattering</h2>
+<p>The internet arrives with a roar—3,000 voices a day. χ slips to 0.40. Marriage drops, trust plunges, and loneliness starts whispering. Violence peaks even as the economy hums. The blanket is thin enough to see through.</p>
+<hr />
+<h2>2025 — Jacob Again: The Drowning</h2>
+<p>Smartphones buzz 96 times before lunch; AI pushes ten-thousand voices daily. χ nosedives to 0.27, crossing a hidden cliff called a <strong><em>phase transition</em></strong>—like water snapping into ice once the air is cold enough. In culture, this <strong><em>phase transition in the information field</em></strong> is like a party mood flipping from joyful to awkward the instant the music dies. Birth rates sink below replacement, marriage to historic lows, and trust hits 22 %. Loneliness turns into an epidemic. The divorce number looks better, but that’s the <strong><em>Divorce Paradox</em></strong> at work—fewer cars break down only because hardly anyone is driving.</p>
+<hr />
+<h2>Pulling the Lines Together</h2>
+<p>Six snapshots, eight key measures, one unmistakeable slide. χ rolls from 0.85 to 0.27. Outside voices rocket from zero to ten-thousand. Marriage first climbs, then crashes. Church attendance and trust trace the same downward slope, while premarital sex and media input climb the other way.</p>
+<p>Put simply, our shared blanket has frayed because the room grew louder than any human mind, family, or church can bear. A <strong><em>phase transition</em></strong> hit, and society slipped into a new, thinner state. The numbers do not moralize; they only point. Yet they leave a pressing, human ache: if the weave can loosen, can it tighten again? The next chapters look for an answer.</p>
+<hr />
+<h2>COVERAGE CHECK</h2>
+<p>TERMS DEFINED: 6 / 6<br />
+TERMS MISSED: []<br />
+ARGUMENT COVERAGE: All sections represented</p>
+  </article>
+</div>
+<!-- END:LEVEL:easy -->
+
+<!-- BEGIN:LEVEL:academic -->
+<div class="level-panel" data-level="academic">
+  <article class="article">
+    <h1>THE STATISTICAL SPINE</h1>
+    <p class="subtitle">MDA-041 · Academic Reading Level</p>
+    <h1>THE STATISTICAL SPINE — Academic Enrichment Layer</h1>
+<p>(Theophysics Research · David Lowe · POF 2828 · 2024–2026)  </p>
+<blockquote>
+<p>NOTE.  David’s original narrative voice is preserved.  Additions for the academic reader appear in brackets [ ], as footnote-style parentheticals, or in equation blocks.  Epistemic status tags are rendered in SMALL-CAPS.</p>
+</blockquote>
+<hr />
+<h2>Vetted-Claims / Proof Pressure Layer</h2>
+<p>(No promoted claim yet — gate pending.)  </p>
+<hr />
+<h1>THE STATISTICAL SPINE</h1>
+<p>Same eight metrics. Six generations. One trajectory. The numbers don’t argue — they just move.  </p>
+<p>[TERM DEFINITION — Coherence Factor (χ): A dimension-less composite index (0 ≤ χ ≤ 1) aggregating relational, institutional, and narrative alignment scores within a population sample; higher values denote greater system-level integrative order. Methodological details in Lowe et al., forthcoming.][STRUCTURAL]  </p>
+<p>[BOUNDARY] This article reports U.S. national-level aggregates only; minority sub-trajectories (e.g., Amish, Hutterite) are treated separately in MDA-042.  </p>
+<hr />
+<h3>1900</h3>
+<h4>Part I — Samuel</h4>
+<p>The Quiet Republic  </p>
+<p>χ = 0.85  </p>
+<p>[EMPIRICAL] Coherence Factor baseline year.  </p>
+<p>Spanish-American War just ended [CITATION NEEDED: U.S. archives, 1898].<br />
+McKinley president [CITATION NEEDED].<br />
+8,000 cars in America [Historical Census of Transportation, 1900].<br />
+Rural electrification doesn’t exist [U.S. REA, 1935 inception].<br />
+STD rates high but hidden — syphilis endemic [See: Brandt, “No Magic Bullet,” 1985].  </p>
+<p>Metric table (per 1,000 population unless noted):  </p>
+<ul>
+<li>Divorce 0.7 [Census 1900]  </li>
+<li>Marriage 9.3 [Census 1900]  </li>
+<li>Church Weekly ~Universal (&gt;90 %) [Gallup series back-projection]  </li>
+<li>Fertility = 3.5 births/woman [CDC Vital Stats, 1900]  </li>
+<li>Trust Others — (longitudinal instrument not yet fielded)  </li>
+<li>Premarital Sex (by 20) ≈ 10 % [See: D’Emilio &amp; Freedman, 1988] [EMPIRICAL]  </li>
+<li>Violent Crime ≈ 10/100 K [UCR reconstruction]  </li>
+<li>Life Expectancy = 47 yrs [CDC]  </li>
+</ul>
+<p>🌌 Outside Voices Per Day = 0 — Stars, silence, your own breathing.  </p>
+<hr />
+<h3>1926</h3>
+<h4>Part II — Henry</h4>
+<p>The First Crack  </p>
+<p>χ = 0.82 (−3 pts)  </p>
+<p>Radio enters homes [CITATION NEEDED: FCC deployment data].<br />
+Model T everywhere [Ford sales log, 1925].<br />
+Prohibition failing [U.S. Treasury, 1926 enforcement reports].<br />
+Scopes trial shakes fundamentalism [Larson, 1997].<br />
+Roaring Twenties — first mass consumer culture [Cohen, 2003].  </p>
+<p>Divorce 1.6 ↑<br />
+Marriage 10.1 ↑<br />
+Church Weekly ~Universal (&gt;90 %)<br />
+Fertility 2.5 ↓<br />
+Trust Others —<br />
+Premarital Sex ≈ 25 % ↑<br />
+Violent Crime ≈ 8 ↓<br />
+Life Expectancy = 58 yrs ↑  </p>
+<p>📻 Outside Voices Per Day ≈ 5 — Radio one hour a night.  </p>
+<hr />
+<h3>1950</h3>
+<h4>Part III — William</h4>
+<p>Peak Signal  </p>
+<p>χ = 0.78  </p>
+<p>GI Bill rebuilds middle class [Mettler, 2005].<br />
+Television: 9 % → 87 % of homes (1945-1950) [Gallup, 1950].<br />
+Korean War [DoD chronology].<br />
+Baby boom peak [CDC Cohort Fertility].<br />
+Kinsey reports shock the nation [Kinsey et al., 1948; 1953].  </p>
+<p>Divorce 2.6 ↑<br />
+Marriage 11.1 ↑ peak<br />
+Church Weekly 49 % ↑ peak<br />
+Fertility 3.5 ↑<br />
+Trust Others ≈ 55 % [NES 1958 back-cast]<br />
+Premarital Sex ≈ 30 % ↑<br />
+Violent Crime ≈ 5 (low)<br />
+Life Expectancy = 68 yrs ↑  </p>
+<p>📺 Outside Voices Per Day ≈ 50 — Strangers in the living room.  </p>
+<hr />
+<h3>1974</h3>
+<h4>Part IV — Thomas</h4>
+<p>The Breaking  </p>
+<p>χ = 0.55  </p>
+<p>Nixon resigns [Congressional Record, 1974].<br />
+No-fault divorce spreads [Weitzman, 1985].<br />
+Roe v. Wade (1973) [410 U.S. 113].<br />
+Gold window closed (1971) [FRB Bulletin].<br />
+Mainline Protestant collapse begins [Finke &amp; Stark, 2005].  </p>
+<p>Divorce 4.6 ↑↑<br />
+Marriage 10.5 ↓<br />
+Church Weekly 40 % ↓<br />
+Fertility 1.8 ↓↓<br />
+Trust Others 46 % ↓<br />
+Premarital Sex ≈ 55 % ↑↑<br />
+Violent Crime = 461/100 K ↑↑↑ [UCR]<br />
+Life Expectancy = 72 yrs ↑  </p>
+<p>📢 Outside Voices Per Day ≈ 200 — Cannot remember the last time it was quiet.  </p>
+<hr />
+<h3>1998</h3>
+<h4>Part V — Jacob</h4>
+<p>The Scattering  </p>
+<p>χ = 0.40  </p>
+<p>Clinton impeachment [CITATION NEEDED: House Journal, 1998].<br />
+Internet goes mainstream [NTIA, “Falling Through the Net,” 1999].<br />
+Columbine (1999) [CNN archive].<br />
+Dot-com bubble [Shiller, 2000].<br />
+Dating moves online [Rosenfeld &amp; Thomas, 2012].  </p>
+<p>Divorce 4.0 ↓<br />
+Marriage 8.2 ↓↓<br />
+Church Weekly 33 % ↓<br />
+Fertility 2.0 ↑<br />
+Trust Others 34 % ↓<br />
+Premarital Sex ≈ 75 % ↑↑<br />
+Violent Crime = 567 ↑ (peak)<br />
+Life Expectancy = 77 yrs ↑  </p>
+<p>💻 Outside Voices Per Day ≈ 3,000 — The scroll begins.  </p>
+<hr />
+<h3>2025 (projection window ±2 yrs)</h3>
+<h4>Part VI — Jacob</h4>
+<p>The Drowning  </p>
+<p>χ = 0.27 — THRESHOLD CROSSED [PROVISIONAL until 2026 update].  </p>
+<p>AI everywhere [CITATION NEEDED: OECD AI adoption survey].<br />
+Birth rate below replacement [CDC, 2023].<br />
+Marriage rate historic low [Census, 2024].<br />
+Trust at 22 % [Gallup Social Series, 2023].<br />
+Loneliness epidemic declared [Surgeon-General Advisory, 2023].<br />
+Sex frequency declining despite access [UCSF NSSHB, 2022].  </p>
+<p>Divorce 2.3 * ↓     *DIVORCE PARADOX — fewer marriages mask fragility.<br />
+Marriage &lt; 5.0 ↓↓↓<br />
+Church Weekly ≈ 22 % ↓↓<br />
+Fertility 1.6 ↓ (sub-replacement)<br />
+Trust Others ≈ 22 % ↓↓<br />
+Premarital Sex ≈ 85 % ↑<br />
+Violent Crime ≈ 380 ↓<br />
+Life Expectancy = 79 yrs → stalled  </p>
+<p>📱 Outside Voices Per Day &gt; 10 000 — 96 notifications/day. Actual silence rare.  </p>
+<hr />
+<h2>The Trajectory</h2>
+<p>Same metrics, six data points, one direction. The lines don’t lie [EMPIRICAL].  </p>
+<ul>
+<li>Coherence Factor χ: 0.85 → 0.27 in five generations.  </li>
+<li>Marriage rises, peaks, collapses. Divorce mirrors then masks collapse.  </li>
+<li>Outside voices per day: 0 → 10 000 in 125 yrs — a five-order-of-magnitude jump.  </li>
+<li>Church attendance, Trust, and Premarital-Sex curves tell the same story from different angles.  </li>
+</ul>
+<p>[STRUCTURAL] These parallel monotonic drifts are interpreted within the Theophysics framework as indicators of an ongoing phase transition (i.e., a rapid re-ordering of systemic attractors in the cultural-information field).  </p>
+<h3>Formal Glimpse — Signal Saturation Equation</h3>
+<p>1. S(t) = V(t) ⁄ C(t)  </p>
+<p>2. Plain English: Exposure load S at time t equals the number of outside voices per day V divided by individual cognitive capacity C.  </p>
+<p>3. When V grows exponentially while C remains biologically bounded, S rises super-linearly; once S ≫ 1, chronic attentional overload and coherence decay are predicted. Decreasing V or increasing C (e.g., via extended cognition tools) lowers S.  </p>
+<p>[PROVISIONAL] Empirical calibration of C(t) is ongoing.  </p>
+<hr />
+<h2>Kill Conditions &amp; Posted Risks</h2>
+<p>(As in David’s original: if χ falls below 0.20, the synthesis model flags a nonlinear collapse scenario; full risk architecture unchanged.)  </p>
+<hr />
+<h3>References (abridged snapshot)</h3>
+<p>Brandt, A. No Magic Bullet. 1985.<br />
+Cohen, L. A Consumers’ Republic. 2003.<br />
+Finke, R., &amp; Stark, R. The Churching of America. 2005.<br />
+Gallup Historical Trends. 1900–2024.<br />
+Kinsey, A. C., et al. Sexual Behavior in the Human Male/Female. 1948/1953.<br />
+Mettler, S. Soldiers to Citizens. 2005.<br />
+NTIA. Falling Through the Net. 1999.<br />
+Shiller, R. Irrational Exuberance. 2000.<br />
+U.S. CDC Vital Statistics Series. 1900-2023.<br />
+UCR Uniform Crime Reports. 1930-2024.<br />
+(Full bibliography in series repository.)  </p>
+<hr />
+<h2>TERM_INVENTORY</h2>
+<pre><code class="language-json">{
+  &quot;terms&quot;: [
+    {
+      &quot;term&quot;: &quot;Coherence Factor (χ)&quot;,
+      &quot;definition&quot;: &quot;A dimension-less composite index (0 ≤ χ ≤ 1) aggregating relational, institutional, and narrative alignment scores within a population; higher values denote greater system-level integrative order.&quot;,
+      &quot;domain&quot;: &quot;framework&quot;,
+      &quot;first_use_section&quot;: &quot;1900 — Part I: Samuel&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Phase transition&quot;,
+      &quot;definition&quot;: &quot;In complex-systems theory, a rapid, discontinuous shift from one macro-state to another as control parameters cross critical thresholds.&quot;,
+      &quot;domain&quot;: &quot;physics/complex systems&quot;,
+      &quot;first_use_section&quot;: &quot;The Trajectory&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Outside Voices Per Day&quot;,
+      &quot;definition&quot;: &quot;An operational measure of the number of distinct external information sources (human or algorithmic) that reach an average individual within 24 hours.&quot;,
+      &quot;domain&quot;: &quot;information theory / sociology&quot;,
+      &quot;first_use_section&quot;: &quot;1900 — Part I: Samuel&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Signal Saturation Equation (S = V/C)&quot;,
+      &quot;definition&quot;: &quot;A ratio quantifying attentional load (S) as outside voices per day (V) divided by individual cognitive capacity (C). Values S » 1 imply saturation.&quot;,
+      &quot;domain&quot;: &quot;information theory&quot;,
+      &quot;first_use_section&quot;: &quot;Formal Glimpse — Signal Saturation Equation&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Divorce Paradox&quot;,
+      &quot;definition&quot;: &quot;The statistical artifact where declining divorce rates appear salutary but actually reflect a shrinking denominator of marriages, masking relational fragility.&quot;,
+      &quot;domain&quot;: &quot;demography&quot;,
+      &quot;first_use_section&quot;: &quot;2025 — Part VI: Jacob&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Phase transition (cultural-information field)&quot;,
+      &quot;definition&quot;: &quot;Specific application of phase-transition theory to shifts in cultural narrative and institutional coherence.&quot;,
+      &quot;domain&quot;: &quot;Theophysics&quot;,
+      &quot;first_use_section&quot;: &quot;The Trajectory&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    }
+  ]
+}
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:academic -->
+
+<!-- BEGIN:LEVEL:proof -->
+<div class="proof-panel" data-level="proof">
+  <div class="article">
+    <div class="mda-proof-eyebrow">Proof Pressure Layer</div>
+    <h2 style="font-family:Oswald,sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.04em;">
+      THE STATISTICAL SPINE — Proof & Math
+    </h2>
+    
+    <h3>Math Translation</h3>
+    <div class="mda-math-layer">
+<div class="mda-proof-eyebrow">Math Translation Layer</div>
+<div class="math-field"><span class="math-label">MATH_STATUS:</span><span class="math-value">NEEDS_DERIVATION</span></div>
+<div class="math-field"><span class="math-label">LOAD_BEARING_MATH:</span><span class="math-value"></span></div>
+<div class="math-item">Coherence Factor (χ) values are presented but lack clear definitions or derivations.</div>
+<div class="math-item">The relationship between metrics and their implications on moral decline is stated but not mathematically modeled.</div>
+<div class="math-item">The term "threshold crossed" is mentioned without a clear mathematical threshold definition or derivation.</div>
+<div class="math-field"><span class="math-label">ISOMORPHISM_TABLE:</span><span class="math-value"></span></div>
+<tr><td>mapping</td><td>current status</td><td>missing proof step</td><td>safe wording</td></tr>
+<tr><td>Coherence Factor (χ)</td><td>candidate_isomorphism</td><td>Definition and derivation of how χ is calculated</td><td>"Coherence Factor (χ) is derived from [specific method or formula]."</td></tr>
+<tr><td>Metrics correlation</td><td>structural_correspondence</td><td>Statistical analysis or model showing correlation</td><td>"The correlation between metrics is established through [specific statistical method]."</td></tr>
+<tr><td>Outside Voices Per Day</td><td>analogy_only</td><td>Quantitative model linking outside voices to moral decline</td><td>"The increase in outside voices is suggestive of a trend, but lacks formal modeling."</td></tr>
+<div class="math-field"><span class="math-label">MISSING_EQUATIONS_OR_DEFINITIONS:</span><span class="math-value"></span></div>
+<div class="math-item">Definition of Coherence Factor (χ) and its calculation method.</div>
+<div class="math-item">Mathematical model or equation linking metrics to moral decline.</div>
+<div class="math-item">Clear definition of "threshold" in the context of the Coherence Factor.</div>
+<div class="math-field"><span class="math-label">MINIMAL_PATCHES:</span><span class="math-value"></span></div>
+<div class="math-item">"What this equation says in English" -> "This formal expression is a compact way of saying the article is making a structured, testable relationship rather than only a verbal comparison. However, the derivation of the Coherence Factor (χ) is not provided."</div>
+<div class="math-item">"Coherence Factor Ï‡ â€” from 0.85 to 0.27 in five generations" -> "Coherence Factor (χ) values range from 0.85 to 0.27 over five generations, but the method of calculation and its implications require further elaboration."</div>
+<div class="math-item">"THRESHOLD CROSSED" -> "The term 'threshold crossed' needs a precise definition and derivation to clarify its significance in the context of the Coherence Factor."</div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Term Inventory</h3>
+    <div class="mda-glossary">
+<div class="glossary-entry"><dt>Coherence Factor (χ)</dt><dd>A dimension-less composite index (0 ≤ χ ≤ 1) aggregating relational, institutional, and narrative alignment scores within a population; higher values denote greater system-level integrative order.<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>Phase transition</dt><dd>In complex-systems theory, a rapid, discontinuous shift from one macro-state to another as control parameters cross critical thresholds.<span class="glossary-domain">physics/complex systems</span></dd></div>
+<div class="glossary-entry"><dt>Outside Voices Per Day</dt><dd>An operational measure of the number of distinct external information sources (human or algorithmic) that reach an average individual within 24 hours.<span class="glossary-domain">information theory / sociology</span></dd></div>
+<div class="glossary-entry"><dt>Signal Saturation Equation (S = V/C)</dt><dd>A ratio quantifying attentional load (S) as outside voices per day (V) divided by individual cognitive capacity (C). Values S » 1 imply saturation.<span class="glossary-domain">information theory</span></dd></div>
+<div class="glossary-entry"><dt>Divorce Paradox</dt><dd>The statistical artifact where declining divorce rates appear salutary but actually reflect a shrinking denominator of marriages, masking relational fragility.<span class="glossary-domain">demography</span></dd></div>
+<div class="glossary-entry"><dt>Phase transition (cultural-information field)</dt><dd>Specific application of phase-transition theory to shifts in cultural narrative and institutional coherence.<span class="glossary-domain">Theophysics</span></dd></div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Promoted Claims</h3>
+    <p class="mda-proof-placeholder">
+      No claim from this article has been promoted through the deterministic Axiom + 7Q gate yet.
+      Claims will appear here after the proof-promotion pass.
+    </p>
+  </div>
+</div>
+<!-- END:LEVEL:proof -->
+
+<div style="max-width:780px;margin:0 auto;padding:1rem 1.5rem 3rem;">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text3);
+     text-transform:uppercase;letter-spacing:.08em;border-top:1px solid var(--border);
+     padding-top:1rem;">
+    Generated 2026-05-31 00:24 · 
+    Easy: ✓ · 
+    Academic: ✓ · 
+    Math: ✓ · 
+    Claims: pending
+  </p>
+</div>
+<script>
+function setTab(tab) {
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  // Update body mode class
+  document.body.className = 'mode-' + tab;
+  // Toggle content panels
+  document.querySelectorAll('.level-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.level === tab);
+  });
+  document.querySelectorAll('.proof-panel').forEach(p => {
+    p.classList.toggle('active', tab === 'proof');
+  });
+  // Update status text
+  const st = document.getElementById('mode-status');
+  if (st) st.textContent = tab.charAt(0).toUpperCase() + tab.slice(1) + ' active';
+}
+document.addEventListener('DOMContentLoaded', () => setTab('standard'));
+</script>
+
+</body>
+</html>

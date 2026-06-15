@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paper Grade Dashboard - gtq-16-photon-isnt-watching</title>
+<style>
+:root {
+  --ink:#14120d;
+  --paper:#fbf4df;
+  --paper2:#f3e6bf;
+  --line:#d6bd73;
+  --deep:#33250b;
+  --gold:#b8871e;
+  --green:#267a4a;
+  --red:#b3442f;
+  --blue:#2f5f7f;
+  --muted:#786845;
+  --shadow:0 18px 60px rgba(33,24,8,.18);
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  color:var(--ink);
+  font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  background:
+    radial-gradient(circle at top left, rgba(184,135,30,.22), transparent 34rem),
+    linear-gradient(135deg, #fff9e8 0%, #ead38e 100%);
+}
+main { max-width:1280px; margin:0 auto; padding:38px 22px 80px; }
+.hero {
+  border:1px solid rgba(51,37,11,.22);
+  background:rgba(255,251,238,.86);
+  border-radius:28px;
+  padding:30px;
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+.hero:after {
+  content:"";
+  position:absolute;
+  right:-80px; top:-110px;
+  width:340px; height:340px;
+  border-radius:50%;
+  border:38px solid rgba(184,135,30,.16);
+}
+.eyebrow { color:var(--gold); letter-spacing:.16em; text-transform:uppercase; font-size:.76rem; font-weight:800; }
+h1 { margin:.35rem 0 .45rem; font-size:clamp(2.1rem,4vw,4.8rem); line-height:.92; max-width:960px; }
+.sub { color:var(--muted); max-width:940px; line-height:1.65; }
+.grid { display:grid; gap:16px; }
+.metrics { grid-template-columns:repeat(4,minmax(0,1fr)); margin:22px 0; }
+.metric, .panel, .issue {
+  background:rgba(255,252,242,.82);
+  border:1px solid rgba(51,37,11,.18);
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(33,24,8,.08);
+}
+.metric { padding:18px; min-height:112px; }
+.metric strong { display:block; font-size:2rem; line-height:1; color:var(--deep); }
+.metric span { color:var(--muted); font-size:.82rem; text-transform:uppercase; letter-spacing:.09em; }
+.two { grid-template-columns:1.1fr .9fr; align-items:start; margin-top:16px; }
+.panel { padding:20px; overflow:hidden; }
+h2 { margin:.2rem 0 1rem; color:var(--deep); font-size:1.35rem; }
+table { width:100%; border-collapse:collapse; font-size:.92rem; }
+th,td { border-bottom:1px solid rgba(51,37,11,.14); padding:11px 9px; vertical-align:top; text-align:left; }
+th { color:var(--gold); font-size:.72rem; text-transform:uppercase; letter-spacing:.1em; }
+td span { display:block; color:var(--muted); font-size:.78rem; margin-top:.25rem; }
+.bar { display:inline-block; width:120px; height:10px; background:#eadbad; border-radius:999px; overflow:hidden; vertical-align:middle; margin-right:8px; }
+.bar i { display:block; height:100%; background:linear-gradient(90deg,var(--red),var(--gold),var(--green)); border-radius:999px; }
+em { color:var(--muted); font-style:normal; }
+.issues { grid-template-columns:repeat(4,minmax(0,1fr)); }
+.issue { padding:14px; display:flex; justify-content:space-between; gap:12px; align-items:center; }
+.issue strong { font-size:.84rem; color:var(--muted); }
+.issue span { font-size:1.45rem; color:var(--red); font-weight:900; }
+.address {
+  font-family:"Cascadia Mono","Consolas",monospace;
+  font-size:.78rem;
+  line-height:1.65;
+  color:#3c321c;
+  background:#fff7dc;
+  border:1px dashed rgba(51,37,11,.28);
+  border-radius:16px;
+  padding:14px;
+  overflow-wrap:anywhere;
+}
+.claims td:nth-child(3) { min-width:320px; }
+.footer { margin-top:18px; color:var(--muted); font-size:.82rem; line-height:1.55; }
+@media (max-width:900px) { .metrics,.two,.issues { grid-template-columns:1fr; } .hero { padding:22px; border-radius:20px; } }
+</style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <div class="eyebrow">Paper Grader Surface / Canary</div>
+    <h1>gtq-16-photon-isnt-watching</h1>
+    <p class="sub">This dashboard pulls the deterministic paper-grader metrics into a review surface: claims, equations, 7Q gaps, evidence markers, maturity distribution, semantic address, and station status. It does not replace the canonical JSON/XLSX; it makes the audit readable.</p>
+    <section class="grid metrics">
+      <div class="metric"><strong>7425</strong><span>Words</span></div>
+      <div class="metric"><strong>110</strong><span>Sections</span></div>
+      <div class="metric"><strong>100</strong><span>Equations</span></div>
+      <div class="metric"><strong>68</strong><span>Claim Candidates</span></div>
+    </section>
+    <div class="address">
+      <b>Semantic Address:</b> THEOPHYSICS/GTQ-16-PHOTON-ISNT-WATCHING-PAPER-GRADE/W/PUBLIC/B/R1 :: G3M3E0S3T3K3R3Q3F3C3 :: CE-GQ-KS-MF-TR<br>
+      <b>Filename Safe:</b> THEOPHYSICS__GTQ-16-PHOTON-ISNT-WATCHING-PAPER-GRADE__W__PUBLIC__B__R1__G3M3E0S3T3K3R3Q3F3C3__CE-GQ-KS-MF-TR<br>
+      <b>Vector / Hash:</b> G3M3E0S3T3K3R3Q3F3C3 / CE-GQ-KS-MF-TR<br>
+      <b>Rigor Verdict:</b>  &nbsp; <b>Math Layer:</b>  (0 translated spans)
+    </div>
+  </section>
+
+  <section class="grid two">
+    <div class="panel">
+      <h2>7Q Coverage</h2>
+      <table><thead><tr><th>Question</th><th>Observed Values</th><th>Weak</th><th>Coverage</th></tr></thead><tbody><tr><td><b>Identity</b><span>Q1_identity</span></td><td>implicit: 39, clear: 29</td><td>39</td><td><div class='bar'><i style='width:42.6%'></i></div><em>42.6%</em></td></tr>
+<tr><td><b>Scope</b><span>Q2_scope</span></td><td>broad: 53, bounded: 15</td><td>53</td><td><div class='bar'><i style='width:22.1%'></i></div><em>22.1%</em></td></tr>
+<tr><td><b>Mechanism</b><span>Q3_mechanism</span></td><td>missing: 43, present: 25</td><td>43</td><td><div class='bar'><i style='width:36.8%'></i></div><em>36.8%</em></td></tr>
+<tr><td><b>Evidence</b><span>Q4_evidence</span></td><td>missing: 53, present: 15</td><td>53</td><td><div class='bar'><i style='width:22.1%'></i></div><em>22.1%</em></td></tr>
+<tr><td><b>Falsifiability</b><span>Q5_falsifiability</span></td><td>missing: 67, present: 1</td><td>67</td><td><div class='bar'><i style='width:1.5%'></i></div><em>1.5%</em></td></tr>
+<tr><td><b>Boundary</b><span>Q6_boundary</span></td><td>missing: 57, present: 11</td><td>57</td><td><div class='bar'><i style='width:16.2%'></i></div><em>16.2%</em></td></tr>
+<tr><td><b>Listener Risk</b><span>Q7_listener_risk</span></td><td>normal: 67, high: 1</td><td>1</td><td><div class='bar'><i style='width:98.5%'></i></div><em>98.5%</em></td></tr></tbody></table>
+    </div>
+    <div class="panel">
+      <h2>Maturity Distribution</h2>
+      <table><thead><tr><th>Level</th><th>Claims</th><th>Share</th></tr></thead><tbody><tr><td>Formal Model</td><td>30</td><td>44.1%</td></tr>
+<tr><td>Metaphor</td><td>22</td><td>32.4%</td></tr>
+<tr><td>Empirical Support</td><td>9</td><td>13.2%</td></tr>
+<tr><td>Public Proof Claim</td><td>3</td><td>4.4%</td></tr>
+<tr><td>Analogy</td><td>2</td><td>2.9%</td></tr>
+<tr><td>Structural Correspondence</td><td>2</td><td>2.9%</td></tr></tbody></table>
+      <h2 style="margin-top:1.4rem;">Evidence Markers</h2>
+      <table><thead><tr><th>Marker</th><th>Claims</th></tr></thead><tbody><tr><td>no explicit marker</td><td>53</td></tr>
+<tr><td>empirical</td><td>5</td></tr>
+<tr><td>experiment</td><td>4</td></tr>
+<tr><td>measurement</td><td>4</td></tr>
+<tr><td>data</td><td>1</td></tr>
+<tr><td>observation</td><td>1</td></tr>
+<tr><td>reference</td><td>1</td></tr>
+<tr><td>source</td><td>1</td></tr></tbody></table>
+    </div>
+  </section>
+
+  <section class="panel" style="margin-top:16px;">
+    <h2>Primary Repair Pressure</h2>
+    <div class="grid issues"><div class='issue'><strong>weak:Q5_falsifiability</strong><span>67</span></div>
+<div class='issue'><strong>weak:Q6_boundary</strong><span>57</span></div>
+<div class='issue'><strong>weak:Q4_evidence</strong><span>53</span></div>
+<div class='issue'><strong>weak:Q2_scope</strong><span>53</span></div>
+<div class='issue'><strong>weak:Q3_mechanism</strong><span>43</span></div>
+<div class='issue'><strong>weak:Q1_identity</strong><span>39</span></div>
+<div class='issue'><strong>risk:Q7_listener_risk</strong><span>1</span></div></div>
+  </section>
+
+  <section class="panel" style="margin-top:16px;">
+    <h2>Station Marks</h2>
+    <table><thead><tr><th>Station</th><th>Status</th><th>Warnings</th></tr></thead><tbody><tr><td colspan='3'>No snapshot station marks loaded.</td></tr></tbody></table>
+  </section>
+
+  <section class="panel" style="margin-top:16px;">
+    <h2>Claim Audit Preview</h2>
+    <table class="claims"><thead><tr><th>#</th><th>Section</th><th>Claim</th><th>Maturity</th><th>Evidence</th><th>Kill Condition</th><th>Proof Boundary</th></tr></thead><tbody><tr><td>1</td><td>The single thing they should remember</td><td>Consciousness participates in physics through that $C$-coupling, not as a separate equation term.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>2</td><td>Critical Insight</td><td>The Hebrew ra&#x27;ah is the same actualization operator the Born Rule already requires — engineering notes, not decoration.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>3</td><td>Critical Insight</td><td>I don&#x27;t mean the Discovery-Channel version where somebody shows you two bright bands turning into a striped pattern and says &quot;spooky, right?&quot; I mean the moment when it finally landed that what the experiment is actually saying is: the universe is checking whether anyone is looking before it decides how to behave.</td><td><b>Metaphor</b><span>Level 1</span></td><td>experiment</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>4</td><td>Critical Insight</td><td>I wrote this article because I think that moment — the moment a reasonable person finally feels the weight of what quantum mechanics has been quietly insisting for a hundred years — is the one the Church should have been ready for and missed.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>5</td><td>Critical Insight</td><td>It&#x27;s also a pastoral lie, told because the honest version is too strange to put in front of a twenty-year-old physics major.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>6</td><td>Critical Insight</td><td>The claim is much narrower: an observer&#x27;s coherence state $C$ is one of the inputs to a measurement outcome, and when coherence rises, the outcome distribution shifts in a small, statistically detectable, reproducible way.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>measurement</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>7</td><td>Critical Insight</td><td>But if it&#x27;s true — and two independent experimental regimes say it is — then the observer&#x27;s coherence is inside the equations of physics, not outside them, and consciousness enters physics through that coupling.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>8</td><td>Key Insight</td><td>For three thousand years that sounded like poetic anthropomorphism — God given eyes because humans have eyes.</td><td><b>Analogy</b><span>Level 2</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Analogy, not a final proof.</td></tr>
+<tr><td>9</td><td>The Double-Slit Experiment: What Actually Happens</td><td>The screen now shows exactly what you&#x27;d expect if the electrons were little bullets: two bright bands lined up with the slits.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>10</td><td>The Part That Matters</td><td>It&#x27;s correct because, yes, the interaction between the detector and the environment spreads phase information around in a way that washes out the interference.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>11</td><td>The Part That Matters</td><td>It&#x27;s false because it treats the word &quot;information&quot; as if it were neutral.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>12</td><td>The Part That Matters</td><td>Information is the central actor in the equation.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>13</td><td>PEAR-LAB: Princeton Took This Seriously</td><td>The double-slit shows that knowability matters at the level of a single particle.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>14</td><td>Epistemic Position</td><td>But the reason coherence-coupling is not in any physics curriculum is not because the critics won the argument.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>15</td><td>Epistemic Position</td><td>It is because the subject was deemed unworthy of the argument.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>16</td><td>Epistemic Position</td><td>In any other branch of physics, a result that robust across a dataset that large would be considered strong prima facie evidence for a novel phenomenon.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>17</td><td>Why the Silence Is Informative</td><td>The C Variable: How Coherence (and Therefore Conscious Observers) Enters Physics The Master Equation of the framework contains a variable the standard physics Lagrangian does not:</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>18</td><td>Theophysics Master Equation</td><td>Consciousness does not appear in the equation as its own term.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>19</td><td>The Narrow Claim</td><td>And a distributed network of REGs embedded in that field shows correlated deviations.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>20</td><td>The Narrow Claim</td><td>Not because consciousness &quot;reached out and touched&quot; the REGs at a distance.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>21</td><td>The Narrow Claim</td><td>Because coherence, in this picture, is a non-local property of the field, and when the field rises in coherence locally or globally, every quantum system embedded in that region feels the bias.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>22</td><td>The Narrow Claim</td><td>This is what it means to say C is in the equation.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>23</td><td>What This Means for Genesis</td><td>If C is a real term in the equation that governs how possibility becomes actuality, then a fully coherent observer — an observer with $C \to 1$, operating from outside the system — witnessing a newly-created reality actualizes that reality in the most literal physical sense the framework provides.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>24</td><td>The Falsification Criteria</td><td>If a systematic re-analysis of the GCP corpus shows no emotional-intensity dependence after controlling for duration and sample size, the collective coherence reading of GCP is in trouble.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>25</td><td>What You Just Read</td><td>I think it enters the equation through coherence ($C$, the framework&#x27;s binding variable) — with PEAR and GCP as the two strongest empirical footholds we currently have, with the double-slit as the textbook baseline everyone already accepts, and with the Genesis grammar as the three-thousand-year-old hint that someone has told this story before.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>empirical</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>26</td><td>What You Just Read</td><td>The narrow claim is this: the observer&#x27;s coherence state is one of the inputs to the outcome distribution of the system it observes, and when coherence rises, the distribution shifts by a small, statistically detectable, directionally consistent amount.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>27</td><td>What You Just Read</td><td>That claim does not require mysticism.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>28</td><td>What You Just Read</td><td>It requires, instead, that physics stop pretending the observer&#x27;s coherence is nothing and start treating it the way it treats every other measurable quantity — as a term in the equations, with an operational definition, with falsifiable predictions, and with the obligation to report null results honestly when they come in.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>29</td><td>Objections I Expect, and My Responses</td><td>I have tried to reflect this in my language throughout — &quot;evidence&quot; and &quot;suggestive&quot; and &quot;working hypothesis&quot; rather than &quot;proof.&quot; If replication continues to fail, the claim fails with it.</td><td><b>Public Proof Claim</b><span>Level 7</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Public Proof Claim, not a final proof.</td></tr>
+<tr><td>30</td><td>Objections I Expect, and My Responses</td><td>The claim that the two structures match is testable independently of my belief.</td><td><b>Structural Correspondence</b><span>Level 3</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Structural Correspondence, not a final proof.</td></tr>
+<tr><td>31</td><td>Framework Connections</td><td>The protocols of PEAR are not less rigorous than many mainstream quantum optics experiments. — Genesis Narrative ↔ Observer Physics (Structural Bridge) The sevenfold &quot;God saw that it was good&quot; in Genesis 1 is a prose description of the measurement-completes-creation structure that the Born Rule requires.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>measurement</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>32</td><td>Framework Connections</td><td>The Hebrew grammar independently encodes the same operational structure that quantum measurement theory took three thousand years longer to describe. — Individual Intention ↔ Collective Field (Scale Bridge) PEAR shows single-operator coupling at $10^{-4}$ per trial.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>measurement</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>33</td><td>Framework Connections</td><td>GCP shows planetary-scale coupling at similar per-trial magnitude aggregated across billions of attention units.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>34</td><td>The Disclaimer</td><td>Every model is a projection of higher-dimensional reality onto a lower-dimensional surface we can comprehend.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>35</td><td>The Disclaimer</td><td>We do not claim to have captured God in equations.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>36</td><td>The Disclaimer</td><td>We claim that when we look at His creation honestly — with the tools of physics and the revelation of Scripture — the same structure appears in both.</td><td><b>Structural Correspondence</b><span>Level 3</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Structural Correspondence, not a final proof.</td></tr>
+<tr><td>37</td><td>The Disclaimer</td><td>Where our model limits what God can be, the limitation is ours, not His.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>38</td><td>Tangent 07-A</td><td>Empirical Testing of the Master Equation</td><td><b>Empirical Support</b><span>Level 6</span></td><td>empirical</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>39</td><td>Expand Tangent Article</td><td>Abstract We present 16 independent empirical tests of the Theophysics Master Equation $\chi = \iiint(G \cdot M \cdot E \cdot S \cdot T \cdot K \cdot R \cdot Q \cdot F \cdot C)\, dx\, dy\, dt$ and its derived coherence equation $\frac{dC}{dt} = O_{\text{eff}} \cdot G(t) \cdot (1-C) - S \cdot C$ against biblical and historical data.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>data, empirical</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>40</td><td>Designed Tests Awaiting External Data</td><td>T10: Moral Outcome Bimodality — World Values Survey composite measure should show two modes, not Gaussian.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr></tbody></table>
+    <p class="footer">Showing first 40 claims. Full canonical claim audit remains in the XLSX/JSON.</p>
+  </section>
+
+  <p class="footer">
+    Generated 2026-05-24T10:55:57 from X:\Backside\workflows\axioms.workflow\01_OUTBOX_REPORTS\gtq-16-photon-isnt-watching.paper-grade.json. Snapshot: not loaded.
+  </p>
+</main>
+</body>
+</html>

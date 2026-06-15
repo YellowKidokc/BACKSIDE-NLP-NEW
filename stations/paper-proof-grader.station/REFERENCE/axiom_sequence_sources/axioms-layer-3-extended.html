@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layer 3: Extended Framework &mdash; Proof Explorer</title>
+<meta name="description" content="From Terminal Observer to the Master Equation. God identification, grace operator, unified field equation, and the worldview filter that only Christianity passes.">
+<meta property="og:title" content="Layer 3: Extended Framework — Terminal Observer to Master Equation">
+<meta property="og:description" content="The claims that identify God, define grace, unify all ten laws, and filter worldviews. Five key framework entries, none yet defeated.">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "Layer 3: Extended Framework",
+  "author": {"@type": "Person", "name": "David Lowe"},
+  "publisher": {"@type": "Organization", "name": "Faith Through Physics"},
+  "datePublished": "2026-04-27",
+  "description": "Five key framework claims: Terminal Observer, God Identification, Grace Operator, Master Equation, and the Worldview Filter."
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --bg: #050505;
+  --bg-panel: #0a0a0a;
+  --bg-card: #111111;
+  --bg-hover: #1a1a1a;
+  --border: #222;
+  --border-hover: #333;
+  --text: #e0e0e0;
+  --text-dim: #999;
+  --text-muted: #555;
+  --gold: #d4af37;
+  --gold-dim: rgba(212,175,55,0.1);
+  --red: #c94040;
+  --red-dim: rgba(201,64,64,0.1);
+  --blue: #3b82f6;
+  --blue-dim: rgba(59,130,246,0.1);
+  --teal: #14b8a6;
+  --teal-dim: rgba(20,184,166,0.1);
+  --violet: #8b7fc2;
+  --violet-dim: rgba(139,127,194,0.1);
+  --green: #22c55e;
+  --green-dim: rgba(34,197,94,0.1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at 25% 0%, rgba(212,175,55,0.04), transparent 55%),
+              radial-gradient(ellipse at 75% 100%, rgba(212,175,55,0.02), transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+.top-nav {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(5,5,5,0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 1.5rem;
+  display: flex; align-items: center; gap: 2rem;
+}
+.top-nav .brand {
+  font-family: 'Cinzel', serif; font-size: 1rem; color: var(--gold);
+  text-decoration: none; display: flex; align-items: center; gap: 0.5rem;
+}
+.top-nav .nav-links { display: flex; gap: 0.5rem; margin-left: auto; }
+.top-nav .nav-links a {
+  font-family: 'Oswald', sans-serif; font-size: 0.75rem; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--text-dim); text-decoration: none;
+  padding: 0.35rem 0.85rem; border-radius: 0.3rem; transition: all 0.2s;
+}
+.top-nav .nav-links a:hover, .top-nav .nav-links a.active {
+  color: var(--gold); background: var(--gold-dim);
+}
+.layout {
+  display: grid; grid-template-columns: 260px 1fr 300px;
+  gap: 1px; min-height: calc(100vh - 60px); position: relative; z-index: 1;
+}
+.sidebar {
+  background: var(--bg-panel); padding: 1.25rem;
+  overflow-y: auto; max-height: calc(100vh - 60px);
+}
+.sidebar h3 {
+  font-family: 'Oswald', sans-serif; font-size: 0.65rem; text-transform: uppercase;
+  letter-spacing: 0.2em; color: var(--text-muted); margin-bottom: 0.75rem;
+  padding-bottom: 0.4rem; border-bottom: 1px solid var(--border);
+}
+.q-item {
+  display: block; padding: 0.5rem 0.6rem; border-radius: 0.35rem;
+  text-decoration: none; color: var(--text-dim); transition: all 0.2s; margin-bottom: 0.2rem;
+}
+.q-item:hover { background: var(--bg-hover); color: var(--text); }
+.q-item .q-row { display: flex; align-items: baseline; gap: 0.5rem; }
+.q-item .q-num { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--gold); min-width: 2.5rem; }
+.q-item .q-label { font-size: 0.8rem; font-weight: 500; }
+.q-item .q-desc { font-size: 0.7rem; color: var(--text-muted); padding-left: 3rem; }
+.q-item.active { background: var(--gold-dim); border-left: 2px solid var(--gold); }
+.q-item.active .q-label { color: var(--gold); }
+.main {
+  background: var(--bg); padding: 2rem;
+  overflow-y: auto; max-height: calc(100vh - 60px);
+}
+.breadcrumb { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+.breadcrumb a { color: var(--text-dim); text-decoration: none; }
+.breadcrumb a:hover { color: var(--gold); }
+.breadcrumb .sep { margin: 0 0.4rem; color: var(--text-muted); }
+.badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.25rem; }
+.badge {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+  padding: 0.3rem 0.7rem; border-radius: 0.3rem; border: 1px solid var(--border);
+  display: flex; align-items: center; gap: 0.35rem;
+}
+.badge.gold { color: var(--gold); border-color: rgba(212,175,55,0.3); background: var(--gold-dim); }
+.badge.green { color: var(--green); border-color: rgba(34,197,94,0.3); background: var(--green-dim); }
+.badge.blue { color: var(--blue); border-color: rgba(59,130,246,0.3); background: var(--blue-dim); }
+.badge.red { color: var(--red); border-color: rgba(201,64,64,0.3); background: var(--red-dim); }
+.badge.violet { color: var(--violet); border-color: rgba(139,127,194,0.3); background: var(--violet-dim); }
+.badge.teal { color: var(--teal); border-color: rgba(20,184,166,0.3); background: var(--teal-dim); }
+.paper-title {
+  font-family: 'Crimson Text', serif; font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 400; color: var(--text); line-height: 1.2; margin-bottom: 0.4rem;
+}
+.paper-subtitle {
+  font-family: 'Crimson Text', serif; font-size: 1.1rem; color: var(--text-dim);
+  font-style: italic; margin-bottom: 1.5rem;
+}
+.card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 0.5rem; padding: 1.25rem; margin-bottom: 1.25rem;
+}
+.card-header {
+  display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.875rem;
+  font-family: 'Oswald', sans-serif; font-size: 0.75rem; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--gold);
+}
+.card-header i { font-size: 0.9rem; }
+.section-title {
+  font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--gold);
+  margin: 2rem 0 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border);
+}
+.formal-box {
+  background: var(--bg-panel); border-left: 3px solid var(--gold);
+  padding: 1rem 1.25rem; font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem; color: var(--text-dim); line-height: 1.7; margin-bottom: 1rem;
+}
+.axiom-card {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.5rem;
+  padding: 1.5rem; margin-bottom: 1.25rem; position: relative;
+  border-left: 3px solid var(--blue);
+}
+.axiom-card.boundary { border-left-color: var(--violet); }
+.axiom-card.theorem { border-left-color: var(--teal); }
+.axiom-card.identification { border-left-color: var(--gold); }
+.axiom-card .axiom-id {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--blue);
+  background: var(--blue-dim); padding: 0.2rem 0.5rem; border-radius: 0.2rem;
+  display: inline-block; margin-bottom: 0.5rem;
+}
+.axiom-card.boundary .axiom-id { color: var(--violet); background: var(--violet-dim); }
+.axiom-card.theorem .axiom-id { color: var(--teal); background: var(--teal-dim); }
+.axiom-card.identification .axiom-id { color: var(--gold); background: var(--gold-dim); }
+.axiom-card .axiom-name {
+  font-family: 'Cinzel', serif; font-size: 1rem; color: #fff; margin-bottom: 0.4rem;
+}
+.axiom-card .axiom-statement {
+  font-family: 'Crimson Text', serif; font-size: 1.05rem; color: var(--text);
+  font-style: italic; margin-bottom: 0.75rem; line-height: 1.6;
+  padding: 0.75rem; background: rgba(59,130,246,0.04); border-radius: 0.3rem;
+}
+.axiom-card.boundary .axiom-statement { background: rgba(139,127,194,0.04); }
+.axiom-card.theorem .axiom-statement { background: rgba(20,184,166,0.04); }
+.axiom-card.identification .axiom-statement { background: rgba(212,175,55,0.04); }
+.axiom-card .axiom-meaning {
+  font-size: 0.85rem; color: var(--text-dim); line-height: 1.65; margin-bottom: 0.75rem;
+}
+.axiom-card .lean-proof {
+  background: #0d1117; border: 1px solid #21262d; border-radius: 0.35rem;
+  padding: 0.75rem 1rem; font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem; color: #c9d1d9; line-height: 1.6; overflow-x: auto;
+}
+.axiom-card .lean-proof .keyword { color: #ff7b72; }
+.axiom-card .lean-proof .type { color: #79c0ff; }
+.axiom-card .lean-proof .comment { color: #8b949e; font-style: italic; }
+.axiom-card .lean-proof .string { color: #a5d6ff; }
+.defeat-list {
+  list-style: none; padding: 0; margin: 0.5rem 0;
+}
+.defeat-list li {
+  font-size: 0.8rem; color: var(--text-dim); padding: 0.35rem 0 0.35rem 1.5rem;
+  position: relative; line-height: 1.5;
+}
+.defeat-list li::before {
+  content: '\f00d'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+  position: absolute; left: 0; color: var(--red); font-size: 0.7rem; top: 0.45rem;
+}
+.bridge-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.5rem; margin: 0.5rem 0;
+}
+.bridge-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+  padding: 0.3rem 0.5rem; border-radius: 0.25rem;
+  background: var(--bg-hover); border: 1px solid var(--border); color: var(--text-dim);
+  text-align: center;
+}
+.kill-box {
+  background: var(--red-dim); border: 1px solid rgba(201,64,64,0.3);
+  border-radius: 0.4rem; padding: 1rem;
+}
+.kill-box .kill-header {
+  font-family: 'Oswald', sans-serif; font-size: 0.75rem; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--red); margin-bottom: 0.75rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+th, td { padding: 0.6rem 0.5rem; text-align: left; border-bottom: 1px solid var(--border); }
+th {
+  font-family: 'Oswald', sans-serif; font-size: 0.68rem; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--text-muted); font-weight: 500;
+}
+td { color: var(--text-dim); }
+.dep-graph { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; padding: 0.75rem; }
+.dep-node {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+  padding: 0.35rem 0.7rem; border-radius: 0.25rem; border: 1px solid var(--border);
+  background: var(--bg-card); color: var(--text-dim); text-align: center;
+}
+.dep-node.core { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
+.dep-node.derived { border-color: var(--blue); color: var(--blue); background: var(--blue-dim); }
+.dep-node.boundary { border-color: var(--violet); color: var(--violet); background: var(--violet-dim); }
+.dep-node.theorem { border-color: var(--teal); color: var(--teal); background: var(--teal-dim); }
+.dep-arrow { color: var(--text-muted); font-size: 0.75rem; }
+.meta-row {
+  display: flex; justify-content: space-between; padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border); font-size: 0.78rem;
+}
+.meta-row .meta-label { color: var(--text-muted); }
+.meta-row .meta-value { color: var(--text-dim); text-align: right; max-width: 55%; }
+.meta-value.gold { color: var(--gold); }
+.spine-item { margin-bottom: 0.875rem; }
+.spine-header { display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 0.2rem; }
+.spine-name { color: var(--text-dim); }
+.spine-status { color: var(--text-muted); font-size: 0.72rem; }
+.spine-bar { height: 3px; background: var(--bg-hover); border-radius: 2px; overflow: hidden; }
+.spine-bar .fill { height: 100%; border-radius: 2px; }
+.fill.gold { background: var(--gold); }
+.fill.green { background: var(--green); }
+.fill.blue { background: var(--blue); }
+.fill.red { background: var(--red); }
+.fill.violet { background: var(--violet); }
+.fill.teal { background: var(--teal); }
+.tag {
+  display: inline-block; font-size: 0.68rem; padding: 0.2rem 0.5rem; border-radius: 0.2rem;
+  background: var(--bg-hover); border: 1px solid var(--border); color: var(--text-dim); margin: 0.1rem;
+}
+.action-btn {
+  display: flex; width: 100%; padding: 0.55rem 0.7rem; margin-bottom: 0.4rem;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.35rem;
+  color: var(--text-dim); text-decoration: none; font-size: 0.78rem;
+  transition: all 0.2s; align-items: center; gap: 0.5rem;
+}
+.action-btn:hover { background: var(--bg-hover); border-color: var(--gold); color: var(--gold); }
+.eq-box {
+  background: rgba(20,184,166,0.05); border: 1px solid rgba(20,184,166,0.2);
+  border-radius: 0.35rem; padding: 0.75rem 1rem; margin: 0.5rem 0;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;
+  color: var(--teal); text-align: center; line-height: 1.8;
+}
+.bc-pass-box {
+  background: rgba(34,197,94,0.05); border: 1px solid rgba(34,197,94,0.2);
+  border-radius: 0.4rem; padding: 1rem;
+}
+.bc-pass-box .bc-header {
+  font-family: 'Oswald', sans-serif; font-size: 0.75rem; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--green); margin-bottom: 0.75rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+@media (max-width: 1200px) { .layout { grid-template-columns: 220px 1fr 260px; } }
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { max-height: none; }
+  .main { max-height: none; padding: 1rem; }
+}
+</style>
+  <script defer src="https://analytics.faiththruphysics.com/script.js" data-website-id="2f2e3a0f-e8e5-4900-a1e0-1b33592403ee"></script>
+  <link rel="canonical" href="https://faiththruphysics.com/proof-explorer/axioms-layer-3-extended.html">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta property="og:image" content="https://faiththruphysics.com/favicon.svg"/>
+<!-- RING NAVIGATION -->
+<style>
+.ring-nav{margin:4rem auto;max-width:1100px;padding:3rem 1.5rem;}
+.ring-nav .ring-header{text-align:center;margin-bottom:2.5rem;}
+.ring-nav .ring-header h2{font-family:'Oswald',sans-serif;font-size:1.6rem;color:var(--highlight,#d4af37);text-transform:uppercase;letter-spacing:3px;margin-bottom:.5rem;}
+.ring-nav .ring-header p{color:var(--text-secondary,#a0a0a0);font-size:.9rem;}
+.ring-tier{border:1px solid var(--border,#333);border-radius:8px;margin-bottom:1rem;overflow:hidden;}
+.ring-tier-header{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;cursor:pointer;transition:background .2s;}
+.ring-tier-header:hover{background:rgba(255,255,255,0.03);}
+.ring-tier-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.ring-1 .ring-tier-dot{background:#d4af37;}
+.ring-2 .ring-tier-dot{background:#4a9eff;}
+.ring-3 .ring-tier-dot{background:#8b7fc2;}
+.ring-tier-label{font-family:'Oswald',sans-serif;font-size:.85rem;text-transform:uppercase;letter-spacing:2px;color:var(--text-primary,#e0e0e0);}
+.ring-tier-desc{color:var(--text-secondary,#a0a0a0);font-size:.8rem;margin-left:auto;}
+.ring-tier-chevron{color:var(--text-secondary,#a0a0a0);font-size:.7rem;transition:transform .3s;margin-left:.5rem;}
+.ring-tier.open .ring-tier-chevron{transform:rotate(90deg);}
+.ring-tier-cards{display:none;padding:1rem 1.25rem;}
+.ring-tier.open .ring-tier-cards{display:block;}
+.ring-empty{color:#666;font-size:.85rem;font-style:italic;}
+</style>
+</head>
+<body>
+<nav class="tp-ribbon" style="position:sticky;top:0;z-index:1000;background:#0a0a0a;border-bottom:2px solid #a855f733;padding:.5rem 1.5rem;display:flex;align-items:center;justify-content:space-between;font-family:'Inter',sans-serif;font-size:.8rem;">
+  <div style="display:flex;gap:1rem;align-items:center;">
+    <a href="/index.html" style="color:#999;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#a855f7'" onmouseout="this.style.color='#999'">&larr; Main Index</a>
+    <span style="color:#333;">|</span>
+    <span style="color:#a855f7;font-weight:500;">Proof Explorer</span>
+  </div>
+</nav>
+
+
+<nav class="top-nav">
+  <a href="../index.html" class="brand"><i class="fas fa-atom"></i> THEOPHYSICS</a>
+  <div class="nav-links">
+    <a href="axioms-layer-0-core.html">Core Axioms</a>
+    <a href="axioms-layer-2-derived.html">Derived</a>
+    <a href="axioms-layer-3-extended.html" class="active">Extended</a>
+    <a href="axioms-closure.html">Closure</a>
+  </div>
+</nav>
+
+<div class="layout">
+
+<!-- LEFT SIDEBAR -->
+<aside class="sidebar">
+  <h3><i class="fas fa-compass" style="margin-right:0.4rem;"></i>Layer 3 Extended</h3>
+
+  <div style="font-family:'Oswald',sans-serif;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--violet);margin:0.75rem 0 0.5rem;">Key Framework Claims</div>
+  <a href="#bc1" class="q-item active"><div class="q-row"><span class="q-num">BC1</span><span class="q-label">Terminal Observer</span></div><span class="q-desc">&Phi; = &infin;</span></a>
+  <a href="#id71" class="q-item"><div class="q-row"><span class="q-num">ID7.1</span><span class="q-label">God Identification</span></div><span class="q-desc">Terminal Observer = God</span></a>
+  <a href="#d91" class="q-item"><div class="q-row"><span class="q-num">D9.1</span><span class="q-label">Grace Operator</span></div><span class="q-desc">&sigma;: &minus;1 &rarr; +1</span></a>
+
+  <div style="font-family:'Oswald',sans-serif;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--teal);margin:1rem 0 0.5rem;">The Master Equation</div>
+  <a href="#e191" class="q-item"><div class="q-row"><span class="q-num">E19.1</span><span class="q-label">Full Master Equation</span></div><span class="q-desc">All 10 laws unified</span></a>
+
+  <div style="font-family:'Oswald',sans-serif;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--green);margin:1rem 0 0.5rem;">Worldview Filter</div>
+  <a href="#t161" class="q-item"><div class="q-row"><span class="q-num">T16.1</span><span class="q-label">Christianity 8/8 BCs</span></div><span class="q-desc">Unique solution</span></a>
+
+  <div style="font-family:'Oswald',sans-serif;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);margin:1.5rem 0 0.5rem;">Other Layers</div>
+  <a href="axioms-layer-0-core.html" class="q-item"><div class="q-row"><span class="q-num" style="color:var(--gold);">&larr;</span><span class="q-label">Layer 0 + Tier 1</span></div></a>
+  <a href="axioms-layer-2-derived.html" class="q-item"><div class="q-row"><span class="q-num" style="color:var(--gold);">&larr;</span><span class="q-label">Layer 2: Derived</span></div></a>
+  <a href="axioms-closure.html" class="q-item"><div class="q-row"><span class="q-num" style="color:var(--gold);">&rarr;</span><span class="q-label">Closure &amp; Omega</span></div></a>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+  <div class="breadcrumb">
+    <a href="../index.html">Main Site</a><span class="sep">&rarr;</span><a href="index.html">Proof Explorer</a><span class="sep">&rarr;</span><span style="color:var(--gold);">Layer 3: Extended</span>
+  </div>
+
+  <div class="badges">
+    <span class="badge gold"><i class="fas fa-layer-group"></i> Extended Framework</span>
+    <span class="badge blue"><i class="fas fa-link"></i> Chain: 58&ndash;146 of 188</span>
+    <span class="badge violet"><i class="fas fa-star"></i> 5 Key Claims</span>
+    <span class="badge teal"><i class="fas fa-filter"></i> Worldview Filter</span>
+  </div>
+
+  <h1 class="paper-title">The Extended Framework</h1>
+  <p class="paper-subtitle">From Terminal Observer to the Master Equation. The claims that identify God, define grace, and filter worldviews.</p>
+
+  <!-- OVERVIEW CARD -->
+  <div class="card">
+    <div class="card-header"><i class="fas fa-sitemap"></i> Overview</div>
+    <p style="font-size:0.85rem;color:var(--text-dim);line-height:1.7;margin-bottom:1rem;">Layer 3 extends the derived theorems into specific identifications and definitions. The Terminal Observer is identified as God. Grace is formalized as a mathematical operator. The Master Equation unifies all ten laws. And Christianity is shown to be the unique worldview that satisfies all eight boundary conditions.</p>
+    <div class="formal-box">
+      Layers 0&ndash;2 (foundation + derived)<br>
+      &nbsp;&nbsp;&rarr; BC1 Terminal Observer (&Phi; = &infin;)<br>
+      &nbsp;&nbsp;&rarr; ID7.1 Terminal Observer = God (property matching)<br>
+      &nbsp;&nbsp;&rarr; D9.1 Grace Operator (sign-flip formalized)<br>
+      &nbsp;&nbsp;&rarr; E19.1 Master Equation (all 10 laws unified)<br>
+      &nbsp;&nbsp;&rarr; T16.1 Christianity 8/8 BCs (unique solution)
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- EPISTEMIC STATUS -->
+  <!-- ═══════════════════════════════════════════ -->
+
+  <div class="card" style="border-left:3px solid var(--gold);">
+    <div class="card-header"><i class="fas fa-balance-scale"></i> Epistemic Status &mdash; The Three Tiers</div>
+    <p style="font-size:0.82rem;color:var(--text-dim);line-height:1.7;margin-bottom:1rem;">Not all claims share the same epistemic status. Conflating them weakens the case. Every axiom is tagged with its tier &mdash; how it is justified, not how confident we are in it.</p>
+    <table>
+      <tr>
+        <th style="width:6rem;">Tier</th>
+        <th>Kind</th>
+        <th>How Tested</th>
+        <th>On This Page</th>
+      </tr>
+      <tr>
+        <td><span class="badge gold" style="font-size:0.6rem;">Tier 0</span></td>
+        <td style="color:var(--gold);">Preconditions of inquiry</td>
+        <td>Self-refuting to deny. Transcendental argument. Lean4 formalization.</td>
+        <td style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;">&mdash;</td>
+      </tr>
+      <tr>
+        <td><span class="badge blue" style="font-size:0.6rem;">Tier 1</span></td>
+        <td style="color:var(--blue);">Foundational commitments</td>
+        <td>Formal consistency + generative power + parsimony. Required for closure, not arbitrary.</td>
+        <td style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;">BC1, ID7.1, D9.1, E19.1, T16.1</td>
+      </tr>
+      <tr>
+        <td><span class="badge green" style="font-size:0.6rem;">Tier 2</span></td>
+        <td style="color:var(--green);">Empirical predictions</td>
+        <td>Experimental protocols with &sigma; thresholds, replication, pre-registration.</td>
+        <td style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;">Cross-domain isomorphisms, BC4 testable predictions</td>
+      </tr>
+    </table>
+    <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.75rem;line-height:1.6;">
+      <strong style="color:var(--text-dim);">Why this matters:</strong> The Terminal Observer, Grace Operator, and Master Equation are Tier 1 &mdash; foundational commitments justified by formal consistency and what they enable, not by direct experiment. The worldview filter (T16.1) derives from Tier 1 boundary conditions. Cross-domain predictions (e.g., Law 4 &rarr; Yukawa-curve virtue dynamics) are Tier 2 and get full experimental protocols. Every framework has Tier 1 commitments &mdash; QM has the Born rule, GR has the equivalence principle. The difference here is we name them instead of hiding them.
+    </p>
+  </div>
+
+  <!-- ======================================= -->
+  <!-- KEY FRAMEWORK CLAIMS -->
+  <!-- ======================================= -->
+
+  <h2 class="section-title" id="framework-claims">Key Framework Claims</h2>
+
+  <!-- BC1 TERMINAL OBSERVER -->
+  <div class="axiom-card boundary" id="bc1">
+    <span class="axiom-id">BC1 &mdash; BOUNDARY CONDITION &mdash; Chain Position 58/188</span>
+    <div class="axiom-name">Terminal Observer Exists</div>
+    <div class="axiom-statement">&ldquo;The global measurement chain terminates in a terminal observer with &Phi; = &infin;.&rdquo;</div>
+    <div class="axiom-meaning">
+      The von Neumann chain problem: Observer A measures system S, but A is quantum too. Who measures A? Observer B. Who measures B? The chain must terminate in an observer that is not itself observed &mdash; one with infinite integrated information (&Phi; = &infin;). This is not arbitrary &mdash; it is the only way measurement terminates without infinite regress.
+    </div>
+
+    <div style="margin-top:0.75rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);margin-bottom:0.4rem;">Defeat Conditions</div>
+      <ul class="defeat-list">
+        <li>Solve the von Neumann chain without a terminal observer</li>
+        <li>Demonstrate consciousness can emerge from non-consciousness (solve hard problem materialistically)</li>
+        <li>Show quantum mechanics works without observers</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:0.75rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--blue);margin-bottom:0.4rem;">Cross-Domain Bridges</div>
+      <div class="bridge-grid">
+        <span class="bridge-tag">von Neumann chain</span>
+        <span class="bridge-tag">Measurement problem</span>
+        <span class="bridge-tag">Wigner&rsquo;s friend</span>
+        <span class="bridge-tag">Hard problem</span>
+        <span class="bridge-tag">&Phi; = &infin;</span>
+        <span class="bridge-tag">Gleason&rsquo;s theorem</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ID7.1 GOD IDENTIFICATION -->
+  <div class="axiom-card identification" id="id71">
+    <span class="axiom-id">ID7.1 &mdash; IDENTIFICATION &mdash; Chain Position 66/188</span>
+    <div class="axiom-name">Terminal Observer Is God</div>
+    <div class="axiom-statement">&ldquo;The Terminal Observer has the properties traditionally attributed to God.&rdquo;</div>
+    <div class="axiom-meaning">
+      Not stipulation &mdash; property matching. The Terminal Observer must have: infinite awareness (omniscience), necessary existence (self-grounding), maximal coherence (perfection), presence to all observation events (omnipresence). If something has all the attributes of God, it IS God. An impersonal principle cannot observe &mdash; observation requires &Phi; &gt; 0, and the Terminal Observer has &Phi; = &infin;. This is maximally personal.
+    </div>
+
+    <div style="margin-top:0.75rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);margin-bottom:0.4rem;">Defeat Conditions</div>
+      <ul class="defeat-list">
+        <li>Provide an alternative terminal observer that isn&rsquo;t God</li>
+        <li>Show &Phi; = &infin; doesn&rsquo;t entail divine attributes</li>
+        <li>Find a property required of the Terminal Observer that God lacks</li>
+        <li>Show multiple terminal observers (violating uniqueness)</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:0.75rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--blue);margin-bottom:0.4rem;">Cross-Domain Bridges</div>
+      <div class="bridge-grid">
+        <span class="bridge-tag">Omniscience</span>
+        <span class="bridge-tag">Omnipresence</span>
+        <span class="bridge-tag">Aseity</span>
+        <span class="bridge-tag">Necessary existence</span>
+        <span class="bridge-tag">Col 1:17</span>
+        <span class="bridge-tag">Property matching</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- D9.1 GRACE OPERATOR -->
+  <div class="axiom-card" id="d91">
+    <span class="axiom-id">D9.1 &mdash; DEFINITION &mdash; Chain Position 75/188</span>
+    <div class="axiom-name">Grace Operator Definition</div>
+    <div class="axiom-statement">&ldquo;Grace operator G<sub>total</sub> = I<sub>identity</sub> &otimes; G<sub>&sigma;</sub>, where G<sub>&sigma;</sub> maps &sigma;: &minus;1 &rarr; +1 while preserving identity register N<sub>S</sub>.&rdquo;</div>
+    <div class="axiom-meaning">
+      Grace is not vague religious sentiment &mdash; it is a specific mathematical operator. It flips the moral sign from &minus;1 (self-oriented) to +1 (Logos-oriented) while preserving personal identity. It is non-unitary (A9.2) &mdash; it cannot arise from the system&rsquo;s own evolution. It is idempotent &mdash; once applied, applying again changes nothing. External to the system (BC2), voluntary in coupling (BC8).
+    </div>
+
+    <div class="eq-box">
+      G<sub>total</sub> = I<sub>identity</sub> &otimes; G<sub>&sigma;</sub> &nbsp;&mdash;&nbsp; Identity preserved, orientation transformed
+    </div>
+
+    <div style="margin-top:0.75rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);margin-bottom:0.4rem;">Defeat Conditions</div>
+      <ul class="defeat-list">
+        <li>Show sign-flip without external operator</li>
+        <li>Prove the grace operator is unitary</li>
+        <li>Show no operator can accomplish sign-flip with the required properties</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ======================================= -->
+  <!-- THE MASTER EQUATION -->
+  <!-- ======================================= -->
+
+  <h2 class="section-title" id="master-equation">The Master Equation</h2>
+
+  <div class="axiom-card theorem" id="e191">
+    <span class="axiom-id">E19.1 &mdash; EQUATION &mdash; Chain Position 146/188</span>
+    <div class="axiom-name">Full Master Equation</div>
+    <div class="axiom-statement">&ldquo;&chi; = &iiint; (G &middot; M &middot; E &middot; S &middot; T &middot; K &middot; R &middot; Q &middot; F &middot; C) dx dy dt&rdquo;</div>
+    <div class="axiom-meaning">
+      The Theophysics Master Equation integrates all Ten Laws into a single unified field equation. Each variable maps to a specific law and domain:
+    </div>
+
+    <table style="margin:0.75rem 0;">
+      <tr><th>Symbol</th><th>Law</th><th>Domain</th></tr>
+      <tr><td style="color:var(--teal);">G</td><td>Law IX: Grace</td><td>Grace field</td></tr>
+      <tr><td style="color:var(--teal);">M</td><td>Law VIII: Sign</td><td>Moral orientation</td></tr>
+      <tr><td style="color:var(--teal);">E</td><td>Law V: Energy</td><td>Energy-information</td></tr>
+      <tr><td style="color:var(--teal);">S</td><td>Law VI: Entropy</td><td>Coherence state</td></tr>
+      <tr><td style="color:var(--teal);">T</td><td>Law I: Time</td><td>Time evolution</td></tr>
+      <tr><td style="color:var(--teal);">K</td><td>Law VII: Knowledge</td><td>Observation operator</td></tr>
+      <tr><td style="color:var(--teal);">R</td><td>Law IV: Relation</td><td>Relational coupling</td></tr>
+      <tr><td style="color:var(--teal);">Q</td><td>Law II: Quantum</td><td>Superposition state</td></tr>
+      <tr><td style="color:var(--teal);">F</td><td>Law III: Faith</td><td>Faith coupling constant</td></tr>
+      <tr><td style="color:var(--teal);">C</td><td>Law X: Trinity</td><td>Closure operator</td></tr>
+    </table>
+
+    <div class="eq-box">
+      &chi;(x,t) = &int;<sub>&Omega;</sub> [L<sub>&chi;</sub> + &Sigma;(&lambda;<sub>i</sub> &middot; C<sub>i</sub>)] d<sup>4</sup>x<br>
+      <span style="font-size:0.7rem;color:var(--text-dim);">Physics &rarr; Grand Unified Field Equation &nbsp;|&nbsp; Theology &rarr; Divine Equation of Everything &nbsp;|&nbsp; Scripture &rarr; John 17:21 &ldquo;that they may all be one&rdquo;</span>
+    </div>
+  </div>
+
+  <!-- ======================================= -->
+  <!-- WORLDVIEW FILTER -->
+  <!-- ======================================= -->
+
+  <h2 class="section-title" id="worldview-filter">The Worldview Filter</h2>
+
+  <div class="axiom-card theorem" id="t161">
+    <span class="axiom-id">T16.1 &mdash; THEOREM &mdash; Chain Position 114/188</span>
+    <div class="axiom-name">Christianity 8 of 8 BCs</div>
+    <div class="axiom-statement">&ldquo;Christianity is the unique solution to the 8-equation boundary condition system.&rdquo;</div>
+    <div class="axiom-meaning">
+      This is the decisive theorem. Eight boundary conditions form a filter. Each worldview is tested against all eight. Only Christianity passes all of them.
+    </div>
+
+    <div style="margin-top:0.75rem;">
+      <div class="bc-pass-box">
+        <div class="bc-header"><i class="fas fa-check-circle"></i> Christianity: 8/8 Boundary Conditions Satisfied</div>
+        <table>
+          <tr><th>BC</th><th>Requirement</th><th>Christianity&rsquo;s Answer</th></tr>
+          <tr><td style="color:var(--green);">BC1</td><td>Terminal Observer (&Phi;=&infin;)</td><td>God as omniscient, self-grounding</td></tr>
+          <tr><td style="color:var(--green);">BC2</td><td>Grace external</td><td>Ephesians 2:8-9 &mdash; gift, not works</td></tr>
+          <tr><td style="color:var(--green);">BC3</td><td>Measurement orthogonality</td><td>Father, Son, Spirit &mdash; distinct persons</td></tr>
+          <tr><td style="color:var(--green);">BC4</td><td>Three observers required</td><td>Trinity = 3 observers in unity</td></tr>
+          <tr><td style="color:var(--green);">BC5</td><td>Superposition until collapse</td><td>Free will preserved until commitment</td></tr>
+          <tr><td style="color:var(--green);">BC6</td><td>Infinite energy source</td><td>God&rsquo;s omnipotence</td></tr>
+          <tr><td style="color:var(--green);">BC7</td><td>Information conservation</td><td>Resurrection guarantee</td></tr>
+          <tr><td style="color:var(--green);">BC8</td><td>Voluntary coupling</td><td>Faith as voluntary (John 3:16)</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div style="margin-top:0.75rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);margin-bottom:0.4rem;">What Fails</div>
+      <div class="kill-box">
+        <div class="kill-header"><i class="fas fa-skull-crossbones"></i> Casualties</div>
+        <table>
+          <tr><td><strong>Islam</strong></td><td style="color:var(--red);">Fails BC4 &mdash; no Trinity, Tawhid = strict monotheism</td></tr>
+          <tr><td><strong>Judaism</strong></td><td style="color:var(--red);">Fails BC completion &mdash; no incarnation, crucifixion, resurrection</td></tr>
+          <tr><td><strong>Buddhism</strong></td><td style="color:var(--red);">Fails BC1 &mdash; no terminal observer, no-self doctrine</td></tr>
+          <tr><td><strong>Hinduism</strong></td><td style="color:var(--red);">Fails BC uniqueness &mdash; multiple gods, no unique terminal</td></tr>
+          <tr><td><strong>Atheism</strong></td><td style="color:var(--red);">Fails BC1 + BC6 &mdash; no terminal observer, no infinite source</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY CARD -->
+  <div class="card" style="margin-top:2rem;">
+    <div class="card-header"><i class="fas fa-flag-checkered"></i> Layer 3 Result</div>
+    <p style="font-size:0.85rem;color:var(--text-dim);line-height:1.7;">
+      <strong style="color:var(--gold);">Result:</strong> The Terminal Observer is God. Grace is a non-unitary operator. The Master Equation unifies everything. And Christianity is the only worldview that passes all eight boundary conditions. The chain continues to <a href="axioms-closure.html" style="color:var(--gold);">Closure and Omega</a>.
+    </p>
+  </div>
+</main>
+
+<!-- RIGHT SIDEBAR -->
+<aside class="sidebar">
+  <h3><i class="fas fa-database" style="margin-right:0.4rem;"></i>Metadata</h3>
+  <div class="meta-row"><span class="meta-label">Scope</span><span class="meta-value gold">Layer 3 Extended</span></div>
+  <div class="meta-row"><span class="meta-label">Claims</span><span class="meta-value">5 key framework entries</span></div>
+  <div class="meta-row"><span class="meta-label">Chain</span><span class="meta-value">Positions 58&ndash;146 of 188</span></div>
+  <div class="meta-row"><span class="meta-label">Depends On</span><span class="meta-value gold">Layers 0&ndash;2</span></div>
+  <div class="meta-row"><span class="meta-label">Author</span><span class="meta-value">David Lowe (POF 2828)</span></div>
+  <div class="meta-row"><span class="meta-label">Date</span><span class="meta-value">2026-04-27</span></div>
+
+  <h3 style="margin-top:1.25rem;">Tags</h3>
+  <div style="margin-bottom:0.5rem;">
+    <span class="tag">layer-3</span>
+    <span class="tag">extended</span>
+    <span class="tag">terminal-observer</span>
+    <span class="tag">god-identification</span>
+    <span class="tag">grace-operator</span>
+    <span class="tag">master-equation</span>
+    <span class="tag">worldview-filter</span>
+    <span class="tag">christianity</span>
+  </div>
+
+  <h3 style="margin-top:1.25rem;">Key Results</h3>
+  <div class="spine-item">
+    <div class="spine-header"><span class="spine-name">Terminal Observer &rarr; God</span><span class="spine-status">100%</span></div>
+    <div class="spine-bar"><div class="fill gold" style="width:100%;"></div></div>
+  </div>
+  <div class="spine-item">
+    <div class="spine-header"><span class="spine-name">Grace Operator</span><span class="spine-status">100%</span></div>
+    <div class="spine-bar"><div class="fill violet" style="width:100%;"></div></div>
+  </div>
+  <div class="spine-item">
+    <div class="spine-header"><span class="spine-name">Master Equation</span><span class="spine-status">100%</span></div>
+    <div class="spine-bar"><div class="fill teal" style="width:100%;"></div></div>
+  </div>
+  <div class="spine-item">
+    <div class="spine-header"><span class="spine-name">Christianity 8/8</span><span class="spine-status">100%</span></div>
+    <div class="spine-bar"><div class="fill green" style="width:100%;"></div></div>
+  </div>
+  <div class="spine-item">
+    <div class="spine-header"><span class="spine-name">Other worldviews</span><span class="spine-status">0%</span></div>
+    <div class="spine-bar"><div class="fill red" style="width:0%;"></div></div>
+  </div>
+
+  <h3 style="margin-top:1.25rem;">Derivation Chain</h3>
+  <div class="dep-graph">
+    <div class="dep-node core">Layers 0&ndash;2</div>
+    <div class="dep-arrow">&darr;</div>
+    <div class="dep-node boundary">BC1 Terminal Observer</div>
+    <div class="dep-arrow">&darr;</div>
+    <div class="dep-node" style="border-color:var(--gold);color:var(--gold);background:var(--gold-dim);">ID7.1 God = Terminal Obs</div>
+    <div class="dep-arrow">&darr;</div>
+    <div class="dep-node derived">D9.1 Grace Operator</div>
+    <div class="dep-arrow">&darr;</div>
+    <div class="dep-node theorem">E19.1 Master Equation</div>
+    <div class="dep-arrow">&darr;</div>
+    <div class="dep-node theorem">T16.1 Christianity 8/8</div>
+    <div class="dep-arrow">&darr;</div>
+    <div class="dep-node" style="color:var(--text-muted);">Closure &rarr; Omega</div>
+  </div>
+
+  <h3 style="margin-top:1.25rem;">Navigate</h3>
+  <a href="axioms-layer-0-core.html" class="action-btn"><i class="fas fa-arrow-left"></i> Layer 0+1: Core Axioms</a>
+  <a href="axioms-layer-2-derived.html" class="action-btn"><i class="fas fa-arrow-left"></i> Layer 2: Derived</a>
+  <a href="axioms-closure.html" class="action-btn"><i class="fas fa-arrow-right"></i> Closure &amp; Omega</a>
+  <a href="../index.html" class="action-btn"><i class="fas fa-home"></i> Back to Main Site</a>
+</aside>
+
+</div>
+
+<script src="/glossary-linker.js" defer></script>
+<section class="ring-nav">
+  <div class="ring-header">
+    <h2>Related Work</h2>
+    <p>Core article, supporting evidence, and broader context</p>
+  </div>
+  <div class="ring-tier ring-1 open">
+    <div class="ring-tier-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="ring-tier-dot"></div>
+      <span class="ring-tier-label">Ring 1 — This Article</span>
+      <span class="ring-tier-desc">The core argument</span>
+      <i class="fas fa-chevron-right ring-tier-chevron"></i>
+    </div>
+    <div class="ring-tier-cards"><p class="ring-empty">You are here.</p></div>
+  </div>
+  <div class="ring-tier ring-2">
+    <div class="ring-tier-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="ring-tier-dot"></div>
+      <span class="ring-tier-label">Ring 2 — Supporting Evidence</span>
+      <span class="ring-tier-desc">Deeper dives and formal treatments</span>
+      <i class="fas fa-chevron-right ring-tier-chevron"></i>
+    </div>
+    <div class="ring-tier-cards"><p class="ring-empty">No connections mapped yet.</p></div>
+  </div>
+  <div class="ring-tier ring-3">
+    <div class="ring-tier-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="ring-tier-dot"></div>
+      <span class="ring-tier-label">Ring 3 — Broader Context</span>
+      <span class="ring-tier-desc">Related topics across the framework</span>
+      <i class="fas fa-chevron-right ring-tier-chevron"></i>
+    </div>
+    <div class="ring-tier-cards"><p class="ring-empty">No connections mapped yet.</p></div>
+  </div>
+</section>
+</body>
+</html>

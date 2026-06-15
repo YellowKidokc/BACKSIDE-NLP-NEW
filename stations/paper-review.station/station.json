@@ -1,0 +1,45 @@
+{
+  "station_id": "ST-NLP-PAPER-REVIEW-001",
+  "name": "paper-review",
+  "role": "Paper rigor and coherence review station",
+  "status": "draft",
+  "category": "nlp",
+  "model_front_door": "X:\\Models\\front-doors\\12_paper_review_FD\\config.json",
+  "model_path": "X:\\Models\\M12_paper_review",
+  "inputs": [
+    "paper_markdown",
+    "rubric_optional"
+  ],
+  "outputs": [
+    "review_md",
+    "review_json"
+  ],
+  "notes": [
+    "Use Ollama/local LLM backend; no standalone weight download required for this slot."
+  ],
+  "folder_contract": {
+    "exports": [
+      "EXPORTS\\json",
+      "EXPORTS\\markdown",
+      "EXPORTS\\html",
+      "EXPORTS\\claim-map",
+      "EXPORTS\\evidence-map",
+      "EXPORTS\\audit"
+    ],
+    "output": [
+      "OUTPUT\\reviews",
+      "OUTPUT\\scores",
+      "OUTPUT\\action-items"
+    ],
+    "logs": [
+      "_LOGS\\runs",
+      "_LOGS\\errors"
+    ],
+    "input": [
+      "INPUT\\papers",
+      "INPUT\\rubrics",
+      "INPUT\\claim-packets",
+      "INPUT\\evidence-packets"
+    ]
+  }
+}

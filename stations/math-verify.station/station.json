@@ -1,0 +1,43 @@
+{
+  "station_id": "ST-NLP-MATH-VERIFY-001",
+  "name": "math-verify",
+  "role": "Equation and numeric consistency verification station",
+  "status": "draft",
+  "category": "nlp",
+  "model_front_door": "X:\\Models\\front-doors\\11_math_verify_FD\\config.json",
+  "model_path": "X:\\Models\\M11_math_verify",
+  "inputs": [
+    "text",
+    "latex_optional"
+  ],
+  "outputs": [
+    "math_findings_json",
+    "warnings_md"
+  ],
+  "notes": [
+    "Package-backed station; no local weights required if math-verify is installed."
+  ],
+  "folder_contract": {
+    "exports": [
+      "EXPORTS\\json",
+      "EXPORTS\\markdown",
+      "EXPORTS\\equation-ledger",
+      "EXPORTS\\audit"
+    ],
+    "output": [
+      "OUTPUT\\verdicts",
+      "OUTPUT\\derivations",
+      "OUTPUT\\mismatches"
+    ],
+    "logs": [
+      "_LOGS\\runs",
+      "_LOGS\\errors"
+    ],
+    "input": [
+      "INPUT\\equations",
+      "INPUT\\latex",
+      "INPUT\\numeric-claims",
+      "INPUT\\source-packets"
+    ]
+  }
+}

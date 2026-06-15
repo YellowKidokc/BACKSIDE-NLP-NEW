@@ -1,0 +1,95 @@
+{
+  "paper_id": "01_FORMAL_LAYER_Definition10",
+  "series": "Unsorted",
+  "bundle": "\\\\dlowenas\\brain\\Backside\\stations\\axioms.station\\03_FINAL_READY\\Unsorted\\01_FORMAL_LAYER_Definition10",
+  "source_json": "\\\\dlowenas\\brain\\Backside\\stations\\axioms.station\\03_FINAL_READY\\Unsorted\\01_FORMAL_LAYER_Definition10\\JSON\\01_FORMAL_LAYER_Definition10.paper-grade.json",
+  "generated_at": "2026-06-03T08:04:00",
+  "verdict": "NEEDS_RIGOR",
+  "claim_count": 7,
+  "failing_claim_count": 7,
+  "formal_marker_count": 16,
+  "failure_counts": {
+    "weak:Q3_mechanism": 7,
+    "weak:Q4_evidence": 6,
+    "weak:Q5_falsifiability": 7,
+    "weak:Q6_boundary": 7
+  },
+  "claim_results": [
+    {
+      "index": 1,
+      "status": "FAIL",
+      "failures": [
+        "weak:Q3_mechanism",
+        "weak:Q4_evidence",
+        "weak:Q5_falsifiability",
+        "weak:Q6_boundary"
+      ],
+      "claim": "This is the typed, formal mathematical specification of the Master Equation."
+    },
+    {
+      "index": 2,
+      "status": "FAIL",
+      "failures": [
+        "weak:Q3_mechanism",
+        "weak:Q5_falsifiability",
+        "weak:Q6_boundary"
+      ],
+      "claim": "| # | Symbol | Domain | Formal Definition | |---|--------|--------|-------------------| | 1 | G | ℝ≥0 | External negentropy influx rate | | 2 | M | [-1, 1] | Alignment cosine between system state vector and reference vector | | 3 | E | ℝ≥0 | Signal propagation fidelity (channel capacity) | | 4 | S_prod | ℝ≥0 | Entropy production rate (raw disorder accumulation) | | 5 | T | ℝ>0 | Temporal integration parameter | | 6 | K | ℝ≥0 | Information compression ratio (Kolmogorov complexity) | | 7 | R | {0, 1} | Phase transition indicator (irreversible state change) | | 8 | Q | [0, 1] | Superposition measure (unresolved state space) | | 9 | F | [0, 1] | Non-local correlation strength (entanglement measure) | | 10 | C | [0, 1] | Total integration measure (global coherence) | ---"
+    },
+    {
+      "index": 3,
+      "status": "FAIL",
+      "failures": [
+        "weak:Q3_mechanism",
+        "weak:Q4_evidence",
+        "weak:Q5_falsifiability",
+        "weak:Q6_boundary"
+      ],
+      "claim": "The specific analytic form (exponential vs. rational) requires Mathlib for full verification but is structurally interchangeable inside the product. ---"
+    },
+    {
+      "index": 4,
+      "status": "FAIL",
+      "failures": [
+        "weak:Q3_mechanism",
+        "weak:Q4_evidence",
+        "weak:Q5_falsifiability",
+        "weak:Q6_boundary"
+      ],
+      "claim": "The companion kernel `CorrectedEntropyKernel.lean` formally proves: 1. **Antitone entropy.** `S_eff` is antitone in `S_prod`."
+    },
+    {
+      "index": 5,
+      "status": "FAIL",
+      "failures": [
+        "weak:Q3_mechanism",
+        "weak:Q4_evidence",
+        "weak:Q5_falsifiability",
+        "weak:Q6_boundary"
+      ],
+      "claim": "2. **Zero collapse on numeric factors.** If any of G, M, E, T, K, Q, F, C is zero, then `χ_local = 0`."
+    },
+    {
+      "index": 6,
+      "status": "FAIL",
+      "failures": [
+        "weak:Q3_mechanism",
+        "weak:Q4_evidence",
+        "weak:Q5_falsifiability",
+        "weak:Q6_boundary"
+      ],
+      "claim": "3. **Zero collapse on phase gate.** If R = 0 (no phase transition), then `χ_local = 0`."
+    },
+    {
+      "index": 7,
+      "status": "FAIL",
+      "failures": [
+        "weak:Q3_mechanism",
+        "weak:Q4_evidence",
+        "weak:Q5_falsifiability",
+        "weak:Q6_boundary"
+      ],
+      "claim": "4. **Strict positivity.** If all numeric factors are positive AND R = 1, then `χ_local > 0`."
+    }
+  ]
+}

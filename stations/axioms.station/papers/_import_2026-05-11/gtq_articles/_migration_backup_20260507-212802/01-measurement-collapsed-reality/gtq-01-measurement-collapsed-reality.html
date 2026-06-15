@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="paper-slug" content="GTQ-01">
+<title>GTQ-01 The Measurement That Collapsed Reality — Genesis to Quantum</title>
+<meta name="description" content="How one choice in Eden collapsed a coherent quantum state into fallen physics."/>
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<!-- MathJax -->
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']] }, svg: { fontCache: 'global' } };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+:root{
+  --primary:#1a1a1a;
+  --accent:#2c2c2c;
+  --text-primary:#e0e0e0;
+  --text-secondary:#a0a0a0;
+  --highlight:#d4af37;
+  --highlight-bright:#f4d03f;
+  --highlight-dim:#8b7a1e;
+  --highlight-glow:rgba(212,175,55,0.12);
+  --border:#333333;
+  --surface:#0a0a0a;
+  --surface-light:#1a1a1a;
+  --surface-hover:#2a2a2a;
+  --red:#ef4444;
+  --blue:#4a9eff;
+  --teal:#2dd4bf;
+  --purple:#a855f7;
+  --green:#22c55e;
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--surface);
+  color:var(--text-primary);
+  line-height:1.65;
+  margin:0;
+  padding:0;
+  overflow-x:hidden;
+}
+.serif{font-family:'Crimson Text',serif;}
+.display{font-family:'Oswald',sans-serif;}
+.mono{font-family:'JetBrains Mono',monospace;}
+
+/* ─────────── SIDEBAR NAV ─────────── */
+.sidebar{
+  position:fixed;top:0;left:0;width:300px;height:100vh;
+  background:var(--surface);border-right:1px solid var(--border);
+  z-index:100;overflow-y:auto;
+  transform:translateX(-100%);transition:transform .3s ease;
+  padding:1.5rem 1rem;
+}
+.sidebar.open{transform:translateX(0);}
+.sidebar-toggle{
+  position:fixed;top:1rem;left:1rem;z-index:101;
+  background:var(--surface-light);border:1px solid var(--border);
+  color:var(--highlight);width:40px;height:40px;border-radius:.375rem;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:1rem;transition:all .2s ease;
+}
+.sidebar-toggle:hover{border-color:var(--highlight);background:var(--surface-hover);}
+.sidebar-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:99;}
+.sidebar-overlay.show{display:block;}
+.sidebar .series-title{
+  font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--highlight);margin-bottom:1rem;
+  padding-bottom:.5rem;border-bottom:1px solid var(--border);
+}
+.sidebar a{display:block;padding:.45rem .75rem;color:var(--text-secondary);text-decoration:none;font-size:.8rem;border-radius:.3rem;transition:all .15s ease;line-height:1.4;}
+.sidebar a:hover{color:var(--text-primary);background:var(--surface-hover);}
+.sidebar a.current{color:var(--highlight);background:var(--highlight-glow);font-weight:600;}
+.sidebar .nav-section{padding:.5rem .75rem .25rem;font-family:'Oswald',sans-serif;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);opacity:.6;margin-top:.5rem;}
+.sidebar a.main-article{font-weight:500;color:var(--text-primary);}
+.sidebar a.deep-dive{padding-left:1.25rem;font-size:.78rem;opacity:.85;}
+.sidebar a.deep-dive::before{content:"└ ";color:var(--border);}
+
+/* ─────────── PROGRESS BAR ─────────── */
+.progress-track{position:fixed;top:0;left:0;right:0;height:3px;background:var(--border);z-index:90;}
+.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--highlight),var(--highlight-bright));transition:width 0.1s ease;border-radius:0 2px 2px 0;}
+
+/* ─────────── HERO GRID ─────────── */
+.hero-grid{
+  display:grid;grid-template-columns:2fr 1fr;grid-template-rows:auto auto;
+  gap:1.25rem;min-height:420px;margin-bottom:2.5rem;
+}
+.hero-main{
+  grid-column:1/2;grid-row:1/3;position:relative;overflow:hidden;
+  border-radius:.75rem;background:linear-gradient(135deg,var(--surface-light) 0%,var(--accent,#2c2c2c) 100%);
+  border:1px solid var(--border);min-height:420px;
+}
+.hero-main img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35;}
+.hero-main .overlay{
+  position:relative;z-index:2;height:100%;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:2.5rem;
+  background:linear-gradient(0deg,rgba(10,10,10,.85) 0%,rgba(10,10,10,0) 60%);
+}
+.hero-side{
+  background:var(--surface-light);border:1px solid var(--border);border-radius:.75rem;
+  padding:1.5rem;transition:border-color .25s ease;
+}
+.hero-side:hover{border-color:var(--highlight);}
+.hero-side h3{font-family:'Crimson Text',serif;font-size:1.05rem;font-weight:600;color:#fff;margin:0 0 .65rem;}
+.hero-side p{font-size:.875rem;color:var(--text-secondary);margin:0;}
+.hero-side .label{display:block;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);margin-bottom:.4rem;font-weight:700;}
+@media(max-width:1024px){
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-main{grid-column:1;grid-row:1;min-height:300px;}
+  .hero-main .overlay{padding:1.5rem;}
+}
+.meta-row{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;font-size:.8125rem;color:var(--text-secondary);margin-bottom:1rem;}
+.meta-row i{color:var(--highlight);margin-right:.4rem;}
+.status-pill{
+  padding:.25rem .65rem;background:var(--highlight-glow);color:var(--highlight);
+  border-radius:.25rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+}
+.domain-tag{display:inline-block;padding:.2rem .65rem;border-radius:999px;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+.tag-physics{background:rgba(74,158,255,.15);color:#4a9eff;}
+.tag-theology{background:rgba(212,175,55,.15);color:#d4af37;}
+.tag-quantum{background:rgba(201,64,64,.15);color:var(--red);}
+.tag-bridge{background:rgba(45,212,191,.15);color:#2dd4bf;}
+.tag-data{background:rgba(34,197,94,.15);color:var(--green);}
+.tag-consciousness{background:rgba(168,85,247,.15);color:var(--purple);}
+.tag-history{background:rgba(212,175,55,.12);color:#caa040;}
+.tag-moral{background:rgba(239,68,68,.15);color:var(--red);}
+.tag-civilizational{background:rgba(168,85,247,.12);color:#b594d8;}
+
+/* ─────────── STICKY TAB BAR ─────────── */
+.tab-shell{
+  position:sticky;top:0;z-index:50;
+  background:rgba(10,10,10,.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.tab-nav{display:flex;gap:.125rem;overflow-x:auto;scrollbar-width:none;}
+.tab-nav::-webkit-scrollbar{display:none;}
+.tab-btn{
+  padding:.85rem 1.1rem;background:transparent;border:none;color:var(--text-secondary);
+  font-size:.825rem;font-weight:500;cursor:pointer;white-space:nowrap;
+  transition:all .2s ease;border-bottom:2px solid transparent;margin-bottom:-1px;letter-spacing:.02em;
+}
+.tab-btn:hover{color:var(--text-primary);background:var(--surface-light);}
+.tab-btn.active{color:var(--highlight);border-bottom-color:var(--highlight);background:var(--surface-light);}
+.tab-btn i{margin-right:.4rem;}
+
+/* ─────────── TAB CONTENT ─────────── */
+.tab-content{display:none;animation:fadeIn .3s ease;}
+.tab-content.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* ─────────── LAYOUT: MAIN ─────────── */
+.main-layout{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:grid;grid-template-columns:1fr 280px;gap:3rem;}
+@media(max-width:1024px){.main-layout{grid-template-columns:1fr;}}
+
+.story{max-width:900px;margin:0 auto;}
+.story.wide{max-width:100%;}
+.story h2{
+  font-family:'Oswald',sans-serif;font-size:1.6rem;font-weight:600;color:#fff;
+  margin:3rem 0 1.25rem;letter-spacing:.03em;text-transform:uppercase;
+  border-bottom:1px solid var(--border);padding-bottom:.5rem;
+}
+.story h3{font-family:'Crimson Text',serif;font-size:1.3rem;font-weight:600;color:#fff;margin:2rem 0 .75rem;}
+.story h4{font-family:'Crimson Text',serif;font-size:1.1rem;font-weight:600;color:var(--highlight);margin:1.5rem 0 .5rem;}
+.story p{font-size:1.0625rem;color:#cfcfcf;margin:0 0 1.25rem;line-height:1.75;}
+.story p strong{color:#fff;}
+.story p em{color:var(--highlight);font-style:italic;}
+.story li{color:#cfcfcf;margin-bottom:.5rem;line-height:1.65;}
+.story li strong{color:#fff;}
+.story ul,.story ol{margin:0 0 1.25rem 1.5rem;}
+.story blockquote{
+  border-left:4px solid var(--highlight);background:var(--highlight-glow);
+  padding:1rem 1.5rem;margin:1.5rem 0;border-radius:0 .5rem .5rem 0;
+  font-family:'Crimson Text',serif;font-size:1.05rem;font-style:italic;color:#cfcfcf;
+}
+.story blockquote p{margin:0;font-size:1.05rem;}
+
+.drop-cap::first-letter{font-family:'Crimson Text',serif;font-size:4.5rem;float:left;line-height:.85;padding:.4rem .6rem 0 0;color:var(--highlight);font-weight:600;}
+
+.exec-summary{
+  background:var(--highlight-glow);border:1px solid var(--highlight-dim);
+  border-radius:.5rem;padding:1.5rem;margin:2rem 0;
+}
+.exec-summary-label{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);margin-bottom:.75rem;
+}
+.exec-summary p{font-size:1rem;color:#e0e0e0;margin:0;line-height:1.7;}
+
+.insight{border-left:4px solid var(--highlight);background:var(--highlight-glow);padding:1.25rem 1.5rem;margin:2rem 0;border-radius:0 .5rem .5rem 0;}
+.insight .label{font-family:'Crimson Text',serif;font-style:italic;color:var(--highlight);font-size:.85rem;letter-spacing:.05em;display:block;margin-bottom:.4rem;}
+.insight p{margin:0;color:#fff;font-size:1.05rem;}
+
+/* ─────────── KILL CONDITIONS ─────────── */
+.kill-sidebar{position:sticky;top:120px;height:fit-content;}
+.kill-sidebar-title{
+  font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);
+  margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);
+}
+.kill-card{
+  background:rgba(34,197,94,.04);border:1px solid rgba(34,197,94,.2);
+  border-radius:.5rem;padding:1rem;margin-bottom:.75rem;
+}
+.kill-card.suggestive{background:var(--highlight-glow);border-color:var(--highlight-dim);}
+.kill-card.destructive{background:rgba(239,68,68,.04);border-color:rgba(239,68,68,.2);}
+.kill-label{font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.35rem;}
+.kill-card .kill-label{color:var(--green);}
+.kill-card.suggestive .kill-label{color:var(--highlight);}
+.kill-card.destructive .kill-label{color:var(--red);}
+.kill-card p{margin:.25rem 0 0;color:#cfcfcf;font-size:.85rem;line-height:1.5;}
+.kill-card .kill-detail{font-size:.75rem;color:var(--text-secondary);margin-top:.35rem;}
+
+/* ─────────── AUDIO DOCK ─────────── */
+.audio-dock{width:100%;background:var(--surface-light);border:1px solid var(--border);border-radius:.625rem;overflow:hidden;transition:border-color .3s ease;margin:2rem 0;}
+.audio-dock:hover{border-color:var(--highlight-dim);}
+.dock-pills{display:flex;gap:0;border-bottom:1px solid var(--border);}
+.dock-pill{flex:1;display:flex;align-items:center;justify-content:center;gap:.4rem;padding:.6rem .5rem;background:transparent;border:none;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);transition:all .25s ease;position:relative;}
+.dock-pill::after{content:'';position:absolute;bottom:0;left:15%;right:15%;height:2px;border-radius:1px;background:transparent;transition:all .25s ease;}
+.dock-pill:hover{color:var(--text-primary);background:rgba(255,255,255,.03);}
+.dock-pill[data-src="deep"]{--pill-c:var(--blue);}
+.dock-pill[data-src="read"]{--pill-c:var(--highlight);}
+.dock-pill[data-src="debate"]{--pill-c:var(--purple);}
+.dock-pill[data-src="critique"]{--pill-c:var(--teal);}
+.dock-pill.active{color:var(--pill-c);background:rgba(255,255,255,.02);}
+.dock-pill.active::after{background:var(--pill-c);}
+.dock-pill .pill-dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.5;transition:opacity .25s;}
+.dock-pill.active .pill-dot{opacity:1;}
+.dock-pill.unavailable{opacity:.3;cursor:default;pointer-events:none;}
+.dock-body{display:flex;align-items:center;gap:.65rem;padding:.65rem .85rem;}
+.dock-play{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--highlight);background:transparent;color:var(--highlight);font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s ease;}
+.dock-play:hover{background:var(--highlight-glow);transform:scale(1.05);}
+.dock-play.playing{animation:pulse-dock 2s ease-in-out infinite;}
+@keyframes pulse-dock{0%,100%{box-shadow:0 0 0 0 var(--highlight-glow);}50%{box-shadow:0 0 0 4px transparent;}}
+.dock-track-wrap{flex:1;display:flex;flex-direction:column;gap:.25rem;min-width:0;}
+.dock-track{width:100%;height:4px;background:#222;border-radius:2px;cursor:pointer;overflow:hidden;position:relative;}
+.dock-fill{height:100%;width:0%;border-radius:2px;background:var(--highlight);transition:width .15s linear,background .3s;}
+.dock-times{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--text-secondary);}
+.dock-vol{background:none;border:none;color:var(--text-secondary);cursor:pointer;font-size:.75rem;flex-shrink:0;padding:2px;transition:color .2s;}
+.dock-vol:hover{color:var(--text-primary);}
+.dock-empty{display:none;align-items:center;justify-content:center;padding:.85rem;font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);opacity:.5;font-style:italic;}
+.dock-body.hidden{display:none;}.dock-empty.visible{display:flex;}
+
+/* ─────────── BOTTOM NAVIGATION ─────────── */
+.bottom-nav{
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:1.5rem 0;margin:3rem 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+.bottom-nav a{
+  display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;
+  background:var(--surface-light);border:1px solid var(--border);border-radius:.375rem;
+  color:var(--text-secondary);text-decoration:none;font-size:.85rem;transition:all .2s ease;
+}
+.bottom-nav a:hover{border-color:var(--highlight);color:var(--text-primary);background:var(--highlight-glow);}
+.bottom-nav a.primary{border-color:var(--highlight);color:var(--highlight);}
+.bottom-nav a.primary:hover{background:var(--highlight-glow);}
+.bottom-nav .nav-center{font-size:.8rem;color:var(--text-secondary);text-align:center;}
+
+/* ─────────── FOOTER ─────────── */
+.site-footer{text-align:center;padding:3rem 1.5rem;color:var(--text-secondary);font-size:.8rem;border-top:1px solid var(--border);margin-top:2rem;}
+.site-footer .eq{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--highlight);opacity:.6;margin-bottom:.5rem;}
+
+@media(max-width:1024px){
+  .kill-sidebar{display:none;}
+  .main-layout{grid-template-columns:1fr;padding:0 1rem;}
+  .story{max-width:100%;}
+}
+@media(max-width:640px){
+  .tab-btn{padding:.65rem .8rem;font-size:.75rem;}
+  .story h2{font-size:1.3rem;}
+  .bottom-nav{flex-direction:column;align-items:stretch;}
+  .bottom-nav a{justify-content:center;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Progress bar -->
+<div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+
+<!-- GTQ CANON HEADER: managed by tools/apply_article_topbars.py -->
+<style>
+.gtq-canon-shell{
+  min-height:214px;background:#070707;border-bottom:1px solid rgba(212,175,55,.34);
+  color:var(--text-primary);position:relative;z-index:50;overflow:hidden;
+  box-shadow:0 18px 36px rgba(0,0,0,.28);
+}
+.gtq-canon-shell::before{
+  content:"";position:absolute;inset:0;background:
+    radial-gradient(circle at var(--canon-glow-x,18%) 18%,rgba(212,175,55,.16),transparent 30%),
+    linear-gradient(90deg,rgba(212,175,55,.08),transparent 35%);
+  pointer-events:none;
+}
+.gtq-canon-topline{
+  height:40px;padding:0 1.5rem 0 4.5rem;border-bottom:1px solid rgba(212,175,55,.22);
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;position:relative;z-index:1;
+  background:rgba(5,5,5,.72);
+}
+.gtq-canon-chip,.gtq-canon-link{
+  height:26px;display:inline-flex;align-items:center;gap:.38rem;border:1px solid rgba(212,175,55,.24);
+  background:rgba(255,255,255,.025);border-radius:4px;padding:0 .65rem;
+  color:var(--text-dim);font-family:'JetBrains Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;
+  text-decoration:none;white-space:nowrap;
+}
+.gtq-canon-chip strong{color:var(--highlight);font-weight:700;}
+.gtq-canon-link{font-family:'Inter',sans-serif;font-size:.68rem;letter-spacing:.04em;font-weight:700;}
+.gtq-canon-link:hover{border-color:var(--highlight);color:var(--highlight);background:var(--highlight-glow);}
+.gtq-canon-nav{display:flex;align-items:center;gap:.4rem;}
+.gtq-canon-header{
+  min-height:174px;padding:1.45rem 1.5rem 1.4rem 4.5rem;position:relative;z-index:1;
+  display:grid;align-items:center;gap:1.2rem;
+}
+.gtq-canon-kicker{
+  color:var(--highlight);font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;
+  margin-bottom:.58rem;font-weight:700;
+}
+.gtq-canon-title{
+  font-family:'Crimson Text',serif;font-size:clamp(2rem,4.5vw,3.8rem);line-height:.96;
+  color:#fff;font-weight:700;letter-spacing:0;margin:0;
+}
+.gtq-canon-sub{
+  color:var(--text-secondary);font-size:.94rem;line-height:1.55;max-width:780px;margin-top:.78rem;
+}
+.gtq-canon-meta{display:flex;align-items:center;flex-wrap:wrap;gap:.55rem;margin-top:1rem;}
+.gtq-canon-meta span{
+  height:28px;display:inline-flex;align-items:center;gap:.38rem;padding:0 .7rem;border-radius:999px;
+  border:1px solid rgba(212,175,55,.22);background:rgba(212,175,55,.07);color:var(--text-dim);
+  font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.045em;
+}
+.gtq-canon-meta i{color:var(--highlight);}
+.gtq-canon-mark{
+  color:var(--highlight);font-family:'Oswald',sans-serif;font-size:7.8rem;line-height:.8;font-weight:700;
+  letter-spacing:.02em;user-select:none;text-shadow:0 0 30px rgba(212,175,55,.16);
+}
+.gtq-canon-formula{
+  color:rgba(212,175,55,.48);font-family:'JetBrains Mono',monospace;font-size:.72rem;line-height:1.8;
+  border-left:1px solid rgba(212,175,55,.35);padding-left:1rem;
+}
+.gtq-canon-classic{grid-template-columns:minmax(0,1fr) 170px;--canon-glow-x:16%;}
+.gtq-canon-classic .gtq-canon-mark{justify-self:end;opacity:.72;}
+.gtq-canon-spine{grid-template-columns:104px minmax(0,1fr) 250px;--canon-glow-x:50%;}
+.gtq-canon-spine::before{
+  content:"";position:absolute;left:4.5rem;right:1.5rem;top:0;height:4px;
+  background:linear-gradient(90deg,var(--highlight),var(--highlight-dim),var(--highlight-bright));
+}
+.gtq-canon-spine .gtq-canon-mark{
+  color:#050505;background:var(--highlight);width:74px;height:74px;display:grid;place-items:center;
+  font-size:2.15rem;border-radius:3px;box-shadow:0 0 34px rgba(212,175,55,.14);
+}
+.gtq-canon-edge{grid-template-columns:minmax(0,1fr) 330px;--canon-glow-x:86%;}
+.gtq-canon-edge .gtq-canon-title{max-width:760px;}
+.gtq-canon-edge .gtq-canon-mark{justify-self:end;opacity:.82;}
+.gtq-canon-edge .gtq-canon-formula{
+  border-left:0;border-top:1px solid rgba(212,175,55,.35);padding:1rem 0 0;text-align:right;
+}
+@media(max-width:900px){
+  .gtq-canon-topline{height:auto;min-height:40px;padding-right:.8rem;align-items:flex-start;flex-direction:column;padding-top:.55rem;padding-bottom:.55rem;}
+  .gtq-canon-nav{flex-wrap:wrap;}
+  .gtq-canon-header,.gtq-canon-classic,.gtq-canon-spine,.gtq-canon-edge{grid-template-columns:1fr;padding-right:1rem;}
+  .gtq-canon-mark,.gtq-canon-formula{display:none;}
+  .gtq-canon-title{font-size:clamp(1.8rem,9vw,2.55rem);}
+}
+</style>
+<section class="gtq-canon-shell" aria-label="Article identity">
+  <nav class="gtq-canon-topline" aria-label="Article navigation">
+    <div class="gtq-canon-chip"><i class="fas fa-atom"></i><strong>Genesis to Quantum</strong></div>
+    <div class="gtq-canon-nav">
+      <a class="gtq-canon-link" href="../index.html"><i class="fas fa-th-list"></i>Index</a>
+      <a class="gtq-canon-link" href="#"><i class="fas fa-arrow-left"></i>Prev</a>
+      <a class="gtq-canon-link" href="../03-first-quantum-state/gtq-03-first-quantum-state.html">Next<i class="fas fa-arrow-right"></i></a>
+    </div>
+  </nav>
+  <header class="gtq-canon-header gtq-canon-classic">
+    <div>
+      <div class="gtq-canon-kicker">Origin Story / Article 01 / Formal Canon</div>
+      <h1 class="gtq-canon-title">The Measurement That Collapsed Reality</h1>
+      <p class="gtq-canon-sub">How one choice in Eden collapsed a coherent quantum state into fallen physics.</p>
+      <div class="gtq-canon-meta">
+        <span><i class="fas fa-fingerprint"></i>GTQ-01</span>
+        <span><i class="fas fa-layer-group"></i>Foundation Track</span>
+        <span><i class="fas fa-scale-balanced"></i>Bounded Claim</span>
+      </div>
+    </div>
+    <div class="gtq-canon-mark">#01</div>
+    <div class="gtq-canon-formula">
+      chi_local = G * M * E * S_eff * T * K * R * Q * F * C<br/>
+      C is factor / chi is output / no drift
+    </div>
+  </header>
+</section>
+<!-- /GTQ CANON HEADER -->
+
+<!-- Sidebar toggle -->
+<button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle series navigation"><i class="fas fa-bars"></i></button>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- Sidebar nav -->
+<nav class="sidebar" id="sidebar">
+  <div class="series-title"><i class="fas fa-atom" style="margin-right:.4rem;"></i> Genesis to Quantum</div>
+  <a href="../../index.html"><i class="fas fa-home" style="width:1.2rem;"></i> Series Home</a>
+
+  <div class="nav-section">Main Articles</div>
+  <a href="../01-measurement-collapsed-reality/gtq-01-measurement-collapsed-reality.html" class="main-article current">01 The Measurement That Collapsed Reality</a>
+  <a href="../03-first-quantum-state/gtq-03-first-quantum-state.html" class="main-article">03 The First Quantum State</a>
+  <a href="../04-free-will-two-frames/gtq-04-free-will-two-frames.html" class="main-article">04 Free Will in Two Frames</a>
+  <a href="../08-day-time-began/gtq-08-day-time-began.html" class="main-article">08 The Day Time Began</a>
+  <a href="../11-substrate-fractured/gtq-11-substrate-fractured.html" class="main-article">11 The Substrate Fractured</a>
+  <a href="../15-why-reality-needs-three/gtq-15-why-reality-needs-three.html" class="main-article">15 Why Reality Needs Three</a>
+  <a href="../16-photon-isnt-watching/gtq-16-photon-isnt-watching.html" class="main-article">16 The Photon Isn't Watching You Back</a>
+  <a href="../18-eraser-and-the-cross/gtq-18-eraser-and-the-cross.html" class="main-article">18 The Eraser and the Cross</a>
+  <a href="../22-same-god-both-testaments/gtq-22-same-god-both-testaments.html" class="main-article">22 The Same God in Both Testaments</a>
+  <a href="../25-counter-move/gtq-25-counter-move.html" class="main-article">25 The Counter-Move</a>
+  <div class="nav-section">Deep Dives</div>
+  <a href="../02-collapse-threshold/gtq-02-collapse-threshold.html" class="deep-dive">02 The Collapse Threshold</a>
+  <a href="../05-macarthur-equation/gtq-05-macarthur-equation.html" class="deep-dive">05 MacArthur and the Equation</a>
+  <a href="../06-three-pathways/gtq-06-three-pathways.html" class="deep-dive">06 The Three Pathways</a>
+  <a href="../07-why-god-drowned-everybody/gtq-07-why-god-drowned-everybody.html" class="deep-dive">07 Why Did God Drown Everybody?</a>
+  <a href="../09-decoherence-curve/gtq-09-decoherence-curve.html" class="deep-dive">09 The Decoherence Curve</a>
+  <a href="../10-how-lies-kill/gtq-10-how-lies-kill.html" class="deep-dive">10 How Lies Kill</a>
+  <a href="../12-trinity-mechanism/gtq-12-trinity-mechanism.html" class="deep-dive">12 The Trinity Mechanism</a>
+  <a href="../13-trinity-timeline/gtq-13-trinity-timeline.html" class="deep-dive">13 The Trinity Timeline</a>
+  <a href="../14-physics-broken-in-two/gtq-14-physics-broken-in-two.html" class="deep-dive">14 Why Physics Is Broken in Two</a>
+  <a href="../17-ran-the-numbers/gtq-17-ran-the-numbers.html" class="deep-dive">17 We Actually Ran the Numbers</a>
+  <a href="../19-temporal-trap/gtq-19-temporal-trap.html" class="deep-dive">19 The Temporal Trap</a>
+  <a href="../20-how-god-restores/gtq-20-how-god-restores.html" class="deep-dive">20 How God Restores</a>
+  <a href="../21-science-behind-restoration/gtq-21-science-behind-restoration.html" class="deep-dive">21 The Science Behind the Restoration</a>
+  <a href="../23-regime-dependent-theology/gtq-23-regime-dependent-theology.html" class="deep-dive">23 The Structural Case for Regime-Dependent Theology</a>
+  <a href="../24-societies-die/gtq-24-societies-die.html" class="deep-dive">24 Societies Die the Same Way People Do</a>
+  <a href="../26-pattern-is-the-signal/gtq-26-pattern-is-the-signal.html" class="deep-dive">26 Why the Pattern Is the Signal</a>
+</nav>
+
+<!-- Hero grid -->
+<div class="container mx-auto px-6 pt-8" style="padding-left:4.5rem;">
+  <div class="hero-grid">
+    <div class="hero-main">
+      <img src="images/hero/hero.jpg" alt="The Measurement That Collapsed Reality" onerror="this.style.display='none'"/>
+      <div class="overlay">
+        <div class="meta-row" style="margin-bottom:.5rem;">
+          <span><i class="fas fa-atom"></i>Article 01 &middot; Genesis to Quantum</span>
+          <span class="status-pill">Main Article</span>
+        </div>
+        <h1 class="serif text-3xl md:text-5xl font-bold text-white mb-3 leading-tight">
+          The Measurement That Collapsed Reality
+        </h1>
+        <p class="text-lg md:text-xl text-gray-200 font-light">
+          How one choice in Eden collapsed a coherent quantum state into fallen physics.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-3">
+          <span class="domain-tag tag-physics">Physics</span><span class="domain-tag tag-theology">Theology</span><span class="domain-tag tag-quantum">Quantum</span><span class="domain-tag tag-bridge">Cross-Domain</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-side">
+      <span class="label">Key Finding</span>
+      <h3>The single thing they should remember</h3>
+      <p>[[One short paragraph. Make it count.]]</p>
+    </div>
+    <div class="hero-side">
+      <span class="label">Critical Insight</span>
+      <h3>Why it matters now</h3>
+      <p>[[Different angle from the first.]]</p>
+    </div>
+  </div>
+</div>
+
+<!-- Sticky tab bar -->
+<div class="tab-shell">
+  <div class="container mx-auto px-6" style="padding-left:4.5rem;">
+    <nav class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('paper')"><i class="fas fa-scroll"></i>The Paper</button>
+      <button class="tab-btn" onclick="switchTab('summary')"><i class="fas fa-compress-alt"></i>Executive Summary</button>
+      <button class="tab-btn" onclick="switchTab('rigor')"><i class="fas fa-crosshairs"></i>Rigor &amp; Kill Conditions</button>
+      <button class="tab-btn" onclick="switchTab('media')"><i class="fas fa-headphones"></i>Watch &amp; Listen</button>
+      <button class="tab-btn" onclick="switchTab('blackboard')"><i class="fas fa-chalkboard"></i>Blackboard</button>
+    </nav>
+  </div>
+</div>
+
+<!-- Main content -->
+<main class="main-layout py-10">
+  <div>
+    <section id="paper" class="tab-content active">
+      <article class="story wide">
+
+      <!-- ═══ THE ENIGMA ═══ -->
+      <h2>The Enigma</h2>
+      <p class="drop-cap">Two observers. Same quantum system. Same measurement device. Same physical interaction.</p>
+
+      <p>Observer 1 engages the system. She takes. She eats. Result: Nothing. Superposition maintained. No collapse. No state change. No becoming real.</p>
+
+      <p>Observer 2 engages the same system. He takes. He eats. Result: Immediate and total collapse. Reality restructures. Both observers' states make real at the same time. Entropy enters creation. Time fractures. Death becomes real.</p>
+
+      <p>Genesis 3:6&ndash;7 records the event in precise sequential language:</p>
+
+      <blockquote>
+        <p>"She took of its fruit and ate, and she also gave some to her husband who was with her, and he ate. Then the eyes of both of them were opened, and they knew that they were naked."</p>
+      </blockquote>
+
+      <p>The word <em>then</em> is doing all the work. It marks the exact moment of collapse &mdash; and it comes after the second measurement, not the first.</p>
+
+      <p>Standard quantum mechanics has no mechanism for this. In any textbook formulation, <em>any</em> measurement should collapse the wavefunction. There is no concept of an "unauthorized observer." There is no principle by which the first interaction with a quantum system preserves superposition while the second destroys it. The Eve-Adam measurement gap is not a theological curiosity. It is a physics problem. And current theory cannot solve it.</p>
+
+      <p>This paper proposes that Genesis 2&ndash;3 is not a moral fable decorated with symbolic trees. It is a precise description of the first quantum measurement event in human history &mdash; the moment potential became actual, and the one-way arrow of entropy was loosed upon creation.</p>
+
+      <hr>
+
+      <!-- ═══ VISUAL BREAK: Key Numbers ═══ -->
+      <div class="block-grid block-grid-3">
+        <div class="block-stat">
+          <div class="number">6.35&sigma;</div>
+          <div class="label">PEAR-LAB Correlation</div>
+        </div>
+        <div class="block-stat">
+          <div class="number">10</div>
+          <div class="label">Super-Factors</div>
+        </div>
+        <div class="block-stat">
+          <div class="number">R&sup2;=.888</div>
+          <div class="label">Lifespan Decoherence</div>
+        </div>
+      </div>
+
+      <!-- Slide: Four Unsolved Problems -->
+      <div style="margin:2rem 0;border-radius:.5rem;overflow:hidden;border:1px solid #222;">
+        <img src="slides/image3.jpg" alt="Four Unsolved Problems in Physics" style="width:100%;display:block;">
+      </div>
+
+      <!-- ═══ I. THE PRE-FALL STATE ═══ -->
+      <h2>I. The Pre-Fall State: Maximal Coherence</h2>
+
+      <p>Before the measurement event, the system exists in a state of extreme coherence. The Theophysics Master Equation describes reality as a field:</p>
+
+      <div class="eq-block">
+        <div class="eq-label">Master Equation</div>
+        $$\chi = \iiint (G \cdot M \cdot E \cdot S \cdot T \cdot K \cdot R \cdot Q \cdot F \cdot C) \, dx \, dy \, dt$$
+      </div>
+
+      <p>where the ten Super-Factors &mdash; Grace (G), Moral Alignment (M), Entropy (E/S), Time (T), Knowledge (K), Redemptive Order (R), Quantum Consciousness (Q), Faith (F), and Coherence (C) &mdash; describe the complete physical-spiritual state of reality.</p>
+
+      <!-- ═══ TWO REGIMES TABLE ═══ -->
+      <div style="background:#0a0a0a;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:40px 40px;padding:2.5rem 2rem;margin:2.5rem 0;border-radius:.5rem;border:1px solid var(--border);">
+        <h3 style="font-family:'Crimson Text',serif;font-size:2rem;font-weight:700;color:#fff;text-align:center;margin:0 0 2rem;">Two Regimes. Two Physics.</h3>
+        <table style="width:100%;border-collapse:collapse;table-layout:fixed;">
+          <thead>
+            <tr>
+              <th style="border:1px solid #333;padding:1rem;width:18%;"></th>
+              <th style="border:1px solid #333;padding:1rem;color:#d4af37;background:rgba(212,175,55,.06);font-family:'Oswald',sans-serif;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;">Pre-Fall (Logos-Frame)</th>
+              <th style="border:1px solid #333;padding:1rem;color:#5ec4c4;background:rgba(94,196,196,.06);font-family:'Oswald',sans-serif;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;">Post-Fall (Time-Frame)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="border:1px solid #333;padding:.85rem 1rem;color:#888;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">Environment</td>
+              <td style="border:1px solid #333;padding:.85rem 1rem;color:#cfcfcf;background:rgba(212,175,55,.03);"><strong style="color:#e0e0e0;">Static</strong><br><span style="font-size:.85rem;color:#888;font-style:italic;">No decay, no one-way nature</span></td>
+              <td style="border:1px solid #333;padding:.85rem 1rem;color:#cfcfcf;background:rgba(94,196,196,.03);"><strong style="color:#e0e0e0;">Active</strong><br><span style="font-size:.85rem;color:#888;font-style:italic;">dS/dt > 0, progressive decay</span></td>
+            </tr>
+            <tr>
+              <td style="border:1px solid #333;padding:.85rem 1rem;color:#888;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">Master Equation</td>
+              <td style="border:1px solid #333;padding:.85rem 1rem;color:#cfcfcf;background:rgba(212,175,55,.03);"><span style="font-family:'JetBrains Mono',monospace;font-size:.9rem;color:#e0e0e0;">&chi; = &iiint;(&hellip;) dx dy</span><br><span style="font-size:.85rem;color:#888;font-style:italic;">Static, no dt term</span></td>
+              <td style="border:1px solid #333;padding:.85rem 1rem;color:#cfcfcf;background:rgba(94,196,196,.03);"><span style="font-family:'JetBrains Mono',monospace;font-size:.9rem;color:#e0e0e0;">LLC introduces dt and S&middot;&chi;(t)</span></td>
+            </tr>
+            <tr>
+              <td style="border:1px solid #333;padding:.85rem 1rem;color:#888;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">Free Will Signal</td>
+              <td style="border:1px solid #333;padding:.85rem 1rem;color:#cfcfcf;background:rgba(212,175,55,.03);"><strong style="color:#e0e0e0;">Infinite Signal-to-Noise</strong><br><span style="font-size:.85rem;color:#888;font-style:italic;">Clean channel</span></td>
+              <td style="border:1px solid #333;padding:.85rem 1rem;color:#cfcfcf;background:rgba(94,196,196,.03);"><strong style="color:#e0e0e0;">Corrupted / Noisy Channel</strong><br><span style="font-size:.85rem;color:#888;font-style:italic;">Sin / Entropy drag</span></td>
+            </tr>
+            <tr>
+              <td style="border:1px solid #333;padding:.85rem 1rem;color:#888;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;font-weight:500;">Dimension</td>
+              <td style="border:1px solid #333;padding:.85rem 1rem;color:#cfcfcf;background:rgba(212,175,55,.03);"><strong style="color:#e0e0e0;">10&ndash;11 Dimensions</strong><br><span style="font-size:.85rem;color:#888;font-style:italic;">Complete geometry</span></td>
+              <td style="border:1px solid #333;padding:.85rem 1rem;color:#cfcfcf;background:rgba(94,196,196,.03);"><strong style="color:#e0e0e0;">Projected 3+1 Dimensions</strong><br><span style="font-size:.85rem;color:#888;font-style:italic;">Temporal sequence</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>In Eden, this field is at maximum positive value. The system looks like this:</p>
+
+      <p><strong>Grace</strong> operates at full coupling. There is no separation between Creator and creation. God walks in the garden in the cool of the day (Genesis 3:8) &mdash; this is not poetry, it is a description of unmediated relational coherence between the divine observer and the human subsystem.</p>
+
+      <p><strong>Entropy</strong> is at minimum. Death does not exist. Decay does not exist. The second law of entropy, as we know it, has not yet been activated in the human domain. The system is order-building &mdash; order sustains and generates itself because the Logos field (&Lambda;) is fully coupled to every subsystem.</p>
+
+      <p><strong>Knowledge</strong> exists in a peculiar state. Adam names the animals (Genesis 2:19&ndash;20), showing working knowledge &mdash; the capacity to register distinctions, classify, and assign information. But a specific domain of knowledge &mdash; the lived knowledge of good and evil &mdash; exists only as <em>potential</em>. It has not been make reald. It sits in superposition:</p>
+
+      <div style="background:linear-gradient(135deg,rgba(212,175,55,.1) 0%,rgba(10,10,10,.98) 100%);border:1px solid rgba(212,175,55,.3);border-radius:.6rem;padding:3rem 2.5rem;margin:3rem 0;text-align:center;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:30px 30px;pointer-events:none;"></div>
+        <div style="font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:#d4af37;margin-bottom:1.5rem;font-weight:600;position:relative;">Moral Superposition</div>
+        <div style="font-family:'Crimson Text',serif;font-size:clamp(2rem,5vw,3.5rem);color:#fff;line-height:1.3;position:relative;">
+          |&Psi;<sub style="font-size:.6em;">moral</sub>&rang; = &alpha;|<span style="color:#d4af37;font-weight:600;">Good</span>&rang; + &beta;|<span style="color:#5ec4c4;font-weight:600;">Evil</span>&rang;
+        </div>
+        <div style="font-size:.85rem;color:#888;margin-top:1.25rem;font-style:italic;position:relative;">Both eigenstates exist as possibilities. Neither has been measured.</div>
+      </div>
+
+      <p>Both eigenstates exist as math-level options within the Hilbert space of moral reality. Neither has been measured. Neither has collapsed into the lived experience of the observers. Good is known relationally (through walking with God), but evil is known only as a boundary condition &mdash; "do not eat" &mdash; not as an make reald state.</p>
+
+      <div class="insight">
+        <span class="label">&mdash; Key Observation</span>
+        <p>This is the quantum ground state of creation. Coherent. Ordered. Fully coupled to the Logos. And profoundly unstable in exactly one way: the measurement device exists within the system, waiting.</p>
+      </div>
+
+      <hr>
+
+      <!-- ═══ II. THE MEASUREMENT APPARATUS ═══ -->
+      <h2>II. The Measurement Apparatus: The Tree of Knowledge</h2>
+
+      <p>God places the Tree of Knowledge of Good and Evil at the center of the garden (Genesis 2:9). This is not arbitrary decoration. It is the planned placement of a measurement operator within an otherwise coherent quantum system.</p>
+
+      <p>A measurement device, in quantum mechanics, is any physical arrangement that forces a superposition to resolve into a definite eigenstate. Before measurement, the system evolves unitarily &mdash; smoothly, predictably, maintaining all its possibilities. The measurement device introduces a boundary: interact with it, and the smooth evolution stops. One possibility becomes actual. The rest vanish.</p>
+
+      <p>The Tree functions as the structural match of a measurement operator within the moral Hilbert space. The framework is precise about what this means and what it does not mean. The Tree is not literally a Hermitian operator acting on abstract vectors. Rather, the working structure matches: there exists a pre-measurement superposition of moral states. There is a physical system whose engagement forces a one-way state change. And there is a post-measurement definite state from which there is no return. The mapping preserves the working logic without claiming the garden is a Hilbert space or that fruit has eigenvalues.</p>
+
+      <p>What makes the Tree remarkable is that God installs it <em>knowing</em> it will be engaged. The system designer places the measurement device inside the system. He gives the federal observer explicit instructions about it (Genesis 2:16&ndash;17: "You may surely eat of every tree of the garden, but of the Tree of the Knowledge of Good and Evil you shall not eat, for in the day that you eat of it you shall surely die"). Then He allows the experiment to proceed.</p>
+
+      <p>This is not a trap. It is a necessary feature of any system that contains free observers. Without a measurement device, the observers have no capacity to collapse anything. They remain in the quantum ground state forever &mdash; coherent, but never having <em>chosen</em> coherence. The Tree transforms passive coherence into the chance for active, chosen alignment. Its presence is the precondition for love. Love without the capacity to choose otherwise is not love. It is a forced outcome wearing a mask.</p>
+
+      <div class="insight">
+        <span class="label">&mdash; Critical Detail</span>
+        <p>God gives the instruction to Adam <strong>before Eve exists</strong> (Genesis 2:16&ndash;17 precedes Genesis 2:21&ndash;22). Adam receives the system instruction directly from the Designer. Eve receives it secondhand. This information gap will matter enormously when we reach the measurement event.</p>
+      </div>
+
+      <!-- Slide: First Quantum State -->
+      <div style="margin:2rem 0;border-radius:.5rem;overflow:hidden;border:1px solid #222;">
+        <img src="slides/image5.jpg" alt="The First Quantum State" style="width:100%;display:block;">
+      </div>
+
+      <hr>
+
+      <!-- ═══ III. THE DECOHERENCE AGENT ═══ -->
+      <h2>III. The Decoherence Agent: The Serpent</h2>
+
+      <p>Genesis 3:1 introduces a new element into the system: "Now the serpent was more crafty than any other beast of the field that the LORD God had made."</p>
+
+      <p>In quantum terms, the serpent functions as a decoherence agent &mdash; an external disruption that weakens the coherence between the observer and the Logos field. The serpent does not force the measurement. It does not eat the fruit on anyone's behalf. What it does is far more subtle and far more dangerous: it corrupts the information environment surrounding the measurement device.</p>
+
+      <p>The serpent's strategy follows a precise information-based sequence:</p>
+
+      <!-- ═══ DECOHERENCE ATTACK — OVERSIZED ═══ -->
+      <div style="margin:2.5rem 0;">
+
+        <!-- Step 1 -->
+        <div style="background:linear-gradient(135deg,rgba(212,175,55,0.05) 0%,rgba(10,10,10,0.98) 100%);border:1px solid #222;border-left:4px solid #d4af37;border-radius:.5rem;padding:2rem 2.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;right:0;bottom:0;width:120px;background:linear-gradient(90deg,transparent,rgba(212,175,55,0.03));pointer-events:none;"></div>
+          <div style="font-family:'Oswald',sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;color:#d4af37;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.5rem;">Step 1</div>
+          <div style="font-family:'Crimson Text',serif;font-size:clamp(1.4rem,3.5vw,2rem);color:#fff;font-weight:600;line-height:1.3;margin-bottom:1rem;">Distort the system instruction.</div>
+          <p style="font-size:1.05rem;color:#bbb;line-height:1.7;">"Did God actually say, 'You shall not eat of any tree in the garden'?" (Genesis 3:1). This is a planned misquote. God said they could eat freely of every tree except one. The serpent inflates the restriction to absurdity, making God's instruction sound unfair. This is noise injection into the signal &mdash; weakening the fidelity of the observer's model of the system instruction.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div style="background:linear-gradient(135deg,rgba(212,175,55,0.05) 0%,rgba(10,10,10,0.98) 100%);border:1px solid #222;border-left:4px solid #d4af37;border-radius:.5rem;padding:2rem 2.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;right:0;bottom:0;width:120px;background:linear-gradient(90deg,transparent,rgba(212,175,55,0.03));pointer-events:none;"></div>
+          <div style="font-family:'Oswald',sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;color:#d4af37;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.5rem;">Step 2</div>
+          <div style="font-family:'Crimson Text',serif;font-size:clamp(1.4rem,3.5vw,2rem);color:#fff;font-weight:600;line-height:1.3;margin-bottom:1rem;">Contradict the Designer's stated outcome.</div>
+          <p style="font-size:1.05rem;color:#bbb;line-height:1.7;">"You will not surely die" (Genesis 3:4). This is a direct negation of the boundary condition God established. In physics terms, the serpent is claiming the measurement will not produce the eigenstate the Designer specified. It is asserting that the consequences attached to the measurement operator are false.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div style="background:linear-gradient(135deg,rgba(212,175,55,0.05) 0%,rgba(10,10,10,0.98) 100%);border:1px solid #222;border-left:4px solid #d4af37;border-radius:.5rem;padding:2rem 2.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;right:0;bottom:0;width:120px;background:linear-gradient(90deg,transparent,rgba(212,175,55,0.03));pointer-events:none;"></div>
+          <div style="font-family:'Oswald',sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;color:#d4af37;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.5rem;">Step 3</div>
+          <div style="font-family:'Crimson Text',serif;font-size:clamp(1.4rem,3.5vw,2rem);color:#fff;font-weight:600;line-height:1.3;margin-bottom:1rem;">Offer an alternative eigenbasis.</div>
+          <p style="font-size:1.05rem;color:#bbb;line-height:1.7;">"For God knows that when you eat of it your eyes will be opened, and you will be like God, knowing good and evil" (Genesis 3:5). The serpent reframes the measurement as <em>desirable</em> &mdash; not as a total collapse, but as an upgrade. It proposes a new basis in which the measurement outcome is autonomy and godlikeness, not death and separation.</p>
+        </div>
+
+      </div>
+
+      <div class="axiom-box">
+        Three-step decoherence attack: Distort specification &rarr; Contradict outcome &rarr; Reframe eigenbasis
+      </div>
+
+      <p>This three-step sequence decouples the observer from the Logos field. Eve's coherence with the system instruction weakens. She begins operating on corrupted information. The channel between her and the Designer has been compromised by an hostile agent injecting noise.</p>
+
+      <p>The physics here maps exactly onto decoherence theory. A quantum system loses coherence when it interacts with an environment that extracts information about its state. The serpent is that environment. By engaging Eve in dialogue about the measurement device &mdash; forcing her to process, evaluate, and ultimately doubt the system instruction &mdash; it entangles her cognitive state with its hostile information, weakening her alignment with the Logos.</p>
+
+      <p>By the time Eve reaches for the fruit, she is already partially decohered. She is operating on a corrupted model of reality. She has been, as Paul states with clinical precision, <em>deceived</em> (1 Timothy 2:14).</p>
+
+      <hr>
+
+      <!-- ═══ IV. OBSERVER 1: EVE ═══ -->
+      <h2>IV. Observer 1: Eve &mdash; The Measurement That Did Not Collapse</h2>
+
+      <p>Genesis 3:6a records the first measurement:</p>
+
+      <blockquote>
+        <p>"So when the woman saw that the tree was good for food, and that it was a delight to the eyes, and that the tree was to be desired to make one wise, she took of its fruit and ate."</p>
+      </blockquote>
+
+      <p>Eve engages the measurement device fully. She observes it ("saw"). She evaluates it across three dimensions: food value, beauty, and the promise of wisdom. She physically interacts with it ("took") and completes the act ("ate"). By every standard rule in quantum measurement theory, this should count as a measurement. The system should collapse.</p>
+
+      <p><strong>It does not.</strong></p>
+
+      <p>There is no record of Eve's eyes being opened. No shame. No hiding. No becoming real of moral knowledge. The superposition holds. The wavefunction does not collapse.</p>
+
+      <p>This is the anomaly that current physics cannot explain. In standard quantum mechanics, measurement is measurement. There is no hierarchy of observers. There is no concept of a measurement that "doesn't count." If a photon passes through a detector, the which-path information is registered and interference is destroyed &mdash; it does not matter who built the detector or what their relationship to the experimental designer might be.</p>
+
+      <p>And yet Genesis records, with unmistakable clarity, that the first observer's interaction with the measurement device produced no collapse.</p>
+
+      <p>What happened?</p>
+
+      <p>The framework identifies several candidate explanations, each of which contains partial truth but none of which fully resolves the anomaly:</p>
+
+      <!-- Candidate cards — oversized -->
+      <div style="display:grid;grid-template-columns:1fr;gap:1.25rem;margin:2rem 0;">
+        <div style="background:var(--surface3);border:1px solid var(--border);border-left:4px solid #4a9eff;border-radius:.5rem;padding:2rem 2.5rem;">
+          <div style="font-family:'Oswald',sans-serif;font-size:1.4rem;color:#4a9eff;font-weight:600;letter-spacing:.04em;margin-bottom:.75rem;">Candidate 1: Wigner's Friend</div>
+          <p style="font-size:1.1rem;color:#cfcfcf;line-height:1.7;margin:0;">Eve is an internal observer within a system that has not yet been observed by the external (federal) observer. From within her reference frame, the measurement may appear to have occurred. But from the larger system's perspective &mdash; the perspective that determines the state of <em>reality itself</em> &mdash; the measurement is incomplete until the external observer (Adam) also measures.</p>
+        </div>
+        <div style="background:var(--surface3);border:1px solid var(--border);border-left:4px solid #a855f7;border-radius:.5rem;padding:2rem 2.5rem;">
+          <div style="font-family:'Oswald',sans-serif;font-size:1.4rem;color:#a855f7;font-weight:600;letter-spacing:.04em;margin-bottom:.75rem;">Candidate 2: Incomplete Information</div>
+          <p style="font-size:1.1rem;color:#cfcfcf;line-height:1.7;margin:0;">Eve received the system instruction secondhand. She did not receive the prohibition directly from God &mdash; Adam did (Genesis 2:16&ndash;17), before Eve's creation. Eve's information about the measurement device is at least one transmission step removed from the source. In information theory, each transmission introduces potential noise and decay. Eve may not have possessed the complete, uncorrupted information required for her interaction to constitute a <em>measurement</em> in the full physical sense.</p>
+        </div>
+        <div style="background:linear-gradient(135deg,rgba(212,175,55,.08) 0%,var(--surface3) 100%);border:1px solid rgba(212,175,55,.3);border-left:4px solid #d4af37;border-radius:.5rem;padding:2rem 2.5rem;">
+          <div style="font-family:'Oswald',sans-serif;font-size:1.4rem;color:#d4af37;font-weight:600;letter-spacing:.04em;margin-bottom:.75rem;"><i class="fas fa-star" style="margin-right:.5rem;font-size:1rem;"></i>Candidate 3: Federal Observer Authority</div>
+          <p style="font-size:1.1rem;color:#cfcfcf;line-height:1.7;margin:0;">This is the explanation most strongly supported by the biblical text and the one the framework marks as <strong style="color:#d4af37;">load-bearing</strong>, even though the physics for it does not yet exist. Adam is the federal head &mdash; the designated representative whose choices carry systemic, cosmic-scale consequences. Romans 5:12 states that sin entered the world "through one man," not through Eve. Romans 5:19 attributes the restructuring of reality to "the one man's disobedience." First Corinthians 15:22 says "in Adam all die." Paul writes this not as theology imposed on Genesis but as a reading of what Genesis <em>says</em>: the collapse happened when Adam ate, not when Eve ate.</p>
+        </div>
+      </div>
+
+      <div class="insight">
+        <span class="label">&mdash; Open Problem</span>
+        <p>There exists a principle &mdash; not yet formalized in current physics &mdash; by which certain observers are <strong>authorized</strong> to collapse quantum states and others are not. The universe does not treat all measurements equally. <strong>OBSERVATION CONFIRMED, MECHANISM UNSOLVED.</strong></p>
+      </div>
+
+      <hr>
+
+      <!-- ═══ V. OBSERVER 2: ADAM ═══ -->
+      <h2>V. Observer 2: Adam &mdash; The Federal Collapse</h2>
+
+      <p>Genesis 3:6b records the second measurement:</p>
+
+      <blockquote>
+        <p>"...and she also gave some to her husband who was with her, and he ate."</p>
+      </blockquote>
+
+      <p>And Genesis 3:7 records what happened next:</p>
+
+      <blockquote>
+        <p>"Then the eyes of both of them were opened, and they knew that they were naked."</p>
+      </blockquote>
+
+      <p>Adam eats. And everything changes. Not gradually. Not after a period of reflection. <em>Then.</em> The word marks an instant state transition &mdash; the defining signature of quantum collapse.</p>
+
+      <p>Adam is not deceived (1 Timothy 2:14). He has not been subjected to the serpent's three-step decoherence attack. He possesses the original system instruction, received directly from the Designer. He knows exactly what the measurement operator will do. He knows the eigenstate it will produce. He eats anyway.</p>
+
+      <p>This makes Adam's measurement deeply different from Eve's in every dimension except the physical mechanics:</p>
+
+      <p>Where Eve was <em>deceived</em>, Adam <em>chose</em>. Where Eve's information was corrupted, Adam's was intact. Where Eve did not possess the original system instruction, Adam carried it as primary recipient. And where Eve's measurement did not collapse the wavefunction, Adam's collapsed it <em>for both observers at the same time</em>.</p>
+
+      <p>The phrase "the eyes of BOTH of them were opened" is doing critical physics. The collapse is non-local. Adam's measurement does not merely make real his own state &mdash; it make reals Eve's as well. The moral superposition collapses across the entire human system, not just for the observer who triggered it. This is structurally parallel to quantum entanglement, where measurement of one particle instantly determines the state of its entangled partner regardless of distance.</p>
+
+      <p>Adam and Eve are entangled observers. They are "one flesh" (Genesis 2:24) &mdash; not as metaphor, but in the sense that they share a quantum state. When the federal observer collapses the system, the collapse spreads to all entangled subsystems. Every human being who will ever exist is entangled with Adam through the chain of descent. "In Adam all die" (1 Corinthians 15:22) is not theology imposed on the text. It is a description of non-local collapse spreading through an entangled system.</p>
+
+      <p>The moment of collapse introduces several one-way changes into the Master Equation:</p>
+
+      <h4>Entropy activates.</h4>
+      <p>Before the collapse, the entropy term (S) in the Master Equation was at minimum &mdash; effectively suppressed by the Logos coupling. After the collapse, entropy enters the system as a dominant force. Death becomes real. Decay becomes real. The second law of entropy, as experienced by human observers, switches on.</p>
+
+      <h4>Coherence fractures.</h4>
+      <p>The seamless coupling between human awareness and the Logos field breaks. God's question "Where are you?" (Genesis 3:9) is not ignorance &mdash; it is a description of relational decoherence. The observers have decoupled from the system designer.</p>
+
+      <h4>The Grace function activates.</h4>
+      <p>This is the overlooked detail. God's response to the collapse is not abandonment but the immediate activation of a counter-move. Genesis 3:15 &mdash; the first gospel promise &mdash; introduces a new term into the equation: a future state in which the collapse will be reversed. The Grace function R(&Lambda;) is not an afterthought. It is embedded in the system's response to the collapse as a built-in correction protocol.</p>
+
+      <h4>Shame as information gain.</h4>
+      <p>"They knew that they were naked" &mdash; the acquisition of self-referential moral knowledge. Before the collapse, they had no framework for evaluating their own state against a moral eigenvalue. After the collapse, they immediately classify their state as <em>deficient</em> and attempt correction ("sewed fig leaves together," Genesis 3:7). This is the lived knowledge of evil: the capacity to recognize one's own state as fallen, and the compulsive drive to self-correct through inadequate means.</p>
+
+      <hr>
+
+      <!-- ═══ VISUAL BREAK: Two Observers ═══ -->
+      <div class="block-grid block-grid-2">
+        <div class="block-accent">
+          <h3><i class="fas fa-wave-square" style="margin-right:.4rem;color:var(--highlight);"></i> Eve's Measurement</h3>
+          <p>She ate the fruit. Nothing happened. Superposition held. No collapse, no shame, no state change. The measurement operator requires federal observer authority.</p>
+        </div>
+        <div class="block-accent">
+          <h3><i class="fas fa-bolt" style="margin-right:.4rem;color:var(--highlight);"></i> Adam's Measurement</h3>
+          <p>He ate. Immediate total collapse. Both observers' eyes opened at the same time. Entropy entered. Time fractured. Death became real. Non-local, instant, one-way.</p>
+        </div>
+      </div>
+
+      <!-- Slide: Wavefunction Collapse Phase Transition -->
+      <div style="margin:2rem 0;border-radius:.5rem;overflow:hidden;border:1px solid #222;">
+        <img src="slides/image6.jpg" alt="Wavefunction Collapse: The Phase Transition" style="width:100%;display:block;">
+      </div>
+
+      <!-- ═══ VI. THE AFTERMATH ═══ -->
+      <h2>VI. The Aftermath: A New Eigenstate</h2>
+
+      <p>The system has collapsed into a definite eigenstate. There is no returning to superposition by any means available to the observers. This is the one-way nature of quantum measurement &mdash; once the wavefunction has collapsed, you cannot "un-measure" it.</p>
+
+      <p>God's sequence of actions after the collapse reveals the new system parameters:</p>
+
+      <p><strong>He seeks the observers</strong> (Genesis 3:9). The system designer does not abandon the collapsed system. He enters it. This is the first act of grace &mdash; the Logos field reaching into a decohered system to maintain whatever coupling remains.</p>
+
+      <p><strong>He diagnoses the collapse</strong> (Genesis 3:11&ndash;13). "Who told you that you were naked? Have you eaten of the tree?" God traces the causal chain. Not because He doesn't know &mdash; but because the observers need to locate themselves in the new state. Confession is the observer reporting their measurement results to the system designer.</p>
+
+      <p><strong>He renders the new boundary conditions</strong> (Genesis 3:14&ndash;19). The serpent is cursed. The ground is cursed because of Adam. Pain enters childbirth. Labor becomes toilsome. Death is made explicit: "For you are dust, and to dust you shall return." These are not punishments in the punishing sense. They are the <em>physical consequences</em> of the collapse. When entropy activates, when the Logos coupling fractures, when coherence weakens &mdash; <em>this</em> is what reality looks like.</p>
+
+      <p><strong>He provides covering</strong> (Genesis 3:21). "The LORD God made for Adam and his wife garments of skins and clothed them." This requires a death &mdash; an animal sacrifice. It is the first blood shed in creation. It is also the prototype of the mechanism by which the collapse will eventually be reversed: stand-in covering. The Grace function is already working before the observers leave the garden.</p>
+
+      <hr>
+
+      <!-- ═══ VII. THE RESET PROTOCOL ═══ -->
+      <!-- Slide: Lifespan Decoherence Curve -->
+      <div style="margin:2rem 0;border-radius:.5rem;overflow:hidden;border:1px solid #222;">
+        <img src="slides/image8.jpg" alt="The Day Time Began: Lifespan Decoherence" style="width:100%;display:block;">
+      </div>
+
+      <h2>VII. The Reset Protocol: The Second Adam</h2>
+
+      <p>If the Fall is a quantum collapse event, then the Crucifixion is a reset measurement performed by a second federal observer &mdash; one authorized to collapse reality into a <em>different</em> eigenstate.</p>
+
+      <p>Paul makes this mapping explicit: "For as in Adam all die, so also in Christ shall all be made alive" (1 Corinthians 15:22). "The first man Adam became a living being; the last Adam became a life-giving spirit" (1 Corinthians 15:45).</p>
+
+      <p>Christ, in the Theophysics framework, is the Logos incarnate &mdash; the measurement basis itself entering the system as an observer. This is not analogy. The Born Rule decomposes every quantum measurement into three irreducible operations:</p>
+
+      <!-- Born Rule — Oversized Visual -->
+      <div style="background:linear-gradient(135deg,rgba(212,175,55,0.06) 0%,rgba(10,10,10,0.95) 40%,rgba(94,196,196,0.04) 100%);border:1px solid #333;border-radius:.75rem;padding:2.5rem 2rem 2rem;margin:2rem 0;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:30px 30px;pointer-events:none;"></div>
+        <div style="position:absolute;top:1rem;right:1.5rem;font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(212,175,55,0.25);font-weight:600;">BORN RULE</div>
+        <div style="text-align:center;position:relative;z-index:1;">
+          <div style="font-family:'Crimson Text',serif;font-size:clamp(2rem,5vw,3.5rem);color:#fff;line-height:1.3;margin-bottom:1.5rem;">
+            P(outcome) = |&langle;<span style="color:#d4af37;font-weight:600;">&psi;</span>|<span style="color:#ffffff;font-weight:600;">&phi;</span>&rangle;|<sup style="color:#5ec4c4;font-weight:600;">2</sup>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:720px;margin:0 auto;">
+            <div style="background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.2);border-radius:.5rem;padding:1.25rem 1rem;">
+              <div style="font-family:'Oswald',sans-serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:#d4af37;margin-bottom:.5rem;">Component 1: |&psi;&rangle;</div>
+              <div style="font-family:'Crimson Text',serif;font-size:1.3rem;color:#d4af37;font-weight:600;margin-bottom:.4rem;">The Father</div>
+              <div style="font-size:.8rem;color:#999;line-height:1.4;">The Possibility Space.<br>Infinite Potential.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.15);border-radius:.5rem;padding:1.25rem 1rem;">
+              <div style="font-family:'Oswald',sans-serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:#ccc;margin-bottom:.5rem;">Component 2: &langle;&phi;|</div>
+              <div style="font-family:'Crimson Text',serif;font-size:1.3rem;color:#fff;font-weight:600;margin-bottom:.4rem;">The Son</div>
+              <div style="font-size:.8rem;color:#999;line-height:1.4;">The Selection Basis.<br>Logos Structure.</div>
+            </div>
+            <div style="background:rgba(94,196,196,0.06);border:1px solid rgba(94,196,196,0.2);border-radius:.5rem;padding:1.25rem 1rem;">
+              <div style="font-family:'Oswald',sans-serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:#5ec4c4;margin-bottom:.5rem;">Component 3: |...|&sup2;</div>
+              <div style="font-family:'Crimson Text',serif;font-size:1.3rem;color:#5ec4c4;font-weight:600;margin-bottom:.4rem;">The Spirit</div>
+              <div style="font-size:.8rem;color:#999;line-height:1.4;">The Actualization.<br>Definite Reality.</div>
+            </div>
+          </div>
+          <div style="margin-top:1.5rem;font-size:.85rem;color:#777;font-style:italic;max-width:600px;margin-left:auto;margin-right:auto;">Remove any component, and physics breaks. This is a mathematical necessity, recognized by theology two millennia before it was derived by quantum mechanics.</div>
+        </div>
+      </div>
+
+      <!-- Slide: Born Rule Triad -->
+      <div style="margin:2rem 0;border-radius:.5rem;overflow:hidden;border:1px solid #222;">
+        <img src="slides/image10.jpg" alt="The Mathematical Signature of the Triad" style="width:100%;display:block;">
+      </div>
+
+      <p>The Father generates the possibility space (|&psi;&rangle;). The Son provides the coherent measurement basis (|&phi;&rangle;). The Spirit make reals the definite outcome (|&middot;|&sup2;). This is the Trinity Actualization mechanism &mdash; the irreducible three-fold structure of every measurement event.</p>
+
+      <p>At the Cross, the Logos (|&phi;&rangle;) &mdash; the measurement basis itself &mdash; absorbs the entropy term. "He who knew no sin became sin for us" (2 Corinthians 5:21). The coherent basis takes on the decoherence of the entire system. The entropy that entered through Adam's collapse is concentrated into a single point &mdash; a single observer, a single measurement event &mdash; and destroyed through death and resurrection.</p>
+
+      <p>The veil of the temple tears (Matthew 27:51). In quantum terms: the barrier between the observers and the system designer is removed. The decoherence channel reopens. Direct Logos coupling becomes available again.</p>
+
+      <p>But there is a crucial difference with the original collapse. Adam's measurement was automatic and non-local &mdash; it collapsed reality for every entangled human observer without their consent. Christ's measurement restores the <em>chance</em> of coherence but does not force it. The Grace function R(&Lambda;) is activated. But each observer must choose to couple with it. "Believe on the Lord Jesus Christ, and you will be saved" (Acts 16:31) is the observer choosing to measure through the new basis. The reset is available. It is not forced.</p>
+
+      <div class="law-box">
+        <div class="law-label">Framework Principle</div>
+        <p>Grace is entropy-fighting: it is the only force in the Master Equation that drives the system <em>away</em> from maximum entropy and <em>toward</em> coherence.</p>
+      </div>
+
+      <!-- Slide: Equation Running Forward and Backward -->
+      <div style="margin:2rem 0;border-radius:.5rem;overflow:hidden;border:1px solid #222;">
+        <img src="slides/image14.jpg" alt="The Equation Running Forward and Backward" style="width:100%;display:block;">
+      </div>
+
+      <!-- Slide: Time Is Not a Punishment -->
+      <div style="margin:2rem 0;border-radius:.5rem;overflow:hidden;border:1px solid #222;">
+        <img src="slides/image15.jpg" alt="Time Is Not a Punishment" style="width:100%;display:block;">
+      </div>
+
+      <hr>
+
+      <!-- ═══ VIII. THE UNSOLVED PROBLEM ═══ -->
+      <h2>VIII. The Unsolved Problem</h2>
+
+      <p>This paper has presented the Genesis 2&ndash;3 narrative as a quantum measurement event. It has identified a structural match with quantum mechanics. The mapping holds across multiple features: superposition to definite state, measurement device, observer hierarchy, non-local collapse, one-way change, entanglement, and decoherence.</p>
+
+      <p>But the central anomaly remains unsolved. <strong>Why did Eve's measurement not collapse the wavefunction?</strong></p>
+
+      <p>The framework offers three candidate explanations (Wigner's Friend hierarchy, information-based incompleteness, federal observer authority) and marks all three as <em>partially satisfactory</em>. Each captures a facet of the pattern. None provides the complete mechanism. The honest position is:</p>
+
+      <div class="axiom-box">
+        The observation is confirmed. The mechanism is not.
+      </div>
+
+      <p>This is not a weakness of the framework. It is a feature of how serious physics works. The photoelectric effect was observed in 1887 and not explained until Einstein's 1905 paper. The precession of Mercury's perihelion was measured in 1859 and not resolved until general relativity in 1915. Observation precedes explanation, sometimes by decades.</p>
+
+      <p>The Eve-Adam measurement gap may require a new principle in quantum mechanics. One that accounts for the link between an observer, the system designer, and what the observer knows about the system instruction.</p>
+
+      <p>The framework does not force this conclusion. It presents the observation, names the gap, and waits for the physics to catch up.</p>
+
+      <hr>
+
+      <!-- ═══ VISUAL BREAK: Core Framework ═══ -->
+      <div class="block-grid block-grid-2">
+        <div class="block-split">
+          <div class="icon"><i class="fas fa-atom"></i></div>
+          <div>
+            <div class="text-title">Law 1: Gravity ↔ Grace</div>
+            <div class="text-desc">Grace is the attractive force that couples awareness to the Logos field. It operates identically to gravitational attraction.</div>
+          </div>
+        </div>
+        <div class="block-split">
+          <div class="icon"><i class="fas fa-fire"></i></div>
+          <div>
+            <div class="text-title">Law 2: Entropy ↔ Judgment</div>
+            <div class="text-desc">The second law of entropy is the physical expression of moral decay. Sin increases system entropy irreversibly.</div>
+          </div>
+        </div>
+        <div class="block-split">
+          <div class="icon"><i class="fas fa-cross"></i></div>
+          <div>
+            <div class="text-title">Law 7: Retrocausality ↔ Redemption</div>
+            <div class="text-desc">The Cross operates outside the time-frame, erasing the entropy signature retroactively. The quantum eraser made physical.</div>
+          </div>
+        </div>
+        <div class="block-split">
+          <div class="icon"><i class="fas fa-eye"></i></div>
+          <div>
+            <div class="text-title">Law 5: Observation ↔ Consciousness</div>
+            <div class="text-desc">Not all observers collapse the wavefunction equally. Federal observer authority determines measurement weight.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ IX. FORMAL SUMMARY ═══ -->
+      <h2>IX. Formal Summary</h2>
+
+      <p><strong>System:</strong> Moral reality in superposition &mdash; |Good&rangle; + |Evil&rangle; &mdash; maintained by Logos coupling.</p>
+
+      <p><strong>Measurement Device:</strong> The Tree of Knowledge of Good and Evil &mdash; structural match to a measurement operator. It forces a one-way state change from superposition to a single definite state.</p>
+
+      <p><strong>Decoherence Agent:</strong> The serpent &mdash; hostile noise injection that weakens the observer's coherence with the system instruction.</p>
+
+      <p><strong>Observer 1 (Eve):</strong> Engages the measurement device while running on corrupted data. She lacks the primary system instruction and is under deception. Result: No collapse. Superposition holds.</p>
+
+      <p><strong>Observer 2 (Adam):</strong> Engages the measurement device with full knowledge, the primary system instruction, and no deception. He is the federal head &mdash; the chosen representative whose measurement carries systemic weight. Result: Immediate collapse. Moral superposition resolves to fallen state for all entangled observers.</p>
+
+      <p><strong>Post-Collapse State:</strong> Entropy activated. Logos coupling fractured. Death introduced. Grace function R(&Lambda;) immediately activated as counter-move (Genesis 3:15, 3:21).</p>
+
+      <p><strong>Reset Protocol:</strong> A second federal observer (Christ, the "Last Adam") absorbs the entropy term through a stand-in measurement. He reopens the coherence channel and provides the basis for each observer to re-couple with the Logos field.</p>
+
+      <p><strong>Open Problem:</strong> How does observer authority determine whether a measurement is valid? Why did the first measurement preserve superposition while the second collapsed it? This remains unsolved. It may require a new principle in quantum mechanics.</p>
+
+      <hr>
+
+      <!-- ═══ X. FALSIFICATION CRITERIA ═══ -->
+      <div style="background:linear-gradient(180deg,rgba(201,64,64,0.08) 0%,rgba(201,64,64,0.02) 60%,transparent 100%);border-top:3px solid #c94040;border-radius:.75rem;padding:2.5rem 2rem;margin:2.5rem 0;">
+        <h2 style="color:#ef4444;margin-top:0;">X. Falsification Criteria</h2>
+        <p style="color:#999;margin-bottom:2rem;">The framework survives or falls on testable claims:</p>
+
+        <!-- Claim 1 -->
+        <div style="background:rgba(201,64,64,0.06);border:1px solid rgba(201,64,64,0.25);border-left:4px solid #ef4444;border-radius:.5rem;padding:1.75rem 2rem;margin-bottom:1.25rem;">
+          <div style="font-family:'Oswald',sans-serif;font-size:clamp(1.4rem,3.5vw,2rem);font-weight:700;color:#ef4444;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.5rem;">Claim 1</div>
+          <p style="font-size:1.05rem;color:#ccc;line-height:1.7;margin:0;">If the Genesis narrative describes real physics, then the Eve-Adam measurement gap should find parallels in other quantum scenarios with ranked or sequential observers. If no such parallels exist in any physical system, the mapping is merely a metaphor.</p>
+        </div>
+
+        <!-- Claim 2 -->
+        <div style="background:rgba(201,64,64,0.05);border:1px solid rgba(201,64,64,0.2);border-left:4px solid rgba(239,68,68,0.7);border-radius:.5rem;padding:1.75rem 2rem;margin-bottom:1.25rem;">
+          <div style="font-family:'Oswald',sans-serif;font-size:clamp(1.4rem,3.5vw,2rem);font-weight:700;color:rgba(239,68,68,0.85);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.5rem;">Claim 2</div>
+          <p style="font-size:1.05rem;color:#ccc;line-height:1.7;margin:0;">If federal observer authority is a real physical principle, then quantum measurement outcomes should differ based on the observer's link to the system instruction. The PEAR Lab results (6.35&sigma; over 2.5 million trials) and the Global Consciousness Project (6&sigma; over 325+ events) provide early evidence that observer states affect physical systems. But targeted experiments testing observer <em>authority</em> have not yet been designed.</p>
+        </div>
+
+        <!-- Claim 3 -->
+        <div style="background:rgba(201,64,64,0.04);border:1px solid rgba(201,64,64,0.15);border-left:4px solid rgba(239,68,68,0.5);border-radius:.5rem;padding:1.75rem 2rem;margin-bottom:1.25rem;">
+          <div style="font-family:'Oswald',sans-serif;font-size:clamp(1.4rem,3.5vw,2rem);font-weight:700;color:rgba(239,68,68,0.65);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.5rem;">Claim 3</div>
+          <p style="font-size:1.05rem;color:#bbb;line-height:1.7;margin:0;">If the Grace function R(&Lambda;) operates as described &mdash; entropy-fighting, restoring coherence &mdash; then systems under its influence should show lower entropy growth rates than systems without it. This is testable in principle. But designing the experiment requires defining "Grace" as a variable you can measure.</p>
+        </div>
+
+        <!-- Claim 4 -->
+        <div style="background:rgba(201,64,64,0.02);border:1px solid rgba(201,64,64,0.1);border-left:4px solid rgba(239,68,68,0.3);border-radius:.5rem;padding:1.75rem 2rem;">
+          <div style="font-family:'Oswald',sans-serif;font-size:clamp(1.4rem,3.5vw,2rem);font-weight:700;color:rgba(239,68,68,0.45);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.5rem;">Claim 4</div>
+          <p style="font-size:1.05rem;color:#aaa;line-height:1.7;margin:0;">If the entire mapping is wrong &mdash; if Genesis 2&ndash;3 is purely symbolic and has no structural link to quantum mechanics &mdash; then the match should break under rigorous testing. Forced connections that do not survive /PROBE analysis should be discarded. The framework demands this of itself.</p>
+        </div>
+
+      </div>
+
+      <hr>
+
+      <p>The Tree stands at the center of the garden. It has always stood there. It stands there still &mdash; in every quantum measurement, every collapse of possibility into actuality, every moment a conscious observer forces the universe to choose.</p>
+
+      <p>The question Genesis asks is the question quantum mechanics cannot answer: <strong>Who is authorized to make reality real?</strong></p>
+
+      <p>The question remains open.</p>
+
+      <hr>
+
+      <div class="axiom-box">
+        Framework Reference: Theophysics Master Equation &chi; = &iiint;(G&middot;M&middot;E&middot;S&middot;T&middot;K&middot;R&middot;Q&middot;F&middot;C) dx dy dt<br>
+        Lowe Coherence Lagrangian: LLC = &chi;(t)(d/dt(G+M+E+S+T+K+R+Q+F+C))&sup2; &minus; S&middot;&chi;(t)<br>
+        Classification: Foundational Paper | Genesis Series | Pre-Paper 1<br>
+        Status: DRAFT &mdash; mechanism for observer authority unsolved; all other mappings confirmed
+      </div>
+
+      <hr>
+
+      <!-- ═══ THE AUDIT ═══ -->
+      <h2>The Audit</h2>
+      <p><em>What we got right, what we're less sure about, and where we got carried away.</em></p>
+
+      <h3>What's load-bearing &mdash; we'd bet on this</h3>
+
+      <p><strong>The Genesis text records a measurement gap.</strong> Eve eats, nothing happens. Adam eats, both collapse. The word "then" in Genesis 3:7 marks the transition after the second measurement, not the first. This is textual observation, not interpretation.</p>
+
+      <p><strong>The serpent's strategy is a textbook decoherence attack.</strong> Distort the instruction, contradict the designer's stated outcome, offer an alternative eigenbasis. This three-step sequence maps onto information-based noise injection without forcing the connection.</p>
+
+      <p><strong>Paul attributes the collapse to Adam, not Eve.</strong> Romans 5:12, Romans 5:19, 1 Corinthians 15:22, 1 Timothy 2:14. This isn't our interpretation &mdash; it's Paul's.</p>
+
+      <p><strong>The Grace function activates immediately.</strong> Genesis 3:15 (first gospel promise) and 3:21 (animal covering) happen inside the same chapter as the Fall. The entropy-fighting counter-move is there from the moment entropy enters.</p>
+
+      <p><strong>The article honestly marks what it can't solve.</strong> "Observation confirmed, mechanism unsolved" &mdash; that's how real physics works.</p>
+
+      <h3>What's suggestive but needs more work</h3>
+
+      <p><strong>The superposition formalism applied to moral states (Section I).</strong> Writing |Good&rangle; + |Evil&rangle; as a quantum state is the article's most ambitious claim. The working logic maps, but whether moral reality literally occupies a Hilbert space or merely behaves <em>as if</em> it does remains an open question. The article is careful about this in Section II but the formalism in Section I is more confident than that caveat.</p>
+
+      <p><strong>The entanglement model for federal headship (Section V).</strong> "In Adam all die" as non-local collapse is the article's most powerful image. But whether biological descent creates quantum entanglement in the technical sense is unproven. We're using entanglement as structural match, not as a claim about literal quantum states of human souls.</p>
+
+      <p><strong>The Born Rule Trinity mapping (Section VII).</strong> Father = possibility space, Son = measurement basis, Spirit = becoming real. This is developed more fully in Article 05. Here it appears briefly as setup. The mapping is formally clean but whether those three operations <em>are</em> the Trinity or merely <em>resemble</em> the Trinity is the question the series builds toward answering.</p>
+
+      <h3>Where we got carried away</h3>
+
+      <p><strong>"This is not a trap. It is a necessary feature of any system that contains free observers" (Section II).</strong> We stated this with more certainty than the argument earns. The framework <em>suggests</em> the Tree is structurally necessary. We <em>believe</em> it is. We haven't proven it must be.</p>
+
+      <p><strong>The serpent-as-decoherence-agent framing (Section III).</strong> One of the article's strongest sections, but we should acknowledge we're choosing to read the serpent's strategy through an information-based lens because that's what the framework is built to do. The text permits this reading. It doesn't require it.</p>
+
+      <p><strong>The certainty of our voice throughout.</strong> We chose conviction over hedging because hedged prose is unreadable and because the framework works best when you follow the thread without flinching. But conviction isn't proof. This audit is where we pay for that choice.</p>
+
+      <hr>
+
+      <p><em>The article above is what we believe. This audit is what we know we haven't proven yet. Both matter.</em></p>
+
+      <div class="disclaimer-box">
+        <div class="disclaimer-label"><i class="fas fa-cross" style="margin-right:.4rem;"></i>The Disclaimer</div>
+        <p>We are finite minds reasoning about infinite God. Every model is projection of higher-dimensional reality onto lower-dimensional surface we can comprehend. We do not claim to have captured God in equations. We claim that when we look at His creation honestly &mdash; with the tools of physics and the revelation of Scripture &mdash; the same structure appears in both. Where our model limits what God can be, the limitation is ours, not His. We offer this work as worship, not as containment.</p>
+      </div>
+
+      <hr>
+
+      <h2>Formal Foundations</h2>
+      <p><em>This article makes accessible the formal content of:</em></p>
+      <ul>
+        <li><strong>Paper 1 &mdash; The Logos Principle:</strong> establishes the Logos as the coherence-structuring principle and derives the necessity of an external measurement ground.</li>
+        <li><strong>Paper 2 &mdash; The Quantum Bridge:</strong> provides the formal treatment of wavefunction collapse and the observer problem that this article applies to Genesis.</li>
+        <li><strong>Paper 4 &mdash; The Hard Problem of Consciousness:</strong> addresses the binary state collapse (innocence &rarr; guilt) and the consciousness coupling variable C.</li>
+      </ul>
+
+      <p><strong>Series Navigation:</strong> (Series Opener) &middot; Series Overview &middot; Next: 02 &mdash; The First Quantum State &rarr;</p>
+
+      <hr>
+
+      <!-- ═══ TANGENT 01-A ═══ -->
+      <div class="tangent-card">
+        <div class="tangent-label"><i class="fas fa-code-branch" style="margin-right:.4rem;"></i>Tangent 01-A</div>
+        <h3>The Collapse Threshold</h3>
+        <button class="tangent-toggle" onclick="toggleTangent(this)">
+          <i class="fas fa-chevron-right"></i> Expand Tangent Article
+        </button>
+        <div class="tangent-body">
+
+          <p><strong>A Note Before We Begin</strong></p>
+          <p>In Article 02, we ran into a puzzle that standard physics can't answer: Eve ate the fruit and nothing happened. Adam ate the same fruit &mdash; same tree, same action &mdash; and reality collapsed for both of them at the same time. Two identical measurements. Two completely different results. This tangent digs into the mechanism underneath that asymmetry. Not to explain it away, but to name what the text is describing with enough precision that we can test it.</p>
+
+          <hr>
+
+          <h2>The Signal Strength Problem</h2>
+
+          <p>Here's the question in plain English: why would one person's interaction with a measurement device collapse the system while another person's identical interaction doesn't?</p>
+
+          <p>Standard quantum mechanics says this can't happen. A measurement is a measurement. The apparatus doesn't care who's operating it. But Genesis 3:6-7 describes exactly this &mdash; and MacArthur and the Equation shows that Paul confirms it across four independent New Testament passages. So either the text is wrong, or our physics is missing something.</p>
+
+          <p>The framework proposes what's missing: <strong>Informational Fidelity</strong>.</p>
+
+          <p>Think of it like a radio signal. You're standing in a field with a transmitter broadcasting on a specific frequency. If your receiver is tuned perfectly to that frequency &mdash; no static, no interference, clean signal &mdash; you hear everything. If someone jammed your receiver first, introduced noise into the channel, you might pick up fragments but you can't act on the signal with full authority. You heard something. But you didn't hear it <em>clean</em>.</p>
+
+          <p>That's the variable. We call it $I_f$ &mdash; Informational Fidelity. It measures how cleanly an observer received the system's boundary conditions from the Source.</p>
+
+          <hr>
+
+          <h2>Two Observers, Two Fidelity Values</h2>
+
+          <p><strong>Adam received the command directly from God.</strong> Genesis 2:16-17 &mdash; God speaks to Adam before Eve exists. No intermediary. No noise. The system instruction &mdash; "don't eat from that tree" &mdash; arrives at full fidelity. $I_f = 1$.</p>
+
+          <p><strong>Eve received the command secondhand.</strong> She wasn't there when God gave it. She got it from Adam (we infer), and then the serpent introduced active noise into the channel &mdash; "Did God <em>actually</em> say...?" (Genesis 3:1). By the time Eve reaches for the fruit, her informational fidelity has been weakened. She heard the signal, but through static. $I_f < 1$.</p>
+
+          <p>The framework's claim: there's a <strong>threshold</strong> below which a measurement interaction doesn't trigger systemic collapse. Eve's interaction was real &mdash; she ate, she experienced something ("saw that the tree was good for food"). But it didn't reach the collapse threshold. It was a partial measurement. A weak measurement, in physics language. Information exchanged, but the system held.</p>
+
+          <p>Adam's interaction crossed the threshold. $I_f = 1$. The system collapsed. Not just for him &mdash; for the entire entangled human subsystem. "Then the eyes of <em>both</em> of them were opened." Instantaneous. Non-local. Total.</p>
+
+          <p>This is what federal headship looks like in physics: the observer with primary specification authority triggers systemic state change. The observer without it can interact with the apparatus but can't authorize the transition.</p>
+
+          <hr>
+
+          <h2>What This Means</h2>
+
+          <p>The implication is significant and uncomfortable for modern physics: <strong>reality-making is a delegated authority, not an intrinsic property of all conscious observers.</strong></p>
+
+          <p>Standard quantum mechanics treats every observer as interchangeable. The Collapse Threshold says they're not. The capacity to trigger wavefunction collapse depends on the quality of the observer's coupling to the system's Source &mdash; how directly they received the boundary conditions, how much noise was introduced before they measured.</p>
+
+          <p>The Three Pathways explores what this coupling looks like neurochemically &mdash; the difference between a brain at $s = -1$ (fully decoupled, receiving nothing) and $s = +1$ (fully open, clean channel). The Decoherence Curve shows the same coupling variable operating at civilizational scale across the Genesis genealogies. Same variable. Different measurement frames.</p>
+
+          <p>The PEAR-LAB results (6.35&sigma;, 2.5 million trials) confirm that awareness quality varies across observers in its capacity to affect physical systems. Some operators produced larger deviations than others. The data doesn't tell us why. The framework does: $I_f$ &mdash; informational fidelity. How cleanly you received the signal determines how much authority your measurement carries.</p>
+
+          <hr>
+
+          <h2>The Complete Picture</h2>
+
+          <p>Put the pieces together:</p>
+
+          <p>Before the Fall, reality runs at maximal coherence. The Master Equation $\chi$ is at full power, minimum entropy. The Tree of Knowledge sits in the center as a measurement operator &mdash; the boundary between superposed potential and collapsed actuality.</p>
+
+          <p>The serpent enters as a decoherence agent &mdash; noise injection into Eve's channel, weakening her $I_f$ below the collapse threshold. She measures. The system holds. A weak measurement &mdash; real interaction, no systemic collapse.</p>
+
+          <p>Adam measures with $I_f = 1$. The threshold is crossed. Instantaneous, non-local state transition. Entropy activates. Time begins its arrow. The eyes of both open at the same time because the collapse is systemic &mdash; it spreads through the entire entangled subsystem, not just through the observer who triggered it.</p>
+
+          <p>And then &mdash; this is what The Temporal Trap traces in detail &mdash; a Second Federal Observer enters the timeline. Christ, the "last Adam" (1 Corinthians 15:45), performs a stand-in measurement. He absorbs the entropy term the first Adam's collapse introduced. He doesn't reverse the collapse &mdash; you can't un-measure a quantum system. He reopens the coherence channel that the collapse blocked. The Cross doesn't undo the Fall. It pays the energy cost the Fall generated and restores the coupling that the Fall severed.</p>
+
+          <div class="disclaimer-box" style="border-color:rgba(168,85,247,.2);">
+            <div class="disclaimer-label" style="color:var(--purple);"><i class="fas fa-cross" style="margin-right:.4rem;"></i>The Disclaimer</div>
+            <p>We are finite minds reasoning about infinite God. Every model is projection of higher-dimensional reality onto lower-dimensional surface we can comprehend. We do not claim to have captured God in equations. We claim that when we look at His creation honestly &mdash; with the tools of physics and the revelation of Scripture &mdash; the same structure appears in both. Where our model limits what God can be, the limitation is ours, not His. We offer this work as worship, not as containment.</p>
+          </div>
+
+          <hr>
+
+          <h3>Related Tangential Articles</h3>
+          <ul>
+            <li><strong>MacArthur and the Equation</strong> &mdash; the same $I_f$ asymmetry viewed through Reformed theology; federal headship as the theological name for collapse authority</li>
+            <li><strong>The Three Pathways</strong> &mdash; neurochemical signatures of coupling strength; what $I_f$ looks like in the brain at different surrender values</li>
+            <li><strong>The Decoherence Curve</strong> &mdash; the same coupling variable operating at civilizational scale across Genesis genealogies</li>
+            <li><strong>The Trinity Mechanism</strong> &mdash; Spirit coupling as the mechanism that restores $I_f$ post-Pentecost</li>
+            <li><strong>The Trinity Timeline</strong> &mdash; the Fall event analyzed through all three Born Rule operators</li>
+            <li><strong>The Temporal Trap</strong> &mdash; the Cross as the Second Federal Observer's stand-in measurement</li>
+          </ul>
+
+          <p><strong>Series Navigation:</strong> &larr; Parent: The Measurement That Collapsed Reality &middot; Series Overview</p>
+
+        </div>
+      </div>
+
+    </article>
+    </section>
+
+    <section id="summary" class="tab-content">
+      <article class="story wide">
+        <div class="exec-summary" style="margin-top:1rem;">
+          <div class="exec-summary-label"><i class="fas fa-bolt" style="margin-right:.4rem;"></i>Executive Summary</div>
+          <p>[[3-5 sentences. The 'if you read nothing else' version.]]</p>
+        </div>
+      </article>
+    </section>
+
+    <section id="rigor" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-2">Rigor &amp; Kill Conditions</h2>
+        <p class="text-[#a0a0a0] mb-6">Every claim is held to explicit falsification standards.</p>
+        <div class="kill-card"><div class="kill-label">Load-Bearing</div><p><strong>Kill if:</strong> [[Specific testable falsifier.]]</p></div>
+        <div class="kill-card suggestive"><div class="kill-label">Suggestive</div><p><strong>Kill if:</strong> [[Weaker falsifier.]]</p></div>
+        <div class="kill-card destructive"><div class="kill-label">Destructive</div><p><strong>Kill if:</strong> [[Framework-level falsifier.]]</p></div>
+      </article>
+    </section>
+
+    <section id="media" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-4">Watch &amp; Listen</h2>
+        <div style="background:var(--surface-light);border:1px solid var(--border);border-radius:.5rem;padding:1.5rem;margin-bottom:1.5rem;">
+          <video controls style="width:100%;border-radius:.375rem;background:#000;" preload="metadata">
+            <source src="video/GTQ_01_The_Measurement_That_Collapsed_Reality.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </article>
+    </section>
+
+    <section id="blackboard" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-4">Blackboard</h2>
+        <p class="text-[#a0a0a0] mb-6">Interactive scratch space.</p>
+      </article>
+    </section>
+  </div>
+
+  <aside class="kill-sidebar">
+    <div class="kill-sidebar-title"><i class="fas fa-skull-crossbones" style="margin-right:.4rem;"></i>Kill Conditions</div>
+    <div class="kill-card"><div class="kill-label">Load-Bearing</div><p><strong>Kill if:</strong> [[Primary kill condition.]]</p></div>
+    <div class="kill-card suggestive"><div class="kill-label">Suggestive</div><p><strong>Kill if:</strong> [[Secondary.]]</p></div>
+    <div class="kill-card destructive"><div class="kill-label">Destructive</div><p><strong>Kill if:</strong> [[Framework-level.]]</p></div>
+    <div style="margin-top:1.5rem;padding:1rem;background:var(--surface-light);border:1px solid var(--border);border-radius:.5rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:.5rem;">Article Stats</div>
+      <div style="font-size:.8rem;color:var(--text-secondary);line-height:1.8;">
+        <div><i class="fas fa-clock" style="width:1rem;color:var(--highlight);"></i> 10 min read</div>
+        <div><i class="fas fa-layer-group" style="width:1rem;color:var(--highlight);"></i> Main Article</div>
+        <div><i class="fas fa-crosshairs" style="width:1rem;color:var(--highlight);"></i> 4 kill conditions</div>
+        <div><i class="fas fa-headphones" style="width:1rem;color:var(--highlight);"></i> 1 audio versions</div>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<!-- Bottom navigation -->
+<div class="container mx-auto px-6" style="padding-left:4.5rem;">
+  <div class="bottom-nav">
+    <a href="#"><i class="fas fa-arrow-left"></i>Previous: </a>
+    <div class="nav-center">Article 01 of 26</div>
+    <a href="../02-collapse-threshold/gtq-02-collapse-threshold.html" class="primary">Next: The Collapse Threshold<i class="fas fa-arrow-right"></i></a>
+  </div>
+  <div style="text-align:center;margin-bottom:2rem;">
+    <a href="../03-first-quantum-state/gtq-03-first-quantum-state.html" style="display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;background:var(--highlight-glow);border:1px solid var(--highlight-dim);border-radius:.375rem;color:var(--highlight);text-decoration:none;font-size:.8rem;">
+      <i class="fas fa-forward"></i>Skip to next main: The First Quantum State
+    </a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="eq">χ = f(G, M, E, S, T, K, R, Q, F, C)</div>
+  <p>David Lowe &middot; Genesis to Quantum &middot; Part 01 of 26</p>
+  <p class="serif" style="font-style:italic;color:var(--text-secondary);margin-top:.5rem;">&ldquo;But while he was still a long way off, his father saw him.&rdquo;</p>
+</footer>
+
+<script>
+function toggleSidebar(){
+  var sb=document.getElementById('sidebar');
+  var ov=document.getElementById('sidebarOverlay');
+  sb.classList.toggle('open');
+  ov.classList.toggle('show');
+  document.body.style.overflow=sb.classList.contains('open')?'hidden':'';
+}
+window.addEventListener('scroll',function(){
+  var st=window.scrollY||document.documentElement.scrollTop;
+  var dh=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+  var pct=dh>0?(st/dh)*100:0;
+  document.getElementById('progressBar').style.width=pct+'%';
+});
+function switchTab(tabId){
+  document.querySelectorAll('.tab-content').forEach(function(el){el.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(el){el.classList.remove('active');});
+  document.getElementById(tabId).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    var sb=document.getElementById('sidebar');
+    if(sb&&sb.classList.contains('open')) toggleSidebar();
+  }
+});
+
+/* Audio dock engine */
+(function(){
+  var dock = document.getElementById('audioDock');
+  if(!dock) return;
+  var body=document.getElementById('dockBody'), empty=document.getElementById('dockEmpty');
+  var playBtn=document.getElementById('dockPlay'), icon=document.getElementById('dockPlayIcon');
+  var fill=document.getElementById('dockFill'), curEl=document.getElementById('dockCurrent'), durEl=document.getElementById('dockDuration');
+  var volBtn=document.getElementById('dockVol');
+  var pills=dock.querySelectorAll('.dock-pill');
+  var audio=new Audio(); audio.preload='metadata';
+  var activeKey=null, muted=false;
+  var pillColors={deep:'#4a9eff',read:'#d4af37',debate:'#a855f7',critique:'#2dd4bf'};
+
+  function fmt(s){if(!s||isNaN(s))return '0:00';var m=Math.floor(s/60),sec=Math.floor(s%60);return m+':'+(sec<10?'0':'')+sec;}
+
+  pills.forEach(function(p){if(!p.dataset.url)p.classList.add('unavailable');});
+
+  pills.forEach(function(p){
+    p.addEventListener('click',function(){
+      var key=p.dataset.src, url=p.dataset.url;
+      if(!url)return;
+      if(key===activeKey){if(audio.paused)audio.play();else audio.pause();return;}
+      audio.pause(); audio.src=url; activeKey=key;
+      pills.forEach(function(q){q.classList.remove('active');}); p.classList.add('active');
+      var c=pillColors[key]||'#d4af37';
+      fill.style.background=c; playBtn.style.borderColor=c; playBtn.style.color=c;
+      body.classList.remove('hidden'); empty.classList.remove('visible');
+      audio.play();
+    });
+  });
+
+  var firstAvail=dock.querySelector('.dock-pill[data-url]');
+  if(firstAvail){var key=firstAvail.dataset.src; audio.src=firstAvail.dataset.url; activeKey=key;}
+  else{body.classList.add('hidden');empty.classList.add('visible');}
+
+  window.dockToggle=function(){if(!audio.src)return;if(audio.paused)audio.play();else audio.pause();};
+  audio.addEventListener('play',function(){icon.className='fas fa-pause';playBtn.classList.add('playing');});
+  audio.addEventListener('pause',function(){icon.className='fas fa-play';playBtn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){icon.className='fas fa-play';playBtn.classList.remove('playing');fill.style.width='0%';curEl.textContent='0:00';});
+  audio.addEventListener('timeupdate',function(){if(!audio.duration)return;fill.style.width=(audio.currentTime/audio.duration*100)+'%';curEl.textContent=fmt(audio.currentTime);});
+  audio.addEventListener('loadedmetadata',function(){durEl.textContent=fmt(audio.duration);});
+  window.dockSeek=function(e){if(!audio.duration)return;var t=e.currentTarget;var r=t.getBoundingClientRect();var p=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));audio.currentTime=p*audio.duration;};
+  window.dockMute=function(){muted=!muted;audio.muted=muted;volBtn.innerHTML=muted?'<i class="fas fa-volume-mute"></i>':'<i class="fas fa-volume-up"></i>';};
+})();
+</script>
+
+</body>
+</html>

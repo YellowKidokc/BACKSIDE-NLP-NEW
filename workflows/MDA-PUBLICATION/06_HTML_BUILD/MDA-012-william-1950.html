@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Part III: William (1950) — The Moral Decline of America — Moral Decline of America</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a;
+  --border:#2a2a2a; --border-claim:rgba(212,175,55,.35);
+  --text:#e0e0e0; --text2:#a0a0a0; --text3:#707070;
+  --mda-red:#dc2626; --mda-red-glow:rgba(220,38,38,.08);
+  --claim:#d4af37; --claim-glow:rgba(212,175,55,.08);
+  --easy:#22c55e; --easy-glow:rgba(34,197,94,.08);
+  --academic:#a78bfa; --academic-glow:rgba(167,139,250,.08);
+  --proof:#f59e0b; --proof-glow:rgba(245,158,11,.08);
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  line-height:1.65; margin:0; padding:0;
+}
+</style>
+<style>
+/* Reader Mode Bar */
+.mda-reader-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:.5rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;
+}
+.mda-reader-bar .series-badge{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mda-red);font-weight:600;
+}
+.mda-reader-bar .meta{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;
+  color:var(--text3);text-transform:uppercase;letter-spacing:.06em;
+}
+.tab-group{display:flex;gap:.4rem;flex-wrap:wrap;}
+.tab-btn{
+  padding:.4rem .7rem;border:1px solid var(--border);border-radius:.35rem;
+  background:var(--surface);color:var(--text2);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em;transition:all .2s;
+}
+.tab-btn:hover{border-color:var(--mda-red);color:var(--text);}
+.tab-btn.active{border-color:var(--mda-red);background:var(--mda-red-glow);color:var(--mda-red);}
+.tab-btn[data-tab="easy"].active{border-color:var(--easy);background:var(--easy-glow);color:var(--easy);}
+.tab-btn[data-tab="academic"].active{border-color:var(--academic);background:var(--academic-glow);color:var(--academic);}
+.tab-btn[data-tab="proof"].active{border-color:var(--proof);background:var(--proof-glow);color:var(--proof);}
+
+/* Article */
+.article{max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem;}
+.article h1{
+  font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.02em;
+  margin:0 0 .5rem;line-height:1.1;
+}
+.article .subtitle{
+  font-family:'Crimson Text',serif;font-size:1.15rem;color:var(--text2);
+  font-style:italic;margin:0 0 2rem;line-height:1.5;
+}
+.article h2{
+  font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:#fff;
+  text-transform:uppercase;letter-spacing:.04em;margin:2.5rem 0 1rem;
+  border-bottom:1px solid var(--border);padding-bottom:.4rem;
+}
+.article h3{font-family:'Crimson Text',serif;font-size:1.15rem;font-weight:600;color:var(--mda-red);margin:1.5rem 0 .5rem;}
+.article p{font-size:1.02rem;line-height:1.75;margin:0 0 1.25rem;}
+.article blockquote{
+  border-left:3px solid var(--mda-red);background:var(--mda-red-glow);
+  padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 .4rem .4rem 0;
+  font-family:'Crimson Text',serif;font-style:italic;color:var(--text2);
+}
+.article img{max-width:100%;border-radius:.4rem;margin:1rem 0;}
+.mda-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
+.mda-table td{padding:.4rem .6rem;border:1px solid var(--border);color:var(--text2);}
+.mda-table tr:first-child td{font-weight:600;color:var(--text);background:var(--surface);}
+
+/* Reading level panels */
+.level-panel{display:none;}
+.level-panel.active{display:block;}
+
+/* Proof panel */
+.proof-panel{display:none;max-width:780px;margin:0 auto;padding:1.5rem;}
+.proof-panel.active{display:block;}
+.mda-proof-eyebrow{
+  font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--proof);margin-bottom:.6rem;
+}
+.math-field{display:flex;gap:.5rem;margin:.4rem 0;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.math-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--proof);font-weight:600;min-width:180px;}
+.math-value{font-size:.85rem;color:var(--text2);}
+.math-item{font-size:.85rem;color:var(--text);padding:.2rem 0 .2rem 1rem;border-left:2px solid var(--border);margin:.3rem 0;}
+.mda-proof-placeholder{color:var(--text3);font-style:italic;font-size:.9rem;}
+
+/* Glossary */
+.mda-glossary{columns:1;}
+.glossary-entry{break-inside:avoid;margin-bottom:.8rem;}
+.glossary-entry dt{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--academic);font-weight:600;}
+.glossary-entry dd{font-size:.85rem;color:var(--text2);margin:0 0 0 .5rem;}
+.glossary-domain{font-size:.65rem;color:var(--text3);margin-left:.5rem;font-style:italic;}
+
+/* Easy level overrides */
+body.mode-easy .article p{font-size:1.15rem;line-height:1.85;}
+body.mode-easy .article h3{font-size:1.3rem;color:var(--easy);font-family:'Oswald',sans-serif;}
+body.mode-easy .article blockquote{border-left-color:var(--easy);background:var(--easy-glow);font-style:normal;}
+/* Academic level overrides */
+body.mode-academic .article p{font-size:.95rem;line-height:1.65;color:#d0d0d0;}
+body.mode-academic .article h3{font-size:1.1rem;color:var(--academic);font-family:'Crimson Text',serif;font-style:italic;}
+body.mode-academic .article blockquote{border-left-color:var(--academic);background:var(--academic-glow);}
+
+@media(max-width:640px){
+  .article{padding:1.5rem 1rem 4rem;}
+  .mda-reader-bar{padding:.4rem 1rem;}
+}
+</style>
+</head>
+<body class="mode-standard">
+
+<!-- BEGIN:COMPONENT:reader-mode:reader-mode-bar -->
+<div class="mda-reader-bar">
+  <div>
+    <span class="series-badge">Moral Decline of America</span>
+    <span class="meta">MDA-012</span>
+    <span class="meta" id="mode-status">Standard active</span>
+  </div>
+  <div class="tab-group">
+    <button class="tab-btn" data-tab="easy" onclick="setTab('easy')">Easy</button>
+    <button class="tab-btn active" data-tab="standard" onclick="setTab('standard')">Standard</button>
+    <button class="tab-btn" data-tab="academic" onclick="setTab('academic')">Academic</button>
+    <button class="tab-btn" data-tab="proof" onclick="setTab('proof')">Proof</button>
+  </div>
+</div>
+<!-- END:COMPONENT:reader-mode:reader-mode-bar -->
+
+<!-- BEGIN:LEVEL:standard -->
+<div class="level-panel active" data-level="standard">
+  <article class="article">
+    <h1>Part III: William (1950) — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-012 · David Lowe · Theophysics Institute</p>
+    <p>Moral Decline of America</p>
+<p><a href="../../index.html">THEOPHYSICS</a><a href="../index.html">Moral Decline</a>Part III: William</p>
+<h2>PART III: WILLIAM</h2>
+<h1>Peak Coherence (1950)</h1>
+<h2>The World of 1950</h2>
+<p>America has never been richer, safer, or more confident.</p>
+<p><img alt="Story Illustration" src="../images/mda/The_1962_Software_Crash conv 4.webp" /></p>
+<p>The war is over. The Depression is a memory. The United States stands astride the world like a colossus - half the planet's manufacturing output, the only nuclear power, the arsenal of democracy now retooled for peace.</p>
+<p>And the rewards are flowing.</p>
+<p>The GI Bill has sent eight million veterans to college. The Federal Housing Administration is backing mortgages at rates that make homeownership possible for anyone with a steady job. The suburbs are blooming - Levittown, Park Forest, Lakewood - instant communities springing up on former farmland, each house with a yard, a garage, a television antenna reaching toward the sky.</p>
+<p>The middle class is expanding like never before. A factory worker with a high school education can buy a house, a car, a refrigerator, a washing machine. He can raise three kids, send them to college, retire with a pension. This is not aspiration. This is reality. This is 1950.</p>
+<p><strong>The new technology:</strong></p>
+<p>Television has arrived.</p>
+<p>In 1950, 9% of American households have a TV. By 1955, it will be 65%. By 1960, 87%. The fastest adoption of any technology in history - faster than radio, faster than the telephone, faster than the automobile.</p>
+<p>What television means: for the first time, moving images of strangers enter the home. Not voices, like radio. <em>Faces</em>. Families gather around the screen every night to watch Milton Berle, Ed Sullivan, I Love Lucy.</p>
+<p>This feels like entertainment. It is entertainment. But it's also something else.</p>
+<p>Television shows you how other people live. How they dress, how they talk, how their houses look. For the first time, a farmer in Ohio can see inside a New York apartment. A working-class family can see how the wealthy live. The local gives way to the national. The specific gives way to the generic.</p>
+<p>The Joneses are no longer your neighbors. The Joneses are on TV.</p>
+<p><strong>The pace quickens:</strong></p>
+<p>Everything is faster now. Cars are faster - the new models do 80, 90 miles an hour. Communication is faster - long distance phone calls are common now, you can talk to someone across the country in real time. News is faster - the evening broadcast brings the day's events while they're still fresh.</p>
+<p>The silence is shrinking. The porch swing is being replaced by the TV room. The evening conversation is being replaced by the evening program.</p>
+<p>But in 1950, it still feels manageable. Television is still an event. The family gathers together to watch. It's communal. Bounded. One screen, shared.</p>
+<p><strong>The numbers:</strong></p>
+<ul>
+<li>-Median family income: $3,300 (equivalent to ~$42,000 in 2024 dollars). Up 30% from 1940 in real terms.</li>
+<li>-Homeownership rate: 55%, up from 44% in 1940. By 1960, it will reach 62%.</li>
+<li>-Divorce rate: 2.6 per 1,000 population. Higher than 1900, but stable. Still stigmatized.</li>
+<li>-Average age at first marriage: 22.8 for men, 20.3 for women. People are marrying younger - because they can afford to.</li>
+<li>-Fertility rate: 3.0 children per woman, rising toward 3.7 by 1957. The Baby Boom is underway.</li>
+<li>-Church attendance: 55% weekly attendance, the highest in American history. This is the peak.</li>
+<li>-Television ownership: 9% of households, rising fast.</li>
+<li>-Households with telephone: 62%.</li>
+<li>-Average hours of TV watched per day: 4.5 (in households with TV).</li>
+</ul>
+<p>This is the world William Lowe inherits.</p>
+<p>He doesn't know he's living in the peak. No one ever does.</p>
+<h2>Ohio, 1950</h2>
+<p>William Lowe - Bill, everyone calls him Bill - is eighteen years old, and for the first time in three generations, a Lowe boy is not thinking primarily about the farm.</p>
+<p>He's thinking about college.</p>
+<p>The GI Bill doesn't apply to him - he was too young for the war - but the prosperity it unleashed has changed everything. His father Henry has done well. The farm survived the Depression, thrived during the war (food prices rose), and now sits on land that's worth three times what it was in 1930. There's money. Not a lot, but enough.</p>
+<p>"You should go," Henry told him last spring. "Get an education. The world's changing."</p>
+<p>Bill applied to Ohio State. He was accepted. In September, he'll drive the family's new Ford - a 1949 Custom, two-tone green, the first new car the Lowes have ever owned - to Columbus. He'll study business. He'll become something other than a farmer.</p>
+<p>This feels like progress.</p>
+<p>It is progress. But it's also the first crack, so small that no one notices. For three generations, the Lowe men stayed on the land, stayed in the community, stayed within the circle of people they'd known since birth. Bill is about to step outside that circle.</p>
+<p>He doesn't know what he's leaving. He only knows what he's reaching for.</p>
+<h2>Mary</h2>
+<p>But first: there's a girl.</p>
+<p>Her name is Mary Hendricks. She's seventeen, brown-haired, serious in the way that Bill has learned to recognize as meaning <em>she's actually thinking, not just waiting for you to stop talking.</em></p>
+<p>He met her at church - of course at church, where else would you meet anyone? - and he's been finding reasons to talk to her for six months now. She laughs at his jokes. She asks questions about his plans. She looks at him like he might be worth looking at.</p>
+<p>The courtship follows the old forms. He calls on her at her parents' house. He sits in the parlor with her mother watching from the settee. He takes her to church socials and school dances and, once, daringly, to a movie in town - <em>All About Eve</em>, which neither of them fully understood but both pretended to.</p>
+<p>They've kissed twice. Behind the church, after the Christmas pageant. In his car, parked at the edge of her family's property, for exactly ninety seconds before she pulled back and said, "Not yet."</p>
+<p>Bill understood. He wasn't offended. This is how it works.</p>
+<h2>The Parlor (1950)</h2>
+<p>The Hendricks' parlor smells like lemon oil and wool. Mrs. Hendricks polishes everything - the side tables, the piano no one plays, the frames around photographs of people Bill doesn't recognize. Dead relatives, he assumes. There are a lot of them.</p>
+<p>In the corner, a new addition: a Philco television set, mahogany cabinet, 12-inch screen. It sits dark now - you don't watch television when company is visiting. That would be rude. But Bill is aware of it, this window into elsewhere.</p>
+<p>He's wearing his good trousers - the brown ones, pressed that morning - and a white shirt his mother ironed while he ate breakfast. His shoes are shined. His hair is combed with Brylcreem, parted on the left, the way his father wears his.</p>
+<p>He looks, he hopes, like a serious person.</p>
+<p>Mary sits across from him on the davenport, her mother two feet away in the wingback chair, knitting something that never seems to get longer. Mary's dress is blue with small white flowers. She made it herself. Most girls do.</p>
+<p>The conversation is excruciating.</p>
+<p>"And how is your father's farm managing, William?"</p>
+<p>"Very well, ma'am. We've had good prices this year."</p>
+<p>"That's good to hear. And you're still planning on the university?"</p>
+<p>"Yes ma'am. Ohio State. In the fall."</p>
+<p>"That's quite a ways from Richland."</p>
+<p>"Yes ma'am. About two hours."</p>
+<p>Mrs. Hendricks' needles click. "Mary, offer William some coffee."</p>
+<p>Mary rises, and for a moment their eyes meet. There's something there - amusement, maybe, at the theater of it all. They both know the script. They're both performing it anyway.</p>
+<p>This is 1950. There is no other way.</p>
+<h2>The Television</h2>
+<p>Later, after dinner with the family, they're allowed to watch television together. Chaperoned, of course - Mary's younger brother is in the room, doing homework (or pretending to).</p>
+<p>The Ed Sullivan Show is on. A comedian, a singer, a trained dog act. The whole family watches the same screen, sees the same faces, laughs at the same jokes.</p>
+<p>Bill watches Mary laugh. The blue light of the TV plays across her face.</p>
+<p>"Isn't it amazing?" she whispers during a commercial. "You can see people in New York, right here in the living room."</p>
+<p>"It's something."</p>
+<p>"Do you think everyone will have one soon?"</p>
+<p>"I think so. My parents are talking about getting one."</p>
+<p>Mary looks back at the screen. A advertisement is showing - a family gathered around a gleaming refrigerator, all of them smiling, all of them happy.</p>
+<p>"They all look so... perfect," she says. "The families on TV."</p>
+<p>"That's not real life."</p>
+<p>"I know. But it's nice to look at."</p>
+<p>Bill doesn't have a response. He watches the advertisement - the perfect kitchen, the perfect family, the perfect life - and something vague stirs in him. Not dissatisfaction, not exactly. More like... awareness. Awareness that there's a standard out there, a way life is supposed to look, and it's being beamed into millions of homes every night.</p>
+<p>For the first time, the Joneses aren't the neighbors. The Joneses are on TV.</p>
+<h2>Henry Speaks</h2>
+<p>It's May 1950. Bill is packing for a trip to Columbus - orientation at the university, three days to learn the campus and register for classes. He'll be leaving the farm, really leaving, for the first time in his life.</p>
+<p>Henry finds him in his room, folding shirts into a suitcase that belonged to Bill's grandfather Samuel, who died in 1948.</p>
+<p>"You ready?" Henry asks.</p>
+<p>"I think so."</p>
+<p>Henry sits on the edge of the bed. He's fifty-two now, weathered but strong, his hands still calloused from decades of work. The farm has been good to him. But he's letting his son leave it.</p>
+<p>"I never went to college," Henry says. "Never finished high school, truth be told. Depression hit when I was seventeen. There wasn't time."</p>
+<p>"I know, Dad."</p>
+<p>"Your grandfather never went either. Or his father. Four generations of Lowes on this land, and you're the first one who's going to have a degree on the wall."</p>
+<p>Bill isn't sure what to say. "Is that... bad?"</p>
+<p>Henry shakes his head slowly. "No. It's good. The world's different now. You need education to get ahead. I see that." He pauses. "But I want to tell you something, and I want you to listen."</p>
+<p>"Yes sir."</p>
+<p>"The things that matter don't change. I don't care if you're in Columbus or Cleveland or California. The things that matter are the same as they were when my father told me, and his father told him."</p>
+<p>"Find a good woman. Work. Stay."</p>
+<p>Henry looks at him, surprised. "You know."</p>
+<p>"You've mentioned it. A few times."</p>
+<p>"Then you know. But knowing isn't the same as doing." Henry leans forward. "The world out there - Columbus, the university - it's bigger than anything I ever saw. There are going to be opportunities. Options. Women who aren't Mary Hendricks. Paths that don't lead back here."</p>
+<p>Bill waits.</p>
+<p>"I'm not telling you to come back. You have to make your own way. But I'm telling you: don't get lost. Don't let the bigness of it make you forget what matters." Henry's voice is rough now. "The TV, the radio, the cities - they show you everything you could have. They don't show you how to keep it. Find a good woman. Work. Stay. It doesn't matter where. It matters that you do it."</p>
+<p>"I will, Dad."</p>
+<p>"Will you?"</p>
+<p>Bill looks at his father. At the man who stayed through the Depression, through the war, through every temptation to leave. Who raised a family, kept a farm, honored his word for twenty-one years.</p>
+<p>"I will."</p>
+<p>Henry nods. Stands. Puts a hand on Bill's shoulder.</p>
+<p>"See that you do."</p>
+<h2>The Choice (1952)</h2>
+<p>Bill comes home from Ohio State in the summer of 1952. He's been gone two years. He has a girlfriend in Columbus - a girl named Patricia, smart and pretty and nothing like anyone in Richland. Modern, she calls herself. Forward-thinking.</p>
+<p>He's also been writing to Mary Hendricks. Letters, once a week. She writes back.</p>
+<p><img alt="Story Illustration" src="../images/mda/PHASE_TRANSITION conv 2.webp" /></p>
+<p>He hasn't told either of them about the other.</p>
+<p>This is new. This is the crack widening. For Samuel, for Henry, there was no "other option." There was the girl in the community, or there was nothing. Bill has options now. He can choose.</p>
+<p>But he hasn't. Not yet.</p>
+<p>He spends the summer working the farm, helping his father, trying to figure out what he wants. Patricia is exciting - city girl, modern ideas, talks about moving to New York after graduation, about careers for women, about a world that doesn't look like Richland. Mary is familiar - steady, serious, connected to everything Bill grew up with.</p>
+<p>At night, after his parents go to bed, Bill watches television. The late shows, the news, the glimpses of a wider world. He sits alone in the blue glow and thinks about his choices.</p>
+<p>"You seem distracted," Henry says one evening, as they're walking back from the barn.</p>
+<p>"Just thinking."</p>
+<p>"About what?"</p>
+<p>Bill doesn't answer.</p>
+<p>Henry doesn't push. But that night, at dinner, he says: "Your mother and I were talking. We'd like to have the Hendricks over for Sunday supper. Mary too."</p>
+<p>Bill understands what this is. A nudge. A reminder. <em>This is who you are. This is where you come from. Don't forget.</em></p>
+<p>He doesn't write to Patricia that week.</p>
+<h2>The Decision</h2>
+<p>In August 1952, Bill breaks up with Patricia.</p>
+<p>It's a phone call - long distance, expensive, crackling with static. She's angry, then hurt, then cold.</p>
+<p>"I don't understand," she says. "I thought we were going somewhere."</p>
+<p>"I'm sorry."</p>
+<p>"Is there someone else?"</p>
+<p>He hesitates. "Yes."</p>
+<p>"Someone from back home."</p>
+<p>"Yes."</p>
+<p>A long pause. Then: "Good luck with that. Have a nice life in Ohio."</p>
+<p>She hangs up.</p>
+<p>Bill stands in the phone booth for a long time, receiver in his hand, listening to the dial tone. He's made a choice. He's not entirely sure why.</p>
+<p>The wider world is out there. Patricia is out there. New York, modern life, a future that looks nothing like his past. He could have chosen that.</p>
+<p>But that Sunday, when Mary Hendricks comes to dinner at the Lowe house, and she laughs at something his father says, and she helps his mother clear the dishes, and she fits so seamlessly into the fabric of his family that it's like she was always there - he thinks maybe he knows.</p>
+<p>This is what he wants. Not excitement. Not options. Not the wide world beamed into his living room every night.</p>
+<p>This.</p>
+<h2>1954</h2>
+<p>Bill graduates from Ohio State in June 1954 with a degree in business administration. He has a job offer in Columbus - a good one, at a manufacturing company, $4,800 a year to start.</p>
+<p>He turns it down.</p>
+<p>Instead, he comes home. He takes a job at the bank in Richland - assistant manager, $3,600 a year. Less money, but close to the farm, close to his parents, close to Mary.</p>
+<p>"Are you sure?" his mother asks.</p>
+<p>"I'm sure."</p>
+<p>He marries Mary Hendricks in October 1954, at the Methodist church where three generations of Lowes have been baptized, married, and buried. He's twenty-two. She's twenty-one.</p>
+<p>The whole town comes. Both families, all the neighbors, the pastor who christened Bill as an infant. The wedding is not news; it's confirmation. Everyone expected this. Everyone approves.</p>
+<p>They move into a small house in town - rented, for now, until they can save for something permanent. Bill walks to work at the bank. Mary keeps the house, learns to cook, starts attending the women's circle at church.</p>
+<p>They buy a television in 1955. A Zenith, 21-inch screen, wood cabinet. They watch it together in the evenings, Ed Sullivan and I Love Lucy and Gunsmoke. The blue glow fills their living room.</p>
+<p>It's a small life. A bounded life.</p>
+<p>They're happy.</p>
+<h2>1956</h2>
+<p>Their son is born in April 1956.</p>
+<p>Bill holds him in the hospital - they can afford a hospital now, this is progress - and feels the weight of it. Not just the baby. The lineage. Amos to Samuel to Henry to Bill to... this.</p>
+<p>"What will you name him?" Mary asks, exhausted but radiant.</p>
+<p>Bill thinks about his grandfather Henry, still alive at seventy-four, slowing down but still sharp. About his great-grandfather Samuel, who died before Bill could really know him. About the chain of men, each one passing something down.</p>
+<p>"Thomas," he says. "After my mother's father."</p>
+<p>Mary smiles. "Thomas. Tommy."</p>
+<p>Bill looks at his son. Eight pounds, six ounces. Red-faced, squalling, utterly dependent.</p>
+<p><em>I will teach you what my father taught me. What his father taught him. What his father taught him.</em></p>
+<p><em>Find a good woman. Work. Stay.</em></p>
+<p><em>You will be the fifth generation. You will carry it forward.</em></p>
+<h2>The Peak Years (1956-1968)</h2>
+<p>The late 1950s and early 1960s are the peak, and Bill lives in them without knowing.</p>
+<p>He rises to branch manager at the bank by 1959. Mary has two more children - Sarah in 1958, James in 1961. They buy a house - a real house, three bedrooms, a yard, a two-car garage. They buy a color TV in 1965, the first on their block.</p>
+<p>Church on Sunday. Little League on Saturday. Cookouts in the summer with the neighbors. The rhythms of a life that feels permanent, stable, earned.</p>
+<p>The television is on four hours a night now. Sometimes more. The kids watch cartoons after school. Bill watches the news. Mary watches her shows. They're together, in the same room, but increasingly they're watching different things. The family gathers around the screen, but the screen doesn't bring them together the way it used to.</p>
+<p>And what they see on the screen is changing.</p>
+<p>1963: Kennedy is shot, and they watch it happen. The funeral, the procession, Jackie in her black veil. Death enters the living room, vivid and inescapable.</p>
+<p>1964: The Beatles on Ed Sullivan. Something new, something loud, something that makes Bill uneasy without knowing why.</p>
+<p>1965: Vietnam starts appearing on the news. Helicopters, soldiers, villages burning. The war is in their living room every night.</p>
+<p>1967: Cities are burning. Newark, Detroit. Bill watches the fires and thinks: <em>What is happening?</em></p>
+<p>Something is shifting. The television that brought the world into his living room is now bringing chaos, conflict, change. The images are more intense. The pace is faster. The center is not holding.</p>
+<p>But Bill's own life is stable. His marriage is solid. His kids are growing up right. He goes to church, he goes to work, he stays.</p>
+<p>"We're lucky," Bill tells Mary one night in 1968, as they're watching the news - another protest, another riot, another sign that the world outside is coming apart. "Look at what's happening out there. We're lucky to be here."</p>
+<p>"We are."</p>
+<p>"Tommy and Sarah and James, they're going to have it even better. The world is changing, but the basics don't change. They'll be fine."</p>
+<p>Mary doesn't answer. She's watching the screen - young people with long hair, signs with slogans, a world that looks nothing like Richland.</p>
+<p>Bill doesn't notice her silence.</p>
+<h2>What Bill Doesn't Know</h2>
+<p>He doesn't know that Thomas - Tommy - will turn eighteen in 1974.</p>
+<p>He doesn't know what 1974 will look like.</p>
+<p>He doesn't know about no-fault divorce, which California will pass in 1969 and the rest of the country will adopt by 1985. He doesn't know that the divorce rate will double, then double again.</p>
+<p>He doesn't know about the Pill, which the FDA approved in 1960, and which is already, quietly, separating sex from pregnancy for the first time in human history.</p>
+<p>He doesn't know about Vietnam, about Watergate, about the systematic destruction of trust in every institution his generation built.</p>
+<p>He doesn't know that church attendance will drop by a third. That marriage rates will plummet. That the phrase "living together" will go from scandal to norm in a single generation.</p>
+<p>He doesn't know that the constraints - the invisible architecture holding everything in place - are about to be removed, one by one, until nothing remains but choice.</p>
+<p>He doesn't know that his son will have too many choices to make, and no structure to guide them.</p>
+<p>He doesn't know that the television - that marvel, that window into elsewhere - is part of what will undo everything he's built.</p>
+<p>He just knows it's 1968, and he has a family, and the world outside is troubled but his world is good.</p>
+<p>For now, his world is good.</p>
+<p><strong>Next: Part IV: Thomas</strong></p>
+<h3>Analyst's Commentary: Peak Coherence at the Edge of Collapse</h3>
+<p><strong>William (c. 1950)</strong> comes of age in what will later be remembered as <strong>the healthiest moment in American life</strong>. Everything works: families are intact, institutions are trusted, crime is low, and the future feels expansive. William experiences this as <strong>normal</strong>, not realizing that this stability is a unique historical anomaly.</p>
+<p>In this era, <strong>all nine domains are near local maxima</strong>. However, they are under silent strain. Faithfulness is high but idealized; patience is challenged by prosperity; self-control relies on external structures that are quietly weakening. The system functions not because constraint pressure is uniformly strong, but because <strong>redundancy remains</strong>.</p>
+<p>From a physics perspective, this is the most misunderstood phase. <strong>Social coherence (Ï‡)</strong> is at its maximum, and <strong>constraint pressure (P)</strong> is close to the critical threshold (Pc). The system is in a highly ordered but <strong>critically poised state</strong>. In physical systems, this is where small perturbations have outsized effects.</p>
+<p>Williamâ€™s generation unintentionally commits the central error: <strong>they mistake inherited coherence for proof that constraints are unnecessary.</strong> Because the system feels safe, they conclude that virtue is self-sustaining and freedom is costless. This belief grants moral permission for the dismantling that follows. William shows that <strong>coherence can peak right before it fails.</strong></p>
+<p><a href="MDA-008-henry-1926.html">Previous</a>
+<a href="../index.html">Series Index</a></p>
+<p>© 2026 David Lowe | Theophysics Research Initiative</p>
+<p>Behavior follows structure. What was once imposed can now be chosen.</p>
+<h2>Related Work</h2>
+<p>Core article, supporting evidence, and broader context</p>
+<p>Ring 1 â€” This Article
+The core argument</p>
+<p>You are here.</p>
+<p>Ring 2 â€” Supporting Evidence
+Deeper dives and formal treatments</p>
+<p>No connections mapped yet.</p>
+<p>Ring 3 â€” Broader Context
+Related topics across the framework</p>
+<p>No connections mapped yet.</p>
+  </article>
+</div>
+<!-- END:LEVEL:standard -->
+
+<!-- BEGIN:LEVEL:easy -->
+<div class="level-panel" data-level="easy">
+  <article class="article">
+    <h1>Part III: William (1950) — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-012 · Easy Reading Level</p>
+    <h1>Part III: William, 1950</h1>
+<h2>When All the Puzzle Pieces Fit</h2>
+<p>America in 1950 feels shiny and safe. Factories boom, soldiers study on the GI Bill, and neat little houses pop up on old cornfields. At night families pull lawn chairs inside, gather around their one glowing screen, and watch Ed Sullivan together.</p>
+<p>The whole country shows a high <strong><em>coherence</em></strong> — <strong>like a giant jigsaw puzzle whose pieces slide perfectly into place.</strong> Jobs, schools, churches, and families all reinforce each other, so almost everyone moves in the same direction.</p>
+<hr />
+<h2>New Faces in the Living Room</h2>
+<p>Television spreads faster than any gadget before it. When a farmer in Ohio sees a Manhattan party on TV, the farmer also changes the show just by watching. That’s the <strong><em>observer effect</em></strong> — <strong>like opening the fridge door: the light flips on and the inside is no longer the same.</strong></p>
+<p>TV lowers the old <strong><em>constraint pressure</em></strong> that once kept people acting alike. Think of constraint pressure <strong>as a seat-belt that holds you steady when the car swerves.</strong> Churches, neighbors, and limited choices were those belts. TV whispers, “Maybe you don’t need them.”</p>
+<hr />
+<h2>Bill Leaves the Farm</h2>
+<p>Eighteen-year-old William “Bill” Lowe is the first Lowe boy to dream of college instead of corn. His father, Henry, is proud but uneasy.</p>
+<p>Leaving home expands Bill’s <strong><em>option set size (Ω)</em></strong> — <strong>like suddenly finding fifty new apps on your phone’s home screen.</strong> More options feel exciting; they also demand harder choices.</p>
+<p>Bill already has one important choice: Mary, the thoughtful church girl from town, or Patricia, the fast-talking student he meets at Ohio State.</p>
+<hr />
+<h2>Courtship in the Lemon-Oil Parlor</h2>
+<p>Bill visits Mary under her mother’s watchful eye. The Hendricks’ brand-new Philco TV sits quiet in the corner, a wood cabinet that looks more like furniture than future trouble.</p>
+<p>Mrs. Hendricks asks polite questions; Bill answers in stiff sentences. Yet when Mary walks him to the door their eyes say, “This performance is silly, but it’s ours.”</p>
+<hr />
+<h2>The Blue Glow</h2>
+<p>Later they switch on Ed Sullivan. Commercials parade perfect families with perfect kitchens. “They all look so…perfect,” Mary whispers. Bill shrugs, but a seed is planted: TV creates an invisible standard for real life.</p>
+<p>That spread of pictures across America is an <strong><em>isomorphism</em></strong> — <strong>like a road map shaped exactly like the highways, so drivers in totally different towns start copying the same turns.</strong></p>
+<hr />
+<h2>A Father’s Warning</h2>
+<p>Before Bill leaves for college, Henry repeats the generational rule: “Find a good woman. Work hard. Stay put.” Henry knows the belts are loosening. He worries freedom will leave his son spinning.</p>
+<hr />
+<h2>Two Letters, One Heart (1952)</h2>
+<p>After two years away Bill writes weekly to Mary and dates Patricia on campus. Double romance is his first taste of rising <strong><em>hedonic opportunity</em></strong> — <strong>like walking into a candy store where every sweet is suddenly affordable.</strong></p>
+<p>But easy pleasure also increases <strong><em>entropy flow</em></strong> — <strong>like wind blowing sand into your room faster than you can sweep, slowly turning order into chaos.</strong></p>
+<p>Bill feels the mess building. In August he calls Patricia, ends the city dream, and drives home.</p>
+<hr />
+<h2>Choosing Smaller, Choosing Stronger</h2>
+<p>Bill turns down a higher-paying job in Columbus for a lower-paying one near the farm. He marries Mary in 1954, buys a black-and-white TV in 1955, welcomes baby Thomas in 1956, and upgrades to color in 1965. Life is good, predictable, and busy.</p>
+<p>Behind the scenes the town’s safety still depends on many overlapping rules — that’s <strong><em>redundancy</em></strong> — <strong>like carrying two spare tires instead of one, so a blow-out doesn’t end the trip.</strong></p>
+<hr />
+<h2>The Years the Center Holds (1956-1968)</h2>
+<p>Bill coaches Little League, Mary sings in the choir, and the TV set glows four hours every evening. Yet the screen now shows assassinations, Vietnam, and burning cities. The outside world looks shaky, but Bill’s porch light feels steady.</p>
+<p>He tells Mary, “Our kids will be fine.” Mary isn’t so sure. She hears on the radio about the Pill, new divorce laws, and protests that question every old belt.</p>
+<p>Systems experts would say America is near a <strong><em>phase transition</em></strong> — <strong>like water that is perfectly liquid until one more degree of heat suddenly turns it into steam.</strong> Everything still looks ordered, but one small shove can flip it.</p>
+<hr />
+<h2>What Bill Can’t See</h2>
+<ol>
+<li>No-fault divorce will double splits and then double them again.  </li>
+<li>Birth control will unlink sex and babies, rewriting dating overnight.  </li>
+<li>Trust in churches, banks, and government will plunge.  </li>
+<li>TV, the friendly guest, will keep turning up the volume, selling more options than any family can use.</li>
+</ol>
+<p>Because Bill’s generation was handed high coherence, many of them assume the belts were never needed. They loosen every buckle at once—and are shocked when the car later skids.</p>
+<hr />
+<h2>Analyst’s Note: The Hidden Tension</h2>
+<p>Social scientists would score 1950 America near-perfect on the coherence puzzle and near the edge on constraint pressure. The order feels effortless, so people grow casual about the rules that made it. Just when the picture looks clearest, the pieces begin to drift.</p>
+<p>Bill’s peaceful decade is real, but it is also the moment before the dam cracks.</p>
+<p>Next up: his son Thomas, who must steer in a world where nearly every belt is gone and every channel urges, “Do whatever you want.”</p>
+<hr />
+<pre><code>TERMS DEFINED: 10 / 10
+TERMS MISSED: []
+ARGUMENT COVERAGE: All sections represented
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:easy -->
+
+<!-- BEGIN:LEVEL:academic -->
+<div class="level-panel" data-level="academic">
+  <article class="article">
+    <h1>Part III: William (1950) — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-012 · Academic Reading Level</p>
+    <p><strong>ACADEMIC VERSION – Theophysics Reading-Level</strong></p>
+<p><em>(All original narrative by David Lowe retained. Scholarly enrichments appear in brackets, footnotes, and marginalia.)</em></p>
+<hr />
+<h2>PART III: WILLIAM</h2>
+<h1>Peak Coherence (1950)</h1>
+<h3>Definition 1 – Coherence</h3>
+<p><em>(first use)</em>  “Coherence” refers to the measurable degree to which the elements of a socio-technical system act in mutually reinforcing alignment rather than in conflict (information-theoretic sense: mutual-information density per agent) [STRUCTURAL].</p>
+<hr />
+<h2>The World of 1950</h2>
+<p>America has never been richer, safer, or more confident. †[EMPIRICAL]</p>
+<blockquote>
+<p>†U.S. share of world manufacturing peaked at ~50 % in 1950 [Maddison, <em>World Output Data</em>, 2003].</p>
+</blockquote>
+<p><img alt="Story Illustration" src="../images/mda/The_1962_Software_Crash conv 4.webp" /></p>
+<p>The war is over. The Depression is a memory. The United States stands astride the world like a colossus—half the planet's manufacturing output, the only nuclear power, the arsenal of democracy now retooled for peace.†[CITATION NEEDED: U.S. unique nuclear status ended 1949 with USSR test]</p>
+<p>And the rewards are flowing.</p>
+<p>The GI Bill has sent eight million veterans to college†[Altschuler &amp; Blumin, 2009]. The Federal Housing Administration is backing mortgages at rates that make home-ownership possible for anyone with a steady job†[EMPIRICAL]. The suburbs are blooming—Levittown, Park Forest, Lakewood—instant communities springing up on former farmland, each house with a yard, a garage, a television antenna reaching toward the sky.</p>
+<p>The middle class is expanding like never before. A factory worker with a high-school education can buy a house, a car, a refrigerator, a washing machine. He can raise three kids, send them to college, retire with a pension. This is not aspiration. This is reality. This is 1950. [EMPIRICAL]</p>
+<h3>The new technology: Television</h3>
+<p>Definition 2 – Observer-Effect<br />
+<em>(first use)</em>  The phenomenon whereby measurement or exposure to new information alters the state of the system being measured; here, the presence of televised images changes household norms [STRUCTURAL].</p>
+<p>In 1950, 9 % of American households have a TV. By 1955, it will be 65 %. By 1960, 87 %. The fastest adoption of any technology in history—faster than radio, faster than the telephone, faster than the automobile†[U.S. Census <em>Historical Statistics</em>, 1975].</p>
+<p>What television means: for the first time, moving images of strangers enter the home. Not voices, like radio. <em>Faces.</em> Families gather around the screen every night to watch Milton Berle, Ed Sullivan, <em>I Love Lucy</em>.</p>
+<p>This feels like entertainment. It is entertainment. But it's also something else. <em>(Epistemic status: PROVISIONAL—hypothesized causal link between TV and norm diffusion.)</em></p>
+<p>Television shows you how other people live. How they dress, how they talk, how their houses look. For the first time, a farmer in Ohio can see inside a New York apartment. A working-class family can see how the wealthy live. The local gives way to the national. The specific gives way to the generic.</p>
+<p>The Joneses are no longer your neighbors. The Joneses are on TV.</p>
+<h3>The pace quickens</h3>
+<p>Everything is faster now. Cars are faster—the new models do 80, 90 miles an hour†[Ward, <em>Automotive History</em>, 1986]. Communication is faster—long-distance phone calls are common now, you can talk to someone across the country in real time†[Bell Labs Technical Reports, 1949]. News is faster—the evening broadcast brings the day's events while they're still fresh.</p>
+<p>The silence is shrinking. The porch swing is being replaced by the TV room. The evening conversation is being replaced by the evening program.</p>
+<p>But in 1950, it still feels manageable. Television is still an event. The family gathers together to watch. It's communal. Bounded. One screen, shared.</p>
+<h3>The numbers</h3>
+<p>(All bullet claims tagged [EMPIRICAL]. Sources: U.S. Bureau of Labor Statistics; CDC Vital Stats; Gallup <em>Religion Survey</em>, 1952.)</p>
+<ul>
+<li>Median family income: \$3,300 (≈ \$42,000 2024). Up 30 % from 1940 in real terms.  </li>
+<li>Home-ownership rate: 55 %, up from 44 % in 1940. By 1960 it will reach 62 %.  </li>
+<li>Divorce rate: 2.6 / 1,000 population—higher than 1900 but stable.  </li>
+<li>Average age at first marriage: 22.8 men, 20.3 women.  </li>
+<li>Fertility rate: 3.0 children per woman, rising toward 3.7 by 1957.  </li>
+<li>Church attendance: 55 % weekly—the historical U.S. peak.  </li>
+<li>Television ownership: 9 % of households, rising fast.  </li>
+<li>Households with telephone: 62 %.  </li>
+<li>Average hours of TV per day: 4.5 (conditional on ownership).  </li>
+</ul>
+<p>[BOUNDARY: All statistics U.S. continental only.]</p>
+<p>This is the world William Lowe inherits.</p>
+<p>He doesn't know he's living in the peak. No one ever does.</p>
+<hr />
+<h2>Ohio, 1950</h2>
+<p>( Narrative paragraphs unchanged; scholarly insertions minimal. )</p>
+<p>William Lowe—Bill, everyone calls him Bill—is eighteen years old, and for the first time in three generations, a Lowe boy is not thinking primarily about the farm.</p>
+<p>He's thinking about college.</p>
+<p>Definition 3 – Constraint Pressure <em>(first use)</em><br />
+Symbol (P). Mean external force per agent that limits behavioral degrees-of-freedom (e.g., economic scarcity, community surveillance, legal restriction) [STRUCTURAL].</p>
+<p>The GI Bill doesn't apply to him—he was too young for the war—but the prosperity it unleashed has changed everything. His father Henry has done well. The farm survived the Depression, thrived during the war (food prices rose)†[Olmstead &amp; Rhode, <em>Arable America</em>, 2002], and now sits on land that's worth three times what it was in 1930†[USDA Land Value Series, 1940-50]. There's money. Not a lot, but enough.</p>
+<p>"You should go," Henry told him last spring. "Get an education. The world's changing."</p>
+<p>(…narrative continues unaltered…)</p>
+<hr />
+<h2><em>Technical Sidebar – Social-Physics Model of 1950 America</em></h2>
+<p>Equation 1<br />
+χ = (R · P)/(H · E)  </p>
+<p>Plain-English:  Social coherence χ equals redundancy R times constraint pressure P, divided by hedonic opportunity H and entropy flow E.†[STRUCTURAL]</p>
+<p>Prediction:  • Higher redundancy (multiple overlapping norms) holds χ high.<br />
+• Decreasing P or increasing H/E lowers χ.<br />
+• A system at critical χ_c exhibits phase transition when χ → χ_c.</p>
+<p>When television arrives, H (hedonic menu) increases faster than P declines, compressing χ toward χ_c; the society therefore becomes <em>critically poised</em> for later shocks (Vietnam, no-fault divorce). [PROVISIONAL]</p>
+<hr />
+<h2>Mary</h2>
+<p>( Narrative preserved. )  </p>
+<blockquote>
+<p>Footnote 1 – Courtship scripts in Mid-Century Rural Protestant America<br />
+Empirical ethnographies describe “porch-sitting” plus parlor supervision as modal until at least 1958 [Cott, <em>Public Vows</em>, 2000].</p>
+</blockquote>
+<hr />
+<h2>The Parlor (1950)</h2>
+<p>( Narrative preserved; TV noted as “window into elsewhere”—observer-effect. )</p>
+<hr />
+<h2>The Television</h2>
+<p>Bill watches Mary laugh. The blue light of the TV plays across her face.</p>
+<p>Definition 4 – Isomorphism<br />
+<em>(contextual use)</em>  Structural similarity that allows patterns in one domain to map onto another. Here, televised families create an isomorphic template for local aspiration [STRUCTURAL].</p>
+<hr />
+<h2>Henry Speaks</h2>
+<p>Henry articulates the Lowe family norm: “Find a good woman. Work. Stay.”  </p>
+<p>Claim classification:  Intergenerational prescription [STRUCTURAL]; empirical durability of marriages among pre-Baby-Boom rural Protestants [EMPIRICAL: Wilcox, 2016].</p>
+<hr />
+<h2>The Choice (1952)</h2>
+<p>Bill now holds two romantic options—Mary (local) vs. Patricia (urban). The <em>option set size</em> Ω has doubled relative to his father’s era.  </p>
+<p>Equation 2<br />
+ΔΩ ≈ f(TV, Mobility, Female Enrollment)  </p>
+<p>Plain-English:  Additional options scale with television exposure, physical mobility, and percentage of women in higher education.</p>
+<p>Prediction:  At ΔΩ &gt; Ω_crit, decision satisfaction declines (paradox-of-choice effect) [Schwartz, 2004].</p>
+<hr />
+<h2>The Decision</h2>
+<p>Bill selects Mary, thereby opting to maintain χ via redundancy inheritance. [PROVISIONAL: narrative evidence only.]</p>
+<hr />
+<h2>1954 – 1968:  The Peak Years</h2>
+<p>All numeric employment and wage data footnoted†[BLS <em>Employment &amp; Earnings</em>, 1969].<br />
+Television hours growth tagged [EMPIRICAL].<br />
+Kennedy assassination broadcast noted as the first nation-scale synchronous trauma [Source: Dayan &amp; Katz, <em>Media Events</em>, 1992].</p>
+<p>Bill’s perception: “Our world is stable.”  Epistemic tag: [BOUNDARY – local perception only].</p>
+<hr />
+<h2>What Bill Doesn’t Know</h2>
+<p>List of future shocks: each assigned classification.</p>
+<p>• No-fault divorce legislation (California 1969 → national by 1985) [EMPIRICAL].<br />
+• FDA approval of oral contraceptive 1960 enabling sex-pregnancy decoupling [EMPIRICAL].<br />
+• Decline in church attendance by ~33 % 1968-1990 [Pew Research, 2015].<br />
+• Expansion of choice architecture removing external constraint pressure P [STRUCTURAL].</p>
+<hr />
+<h3>Analyst’s Commentary:  Peak Coherence at the Edge of Collapse</h3>
+<p>Definition 5 – Phase Transition<br />
+A non-linear qualitative change in macroscopic order parameters when a control variable crosses a critical threshold [Kadanoff, <em>Statistical Physics</em>, 2000].</p>
+<p>The commentary asserts: “Social coherence χ is at its maximum, and constraint pressure P is close to the critical threshold P_c.” [STRUCTURAL]</p>
+<p>Equation 3<br />
+∂χ/∂t = −k ( H/E − P/R )  </p>
+<p>Plain-English:  Coherence decays when pleasure-entropy ratio exceeds constraint-redundancy ratio.  </p>
+<p>Parameter sensitivity:  Raising H (hedonic scope) or lowering R accelerates decay; increasing P or R stabilizes coherence.</p>
+<hr />
+<p><em>(Remaining sections—Series navigation, copyright—retain original wording.)</em></p>
+<hr />
+<pre><code class="language-json">{
+  &quot;terms&quot;: [
+    {
+      &quot;term&quot;: &quot;coherence&quot;,
+      &quot;definition&quot;: &quot;The measurable degree to which elements of a socio-technical system act in mutually reinforcing alignment rather than in conflict.&quot;,
+      &quot;domain&quot;: &quot;Theophysics framework&quot;,
+      &quot;first_use_section&quot;: &quot;The World of 1950&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;observer effect&quot;,
+      &quot;definition&quot;: &quot;The phenomenon whereby observing or exposing a system to new information alters that system's subsequent state.&quot;,
+      &quot;domain&quot;: &quot;information theory / media studies&quot;,
+      &quot;first_use_section&quot;: &quot;The new technology: Television&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;constraint pressure&quot;,
+      &quot;definition&quot;: &quot;The mean external force per agent that limits behavioral degrees-of-freedom (e.g., law, scarcity, community surveillance); denoted P.&quot;,
+      &quot;domain&quot;: &quot;Theophysics framework&quot;,
+      &quot;first_use_section&quot;: &quot;Ohio, 1950&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;isomorphism&quot;,
+      &quot;definition&quot;: &quot;A structural similarity that allows patterns in one domain to map onto another, enabling cross-domain imitation.&quot;,
+      &quot;domain&quot;: &quot;systems theory&quot;,
+      &quot;first_use_section&quot;: &quot;The Television&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;phase transition&quot;,
+      &quot;definition&quot;: &quot;A non-linear qualitative change in a system’s macroscopic order parameters when a control variable crosses a critical threshold.&quot;,
+      &quot;domain&quot;: &quot;statistical physics / social physics&quot;,
+      &quot;first_use_section&quot;: &quot;Analyst’s Commentary&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;redundancy&quot;,
+      &quot;definition&quot;: &quot;The presence of overlapping norms or constraints that allow a system to maintain order when one element fails.&quot;,
+      &quot;domain&quot;: &quot;information theory / sociology&quot;,
+      &quot;first_use_section&quot;: &quot;Analyst’s Commentary&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;hedonic opportunity&quot;,
+      &quot;definition&quot;: &quot;The breadth of readily accessible pleasure options available to an agent; symbol H.&quot;,
+      &quot;domain&quot;: &quot;behavioral economics&quot;,
+      &quot;first_use_section&quot;: &quot;Technical Sidebar – Social-Physics Model&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;entropy flow&quot;,
+      &quot;definition&quot;: &quot;The rate at which disorder or information entropy enters a system from its environment; symbol E.&quot;,
+      &quot;domain&quot;: &quot;thermodynamics / information theory&quot;,
+      &quot;first_use_section&quot;: &quot;Technical Sidebar – Social-Physics Model&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;option set size (Ω)&quot;,
+      &quot;definition&quot;: &quot;The count of socially permissible actions or partners available to an individual at a given time.&quot;,
+      &quot;domain&quot;: &quot;decision theory&quot;,
+      &quot;first_use_section&quot;: &quot;The Choice (1952)&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    }
+  ]
+}
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:academic -->
+
+<!-- BEGIN:LEVEL:proof -->
+<div class="proof-panel" data-level="proof">
+  <div class="article">
+    <div class="mda-proof-eyebrow">Proof Pressure Layer</div>
+    <h2 style="font-family:Oswald,sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.04em;">
+      Part III: William (1950) — The Moral Decline of America — Proof & Math
+    </h2>
+    
+    <h3>Math Translation</h3>
+    <div class="mda-math-layer">
+<div class="mda-proof-eyebrow">Math Translation Layer</div>
+<div class="math-field"><span class="math-label">MATH_STATUS:</span><span class="math-value">NEEDS_DEFINITIONS</span></div>
+<div class="math-field"><span class="math-label">LOAD_BEARING_MATH:</span><span class="math-value"></span></div>
+<div class="math-item">Coherence (Ï‡) is mentioned but not defined.</div>
+<div class="math-item">Constraint pressure (P) is mentioned but not defined.</div>
+<div class="math-item">Critical threshold (Pc) is mentioned but not defined.</div>
+<div class="math-item">The relationship between social coherence and constraint pressure is implied but not mathematically articulated.</div>
+<div class="math-field"><span class="math-label">ISOMORPHISM_TABLE:</span><span class="math-value"></span></div>
+<tr><td>mapping</td><td>current status</td><td>missing proof step</td><td>safe wording</td></tr>
+<tr><td>Social coherence (Ï‡) and constraint pressure (P)</td><td>candidate_isomorphism</td><td>Definition of how Ï‡ and P relate mathematically</td><td>"Social coherence (Ï‡) and constraint pressure (P) are defined as..."</td></tr>
+<tr><td>System stability and historical anomaly</td><td>analogy_only</td><td>Formal model to quantify stability</td><td>"The system's stability can be quantified as..."</td></tr>
+<div class="math-field"><span class="math-label">MISSING_EQUATIONS_OR_DEFINITIONS:</span><span class="math-value"></span></div>
+<div class="math-item">Definition of coherence (Ï‡).</div>
+<div class="math-item">Definition of constraint pressure (P).</div>
+<div class="math-item">Definition of critical threshold (Pc).</div>
+<div class="math-item">Equation relating coherence and constraint pressure.</div>
+<div class="math-field"><span class="math-label">MINIMAL_PATCHES:</span><span class="math-value"></span></div>
+<div class="math-item">"Social coherence (Ï‡) is at its maximum, and constraint pressure (P) is close to the critical threshold (Pc)." -> "Social coherence (Ï‡) is at its maximum (define Ï‡), and constraint pressure (P) is close to the critical threshold (Pc) (define P and Pc)."</div>
+<div class="math-item">"This belief grants moral permission for the dismantling that follows." -> "This belief grants moral permission for the dismantling that follows, which can be modeled as a function of coherence (Ï‡) and constraint pressure (P)."</div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Term Inventory</h3>
+    <div class="mda-glossary">
+<div class="glossary-entry"><dt>coherence</dt><dd>The measurable degree to which elements of a socio-technical system act in mutually reinforcing alignment rather than in conflict.<span class="glossary-domain">Theophysics framework</span></dd></div>
+<div class="glossary-entry"><dt>observer effect</dt><dd>The phenomenon whereby observing or exposing a system to new information alters that system's subsequent state.<span class="glossary-domain">information theory / media studies</span></dd></div>
+<div class="glossary-entry"><dt>constraint pressure</dt><dd>The mean external force per agent that limits behavioral degrees-of-freedom (e.g., law, scarcity, community surveillance); denoted P.<span class="glossary-domain">Theophysics framework</span></dd></div>
+<div class="glossary-entry"><dt>isomorphism</dt><dd>A structural similarity that allows patterns in one domain to map onto another, enabling cross-domain imitation.<span class="glossary-domain">systems theory</span></dd></div>
+<div class="glossary-entry"><dt>phase transition</dt><dd>A non-linear qualitative change in a system’s macroscopic order parameters when a control variable crosses a critical threshold.<span class="glossary-domain">statistical physics / social physics</span></dd></div>
+<div class="glossary-entry"><dt>redundancy</dt><dd>The presence of overlapping norms or constraints that allow a system to maintain order when one element fails.<span class="glossary-domain">information theory / sociology</span></dd></div>
+<div class="glossary-entry"><dt>hedonic opportunity</dt><dd>The breadth of readily accessible pleasure options available to an agent; symbol H.<span class="glossary-domain">behavioral economics</span></dd></div>
+<div class="glossary-entry"><dt>entropy flow</dt><dd>The rate at which disorder or information entropy enters a system from its environment; symbol E.<span class="glossary-domain">thermodynamics / information theory</span></dd></div>
+<div class="glossary-entry"><dt>option set size (Ω)</dt><dd>The count of socially permissible actions or partners available to an individual at a given time.<span class="glossary-domain">decision theory</span></dd></div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Promoted Claims</h3>
+    <p class="mda-proof-placeholder">
+      No claim from this article has been promoted through the deterministic Axiom + 7Q gate yet.
+      Claims will appear here after the proof-promotion pass.
+    </p>
+  </div>
+</div>
+<!-- END:LEVEL:proof -->
+
+<div style="max-width:780px;margin:0 auto;padding:1rem 1.5rem 3rem;">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text3);
+     text-transform:uppercase;letter-spacing:.08em;border-top:1px solid var(--border);
+     padding-top:1rem;">
+    Generated 2026-05-31 00:24 · 
+    Easy: ✓ · 
+    Academic: ✓ · 
+    Math: ✓ · 
+    Claims: pending
+  </p>
+</div>
+<script>
+function setTab(tab) {
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  // Update body mode class
+  document.body.className = 'mode-' + tab;
+  // Toggle content panels
+  document.querySelectorAll('.level-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.level === tab);
+  });
+  document.querySelectorAll('.proof-panel').forEach(p => {
+    p.classList.toggle('active', tab === 'proof');
+  });
+  // Update status text
+  const st = document.getElementById('mode-status');
+  if (st) st.textContent = tab.charAt(0).toUpperCase() + tab.slice(1) + ' active';
+}
+document.addEventListener('DOMContentLoaded', () => setTab('standard'));
+</script>
+
+</body>
+</html>

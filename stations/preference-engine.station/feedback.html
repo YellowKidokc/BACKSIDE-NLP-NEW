@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BIL Quick Feedback</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', sans-serif; background: #1a1a2e; color: #e0e0e0; 
+       width: 420px; height: 340px; overflow: hidden; }
+.container { padding: 16px; }
+h1 { font-size: 16px; color: #7fdbca; margin-bottom: 12px; }
+.context { background: #16213e; border-radius: 8px; padding: 10px; margin-bottom: 12px;
+           font-size: 13px; max-height: 80px; overflow: hidden; border: 1px solid #2a2a4a; }
+.context .label { color: #888; font-size: 11px; }
+.context .value { color: #fff; margin-top: 2px; }
+.buttons { display: flex; gap: 12px; margin-bottom: 12px; }
+.btn { flex: 1; padding: 14px; border: none; border-radius: 8px; font-size: 18px;
+       cursor: pointer; transition: all 0.2s; }
+.btn-up { background: #1b4332; color: #52b788; }
+.btn-up:hover { background: #2d6a4f; transform: scale(1.05); }
+.btn-down { background: #3d0000; color: #e76f6f; }
+.btn-down:hover { background: #5c1010; transform: scale(1.05); }
+.btn-ss { background: #1a1a3e; color: #7fdbca; border: 1px solid #7fdbca; }
+.btn-ss:hover { background: #2a2a5e; }
+.note { width: 100%; padding: 8px; background: #16213e; border: 1px solid #2a2a4a;
+        border-radius: 6px; color: #fff; font-size: 13px; resize: none; height: 50px; }
+.status { font-size: 11px; color: #555; margin-top: 8px; text-align: center; }
+.status.ok { color: #52b788; }
+.row { display: flex; gap: 8px; margin-bottom: 8px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>&#9889; BIL Quick Feedback</h1>
+  <div class="context">
+    <div class="label">Current context (auto-detected):</div>
+    <div class="value" id="ctx">Loading...</div>
+  </div>
+  <div class="buttons">
+    <button class="btn btn-up" onclick="send(1.0)">&#128077; Valuable</button>
+    <button class="btn btn-down" onclick="send(0.0)">&#128078; Skip</button>
+  </div>
+  <div class="row">
+    <textarea class="note" id="note" placeholder="Optional note (what made this good/bad?)"></textarea>
+  </div>
+  <div class="row">
+    <button class="btn btn-ss" onclick="screenshot()" style="flex:1">&#128247; Screenshot + Log</button>
+  </div>
+  <div class="status" id="status">Ready — server at localhost:8420</div>
+</div>
+<script>
+const BIL = 'http://localhost:8420';
+let currentContext = {};
+
+async function detectContext() {
+  try {
+    const r = await fetch(BIL + '/bil/status');
+    const d = await r.json();
+    document.getElementById('ctx').textContent = 
+      `Models: ${Object.keys(d.models).map(m => m + '(' + d.models[m].event_count + ')').join(', ')}`;
+    currentContext = { source: 'manual_feedback', ts: new Date().toISOString() };
+  } catch(e) {
+    document.getElementById('ctx').textContent = 'Server offline — start BIL first';
+  }
+}
+
+async function send(signal) {
+  const note = document.getElementById('note').value;
+  const payload = {
+    features: {
+      source: 'manual_feedback',
+      hour: new Date().getHours(),
+      note_keywords: note.split(/\s+/).filter(w => w.length > 3),
+      has_note: note.length > 0
+    },
+    signal: signal
+  };
+  try {
+    // Send to both web and content models
+    await fetch(BIL + '/bil/web', { method: 'POST', 
+      headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+    await fetch(BIL + '/bil/clipboard', { method: 'POST',
+      headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+    const label = signal >= 0.5 ? 'LIKED' : 'SKIPPED';
+    document.getElementById('status').textContent = `✓ ${label} — logged at ${new Date().toLocaleTimeString()}`;
+    document.getElementById('status').className = 'status ok';
+    document.getElementById('note').value = '';
+  } catch(e) {
+    document.getElementById('status').textContent = '✗ Failed — is BIL server running?';
+  }
+}
+
+function screenshot() {
+  // For now, log that a screenshot was requested — AHK or mss handles actual capture
+  send(0.5);  // neutral signal with screenshot flag
+  document.getElementById('status').textContent = '📸 Screenshot logged — signal 0.5 (neutral until rated)';
+  document.getElementById('status').className = 'status ok';
+}
+
+detectContext();
+setInterval(detectContext, 30000);
+</script>
+</body>
+</html>

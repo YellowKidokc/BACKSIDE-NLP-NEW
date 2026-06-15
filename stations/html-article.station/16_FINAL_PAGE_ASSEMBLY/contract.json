@@ -1,0 +1,42 @@
+{
+  "lane_id": "16",
+  "lane_name": "Final Page Assembly",
+  "input": {
+    "requires": [
+      "11_HTML_RENDER/render-blocks.json",
+      "03_YAML_METADATA/frontmatter.yaml",
+      "13_LAYER_LEDGER/layer-ledger.json"
+    ],
+    "format": "assembled block registry with page metadata"
+  },
+  "output": {
+    "produces": [
+      "page-payload.json",
+      "page-outline.md",
+      "sample_output/article-assembly-preview.html"
+    ],
+    "format": "final page payload and preview HTML"
+  },
+  "loopback_conditions": [
+    "required block families missing from page assembly",
+    "page metadata conflicts with assembled content",
+    "audience-tier hooks missing for readability modes"
+  ],
+  "dependencies": {
+    "upstream_lanes": ["11", "13"],
+    "stations": ["readability-rewriter.station"],
+    "models": []
+  },
+  "excel_columns": {
+    "tab_name": "Page_Assembly",
+    "columns": [
+      {"name": "page_id", "type": "string"},
+      {"name": "title", "type": "string"},
+      {"name": "block_count", "type": "integer"},
+      {"name": "has_accessible_mode", "type": "boolean"},
+      {"name": "has_academic_mode", "type": "boolean"},
+      {"name": "assembly_status", "type": "enum:pending|passed|loopback|failed"}
+    ]
+  },
+  "confidence": "draft"
+}

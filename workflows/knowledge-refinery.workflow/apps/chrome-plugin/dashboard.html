@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BIL Preference Machine Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <main class="dashboard">
+    <header class="masthead">
+      <div>
+        <p class="eyebrow">Local preference engine</p>
+        <h1>BIL Preference Machine</h1>
+      </div>
+      <div class="toolbar">
+        <span id="serviceState" class="service-state checking">Checking</span>
+        <button id="refreshBtn" type="button">Refresh</button>
+      </div>
+    </header>
+
+    <section class="stats" aria-label="Summary metrics">
+      <article class="stat">
+        <span>Events</span>
+        <strong id="eventTotal">-</strong>
+        <small id="eventSub">observed</small>
+      </article>
+      <article class="stat">
+        <span>Clipboard</span>
+        <strong id="clipTotal">-</strong>
+        <small>items tracked</small>
+      </article>
+      <article class="stat">
+        <span>Search</span>
+        <strong id="searchAvg">-</strong>
+        <small>avg clicked rank</small>
+      </article>
+      <article class="stat">
+        <span>Models</span>
+        <strong id="modelTotal">-</strong>
+        <small>signal lanes</small>
+      </article>
+    </section>
+
+    <section class="grid">
+      <article class="panel span-2">
+        <div class="panel-head">
+          <h2>Domain Signal Ranking</h2>
+          <span>strongest browsing patterns</span>
+        </div>
+        <div id="domainScores" class="rows tall"></div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <h2>Positive Domains</h2>
+          <span>trusted lanes</span>
+        </div>
+        <div id="positiveDomains" class="rows"></div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <h2>Quick Bounce</h2>
+          <span>low-signal lanes</span>
+        </div>
+        <div id="bounceDomains" class="rows"></div>
+      </article>
+
+      <article class="panel span-2">
+        <div class="panel-head">
+          <h2>Recent Clipboard</h2>
+          <span>captured reuse signals</span>
+        </div>
+        <div id="clipboard" class="rows tall"></div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <h2>Keywords</h2>
+          <span>learned terms</span>
+        </div>
+        <div id="keywords" class="pills"></div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <h2>Search Queries</h2>
+          <span>recent intent</span>
+        </div>
+        <div id="queries" class="rows"></div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <h2>Score Candidate</h2>
+          <span>manual check</span>
+        </div>
+        <form id="scoreForm" class="score-form">
+          <label>URL <input id="candidateUrl" autocomplete="off"></label>
+          <label>Title <input id="candidateTitle" autocomplete="off"></label>
+          <label>Snippet <textarea id="candidateContent"></textarea></label>
+          <button type="submit">Score</button>
+        </form>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <h2>Decision</h2>
+          <span>returned by BIL</span>
+        </div>
+        <pre id="decisionOut">No candidate scored yet.</pre>
+      </article>
+    </section>
+  </main>
+  <script src="dashboard.js"></script>
+</body>
+</html>

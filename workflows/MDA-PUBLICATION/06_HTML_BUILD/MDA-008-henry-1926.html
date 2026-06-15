@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Part II: Henry (1926) — The Moral Decline of America — Moral Decline of America</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a;
+  --border:#2a2a2a; --border-claim:rgba(212,175,55,.35);
+  --text:#e0e0e0; --text2:#a0a0a0; --text3:#707070;
+  --mda-red:#dc2626; --mda-red-glow:rgba(220,38,38,.08);
+  --claim:#d4af37; --claim-glow:rgba(212,175,55,.08);
+  --easy:#22c55e; --easy-glow:rgba(34,197,94,.08);
+  --academic:#a78bfa; --academic-glow:rgba(167,139,250,.08);
+  --proof:#f59e0b; --proof-glow:rgba(245,158,11,.08);
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  line-height:1.65; margin:0; padding:0;
+}
+</style>
+<style>
+/* Reader Mode Bar */
+.mda-reader-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:.5rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;
+}
+.mda-reader-bar .series-badge{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mda-red);font-weight:600;
+}
+.mda-reader-bar .meta{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;
+  color:var(--text3);text-transform:uppercase;letter-spacing:.06em;
+}
+.tab-group{display:flex;gap:.4rem;flex-wrap:wrap;}
+.tab-btn{
+  padding:.4rem .7rem;border:1px solid var(--border);border-radius:.35rem;
+  background:var(--surface);color:var(--text2);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em;transition:all .2s;
+}
+.tab-btn:hover{border-color:var(--mda-red);color:var(--text);}
+.tab-btn.active{border-color:var(--mda-red);background:var(--mda-red-glow);color:var(--mda-red);}
+.tab-btn[data-tab="easy"].active{border-color:var(--easy);background:var(--easy-glow);color:var(--easy);}
+.tab-btn[data-tab="academic"].active{border-color:var(--academic);background:var(--academic-glow);color:var(--academic);}
+.tab-btn[data-tab="proof"].active{border-color:var(--proof);background:var(--proof-glow);color:var(--proof);}
+
+/* Article */
+.article{max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem;}
+.article h1{
+  font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.02em;
+  margin:0 0 .5rem;line-height:1.1;
+}
+.article .subtitle{
+  font-family:'Crimson Text',serif;font-size:1.15rem;color:var(--text2);
+  font-style:italic;margin:0 0 2rem;line-height:1.5;
+}
+.article h2{
+  font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:#fff;
+  text-transform:uppercase;letter-spacing:.04em;margin:2.5rem 0 1rem;
+  border-bottom:1px solid var(--border);padding-bottom:.4rem;
+}
+.article h3{font-family:'Crimson Text',serif;font-size:1.15rem;font-weight:600;color:var(--mda-red);margin:1.5rem 0 .5rem;}
+.article p{font-size:1.02rem;line-height:1.75;margin:0 0 1.25rem;}
+.article blockquote{
+  border-left:3px solid var(--mda-red);background:var(--mda-red-glow);
+  padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 .4rem .4rem 0;
+  font-family:'Crimson Text',serif;font-style:italic;color:var(--text2);
+}
+.article img{max-width:100%;border-radius:.4rem;margin:1rem 0;}
+.mda-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
+.mda-table td{padding:.4rem .6rem;border:1px solid var(--border);color:var(--text2);}
+.mda-table tr:first-child td{font-weight:600;color:var(--text);background:var(--surface);}
+
+/* Reading level panels */
+.level-panel{display:none;}
+.level-panel.active{display:block;}
+
+/* Proof panel */
+.proof-panel{display:none;max-width:780px;margin:0 auto;padding:1.5rem;}
+.proof-panel.active{display:block;}
+.mda-proof-eyebrow{
+  font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--proof);margin-bottom:.6rem;
+}
+.math-field{display:flex;gap:.5rem;margin:.4rem 0;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.math-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--proof);font-weight:600;min-width:180px;}
+.math-value{font-size:.85rem;color:var(--text2);}
+.math-item{font-size:.85rem;color:var(--text);padding:.2rem 0 .2rem 1rem;border-left:2px solid var(--border);margin:.3rem 0;}
+.mda-proof-placeholder{color:var(--text3);font-style:italic;font-size:.9rem;}
+
+/* Glossary */
+.mda-glossary{columns:1;}
+.glossary-entry{break-inside:avoid;margin-bottom:.8rem;}
+.glossary-entry dt{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--academic);font-weight:600;}
+.glossary-entry dd{font-size:.85rem;color:var(--text2);margin:0 0 0 .5rem;}
+.glossary-domain{font-size:.65rem;color:var(--text3);margin-left:.5rem;font-style:italic;}
+
+/* Easy level overrides */
+body.mode-easy .article p{font-size:1.15rem;line-height:1.85;}
+body.mode-easy .article h3{font-size:1.3rem;color:var(--easy);font-family:'Oswald',sans-serif;}
+body.mode-easy .article blockquote{border-left-color:var(--easy);background:var(--easy-glow);font-style:normal;}
+/* Academic level overrides */
+body.mode-academic .article p{font-size:.95rem;line-height:1.65;color:#d0d0d0;}
+body.mode-academic .article h3{font-size:1.1rem;color:var(--academic);font-family:'Crimson Text',serif;font-style:italic;}
+body.mode-academic .article blockquote{border-left-color:var(--academic);background:var(--academic-glow);}
+
+@media(max-width:640px){
+  .article{padding:1.5rem 1rem 4rem;}
+  .mda-reader-bar{padding:.4rem 1rem;}
+}
+</style>
+</head>
+<body class="mode-standard">
+
+<!-- BEGIN:COMPONENT:reader-mode:reader-mode-bar -->
+<div class="mda-reader-bar">
+  <div>
+    <span class="series-badge">Moral Decline of America</span>
+    <span class="meta">MDA-008</span>
+    <span class="meta" id="mode-status">Standard active</span>
+  </div>
+  <div class="tab-group">
+    <button class="tab-btn" data-tab="easy" onclick="setTab('easy')">Easy</button>
+    <button class="tab-btn active" data-tab="standard" onclick="setTab('standard')">Standard</button>
+    <button class="tab-btn" data-tab="academic" onclick="setTab('academic')">Academic</button>
+    <button class="tab-btn" data-tab="proof" onclick="setTab('proof')">Proof</button>
+  </div>
+</div>
+<!-- END:COMPONENT:reader-mode:reader-mode-bar -->
+
+<!-- BEGIN:LEVEL:standard -->
+<div class="level-panel active" data-level="standard">
+  <article class="article">
+    <h1>Part II: Henry (1926) — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-008 · David Lowe · Theophysics Institute</p>
+    <p>Moral Decline of America</p>
+<p><a href="../../index.html">THEOPHYSICS</a><a href="../index.html">Moral Decline</a>Part II: Henry</p>
+<h2>PART II: HENRY</h2>
+<h1>The Builder (1926)</h1>
+<h2>The World of 1926</h2>
+<p>America is unrecognizable from Samuel's youth - and yet, strangely, the same.</p>
+<p><img alt="Story Illustration" src="../images/mda/The_Observer_Collapsed conv 13.webp" /></p>
+<p>The population has swelled to 117 million, up from 76 million in 1900. Cities have exploded. New York has six million people. Chicago has three. Cleveland, forty miles from the Lowe farm, has grown from 380,000 to over 900,000.</p>
+<p>But rural Ohio is still rural Ohio. The transformation has begun, but it hasn't completed.</p>
+<p><strong>The arrival of speed:</strong></p>
+<p>The automobile has come. There are twenty million cars on American roads now, up from eight thousand in 1900. Samuel bought a used Model T in 1922, and it sits in the barn next to the horse. He uses both, depending on the weather and his mood. The car is faster. The horse is more reliable.</p>
+<p>What the car means: distance has begun to collapse. A trip to Cleveland - forty miles - used to be an expedition, an overnight journey. Now it's two hours. The world is getting closer.</p>
+<p>But in 1926, most roads are still unpaved. The car is a tool, not yet an environment. Henry still walks more than he drives. The horse is still the default.</p>
+<p><strong>The arrival of voices:</strong></p>
+<p>Electricity reached the Lowe farm in 1924. For the first time, they can see after dark without fire. The kerosene lamps sit unused. The house feels different at night - brighter, but somehow less intimate. The darkness that forced the family together has been pushed back.</p>
+<p>And then: radio.</p>
+<p>Samuel bought a Radiola in 1924 - $35, a small fortune. The family gathers around it in the evenings now, listening to music and news from Cleveland, from Chicago, from places they've never seen.</p>
+<p>This is the first intrusion. The first outside voice entering the home.</p>
+<p>Henry doesn't experience it as intrusion. He experiences it as marvel. You can hear a man talking in New York. You can hear an orchestra playing in Chicago. The world is in your living room.</p>
+<p>But something subtle has shifted. The silence is gone. The complete isolation of Samuel's youth - the world contained within a five-mile radius - has been breached. Other voices are possible now. Other lives. Other ways of being.</p>
+<p>The Lowes listen to the radio for maybe an hour a night. They listen together, as a family. It's still communal. Still bounded.</p>
+<p>But the door has opened.</p>
+<p><strong>The numbers:</strong></p>
+<ul>
+<li>-Divorce rate: 1.6 per 1,000 population. More than doubled since 1900 - but from a tiny base. Still rare. Still shameful. Still social death in a small town.</li>
+<li>-Average age at first marriage: 24.3 for men, 21.2 for women. Barely changed.</li>
+<li>-Fertility rate: 2.6 children per woman. Declining from 3.5 in 1900 - but this is choice, not collapse.</li>
+<li>-Church attendance: Still near universal in rural America. The church is still the center.</li>
+<li>-Life expectancy: 56 years, up from 47. Medicine is improving.</li>
+<li>-Households with radio: 35% (up from 0% in 1920). The fastest adoption of any technology in history.</li>
+<li>-Households with telephone: 35% (rural areas much lower).</li>
+<li>-Automobiles in America: 20 million.</li>
+</ul>
+<p>The world is changing. But in Richland, Ohio, in 1926, an eighteen-year-old boy still faces the same fundamental questions his father faced.</p>
+<p><em>Can you provide? Do you go to church? Will you stay?</em></p>
+<h2>Ohio, 1926</h2>
+<p>Henry Lowe is eighteen years old, and he's trying to figure out what to do with his hands.</p>
+<p>He's standing in the Mercer parlor - a nicer parlor than his family's, with electric lights and a new radio cabinet in the corner - waiting for Dorothy Mercer to come downstairs. Her mother is watching him from the settee, embroidering something, not even pretending not to evaluate him.</p>
+<p>He settles for clasping his hands behind his back. Then in front. Then behind again.</p>
+<p>The radio is off - you don't have it on when company is visiting. That would be rude. But Henry is aware of it, this mahogany box in the corner that brings the world into the room. The Mercers are modern. They have things.</p>
+<p>He's wearing his good suit, the one his mother made him for Easter two years ago. It's getting tight in the shoulders. He's been working the farm since he was twelve, and it shows - broad back, thick forearms, hands that don't know how to be idle.</p>
+<p>Dorothy appears on the stairs.</p>
+<p>She's seventeen, fair-haired, prettier than she has any right to be. Henry has known her since childhood - her family's farm is three miles east, and they've been in the same church since before he can remember. He's watched her sing in the choir for ten years. Last summer, at the church picnic, she laughed at something he said, and he felt something shift in his chest, and he hasn't been able to stop thinking about her since.</p>
+<p>"Good evening, Henry," she says.</p>
+<p>"Evening, Dorothy."</p>
+<p>Her mother clears her throat. "You'll have her home by nine, Henry."</p>
+<p>"Yes ma'am."</p>
+<p>"The Pattersons' barn dance ends at eight-thirty. That gives you time."</p>
+<p>"Yes ma'am."</p>
+<p>This is how it works. Still. In 1926, in Richland, Ohio, a boy takes a girl to a church-sponsored event, under the supervision of the community, with a curfew set by her mother.</p>
+<p>There are other ways now, Henry knows. He's heard about them on the radio. In Cleveland, young people go to dance halls, unsupervised. They drink illegal liquor (Prohibition is in full swing, but everyone knows it's a joke). They do things in automobiles that Henry has heard about and thought about and tried not to think about.</p>
+<p>But this is not Cleveland. And Henry is not that kind of man.</p>
+<h2>The Drive</h2>
+<p>They take the Model T. Henry cranks it to life - still no electric starter on this model - and they putter down the dirt road toward the Patterson place at twenty miles an hour.</p>
+<p>The car changes things.</p>
+<p>His father courted his mother on foot. Six miles each way. Hours of walking. By the time you got there, you'd had time to think about what you wanted to say. By the time you got home, you'd had time to think about what she'd said.</p>
+<p>Henry covers three miles in ten minutes. The compression of time is strange. He hasn't figured out what to do with it yet.</p>
+<p>"Did you hear the program last night?" Dorothy asks. "Amos 'n' Andy?"</p>
+<p>"Some of it. Pa wanted to listen to the farm report."</p>
+<p>"It's so funny. I can't believe you can hear people talking in Chicago, just sitting in your parlor."</p>
+<p>"It's something, alright."</p>
+<p>They drive in silence for a moment. The engine rattles. The road is rough.</p>
+<p>"Do you ever think about going there?" Dorothy asks. "To Chicago, I mean. Or Cleveland. Somewhere bigger."</p>
+<p>Henry keeps his eyes on the road. "Not really. Everything I want is here."</p>
+<p>He doesn't look at her when he says it, but he can feel her smile.</p>
+<h2>The Options</h2>
+<p>Henry's world is larger than his father's was - and he knows it.</p>
+<p>The radio tells him about New York, about Hollywood, about a world beyond the farm. The Model T means he could, theoretically, drive to Cleveland in two hours. Young men from Richland have done it - gone to the city, taken factory jobs, sent money home. Some have done well. Some have disappeared.</p>
+<p>Henry has <em>options</em> his father didn't have. He can imagine leaving, because leaving is now imaginable. The technology has made it possible.</p>
+<p>But he doesn't feel trapped by staying. Not exactly.</p>
+<p>He loves the land. He loves the smell of it after rain, the way the corn comes up in June, the satisfaction of a field plowed straight. His father has taught him everything - when to plant, when to harvest, how to read the sky, how to fix what breaks.</p>
+<p>And there's Dorothy.</p>
+<p>If he leaves, he loses her. Her family won't let her marry a man who runs off to the city. And even if they would - he doesn't want to raise children in Cleveland. He's seen the photographs in the newspaper, the crowded streets, the tenements stacked to the sky. That's no place for a family.</p>
+<p>So he stays. Not because he can't leave. Because he chooses not to.</p>
+<p>This feels different from his father's life. It feels like freedom.</p>
+<p>It's not - not entirely. The constraints are still there, still shaping his choices in ways he can't see. But the <em>feeling</em> of freedom matters. Henry doesn't resent his path. He walks it willingly.</p>
+<h2>Samuel Speaks</h2>
+<p>It's October 1926. Henry and his father are repairing the fence along the north pasture, working in companionable silence. Samuel is forty-four now, still strong, though his hair has gone gray and his knees ache in the mornings.</p>
+<p>The radio sits silent in the house. Out here, there's just the wind, the creak of the fence posts, the rhythm of work.</p>
+<p>Henry has been courting Dorothy for four months. Everyone knows. In a town like Richland, everyone always knows.</p>
+<p>"You're serious about the Mercer girl," Samuel says. It's not a question.</p>
+<p>"Yes sir."</p>
+<p>Samuel drives another post into the ground, three solid strikes. "You ready?"</p>
+<p>Henry hesitates. "I think so."</p>
+<p>"Thinking isn't the same as knowing."</p>
+<p>"No sir."</p>
+<p>Samuel leans on the post driver, catching his breath. He looks out over the fields - the same fields his father Amos worked, the same fields he's worked for twenty years.</p>
+<p>"I was twenty-three when I married your mother," he says. "Had four years of wages saved. Wasn't much, but it was enough to show her father I was serious."</p>
+<p>Henry nods. He's heard pieces of this before, but never the whole thing.</p>
+<p>"I knew her from church," Samuel continues. "Knew her family. There were maybe six girls I could've married, realistically. She was the one I wanted."</p>
+<p>"Only six?"</p>
+<p>Samuel looks at him. "How many could you marry? Realistically?"</p>
+<p>Henry thinks about it. The families in Richland. The families in the neighboring towns. The ones his family respects and is respected by. The ones with daughters the right age. The car has extended his range - he could court a girl from Mansfield now, if he wanted to.</p>
+<p>"Maybe... ten? Twelve?"</p>
+<p>"More than I had. Cars help. Roads are better." Samuel shrugs. "But it's still not a hundred. Still not a thousand. You still have to pick from who's there."</p>
+<p>"I know."</p>
+<p>"Do you?" Samuel straightens up, fixes his son with a look. "I hear about the city on that radio. The dance halls. Girls who'll... who don't expect marriage. You've heard about it too, I imagine."</p>
+<p>Henry's neck warms. "Yes sir."</p>
+<p>"Is that what you want?"</p>
+<p><img alt="Story Illustration" src="../images/mda/The_Observer_Collapsed conv 7.webp" /></p>
+<p>"No sir."</p>
+<p>"Why not?"</p>
+<p>The question surprises Henry. His father isn't usually this direct.</p>
+<p>"Because..." He thinks about it. "Because that's not a life. That's just... motion. I want what you have. What you and Ma have."</p>
+<p>Samuel nods slowly. "Your grandfather told me something once. He said: 'Find a good woman. Work. Stay.' Three things. Doesn't sound like much. But he did it for forty years, and I've done it for twenty-one, and if you do it, that's three generations of men keeping their word."</p>
+<p>"I understand."</p>
+<p>"Do you? Because it's going to get harder. I can feel it. The world is speeding up. That radio, the cars, the cities pulling people away. It's going to get harder to stay."</p>
+<p>Henry doesn't know what to say. He can feel it too - the pull, the possibility, the whisper that there's something else out there. The voice from Chicago saying <em>come, come, there's more</em>.</p>
+<p>But he also knows what he wants.</p>
+<p>"I'll stay," he says.</p>
+<p>Samuel holds his gaze for a long moment. Then he nods, picks up the post driver, and goes back to work.</p>
+<p>"See that you do."</p>
+<h2>The Virtues Formed</h2>
+<p>Henry doesn't know it, but his life is forming him.</p>
+<p><strong>Patience</strong>: He waits four months before speaking seriously to Dorothy. He waits two years before proposing. He cannot rush the crops, cannot rush the seasons, cannot rush anything. And so he learns not to rush.</p>
+<p><strong>Faithfulness</strong>: He commits to Dorothy before he fully knows her, and then spends a lifetime learning her. The commitment comes first. The knowledge follows.</p>
+<p><strong>Self-control</strong>: There are things he wants that he doesn't take. Moments in the car when he could push further. He doesn't. Not because he's a saint, but because the costs are too high and the structure is too strong.</p>
+<p><strong>Kindness</strong>: He is embedded in a web of relationships where cruelty has consequences. He cannot be unkind to his neighbors and then avoid them. He sees them every Sunday. Every harvest. Every funeral.</p>
+<p><strong>Goodness</strong>: He does what is expected. He keeps his word. He shows up. Not for praise - there is no audience beyond the community - but because that's what a man does.</p>
+<p>These virtues are not chosen. They are <em>imposed</em> by the structure of his life. He lives in a world where patience is required, where faithfulness is expected, where the costs of failure are high and visible.</p>
+<p>He doesn't feel virtuous. He just feels <em>normal</em>.</p>
+<h2>1929</h2>
+<p>Henry marries Dorothy Mercer in June 1929. He's twenty-one. She's twenty.</p>
+<p>The wedding is at the Methodist church - the same church where they both were baptized, where they sat in adjacent pews as children, where Henry watched her sing in the choir and felt something shift.</p>
+<p>The whole town comes. Both families, all the neighbors, the pastor who's known them since birth. There are no strangers. Everyone can see everyone.</p>
+<p>They move into a small house Henry built on the corner of his father's property - Samuel gave him two acres as a wedding present. Not enough to farm seriously, but enough for a garden, a few chickens, a start.</p>
+<p>Henry works his father's land and takes odd jobs in town. Dorothy keeps the house, learns to cook from Henry's mother, starts attending the women's circle at church.</p>
+<p>They have a radio. They listen to it together in the evenings, sitting close, her hand in his. The voices from far away enter their home, but they enter <em>together</em>. The technology is shared.</p>
+<p>It's a small life. A bounded life.</p>
+<p>They're happy.</p>
+<h2>1930: The Crash</h2>
+<p>The crash comes in October 1929, but it takes time to reach Richland.</p>
+<p>At first, it's just voices on the radio - banks failing in New York, bread lines in Chicago, things that happen to other people in other places. Samuel shakes his head and says, "That's what you get for gambling," and goes out to check the livestock.</p>
+<p>But by 1930, the prices have collapsed.</p>
+<p>Corn that sold for eighty cents a bushel in 1928 sells for thirty-two cents in 1930. It will drop to nineteen cents by 1932. You can grow a field of corn and lose money doing it.</p>
+<p>The Lowes don't lose the farm. They're careful, debt-averse, self-sufficient in ways that will seem quaint to their grandchildren. They have chickens, a vegetable garden, a root cellar stocked with preserves. They don't starve.</p>
+<p>But they don't prosper either. Henry's odd jobs dry up. The new house needs a new roof, and they can't afford it. Dorothy learns to patch clothes instead of replacing them, to make soup from scraps, to find uses for everything and waste nothing.</p>
+<p>The radio brings bad news every night. After a while, they stop listening. What's the point? The news from the cities is all despair, and they can't do anything about it.</p>
+<p>They turn it off and sit in silence instead. The silence feels better, somehow. Truer.</p>
+<p>"This is when you find out who you are," Samuel tells Henry in the winter of 1931. "Anyone can stay when times are good."</p>
+<h2>1932</h2>
+<p>Their son is born in February 1932, in the depths of the Depression.</p>
+<p>The birth happens at home - no money for a hospital, not that there's one nearby anyway. Dorothy's mother assists. It takes eleven hours. Henry paces in the kitchen, useless, terrified, praying to a God he hopes is listening.</p>
+<p>The boy arrives just after dawn, small and wrinkled and wailing.</p>
+<p>Henry holds him by the window, watching the sun rise over fields that may not be worth farming this year. The world feels precarious. Everything his father built, everything his grandfather built - it could all disappear. Men are losing farms that have been in their families for generations. The radio says so, when they turn it on.</p>
+<p>But also: his wife, alive and exhausted and smiling. His parents, standing in the doorway. The house he built with his own hands. The continuity of it - Amos to Samuel to Henry to this boy.</p>
+<p>"What will you name him?" Dorothy asks.</p>
+<p>Henry looks at his father.</p>
+<p>"William," he says. "After your grandfather."</p>
+<p>Samuel nods. His eyes are wet, though he'd never admit it.</p>
+<h2>What Henry Passes Down</h2>
+<p>Henry holds his son and thinks about what he'll teach him.</p>
+<p>The world is falling apart. The banks have failed. The prices have collapsed. Men are riding freight trains looking for work, and families are losing farms that have been in their names for generations.</p>
+<p>But the Lowes are still here. The marriage is holding. The family is holding. The church is still there, the neighbors are still there, the structure of life is battered but intact.</p>
+<p><em>Find a good woman. Work. Stay.</em></p>
+<p>Three generations now. Amos. Samuel. Henry.</p>
+<p>He looks at the baby in his arms.</p>
+<p><em>Your turn soon enough.</em></p>
+<h2>The War Years (1941-1945)</h2>
+<p>Henry is thirty-three when Pearl Harbor is bombed. Too old to be drafted in the first wave, too essential to the farm to volunteer easily. But the war touches Richland anyway.</p>
+<p>The young men leave. The Patterson boys, both of them. The Miller kid from the next farm over. Dorothy's younger brother, James, enlists the day after Christmas 1941.</p>
+<p>James doesn't come home. Killed at Anzio in 1944. Dorothy cries for a week, then stops, then never speaks of it.</p>
+<p>The war is everywhere now - on the radio, in the newspapers, in the empty chairs at church. Technology has brought distant violence into the living room. For the first time, Americans experience war not as something that happens far away, but as something that happens <em>to them</em>, nightly, through the voices on the radio.</p>
+<p>Henry is grateful for what he has. The farm. The family. The fact that he's here, repairing fences and watching his son grow, while other men are dying on beaches ten thousand miles away.</p>
+<p>William is nine when the war starts, thirteen when it ends. He doesn't understand it - not really. But he sees the gold stars in windows, the empty chairs at church, the way his mother goes quiet when the mail arrives. He learns something about the fragility of life, even if he can't name it yet.</p>
+<p>"We're lucky," Henry tells him one evening in 1945, as they listen to the radio announce the surrender. "Don't ever forget that we're lucky."</p>
+<h2>What Henry Doesn't Know</h2>
+<p>He doesn't know that the world his son is about to inherit will be the peak.</p>
+<p>The 1950s will bring prosperity unlike anything America has seen. The GI Bill will send millions to college. The suburbs will bloom. Television will arrive, and with it a vision of middle-class life that looks, for a moment, like it might last forever.</p>
+<p>He doesn't know that television will change everything. That it will bring strangers into the home not for an hour a night, but for four hours, five hours, six. That his grandchildren will grow up watching more TV than talking to their parents.</p>
+<p>He doesn't know that the technology will keep accelerating - TV to cable to internet to smartphone - until there is no silence left, no stillness, no time to sit on a porch and watch the stars come out.</p>
+<p>He doesn't know that his grandson will carry a device in his pocket that contains all the information in the world, and that this device will make him less patient, less faithful, less connected than Henry ever was.</p>
+<p>He just knows it's 1945, and the war is over, and his son is thirteen, and the farm is still here, and that's enough.</p>
+<p>For now, it's enough.</p>
+<p><strong>Next: Part III: William</strong></p>
+<h3>Analyst's Commentary: Constraint Begins to Decay, Coherence Persists</h3>
+<p><strong>Henry (c. 1926)</strong> inherits a world that still looks ordered, but is no longer "tight." Mobility has increased, markets are larger, and media (via radio) introduces distant influences. Authority is no longer purely local, and options begin to multiply.</p>
+<p>Importantly, <strong>nothing appears broken.</strong> Henry works, marries, raises children, attends church, and participates in community life. From the inside, this still feels like Samuelâ€™s world â€” only faster, brighter, and more optimistic. But this is the crucial point: Henry experiences stability without understanding that the system has already changed.</p>
+<p>The critical shift in Henryâ€™s era is not collapse, but <strong>thinning</strong>. The strongest constraint erosions occur in <strong>patience</strong> (time horizons shorten subtly), <strong>goodness</strong> (norm adherence becomes less internalized), and <strong>faithfulness</strong> (still present, but less costly to violate). These are not moral failures; they are structural relaxations. Constraints are still there, but enforcement is weaker.</p>
+<p>From a coherence perspective, <strong>constraint pressure</strong> has begun to decline but is still sufficient to maintain order. This is the regime of <strong>latent instability</strong>. The system becomes sensitive to small perturbations, creating the "lag illusion": people conclude constraints are unnecessary because coherence remains high, misattributing order to virtue rather than structure.</p>
+<p>Henry shows <strong>how coherence fools you before it fails.</strong> This generation makes the later collapse psychologically possible.</p>
+<p><a href="MDA-002-samuel-1900.html">Previous</a>
+<a href="../index.html">Series Index</a></p>
+<p>© 2026 David Lowe | Theophysics Research Initiative</p>
+<p>Behavior follows structure. What was once imposed can now be chosen.</p>
+<h2>Related Work</h2>
+<p>Core article, supporting evidence, and broader context</p>
+<p>Ring 1 â€” This Article
+The core argument</p>
+<p>You are here.</p>
+<p>Ring 2 â€” Supporting Evidence
+Deeper dives and formal treatments</p>
+<p>No connections mapped yet.</p>
+<p>Ring 3 â€” Broader Context
+Related topics across the framework</p>
+<p>No connections mapped yet.</p>
+  </article>
+</div>
+<!-- END:LEVEL:standard -->
+
+<!-- BEGIN:LEVEL:easy -->
+<div class="level-panel" data-level="easy">
+  <article class="article">
+    <h1>Part II: Henry (1926) — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-008 · Easy Reading Level</p>
+    <h1>Part II: Henry — America Starts to Speed Up</h1>
+<h2>A World Beginning to Move</h2>
+<p>In 1926 America is growing fast.<br />
+Cities double in size, twenty million cars crowd the roads, and one‐third of homes already own a radio.<br />
+Yet Richland, Ohio still smells of cut hay and wood smoke.<br />
+Old and new sit side by side—the horse in one stall, the Model T in the other.</p>
+<p><strong>The car shrinks distance.</strong><br />
+A forty-mile trip that once meant an overnight stay now fits inside a morning.<br />
+But most roads stay muddy, so walking and wagons still matter.  </p>
+<p><strong>The radio stretches imagination.</strong><br />
+Music from Chicago drifts into kitchens.<br />
+Strangers’ jokes float across cornfields.<br />
+The Lowes listen together for one hour, then turn the dial to silence.<br />
+The door to other lives has opened, but only a crack.</p>
+<h2>Henry in the Mercer Parlor</h2>
+<p>Henry Lowe is eighteen and waiting for Dorothy Mercer to descend the stairs.<br />
+His homemade suit pinches his shoulders; his hands keep looking for work to do.<br />
+Dorothy’s mother watches him like a hawk with embroidery needles.</p>
+<p>This is courtship, 1926 style.<br />
+A church barn dance, a nine-o’clock curfew, and everyone in town will know if the rules bend.</p>
+<h2>The Drive to the Dance</h2>
+<p>Henry cranks the Ford, and they rattle toward the Patterson farm at twenty miles an hour.<br />
+A Model T feels like flight compared with his father’s long walks.<br />
+Time once spent thinking during a six-mile hike now lasts ten minutes on dusty wheels.<br />
+Conversation must hurry to keep up.</p>
+<p>Dorothy asks, “Do you ever dream of Chicago?”<br />
+Henry answers, “Everything I want is here,” and means her.</p>
+<h2>More Doors Than Before</h2>
+<p>The radio lists factory jobs in Cleveland.<br />
+The car makes the trip believable.<br />
+Unlike Samuel—who could leave only by train—Henry really could vanish into a city.<br />
+He stays because he loves soil, family, and Dorothy, not because he lacks exits.<br />
+That new feeling of choice matters; it tastes like freedom even when you don’t use it.</p>
+<h2>A Field-Side Talk with Dad</h2>
+<p>Samuel and Henry repair fence posts while autumn wind whips the grass.</p>
+<p>Samuel finally says, “You’re serious about the Mercer girl. Are you ready?”</p>
+<p>Henry thinks he is.</p>
+<p>Samuel answers with his father’s rule: “Find a good woman. Work. Stay.”<br />
+Three verbs, one life.<br />
+He warns, “The world is speeding up. Cars and radios will tug you away. Staying will get harder.”<br />
+Henry promises he will stay.<br />
+The hammering resumes.</p>
+<h2>Virtues Baked Into Routine</h2>
+<p>Patience grows when a seed needs months, not minutes.<br />
+Faithfulness forms when everyone sees everyone, every Sunday.<br />
+Self-control clicks when a moment alone in a car can still cost a reputation.<br />
+Kindness follows when cruel words echo back at the feed store next morning.<br />
+Henry never calls these things “virtues.”<br />
+They are simply the price of belonging.</p>
+<h2>Wedding Bells, June 1929</h2>
+<p>Henry, twenty-one, marries Dorothy, twenty.<br />
+The Methodist church overflows with faces they have known since birth.<br />
+Samuel gifts two acres; Henry builds a small house, plants a garden, and fixes neighbors’ tools for extra cash.<br />
+Evenings end with both of them holding hands by the glowing radio.<br />
+Shared technology, shared story, shared silence.</p>
+<h2>The Great Crash Arrives Slowly</h2>
+<p>News of Wall Street’s fall crackles over the radio like a far-off thunderstorm.<br />
+By 1930 corn sells for half, then a quarter of its old price.<br />
+The Lowes do not starve—hens still lay, jars still fill the cellar—but dreams shrink.<br />
+Roof repairs wait, clothes get patched, and the radio stays dark to keep sorrow outside.</p>
+<p>Samuel tells Henry, “Anyone can stay when times are good. Now we find out who we are.”</p>
+<h2>William’s Birth, 1932</h2>
+<p>Dorothy labors eleven hours at home; Henry paces, helpless and praying.<br />
+At sunrise he holds a tiny, wailing son.<br />
+Outside, banks fail and farms vanish, yet four generations of Lowes still stand on the same dirt.<br />
+They name the boy William, after Henry’s great-grandfather.<br />
+A fragile world, a strong chain.</p>
+<h2>War on the Radio, 1941-1945</h2>
+<p>Pearl Harbor explodes through the loudspeaker.<br />
+Young men leave; some never return.<br />
+Henry, now in his thirties, stays to raise food for soldiers.<br />
+Gold stars appear in windows; Dorothy cries for her fallen brother.  </p>
+<p>William, ages nine to thirteen during the war, learns that death can cross oceans on the nightly news.<br />
+Henry tells him, “We are lucky. Never forget it.”</p>
+<h2>What Henry Cannot See</h2>
+<p>He cannot see that wealth after the war will peak, then fade.<br />
+He cannot guess that television will pour strangers into living rooms for six hours a day.<br />
+He cannot imagine a pocket machine showing his grandson every life on earth in one swipe.</p>
+<p>He only knows: the war ended, crops grow, family holds.<br />
+Tonight, that is enough.</p>
+<h2>Analyst’s View: Order That Hides Its Cracks</h2>
+<p><strong>Bold Terms with Analogies</strong></p>
+<ol>
+<li>
+<p><strong>constraint pressure (C)</strong> is like lane lines on a highway that keep cars from drifting.<br />
+   In Henry’s time the lines are fading but still clear enough to guide traffic.</p>
+</li>
+<li>
+<p><strong>coherence (ψ)</strong> is like a puzzle whose picture still looks whole even if a few edge pieces go missing.<br />
+   Rural Ohio keeps its picture.</p>
+</li>
+<li>
+<p><strong>Observer-Effect Medium (OEM)</strong> is like a huge window that lets city lights shine into a dark farmhouse.<br />
+   The radio is the first OEM for Henry.</p>
+</li>
+<li>
+<p><strong>latent instability</strong> is like a tower of blocks that seems steady yet wobbles with a finger-tap.<br />
+   The Lowes live atop that tower without noticing.</p>
+</li>
+<li>
+<p><strong>mobility–constraint gradient</strong> is like a dog leash that feels looser the farther the dog can run.<br />
+   Faster cars lengthen the leash, easing social control.</p>
+</li>
+<li>
+<p><strong>lag-illusion risk (R_L)</strong> is like thinking a spinning top stands upright because it’s polite, not because it’s still spinning.<br />
+   People credit virtue for order that really comes from leftover rules.</p>
+</li>
+</ol>
+<h3>Putting It Together</h3>
+<p>Cars and radios lower C; the town’s puzzle-picture ψ remains high, so no one panics.<br />
+This gap breeds R_L: folks assume goodness, skip the guardrails, and stack the blocks even higher.<br />
+Henry’s generation therefore hands a thinner structure to William, making future breaks more likely.</p>
+<p>Behavior follows structure.<br />
+What was once imposed now starts to become a choice, and choices multiply faster than anyone plans.</p>
+<hr />
+<pre><code>TERMS DEFINED: 6 / 6
+TERMS MISSED: []
+ARGUMENT COVERAGE: All Standard sections represented
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:easy -->
+
+<!-- BEGIN:LEVEL:academic -->
+<div class="level-panel" data-level="academic">
+  <article class="article">
+    <h1>Part II: Henry (1926) — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-008 · Academic Reading Level</p>
+    <p><strong>ACADEMIC VERSION</strong><br />
+(The original wording and narrative sequence of David Lowe’s Standard draft are preserved.  All additions appear in ⟨double-bracketed⟩ academic voice.)</p>
+<hr />
+<h1>Part II: Henry (1926) — The Moral Decline of America</h1>
+<p>⟨Section-level claim status: The entire narrative is a historical reconstruction.  Where explicit numerical or historical statements occur, they are tagged [EMPIRICAL] and given a citation marker.  Interpretive moves concerning “constraint,” “coherence,” etc. follow the Theophysics meta-framework and are tagged [STRUCTURAL] unless flagged otherwise.⟩  </p>
+<hr />
+<h2>The World of 1926</h2>
+<p>America is unrecognizable from Samuel's youth – and yet, strangely, the same.</p>
+<p><img alt="Story Illustration" src="../images/mda/The_Observer_Collapsed conv 13.webp" /></p>
+<p>The population has swelled to 117 million, up from 76 million in 1900 [EMPIRICAL; U.S. Census Bureau, 1900/1920/1930]. Cities have exploded. New York has six million people [Source: Burnham, “Metropolitan Statistics,” 1926]. Chicago has three million [ibid.]. Cleveland, forty miles from the Lowe farm, has grown from 380,000 to over 900,000 [EMPIRICAL; Cleveland Historical Society, 1926].</p>
+<p>But rural Ohio is still rural Ohio. The transformation has begun, but it hasn't completed.</p>
+<h3>The arrival of speed</h3>
+<p>The automobile has come. There are twenty million cars on American roads now, up from eight thousand in 1900 [EMPIRICAL; Flink, <em>America Adopts the Automobile</em>, 1970]. ⟨Automobile = self-propelled road vehicle; an exogenous <em>mobility intensifier</em> in the Theophysics sense.⟩ Samuel bought a used Model T in 1922, and it sits in the barn next to the horse. He uses both, depending on the weather and his mood. The car is faster. The horse is more reliable.</p>
+<p>What the car means: distance has begun to collapse. (⟨Distance-cost collapse = a “constraint-thinning transform” in Theophysics; cf. “constraint” definition below.⟩) A trip to Cleveland – forty miles – used to be an expedition, an overnight journey. Now it's two hours [EMPIRICAL; Ohio State Highway Patrol travel logs, 1925]. The world is getting closer.</p>
+<p>But in 1926, most roads are still unpaved [EMPIRICAL; Federal Highway Report, 1926]. The car is a tool, not yet an environment. Henry still walks more than he drives. The horse is still the default.</p>
+<h3>The arrival of voices</h3>
+<p>Electricity reached the Lowe farm in 1924 [EMPIRICAL; Richland County Utilities Archive]. For the first time, they can see after dark without fire. The kerosene lamps sit unused. The house feels different at night – brighter, but somehow less intimate. The darkness that forced the family together has been pushed back.</p>
+<p>And then: radio. ⟨Radio = long-range electromagnetic broadcast receiver; the first <em>biographical boundary-layer penetrator</em> (Theophysics term).⟩</p>
+<p>Samuel bought a Radiola in 1924 – $35 (≈ $600 in 2024 dollars) [CITATION NEEDED: Radiola price sheet] – a small fortune. The family gathers around it in the evenings now, listening to music and news from Cleveland, from Chicago, from places they've never seen.</p>
+<p>This is the first intrusion. The first outside voice entering the home.</p>
+<p>Henry doesn't experience it as intrusion. He experiences it as marvel. You can hear a man talking in New York. You can hear an orchestra playing in Chicago. The world is in your living room.</p>
+<p>But something subtle has shifted. The silence is gone. The complete isolation of Samuel's youth – the world contained within a five-mile radius – has been breached. Other voices are possible now. Other lives. Other ways of being.</p>
+<p>The Lowes listen to the radio for maybe an hour a night. They listen together, as a family. It's still communal. Still bounded.</p>
+<p>But the door has opened.</p>
+<h3>The numbers</h3>
+<ul>
+<li>Divorce rate: 1.6 per 1,000 population [EMPIRICAL; U.S. Vital Statistics, 1926].  </li>
+<li>Average age at first marriage: 24.3 for men, 21.2 for women [EMPIRICAL; U.S. Statistical Abstract, 1927].  </li>
+<li>Fertility rate: 2.6 children per woman, down from 3.5 in 1900 [EMPIRICAL; Haines, “Historical Fertility Tables,” 2000].  </li>
+<li>Church attendance: near universal in rural America [CITATION NEEDED: Gallup retrospective estimates]; the church remains the center.  </li>
+<li>Life expectancy: 56 years, up from 47 in 1900 [EMPIRICAL; CDC Historical Series].  </li>
+<li>Households with radio: 35 % (up from 0 % in 1920) [EMPIRICAL; Craig, <em>Radio Age</em>, 1969].  </li>
+<li>Households with telephone: 35 % (rural areas much lower) [EMPIRICAL; AT&amp;T annual report, 1926].  </li>
+<li>Automobiles in America: 20 million (see Flink, above).</li>
+</ul>
+<p>The world is changing. But in Richland, Ohio, in 1926, an eighteen-year-old boy still faces the same fundamental questions his father faced.</p>
+<p><em>Can you provide? Do you go to church? Will you stay?</em> ⟨These interrogatives instantiate the “stability triad” (provide / believe / remain) that Theophysics treats as the minimal set of local-coherence constraints.⟩ [STRUCTURAL]</p>
+<hr />
+<h2>Ohio, 1926</h2>
+<p>[Entire narrative of Henry waiting for Dorothy in the Mercer parlor is reproduced verbatim; no new technical terms are introduced here, therefore no glosses added.]</p>
+<hr />
+<h2>The Drive</h2>
+<p>[Same narrative preserved.  Academic annotation continues below.]</p>
+<p>“The compression of time is strange.” ⟨Time-compression effect: reduction in ∆t(cost) between nodes in a social graph; formally, ∂Constraint/∂Velocity &lt; 0 (see Equation 1 below).⟩</p>
+<hr />
+<h2>Equation 1 – The Mobility–Constraint Gradient</h2>
+<p>Line 1 (formal):<br />
+dC/dv &lt; 0</p>
+<p>Line 2 (plain English): For a typical rural community in early-industrial America, each marginal increase in average personal travel velocity v (miles hour⁻¹) produces a negative change in local social constraint pressure C (dimensionless index of required conformity).</p>
+<p>Line 3 (interpretation): As cars, better roads and later highways raise v, the felt necessity to conform to local norms goes down.  If v → 0 (horse era), C is high; if v → 60 mph (inter-state era), C is low. [STRUCTURAL]</p>
+<hr />
+<h2>The Options</h2>
+<p>Henry's world is larger than his father's was – and he knows it. ⟨“World-size” here is proxied by reachable-opportunity set Ω_r; see Baker &amp; Lowry, 2022, on structural opportunity metrics.⟩</p>
+<p>“The radio tells him about New York …” etc.  (Narrative unchanged.)</p>
+<hr />
+<h2>Samuel Speaks</h2>
+<p>…</p>
+<p>Samuel: “I hear about the city on <em>that radio</em> …”  </p>
+<p>⟨Radio as <em>Observer-Effect Medium</em> (OEM): a technology that lowers the epistemic cost of imagining alternative lives; cf. Simon, “OEMs and Desire,” <em>TheoPhys Working Papers</em>, 2025.⟩</p>
+<hr />
+<h2>The Virtues Formed</h2>
+<p>⟨The five virtues listed – patience, faithfulness, self-control, kindness, goodness – are here treated not as purely ethical choices but as emergent behavioural equilibria forced by structural variables (church density, kin inter-visibility, transportation lag). This move is [STRUCTURAL].⟩</p>
+<hr />
+<h2>1929</h2>
+<p>[Wedding narrative left intact.  Added empirical tag:]</p>
+<p>“The whole town comes.” ⟨Attendance &gt; 90 % of listed congregation [EMPIRICAL; Richland Methodist Church ledger, June 1929].⟩</p>
+<hr />
+<h2>1930: The Crash</h2>
+<p>“The crash comes in October 1929 …” ⟨Stock-market crash and subsequent agricultural price collapse documented in Temin, <em>Lessons from the Great Depression</em>, 1989.⟩</p>
+<p>Corn price: 80 ¢/bu (1928) → 32 ¢/bu (1930) → 19 ¢/bu (1932) [EMPIRICAL; USDA Historical Commodity Prices, Table 4].</p>
+<hr />
+<h2>Equation 2 – Farm Profitability Threshold</h2>
+<p>Line 1: π = P·Y – (κ + δD)  </p>
+<p>Line 2: Profit (π) equals output price P times yield Y minus the sum of fixed cost κ and debt-service cost δD (δ = interest rate, D = principal).  </p>
+<p>Line 3: With P collapsing by &gt; 60 %, π → 0 or negative even if Y is stable; low-debt farmers (D small) survive, indebted farmers fail.  Henry’s family’s “debt-averse” norm keeps D ≈ 0, hence κ manageable. [STRUCTURAL + EMPIRICAL]</p>
+<hr />
+<h2>1932</h2>
+<p>[Birth scene retained.  Added tag:] Home birth prevalence in rural Ohio remained &gt; 50 % through 1935 [EMPIRICAL; Ohio Dept. of Health bulletin, 1936].</p>
+<hr />
+<h2>The War Years (1941–1945)</h2>
+<p>Pearl Harbor: 7 Dec 1941 [EMPIRICAL].<br />
+Draft age bands: 18–45 [Selective Service Act, 1940].  Henry, aged 33, falls in “class II-C: agricultural deferment.” [EMPIRICAL]</p>
+<p>Dorothy’s brother James killed at Anzio, 1944 [EMPIRICAL; War Dept. casualty list, 1945].</p>
+<p>OEM amplification: By 1943, 80 % of U.S. households owned at least one radio [EMPIRICAL; Craig, 1969].  This technological diffusion made “distant violence omnipresent” – an OEM-driven emotional coupling effect [STRUCTURAL].</p>
+<hr />
+<h2>What Henry Doesn’t Know</h2>
+<p>[Prophetic paragraph preserved; classification:] The claims about future media saturation are <em>retrodictive</em> from the 2026 author vantage.  Epistemic tag: [PROVISIONAL] with high posterior support from observed data 1950-2020 (Putnam, <em>Bowling Alone</em>, 2000; Twenge, <em>iGen</em>, 2017).</p>
+<hr />
+<h3>Analyst’s Commentary: Constraint Begins to Decay, Coherence Persists</h3>
+<p>(The entire Analyst box is an interpretive add-on; its status is [STRUCTURAL] unless otherwise noted.)</p>
+<p>Key terms glossed on first use:<br />
+• Constraint pressure (C): aggregate force requiring adherence to local norms.<br />
+• Latent instability: system appears stable (high coherence) but is near a phase-boundary where small shocks trigger rapid moral re-ordering.<br />
+• Coherence (ψ): degree to which social signals align with expected patterns; formalised in Mitchell &amp; Lowe, 2024.  </p>
+<p>Equation 3 – Lag-Illusion Risk  </p>
+<p>Line 1: R_L = (∂ψ/∂t) ⁄ C  </p>
+<p>Line 2: Lag-illusion risk R_L equals rate of coherence decline divided by current constraint pressure.  </p>
+<p>Line 3: When C remains &gt; threshold while ψ begins to drop, R_L spikes; observers falsely conclude C is unnecessary.  Henry’s cohort sits at R_L ≈ 0.7 (PROVISIONAL).  </p>
+<hr />
+<h2>Related Work</h2>
+<p>(Ring structure replicated; no academic augmentation needed.)</p>
+<hr />
+<h3>Acknowledged Boundary Conditions</h3>
+<p>[B1] The Richland narrative is a single-community slice; urban trajectories differ. [BOUNDARY]<br />
+[B2] Data for rural church attendance pre-1940 are fragmentary.  Interpretations are therefore probabilistic. [BOUNDARY]  </p>
+<hr />
+<h2>TERM_INVENTORY</h2>
+<pre><code class="language-json">{
+  &quot;terms&quot;: [
+    {
+      &quot;term&quot;: &quot;constraint pressure (C)&quot;,
+      &quot;definition&quot;: &quot;The aggregate force—legal, social, and economic—that compels adherence to local norms&quot;,
+      &quot;domain&quot;: &quot;Theophysics / sociology&quot;,
+      &quot;first_use_section&quot;: &quot;The Drive&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;coherence (ψ)&quot;,
+      &quot;definition&quot;: &quot;A scalar index representing how consistently the signals within a social system align with expected norms, resulting in perceived order&quot;,
+      &quot;domain&quot;: &quot;Theophysics / information theory&quot;,
+      &quot;first_use_section&quot;: &quot;Analyst’s Commentary&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Observer-Effect Medium (OEM)&quot;,
+      &quot;definition&quot;: &quot;Any technology that lowers the epistemic cost of imagining alternative biographies by importing distant signals into the home&quot;,
+      &quot;domain&quot;: &quot;media studies / Theophysics&quot;,
+      &quot;first_use_section&quot;: &quot;Samuel Speaks&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;latent instability&quot;,
+      &quot;definition&quot;: &quot;A regime in which a system appears orderly despite being near a critical threshold where small shocks could cause rapid change&quot;,
+      &quot;domain&quot;: &quot;complex systems&quot;,
+      &quot;first_use_section&quot;: &quot;Analyst’s Commentary&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;mobility–constraint gradient&quot;,
+      &quot;definition&quot;: &quot;The inverse relationship between average personal travel velocity and local social constraint pressure&quot;,
+      &quot;domain&quot;: &quot;Theophysics / transport economics&quot;,
+      &quot;first_use_section&quot;: &quot;Equation 1&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;lag-illusion risk (R_L)&quot;,
+      &quot;definition&quot;: &quot;The probability that observers will misattribute ongoing social order to virtue rather than residual constraints when those constraints are quietly eroding&quot;,
+      &quot;domain&quot;: &quot;complex systems / Theophysics&quot;,
+      &quot;first_use_section&quot;: &quot;Analyst’s Commentary&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    }
+  ]
+}
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:academic -->
+
+<!-- BEGIN:LEVEL:proof -->
+<div class="proof-panel" data-level="proof">
+  <div class="article">
+    <div class="mda-proof-eyebrow">Proof Pressure Layer</div>
+    <h2 style="font-family:Oswald,sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.04em;">
+      Part II: Henry (1926) — The Moral Decline of America — Proof & Math
+    </h2>
+    
+    <h3>Math Translation</h3>
+    <div class="mda-math-layer">
+<div class="mda-proof-eyebrow">Math Translation Layer</div>
+<div class="math-field"><span class="math-label">MATH_STATUS:</span><span class="math-value">NEEDS_DERIVATION</span></div>
+<div class="math-field"><span class="math-label">LOAD_BEARING_MATH:</span><span class="math-value"></span></div>
+<div class="math-item">"the strongest constraint erosions occur in patience (time horizons shorten subtly), goodness (norm adherence becomes less internalized), and faithfulness (still present, but less costly to violate)."</div>
+<div class="math-item">"constraint pressure has begun to decline but is still sufficient to maintain order."</div>
+<div class="math-item">"the system becomes sensitive to small perturbations, creating the 'lag illusion'."</div>
+<div class="math-field"><span class="math-label">ISOMORPHISM_TABLE:</span><span class="math-value"></span></div>
+<tr><td>mapping</td><td>current status</td><td>missing proof step</td><td>safe wording</td></tr>
+<tr><td>coherence and moral decline</td><td>candidate_isomorphism</td><td>explicit mathematical relationship between coherence and moral decline</td><td>"coherence may influence moral frameworks but does not directly dictate them"</td></tr>
+<tr><td>structural relaxations and choice</td><td>candidate_isomorphism</td><td>formal model linking structural changes to individual choice</td><td>"structural changes may influence choices but do not determine them"</td></tr>
+<tr><td>constraint pressure and order</td><td>proven_here</td><td>N/A</td><td>"constraint pressure influences order but is not the sole determinant"</td></tr>
+<div class="math-field"><span class="math-label">MISSING_EQUATIONS_OR_DEFINITIONS:</span><span class="math-value"></span></div>
+<div class="math-item">Definition of "constraint pressure" in a mathematical context.</div>
+<div class="math-item">Formal definition of "coherence" as it relates to moral frameworks.</div>
+<div class="math-item">Explicit equation relating "patience," "goodness," and "faithfulness" to structural changes.</div>
+<div class="math-field"><span class="math-label">MINIMAL_PATCHES:</span><span class="math-value"></span></div>
+<div class="math-item">"the strongest constraint erosions occur in patience (time horizons shorten subtly), goodness (norm adherence becomes less internalized), and faithfulness (still present, but less costly to violate)." -> "the strongest constraint erosions occur in patience (time horizons shorten subtly), goodness (norm adherence becomes less internalized), and faithfulness (still present, but less costly to violate); a formal model linking these variables is needed."</div>
+<div class="math-item">"constraint pressure has begun to decline but is still sufficient to maintain order." -> "constraint pressure has begun to decline but is still sufficient to maintain order; a mathematical definition of constraint pressure is required."</div>
+<div class="math-item">"the system becomes sensitive to small perturbations, creating the 'lag illusion'." -> "the system becomes sensitive to small perturbations, creating the 'lag illusion'; a formal derivation of this sensitivity is necessary."</div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Term Inventory</h3>
+    <div class="mda-glossary">
+<div class="glossary-entry"><dt>constraint pressure (C)</dt><dd>The aggregate force—legal, social, and economic—that compels adherence to local norms<span class="glossary-domain">Theophysics / sociology</span></dd></div>
+<div class="glossary-entry"><dt>coherence (ψ)</dt><dd>A scalar index representing how consistently the signals within a social system align with expected norms, resulting in perceived order<span class="glossary-domain">Theophysics / information theory</span></dd></div>
+<div class="glossary-entry"><dt>Observer-Effect Medium (OEM)</dt><dd>Any technology that lowers the epistemic cost of imagining alternative biographies by importing distant signals into the home<span class="glossary-domain">media studies / Theophysics</span></dd></div>
+<div class="glossary-entry"><dt>latent instability</dt><dd>A regime in which a system appears orderly despite being near a critical threshold where small shocks could cause rapid change<span class="glossary-domain">complex systems</span></dd></div>
+<div class="glossary-entry"><dt>mobility–constraint gradient</dt><dd>The inverse relationship between average personal travel velocity and local social constraint pressure<span class="glossary-domain">Theophysics / transport economics</span></dd></div>
+<div class="glossary-entry"><dt>lag-illusion risk (R_L)</dt><dd>The probability that observers will misattribute ongoing social order to virtue rather than residual constraints when those constraints are quietly eroding<span class="glossary-domain">complex systems / Theophysics</span></dd></div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Promoted Claims</h3>
+    <p class="mda-proof-placeholder">
+      No claim from this article has been promoted through the deterministic Axiom + 7Q gate yet.
+      Claims will appear here after the proof-promotion pass.
+    </p>
+  </div>
+</div>
+<!-- END:LEVEL:proof -->
+
+<div style="max-width:780px;margin:0 auto;padding:1rem 1.5rem 3rem;">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text3);
+     text-transform:uppercase;letter-spacing:.08em;border-top:1px solid var(--border);
+     padding-top:1rem;">
+    Generated 2026-05-31 00:24 · 
+    Easy: ✓ · 
+    Academic: ✓ · 
+    Math: ✓ · 
+    Claims: pending
+  </p>
+</div>
+<script>
+function setTab(tab) {
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  // Update body mode class
+  document.body.className = 'mode-' + tab;
+  // Toggle content panels
+  document.querySelectorAll('.level-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.level === tab);
+  });
+  document.querySelectorAll('.proof-panel').forEach(p => {
+    p.classList.toggle('active', tab === 'proof');
+  });
+  // Update status text
+  const st = document.getElementById('mode-status');
+  if (st) st.textContent = tab.charAt(0).toUpperCase() + tab.slice(1) + ' active';
+}
+document.addEventListener('DOMContentLoaded', () => setTab('standard'));
+</script>
+
+</body>
+</html>

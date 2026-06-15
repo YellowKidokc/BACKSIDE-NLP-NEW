@@ -1,0 +1,776 @@
+{
+  "paper_id": "02-REGISTERED-REPORT-MVE-QRNG",
+  "source_file": "\\\\dlowenas\\brain\\paper-proof-grader\\DROP_PAPERS_HERE\\02-REGISTERED-REPORT-MVE-QRNG.md",
+  "generated_at": "2026-05-14T04:46:30",
+  "metrics": {
+    "word_count": 2679,
+    "section_count": 56,
+    "equation_count": 72,
+    "claim_candidate_count": 21,
+    "top_terms": "analysis, text, effect, rung, data, with, hebrew, section, qrng, null, entropy, publication, hash, test, input"
+  },
+  "sections": [
+    {
+      "title": "Document Start",
+      "text": "---\nckg_evaluation:\ntier1_foundations: 4\ntier2_propositions: 4\ntier3_constraints: 5\ntier4_evidence: 13\ntier5_integration: 4\nraw_score: 30\nfinal_score: 6.2\nevaluator: \"claude-auto\"\nevaluation_version: \"1.0\"\nevaluated_date: \"2026-02-20\"\n---"
+    },
+    {
+      "title": "REGISTERED REPORT: MINIMAL VIABLE EXPERIMENT",
+      "text": "## Testing the Resonant Coupling Hypothesis via Quantum Random Number Generation\n**Protocol:** RCH-MVE-001\n**Date Submitted:** [To be determined]\n**Pre-Registration:** [OSF link pending]\n**SHA-256 Hash:** [To be computed upon finalization]\n**Principal Investigator:** David Lowe\n**Collaborators:** [To be determined]\n**Adversarial PI (Skeptic):** [To be recruited]\n**Neutral PI:** [To be recruited]"
+    },
+    {
+      "title": "ABSTRACT",
+      "text": "We propose a Minimal Viable Experiment (MVE) to test the Resonant Coupling Hypothesis (RCH), which predicts that structured information couples to physical systems proportionally to algorithmic mutual information I_A(s; M_X). Using an off-the-shelf Quantum Random Number Generator (QRNG), we will test whether bitstream entropy is measurably modulated by input information of varying Kolmogorov Complexity. Success requires demonstration of monotonic relationship between input complexity and output entropy across a 4-rung calibration ladder, culminating in a blinded test of ancient Hebrew scripture. The experiment is designed with cryptographic pre-commitment, null-model ensemble testing, and clear falsification criteria at every stage."
+    },
+    {
+      "title": "SECTION 1: THEORETICAL BACKGROUND",
+      "text": "### 1.1 The Resonant Coupling Hypothesis"
+    },
+    {
+      "title": "The RCH posits:",
+      "text": "[!math] Mathematical Equation **Visual:** $$ \\Delta O = \\kappa I_A(s; M_X)^\\nu \\Phi_X + \\epsilon $$\n**Spoken:** When we read this, it is telling us that kappa in a more natural way."
+    },
+    {
+      "title": "Where:",
+      "text": "- ΔO = Change in observable\n- I_A(s; M_X) = Algorithmic mutual information between input s and system model M_X\n- κ, ν = Coupling parameters (to be fit)\n- Φ_X = System susceptibility\n- ε = Noise term"
+    },
+    {
+      "title": "1.2 Information Resonance Metric (IRM)",
+      "text": "For convenience, we define:\n$$ \\text{IRM}(s) = \\frac{\\alpha}{K(s)} \\cdot C(s)^\\beta $$\nWith I_A(s; M_X) ≈ γ₁ IRM(s) - γ₂ IRM(s|M̄_X)"
+    },
+    {
+      "title": "1.3 Specific Hypothesis for QRNG",
+      "text": "**H₁ (RCH):** QRNG output entropy H varies monotonically with IRM of modulating bitstream:\n$$ H_{\\text{output}} = H_0 - \\eta \\cdot \\text{IRM}(s)^\\nu $$\n**H₀ (Null):** No relationship between IRM and entropy\n**Bayes Factor Decision:**\n- BF₁₀ > 10³ → Provisional support for H₁\n- BF₁₀ > 10⁶ → Strong support, proceed to replication\n- BF₁₀ < 0.1 → Retire H₁"
+    },
+    {
+      "title": "SECTION 2: EXPERIMENTAL DESIGN",
+      "text": "### 2.1 Equipment\n**Quantum Random Number Generator:**\n- Model: ID Quantique Quantis-16M-USB or equivalent\n- Mode: Time-interval photon detection\n- Output rate: 16 Mbps\n- Interface: USB 2.0\n**Modulation System:**\n- Coil: 15 cm diameter, 100 turns AWG-28 copper, shielded\n- Driver: Rigol DG4162 arbitrary waveform generator\n- Input encoding: Bitstream → bipolar voltage (±1V)\n- Coupling: Magnetic field modulation at 10 cm from QRNG\n**Environmental Control:**\n- Faraday cage: Copper mesh, 6-sided, grounded\n- Temperature: Monitored at ±0.1°C (target: 20.0°C)\n- Humidity: Logged (passive control)\n- EM shielding: RF-absorbing foam lining\n**Data Acquisition:**\n- PC: Intel i7, 32GB RAM, SSD\n- Software: Custom Python 3.11 + NumPy/SciPy\n- Logging: All raw bits timestamped, SHA-256 per block"
+    },
+    {
+      "title": "2.2 Calibration",
+      "text": "**Daily:**\n- QRNG baseline entropy measurement (no modulation): 30 min\n- Temperature drift check: ±0.05°C tolerance\n- Environmental EM scan: 0.1-100 MHz spectrum\n**Pre-experiment:**\n- Coil coupling strength calibration\n- Verify null effect with disconnected coil\n- Document all hardware serial numbers"
+    },
+    {
+      "title": "2.3 Block Structure",
+      "text": "**Single Block:**\n- Duration: 3 seconds\n- QRNG output: 48 Megabits\n- Modulation: Continuous bitstream at 1 kHz symbol rate\n- Observable: Block-wise Shannon entropy Ĥ\n**Full Experiment:**\n- Total blocks: 1,000,000\n- Randomization: ABBA design, seed escrowed\n- Estimated runtime: 35 days continuous"
+    },
+    {
+      "title": "SECTION 3: THE FOUR-RUNG LADDER",
+      "text": "### RUNG A: Synthetic Baseline\n**Purpose:** Establish that physical system responds monotonically to IRM\n**Inputs (N=100,000 blocks each):**\n| **Input Type** | **K(s)** | **C(s)** | **IRM** | **Expected Rank** |\n| --- | --- | --- | --- | --- |\n| White noise | → ∞ | 0 | 0 | 1 (baseline) |\n| LFSR-256 | High | Low | 0.1 | 2 |\n| π digits | Med | Low | 0.3 | 3 |\n| Thue-Morse | Low | Med | 0.6 | 4 |\n| Palindromes-5 | V.Low | High | 0.9 | 5 |\n**Pre-registered Analysis:**\n1. Compute per-block entropy Ĥᵢ for each input type\n2. Rank-order by mean entropy: E[Ĥ | input_type]\n3. Test monotonicity: Spearman ρ between IRM_rank and H_rank\n**Success Criterion:**\n- Spearman ρ > 0.8 with p < 0.001\n- Monotonic trend visible in boxplot\n**Failure Criterion:**\n- ρ < 0.3 or p > 0.05 → **STOP - Publish null, end program**\n**Pre-fit Scaling Law:**\nFit: $$ \\Delta H = \\eta \\cdot \\text{IRM}^\\nu $$\nVia non-linear least squares on Rung A data.\n**Commit:** η, ν locked before Rung B/C/D"
+    },
+    {
+      "title": "RUNG B: Text Degradation Curve",
+      "text": "**Purpose:** Test that Hebrew text follows same scaling law as synthetics\n**Hebrew Input:** Genesis 1-11 (Masoretic Text, consonantal)\n- Encoding: UTF-8 → 2-bit (ACGT-like)\n- Length: ~25 kilobytes\n**Degradation Sequence:**\n1. **Original** (IRM ≈ 0.85, estimated)\n2. **No vowels** (consonants only, IRM ≈ 0.75)\n3. **Bigram shuffle** (preserves local stats, IRM ≈ 0.4)\n4. **Unigram shuffle** (preserves letter freq, IRM ≈ 0.15)\n5. **Byte permutation** (random, IRM ≈ 0.05)\n**Prediction (using Rung A fit η, ν):**\n$$ H_{\\text{predicted}} = H_0 - \\eta \\cdot \\text{IRM}(degraded)^\\nu $$\n**No refitting allowed**\n**Analysis:**\n1. Measure H_observed for each degradation level\n2. Compare to H_predicted\n3. Compute residuals: |H_obs - H_pred|\n**Success Criterion:**\n- Mean absolute error < 2σ of Rung A residuals\n- Degradation curve monotonic (no inversions)\n**Failure Criterion:**\n- Hebrew behaves like random permutation (IRM ≈ 0)\n- Residuals > 5σ → Model fails"
+    },
+    {
+      "title": "RUNG C: Model-Match Cross-overs",
+      "text": "**Purpose:** Verify effect is system-model dependent\n**Procedure:**\n1. Take same Hebrew Genesis bitstream\n2. Apply to THREE different physical systems:\n- System X₁: QRNG (current setup)\n- System X₂: Josephson junction phase noise (if available)\n- System X₃: Optical cavity linewidth (if available)\n**Prediction:**\nDifferent systems → different M_X → different I_A(s; M_X) → different slopes"
+    },
+    {
+      "title": "Expected:",
+      "text": "- η₁ (QRNG) ≠ η₂ (Josephson) ≠ η₃ (Optical)\n**Analysis:**\nConfidence intervals on η for each system must NOT overlap if RCH is correct.\n**Note:** This rung is **optional** for MVE but recommended for full program"
+    },
+    {
+      "title": "RUNG D: Competing Corpora (Blinded)",
+      "text": "**Purpose:** Test if Hebrew is unique or all ancient texts behave similarly\n**Inputs (N=50,000 blocks each):**\n1. Hebrew Torah (Masoretic, consonantal)\n2. Greek New Testament (Textus Receptus)\n3. Quran (Classical Arabic)\n4. Rig Veda (Sanskrit)\n5. Dead Sea Scrolls (1QIsa variant)\n6. Modern Hebrew novel (control)\n7. Lorem ipsum (Latin placeholder, control)\n8. Transformer-generated \"Hebrew-like\" (control)\n**Blinding Protocol:**\n1. All texts encoded, hashed, labeled A-H\n2. Labels escrowed with third party\n3. Analysis performed on letter-codes only\n4. Reveal after analysis complete\n**Pre-committed Analysis:**\nApply Rung A fit (η, ν) to all inputs:\n$$ \\Delta H_{\\text{predicted}} = \\eta \\cdot \\text{IRM}(text)^\\nu $$\nRank texts by predicted effect size.\n**Hypothesis:**\n- If Logos framework correct: Masoretic Hebrew shows largest effect\n- If general \"ancient sacred text\" effect: Torah ≈ Quran ≈ Veda\n- If null: All ≈ controls\n**Decision Tree:**\n| **Outcome** | **Interpretation** |\n| --- | --- |\n| Torah > others > controls | Specific Logos claim supported |\n| Torah ≈ Quran ≈ Veda > controls | General \"sacred text\" effect |\n| All ≈ controls | No effect, RCH fails for texts |\n**Success for Logos Framework:**\n- Masoretic Torah in top 2 of 8\n- Effect size > 3σ above controls\n- Bayes Factor vs. uniform null > 10³"
+    },
+    {
+      "title": "SECTION 4: NULL-MODEL ENSEMBLE",
+      "text": "Every input must survive four null tests:"
+    },
+    {
+      "title": "4.1 Permutation Nulls",
+      "text": "For each text input s:\n1. Generate 100 permuted surrogates preserving bigram statistics\n2. Measure effect size for each: Δ_surrogate\n3. Compare real effect Δ_real to surrogate distribution\n**Pass criterion:** Δ_real > 95th percentile of surrogates"
+    },
+    {
+      "title": "4.2 Generator Nulls",
+      "text": "For Hebrew:\n1. Train GPT-2 on Hebrew Bible\n2. Generate synthetic \"Hebrew-like\" texts matching token statistics\n3. Test if synthetic = real\n**Pass criterion:** Real Hebrew effect > synthetic by >2σ"
+    },
+    {
+      "title": "4.3 Hardware Nulls",
+      "text": "**Sham Modulation:**\n- DAC active, coil disconnected\n- Bitstream sent to driver, no magnetic field\n- QRNG should show no effect\n**Pass criterion:** |Δ_sham| < σ_noise"
+    },
+    {
+      "title": "4.4 Analysis Nulls",
+      "text": "**Label-Swap Test:**\n1. Randomly swap labels on 20% of blocks\n2. Analyst performs analysis blind\n3. Compare detected effect to true labels\n**Pass criterion:** True labels show >5σ stronger effect than swapped"
+    },
+    {
+      "title": "SECTION 5: PRE-REGISTERED STATISTICAL ANALYSIS",
+      "text": "### 5.1 Primary Outcome\n**Observable:** Per-block Shannon entropy\n[!math] Mathematical Equation **Visual:** $$ \\hat{H}*i = -\\sum*{b \\in {0,1}} \\hat{p}_b \\log_2 \\hat{p}_b $$\n**Spoken:** When we read this, it is telling us that hat{H} in a more natural way."
+    },
+    {
+      "title": "Estimated via block-wise bit frequency",
+      "text": "### 5.2 Secondary Outcomes\n1. **Compression ratio:** CR = |compressed| / |original| (gzip, bz2, LZMA)\n2. **Autocorrelation:** ACF at lag 1, 10, 100 bits\n3. **Spectral density:** Power spectrum via FFT"
+    },
+    {
+      "title": "5.3 Pre-Specified Models",
+      "text": "**Model 1 (RCH):**\n$$ H_i = \\beta_0 + \\beta_1 \\text{IRM}(s_i) + \\beta_2 T_i + \\epsilon_i $$\nWhere T_i = temperature at block i (covariate)\n**Model 2 (Scaled RCH):**\n$$ H_i = \\beta_0 + \\beta_1 \\text{IRM}(s_i)^\\nu + \\beta_2 T_i + \\epsilon_i $$\nWith ν from Rung A\n**Model 0 (Null):**\n$$ H_i = \\beta_0 + \\beta_2 T_i + \\epsilon_i $$"
+    },
+    {
+      "title": "5.4 Model Comparison",
+      "text": "Compute:\n1. Bayes Factors: BF₁₀, BF₂₀\n2. AIC/BIC for nested comparison\n3. Cross-validated R²\n**Decision:**\n- BF₁₀ or BF₂₀ > 10³ → RCH supported\n- Both < 1 → Null favored"
+    },
+    {
+      "title": "5.5 Effect Size",
+      "text": "Cohen's d for difference between high-IRM and low-IRM groups:\n$$ d = \\frac{\\bar{H}*{\\text{high}} - \\bar{H}*{\\text{low}}}{s_{\\text{pooled}}} $$\n**Minimum detectable:** d = 0.01 at 80% power, α = 0.001"
+    },
+    {
+      "title": "5.6 Sensitivity Analysis",
+      "text": "**Robustness checks:**\n1. Outlier removal (Tukey's fences)\n2. Block-bootstrap confidence intervals\n3. Permutation test (10,000 iterations)\n4. Bayesian hierarchical model with varying intercepts\nAll must agree within factor of 2 on effect size."
+    },
+    {
+      "title": "SECTION 6: CRYPTOGRAPHIC PRE-COMMITMENT",
+      "text": "### 6.1 What Gets Hashed\n**Before any data collection:**\n1. This entire protocol document (PDF)\n2. Analysis code (Python scripts, Git commit hash)\n3. Input sequences (all bitstreams, SHA-256 each)\n4. Block randomization schedule (seed + PRNG algorithm)\n5. Decision thresholds (BF cutoffs, p-values, effect sizes)\n**Combined hash:**\nSHA-256(protocol || code || inputs || schedule || thresholds)"
+    },
+    {
+      "title": "6.2 Public Ledger",
+      "text": "Options:\n1. **OSF:** Timestamped registration\n2. **Blockchain:** Ethereum smart contract with hash\n3. **Notary:** Legal timestamped seal\n4. **ArXiv:** Preprint with hash in abstract\n**All four** recommended for maximum credibility"
+    },
+    {
+      "title": "6.3 Commit-Reveal Process",
+      "text": "**Commit Phase (before data):**\n- Publish hash H = SHA-256(protocol details)\n- Lock in analysis decisions\n**Data Collection Phase:**\n- Acquire data, keep sealed\n**Analysis Phase:**\n- Run pre-committed code\n- No peeking at results until complete\n**Reveal Phase:**\n- Publish hash preimage + results simultaneously\n- Community verifies hash matches\n**Any deviation from pre-commitment must be:**\n1. Documented with justification\n2. Treated as exploratory (not confirmatory)\n3. Clearly labeled in publication"
+    },
+    {
+      "title": "SECTION 7: POWER ANALYSIS",
+      "text": "### 7.1 Sample Size Calculation\n**Target:**\n- Effect size: d = 0.01 (small but real)\n- Power: 1 - β = 0.80\n- Significance: α = 0.001 (3-sigma equivalent)\n**Required sample size (per condition):**\n$$ N = \\frac{2(Z_\\alpha + Z_\\beta)^2}{d^2} \\approx 100,000 \\text{ blocks} $$\n**With 5 conditions (Rung A):** 500,000 blocks\n**With safety margin:** 1,000,000 blocks total"
+    },
+    {
+      "title": "7.2 Expected Precision",
+      "text": "At N = 100k per condition:\n**Standard error on entropy:**\n[!math] Mathematical Equation **Visual:** $$ SE(\\hat{H}) = \\sqrt{\\frac{\\text{Var}(H)}{N}} \\approx \\frac{0.001}{\\sqrt{10^5}} \\approx 3 \\times 10^{-6} $$\n**Spoken:** When we read this, it is telling us that hat{H} in a more natural way.\n**95% CI width:** ~6 × 10⁻⁶ bits (excellent precision)"
+    },
+    {
+      "title": "7.3 Stopping Rules",
+      "text": "**Early Success:**\n- If BF₁₀ > 10⁶ after 50% data: Stop, claim success\n- But: Must complete planned replication\n**Early Futility:**\n- If BF₁₀ < 0.01 after 50% data and trending toward null: Stop\n- Conditional power < 10%: Ethical to stop\n**Both require independent Data Monitoring Committee approval**"
+    },
+    {
+      "title": "SECTION 8: REPLICATION PLAN",
+      "text": "### 8.1 Internal Replication\n**Within-lab:**\n- Complete protocol repeated 3 times\n- Different random seeds\n- Different operator (blinded)\n**Success criterion:** All 3 replications show BF₁₀ > 10"
+    },
+    {
+      "title": "8.2 External Replication",
+      "text": "**Multi-lab:**\n- Adversarial PI (skeptic) lab\n- Neutral PI lab\n- David Lowe lab\n**Shared:**\n- Identical protocol\n- Identical equipment (same models)\n- Shared analysis code\n**Success criterion:**\n- All 3 labs: BF₁₀ > 10\n- Effect sizes within factor of 2\n- Meta-analytic BF > 10³"
+    },
+    {
+      "title": "8.3 Replication Threshold",
+      "text": "**For publication of positive result:**"
+    },
+    {
+      "title": "Minimum requirements:",
+      "text": "1. Internal: 3/3 replications successful\n2. External: 2/3 labs successful\n3. Meta BF > 10³\n4. No evidence of fraud/error\n**If any lab produces strong null (BF < 0.1):**\n- Convene adversarial committee\n- Investigate discrepancy\n- No claim until resolved"
+    },
+    {
+      "title": "SECTION 9: PUBLICATION PLAN",
+      "text": "### 9.1 Registered Report Submission\n**Target Journals:**\n1. *PLOS ONE* (accepts Registered Reports)\n2. *Royal Society Open Science* (RR track)\n3. *Entropy* (MDPI, open to novel physics)\n**Stage 1 (Methods Review):**\n- Submit this document\n- Peer review of design only\n- In-principle acceptance before data\n**Stage 2 (Results):**\n- Follow pre-committed analysis\n- Automatic publication regardless of outcome\n- No results-based rejection"
+    },
+    {
+      "title": "9.2 Reproducibility Package",
+      "text": "**Upon publication, release:**\n1. **Raw Data:**\n- All QRNG bitstreams (zipped, ~500 GB)\n- Block metadata (timestamps, temperatures)\n- SHA-256 manifests\n2. **Code:**\n- Data acquisition scripts\n- Analysis pipeline (Docker container)\n- Visualization notebooks (Jupyter)\n3. **Hardware:**\n- Complete BOM with part numbers\n- CAD files for enclosures\n- Calibration procedures\n4. **Logs:**\n- Lab notebooks (scanned)\n- Equipment logs\n- Email chains (redacted)\n**License:** CC0 (public domain) for data, MIT for code"
+    },
+    {
+      "title": "9.3 Preprint",
+      "text": "**Regardless of journal:**\n- Post to arXiv:quant-ph immediately upon completion\n- Include hash verification section\n- Link to OSF repository"
+    },
+    {
+      "title": "SECTION 10: BUDGET",
+      "text": "### 10.1 Equipment (One-Time)\n| **Item** | **Vendor** | **Cost** |\n| --- | --- | --- |\n| QRNG (Quantis-16M) | ID Quantique | $4,500 |\n| Function generator | Rigol DG4162 | $1,200 |\n| Faraday cage materials | McMaster-Carr | $800 |\n| Coil + shielding | Custom | $300 |\n| PC (dedicated) | Dell | $1,500 |\n| Temperature logger | Omega | $400 |\n| Misc (cables, mounts) | Various | $500 |\n| **Subtotal** | | **$9,200** |"
+    },
+    {
+      "title": "10.2 Personnel",
+      "text": "| **Role** | **Time** | **Rate** | **Cost** |\n| --- | --- | --- | --- |\n| PI (Lowe) | 20% × 6 mo | - | In-kind |\n| Research assistant | 50% × 6 mo | $25/hr | $13,000 |\n| Statistician (consult) | 40 hrs | $100/hr | $4,000 |\n| **Subtotal** | | | **$17,000** |"
+    },
+    {
+      "title": "10.3 Other",
+      "text": "| **Item** | **Cost** |\n| --- | --- |\n| Publication fees (OA) | $2,000 |\n| Travel (conferences) | $3,000 |\n| Contingency (15%) | $4,500 |\n| **Subtotal** | **$9,500** |"
+    },
+    {
+      "title": "10.4 Total",
+      "text": "**Grant Request: $35,700**\n**Justification for Funding Agencies:**\n- High-risk, high-reward (EAGER-eligible)\n- Addresses fundamental questions at science-religion interface\n- Rigorous falsification structure protects against waste\n- Results published regardless of outcome (no publication bias)\n- Full open science compliance"
+    },
+    {
+      "title": "SECTION 11: TIMELINE",
+      "text": "| **Month** | **Milestone** |\n| --- | --- |\n| 0 | Submit Registered Report (Stage 1) |\n| 1 | Peer review, revisions |\n| 2 | In-principle acceptance |\n| 3 | Equipment procurement |\n| 4 | Setup, calibration, Rung A pilot |\n| 5-6 | Full Rung A data collection |\n| 7 | Rung A analysis, fit scaling law |\n| 8-9 | Rung B (Hebrew degradation) |\n| 10 | Rung D (blinded corpora) |\n| 11 | Full analysis, writeup |\n| 12 | Submit Stage 2 manuscript |\n| 13-14 | Peer review, publication |\n**Total:** 14 months from submission to publication"
+    },
+    {
+      "title": "SECTION 12: RISKS & MITIGATIONS",
+      "text": "### 12.1 Technical Risks\n**Risk:** QRNG fails during run\n**Mitigation:** Hot spare unit, daily health checks, auto-restart\n**Risk:** Temperature drift\n**Mitigation:** Climate-controlled room, continuous logging, covariate in model\n**Risk:** EM interference\n**Mitigation:** Faraday cage, spectrum monitoring, correlation analysis"
+    },
+    {
+      "title": "12.2 Conceptual Risks",
+      "text": "**Risk:** Effect too small to detect\n**Mitigation:** Power analysis ensures 80% power for d=0.01; that's very sensitive\n**Risk:** Effect exists but violates scaling law\n**Mitigation:** Pre-commit to non-parametric tests as backup\n**Risk:** Rung A succeeds, Rung B fails\n**Mitigation:** Accept result, refine hypothesis about why Hebrew isn't special"
+    },
+    {
+      "title": "12.3 Human Risks",
+      "text": "**Risk:** Experimenter bias\n**Mitigation:** Blinding, automation, adversarial collaboration\n**Risk:** Confirmation bias in analysis\n**Mitigation:** Pre-registered code, locked before data, third-party re-analysis\n**Risk:** Publication bias\n**Mitigation:** Registered Report guarantees publication of null"
+    },
+    {
+      "title": "SECTION 13: ETHICAL CONSIDERATIONS",
+      "text": "### 13.1 Scientific Integrity\n**Commitments:**\n1. Pre-registration before data\n2. No HARKing (Hypothesizing After Results Known)\n3. Null results published with equal prominence\n4. Errors corrected publicly"
+    },
+    {
+      "title": "13.2 Broader Impacts",
+      "text": "**If RCH is supported:**\n- Profound implications for physics, consciousness studies, theology\n- Media attention likely (prepared press release)\n- Public outreach via accessible summary\n**If RCH is refuted:**\n- Equally important for science\n- Demonstrates Logos framework makes falsifiable claims\n- Informs future theoretical development"
+    },
+    {
+      "title": "13.3 Dual-Use Concerns",
+      "text": "**None identified** - this is basic research with no obvious weaponization potential"
+    },
+    {
+      "title": "CONCLUSION",
+      "text": "This Registered Report presents a rigorous, falsifiable test of the Resonant Coupling Hypothesis using quantum random number generation. The 4-rung calibration ladder, null-model ensemble, cryptographic pre-commitment, and adversarial collaboration framework ensure that results—positive or negative—will be scientifically credible.\n**The experiment is ready to begin.**"
+    },
+    {
+      "title": "APPENDICES",
+      "text": "### Appendix A: Complete Analysis Code\n*(To be deposited in OSF upon Stage 1 acceptance)*"
+    },
+    {
+      "title": "Appendix B: Equipment Datasheets",
+      "text": "*(QRNG specs, function generator manual, etc.)*"
+    },
+    {
+      "title": "Appendix C: Pilot Data",
+      "text": "*(If available from preliminary testing)*"
+    },
+    {
+      "title": "Appendix D: Bayesian Prior Specification",
+      "text": "*(Mathematical details of prior distributions)*\n**Document Hash (to be computed):** [SHA-256 pending]\n**OSF Registration:** [Link pending]\n**Version:** 1.0\n**Date:** October 7, 2025\n**Corresponding Author:** David Lowe\n**Email:** [To be added]\n*\"Let the experiment speak. Let reality judge.\"*\n> [!abstract]- Canonical Navigation\n> - [[00_Canonical/CANONICAL_INDEX]]\n> - [[00_Canonical/MASTER_EQUATION_10_LAWS/Law_08_Quantum_Faith/Quantum_Eraser_Experiment|Quantum Eraser Experiment]]\n> - [[00_Canonical/TH_Complex_Systems/Networks/Negative_Coupling_(Raković)|Negative Coupling (Raković)]]\n> - [[00_Canonical/MASTER_EQUATION_10_LAWS/Law_08_Quantum_Faith/double-slit experiment|double slit experiment]]\n> - [[00_Canonical/MASTER_EQUATION_10_LAWS/TEN_LAWS_CANONICAL_EQUATIONS|Ten Laws — Canonical Equations]]\n> - [[00_Canonical/MASTER_EQUATION_10_LAWS/INDEX|Master Equation Index]]"
+    }
+  ],
+  "equations": [
+    "\\Delta O = \\kappa I_A(s; M_X)^\\nu \\Phi_X + \\epsilon",
+    "\\text{IRM}(s) = \\frac{\\alpha}{K(s)} \\cdot C(s)^\\beta",
+    "H_{\\text{output}} = H_0 - \\eta \\cdot \\text{IRM}(s)^\\nu",
+    "\\Delta H = \\eta \\cdot \\text{IRM}^\\nu",
+    "H_{\\text{predicted}} = H_0 - \\eta \\cdot \\text{IRM}(degraded)^\\nu",
+    "\\Delta H_{\\text{predicted}} = \\eta \\cdot \\text{IRM}(text)^\\nu",
+    "\\hat{H}*i = -\\sum*{b \\in {0,1}} \\hat{p}_b \\log_2 \\hat{p}_b",
+    "H_i = \\beta_0 + \\beta_1 \\text{IRM}(s_i) + \\beta_2 T_i + \\epsilon_i",
+    "H_i = \\beta_0 + \\beta_1 \\text{IRM}(s_i)^\\nu + \\beta_2 T_i + \\epsilon_i",
+    "H_i = \\beta_0 + \\beta_2 T_i + \\epsilon_i",
+    "d = \\frac{\\bar{H}*{\\text{high}} - \\bar{H}*{\\text{low}}}{s_{\\text{pooled}}}",
+    "N = \\frac{2(Z_\\alpha + Z_\\beta)^2}{d^2} \\approx 100,000 \\text{ blocks}",
+    "SE(\\hat{H}) = \\sqrt{\\frac{\\text{Var}(H)}{N}} \\approx \\frac{0.001}{\\sqrt{10^5}} \\approx 3 \\times 10^{-6}",
+    "$ \\Delta O = \\kappa I_A(s; M_X)^\\nu \\Phi_X + \\epsilon",
+    "**Spoken:** When we read this, it is telling us that kappa in a more natural way. Where: - ΔO = Change in observable - I_A(s; M_X) = Algorithmic mutual information between input s and system model M_X - κ, ν = Coupling parameters (to be fit) - Φ_X = System susceptibility - ε = Noise term ### 1.2 Information Resonance Metric (IRM) For convenience, we define:",
+    "\\text{IRM}(s) = \\frac{\\alpha}{K(s)} \\cdot C(s)^\\beta",
+    "With I_A(s; M_X) ≈ γ₁ IRM(s) - γ₂ IRM(s|M̄_X) ### 1.3 Specific Hypothesis for QRNG **H₁ (RCH):** QRNG output entropy H varies monotonically with IRM of modulating bitstream:",
+    "H_{\\text{output}} = H_0 - \\eta \\cdot \\text{IRM}(s)^\\nu",
+    "\\Delta H = \\eta \\cdot \\text{IRM}^\\nu",
+    "Via non-linear least squares on Rung A data. **Commit:** η, ν locked before Rung B/C/D ### RUNG B: Text Degradation Curve **Purpose:** Test that Hebrew text follows same scaling law as synthetics **Hebrew Input:** Genesis 1-11 (Masoretic Text, consonantal) - Encoding: UTF-8 → 2-bit (ACGT-like) - Length: ~25 kilobytes **Degradation Sequence:** 1. **Original** (IRM ≈ 0.85, estimated) 2. **No vowels** (consonants only, IRM ≈ 0.75) 3. **Bigram shuffle** (preserves local stats, IRM ≈ 0.4) 4. **Unigram shuffle** (preserves letter freq, IRM ≈ 0.15) 5. **Byte permutation** (random, IRM ≈ 0.05) **Prediction (using Rung A fit η, ν):**",
+    "H_{\\text{predicted}} = H_0 - \\eta \\cdot \\text{IRM}(degraded)^\\nu",
+    "\\Delta H_{\\text{predicted}} = \\eta \\cdot \\text{IRM}(text)^\\nu",
+    "\\hat{H}*i = -\\sum*{b \\in {0,1}} \\hat{p}_b \\log_2 \\hat{p}_b",
+    "**Spoken:** When we read this, it is telling us that hat{H} in a more natural way. Estimated via block-wise bit frequency ### 5.2 Secondary Outcomes 1. **Compression ratio:** CR = |compressed| / |original| (gzip, bz2, LZMA) 2. **Autocorrelation:** ACF at lag 1, 10, 100 bits 3. **Spectral density:** Power spectrum via FFT ### 5.3 Pre-Specified Models **Model 1 (RCH):**",
+    "H_i = \\beta_0 + \\beta_1 \\text{IRM}(s_i) + \\beta_2 T_i + \\epsilon_i",
+    "Where T_i = temperature at block i (covariate) **Model 2 (Scaled RCH):**",
+    "H_i = \\beta_0 + \\beta_1 \\text{IRM}(s_i)^\\nu + \\beta_2 T_i + \\epsilon_i",
+    "With ν from Rung A **Model 0 (Null):**",
+    "H_i = \\beta_0 + \\beta_2 T_i + \\epsilon_i",
+    "### 5.4 Model Comparison Compute: 1. Bayes Factors: BF₁₀, BF₂₀ 2. AIC/BIC for nested comparison 3. Cross-validated R² **Decision:** - BF₁₀ or BF₂₀ > 10³ → RCH supported - Both < 1 → Null favored ### 5.5 Effect Size Cohen's d for difference between high-IRM and low-IRM groups:",
+    "d = \\frac{\\bar{H}*{\\text{high}} - \\bar{H}*{\\text{low}}}{s_{\\text{pooled}}}",
+    "N = \\frac{2(Z_\\alpha + Z_\\beta)^2}{d^2} \\approx 100,000 \\text{ blocks}",
+    "**With 5 conditions (Rung A):** 500,000 blocks **With safety margin:** 1,000,000 blocks total ### 7.2 Expected Precision At N = 100k per condition: **Standard error on entropy:** [!math] Mathematical Equation **Visual:**",
+    "SE(\\hat{H}) = \\sqrt{\\frac{\\text{Var}(H)}{N}} \\approx \\frac{0.001}{\\sqrt{10^5}} \\approx 3 \\times 10^{-6}",
+    "1,200 | | Faraday cage materials | McMaster-Carr |",
+    "300 | | PC (dedicated) | Dell |",
+    "400 | | Misc (cables, mounts) | Various |",
+    "9,200** | ### 10.2 Personnel | **Role** | **Time** | **Rate** | **Cost** | | --- | --- | --- | --- | | PI (Lowe) | 20% × 6 mo | - | In-kind | | Research assistant | 50% × 6 mo |",
+    "13,000 | | Statistician (consult) | 40 hrs |",
+    "4,000 | | **Subtotal** | | | **",
+    "2,000 | | Travel (conferences) |",
+    "4,500 | | **Subtotal** | **",
+    "[!math] Mathematical Equation **Visual:** $$ \\Delta O = \\kappa I_A(s; M_X)^\\nu \\Phi_X + \\epsilon $$",
+    "- ΔO = Change in observable",
+    "- I_A(s; M_X) = Algorithmic mutual information between input s and system model M_X",
+    "- κ, ν = Coupling parameters (to be fit)",
+    "- Φ_X = System susceptibility",
+    "- ε = Noise term",
+    "$$ \\text{IRM}(s) = \\frac{\\alpha}{K(s)} \\cdot C(s)^\\beta $$",
+    "$$ H_{\\text{output}} = H_0 - \\eta \\cdot \\text{IRM}(s)^\\nu $$",
+    "**Inputs (N=100,000 blocks each):**",
+    "Fit: $$ \\Delta H = \\eta \\cdot \\text{IRM}^\\nu $$",
+    "$$ H_{\\text{predicted}} = H_0 - \\eta \\cdot \\text{IRM}(degraded)^\\nu $$",
+    "**Inputs (N=50,000 blocks each):**",
+    "$$ \\Delta H_{\\text{predicted}} = \\eta \\cdot \\text{IRM}(text)^\\nu $$",
+    "3. Test if synthetic = real",
+    "[!math] Mathematical Equation **Visual:** $$ \\hat{H}*i = -\\sum*{b \\in {0,1}} \\hat{p}_b \\log_2 \\hat{p}_b $$",
+    "1. **Compression ratio:** CR = |compressed| / |original| (gzip, bz2, LZMA)",
+    "$$ H_i = \\beta_0 + \\beta_1 \\text{IRM}(s_i) + \\beta_2 T_i + \\epsilon_i $$",
+    "Where T_i = temperature at block i (covariate)",
+    "$$ H_i = \\beta_0 + \\beta_1 \\text{IRM}(s_i)^\\nu + \\beta_2 T_i + \\epsilon_i $$",
+    "$$ H_i = \\beta_0 + \\beta_2 T_i + \\epsilon_i $$",
+    "$$ d = \\frac{\\bar{H}*{\\text{high}} - \\bar{H}*{\\text{low}}}{s_{\\text{pooled}}} $$",
+    "**Minimum detectable:** d = 0.01 at 80% power, α = 0.001",
+    "- Publish hash H = SHA-256(protocol details)",
+    "- Effect size: d = 0.01 (small but real)",
+    "- Power: 1 - β = 0.80",
+    "- Significance: α = 0.001 (3-sigma equivalent)",
+    "$$ N = \\frac{2(Z_\\alpha + Z_\\beta)^2}{d^2} \\approx 100,000 \\text{ blocks} $$",
+    "At N = 100k per condition:",
+    "[!math] Mathematical Equation **Visual:** $$ SE(\\hat{H}) = \\sqrt{\\frac{\\text{Var}(H)}{N}} \\approx \\frac{0.001}{\\sqrt{10^5}} \\approx 3 \\times 10^{-6} $$",
+    "**Mitigation:** Power analysis ensures 80% power for d=0.01; that's very sensitive"
+  ],
+  "claims": [
+    {
+      "paper_id": "02-REGISTERED-REPORT-MVE-QRNG",
+      "section": "ABSTRACT",
+      "one_sentence_claim": "We propose a Minimal Viable Experiment (MVE) to test the Resonant Coupling Hypothesis (RCH), which predicts that structured information couples to physical systems proportionally to algorithmic mutual information I_A(s; M_X).",
+      "claim_maturity_level": 6,
+      "claim_maturity_label": "Empirical Support",
+      "facts_snapshot": "No hard factual terms detected by deterministic pass.",
+      "forward_test": "If the claim is true, its stated prediction should survive measurement or comparison.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "experiment, test",
+      "kill_conditions": "Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.",
+      "nearby_equation": "",
+      "Q1_identity": "implicit",
+      "Q2_scope": "broad",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "present",
+      "Q5_falsifiability": "present",
+      "Q6_boundary": "present",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "02-REGISTERED-REPORT-MVE-QRNG",
+      "section": "ABSTRACT",
+      "one_sentence_claim": "Success requires demonstration of monotonic relationship between input complexity and output entropy across a 4-rung calibration ladder, culminating in a blinded test of ancient Hebrew scripture.",
+      "claim_maturity_level": 1,
+      "claim_maturity_label": "Metaphor",
+      "facts_snapshot": "Detected terms: entropy",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "test",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Metaphor, not a final proof.",
+      "nearby_equation": "",
+      "Q1_identity": "implicit",
+      "Q2_scope": "broad",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "present",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "missing",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "02-REGISTERED-REPORT-MVE-QRNG",
+      "section": "ABSTRACT",
+      "one_sentence_claim": "The experiment is designed with cryptographic pre-commitment, null-model ensemble testing, and clear falsification criteria at every stage.",
+      "claim_maturity_level": 4,
+      "claim_maturity_label": "Formal Model",
+      "facts_snapshot": "Detected terms: model",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "experiment",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Formal Model, not a final proof.",
+      "nearby_equation": "",
+      "Q1_identity": "clear",
+      "Q2_scope": "broad",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "present",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "present",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "02-REGISTERED-REPORT-MVE-QRNG",
+      "section": "The RCH posits:",
+      "one_sentence_claim": "[!math] Mathematical Equation **Visual:** $$ \\Delta O = \\kappa I_A(s; M_X)^\\nu \\Phi_X + \\epsilon $$ **Spoken:** When we read this, it is telling us that kappa in a more natural way.",
+      "claim_maturity_level": 4,
+      "claim_maturity_label": "Formal Model",
+      "facts_snapshot": "Detected terms: equation",
+      "forward_test": "If the claim is true, the stated relationship should preserve its variables, direction, and scope.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "No explicit evidence marker in sentence.",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Formal Model, not a final proof.",
+      "nearby_equation": "\\Delta O = \\kappa I_A(s; M_X)^\\nu \\Phi_X",
+      "Q1_identity": "clear",
+      "Q2_scope": "bounded",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "missing",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "missing",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "02-REGISTERED-REPORT-MVE-QRNG",
+      "section": "Where:",
+      "one_sentence_claim": "- ΔO = Change in observable - I_A(s; M_X) = Algorithmic mutual information between input s and system model M_X - κ, ν = Coupling parameters (to be fit) - Φ_X = System susceptibility - ε = Noise term",
+      "claim_maturity_level": 4,
+      "claim_maturity_label": "Formal Model",
+      "facts_snapshot": "Detected terms: model",
+      "forward_test": "If the claim is true, the stated relationship should preserve its variables, direction, and scope.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "No explicit evidence marker in sentence.",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Formal Model, not a final proof.",
+      "nearby_equation": "",
+      "Q1_identity": "implicit",
+      "Q2_scope": "broad",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "missing",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "present",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "02-REGISTERED-REPORT-MVE-QRNG",
+      "section": "SECTION 2: EXPERIMENTAL DESIGN",
+      "one_sentence_claim": "### 2.1 Equipment **Quantum Random Number Generator:** - Model: ID Quantique Quantis-16M-USB or equivalent - Mode: Time-interval photon detection - Output rate: 16 Mbps - Interface: USB 2.0 **Modulation System:** - Coil: 15 cm diameter, 100 turns AWG-28 copper, shielded - Driver: Rigol DG4162 arbitrary waveform generator - Input encoding: Bitstream → bipolar voltage (±1V) - Coupling: Magnetic field modulation at 10 cm from QRNG **Environmental Control:** - Faraday cage: Copper mesh, 6-sided, grounded - Temperature: Monitored at ±0.1°C (target: 20.0°C) - Humidity: Logged (passive control) - EM shielding: RF-absorbing foam lining **Data Acquisition:** - PC: Intel i7, 32GB RAM, SSD - Software: Custom Python 3.11 + NumPy/SciPy - Logging: All raw bits timestamped, SHA-256 per block",
+      "claim_maturity_level": 4,
+      "claim_maturity_label": "Formal Model",
+      "facts_snapshot": "Detected terms: model, field",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "data",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Formal Model, not a final proof.",
+      "nearby_equation": "",
+      "Q1_identity": "implicit",
+      "Q2_scope": "broad",
+      "Q3_mechanism": "present",
+      "Q4_evidence": "present",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "present",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "02-REGISTERED-REPORT-MVE-QRNG",
+      "section": "2.3 Block Structure",
+      "one_sentence_claim": "**Single Block:** - Duration: 3 seconds - QRNG output: 48 Megabits - Modulation: Continuous bitstream at 1 kHz symbol rate - Observable: Block-wise Shannon entropy Ĥ **Full Experiment:** - Total blocks: 1,000,000 - Randomization: ABBA design, seed escrowed - Estimated runtime: 35 days continuous",
+      "claim_maturity_level": 1,
+      "claim_maturity_label": "Metaphor",
+      "facts_snapshot": "Detected terms: entropy",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "experiment",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Metaphor, not a final proof.",
+      "nearby_equation": "",
+      "Q1_identity": "implicit",
+      "Q2_scope": "broad",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "present",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "missing",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "02-REGISTERED-REPORT-MVE-QRNG",
+      "section": "RUNG B: Text Degradation Curve",
+      "one_sentence_claim": "Measure H_observed for each degradation level 2.",
+      "claim_maturity_level": 4,
+      "claim_maturity_label": "Formal Model",
+      "facts_snapshot": "No hard factual terms detected by deterministic pass.",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "No explicit evidence marker in sentence.",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Formal Model, not a final proof.",
+      "nearby_equation": "H_{\\text{predicted}} = H_0 - \\eta \\cdot ",
+      "Q1_identity": "implicit",
+      "Q2_scope": "broad",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "missing",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "missing",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "02-REGISTERED-REPORT-MVE-QRNG",
+      "section": "RUNG B: Text Degradation Curve",
+      "one_sentence_claim": "Compute residuals: |H_obs - H_pred| **Success Criterion:** - Mean absolute error < 2σ of Rung A residuals - Degradation curve monotonic (no inversions) **Failure Criterion:** - Hebrew behaves like random permutation (IRM ≈ 0) - Residuals > 5σ → Model fails",
+      "claim_maturity_level": 4,
+      "claim_maturity_label": "Formal Model",
+      "facts_snapshot": "Detected terms: model",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "No explicit evidence marker in sentence.",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Formal Model, not a final proof.",
+      "nearby_equation": "H_{\\text{predicted}} = H_0 - \\eta \\cdot ",
+      "Q1_identity": "implicit",
+      "Q2_scope": "broad",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "missing",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "present",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "02-REGISTERED-REPORT-MVE-QRNG",
+      "section": "RUNG C: Model-Match Cross-overs",
+      "one_sentence_claim": "**Purpose:** Verify effect is system-model dependent **Procedure:** 1.",
+      "claim_maturity_level": 4,
+      "claim_maturity_label": "Formal Model",
+      "facts_snapshot": "Detected terms: model",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "No explicit evidence marker in sentence.",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Formal Model, not a final proof.",
+      "nearby_equation": "",
+      "Q1_identity": "clear",
+      "Q2_scope": "broad",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "missing",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "present",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "02-REGISTERED-REPORT-MVE-QRNG",
+      "section": "RUNG D: Competing Corpora (Blinded)",
+      "one_sentence_claim": "Reveal after analysis complete **Pre-committed Analysis:** Apply Rung A fit (η, ν) to all inputs: $$ \\Delta H_{\\text{predicted}} = \\eta \\cdot \\text{IRM}(text)^\\nu $$ Rank texts by predicted effect size. **Hypothesis:** - If Logos framework correct: Masoretic Hebrew shows largest effect - If general \"ancient sacred text\" effect: Torah ≈ Quran ≈ Veda - If null: All ≈ controls **Decision Tree:** | **Outcome** | **Interpretation** | | --- | --- | | Torah > others > controls | Specific Logos claim supported | | Torah ≈ Quran ≈ Veda > controls | General \"sacred text\" effect | | All ≈ controls | No effect, RCH fails for texts | **Success for Logos Framework:** - Masoretic Torah in top 2 of 8 - Effect size > 3σ above controls - Bayes Factor vs. uniform null > 10³",
+      "claim_maturity_level": 4,
+      "claim_maturity_label": "Formal Model",
+      "facts_snapshot": "No hard factual terms detected by deterministic pass.",
+      "forward_test": "If the claim is true, its stated prediction should survive measurement or comparison.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "No explicit evidence marker in sentence.",
+      "kill_conditions": "Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Formal Model, not a final proof.",
+      "nearby_equation": "H_{\\text{predicted}} = H_0 - \\eta \\cdot ",
+      "Q1_identity": "implicit",
+      "Q2_scope": "bounded",
+      "Q3_mechanism": "present",
+      "Q4_evidence": "missing",
+      "Q5_falsifiability": "present",
+      "Q6_boundary": "present",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "02-REGISTERED-REPORT-MVE-QRNG",
+      "section": "4.1 Permutation Nulls",
+      "one_sentence_claim": "Measure effect size for each: Δ_surrogate 3.",
+      "claim_maturity_level": 1,
+      "claim_maturity_label": "Metaphor",
+      "facts_snapshot": "No hard factual terms detected by deterministic pass.",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "No explicit evidence marker in sentence.",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Metaphor, not a final proof.",
+      "nearby_equation": "",
+      "Q1_identity": "implicit",
+      "Q2_scope": "broad",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "missing",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "missing",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "02-REGISTERED-REPORT-MVE-QRNG",
+      "section": "SECTION 5: PRE-REGISTERED STATISTICAL ANALYSIS",
+      "one_sentence_claim": "### 5.1 Primary Outcome **Observable:** Per-block Shannon entropy [!math] Mathematical Equation **Visual:** $$ \\hat{H}*i = -\\sum*{b \\in {0,1}} \\hat{p}_b \\log_2 \\hat{p}_b $$ **Spoken:** When we read this, it is telling us that hat{H} in a more natural way.",
+      "claim_maturity_level": 4,
+      "claim_maturity_label": "Formal Model",
+      "facts_snapshot": "Detected terms: equation, entropy",
+      "forward_test": "If the claim is true, the stated relationship should preserve its variables, direction, and scope.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "No explicit evidence marker in sentence.",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Formal Model, not a final proof.",
+      "nearby_equation": "\\hat{H}*i = -\\sum*{b \\in {0,1}} \\hat{p}_",
+      "Q1_identity": "clear",
+      "Q2_scope": "bounded",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "missing",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "missing",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "02-REGISTERED-REPORT-MVE-QRNG",
+      "section": "5.3 Pre-Specified Models",
+      "one_sentence_claim": "**Model 1 (RCH):** $$ H_i = \\beta_0 + \\beta_1 \\text{IRM}(s_i) + \\beta_2 T_i + \\epsilon_i $$ Where T_i = temperature at block i (covariate) **Model 2 (Scaled RCH):** $$ H_i = \\beta_0 + \\beta_1 \\text{IRM}(s_i)^\\nu + \\beta_2 T_i + \\epsilon_i $$ With ν from Rung A **Model 0 (Null):** $$ H_i = \\beta_0 + \\beta_2 T_i + \\epsilon_i $$",
+      "claim_maturity_level": 4,
+      "claim_maturity_label": "Formal Model",
+      "facts_snapshot": "Detected terms: model",
+      "forward_test": "If the claim is true, the stated relationship should preserve its variables, direction, and scope.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "No explicit evidence marker in sentence.",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Formal Model, not a final proof.",
+      "nearby_equation": "\\text{IRM}(s) = \\frac{\\alpha}{K(s)} \\cdo",
+      "Q1_identity": "implicit",
+      "Q2_scope": "broad",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "missing",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "present",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "02-REGISTERED-REPORT-MVE-QRNG",
+      "section": "5.6 Sensitivity Analysis",
+      "one_sentence_claim": "Bayesian hierarchical model with varying intercepts All must agree within factor of 2 on effect size.",
+      "claim_maturity_level": 4,
+      "claim_maturity_label": "Formal Model",
+      "facts_snapshot": "Detected terms: model",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "No explicit evidence marker in sentence.",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Formal Model, not a final proof.",
+      "nearby_equation": "",
+      "Q1_identity": "implicit",
+      "Q2_scope": "bounded",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "missing",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "present",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "02-REGISTERED-REPORT-MVE-QRNG",
+      "section": "7.2 Expected Precision",
+      "one_sentence_claim": "At N = 100k per condition: **Standard error on entropy:** [!math] Mathematical Equation **Visual:** $$ SE(\\hat{H}) = \\sqrt{\\frac{\\text{Var}(H)}{N}} \\approx \\frac{0.001}{\\sqrt{10^5}} \\approx 3 \\times 10^{-6} $$ **Spoken:** When we read this, it is telling us that hat{H} in a more natural way. **95% CI width:** ~6 × 10⁻⁶ bits (excellent precision)",
+      "claim_maturity_level": 4,
+      "claim_maturity_label": "Formal Model",
+      "facts_snapshot": "Detected terms: equation, entropy",
+      "forward_test": "If the claim is true, the stated relationship should preserve its variables, direction, and scope.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "No explicit evidence marker in sentence.",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Formal Model, not a final proof.",
+      "nearby_equation": "SE(\\hat{H}) = \\sqrt{\\frac{\\text{Var}(H)}",
+      "Q1_identity": "clear",
+      "Q2_scope": "bounded",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "missing",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "missing",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "02-REGISTERED-REPORT-MVE-QRNG",
+      "section": "7.3 Stopping Rules",
+      "one_sentence_claim": "**Early Success:** - If BF₁₀ > 10⁶ after 50% data: Stop, claim success - But: Must complete planned replication **Early Futility:** - If BF₁₀ < 0.01 after 50% data and trending toward null: Stop - Conditional power < 10%: Ethical to stop **Both require independent Data Monitoring Committee approval**",
+      "claim_maturity_level": 1,
+      "claim_maturity_label": "Metaphor",
+      "facts_snapshot": "No hard factual terms detected by deterministic pass.",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "data",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Metaphor, not a final proof.",
+      "nearby_equation": "",
+      "Q1_identity": "implicit",
+      "Q2_scope": "bounded",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "present",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "missing",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "02-REGISTERED-REPORT-MVE-QRNG",
+      "section": "Minimum requirements:",
+      "one_sentence_claim": "No evidence of fraud/error **If any lab produces strong null (BF < 0.1):** - Convene adversarial committee - Investigate discrepancy - No claim until resolved",
+      "claim_maturity_level": 1,
+      "claim_maturity_label": "Metaphor",
+      "facts_snapshot": "Detected terms: evidence",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "No explicit evidence marker in sentence.",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Metaphor, not a final proof.",
+      "nearby_equation": "",
+      "Q1_identity": "implicit",
+      "Q2_scope": "bounded",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "missing",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "missing",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "02-REGISTERED-REPORT-MVE-QRNG",
+      "section": "SECTION 12: RISKS & MITIGATIONS",
+      "one_sentence_claim": "### 12.1 Technical Risks **Risk:** QRNG fails during run **Mitigation:** Hot spare unit, daily health checks, auto-restart **Risk:** Temperature drift **Mitigation:** Climate-controlled room, continuous logging, covariate in model **Risk:** EM interference **Mitigation:** Faraday cage, spectrum monitoring, correlation analysis",
+      "claim_maturity_level": 4,
+      "claim_maturity_label": "Formal Model",
+      "facts_snapshot": "Detected terms: model",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "No explicit evidence marker in sentence.",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Formal Model, not a final proof.",
+      "nearby_equation": "",
+      "Q1_identity": "implicit",
+      "Q2_scope": "broad",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "missing",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "present",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "02-REGISTERED-REPORT-MVE-QRNG",
+      "section": "13.2 Broader Impacts",
+      "one_sentence_claim": "**If RCH is supported:** - Profound implications for physics, consciousness studies, theology - Media attention likely (prepared press release) - Public outreach via accessible summary **If RCH is refuted:** - Equally important for science - Demonstrates Logos framework makes falsifiable claims - Informs future theoretical development",
+      "claim_maturity_level": 2,
+      "claim_maturity_label": "Analogy",
+      "facts_snapshot": "No hard factual terms detected by deterministic pass.",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "No explicit evidence marker in sentence.",
+      "kill_conditions": "Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Analogy, not a final proof.",
+      "nearby_equation": "",
+      "Q1_identity": "clear",
+      "Q2_scope": "bounded",
+      "Q3_mechanism": "present",
+      "Q4_evidence": "missing",
+      "Q5_falsifiability": "present",
+      "Q6_boundary": "present",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "02-REGISTERED-REPORT-MVE-QRNG",
+      "section": "CONCLUSION",
+      "one_sentence_claim": "The 4-rung calibration ladder, null-model ensemble, cryptographic pre-commitment, and adversarial collaboration framework ensure that results—positive or negative—will be scientifically credible. **The experiment is ready to begin.**",
+      "claim_maturity_level": 4,
+      "claim_maturity_label": "Formal Model",
+      "facts_snapshot": "Detected terms: model",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "experiment",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Formal Model, not a final proof.",
+      "nearby_equation": "",
+      "Q1_identity": "clear",
+      "Q2_scope": "broad",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "present",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "present",
+      "Q7_listener_risk": "normal"
+    }
+  ]
+}

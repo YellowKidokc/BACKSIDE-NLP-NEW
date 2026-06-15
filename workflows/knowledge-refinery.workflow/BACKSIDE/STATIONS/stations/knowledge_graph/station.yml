@@ -1,0 +1,54 @@
+# Station contract — copy from _TEMPLATE/
+# Mirrors the shape of MODELS/_TEMPLATE/model.yml so stations and models read alike.
+# new_station.py substitutes every {{PLACEHOLDER}} from CLI args.
+
+station_id: ST-GRAPH-001
+name: Knowledge Graph
+lane: graph
+status: draft
+order: 16
+purpose: >
+  Turn paper + claims + 7Q outputs + evidence into graph nodes (paper, claim, axiom_candidate, evidence, equation, domain, objection) and edges (supports, contradicts, depends_on, derives_from, maps_to, cites). Export JSON/CSV for Neo4j.
+
+# What this station calls. For model-wrapper stations this is the bound model.
+# For LLM stations this is the API model id (gpt-4o-mini, claude-opus-4-7, etc.).
+model:
+  primary:   none
+  fallback:  
+  provider:  local_wrapper
+
+prompt:
+  primary:   PROMPT_SYSTEM.md
+  fallback:  
+
+script:
+  runner:    scripts/03_run_prompt.bat
+
+input:
+  accepts:
+    - all_prior_artifacts                    # e.g. markdown_article, text_pair, query_passages
+  required_files:
+    - source.md                    # primary input filename convention
+
+output:
+  produces:
+    - graph.json
+    - graph.md
+  required_format: json
+
+healthcheck:
+  prompt: "Return JSON: {\"status\":\"ok\"}"
+  expected_contains: "\"status\""
+
+gate:
+  pass_if:
+    - valid_json: true
+    - nodes_and_edges_non_empty: true
+  fail_to: 99_ERROR
+  review_to: 03_REVIEW
+
+next:
+  pass:
+    - ST-PUB-001
+  fail:
+    - ST-ERR-001

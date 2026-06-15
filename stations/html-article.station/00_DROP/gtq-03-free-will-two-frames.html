@@ -1,0 +1,1879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="paper-slug" content="gtq-03">
+<title>Article 03: Free Will in Two Frames — Genesis to Quantum</title>
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<!-- MathJax -->
+<script>
+window.MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] }, svg: { fontCache: 'global' } };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+:root{
+  --primary:#1a1a1a;
+  --accent:#2c2c2c;
+  --text-primary:#e0e0e0;
+  --text-secondary:#a0a0a0;
+  --highlight:#d4af37;
+  --highlight-bright:#e8c84a;
+  --highlight-dim:#a08020;
+  --border:#333333;
+  --surface:#0a0a0a;
+  --surface-light:#1a1a1a;
+  --surface-hover:#2a2a2a;
+  --red:#ef4444;
+  --blue:#4a9eff;
+  --teal:#2dd4bf;
+  --purple:#a855f7;
+  --green:#22c55e;
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--surface);
+  color:var(--text-primary);
+  line-height:1.65;
+  margin:0;
+  padding:0;
+  overflow-x:hidden;
+}
+.serif{font-family:'Crimson Text',serif;}
+.display{font-family:'Oswald',sans-serif;}
+.mono{font-family:'JetBrains Mono',monospace;}
+
+/* ─────────────── SIDEBAR NAV ─────────────── */
+.sidebar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:280px;
+  height:100vh;
+  background:var(--surface);
+  border-right:1px solid var(--border);
+  z-index:100;
+  overflow-y:auto;
+  transform:translateX(-100%);
+  transition:transform .3s ease;
+  padding:1.5rem 1rem;
+}
+.sidebar.open{transform:translateX(0);}
+.sidebar-toggle{
+  position:fixed;
+  top:1rem;
+  left:1rem;
+  z-index:101;
+  background:var(--surface-light);
+  border:1px solid var(--border);
+  color:var(--highlight);
+  width:40px;
+  height:40px;
+  border-radius:.375rem;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1rem;
+  transition:all .2s ease;
+}
+.sidebar .series-title{
+  font-family:'Oswald',sans-serif;
+  font-size:.7rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--highlight);
+  margin-bottom:1rem;
+  padding-bottom:.5rem;
+  border-bottom:1px solid var(--border);
+}
+.sidebar a{
+  display:block;
+  padding:.45rem .75rem;
+  color:var(--text-secondary);
+  text-decoration:none;
+  font-size:.8rem;
+  border-radius:.3rem;
+  transition:all .15s ease;
+  line-height:1.4;
+}
+.sidebar a:hover{color:var(--text-primary);background:var(--surface-hover);}
+.sidebar a.current{color:var(--highlight);background:rgba(212,175,55,.1);font-weight:600;}
+.sidebar a.tangent{padding-left:2rem;font-size:.75rem;color:var(--text-secondary);opacity:.8;}
+.sidebar a.tangent::before{content:"\2514\0020";color:var(--border);}
+
+/* ─────────────── HEADER ─────────────── */
+.site-header{
+  border-bottom:1px solid var(--border);
+  background:var(--surface);
+}
+.meta-row{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:1rem;
+  font-size:.8125rem;
+  color:var(--text-secondary);
+  margin-bottom:1rem;
+}
+.meta-row i{color:var(--highlight);margin-right:.4rem;}
+.status-pill{
+  padding:.25rem .65rem;
+  background:rgba(212,175,55,.12);
+  color:var(--highlight);
+  border-radius:.25rem;
+  font-size:.7rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.domain-tag{
+  display:inline-block;
+  padding:.2rem .65rem;
+  border-radius:999px;
+  font-size:.7rem;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+.tag-physics{background:rgba(74,158,255,.15);color:#4a9eff;}
+.tag-theology{background:rgba(212,175,55,.15);color:#d4af37;}
+.tag-psychology{background:rgba(45,212,191,.15);color:#2dd4bf;}
+.tag-bridge{background:rgba(212,175,55,.15);color:var(--highlight);}
+
+/* ─────────────── STICKY TAB BAR ─────────────── */
+.tab-shell{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(10,10,10,.96);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.progress-track{
+  height:3px;
+  background:var(--border);
+  width:100%;
+}
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--highlight),var(--highlight-bright));
+  transition:width 0.1s ease;
+  border-radius:0 2px 2px 0;
+}
+.tab-nav{
+  display:flex;
+  gap:.125rem;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.tab-nav::-webkit-scrollbar{display:none;}
+.tab-btn{
+  padding:.85rem 1.1rem;
+  background:transparent;
+  border:none;
+  color:var(--text-secondary);
+  font-size:.825rem;
+  font-weight:500;
+  cursor:pointer;
+  white-space:nowrap;
+  transition:all .2s ease;
+  border-bottom:2px solid transparent;
+  margin-bottom:-1px;
+  letter-spacing:.02em;
+}
+.tab-btn:hover{color:var(--text-primary);background:var(--surface-light);}
+.tab-btn.active{
+  color:var(--highlight);
+  border-bottom-color:var(--highlight);
+  background:var(--surface-light);
+}
+.tab-btn i{margin-right:.4rem;}
+
+/* ─────────────── TAB CONTENT ─────────────── */
+.tab-content{display:none;animation:fadeIn .3s ease;}
+.tab-content.active{display:block;}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(8px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* ─────────────── STORY ARTICLE ─────────────── */
+.story{max-width:780px;margin:0 auto;}
+.story h2{
+  font-family:'Oswald',sans-serif;
+  font-size:1.6rem;
+  font-weight:600;
+  color:#fff;
+  margin:3rem 0 1.25rem;
+  letter-spacing:.03em;
+  text-transform:uppercase;
+  border-bottom:1px solid var(--border);
+  padding-bottom:.5rem;
+}
+.story h3{
+  font-family:'Crimson Text',serif;
+  font-size:1.3rem;
+  font-weight:600;
+  color:#fff;
+  margin:2rem 0 .75rem;
+}
+.story h4{
+  font-family:'Crimson Text',serif;
+  font-size:1.1rem;
+  font-weight:600;
+  color:var(--highlight);
+  margin:1.5rem 0 .5rem;
+}
+.story p{
+  font-size:1.0625rem;
+  color:#cfcfcf;
+  margin:0 0 1.25rem;
+  line-height:1.75;
+}
+.story p strong{color:#fff;}
+.story p em{color:var(--highlight);font-style:italic;}
+.story li{color:#cfcfcf;margin-bottom:.5rem;line-height:1.65;}
+.story li strong{color:#fff;}
+.story ul,.story ol{margin:0 0 1.25rem 1.5rem;}
+.story blockquote{
+  border-left:4px solid var(--highlight);
+  background:rgba(212,175,55,.06);
+  padding:1rem 1.5rem;
+  margin:1.5rem 0;
+  border-radius:0 .5rem .5rem 0;
+  font-family:'Crimson Text',serif;
+  font-size:1.05rem;
+  font-style:italic;
+  color:#cfcfcf;
+}
+.story blockquote p{margin:0;font-size:1.05rem;}
+
+/* Drop cap */
+.drop-cap::first-letter{
+  font-family:'Crimson Text',serif;
+  font-size:4.5rem;
+  float:left;
+  line-height:.85;
+  padding:.4rem .6rem 0 0;
+  color:var(--highlight);
+  font-weight:600;
+}
+
+/* Insight / pull quote */
+.insight{
+  border-left:4px solid var(--highlight);
+  background:rgba(212,175,55,.07);
+  padding:1.25rem 1.5rem;
+  margin:2rem 0;
+  border-radius:0 .5rem .5rem 0;
+}
+.insight .label{
+  font-family:'Crimson Text',serif;
+  font-style:italic;
+  color:var(--highlight);
+  font-size:.85rem;
+  letter-spacing:.05em;
+  display:block;
+  margin-bottom:.4rem;
+}
+.insight p{margin:0;color:#fff;font-size:1.05rem;}
+
+/* Axiom callout */
+.axiom-box{
+  background:rgba(212,175,55,.06);
+  border:1px solid rgba(212,175,55,.25);
+  border-left:4px solid var(--highlight);
+  padding:1rem 1.5rem;
+  margin:1.5rem 0;
+  border-radius:0 .5rem .5rem 0;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.95rem;
+  color:var(--highlight);
+}
+
+/* Law box */
+.law-box{
+  background:rgba(74,158,255,.06);
+  border:1px solid rgba(74,158,255,.2);
+  border-left:4px solid var(--blue);
+  padding:1rem 1.5rem;
+  margin:1.5rem 0;
+  border-radius:0 .5rem .5rem 0;
+}
+.law-box .law-label{
+  font-family:'Oswald',sans-serif;
+  font-size:.75rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--blue);
+  margin-bottom:.35rem;
+}
+.law-box p{margin:0;color:#cfcfcf;font-size:.95rem;}
+
+/* Equation display */
+.eq-block{
+  background:var(--surface-light);
+  border:1px solid var(--border);
+  border-radius:.5rem;
+  padding:1.5rem;
+  margin:1.5rem 0;
+  text-align:center;
+  overflow-x:auto;
+}
+.eq-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;
+  color:var(--highlight);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin-bottom:.75rem;
+  text-align:left;
+}
+
+/* Tables */
+.data-table{
+  width:100%;
+  border-collapse:collapse;
+  margin:1.5rem 0;
+  font-size:.875rem;
+  border:1px solid var(--border);
+  border-radius:.5rem;
+  overflow:hidden;
+}
+.data-table thead{
+  background:var(--surface-light);
+  text-transform:uppercase;
+  font-size:.7rem;
+  letter-spacing:.06em;
+  color:var(--highlight);
+}
+.data-table th,.data-table td{
+  padding:.75rem 1rem;
+  text-align:left;
+  border-bottom:1px solid var(--border);
+}
+.data-table tr:last-child td{border-bottom:none;}
+.data-table tbody tr:hover{background:rgba(212,175,55,.04);}
+.data-table td{color:var(--text-secondary);}
+
+/* Kill card */
+.kill-card{
+  padding:1.25rem;
+  margin-bottom:.75rem;
+  background:rgba(239,68,68,.04);
+  border:1px solid rgba(239,68,68,.2);
+  border-radius:.5rem;
+}
+.kill-card .kill-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;
+  color:var(--red);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin-bottom:.35rem;
+}
+.kill-card p{margin:.25rem 0 0;color:#cfcfcf;font-size:.9rem;}
+.kill-card .kill-detail{font-size:.8rem;color:var(--text-secondary);margin-top:.35rem;}
+
+/* Citations */
+.citation{
+  display:inline-block;
+  background:var(--highlight);
+  color:var(--primary);
+  padding:.1rem .4rem;
+  border-radius:.25rem;
+  font-size:.65rem;
+  font-weight:700;
+  text-decoration:none;
+  margin:0 .1rem;
+  vertical-align:.15em;
+  cursor:default;
+}
+
+/* Card */
+.card{
+  background:var(--surface-light);
+  border:1px solid var(--border);
+  border-radius:.5rem;
+  padding:1.5rem;
+  transition:border-color .25s ease;
+}
+.card:hover{border-color:var(--highlight);}
+
+/* Part header */
+.part-header{
+  margin:3.5rem 0 1.5rem;
+  padding:1.25rem 1.5rem;
+  background:linear-gradient(135deg,rgba(212,175,55,.08) 0%,rgba(212,175,55,.02) 100%);
+  border:1px solid rgba(212,175,55,.2);
+  border-radius:.5rem;
+}
+.part-header .part-num{
+  font-family:'Oswald',sans-serif;
+  font-size:.7rem;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--highlight);
+  margin-bottom:.25rem;
+}
+.part-header h2{
+  font-family:'Oswald',sans-serif;
+  font-size:1.5rem;
+  font-weight:600;
+  color:#fff;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  margin:0;
+  border:none;
+  padding:0;
+}
+.part-header p{
+  margin:.5rem 0 0;
+  font-size:.85rem;
+  color:var(--text-secondary);
+  font-style:italic;
+}
+
+/* Player dock — sits below tab shell, outside the paper */
+.player-dock{
+  background:rgba(15,15,15,.95);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);
+  padding:.5rem 1.5rem;
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+}
+.player-dock .player-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.6rem;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--highlight);
+  white-space:nowrap;
+}
+.player-dock audio{
+  flex:1;
+  height:32px;
+  max-width:420px;
+  filter:brightness(.85);
+}
+
+/* Legacy — keep class for print */
+.tts-bar{display:none;}
+
+/* Media cards */
+.media-card{
+  background:var(--surface-light);
+  border:1px solid var(--border);
+  border-radius:.6rem;
+  padding:1.5rem;
+  margin-bottom:1.5rem;
+  transition:border-color .25s ease;
+}
+.media-card:hover{border-color:var(--highlight);}
+.media-card .media-label{
+  display:block;
+  font-size:.7rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--highlight);
+  font-weight:700;
+  margin-bottom:.5rem;
+}
+.media-card h3{
+  font-family:'Crimson Text',serif;
+  font-size:1.5rem;
+  font-weight:600;
+  color:#fff;
+  margin:0 0 .5rem;
+}
+.media-card p.media-desc{
+  font-size:.9rem;
+  color:var(--text-secondary);
+  margin:0 0 1rem;
+}
+.media-card audio{width:100%;border-radius:.4rem;background:var(--surface);height:46px;}
+.media-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:1rem;
+  margin-top:.85rem;
+  font-size:.75rem;
+  color:var(--text-secondary);
+}
+.media-meta span i{color:var(--highlight);margin-right:.35rem;}
+
+/* Disclaimer box */
+.disclaimer-box{
+  background:rgba(212,175,55,.04);
+  border:1px solid rgba(212,175,55,.2);
+  border-radius:.5rem;
+  padding:1.25rem 1.5rem;
+  margin:2rem 0;
+}
+.disclaimer-box .disclaimer-label{
+  font-family:'Oswald',sans-serif;
+  font-size:.7rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--highlight);
+  margin-bottom:.5rem;
+}
+.disclaimer-box p{
+  font-family:'Crimson Text',serif;
+  font-size:1rem;
+  font-style:italic;
+  color:var(--text-secondary);
+  margin:0;
+  line-height:1.7;
+}
+
+/* Tangent card */
+.tangent-card{
+  background:var(--surface-light);
+  border:2px solid rgba(168,85,247,.3);
+  border-radius:.6rem;
+  padding:1.5rem;
+  margin:3rem 0 2rem;
+}
+.tangent-card .tangent-label{
+  font-family:'Oswald',sans-serif;
+  font-size:.7rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--purple);
+  margin-bottom:.5rem;
+}
+.tangent-card h3{
+  font-family:'Crimson Text',serif;
+  font-size:1.4rem;
+  font-weight:600;
+  color:#fff;
+  margin:0 0 .75rem;
+}
+.tangent-toggle{
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  cursor:pointer;
+  background:none;
+  border:none;
+  color:var(--purple);
+  font-family:'JetBrains Mono',monospace;
+  font-size:.75rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  padding:.5rem 0;
+  margin-bottom:.5rem;
+}
+.tangent-toggle i{transition:transform .3s ease;}
+.tangent-toggle.open i{transform:rotate(90deg);}
+.tangent-body{display:none;padding-top:1rem;border-top:1px solid var(--border);}
+.tangent-body.show{display:block;}
+.tangent-body h2{
+  font-family:'Oswald',sans-serif;
+  font-size:1.3rem;
+  font-weight:600;
+  color:#fff;
+  margin:2rem 0 1rem;
+  letter-spacing:.03em;
+  text-transform:uppercase;
+  border-bottom:1px solid var(--border);
+  padding-bottom:.5rem;
+}
+.tangent-body h3{
+  font-family:'Crimson Text',serif;
+  font-size:1.15rem;
+  font-weight:600;
+  color:#fff;
+  margin:1.5rem 0 .5rem;
+}
+.tangent-body p{
+  font-size:1rem;
+  color:#cfcfcf;
+  margin:0 0 1.1rem;
+  line-height:1.7;
+}
+.tangent-body p strong{color:#fff;}
+.tangent-body p em{color:var(--purple);font-style:italic;}
+.tangent-body blockquote{
+  border-left:4px solid var(--purple);
+  background:rgba(168,85,247,.05);
+  padding:1rem 1.5rem;
+  margin:1.5rem 0;
+  border-radius:0 .5rem .5rem 0;
+  font-family:'Crimson Text',serif;
+  font-size:1.05rem;
+  font-style:italic;
+  color:#cfcfcf;
+}
+
+/* Horizontal rule */
+.story hr, .tangent-body hr{
+  border:none;
+  border-top:1px solid var(--border);
+  margin:2.5rem 0;
+}
+
+/* Footer */
+footer{
+  border-top:1px solid var(--border);
+  margin-top:5rem;
+  padding:2rem 0;
+  text-align:center;
+  color:var(--text-secondary);
+  font-size:.85rem;
+}
+.footer-eq{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.8rem;
+  color:var(--highlight);
+  margin-bottom:.75rem;
+}
+
+@media (max-width:768px){
+  .story h2{font-size:1.3rem;}
+  .story p{font-size:1rem;}
+  .tab-btn{padding:.7rem .8rem;font-size:.75rem;}
+}
+
+@media print{
+  .tab-shell,.sidebar,.sidebar-toggle{display:none;}
+  .tab-content{display:block !important;}
+  body{background:#fff;color:#000;}
+}
+
+/* ═══ SHARE & REACTIONS ═══ */
+.share-bar{display:flex;align-items:center;gap:.5rem;padding:.75rem 0;}
+.share-bar .share-label{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-right:.25rem;}
+.share-btn{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:.4rem;border:1px solid var(--border);background:var(--surface-light);color:var(--text-secondary);font-size:.9rem;cursor:pointer;transition:all .2s ease;text-decoration:none;}
+.share-btn:hover{border-color:var(--highlight);color:var(--highlight);background:rgba(212,175,55,.06);transform:translateY(-1px);}
+.share-btn.x:hover{color:#fff;border-color:#fff;}
+.share-btn.facebook:hover{color:#1877f2;border-color:#1877f2;}
+.share-btn.linkedin:hover{color:#0a66c2;border-color:#0a66c2;}
+.share-btn.reddit:hover{color:#ff4500;border-color:#ff4500;}
+.share-btn.email:hover{color:var(--teal,#2dd4bf);border-color:var(--teal,#2dd4bf);}
+.share-btn.copy:hover{color:var(--green,#22c55e);border-color:var(--green,#22c55e);}
+.share-btn.copy.copied{color:var(--green,#22c55e);border-color:var(--green,#22c55e);background:rgba(34,197,94,.1);}
+.share-floating{position:fixed;right:1rem;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:.4rem;padding:.5rem;background:rgba(15,15,15,.9);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:.5rem;}
+@media(max-width:1024px){.share-floating{display:none;}}
+.reaction-bar{display:flex;align-items:center;gap:.4rem;padding:.75rem 0;border-top:1px solid rgba(255,255,255,.04);margin-top:1.5rem;}
+.reaction-bar .reaction-label{font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-right:.5rem;}
+.reaction-btn{display:inline-flex;align-items:center;gap:.3rem;padding:.35rem .6rem;border-radius:9999px;border:1px solid var(--border);background:transparent;color:var(--text-secondary);font-size:.8rem;cursor:pointer;transition:all .2s;user-select:none;}
+.reaction-btn:hover{border-color:var(--highlight);background:rgba(212,175,55,.06);}
+.reaction-btn.active{border-color:var(--highlight);background:rgba(212,175,55,.1);color:var(--highlight);}
+.reaction-btn .count{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--text-muted);}
+.reaction-btn.active .count{color:var(--highlight);}
+.share-section{max-width:780px;margin:0 auto;padding:2rem 1.5rem;border-top:1px solid var(--border);}
+.share-section h3{font-family:'Crimson Text',serif;font-size:1.3rem;color:white;margin-bottom:.75rem;}
+</style>
+</head>
+<body>
+<!-- ════════ GOLD EDGE TOP BAR ════════ -->
+<div class="topbar-gold-edge" style="background:linear-gradient(90deg,rgba(212,175,55,.08) 0%,rgba(10,10,10,1) 30%);border-bottom:1px solid #2b2b2b;border-left:4px solid #d4af37;padding:0 1.5rem;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:60;">
+  <div style="display:flex;align-items:center;gap:.75rem;">
+    <div style="font-family:'Oswald',sans-serif;font-size:1.4rem;font-weight:700;color:#d4af37;line-height:1;">03</div>
+    <div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:#d4af37;">Genesis to Quantum</div>
+      <div style="font-family:'Crimson Text',serif;font-size:.95rem;color:#e0e0e0;font-weight:600;line-height:1.2;">Free Will in Two Frames</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:.3rem;align-items:center;">
+    <a href="index.html" style="display:inline-flex;align-items:center;gap:.4rem;height:36px;padding:0 .85rem;border-radius:8px;font-size:.72rem;font-weight:500;color:#a0a0a0;text-decoration:none;border:1px solid #2b2b2b;background:#181818;"><i class="fas fa-th-list"></i> Index</a>
+    <a href="gtq-02-the-first-quantum-state.html" style="width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#a0a0a0;text-decoration:none;border:1px solid #2b2b2b;background:#181818;font-size:.8rem;"><i class="fas fa-arrow-left"></i></a>
+    <a href="gtq-03a-macarthur-and-the-equation.html" style="width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#a0a0a0;text-decoration:none;border:1px solid #2b2b2b;background:#181818;font-size:.8rem;"><i class="fas fa-arrow-right"></i></a>
+  </div>
+</div>
+
+<!-- ════════ MINIMAL CENTERED HERO ════════ -->
+<header class="hero-minimal-centered" style="text-align:center;padding:2.5rem 2rem 2rem;border-bottom:1px solid #2b2b2b;">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:#d4af37;margin-bottom:1rem;">Article 03 &middot; Genesis to Quantum</div>
+  <h1 style="font-family:'Crimson Text',serif;font-size:clamp(2rem,4.5vw,3.2rem);font-weight:700;color:#fff;margin-bottom:.85rem;line-height:1.1;">Free Will in Two Frames</h1>
+  <p style="font-size:.92rem;color:#a0a0a0;max-width:700px;margin:0 auto .8rem;line-height:1.7;">The Coherence Equation, the Calvinist–Arminian Dissolution, and Three Pathways Through the Fall</p>
+  <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;font-size:.8rem;color:#6e6e6e;margin-top:1rem;">
+    <span><i class="fas fa-user" style="color:#d4af37;margin-right:.3rem;"></i>David Lowe</span>
+    <span><i class="fas fa-calendar-alt" style="color:#d4af37;margin-right:.3rem;"></i>2026</span>
+    <span><i class="fas fa-fingerprint" style="color:#d4af37;margin-right:.3rem;"></i>GTQ-03</span>
+    <span style="padding:.25rem .6rem;background:rgba(212,175,55,.12);color:#d4af37;border-radius:.25rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;">Draft</span>
+  </div>
+</header>
+
+<!-- ════════════════ SIDEBAR NAV ════════════════ -->
+<!-- ════════════════ STICKY TAB BAR ════════════════ -->
+<div class="tab-shell">
+  <div class="container mx-auto px-6">
+    <nav class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('summary',this)"><i class="fas fa-compress-alt"></i>Executive Summary</button>
+      <button class="tab-btn" onclick="switchTab('rigor',this)"><i class="fas fa-crosshairs"></i>Rigor &amp; Kill Conditions</button>
+      <button class="tab-btn" onclick="switchTab('paper',this)"><i class="fas fa-scroll"></i>The Paper</button>
+      <span style="width:1px;height:24px;background:var(--border);margin:0 .25rem;flex-shrink:0;"></span>
+      <button class="tab-btn" onclick="switchTab('tangent-macarthur',this)" style="color:#d4af37;"><i class="fas fa-code-branch"></i>MacArthur &amp; the Equation</button>
+      <button class="tab-btn" onclick="switchTab('tangent-pathways',this)" style="color:#d4af37;"><i class="fas fa-code-branch"></i>The Three Pathways</button>
+      <button class="tab-btn" onclick="switchTab('tangent-flood',this)" style="color:#d4af37;"><i class="fas fa-code-branch"></i>Why God Drowned Everybody</button>
+      <button class="tab-btn" onclick="switchTab('media',this)"><i class="fas fa-headphones"></i>Watch &amp; Listen</button>
+    </nav>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+</div>
+
+<!-- ════════════════ PLAYER DOCK ════════════════ -->
+<div class="player-dock">
+  <i class="fas fa-volume-up" style="color:var(--highlight);font-size:.8rem;"></i>
+  <span class="player-label">Listen</span>
+  <audio controls preload="metadata">
+    <source src="https://r2.faiththruphysics.com/audio/gtq-03/read.mp3" type="audio/mpeg">
+  </audio>
+</div>
+
+<!-- ════════════════ MAIN ════════════════ -->
+<main class="container mx-auto px-6 py-10">
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--   TAB: THE PAPER                           -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section id="paper" class="tab-content">
+    <article class="story">
+
+      <!-- ═══ OPENING NOTE ═══ -->
+      <div class="disclaimer-box">
+        <div class="disclaimer-label"><i class="fas fa-info-circle" style="margin-right:.4rem;"></i>Opening Note</div>
+        <p>This paper applies the Theophysics coherence framework to one of the oldest theological disputes in Christianity. The goal is not to arbitrate the debate but to show that the debate itself may be a category error &mdash; asking a question the equation was never designed to answer in the form posed. The math dissolves the fight. Whether that dissolution satisfies the combatants is a separate question.</p>
+      </div>
+
+      <blockquote>
+        <p>"Work out your own salvation with fear and trembling, for it is God who works in you, both to will and to work for his good pleasure."</p>
+        <p style="margin-top:.75rem;font-size:.9rem;color:var(--text-secondary);font-style:normal;">&mdash; Philippians 2:12&ndash;13</p>
+      </blockquote>
+
+      <p class="drop-cap">Paul gives us both sides in a single breath. Work it out &mdash; that is human agency. God works in you &mdash; that is divine sovereignty. He does not hedge. He does not choose one. He stacks them, comma after comma, as if the tension is the point.</p>
+
+      <p>The debate that has followed &mdash; Calvinist against Arminian, predestination against free choice, monergism against synergism &mdash; has run for five centuries without resolution. This paper proposes that the debate fails to resolve not because one side is wrong but because both sides are using the wrong frame. The question is not "does God choose or do we choose?" The question is: <em>what does the coherence equation actually predict?</em></p>
+
+      <hr>
+
+      <!-- ═══ THE EQUATION ═══ -->
+      <h2>The Equation</h2>
+
+      <p>The Theophysics framework models spiritual coherence &mdash; the degree to which a human system is aligned with its source specification &mdash; as a dynamical variable $C$ that evolves over time:</p>
+
+      <div class="eq-block">
+        <div class="eq-label">Coherence Evolution Equation</div>
+        $$\frac{dC}{dt} = O \cdot G(1-C) - S \cdot C$$
+      </div>
+
+      <p>Where:</p>
+
+      <ul>
+        <li>$C \in [0,1]$ is <strong>coherence</strong> &mdash; 0 is total decoherence (full separation from source), 1 is perfect alignment</li>
+        <li>$O \in [0,1]$ is <strong>openness</strong> &mdash; the human agent's receptivity parameter, the surrender variable</li>
+        <li>$G > 0$ is <strong>grace input</strong> &mdash; the rate at which divine grace is available to the system (external, not generated by the agent)</li>
+        <li>$S \geq 0$ is the <strong>entropy/sin parameter</strong> &mdash; the rate at which coherence decays due to misalignment, resistance, or moral failure</li>
+        <li>$(1-C)$ is the <strong>coherence gap</strong> &mdash; the available space for grace to fill</li>
+      </ul>
+
+      <p>Read the equation out loud: <em>The rate of change of coherence equals openness times grace times available gap, minus entropy times current coherence.</em></p>
+
+      <p>Three things are immediately visible:</p>
+
+      <ol>
+        <li>Grace $G$ is always positive and externally supplied. The human agent cannot generate it.</li>
+        <li>Openness $O$ multiplies grace. Zero openness means zero effect from grace &mdash; not because grace isn't there, but because the multiplication zeroes it out.</li>
+        <li>At equilibrium ($dC/dt = 0$), the steady-state coherence is: $$C^* = \frac{O \cdot G}{O \cdot G + S}$$</li>
+      </ol>
+
+      <div class="eq-block">
+        <div class="eq-label">Steady-State Coherence</div>
+        $$C^* = \frac{O \cdot G}{O \cdot G + S}$$
+      </div>
+
+      <p>This is the equation's answer to the free will debate. It requires both terms. Remove $G$ (deny grace), and $C^*$ collapses to zero regardless of $O$. Remove $O$ (deny human openness), and $C^*$ collapses to zero regardless of $G$. The equation is structurally synergistic &mdash; not because we chose to make it that way, but because that is what the coupled dynamics produce.</p>
+
+      <hr>
+
+      <!-- ═══ THE CALVINIST-ARMINIAN DISSOLUTION ═══ -->
+      <h2>The Calvinist&ndash;Arminian Dissolution</h2>
+
+      <p>The historic debate maps onto the equation's variables as follows:</p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Camp</th>
+            <th>Core Claim</th>
+            <th>Equation Variable</th>
+            <th>What They're Right About</th>
+            <th>What They Miss</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="color:var(--blue);font-weight:600;">Calvinist</td>
+            <td>Salvation is entirely God's work. Human will is enslaved post-Fall. Election precedes all human response.</td>
+            <td style="color:var(--blue);">$G$ (Grace)</td>
+            <td>$G$ is non-zero and externally sourced. The agent cannot initiate it.</td>
+            <td>$O$ is also a real variable. Setting $O \equiv 1$ (irresistible grace) assumes the answer.</td>
+          </tr>
+          <tr>
+            <td style="color:var(--highlight);font-weight:600;">Arminian</td>
+            <td>God extends prevenient grace to all; humans genuinely choose or refuse it. Faith is a real human act.</td>
+            <td style="color:var(--highlight);">$O$ (Openness)</td>
+            <td>$O$ is a real variable. Grace does not automatically override it.</td>
+            <td>$O$ is not self-generated ex nihilo. The capacity for openness is itself graced.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>The equation reveals the error in both camps: they are each identifying one term of a product and treating it as the whole equation. Calvinism is correct that grace is the driving force; it misses that openness modulates the coupling. Arminianism is correct that openness is real; it struggles to account for where the capacity for openness comes from in a post-Fall agent.</p>
+
+      <div class="insight">
+        <span class="label">&mdash; The Dissolution</span>
+        <p>The debate is not wrong. It is underspecified. Both camps have identified a real variable. Neither has written down the equation that contains both variables. Once you write the equation, the debate evaporates &mdash; not into compromise, but into a more complete description.</p>
+      </div>
+
+      <h3>The Surrender Parameter</h3>
+
+      <p>The most useful extension is to introduce a signed <strong>surrender parameter</strong> $s \in [-1, +1]$ that subsumes the openness variable $O$ and maps onto the three attitudinal postures a human agent can take toward grace:</p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th style="width:100px;">Value of $s$</th>
+            <th>Label</th>
+            <th>Description</th>
+            <th>Equation Effect</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="color:var(--red);font-weight:700;">$s = -1$</td>
+            <td>Autonomous Resistance</td>
+            <td>Active opposition to grace. The agent treats coherence as a threat to self-definition.</td>
+            <td>Grace term goes negative; coherence is actively destroyed. $C \to 0$.</td>
+          </tr>
+          <tr>
+            <td style="color:var(--highlight);font-weight:700;">$s \approx 0$</td>
+            <td>Self-Righteous Performance</td>
+            <td>The agent attempts to generate coherence through effort. Grace is accepted only as assistance.</td>
+            <td>Grace term is severely reduced. Equilibrium is low and unstable.</td>
+          </tr>
+          <tr>
+            <td style="color:var(--green);font-weight:700;">$s = +1$</td>
+            <td>Full Surrender</td>
+            <td>The agent orients completely toward the grace source. Self-generated effort yields to receptivity.</td>
+            <td>Grace term maximized. Highest achievable $C^*$ given fixed $G$ and $S$.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Rewriting with the surrender parameter:</p>
+
+      <div class="eq-block">
+        <div class="eq-label">Extended Coherence Equation (Surrender Parameterization)</div>
+        $$\frac{dC}{dt} = \frac{(1+s)}{2} \cdot G(1-C) - S \cdot C$$
+      </div>
+
+      <p>When $s = +1$: full openness, maximum grace coupling. When $s = -1$: zero coupling, entropy dominates. When $s = 0$: half-coupling, the self-righteous middle ground that produces the frustrating low-coherence equilibrium that Paul describes in Romans 7 ("I do not do the good I want, but the evil I do not want is what I keep on doing").</p>
+
+      <hr>
+
+      <!-- ═══ FREE WILL BEFORE AND AFTER THE FALL ═══ -->
+      <h2>Free Will Before and After the Fall</h2>
+
+      <h3>Pre-Fall Will</h3>
+
+      <p>Before the collapse event described in Article 01, the human agent operates at $C \approx 1$ &mdash; near-maximal coherence with the source specification. In this state, the will is free in the strongest possible sense: it aligns with its own deepest nature, which is itself aligned with the Logos field.</p>
+
+      <p>This is not freedom from constraint. It is freedom <em>as</em> the fullest expression of what the agent is. A violin is most free when it makes music, not when a child hammers it. The pre-Fall will experiences no gap between desire and specification. What it wants, it wants rightly, because its wanting-mechanism is coherent with its source.</p>
+
+      <p>The capacity to choose wrongly existed &mdash; that is the tree in the garden &mdash; but it required active movement away from the coherence equilibrium. The agent had to <em>work</em> to decohere. Temptation in Eden is not an overwhelming force; it is a subtle proposal to reframe the measurement basis.</p>
+
+      <h3>Post-Fall Will</h3>
+
+      <p>After the collapse event, the human agent defaults to $C \ll 1$ &mdash; low coherence, high entropy, dominant $S$ term. The will is now systematically biased. It can still choose, but the choice-generating mechanism is itself distorted. The problem is not that the will has been removed; the problem is that it now <em>wants the wrong things at the first order of desire.</em></p>
+
+      <p>This is the Calvinist insight: total depravity does not mean maximum possible evil in every choice, it means the will's operating system has been corrupted at the root. The Arminian insight is also preserved: the will still exists, still makes real choices, and still bears real moral weight. Both are true. The equation holds both.</p>
+
+      <p>What changes the situation is the injection of a grace source term $G$ into the system &mdash; a negentropic input that the agent did not generate and cannot earn. The grace term does not override the will; it creates a gradient toward which the will can orient if it chooses to do so. Prevenient grace, in equation terms, is simply $G > 0$ being nonzero for all human agents regardless of their prior state.</p>
+
+      <hr>
+
+      <!-- ═══ THREE PATHWAYS ═══ -->
+      <h2>Three Pathways</h2>
+
+      <p>The surrender parameter produces three qualitatively distinct trajectories. These are not just theological categories; they map onto measurable neurological and behavioral patterns. The full analysis is in Tangent 03-B, but the overview is here:</p>
+
+      <div class="part-header">
+        <div class="part-num">Path 1 &mdash; $s = -1$</div>
+        <h2>Autonomy</h2>
+        <p>The agent actively orients the self as the primary reference frame. Grace input is treated as a threat to self-definition. Entropy dominates. Coherence decays toward zero. Neurologically: chronic activation of default mode network, elevated cortisol, hypervigilance. Spiritually: increasing opacity to grace, not because grace withdraws, but because the coupling is driven to zero by the surrender parameter.</p>
+      </div>
+
+      <div class="part-header">
+        <div class="part-num">Path 2 &mdash; $s \approx 0$</div>
+        <h2>Performance</h2>
+        <p>The agent accepts grace as assistance to self-generated effort. Religion without surrender. Morality without transformation. The Romans 7 state. Produces intermittent coherence spikes followed by collapse. Neurologically: prefrontal cortex overactivation, anxiety under perceived divine evaluation, shame-cycling. Spiritually: the appearance of coherence without the substance. The most common state in religious practice.</p>
+      </div>
+
+      <div class="part-header">
+        <div class="part-num">Path 3 &mdash; $s = +1$</div>
+        <h2>Surrender</h2>
+        <p>The agent reorients the self as a receiver rather than a generator. Grace becomes the primary input; effort becomes the response to grace rather than the substitute for it. Neurologically: reduced default mode network activity, increased parasympathetic tone, reported experiences of peace "beyond understanding" (Phil 4:7). Coherence moves toward the maximum achievable given the entropy parameter. This is not passivity &mdash; it is the most active engagement possible, but the activity is downstream of reception rather than upstream of it.</p>
+      </div>
+
+      <hr>
+
+      <!-- ═══ WHAT THE EQUATION PREDICTS ═══ -->
+      <h2>What the Equation Predicts</h2>
+
+      <p>Four falsifiable predictions emerge from the coherence equation applied to human agents:</p>
+
+      <ol>
+        <li><strong>Prediction 1 &mdash; Path 3 outperforms Path 2.</strong> Agents in sustained surrender posture ($s \approx +1$) should show measurably higher coherence-proxy measures (psychological integration, behavioral consistency, physiological markers of reduced chronic stress) than agents in high-effort religious performance ($s \approx 0$), controlling for religious activity level.</li>
+
+        <li><strong>Prediction 2 &mdash; Grace is not correlated with prior moral performance.</strong> If $G$ is genuinely externally sourced and not proportional to prior $C$, then recipients of high-grace experiences should be randomly distributed across the coherence spectrum at time of receipt. Conversion data should show significant representation of low-$C$ agents (high-entropy life histories) receiving strong grace encounters.</li>
+
+        <li><strong>Prediction 3 &mdash; The $s$ parameter transitions are abrupt, not gradual.</strong> The phase diagram of the coherence equation predicts that transitions between attractor basins (Path 1 &rarr; Path 3, for instance) should look like threshold crossings rather than smooth ramps. Testimonies of conversion should cluster around abrupt threshold events rather than gradual linear improvement curves.</li>
+
+        <li><strong>Prediction 4 &mdash; Low $O$ blocks grace regardless of grace magnitude.</strong> Subjects in high autonomy mode ($s = -1$) exposed to high-grace environments should show minimal coherence increase. The grace is present; the coupling is absent. This predicts that grace-rich environments (retreats, liturgy, prayer communities) produce minimal change in participants with closed attitudinal posture.</li>
+      </ol>
+
+      <hr>
+
+      <!-- ═══ WHAT YOU JUST READ ═══ -->
+      <h2>What You Just Read</h2>
+
+      <p>The coherence equation $dC/dt = O \cdot G(1-C) - S \cdot C$ does not resolve the Calvinist&ndash;Arminian debate by picking a side. It dissolves the debate by writing down a more complete description that requires both terms.</p>
+
+      <p>Grace is real, externally sourced, and universally available. Openness is real, under some form of agent influence, and genuinely modulates the coupling. Neither term is optional. The fight between the two camps is a fight about which term is more important &mdash; a question the equation renders meaningless, because the two terms multiply.</p>
+
+      <p>Paul knew this. He did not choose between "work out your salvation" and "God who works in you." He put them in the same sentence, separated by a comma, and left the tension standing. The equation is the comma.</p>
+
+      <hr>
+
+      <!-- ═══ THE AUDIT ═══ -->
+      <h2>The Audit</h2>
+
+      <h3>What Is Load-Bearing</h3>
+
+      <ul>
+        <li><strong>The equation form is motivated.</strong> The structure $dC/dt = O \cdot G(1-C) - S \cdot C$ is a standard logistic growth model with an external drive and a decay term. This family of equations appears throughout biology, epidemiology, and information theory. We are not inventing exotic mathematics.</li>
+        <li><strong>Philippians 2:12&ndash;13 structurally requires both terms.</strong> Paul's language is not hedging; it is simultaneous assertion. Any framework that yields one term at the expense of the other contradicts the text.</li>
+        <li><strong>The three-pathway structure maps onto documented neurological and psychological states.</strong> The distinction between autonomy, performance, and surrender is not our invention; it maps onto well-established categories in psychology of religion (Granqvist, Piedmont, Exline).</li>
+        <li><strong>The steady-state analysis is algebraically trivial.</strong> The claim that $C^* = OG / (OG + S)$ is a direct algebraic result. It requires no assumptions beyond the equation form.</li>
+      </ul>
+
+      <h3>What Is Suggestive (Needs More Work)</h3>
+
+      <ul>
+        <li><strong>The mapping of theological concepts to equation variables is interpretive.</strong> We have argued that $G$ maps to grace and $O$ maps to openness. The argument is motivated but not uniquely forced. Alternative parameterizations are possible.</li>
+        <li><strong>The surrender parameter $s$ is not directly measurable.</strong> We can operationalize proxies (self-report scales, behavioral indicators, physiological markers), but $s$ itself remains a theoretical construct until measurement protocols are established.</li>
+        <li><strong>The phase transition prediction (Prediction 3) requires careful operationalization.</strong> "Abrupt" versus "gradual" is a testable claim, but defining the threshold requires calibration work.</li>
+      </ul>
+
+      <h3>Where We Got Carried Away</h3>
+
+      <ul>
+        <li><strong>The equation does not prove Christian theology.</strong> It shows that a particular dynamical model is consistent with a particular reading of Pauline text. Consistency is not proof.</li>
+        <li><strong>The "dissolution" of the Calvinist&ndash;Arminian debate is a reframing, not a refutation.</strong> Both camps can respond that we have simply redefined their terms. They are not wrong to say this. The reframing is useful if it generates testable predictions; its theological authority is a separate question.</li>
+        <li><strong>We have not addressed double predestination.</strong> The strong Calvinist claim that God actively decrees some to damnation is not touched by the coherence equation. The equation predicts outcomes given parameters; it does not specify who sets the parameters or whether $G$ is truly universal. Tangent 03-A addresses this specifically.</li>
+      </ul>
+
+      <hr>
+
+      <!-- ═══════════════════════════════════ -->
+      <!-- TANGENT 03-A                        -->
+      <!-- ═══════════════════════════════════ -->
+      <div class="tangent-card">
+        <div class="tangent-label"><i class="fas fa-code-branch" style="margin-right:.4rem;"></i>Tangent 03-A</div>
+        <h3>MacArthur and the Equation</h3>
+        <p style="color:var(--text-secondary);font-size:.9rem;margin:0 0 1rem;">John MacArthur's Calvinist framework, mapped against the coherence equation. Why neither side can win the fight as currently posed &mdash; and what the equation clarifies that neither camp has said.</p>
+        <button class="tangent-toggle" onclick="toggleTangent(this)">
+          <i class="fas fa-chevron-right"></i> Expand Tangent Article
+        </button>
+        <div class="tangent-body">
+
+          <h2>The Fight That Won't End</h2>
+          <p>John MacArthur has spent fifty years arguing that the sovereign grace of God in salvation is unconditional, irresistible, and determined entirely by divine decree. His opponents have spent fifty years arguing that this makes God the author of damnation and human faith a charade. Both sides cite Scripture. Both sides have gifted theologians. The fight has not ended because both sides are, in the frame we are using, partially right.</p>
+
+          <h2>MacArthur's Position, Stated Plainly</h2>
+          <p>MacArthur holds a five-point Calvinist (TULSI) framework:</p>
+          <ul>
+            <li><strong>Total Depravity:</strong> Post-Fall humans are incapable of choosing God. The will is not merely weakened but enslaved. Spiritual death is total.</li>
+            <li><strong>Unconditional Election:</strong> God elects certain individuals to salvation prior to any foreseen faith or merit. The election is not conditioned on anything in the creature.</li>
+            <li><strong>Limited Atonement:</strong> Christ's atoning work was specifically intended for the elect. It is not a potential salvation available to all.</li>
+            <li><strong>Irresistible Grace:</strong> When God effectually calls the elect, they will come. Their coming is certain, not because their will is overridden, but because God regenerates them first, enabling them to want to come.</li>
+            <li><strong>Perseverance of the Saints:</strong> Those genuinely elect will persevere to the end. Apostasy is evidence of never having been elect.</li>
+          </ul>
+
+          <h2>The Other Side, Stated Fairly</h2>
+          <p>The Arminian and moderate Calvinist response typically grants Total Depravity (though some Arminians modify it with prevenient grace) but contests Unconditional Election and Irresistible Grace on two grounds:</p>
+          <ol>
+            <li>Scripture presents genuine calls to "whosoever will" that appear to offer real choice (John 3:16, Rev 22:17).</li>
+            <li>If grace is irresistible and election is unconditional, then the non-elect are damned by a decree they cannot resist, which appears to make God the author of their damnation in a morally troubling way.</li>
+          </ol>
+
+          <h2>Why Neither Side Can Win</h2>
+          <p>MacArthur's camp wins the exegetical battle on certain passages (Romans 9, John 6, Ephesians 1) and loses it on others (1 Tim 2:4, 2 Pet 3:9, John 3:16 in full context). The Arminian camp wins on the passages that emphasize genuine human response and loses on the passages that emphasize divine initiative and certainty.</p>
+          <p>The fight cannot end because both sides have locked in on a binary: either God chooses unconditionally, or humans choose genuinely. The coherence equation proposes a third frame: <em>the choice to receive is itself a real act, and the capacity for that act is itself graced.</em></p>
+
+          <h2>The Resolution, Before the Math</h2>
+          <p>The resolution is Augustinian before it is mathematical. Augustine argued in his anti-Pelagian writings that genuine human will and divine causation are not in competition &mdash; they operate at different levels of causality. God wills that we will rightly, and our willing rightly is both genuinely ours and genuinely caused by God. This is not a contradiction; it is a description of how higher-order causality works.</p>
+          <p>The equation formalizes this intuition. God sets $G$. God may also set the range over which $O$ can vary. The agent's experience of "choosing" is the phenomenology of the $O$ variable being non-zero. The fact that God may have set the conditions under which $O$ is non-zero does not make the agent's $O$ any less real.</p>
+
+          <h2>The Equation</h2>
+          <div class="eq-block">
+            <div class="eq-label">Coherence Evolution (Recall)</div>
+            $$\frac{dC}{dt} = O \cdot G(1-C) - S \cdot C$$
+          </div>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>MacArthur Claim</th>
+                <th>Equation Mapping</th>
+                <th>What Survives</th>
+                <th>What Needs Qualification</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Total Depravity &mdash; will is enslaved</td>
+                <td>$S$ term large, $O$ severely reduced post-Fall</td>
+                <td>Correct: default $O$ is near zero post-Fall; agent cannot self-generate coherence</td>
+                <td>$O$ is not identically zero. Even a small nonzero $O$ under sufficient $G$ can produce salvation.</td>
+              </tr>
+              <tr>
+                <td>Irresistible Grace &mdash; the elect will come</td>
+                <td>God sets $G$ sufficiently large that even small $O$ produces $C^* > $ threshold</td>
+                <td>Correct: if $G$ is large enough, even a small $O$ crosses the threshold. The elect "will come" because $G \cdot O$ exceeds $S \cdot C$.</td>
+                <td>This does not require $O \equiv 1$ (zero human resistance). It requires $G$ to be large enough to overcome typical $O$ values in the elect.</td>
+              </tr>
+              <tr>
+                <td>Unconditional Election &mdash; not based on foreseen faith</td>
+                <td>God selects the grace parameter $G$ without reference to prior $C$ or prior $O$</td>
+                <td>Consistent with equation: $G$ is externally sourced and need not respond to agent state.</td>
+                <td>Does not entail that $O$ is irrelevant to the dynamics. The election sets $G$; the agent's $O$ still modulates the rate.</td>
+              </tr>
+              <tr>
+                <td>Limited Atonement &mdash; designed for the elect</td>
+                <td>Grace $G$ is nonzero for a defined subset of agents</td>
+                <td>Consistent with equation if $G = 0$ for non-elect.</td>
+                <td>Disputed by passages suggesting universal provision (1 John 2:2, Heb 2:9). The equation is agnostic on whether $G = 0$ or $G &gt; 0$ for all.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>MacArthur's Specific Claims, Mapped</h2>
+          <p>MacArthur's most distinctive claim &mdash; that God regenerates the elect first, enabling them to believe &mdash; maps cleanly onto the equation. In equation terms: God injects $G$ into the system before the agent's $O$ has shifted. The grace injection raises $C$ sufficiently that the agent's attractor basin shifts from $s \approx -1$ (autonomy/resistance) to $s \approx +1$ (openness/surrender). The agent then "chooses" willingly, but the conditions that made the willing possible were set externally.</p>
+          <p>This is not a destruction of genuine human choice. It is a description of how prior-grace creates the conditions for genuine choice to occur. MacArthur is correct that the order of operations matters: regeneration precedes and enables faith. The equation agrees.</p>
+
+          <h2>The Double Predestination Question</h2>
+          <p>MacArthur carefully avoids strong double predestination (God actively decrees damnation for the non-elect) in favor of a "passive" version (God passes over the non-elect, leaving them in their deserved state). The equation can model both.</p>
+          <p>Passive reprobation: $G = 0$ for the non-elect. They are left with only the entropy term driving $C \to 0$. No active harm; simply no grace injection. The equation produces $C^* = 0$.</p>
+          <p>Active reprobation: $G &lt; 0$ for the non-elect &mdash; a grace withdrawal that actively accelerates decoherence. The equation permits this mathematically. Whether God does this is a separate theological question the equation cannot answer.</p>
+
+          <h2>What Augustine Already Knew</h2>
+          <blockquote>
+            <p>"Our heart is restless, until it finds its rest in Thee." &mdash; Augustine, <em>Confessions</em></p>
+          </blockquote>
+          <p>Augustine's restlessness is the $S \cdot C$ term without counterbalancing $G$. The heart's seeking is $O$ being nonzero even before conversion. The finding of rest is $C^*$ reaching its equilibrium under sufficient $G$. Augustine did not have the equation, but he described the dynamics with precision that holds up under formalization.</p>
+
+          <h2>The Hard Question MacArthur Doesn't Answer</h2>
+          <p>If unconditional election is true and the non-elect are left with $G = 0$ through no fault of their own &mdash; no prior defect in $O$ that caused God to withhold grace, since the election precedes any such defect &mdash; then what moral account do we give of the non-elect's damnation?</p>
+          <p>MacArthur's answer is that all humans deserve damnation (high $S$ term, corrupted $O$), and God is not obligated to rescue any. The elect are rescued by mercy; the non-elect receive justice. The equation is consistent with this: $C^* = 0$ when $G = 0$ is not an injustice against the agent if the agent's prior $S$ fully justifies $C = 0$.</p>
+          <p>But this answer requires that total depravity is not merely a tendency toward low $C$ but a positive deserving of $C = 0$ as a penalty. The equation does not adjudicate this. It describes dynamics; it does not deliver verdicts on desert.</p>
+
+          <h2>What This Means</h2>
+          <p>MacArthur's framework is internally consistent and mathematically modelable. The equation does not refute it. It does, however, show that the equation is underdetermined by MacArthur's Calvinism: the same equation produces Calvinist outcomes if God sets $G$ only for the elect ($G_{elect} \gg 0$, $G_{reprobate} = 0$), and Arminian outcomes if God sets $G > 0$ for all agents and leaves $O$ as the determining variable.</p>
+          <p>Both theologies are attractors of the same equation under different boundary conditions. The equation does not choose between them. It invites the question: what do the actual boundary conditions look like? And it provides, at least in principle, a framework for testing which set of boundary conditions better matches observable data on grace, conversion, and coherence.</p>
+
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════ -->
+      <!-- TANGENT 03-B                        -->
+      <!-- ═══════════════════════════════════ -->
+      <div class="tangent-card">
+        <div class="tangent-label"><i class="fas fa-code-branch" style="margin-right:.4rem;"></i>Tangent 03-B</div>
+        <h3>The Three Pathways</h3>
+        <p style="color:var(--text-secondary);font-size:.9rem;margin:0 0 1rem;">Full neuroscience and behavioral analysis of Path 1 (Autonomy), Path 2 (Performance), and Path 3 (Surrender). The transition architecture. What the equation predicts. Why it matters.</p>
+        <button class="tangent-toggle" onclick="toggleTangent(this)">
+          <i class="fas fa-chevron-right"></i> Expand Tangent Article
+        </button>
+        <div class="tangent-body">
+
+          <h2>Path 1: Autonomy ($s = -1$)</h2>
+          <h3>The Posture</h3>
+          <p>The autonomous agent treats the self as the primary reference frame. External grace &mdash; whether from God, community, or relational other &mdash; is experienced as a threat to self-definition. The agent is not simply resistant to spiritual input; the agent is constitutively organized around self-sufficiency as an identity marker.</p>
+
+          <h3>The Neuroscience</h3>
+          <p>Chronic autonomy posture correlates with:</p>
+          <ul>
+            <li><strong>Default Mode Network (DMN) hyperactivation.</strong> The DMN, associated with self-referential processing and rumination, is chronically active in autonomous agents. When the DMN is dominant, other-orienting networks (particularly the Task Positive Network and the Salience Network's threat-detection systems) are suppressed. The agent is literally more focused on the self-narrative than on incoming signal.</li>
+            <li><strong>Elevated cortisol and sympathetic baseline.</strong> Autonomy posture often co-occurs with hypervigilance &mdash; a chronic low-level threat assessment that keeps the stress system primed. When the grace source is experienced as a threat to identity, any encounter with that source activates defensive physiology.</li>
+            <li><strong>Reduced oxytocin receptor sensitivity.</strong> Prolonged autonomy reduces sensitivity to bonding signals. The agent becomes less able to receive the relational inputs that would shift the surrender parameter upward. This is the neurological analog of the hardening of heart described in Pharaoh narratives &mdash; a self-reinforcing loop where autonomy reduces capacity for connection, which deepens autonomy.</li>
+          </ul>
+
+          <h3>The Equation Dynamics</h3>
+          <div class="eq-block">
+            <div class="eq-label">Path 1 Dynamics ($s = -1$)</div>
+            $$\frac{dC}{dt} = 0 \cdot G(1-C) - S \cdot C = -S \cdot C$$
+          </div>
+          <p>With $s = -1$, the grace coupling term vanishes entirely. The only active term is $-SC$, which drives $C$ exponentially toward zero. The higher the entropy parameter $S$ (moral failure, environmental chaos, relational breakdown), the faster the collapse. There is no equilibrium above zero. The autonomous agent's coherence will, under the dynamics as written, always decay to zero in the absence of some shift in $s$.</p>
+
+          <h3>The Phenomenology</h3>
+          <p>Agents in Path 1 typically report: a sense of being fundamentally alone, intermittent contempt for vulnerability in others (which they experience as their own suppressed need projected outward), escalating anxiety about meaning and mortality, and occasional acute crises when the self-referential system collapses under its own weight. These crises are, in equation terms, moments when $S \cdot C$ temporarily exceeds the agent's capacity to suppress the decoherence signal &mdash; and they are, paradoxically, the moments of highest potential for transition.</p>
+
+          <hr>
+
+          <h2>Path 2: Performance ($s \approx 0$)</h2>
+          <h3>The Posture</h3>
+          <p>The performance agent accepts the existence of a grace source but frames the relationship transactionally. Grace is available, but it must be accessed through correct performance: correct belief, correct ritual, correct moral behavior. The agent does not resist grace; the agent attempts to earn it. The subtle error is that earning grace transforms the agent from a receiver into a producer &mdash; which shifts $O$ from positive toward zero.</p>
+
+          <h3>The Neuroscience</h3>
+          <p>Performance posture correlates with:</p>
+          <ul>
+            <li><strong>Prefrontal cortex (PFC) overactivation.</strong> The PFC is associated with executive function, rule-following, and self-monitoring. Performance-oriented agents show chronically elevated PFC activation during religious or moral behavior, consistent with active self-evaluation ("am I doing this right?") rather than receptive presence.</li>
+            <li><strong>Shame-cycling.</strong> Because performance cannot be sustained perfectly, performance agents oscillate between achievement states (brief coherence spikes when behavior meets standards) and shame states (coherence collapse when behavior falls short). This oscillation is the neurological signature of the Romans 7 dynamic: "I do not do what I want to do."</li>
+            <li><strong>Conditional oxytocin response.</strong> Performance agents experience relational bonding (the neurological analog of grace reception) as conditional on their meeting of standards. This creates attachment anxiety even within the religious relationship &mdash; the agent is never quite certain whether the standard has been met, which keeps the bonding system in a state of alert rather than rest.</li>
+          </ul>
+
+          <h3>The Equation Dynamics</h3>
+          <div class="eq-block">
+            <div class="eq-label">Path 2 Dynamics ($s \approx 0$)</div>
+            $$\frac{dC}{dt} \approx \frac{1}{2} G(1-C) - S \cdot C$$
+          </div>
+          <p>With $s \approx 0$, a partial grace coupling is active. The steady state becomes:</p>
+          $$C^*_{perf} = \frac{\frac{G}{2}}{\frac{G}{2} + S} = \frac{G}{G + 2S}$$
+          <p>This is significantly lower than the Path 3 equilibrium $C^* = G/(G+S)$. For a system with $G = S$ (moderate grace, moderate entropy), Path 3 yields $C^* = 0.5$ while Path 2 yields $C^* = 0.33$. The performance agent achieves real but reduced coherence &mdash; enough to maintain function, not enough to achieve the "peace beyond understanding" that marks Path 3.</p>
+          <p>More importantly, the Path 2 equilibrium is <em>inherently less stable</em>. Because the grace coupling is partial, small perturbations in $S$ (moral failure, life stressors) produce larger swings in $C$ than they would under Path 3's fuller coupling. This is the neurological basis of shame-cycling: the performance system is operating closer to its instability threshold.</p>
+
+          <h3>The Phenomenology</h3>
+          <p>Agents in Path 2 are the most common type in organized religion. They experience real spiritual meaning, genuine moral effort, and authentic community &mdash; but also persistent background anxiety, recurring cycles of failure and recovery, and a nagging sense that the peace they seek is always one spiritual discipline away. This is not hypocrisy; it is the predictable output of the partial-coupling equation.</p>
+
+          <hr>
+
+          <h2>Path 3: Surrender ($s = +1$)</h2>
+          <h3>The Posture</h3>
+          <p>The surrendered agent does not cease to be an agent. The surrender is not passivity; it is a fundamental reorientation of the agent's operating frame from self-as-source to self-as-receiver. Effort continues &mdash; often at higher absolute levels than Path 2 &mdash; but effort is now downstream of reception rather than the precondition for it. The agent acts <em>from</em> grace rather than <em>toward</em> it.</p>
+
+          <h3>The Neuroscience</h3>
+          <p>Path 3 correlates with:</p>
+          <ul>
+            <li><strong>Reduced DMN activity.</strong> Surrendered agents show lower self-referential baseline processing, consistent with a reduced centering of identity around self-narrative. This is measurable via fMRI in experienced meditators, contemplatives, and individuals reporting ongoing mystical or post-conversion states. The self is still present but is no longer the primary processing hub.</li>
+            <li><strong>Increased parasympathetic tone.</strong> Surrender posture is associated with chronic activation of the ventral vagal complex (Polyvagal Theory, Porges), which supports social engagement, relaxation, and receptive processing. This is the physiological substrate of "rest" in the biblical sense &mdash; not inactivity, but a nervous system state capable of receiving rather than only defending.</li>
+            <li><strong>D2 receptor restoration.</strong> Chronic high-entropy states (addiction, trauma, chronic stress) downregulate dopaminergic D2 receptor density, reducing the agent's capacity for reward, meaning-making, and social bonding. Path 3 transitions &mdash; abrupt conversions, intensive surrender practices &mdash; are associated in preliminary data with D2 receptor restoration, suggesting that the surrender parameter shift has measurable neurological substrate rather than being merely a cognitive or attitudinal change.</li>
+            <li><strong>Oxytocin tone elevation.</strong> Surrendered agents show elevated baseline oxytocin, associated with trust, bonding capacity, and openness to others. This is the neurological signature of a high-$O$ state &mdash; the agent is literally more physiologically open to incoming relational signal.</li>
+          </ul>
+
+          <h3>The Equation Dynamics</h3>
+          <div class="eq-block">
+            <div class="eq-label">Path 3 Dynamics ($s = +1$)</div>
+            $$\frac{dC}{dt} = G(1-C) - S \cdot C$$
+          </div>
+          <p>Full grace coupling. Steady state:</p>
+          $$C^* = \frac{G}{G + S}$$
+          <p>This is the maximum achievable equilibrium given fixed $G$ and $S$. For $G \gg S$ (grace substantially exceeding entropy), $C^* \to 1$. This is the theoretical basis for the biblical promise that "his yoke is easy and his burden is light" &mdash; when the agent is operating at full coupling, the entropy term is overwhelmed by the grace input, and the subjective experience is one of effortless rather than effortful movement toward coherence.</p>
+
+          <hr>
+
+          <h2>The Transition Architecture</h2>
+          <p>Transitions between pathways are not smooth ramps. The surrender parameter $s$ is not a continuously adjustable dial; it is more accurately modeled as a system with discrete attractor basins separated by energy barriers. Transitions require crossing a threshold.</p>
+          <p>Prediction 3 from the main article states that conversion experiences should cluster around abrupt threshold crossings rather than gradual linear improvement. The neurological evidence supports this: conversion experiences characteristically involve sudden shifts in processing mode, often preceded by a crisis event that raises $S$ to a level that overwhelms the current attractor basin and forces the system to find a new equilibrium.</p>
+          <p>This is consistent with James' analysis of religious experience, with clinical data on addiction recovery (the "bottom" as threshold-crossing event), and with psychological studies of value restructuring (Park, 2005; Tedeschi &amp; Calhoun, 2004). The coherence equation predicts the architecture; the data confirms the pattern.</p>
+          <p>The transition from Path 1 to Path 3 is the most dramatic and typically requires the highest energy input &mdash; a large $G$ spike, a severe $S$ crisis, or both. The transition from Path 2 to Path 3 is subtler and often reported as a "letting go" rather than a dramatic conversion: the discovery that effort is not required to access what was already available.</p>
+
+          <hr>
+
+          <h2>The Daily Practice</h2>
+          <p>The three-pathway analysis implies a practical architecture for daily life:</p>
+          <ol>
+            <li><strong>Check $s$ before acting.</strong> Before any significant action, the question is not "am I doing the right thing?" (Path 2 logic) but "from what posture am I acting?" If the action is generated by fear of inadequacy or the need to earn approval, $s$ is near zero. If it flows from a place of secure reception, $s$ is near positive one.</li>
+            <li><strong>Treat spiritual practice as a coupling mechanism, not a performance metric.</strong> Prayer, liturgy, meditation, and community are not activities that generate coherence through effort &mdash; they are practices that reduce the resistance to grace that keeps $O$ low. They work not by producing $G$ but by increasing $O$.</li>
+            <li><strong>When $S$ spikes, do not suppress.</strong> High-entropy events (failure, loss, confrontation with mortality) are the most dangerous for Path 2 agents (coherence collapse) and the most potentially transformative for Path 1 agents (threshold-crossing events). The response to high $S$ in a Path 3 frame is not panic but orientation &mdash; turning toward the grace source precisely when it is most needed.</li>
+          </ol>
+
+          <h2>Why It Matters</h2>
+          <p>The three-pathway framework matters not because it resolves abstract theological debates but because it predicts which kind of spiritual engagement will produce durable, measurable change in human agents &mdash; and which will not. Path 2 religion, the dominant mode in Western Christianity, produces real but limited and unstable coherence. Path 3 religion, which the New Testament appears to be describing throughout, produces higher, more stable coherence with measurable neurological substrate.</p>
+          <p>If the framework is correct, the practical implication is that most of what is called spiritual development is operating at half-coupling, not because the participants are insincere but because the equation was never written down in a way that showed them what full coupling looks like.</p>
+          <p>Now it has been.</p>
+
+        </div>
+      </div>
+
+    </article>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--   TAB: EXECUTIVE SUMMARY                   -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section id="summary" class="tab-content active">
+    <article class="story">
+      <h2>Executive Summary</h2>
+
+      <div class="insight">
+        <span class="label">&mdash; Core Thesis</span>
+        <p>The coherence equation $dC/dt = O \cdot G(1-C) - S \cdot C$ dissolves the Calvinist&ndash;Arminian debate not by picking a side but by showing that both camps have identified one real variable in a two-variable equation. Grace $G$ is real, externally sourced, and universally available. Openness $O$ is real, under some form of agent influence, and genuinely modulates the coupling. The fight about which term is more important is rendered meaningless by the multiplication structure.</p>
+      </div>
+
+      <h3>Key Findings</h3>
+
+      <ul>
+        <li><strong>The equation requires both divine grace and human openness.</strong> Remove either term and the coherence collapses to zero. Neither camp is wrong about the existence of their variable; both camps are wrong to treat their variable as the whole equation.</li>
+        <li><strong>The surrender parameter $s \in [-1, +1]$ explains both theological camps.</strong> Calvinist outcomes arise naturally when $G$ is large relative to $O$ (grace overwhelms resistance). Arminian outcomes arise when $O$ is the limiting factor. Both are special cases of the same dynamics.</li>
+        <li><strong>Neuroscience confirms three distinct pathways.</strong> Path 1 (Autonomy, $s = -1$): DMN hyperactivation, chronic stress, coherence decay. Path 2 (Performance, $s \approx 0$): PFC overactivation, shame-cycling, partial and unstable coherence. Path 3 (Surrender, $s = +1$): reduced DMN, parasympathetic elevation, D2 receptor restoration, maximal stable coherence.</li>
+        <li><strong>Paul's Philippians 2:12&ndash;13 is structurally correct.</strong> "Work out your salvation" is the $O$ term. "God who works in you" is the $G$ term. Paul does not choose between them because they are not in competition; they are in multiplication.</li>
+        <li><strong>Transitions between pathways are threshold events, not gradual ramps.</strong> The attractor basin structure of the equation predicts abrupt transitions, consistent with conversion experience data and clinical addiction recovery literature.</li>
+      </ul>
+
+      <h3>The Four Falsifiable Predictions</h3>
+
+      <ul>
+        <li><strong>P1:</strong> Path 3 agents outperform Path 2 agents on coherence-proxy measures (psychological integration, physiological stress markers, behavioral consistency) controlling for religious activity level.</li>
+        <li><strong>P2:</strong> Recipients of high-grace experiences are randomly distributed across prior coherence levels &mdash; consistent with $G$ being externally sourced rather than earned.</li>
+        <li><strong>P3:</strong> Conversion and pathway-transition data clusters around threshold events rather than smooth improvement curves.</li>
+        <li><strong>P4:</strong> Agents in closed attitudinal posture ($s \approx -1$) in grace-rich environments show minimal coherence increase, confirming that $O = 0$ zeroes out $G$.</li>
+      </ul>
+
+      <h3>Open Problem</h3>
+
+      <div class="axiom-box">
+        The surrender parameter $s$ is not directly measurable.<br><br>
+        CONSTRUCT VALID &mdash; OPERATIONALIZATION PENDING
+      </div>
+
+      <p>Self-report scales, behavioral indicators, and physiological markers provide proxy access to $s$, but the parameter itself remains a theoretical construct. Establishing valid measurement protocols for $s$ is the primary empirical task before the framework's predictions can be rigorously tested.</p>
+
+      <h3>Formal Foundation</h3>
+      <p>Built on: Paper 1 (The Logos Principle), Article 01 GTQ (The Measurement That Collapsed Reality), Article 02 GTQ (The First Quantum State). Tangents: 03-A MacArthur and the Equation; 03-B The Three Pathways. Series: Genesis to Quantum, Article 03 of 10.</p>
+    </article>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--   TAB: RIGOR & KILL CONDITIONS              -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section id="rigor" class="tab-content">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="serif text-3xl font-bold text-white mb-2">Rigor &amp; Kill Conditions</h2>
+      <p class="text-[#a0a0a0] mb-8">Extracted from The Audit and the falsification predictions. The framework survives or falls on these.</p>
+
+      <h3 class="serif text-xl font-bold text-white mb-4" style="margin-top:2rem;">Kill Conditions</h3>
+
+      <div class="kill-card" style="background:rgba(239,68,68,.07);border-color:rgba(239,68,68,.35);">
+        <div class="kill-label">Kill Condition 1 &mdash; Coupling Structure</div>
+        <p><strong style="color:#fff;">If G and O are NOT multiplicatively coupled &mdash; if the relationship is additive ($G + O$) rather than multiplicative ($G \times O$) &mdash; the dissolution of the Calvinist&ndash;Arminian debate fails.</strong></p>
+        <p class="kill-detail">The dissolution depends on the structural fact that $O = 0$ zeroes the entire grace term. If the actual relationship is additive, grace can operate independently of openness, which restores the Calvinist position on its own terms. The form of the coupling is the load-bearing element.</p>
+      </div>
+
+      <div class="kill-card" style="background:rgba(239,68,68,.07);border-color:rgba(239,68,68,.35);">
+        <div class="kill-label">Kill Condition 2 &mdash; Path Hierarchy</div>
+        <p><strong style="color:#fff;">If Path 3 does NOT outperform Path 2 in clinical and psychological data &mdash; if surrender-oriented spirituality shows no measurable advantage over performance-oriented spirituality &mdash; the framework's most important practical claim is wrong.</strong></p>
+        <p class="kill-detail">Existing data from psychology of religion (intrinsic vs. extrinsic religiosity, Allport; secure vs. anxious attachment to God, Granqvist; self-determination theory applied to religion, Ryan &amp; Deci) is broadly consistent with the hierarchy. But the equation makes specific quantitative predictions that have not yet been directly tested.</p>
+      </div>
+
+      <div class="kill-card" style="background:rgba(239,68,68,.07);border-color:rgba(239,68,68,.35);">
+        <div class="kill-label">Kill Condition 3 &mdash; Transition Architecture</div>
+        <p><strong style="color:#fff;">If pathway transitions are smooth gradual ramps rather than threshold crossings, the attractor basin model is wrong and the equation's phase structure doesn't apply.</strong></p>
+        <p class="kill-detail">The prediction of abrupt transitions is specific and testable in conversion research, addiction recovery data, and clinical studies of value restructuring. Gradual-change data would falsify the threshold model but would not falsify the equation's steady-state predictions.</p>
+      </div>
+
+      <h3 class="serif text-xl font-bold text-white mb-4" style="margin-top:3rem;">Confidence Tiers</h3>
+
+      <div class="kill-card" style="background:rgba(34,197,94,.04);border-color:rgba(34,197,94,.2);">
+        <div class="kill-label" style="color:var(--green);">Load-Bearing &mdash; Bet On This</div>
+        <p><strong style="color:#fff;">The equation structure is motivated, not invented.</strong> The logistic growth form with external drive and decay term is standard across multiple scientific domains. We are applying a known dynamical structure to a new domain, not creating exotic mathematics.</p>
+      </div>
+      <div class="kill-card" style="background:rgba(34,197,94,.04);border-color:rgba(34,197,94,.2);">
+        <div class="kill-label" style="color:var(--green);">Load-Bearing</div>
+        <p><strong style="color:#fff;">Philippians 2:12&ndash;13 structurally requires both terms.</strong> Paul's simultaneous "work out" and "God works in" is not theological hedge. It is simultaneous assertion. Any single-variable model contradicts the text.</p>
+      </div>
+      <div class="kill-card" style="background:rgba(34,197,94,.04);border-color:rgba(34,197,94,.2);">
+        <div class="kill-label" style="color:var(--green);">Load-Bearing</div>
+        <p><strong style="color:#fff;">The three-pathway neuroscience mapping uses established findings.</strong> DMN hyperactivation in self-referential states, PFC overactivation in rule-following, parasympathetic elevation in surrender &mdash; these are documented findings applied to the framework, not invented for it.</p>
+      </div>
+
+      <div class="kill-card" style="background:rgba(212,175,55,.04);border-color:rgba(212,175,55,.2);margin-top:1.5rem;">
+        <div class="kill-label" style="color:#d4af37;">Suggestive &mdash; Needs More Work</div>
+        <p><strong style="color:#fff;">The mapping of $G$ to grace and $O$ to openness is interpretive.</strong> The argument for these mappings is motivated but not uniquely forced. Alternative parameterizations deserve testing.</p>
+      </div>
+      <div class="kill-card" style="background:rgba(212,175,55,.04);border-color:rgba(212,175,55,.2);">
+        <div class="kill-label" style="color:#d4af37;">Suggestive</div>
+        <p><strong style="color:#fff;">The $s$ parameter requires an operationalization protocol.</strong> Theoretical construct is sound; measurement pathway is not yet established. The framework's testability depends on solving this.</p>
+      </div>
+      <div class="kill-card" style="background:rgba(212,175,55,.04);border-color:rgba(212,175,55,.2);">
+        <div class="kill-label" style="color:#d4af37;">Suggestive</div>
+        <p><strong style="color:#fff;">D2 receptor restoration in Path 3 transitions is preliminary.</strong> The claim is consistent with existing literature on addiction recovery and meditation research, but a direct link to the surrender parameter in religious contexts has not been established.</p>
+      </div>
+
+      <div class="kill-card" style="margin-top:1.5rem;">
+        <div class="kill-label">Overextended &mdash; Acknowledged</div>
+        <p><strong style="color:#fff;">The claim to "dissolve" the Calvinist&ndash;Arminian debate is a reframing, not a refutation.</strong> Both camps can respond that we have redefined their terms. The reframing is useful for testability; its theological authority is a separate question we do not fully answer.</p>
+      </div>
+      <div class="kill-card">
+        <div class="kill-label">Overextended</div>
+        <p><strong style="color:#fff;">The equation does not address double predestination.</strong> Whether God actively sets $G = 0$ for the non-elect, and on what basis, is not resolved by the equation. We acknowledged this in the Audit; it is worth repeating here as a genuine gap.</p>
+      </div>
+      <div class="kill-card">
+        <div class="kill-label">Overextended</div>
+        <p><strong style="color:#fff;">Conviction of voice throughout.</strong> The paper is written with confident tone for readability. Confidence is not proof. This rigor tab is where we pay for that choice.</p>
+      </div>
+
+      <h3 class="serif text-xl font-bold text-white mb-4" style="margin-top:3rem;">Falsification Table</h3>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th style="width:80px;">Prediction</th>
+            <th>Testable Claim</th>
+            <th style="width:180px;">Kill Condition</th>
+            <th style="width:120px;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="color:var(--highlight);font-weight:600;">P1</td>
+            <td>Path 3 agents outperform Path 2 on coherence-proxy measures, controlling for religious activity level.</td>
+            <td style="color:var(--red);">No measurable Path 3 &gt; Path 2 advantage</td>
+            <td><span style="color:var(--highlight);font-size:.75rem;font-weight:600;">OPEN &mdash; Consistent with existing lit</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--highlight);font-weight:600;">P2</td>
+            <td>Recipients of high-grace experiences are randomly distributed across prior coherence levels.</td>
+            <td style="color:var(--red);">Grace receipt correlates with prior $C$</td>
+            <td><span style="color:var(--highlight);font-size:.75rem;font-weight:600;">OPEN</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--highlight);font-weight:600;">P3</td>
+            <td>Conversion and pathway transitions cluster around threshold events, not gradual ramps.</td>
+            <td style="color:var(--red);">Transition data shows smooth gradual curves</td>
+            <td><span style="color:var(--highlight);font-size:.75rem;font-weight:600;">PRELIMINARY SUPPORT (conversion lit)</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--highlight);font-weight:600;">P4</td>
+            <td>Closed-posture agents in grace-rich environments show minimal coherence increase.</td>
+            <td style="color:var(--red);">Grace-rich environments produce change regardless of posture</td>
+            <td><span style="color:var(--highlight);font-size:.75rem;font-weight:600;">OPEN</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--   TAB: WATCH & LISTEN                       -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section id="media" class="tab-content">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="serif text-3xl font-bold text-white mb-2">Watch &amp; Listen</h2>
+      <p class="text-[#a0a0a0] mb-8">Audio narration, podcast deep dives, and video content for Article 03.</p>
+
+      <!-- Read Aloud -->
+      <div class="media-card">
+        <span class="media-label"><i class="fas fa-volume-up" style="margin-right:.3rem;"></i> Read Aloud &mdash; Full Article</span>
+        <h3>Free Will in Two Frames</h3>
+        <p class="media-desc">AI-narrated read-through of the complete article, including all sections, tangents, and the audit.</p>
+        <audio controls preload="metadata">
+          <source src="https://r2.faiththruphysics.com/audio/gtq-03/read.mp3" type="audio/mpeg">
+        </audio>
+        <div class="media-meta">
+          <span><i class="fas fa-clock"></i>~30 min (est.)</span>
+          <span><i class="fas fa-file-audio"></i>MP3</span>
+        </div>
+      </div>
+
+      <!-- Deep Dive Podcast -->
+      <div class="media-card">
+        <span class="media-label" style="color:#4a9eff;"><i class="fas fa-podcast" style="margin-right:.3rem;"></i> Deep Dive Podcast</span>
+        <h3>Calculus of Calvinism and Arminianism</h3>
+        <p class="media-desc">Extended exploration of the equation dynamics, the three pathways, and what the neuroscience actually shows about surrender versus performance spirituality.</p>
+        <audio controls preload="metadata" style="width:100%;height:46px;">
+          <source src="https://r2.faiththruphysics.com/audio/gtq-03/Calculus_of_Calvinism_and_Arminianism.m4a" type="audio/mp4">
+        </audio>
+      </div>
+
+      <!-- Both Sides Podcast -->
+      <div class="media-card">
+        <span class="media-label" style="color:var(--purple);"><i class="fas fa-podcast" style="margin-right:.3rem;"></i> Both Sides Podcast</span>
+        <h3>The Mathematical Equation for Human Salvation</h3>
+        <p class="media-desc">Debate-format analysis. One voice defends the coherence equation framework; the other steelmans both Calvinist and Arminian objections and tries to break the dissolution.</p>
+        <audio controls preload="metadata" style="width:100%;height:46px;">
+          <source src="https://r2.faiththruphysics.com/audio/gtq-03/The_Mathematical_Equation_for_Human_Salvation.m4a" type="audio/mp4">
+        </audio>
+      </div>
+
+      <!-- Video -->
+      <div class="media-card">
+        <span class="media-label" style="color:var(--red);"><i class="fas fa-video" style="margin-right:.3rem;"></i> Video</span>
+        <h3>The Violent God Paradox</h3>
+        <p class="media-desc">Visual walkthrough of the free will framework across two theological frames.</p>
+        <video controls preload="metadata" style="width:100%;border-radius:.5rem;max-height:400px;">
+          <source src="https://r2.faiththruphysics.com/audio/gtq-03/The_Violent_God_Paradox.mp4" type="video/mp4">
+        </video>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--   TANGENT: MacArthur & the Equation         -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section id="tangent-macarthur" class="tab-content">
+    <div class="story max-w-3xl mx-auto">
+      <p class="mono text-xs tracking-widest uppercase mb-2" style="color:var(--highlight);">Tangent 03-A</p>
+      <h2 class="serif text-4xl font-bold text-white mb-2">MacArthur and the Equation</h2>
+      <p class="text-[#a0a0a0] italic mb-8 serif text-lg">The 1,600-year debate dissolved in one line of math.</p>
+
+      <div class="insight-callout" style="border-left-color:var(--highlight);">
+        <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">I have deep respect for John MacArthur and the Reformed tradition. This article doesn&rsquo;t critique his theology &mdash; it formalizes it. When MacArthur says &ldquo;dead in sin,&rdquo; that maps to a specific value in a specific equation. When he says &ldquo;God grants repentance,&rdquo; that maps to a specific operation. When he calls sovereignty and responsibility an &ldquo;antinomy&rdquo; &mdash; two truths that seem contradictory but aren&rsquo;t &mdash; I believe he&rsquo;s exactly right. They aren&rsquo;t contradictory. They&rsquo;re two phases of one process.</p>
+      </div>
+
+      <!-- The Fight That Won't End -->
+      <h3 class="serif text-2xl font-bold text-white mt-12 mb-4">The Fight That Won&rsquo;t End</h3>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">For sixteen hundred years, the church has been having the same argument.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">One side says: God chose who would be saved before the world began. Period. The decision was His, made in eternity, based on nothing we did or would do. Some people were written in the book of life before they drew their first breath. Others were not. This isn&rsquo;t cruelty. It&rsquo;s sovereignty.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">The other side says: God offers salvation to everyone and the choice is genuinely yours. &ldquo;Whoever believes&rdquo; means whoever. &ldquo;Choose this day whom you will serve&rdquo; means choose. If God decided everything in advance and you had no real say, then every altar call is theater, every prayer of repentance is scripted, and &ldquo;whosoever will&rdquo; is a lie. And God doesn&rsquo;t lie.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">Both sides have towering intellects. Augustine, Luther, Calvin, Edwards, Spurgeon, MacArthur &mdash; all on the sovereignty side. Arminius, Wesley, Molinists, most of the early church fathers &mdash; all on the free will side. Both sides quote Scripture extensively. Both sides accuse the other of ignoring half the Bible.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">This isn&rsquo;t a minor theological quibble. This is about the fundamental nature of God&rsquo;s relationship with humanity. Is God a king who decrees, or a father who invites? Is salvation a gift forced into your hands, or an open door you must walk through?</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">The honest answer from both camps, when pressed hard enough: we&rsquo;re not entirely sure how our position handles the other side&rsquo;s best verses. The Calvinist has Romans 9 &mdash; &ldquo;I will have mercy on whom I have mercy.&rdquo; The Arminian has 2 Peter 3:9 &mdash; God is &ldquo;not willing that any should perish.&rdquo; Both sides have clear, unambiguous Scripture. Both sides are reading the same Bible. Both sides are right about what they&rsquo;re reading.</p>
+      <p class="serif text-lg font-bold" style="color:var(--highlight);line-height:1.8;">What if the mystery has an answer?</p>
+
+      <!-- MacArthur's Position -->
+      <h3 class="serif text-2xl font-bold text-white mt-12 mb-4">MacArthur&rsquo;s Position, Stated Plainly</h3>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">John MacArthur sits at the hardest edge of the Reformed tradition. He doesn&rsquo;t soften, hedge, or apologize. His position:</p>
+      <p class="serif text-lg italic" style="color:var(--text-secondary);line-height:1.8;">&ldquo;The doctrine of election simply means that God, uninfluenced and before creation, predetermined certain people to be saved.&rdquo;</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">He builds it on four pillars:</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">God chooses first.</strong> The elect are chosen before the foundation of the world (Ephesians 1:4). This isn&rsquo;t God looking ahead in time to see who would believe. That would make God&rsquo;s choice contingent on human decision &mdash; which makes the human sovereign, not God. God chose. Then the chosen believe. The order matters.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">Dead men don&rsquo;t choose.</strong> Ephesians 2:1 says we were &ldquo;dead in trespasses and sins.&rdquo; Not sick. Not struggling. Dead. A dead person doesn&rsquo;t reach for a life preserver. The first move must come from outside the system entirely.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">The calling is effectual.</strong> When God calls the elect, they come. Not reluctantly, not under coercion, but freely &mdash; because God changes their nature first. A sheep follows the shepherd because it&rsquo;s a sheep. God made it a sheep. The following is natural, willing, even joyful. But the sheep-making came first.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">And yet &mdash; human responsibility is real.</strong> He simultaneously affirms that &ldquo;all men are commanded to repent,&rdquo; that &ldquo;everyone is held culpable,&rdquo; and that &ldquo;they&rsquo;re unable to respond apart from the intervening sovereign grace of God.&rdquo; All three. At the same time. No apology.</p>
+
+      <div class="insight-callout" style="border-left-color:var(--blue);">
+        <p class="serif text-lg italic" style="color:var(--text-primary);line-height:1.8;">&ldquo;God&rsquo;s sovereign election and man&rsquo;s exercise of responsibility in choosing Jesus Christ seem opposite and irreconcilable truths &mdash; and from our limited human perspective they are opposite and irreconcilable. That is why so many earnest, well-meaning Christians throughout the history of the church have floundered trying to reconcile them.&rdquo;</p>
+        <p class="mono text-sm mt-2" style="color:var(--text-secondary);">&mdash; John MacArthur, <em>Ephesians Commentary</em></p>
+      </div>
+
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">He holds both. He calls the tension an &ldquo;antinomy.&rdquo; That&rsquo;s an honest answer. It may also be an unnecessary one.</p>
+
+      <!-- The Other Side -->
+      <h3 class="serif text-2xl font-bold text-white mt-12 mb-4">The Other Side, Stated Fairly</h3>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">The Arminian position isn&rsquo;t weak, and it isn&rsquo;t based on sentimentality. It&rsquo;s based on Scripture &mdash; different Scripture, emphasized differently, but Scripture.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">&ldquo;For God so loved the <em>world</em>&rdquo; (John 3:16). The WORLD. Not the elect. Not a predetermined subset.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">&ldquo;The Lord is not willing that <em>any</em> should perish, but that <em>all</em> should come to repentance&rdquo; (2 Peter 3:9).</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">&ldquo;Choose this day whom you will serve&rdquo; (Joshua 24:15). Choose. Not &ldquo;discover who God already chose for you.&rdquo;</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">Wesley put it precisely: &ldquo;prevenient grace&rdquo; &mdash; grace that comes before, that goes ahead of human choice, that makes the choice possible. Without this grace, no one could respond. But with it, everyone can. The decision is then genuinely the person&rsquo;s.</p>
+
+      <!-- Why Neither Side Can Win -->
+      <h3 class="serif text-2xl font-bold text-white mt-12 mb-4">Why Neither Side Can Win</h3>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">Both sides are reading real Scripture. Both sides, when forced to deal with the other side&rsquo;s best passages, resort to some version of &ldquo;well, those verses don&rsquo;t mean what they appear to mean.&rdquo;</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">The Calvinist, confronted with &ldquo;God is not willing that any should perish,&rdquo; says: &ldquo;any&rdquo; means &ldquo;any of the elect.&rdquo; The Arminian, confronted with &ldquo;He chose us before the foundation of the world,&rdquo; says: &ldquo;chose&rdquo; means &ldquo;foreknew.&rdquo; Both are doing the same thing &mdash; reading their conclusion into the text to preserve their system.</p>
+      <p class="serif text-lg font-bold" style="color:var(--highlight);line-height:1.8;">Both CAN be literally true. Both ARE literally true. They&rsquo;re not describing competing realities. They&rsquo;re describing different phases of the same process.</p>
+
+      <!-- The Resolution -->
+      <h3 class="serif text-2xl font-bold text-white mt-12 mb-4">The Resolution, Before the Math</h3>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">Salvation has two phases, and each camp is perfectly describing one of them.</strong></p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:var(--highlight);">Phase 1</strong> is what happens when you&rsquo;re spiritually dead. You&rsquo;re not seeking God. You&rsquo;re not making a choice because you don&rsquo;t have the capacity. In this phase, everything MacArthur says is correct. The first move comes from God. It must, because the dead cannot initiate their own resurrection. <em>The Calvinist is right.</em></p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:var(--highlight);">Phase 2</strong> is what happens after God has opened the door. Grace is flowing. The capacity to respond exists. And within this grace-opened space, you genuinely choose &mdash; to surrender deeper, to resist, to move toward God or pull away. <em>The Arminian is right.</em></p>
+
+      <!-- The Equation -->
+      <h3 class="serif text-2xl font-bold text-white mt-12 mb-4">The Equation</h3>
+      <div class="equation-block" style="background:var(--surface-light);border:1px solid var(--border);border-radius:.75rem;padding:1.5rem;margin:1.5rem 0;text-align:center;">
+        <p class="mono text-xl" style="color:var(--highlight);">$$\frac{dC}{dt} = O \cdot G(1-C) - S \cdot C$$</p>
+      </div>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">C</strong> = coherence with God (0 to 1) &nbsp;&bull;&nbsp; <strong style="color:white;">O</strong> = openness (human reception) &nbsp;&bull;&nbsp; <strong style="color:white;">G</strong> = grace (sovereign, external) &nbsp;&bull;&nbsp; <strong style="color:white;">S</strong> = entropy/sin (always pulling downward)</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">The surrender parameter <strong>s</strong> ranges from &minus;1 (fully closed) to +1 (fully surrendered). The coupling function &alpha;(s) = (1+s)/2 determines how much of G actually gets through.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">At <strong>s = &minus;1</strong> (spiritually dead): coupling = zero. The equation reduces to pure decay: dC/dt = &minus;S&middot;C. This is MacArthur&rsquo;s &ldquo;dead in trespasses and sins.&rdquo; The math proves what he preaches.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:var(--highlight);">Phase 1 &mdash; God moves s from &minus;1 toward 0.</strong> Effectual calling. Irresistible grace. G acts on the closed system to open it. The person at s = &minus;1 did not choose this. Dead things don&rsquo;t choose. This is monergism &mdash; salvation initiated by God alone.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:var(--highlight);">Phase 2 &mdash; The person moves s from 0 toward +1.</strong> The channel is open. Grace is flowing. The growth term &mdash; O&middot;G(1&minus;C) &mdash; requires BOTH God&rsquo;s input AND human openness. Neither alone produces growth. This is where &ldquo;bow down, repent, believe, submit&rdquo; lives.</p>
+
+      <!-- Resolution Table -->
+      <div style="overflow-x:auto;margin:2rem 0;">
+        <table style="width:100%;border-collapse:collapse;font-family:'Crimson Text',serif;font-size:1.05rem;">
+          <thead>
+            <tr style="border-bottom:2px solid var(--highlight);">
+              <th style="text-align:left;padding:.75rem;color:var(--highlight);">Camp</th>
+              <th style="text-align:left;padding:.75rem;color:var(--highlight);">Describes</th>
+              <th style="text-align:left;padding:.75rem;color:var(--highlight);">s Transition</th>
+              <th style="text-align:left;padding:.75rem;color:var(--highlight);">Mechanism</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:.75rem;color:white;font-weight:600;">Calvinist</td>
+              <td style="padding:.75rem;">Effectual calling</td>
+              <td style="padding:.75rem;font-family:'JetBrains Mono',monospace;font-size:.9rem;">s: &minus;1 &rarr; 0</td>
+              <td style="padding:.75rem;">Monergistic &mdash; G alone opens the system</td>
+            </tr>
+            <tr>
+              <td style="padding:.75rem;color:white;font-weight:600;">Arminian</td>
+              <td style="padding:.75rem;">Response / growth</td>
+              <td style="padding:.75rem;font-family:'JetBrains Mono',monospace;font-size:.9rem;">s: 0 &rarr; +1</td>
+              <td style="padding:.75rem;">Synergistic &mdash; O and G together build coherence</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="serif text-lg font-bold" style="color:var(--highlight);line-height:1.8;">Both right. About different phases. In the same equation.</p>
+
+      <!-- MacArthur's Claims Mapped -->
+      <h3 class="serif text-2xl font-bold text-white mt-12 mb-4">MacArthur&rsquo;s Specific Claims, Mapped</h3>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">&ldquo;Dead in trespasses and sins&rdquo;</strong> = s at &minus;1, coupling at zero, only the decay term running. Dynamically dead. Not metaphor.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">&ldquo;God wills, God draws, He grants&rdquo;</strong> = G initiating the s: &minus;1 &rarr; 0 transition. The dead system didn&rsquo;t ask for this. It couldn&rsquo;t.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">&ldquo;Bow down, repent, believe, submit&rdquo;</strong> = O increasing as s moves from 0 toward +1. Real human actions within a space that grace opened.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">&ldquo;Irresistible grace&rdquo;</strong> = G strong enough that the s: &minus;1 &rarr; 0 transition always succeeds for the elect. Not coercion. The system at s = &minus;1 has no active resistance &mdash; it&rsquo;s just closed. G opens what was shut.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">&ldquo;Antinomy&rdquo;</strong> = what the two-phase process looks like when you only have single-phase language. Once you have the equation, the antinomy dissolves.</p>
+
+      <!-- Double Predestination -->
+      <h3 class="serif text-2xl font-bold text-white mt-12 mb-4">The Double Predestination Question</h3>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">MacArthur rejects double predestination. His position: God actively elects the saved and passively &ldquo;passes by&rdquo; the rest. Romans 9:22-23 uses a <em>passive</em> verb for &ldquo;vessels of wrath fitted for destruction&rdquo; but an <em>active</em> verb for &ldquo;vessels of mercy, whom He prepared beforehand for glory.&rdquo;</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">The equation maps this cleanly. At s = &minus;1 with coupling at zero, the equation is just dC/dt = &minus;S&middot;C. Pure decay. No divine push needed. God doesn&rsquo;t send anyone to hell. The system decays on its own.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">Active election:</strong> God acts on s to produce the &minus;1 &rarr; 0 transition. Active verb.<br/><strong style="color:white;">Passive reprobation:</strong> The transition doesn&rsquo;t occur. Decay does its own work. Passive verb.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">The asymmetry isn&rsquo;t arbitrary. Salvation requires external input. Destruction requires only the absence of that input. Romans 9 got the grammar right because the grammar reflects the actual dynamics.</p>
+
+      <!-- Augustine -->
+      <h3 class="serif text-2xl font-bold text-white mt-12 mb-4">What Augustine Already Knew</h3>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">Twelve centuries before this equation, Augustine mapped four states of the human will:</p>
+      <div style="overflow-x:auto;margin:1.5rem 0;">
+        <table style="width:100%;border-collapse:collapse;font-family:'Crimson Text',serif;font-size:1.05rem;">
+          <thead>
+            <tr style="border-bottom:2px solid var(--highlight);">
+              <th style="text-align:left;padding:.75rem;color:var(--highlight);">State</th>
+              <th style="text-align:left;padding:.75rem;color:var(--highlight);">Augustine</th>
+              <th style="text-align:left;padding:.75rem;color:var(--highlight);">Equation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:.75rem;color:white;font-weight:600;">Before the Fall</td>
+              <td style="padding:.75rem;">Able to sin, able not to sin</td>
+              <td style="padding:.75rem;">Full freedom. Channel open. Entropy not yet accumulated.</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:.75rem;color:white;font-weight:600;">After the Fall</td>
+              <td style="padding:.75rem;">Unable not to sin</td>
+              <td style="padding:.75rem;">s = &minus;1. Coupling zero. Only the decay term running.</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:.75rem;color:white;font-weight:600;">Under Grace</td>
+              <td style="padding:.75rem;">Able not to sin</td>
+              <td style="padding:.75rem;">Channel reopened. Phase 2 active. Growth possible.</td>
+            </tr>
+            <tr>
+              <td style="padding:.75rem;color:white;font-weight:600;">In Glory</td>
+              <td style="padding:.75rem;">Unable to sin</td>
+              <td style="padding:.75rem;">s = +1. Perfect coupling. Will and God produce identical output.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">At s = +1, the &ldquo;freedom&rdquo; to choose sin was always the freedom to choose decay. Losing it isn&rsquo;t losing freedom. It&rsquo;s gaining it. Paul said it: &ldquo;It is no longer I who live, but Christ who lives in me&rdquo; (Galatians 2:20).</p>
+
+      <!-- What This Means -->
+      <h3 class="serif text-2xl font-bold text-white mt-12 mb-4">What This Means</h3>
+      <p class="serif text-lg" style="color:var(--teal);line-height:1.8;">Philippians 2:12-13 states the entire equation in one sentence:</p>
+      <div class="insight-callout" style="border-left-color:var(--teal);">
+        <p class="serif text-xl italic" style="color:var(--text-primary);line-height:1.8;">&ldquo;Work out your salvation with fear and trembling, for it is God who works in you, both to will and to work for His good pleasure.&rdquo;</p>
+      </div>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">&ldquo;Work out your salvation&rdquo;</strong> = keep the channel open. Maintain your response. This is your job, and it&rsquo;s real.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">&ldquo;With fear and trembling&rdquo;</strong> = because entropy is always active, always pulling downward, and complacency closes the channel.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">&ldquo;For it is God who works in you&rdquo;</strong> = G is the power source. You&rsquo;re not generating the coherence. You&rsquo;re receiving it.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">&ldquo;Both to will and to work&rdquo;</strong> = even the willingness to respond is grace-enabled. Your part is to stay open to what He&rsquo;s already doing.</p>
+      <p class="serif text-lg font-bold mt-8" style="color:var(--highlight);line-height:1.8;">MacArthur said leave the harmonizing to God. The equation says: He already did.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--   TANGENT: The Three Pathways               -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section id="tangent-pathways" class="tab-content">
+    <div class="story max-w-3xl mx-auto">
+      <p class="mono text-xs tracking-widest uppercase mb-2" style="color:var(--highlight);">Tangent 03-B</p>
+      <h2 class="serif text-4xl font-bold text-white mb-2">The Three Pathways</h2>
+      <p class="text-[#a0a0a0] italic mb-8 serif text-lg">Your brain has three modes. Not metaphorically. Neurochemically.</p>
+
+      <div class="insight-callout" style="border-left-color:var(--teal);">
+        <p class="serif text-lg italic" style="color:var(--teal);line-height:1.8;">&ldquo;Do not be conformed to this world, but be transformed by the renewing of your mind.&rdquo; &mdash; Romans 12:2</p>
+      </div>
+
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">The surrender parameter <em>s</em> from the parent article &mdash; the variable that determines whether you&rsquo;re autonomous (s = &minus;1), at threshold (s = 0), or surrendered (s = +1) &mdash; isn&rsquo;t just a mathematical abstraction. Each s value produces a distinct neurochemical signature. Different neurotransmitters. Different brain regions. Different downstream behaviors.</p>
+
+      <!-- Path 1: Autonomy -->
+      <h3 class="serif text-2xl font-bold mt-12 mb-4" style="color:var(--red);">Path 1: Autonomy (s = &minus;1)</h3>
+      <p class="mono text-sm mb-4" style="color:var(--red);">The neurochemistry of &ldquo;I got this.&rdquo;</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">At s = &minus;1, the system is fully decoupled from the Logos Field. The coupling function &alpha;(s) = 0. Grace is available but unreceived. The equation reduces to pure decay: dC/dt = &minus;S&middot;C.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">Dopamine dominance.</strong> The autonomous brain runs on the reward circuit &mdash; nucleus accumbens, ventral tegmental area, mesolimbic pathway. Every decision: does this feel good <em>now</em>? The problem is tolerance. Repeated spikes cause receptor downregulation &mdash; fewer D2 receptors, requiring more stimulation for the same effect. This is the neurological equivalent of S&middot;C &mdash; entropy accelerating over time.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">Prefrontal cortex dims.</strong> The PFC &mdash; executive control, impulse regulation &mdash; progressively loses influence as the reward circuit dominates. Imaging studies of addiction show precisely this. The part of the brain capable of recognizing &ldquo;this isn&rsquo;t working&rdquo; gets quieter. This is G&ouml;del&rsquo;s incompleteness at the system level. You can&rsquo;t see the problem from inside the problem.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">Cortisol rises.</strong> Chronic stress. The autonomous system is anxious because it knows &mdash; at some level below conscious awareness &mdash; that it&rsquo;s decaying. Sleep disrupts. Inflammation increases.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">The spiral.</strong> Dopamine tolerance &rarr; need more stimulation &rarr; PFC suppression &rarr; less self-regulation &rarr; more impulsive behavior &rarr; more tolerance. This is dC/dt = &minus;S&middot;C expressed as neurochemistry. Exponential decay with no internal brake.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">This is what Paul describes in Romans 1:24-28. &ldquo;God gave them over in the sinful desires of their hearts.&rdquo; The &ldquo;giving over&rdquo; isn&rsquo;t punishment &mdash; it&rsquo;s the removal of resistance. The system at s = &minus;1 does what the equation says it will do: decay.</p>
+
+      <!-- Path 2: Performance -->
+      <h3 class="serif text-2xl font-bold mt-12 mb-4" style="color:var(--blue);">Path 2: Performance (s &asymp; 0)</h3>
+      <p class="mono text-sm mb-4" style="color:var(--blue);">The neurochemistry of &ldquo;I&rsquo;m trying really hard.&rdquo;</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">At s &asymp; 0, the channel is cracked open. Grace is partially received. This is the most exhausting position &mdash; and the most common one in church pews on Sunday morning.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">Moderate dopamine + high cortisol.</strong> The performer gets enough reward from religious behavior to keep dopamine functional but not enough for genuine satisfaction. Meanwhile, constant effort generates chronic cortisol. The system is working hard for diminishing returns.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">The equation explains why: at s &asymp; 0, both growth and decay terms are roughly balanced. dC/dt &asymp; 0. No net growth. Just maintenance under constant pressure.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">Anterior cingulate cortex overactive.</strong> The ACC &mdash; the brain&rsquo;s conflict monitor &mdash; runs hot. There&rsquo;s always a gap. Always something more to do. This is &ldquo;works righteousness&rdquo; as neuroscience: the brain region that detects failure is perpetually active.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">Oxytocin suppressed.</strong> The bonding hormone requires relational safety. The performer&rsquo;s brain is too busy monitoring compliance to relax into connection. Worship feels like evaluation. Prayer feels like performance review.</p>
+
+      <div class="insight-callout" style="border-left-color:var(--blue);">
+        <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">Jesus: &ldquo;You are like whitewashed tombs &mdash; beautiful on the outside but full of dead bones on the inside&rdquo; (Matthew 23:27). External coherence metrics look fine. Internal state: dC/dt &asymp; 0 at high metabolic cost. Treading water, burning fuel, going nowhere.</p>
+      </div>
+
+      <!-- Path 3: Surrender -->
+      <h3 class="serif text-2xl font-bold mt-12 mb-4" style="color:var(--green);">Path 3: Surrender (s = +1)</h3>
+      <p class="mono text-sm mb-4" style="color:var(--green);">The neurochemistry of &ldquo;Not my will, but Yours.&rdquo;</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">At s = +1, the coupling function &alpha;(s) = 1. Full permeability. The equation operates at maximum growth: dC/dt = G(1&minus;C) &minus; S&middot;C, where G dominates S.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">Ventromedial PFC activates.</strong> Not the dorsolateral PFC of executive control (the performer&rsquo;s circuit), but the <em>ventromedial</em> &mdash; identity, meaning, relational connection. This region activates during contemplative prayer, experiences of awe, genuine gratitude. The performer feels like they&rsquo;re working. The surrendered person feels like they&rsquo;re <em>home</em>.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">Oxytocin rises.</strong> Relational safety engages. Prayer becomes conversation rather than performance. Worship becomes response rather than obligation.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">Parasympathetic nervous system engages.</strong> Heart rate variability increases. Breathing deepens. Long-term contemplative pray-ers consistently show elevated parasympathetic function.</p>
+
+      <div class="insight-callout" style="border-left-color:var(--green);">
+        <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">The clinical bombshell:</strong> Studies of faith-based addiction recovery (AA) show that sustained spiritual practice gradually <em>restores D2 receptor density</em>. The damage from Path 1 reverses. Not immediately. Not completely. But measurably.</p>
+        <p class="serif text-lg mt-2" style="color:var(--text-primary);line-height:1.8;">Cochrane review (2020, N = 10,565): faith-based recovery programs perform as well as or better than CBT for alcohol dependence. CBT operates on O alone &mdash; self-regulation without changing s. AA operates on s &mdash; surrender, which opens the channel to G.</p>
+        <p class="serif text-lg mt-2" style="color:var(--teal);line-height:1.8;">&ldquo;Apart from me you can do nothing&rdquo; (John 15:5). Not: apart from me you can do <em>less</em>. Nothing.</p>
+      </div>
+
+      <!-- Transition Architecture -->
+      <h3 class="serif text-2xl font-bold text-white mt-12 mb-4">The Transition Architecture</h3>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:var(--red);">Path 1 &rarr; Path 2</strong> (s: &minus;1 &rarr; ~0). Typically a crisis. The autonomous system hits a wall &mdash; addiction bottoms out, relationships collapse, health fails. AA calls it &ldquo;hitting bottom.&rdquo; The crisis doesn&rsquo;t generate G. It generates a <em>crack</em> through which G can begin to act.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:var(--blue);">Path 2 &rarr; Path 3</strong> (s: ~0 &rarr; +1). The harder transition. The performer is already &ldquo;doing everything right.&rdquo; What needs to change isn&rsquo;t behavior &mdash; it&rsquo;s the <em>source</em>. Paul: &ldquo;When I am weak, then I am strong&rdquo; (2 Corinthians 12:10). Weakness = performer&rsquo;s strategies failing. Strong = G flowing through the channel that performance was blocking.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:var(--purple);">Path 3 &rarr; Path 2</strong> (regression). The surrendered person begins to take credit. vmPFC gives way to dorsolateral PFC. Oxytocin drops. Cortisol rises. Galatians 3:3: &ldquo;Having begun by the Spirit, are you now being perfected by the flesh?&rdquo;</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:var(--red);">Path 2 &rarr; Path 1</strong> (apostasy). The performer burns out. This is the most dangerous transition &mdash; it often produces the most vocal opponents of faith. People who &ldquo;tried Christianity&rdquo; and found it wanting. What they tried was Path 2. They never found Path 3.</p>
+
+      <!-- Daily Practice -->
+      <h3 class="serif text-2xl font-bold text-white mt-12 mb-4">The Daily Practice</h3>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">If s is the surrender parameter and O is openness, the daily question isn&rsquo;t &ldquo;am I being good enough?&rdquo; (Path 2 thinking) but &ldquo;am I receiving?&rdquo;</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:var(--highlight);">Morning thanksgiving.</strong> Before asking for anything, begin with gratitude. Gratitude activates the vmPFC and releases oxytocin. It shifts the brain from performance mode to relational mode. It pre-loads the circuitry of Path 3.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:var(--highlight);">Permission before consumption.</strong> Before meals, before media &mdash; pause and ask. Not &ldquo;is this allowed?&rdquo; (Path 2). But &ldquo;is this from You?&rdquo; (Path 3). The pause creates a gap between stimulus and response where O can engage.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:var(--highlight);">Awareness of the shift.</strong> Learn to feel the neurochemical transition. When cortisol rises and the chest tightens &mdash; that&rsquo;s the shift from Path 3 to Path 2. Don&rsquo;t fight it (that&rsquo;s more performance). Acknowledge it and return to receiving. &ldquo;Not my will, but Yours.&rdquo;</p>
+
+      <p class="serif text-lg font-bold mt-8" style="color:var(--highlight);line-height:1.8;">The equation is not metaphor. Your brain is running it right now.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--   TANGENT: Why Did God Drown Everybody      -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section id="tangent-flood" class="tab-content">
+    <div class="story max-w-3xl mx-auto">
+      <p class="mono text-xs tracking-widest uppercase mb-2" style="color:var(--highlight);">Tangent 03-C</p>
+      <h2 class="serif text-4xl font-bold text-white mb-2">Why Did God Drown Everybody?</h2>
+      <p class="text-[#a0a0a0] italic mb-4 serif text-lg">And Why He Stopped</p>
+
+      <div class="insight-callout" style="border-left-color:var(--red);">
+        <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">The most common reason people walk away from Christianity isn&rsquo;t the resurrection. It&rsquo;s the flood. It&rsquo;s the fire on Sodom. It&rsquo;s the command to wipe out entire nations. The God of the New Testament says love your enemies. The God of the Old Testament sends bears to maul children for making fun of a bald man.</p>
+        <p class="serif text-lg mt-2" style="color:var(--text-primary);line-height:1.8;">The standard pastoral response &mdash; &ldquo;same God, different era, mysterious ways&rdquo; &mdash; has never satisfied anyone who&rsquo;s actually thinking about it.</p>
+        <p class="serif text-lg mt-2 font-bold" style="color:white;line-height:1.8;">This article gives the structural answer. Not the theological one. The structural one.</p>
+      </div>
+
+      <!-- Stage 1: Human Anchor -->
+      <h3 class="serif text-2xl font-bold text-white mt-12 mb-4">The Surgeon Without Antibiotics</h3>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">Picture a hospital before antibiotics existed. A patient comes in with a gangrenous leg. The infection is spreading. Without penicillin &mdash; which hasn&rsquo;t been invented yet &mdash; there is exactly one intervention that stops the infection from killing the patient: amputation.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">The surgeon picks up the saw. The patient screams. A modern doctor watching through a window from the future thinks: <em>that surgeon is a monster.</em></p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">But the modern doctor has penicillin. The 19th-century surgeon doesn&rsquo;t. The amputation isn&rsquo;t cruelty. It&rsquo;s the only option the operating conditions permit.</p>
+      <p class="serif text-lg font-bold" style="color:var(--highlight);line-height:1.8;">Now ask the same question about God and the Old Testament.</p>
+
+      <!-- Stage 2: The Protection Layer -->
+      <h3 class="serif text-2xl font-bold text-white mt-12 mb-4">The Missing Protection Layer</h3>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">Before Pentecost, the Holy Spirit operated in <strong style="color:var(--highlight);">override mode</strong> &mdash; temporary, selective, revocable. It came upon Saul, then left him. It came upon Samson when needed, then withdrew. David&rsquo;s terror after his sin was not &ldquo;please forgive me&rdquo; but <em>&ldquo;do not take your Holy Spirit from me&rdquo;</em> (Psalm 51:11). He knew it could leave.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">This means the entire pre-Pentecost population was operating with <strong style="color:var(--red);">no internal protection layer</strong> against direct adversarial coupling. Not fallen in the way we typically mean it. Structurally <em>unshielded</em>. The immune function had not yet been installed.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">A network without an immune function has one behavior when a pathogen enters a node: the infection propagates at the speed of contact until you quarantine or destroy the infected nodes from outside.</p>
+
+      <!-- Stage 3: The Pattern -->
+      <h3 class="serif text-2xl font-bold text-white mt-12 mb-4">The Pattern in Scripture</h3>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">Look at every adversarial encounter in the Old Testament:</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">Genesis 3</strong> &mdash; the serpent speaks <em>directly to Eve</em>. Face to face. No institution required. A spiritual entity coupling directly to human consciousness in open conversation.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">Job 1&ndash;2</strong> &mdash; Satan proposes a direct experiment on a human soul. Direct personal assault. No intermediary machinery.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">1 Samuel 16:14</strong> &mdash; an evil spirit troubles Saul directly. Not through a false prophet or a corrupt institution. Directly.</p>
+      <p class="serif text-lg font-bold" style="color:var(--highlight);line-height:1.8;">The pattern holds across a thousand years: adversarial access is direct.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">And when direct adversarial coupling has corrupted the network and there is no internal self-correction mechanism, the only way to stop propagation is external. Catastrophic. Targeted.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">The Flood</strong> is not God losing his temper. It&rsquo;s a system administrator doing a hard reset on a network with zero nodes still holding coherence: &ldquo;every imagination of the thoughts of his heart was only evil continually&rdquo; (Genesis 6:5). Zero functioning recovery nodes. The only viable intervention is quarantine-and-restart.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">Sodom and Gomorrah</strong> &mdash; same logic, smaller scale. Abraham negotiates: would you spare it for fifty? Forty? Ten? God agrees every time. Ten is the minimum viable recovery cluster. Fewer than ten nodes still coupled to the coherence field means the network cannot self-repair.</p>
+      <p class="serif text-lg font-bold" style="color:white;line-height:1.8;">This isn&rsquo;t a wrathful God. It&rsquo;s a surgeon doing triage on a system without antibiotics.</p>
+
+      <!-- Stage 4: Pentecost Changes Everything -->
+      <h3 class="serif text-2xl font-bold text-white mt-12 mb-4">Pentecost Changes Everything</h3>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">Acts 2. The Holy Spirit distributes to <em>all believers</em> &mdash; not one prophet at a time, not temporarily, not revocably. Permanently. The protection layer installs.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">And immediately, the <em>language</em> in the New Testament changes.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">Paul stops writing about face-to-face demonic encounters. He writes about <strong style="color:white;">principalities, powers, rulers, thrones</strong> &mdash; structural language. Institutional language. Ephesians 6:12: &ldquo;We wrestle not against flesh and blood, but against principalities, against powers, against the rulers of the darkness of this world.&rdquo;</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">That&rsquo;s an adversary who <strong style="color:var(--red);">lost direct access</strong> to protected nodes and was forced to adapt. He can&rsquo;t get to you directly anymore if you&rsquo;re coupled. So he goes after the <em>systems around you</em>. He corrupts the institution. He captures the denomination. He infiltrates the university. He buys the bank.</p>
+
+      <div class="insight-callout" style="border-left-color:var(--highlight);">
+        <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;">The armor of God in Ephesians 6 is <strong style="color:white;">defensive equipment against projectiles</strong> &mdash; shield, helmet, breastplate. You don&rsquo;t need armor against someone whispering in your ear. You need armor against indirect attack. The armor exists because the attack mode changed.</p>
+      </div>
+
+      <!-- Core Insight -->
+      <h3 class="serif text-2xl font-bold text-white mt-12 mb-4">The Structural Answer</h3>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:var(--highlight);">Eden was the baseline.</strong> Direct Spirit coupling. Full protection. Humanity built for that state.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:var(--red);">The Fall broke the protection layer.</strong> Direct adversarial access became possible. The entire Old Testament is the damaged period.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:white;">The Cross clears the debt blocking Spirit distribution.</strong> &ldquo;It is finished&rdquo; means the blocking term is paid. The distribution mechanism is now clear.</p>
+      <p class="serif text-lg" style="color:var(--text-primary);line-height:1.8;"><strong style="color:var(--green);">Pentecost is the restoration, not the innovation.</strong> It reinstates the protection layer that Eden had. The OT God isn&rsquo;t the &ldquo;real God showing his true colors&rdquo; with the NT God softening with age. The OT is God operating in emergency mode during a crisis that wasn&rsquo;t supposed to last forever.</p>
+
+      <!-- Truth Bomb -->
+      <h3 class="serif text-2xl font-bold text-white mt-12 mb-4">The Truth Bomb</h3>
+      <div class="insight-callout" style="border-left-color:var(--highlight);background:rgba(212,175,55,0.05);">
+        <p class="serif text-xl" style="color:var(--text-primary);line-height:1.8;">The God of the flood and the God of the Sermon on the Mount are not in tension. They are the same God operating under two different sets of physical conditions &mdash; one without the immune function humanity was designed to have, and one with it restored.</p>
+        <p class="serif text-lg mt-4" style="color:var(--text-primary);line-height:1.8;">Every catastrophic act in the OT is precisely what a loving God <em>must</em> do when direct adversarial coupling is propagating through a network with no internal defense: quarantine, or watch it all burn from within.</p>
+        <p class="serif text-lg mt-4" style="color:var(--text-primary);line-height:1.8;">Every act in the NT that looks like restraint is not mercy replacing wrath &mdash; it&rsquo;s the antibiotic working.</p>
+      </div>
+
+      <p class="serif text-lg mt-8" style="color:var(--text-primary);line-height:1.8;"><strong style="color:var(--highlight);">The falsification criterion:</strong> If this framework is correct, post-Pentecost adversarial strategy should be systematically <em>institutional</em> &mdash; working through structures, not direct personal encounter. And pre-Pentecost accounts should be systematically <em>personal</em> &mdash; direct entity-to-human contact. Read the text and count. The distribution is not ambiguous.</p>
+    </div>
+  </section>
+
+<!-- ═══ SHARE & REACTIONS ═══ -->
+<div class="share-floating">
+  <a class="share-btn x" href="#" title="Share on X" onclick="shareX(event)"><i class="fab fa-x-twitter"></i></a>
+  <a class="share-btn facebook" href="#" title="Share on Facebook" onclick="shareFB(event)"><i class="fab fa-facebook-f"></i></a>
+  <a class="share-btn linkedin" href="#" title="Share on LinkedIn" onclick="shareLI(event)"><i class="fab fa-linkedin-in"></i></a>
+  <a class="share-btn reddit" href="#" title="Share on Reddit" onclick="shareReddit(event)"><i class="fab fa-reddit-alien"></i></a>
+  <a class="share-btn email" href="#" title="Share via Email" onclick="shareEmail(event)"><i class="fas fa-envelope"></i></a>
+  <button class="share-btn copy" title="Copy link" onclick="copyLink(this)"><i class="fas fa-link"></i></button>
+</div>
+
+<section class="share-section">
+  <h3>Share This Paper</h3>
+  <div class="share-bar">
+    <span class="share-label">Share</span>
+    <a class="share-btn x" href="#" title="Share on X" onclick="shareX(event)"><i class="fab fa-x-twitter"></i></a>
+    <a class="share-btn facebook" href="#" title="Share on Facebook" onclick="shareFB(event)"><i class="fab fa-facebook-f"></i></a>
+    <a class="share-btn linkedin" href="#" title="Share on LinkedIn" onclick="shareLI(event)"><i class="fab fa-linkedin-in"></i></a>
+    <a class="share-btn reddit" href="#" title="Share on Reddit" onclick="shareReddit(event)"><i class="fab fa-reddit-alien"></i></a>
+    <a class="share-btn email" href="#" title="Share via Email" onclick="shareEmail(event)"><i class="fas fa-envelope"></i></a>
+    <button class="share-btn copy" title="Copy link" onclick="copyLink(this)"><i class="fas fa-link"></i></button>
+  </div>
+  <div class="reaction-bar">
+    <span class="reaction-label">React</span>
+    <button class="reaction-btn" onclick="toggleReaction(this)"><span>&#129504;</span><span class="count">0</span></button>
+    <button class="reaction-btn" onclick="toggleReaction(this)"><span>&#128293;</span><span class="count">0</span></button>
+    <button class="reaction-btn" onclick="toggleReaction(this)"><span>&#128161;</span><span class="count">0</span></button>
+    <button class="reaction-btn" onclick="toggleReaction(this)"><span>&#129300;</span><span class="count">0</span></button>
+    <button class="reaction-btn" onclick="toggleReaction(this)"><span>&#128170;</span><span class="count">0</span></button>
+  </div>
+</section>
+
+</main>
+
+
+      <!-- ═══ THE HONEST ASSESSMENT ═══ -->
+      <hr style="border:none;border-top:2px solid var(--border, #333);margin:3rem 0;">
+
+      <h2 style="text-align:center;font-size:2rem;margin-bottom:.5rem;font-family:'Crimson Text',serif,Georgia,serif;">The Honest Assessment</h2>
+      <p style="text-align:center;font-size:.9rem;color:#a0a0a0;margin-bottom:2.5rem;">Every claim in this paper falls into one of three categories. This taxonomy is permanent.</p>
+
+      <!-- WHAT WE GOT RIGHT -->
+      <div style="background:linear-gradient(135deg,rgba(34,197,94,.08) 0%,rgba(34,197,94,.02) 100%);border:1px solid rgba(34,197,94,.25);border-left:5px solid #22c55e;border-radius:0 .75rem .75rem 0;padding:1.75rem 2rem;margin-bottom:1.5rem;">
+        <div style="font-family:'Oswald',sans-serif;font-size:1.1rem;letter-spacing:.1em;text-transform:uppercase;color:#22c55e;margin-bottom:1rem;font-weight:700;">
+          <i class="fas fa-check-circle" style="margin-right:.5rem;"></i>What We Got Right
+        </div>
+        <div style="padding:.75rem 1rem;margin-bottom:.5rem;border-radius:.375rem;border:1px solid rgba(34,197,94,.15);background:rgba(34,197,94,.04);">
+          <strong style="color:#fff;">Placeholder &mdash; to be filled individually.</strong> This section will contain the claims from this paper that are well-supported by evidence.
+        </div>
+      </div>
+
+      <!-- WHAT WE GOT WRONG -->
+      <div style="background:linear-gradient(135deg,rgba(239,68,68,.08) 0%,rgba(239,68,68,.02) 100%);border:1px solid rgba(239,68,68,.25);border-left:5px solid #ef4444;border-radius:0 .75rem .75rem 0;padding:1.75rem 2rem;margin-bottom:1.5rem;">
+        <div style="font-family:'Oswald',sans-serif;font-size:1.1rem;letter-spacing:.1em;text-transform:uppercase;color:#ef4444;margin-bottom:1rem;font-weight:700;">
+          <i class="fas fa-times-circle" style="margin-right:.5rem;"></i>What We Got Wrong
+        </div>
+        <div style="padding:.75rem 1rem;margin-bottom:.5rem;border-radius:.375rem;border:1px solid rgba(239,68,68,.15);background:rgba(239,68,68,.04);">
+          <strong style="color:#fff;">Placeholder &mdash; to be filled individually.</strong> This section will contain claims that turned out to be incorrect or unsupported.
+        </div>
+      </div>
+
+      <!-- WHERE WE OVERCLAIMED -->
+      <div style="background:linear-gradient(135deg,rgba(212,175,55,.08) 0%,rgba(212,175,55,.02) 100%);border:1px solid rgba(212,175,55,.25);border-left:5px solid #d4af37;border-radius:0 .75rem .75rem 0;padding:1.75rem 2rem;margin-bottom:1.5rem;">
+        <div style="font-family:'Oswald',sans-serif;font-size:1.1rem;letter-spacing:.1em;text-transform:uppercase;color:#d4af37;margin-bottom:1rem;font-weight:700;">
+          <i class="fas fa-exclamation-triangle" style="margin-right:.5rem;"></i>Where We Overclaimed
+        </div>
+        <div style="padding:.75rem 1rem;margin-bottom:.5rem;border-radius:.375rem;border:1px solid rgba(212,175,55,.15);background:rgba(212,175,55,.04);">
+          <strong style="color:#fff;">Placeholder &mdash; to be filled individually.</strong> This section will contain claims where the evidence is suggestive but the language went too far.
+        </div>
+      </div>
+
+<footer>
+  <div class="footer-eq">&chi; = &iiint;(G &middot; M &middot; E &middot; S &middot; T &middot; K &middot; R &middot; Q &middot; F &middot; C) dx dy dt</div>
+  <p>POF 2828 &middot; Theophysics Research Program &middot; David Lowe &middot; <span style="color:var(--highlight);">15 + 15 = 100</span></p>
+  <p style="font-family:'Crimson Text',serif;font-style:italic;color:var(--text-secondary);margin-top:.5rem;">"Work it out. God works in you. The comma is the equation."</p>
+</footer>
+
+<script>
+/* ═══════════════ PROGRESS BAR ═══════════════ */
+window.addEventListener('scroll', () => {
+  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const pct = height > 0 ? (winScroll / height) * 100 : 0;
+  document.getElementById('progressBar').style.width = pct + '%';
+});
+
+/* ═══════════════ TAB SWITCHING ═══════════════ */
+function switchTab(id, btn){
+  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el=>el.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(btn) btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  // Players only on paper, tangents, academia
+  var ps = document.querySelector('.player-strip') || document.querySelector('.player-dock');
+  if(ps){
+    var show = (id==='paper' || id.indexOf('tangent')===0 || id==='academia');
+    ps.style.display = show ? '' : 'none';
+  }
+
+}
+
+/* ═══════════════ SIDEBAR ═══════════════ */
+/* ═══════════════ TANGENT TOGGLE ═══════════════ */
+function toggleTangent(btn){
+  btn.classList.toggle('open');
+  const body = btn.nextElementSibling;
+  body.classList.toggle('show');
+  if(body.classList.contains('show')){
+    btn.innerHTML = '<i class="fas fa-chevron-right"></i> Collapse Tangent Article';
+    btn.querySelector('i').style.transform = 'rotate(90deg)';
+  } else {
+    btn.innerHTML = '<i class="fas fa-chevron-right"></i> Expand Tangent Article';
+    btn.querySelector('i').style.transform = '';
+  }
+}
+
+/* ═══════════════ SHARE FUNCTIONS ═══════════════ */
+function getShareData(){
+  const title = document.querySelector('meta[property="og:title"]')?.content || document.title;
+  const url = window.location.href;
+  const text = document.querySelector('meta[name="description"]')?.content || '';
+  return { title, url, text };
+}
+function shareX(e){e.preventDefault();const d=getShareData();window.open('https://x.com/intent/tweet?text='+encodeURIComponent(d.title)+'&url='+encodeURIComponent(d.url),'_blank','width=550,height=420');}
+function shareFB(e){e.preventDefault();const d=getShareData();window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(d.url),'_blank','width=550,height=420');}
+function shareLI(e){e.preventDefault();const d=getShareData();window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(d.url),'_blank','width=550,height=420');}
+function shareReddit(e){e.preventDefault();const d=getShareData();window.open('https://reddit.com/submit?url='+encodeURIComponent(d.url)+'&title='+encodeURIComponent(d.title),'_blank','width=550,height=620');}
+function shareEmail(e){e.preventDefault();const d=getShareData();window.location.href='mailto:?subject='+encodeURIComponent(d.title)+'&body='+encodeURIComponent(d.text+'\n\n'+d.url);}
+function copyLink(btn){navigator.clipboard.writeText(window.location.href).then(()=>{btn.classList.add('copied');btn.innerHTML='<i class="fas fa-check"></i>';setTimeout(()=>{btn.classList.remove('copied');btn.innerHTML='<i class="fas fa-link"></i>';},2000);});}
+function toggleReaction(btn){btn.classList.toggle('active');const c=btn.querySelector('.count');let n=parseInt(c.textContent);c.textContent=btn.classList.contains('active')?n+1:n-1;}
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var ps = document.querySelector('.player-strip') || document.querySelector('.player-dock');
+  if(ps) ps.style.display = 'none';
+});
+</script>
+</body>
+</html>

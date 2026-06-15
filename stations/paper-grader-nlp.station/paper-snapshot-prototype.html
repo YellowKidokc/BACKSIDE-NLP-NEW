@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paper Snapshot Prototype | Proof Explorer</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #050505;
+  --panel: #0a0a0a;
+  --card: #111;
+  --border: #242424;
+  --border-strong: #383838;
+  --text: #e7e7e7;
+  --muted: #9a9a9a;
+  --faint: #666;
+  --gold: #d4af37;
+  --gold-dim: rgba(212,175,55,0.12);
+  --red: #d15a5a;
+  --red-dim: rgba(209,90,90,0.12);
+  --blue: #62a8ff;
+  --blue-dim: rgba(98,168,255,0.12);
+  --green: #48c774;
+  --green-dim: rgba(72,199,116,0.12);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui, sans-serif;
+  line-height: 1.55;
+}
+.wrap {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 28px 0 56px;
+}
+.back {
+  display: inline-block;
+  color: var(--muted);
+  text-decoration: none;
+  font: 500 12px JetBrains Mono, monospace;
+  margin-bottom: 26px;
+}
+.back:hover { color: var(--gold); }
+.snapshot {
+  border: 1px solid var(--border);
+  background:
+    radial-gradient(circle at top right, rgba(212,175,55,0.08), transparent 38%),
+    linear-gradient(180deg, #0b0b0b, #070707);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.identity {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(0,0,0,0.28);
+}
+.id {
+  font: 700 14px JetBrains Mono, monospace;
+  color: var(--gold);
+}
+.pipe { color: #444; }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 26px;
+  padding: 4px 9px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  color: var(--muted);
+  font: 500 11px JetBrains Mono, monospace;
+  background: rgba(255,255,255,0.025);
+}
+.chip.gold { color: var(--gold); border-color: rgba(212,175,55,0.38); background: var(--gold-dim); }
+.chip.red { color: var(--red); border-color: rgba(209,90,90,0.38); background: var(--red-dim); }
+.chip.blue { color: var(--blue); border-color: rgba(98,168,255,0.38); background: var(--blue-dim); }
+.chip.green { color: var(--green); border-color: rgba(72,199,116,0.38); background: var(--green-dim); }
+.hero { padding: 24px 22px 12px; }
+.label {
+  margin: 0 0 8px;
+  color: var(--gold);
+  font: 600 11px JetBrains Mono, monospace;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+h1 {
+  margin: 0 0 10px;
+  font: 700 clamp(30px, 5vw, 58px) Oswald, Impact, sans-serif;
+  line-height: .98;
+  letter-spacing: 0;
+  color: white;
+}
+.claim {
+  max-width: 980px;
+  margin: 0;
+  color: #d6d6d6;
+  font: italic 600 clamp(18px, 2vw, 24px) Crimson Text, Georgia, serif;
+}
+.grid { display: grid; gap: 12px; padding: 12px 18px 18px; }
+.grid.two { grid-template-columns: 1.05fr .95fr; }
+.grid.facts { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.card {
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(17,17,17,0.72);
+  padding: 14px;
+}
+.card h2, .card h3 {
+  margin: 0 0 8px;
+  color: white;
+  font: 700 13px JetBrains Mono, monospace;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.card p, .card li { margin: 0; color: #cfcfcf; font-size: 14px; }
+.card small { display: block; color: var(--muted); margin-top: 7px; }
+.maturity { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center; }
+.level {
+  width: 70px;
+  height: 70px;
+  border-radius: 8px;
+  border: 1px solid rgba(212,175,55,0.45);
+  background: var(--gold-dim);
+  display: grid;
+  place-items: center;
+  color: var(--gold);
+  font: 700 28px JetBrains Mono, monospace;
+}
+.facts-letter { color: var(--gold); font: 700 20px Oswald, sans-serif; margin-right: 6px; }
+.evidence-row { display: flex; flex-wrap: wrap; gap: 8px; }
+ul { padding-left: 18px; margin: 0; }
+li + li { margin-top: 6px; }
+.not-claimed { border-color: rgba(98,168,255,0.32); background: rgba(98,168,255,0.055); }
+.kills { border-color: rgba(209,90,90,0.32); background: rgba(209,90,90,0.05); }
+details { border-top: 1px solid var(--border); padding: 0 18px 18px; }
+summary {
+  cursor: pointer;
+  list-style: none;
+  color: var(--gold);
+  font: 700 13px JetBrains Mono, monospace;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  padding: 16px 0;
+}
+summary::-webkit-details-marker { display: none; }
+.qgrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.q { border: 1px solid var(--border); background: #0d0d0d; border-radius: 8px; padding: 10px; }
+.q b { display: block; color: var(--gold); font: 700 11px JetBrains Mono, monospace; margin-bottom: 5px; }
+.q span { color: #cfcfcf; font-size: 13px; }
+@media (max-width: 900px) {
+  .grid.two, .grid.facts, .qgrid { grid-template-columns: 1fr; }
+  .hero { padding-top: 18px; }
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <a class="back" href="index.html">Back to Proof Explorer</a>
+
+  <section class="snapshot" aria-label="Paper Snapshot">
+    <div class="identity">
+      <span class="id">FP-005</span><span class="pipe">|</span>
+      <span class="chip gold">Foundational Paper</span>
+      <span class="chip">Physics / Theology / Information Theory</span>
+      <span class="chip green">Published</span>
+      <span class="chip">v1.0</span>
+      <span class="chip">910 words</span>
+      <span class="chip">Updated 2026-04-26</span>
+    </div>
+
+    <div class="hero">
+      <p class="label">Paper Snapshot</p>
+      <h1>The Turtles and the Floor</h1>
+      <p class="claim">This paper argues that the Cross/Pentecost sequence can be modeled as irreversible coupling-architecture modification, with stated formal, empirical, and theological constraints.</p>
+    </div>
+
+    <div class="grid two">
+      <article class="card maturity">
+        <div class="level">4</div>
+        <div>
+          <h2>Claim Maturity: Formal Model</h2>
+          <p>Lean verifies internal structure only; empirical and theological claims remain separately tested.</p>
+          <small>Scale: 1 Metaphor -> 7 Public Proof Claim</small>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>Forward / Reverse Test</h2>
+        <p><span class="chip blue">Forward</span> Physics predicts theological structure.</p>
+        <small><span class="chip blue">Reverse</span> Theology predicts physical constraint.</small>
+      </article>
+    </div>
+
+    <div class="grid facts">
+      <article class="card"><h3><span class="facts-letter">F</span>Frame</h3><p>The anomaly is missing composition, not a missing component.</p></article>
+      <article class="card"><h3><span class="facts-letter">A</span>Admit</h3><p>Dual-substrate model is speculative; key derivation and category construction are incomplete.</p></article>
+      <article class="card"><h3><span class="facts-letter">C</span>Claim</h3><p>The sequence is structurally coherent under irreversible coupling modification.</p></article>
+      <article class="card"><h3><span class="facts-letter">T</span>Test</h3><p>Check symmetry-breaking, energy accounting, parameter derivation, EM invisibility, and historical discontinuity.</p></article>
+      <article class="card"><h3><span class="facts-letter">S</span>Snap</h3><p>One fatal kill condition breaks the model; multiple prediction failures collapse it.</p></article>
+    </div>
+
+    <div class="grid two">
+      <article class="card">
+        <h2>Evidence Bar</h2>
+        <div class="evidence-row">
+          <span class="chip green">Lean4 theorem compiled</span>
+          <span class="chip blue">SSB / irreversible coupling</span>
+          <span class="chip">Thermodynamic audit pending</span>
+          <span class="chip">Historical discontinuity</span>
+          <span class="chip gold">Cross/Pentecost sequence</span>
+        </div>
+      </article>
+
+      <article class="card kills">
+        <h2>Fatal Kill Conditions</h2>
+        <ul>
+          <li>SSB reversible in required limit.</li>
+          <li>Energy non-conserved across full arc.</li>
+          <li>Key parameter derivation fails.</li>
+          <li>Unexpected EM signature appears.</li>
+          <li>Categorical contradiction found.</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="grid">
+      <article class="card not-claimed">
+        <h2>What This Paper Does Not Claim</h2>
+        <ul>
+          <li>It does not claim that physics proves theology.</li>
+          <li>It does not claim the model is empirically complete.</li>
+          <li>It does not claim Lean proves the external reality of the event.</li>
+        </ul>
+      </article>
+    </div>
+
+    <details>
+      <summary>Open 7Q Snapshot</summary>
+      <div class="qgrid">
+        <div class="q"><b>Q0 Posture</b><span>Structural correspondence is tested, not assumed.</span></div>
+        <div class="q"><b>Q1 Identity</b><span>The object is a claimed substrate-transition model.</span></div>
+        <div class="q"><b>Q2 Domain</b><span>Physics <-> Theology.</span></div>
+        <div class="q"><b>Q3 Claim</b><span>Irreversible coupling modification explains the sequence.</span></div>
+        <div class="q"><b>Q4 Support</b><span>Formal structure, analogy class, evidence hooks.</span></div>
+        <div class="q"><b>Q5 Dependencies</b><span>Requires prior framework layers and valid physical operation.</span></div>
+        <div class="q"><b>Q6 Consequences</b><span>If true, theology and physics share constrained architecture.</span></div>
+        <div class="q"><b>Q7 Kill Conditions</b><span>Reversibility, failed conservation, failed parameter derivation, categorical contradiction.</span></div>
+      </div>
+    </details>
+  </section>
+</main>
+</body>
+</html>

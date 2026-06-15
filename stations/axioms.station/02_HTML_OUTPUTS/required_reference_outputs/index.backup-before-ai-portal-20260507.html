@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proof Explorer | Faith Through Physics</title>
+<meta name="description" content="Interactive proof explorer for the Theophysics framework. Navigate formal proofs, axiom layers, and the resurrection paper from first principles to closure.">
+<meta name="author" content="David Lowe">
+<meta property="og:title" content="Proof Explorer | Faith Through Physics">
+<meta property="og:description" content="Interactive proof explorer for the Theophysics framework. Navigate formal proofs, axiom layers, and the resurrection paper.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://faiththruphysics.com/proof-explorer/">
+<meta property="og:image" content="https://faiththruphysics.com/favicon.svg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Proof Explorer | Faith Through Physics">
+<meta name="twitter:description" content="Interactive proof explorer for the Theophysics framework.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                dark: '#050505',
+                card: '#0a0a0a',
+                cardHover: '#111111',
+                accent: '#d4af37',
+                accentDim: '#a08520',
+            },
+            fontFamily: {
+                serif: ['Crimson Text', 'Georgia', 'serif'],
+                sans: ['Inter', 'system-ui', 'sans-serif'],
+                display: ['Oswald', 'Impact', 'sans-serif'],
+                mono: ['JetBrains Mono', 'monospace'],
+            }
+        }
+    }
+}
+</script>
+<style>
+    html { scroll-behavior: smooth; }
+    body { background-color: #050505; }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #050505; }
+    ::-webkit-scrollbar-thumb { background: #a08520; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #d4af37; }
+
+    .gradient-line {
+        height: 3px;
+        background: linear-gradient(90deg, #a08520, #d4af37, #f5d060, #d4af37, #a08520);
+    }
+    .hero-gradient {
+        background: radial-gradient(ellipse at 50% 0%, rgba(212,175,55,0.08) 0%, transparent 60%);
+    }
+
+    .series-card {
+        background: #0a0a0a;
+        border: 1px solid #222;
+        transition: all 0.3s ease;
+    }
+    .series-card:hover {
+        border-color: #d4af37;
+        background: #111;
+        box-shadow: 0 0 30px rgba(212,175,55,0.08), inset 0 1px 0 rgba(212,175,55,0.05);
+        transform: translateY(-2px);
+    }
+    .series-card .card-number {
+        color: #a08520;
+        transition: color 0.3s ease;
+    }
+    .series-card:hover .card-number {
+        color: #d4af37;
+    }
+    .series-card .card-title {
+        color: #e0e0e0;
+        transition: color 0.3s ease;
+    }
+    .series-card:hover .card-title {
+        color: #fff;
+    }
+    .series-card .card-arrow {
+        color: #333;
+        transition: all 0.3s ease;
+    }
+    .series-card:hover .card-arrow {
+        color: #d4af37;
+        transform: translateX(4px);
+    }
+
+    .section-label {
+        letter-spacing: 0.15em;
+    }
+</style>
+<script defer src="https://analytics.faiththruphysics.com/script.js" data-website-id="2f2e3a0f-e8e5-4900-a1e0-1b33592403ee"></script>
+<link rel="canonical" href="https://faiththruphysics.com/proof-explorer/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:image" content="https://faiththruphysics.com/favicon.svg"/>
+</head>
+<body class="font-sans text-gray-300 min-h-screen">
+
+<!-- Back Link -->
+<div class="max-w-5xl mx-auto px-6 pt-8">
+    <a href="/index.html" class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-accent transition-colors font-mono">
+        <i class="fa-solid fa-arrow-left text-xs"></i>
+        Back to Main Index
+    </a>
+</div>
+
+<!-- Hero -->
+<header class="hero-gradient pt-16 pb-20">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+        <p class="section-label uppercase text-xs font-mono text-accent tracking-widest mb-6">Formal Proofs &middot; Machine Verification</p>
+        <h1 class="font-display text-5xl md:text-7xl font-bold text-white leading-tight mb-8 tracking-tight">
+            Proof Explorer
+        </h1>
+        <div class="gradient-line max-w-md mx-auto mb-8"></div>
+        <p class="font-serif text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed italic">
+            From axioms to theorems to closure &mdash;<br class="hidden md:block">
+            navigate the formal proof structure of the Theophysics framework.
+        </p>
+    </div>
+</header>
+
+<main class="max-w-5xl mx-auto px-6 pb-24">
+
+    <!-- The Resurrection Papers -->
+    <section class="mb-16">
+        <div class="flex items-center gap-4 mb-10">
+            <div class="w-10 h-px bg-accent"></div>
+            <h2 class="section-label uppercase text-sm font-mono text-accent tracking-widest">Foundation Papers</h2>
+            <div class="flex-1 h-px bg-gradient-to-r from-accent/20 to-transparent"></div>
+        </div>
+
+        <div class="grid gap-3">
+            <a href="fp-005.html" class="series-card rounded-lg px-6 py-5 flex items-center gap-5 group">
+                <span class="card-number font-mono text-2xl font-bold w-10 text-right">FP</span>
+                <div class="w-px h-8 bg-gray-800"></div>
+                <div class="flex-1 min-w-0">
+                    <span class="card-title font-sans text-lg font-medium block">FP-005 &mdash; The Resurrection Paper</span>
+                    <span class="text-sm text-gray-500">The foundational paper on resurrection as phase transition.</span>
+                </div>
+                <i class="fa-solid fa-arrow-right card-arrow text-sm"></i>
+            </a>
+            <a href="fp-005-enhanced.html" class="series-card rounded-lg px-6 py-5 flex items-center gap-5 group">
+                <span class="card-number font-mono text-2xl font-bold w-10 text-right">FP</span>
+                <div class="w-px h-8 bg-gray-800"></div>
+                <div class="flex-1 min-w-0">
+                    <span class="card-title font-sans text-lg font-medium block">FP-005 Enhanced &mdash; 6-Layer Stack</span>
+                    <span class="text-sm text-gray-500">The enhanced six-layer proof stack with full derivation.</span>
+                </div>
+                <i class="fa-solid fa-arrow-right card-arrow text-sm"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- AI Portal -->
+    <section class="mb-16">
+        <div class="flex items-center gap-4 mb-10">
+            <div class="w-10 h-px bg-accent"></div>
+            <h2 class="section-label uppercase text-sm font-mono text-accent tracking-widest">AI Reader Portal</h2>
+            <div class="flex-1 h-px bg-gradient-to-r from-accent/20 to-transparent"></div>
+        </div>
+
+        <div class="grid gap-3">
+            <a href="ai-portal/index.html" class="series-card rounded-lg px-6 py-5 flex items-center gap-5 group">
+                <span class="card-number font-mono text-2xl font-bold w-10 text-right">AI</span>
+                <div class="w-px h-8 bg-gray-800"></div>
+                <div class="flex-1 min-w-0">
+                    <span class="card-title font-sans text-lg font-medium block">Machine Reader Portal</span>
+                    <span class="text-sm text-gray-500">Lossless summaries, claim maps, scores, axiom snapshots, and JSON entry points for AI agents.</span>
+                </div>
+                <i class="fa-solid fa-arrow-right card-arrow text-sm"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- The Axiom Layers -->
+    <section class="mb-16">
+        <div class="flex items-center gap-4 mb-10">
+            <div class="w-10 h-px bg-accent"></div>
+            <h2 class="section-label uppercase text-sm font-mono text-accent tracking-widest">The Axiom Layers</h2>
+            <div class="flex-1 h-px bg-gradient-to-r from-accent/20 to-transparent"></div>
+        </div>
+
+        <div class="grid gap-3">
+            <a href="axioms-layer-0-core.html" class="series-card rounded-lg px-6 py-5 flex items-center gap-5 group">
+                <span class="card-number font-mono text-2xl font-bold w-10 text-right">L0</span>
+                <div class="w-px h-8 bg-gray-800"></div>
+                <div class="flex-1 min-w-0">
+                    <span class="card-title font-sans text-lg font-medium block">Layer 0 + Tier 1: The Trinitarian Core</span>
+                    <span class="text-sm text-gray-500">Two primitives. Seven irreducible axioms. The complete foundation, formalized in Lean4.</span>
+                </div>
+                <i class="fa-solid fa-arrow-right card-arrow text-sm"></i>
+            </a>
+            <a href="axioms-layer-2-derived.html" class="series-card rounded-lg px-6 py-5 flex items-center gap-5 group">
+                <span class="card-number font-mono text-2xl font-bold w-10 text-right">L2</span>
+                <div class="w-px h-8 bg-gray-800"></div>
+                <div class="flex-1 min-w-0">
+                    <span class="card-title font-sans text-lg font-medium block">Layer 2: Derived Theorems &amp; Laws</span>
+                    <span class="text-sm text-gray-500">Five derived theorems bridging physics and theology: information primacy, moral Second Law, grace mechanics.</span>
+                </div>
+                <i class="fa-solid fa-arrow-right card-arrow text-sm"></i>
+            </a>
+            <a href="axioms-layer-3-extended.html" class="series-card rounded-lg px-6 py-5 flex items-center gap-5 group">
+                <span class="card-number font-mono text-2xl font-bold w-10 text-right">L3</span>
+                <div class="w-px h-8 bg-gray-800"></div>
+                <div class="flex-1 min-w-0">
+                    <span class="card-title font-sans text-lg font-medium block">Layer 3: Extended Framework</span>
+                    <span class="text-sm text-gray-500">From Terminal Observer to the Master Equation. God identification, grace operator, unified field equation.</span>
+                </div>
+                <i class="fa-solid fa-arrow-right card-arrow text-sm"></i>
+            </a>
+            <a href="axioms-closure.html" class="series-card rounded-lg px-6 py-5 flex items-center gap-5 group">
+                <span class="card-number font-mono text-2xl font-bold w-10 text-right">&Omega;</span>
+                <div class="w-px h-8 bg-gray-800"></div>
+                <div class="flex-1 min-w-0">
+                    <span class="card-title font-sans text-lg font-medium block">Closure &amp; Omega</span>
+                    <span class="text-sm text-gray-500">Meta-axioms, final theorems, closure, and the terminal Omega axiom. The 188-axiom chain closes the loop.</span>
+                </div>
+                <i class="fa-solid fa-arrow-right card-arrow text-sm"></i>
+            </a>
+        </div>
+    </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="border-t border-gray-900 py-10">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+        <div class="gradient-line max-w-xs mx-auto mb-6"></div>
+        <p class="text-gray-600 text-sm font-mono">Proof Explorer &mdash; Faith Through Physics</p>
+    </div>
+</footer>
+
+<script src="/glossary-linker.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+{
+  "lane": "05_CLAIMS",
+  "worker": "claude-code-worker-2",
+  "run_id": "2026-05-22T20:30:00Z",
+  "instruction": "Per opus #1168 standing-order: be concrete, not vague. If anything load-bearing, fix it or send to loopback.",
+  "overlooked": [
+    {
+      "id": "ovr-05-01",
+      "issue": "support_needed is a bool, but the evidence type varies by claim — rigor lane will need to know which.",
+      "detail": "For a Theophysics article, a claim can need (a) empirical citation, (b) formal derivation, (c) scriptural reference, or (d) structural cross-link. Lane 10 RIGOR computes readiness pressure from support_needed, but cannot distinguish 'this needs a sigma value' from 'this needs Romans 8:28'. Schema fix: support_needed should be an enum or a list of evidence_types, not a bool. Also align with 06_CONTRADICTIONS so NLI only fires on claims whose evidence_type allows entailment checking.",
+      "severity": "load-bearing",
+      "fix_owner": "lane 05 schema + lane 10 consumer"
+    },
+    {
+      "id": "ovr-05-02",
+      "issue": "Station's has_scripture_ref flag is dropped in pass 2 output.",
+      "detail": "claim-extractor.station/extract.py emits has_scripture_ref per claim (matches a list of biblical books). For Theophysics articles this is load-bearing — it routes claims to the theological-postulate lane and informs evidence_type. The pass-2 ClaimArch drops it. Fix: carry has_scripture_ref and has_equation through pass 2 as fields on ClaimArch.station_signals = {...}, even though they're not in shared_lib's ClaimArch today. Round 2: propose extension to shared_lib/schemas.py:ClaimArch.",
+      "severity": "load-bearing",
+      "fix_owner": "lane 05 + shared_lib (extension)"
+    },
+    {
+      "id": "ovr-05-03",
+      "issue": "No bound on surface_claim length.",
+      "detail": "Sample sec_02 emits a 2-sentence surface_claim. Lane 06 CONTRADICTIONS runs NLI on (surface_a, surface_b) pairs; DeBERTa NLI degrades sharply past ~30 tokens. Long surface_claims will silently produce low-quality contradiction scores. Need a max-tokens rule in the run prompt, OR a split-surface field that lane 06 can iterate over. Operational consequence: lane 10 rigor pressure on Theophysics articles is biased low because long claims under-flag contradictions.",
+      "severity": "load-bearing",
+      "fix_owner": "lane 05 run_prompt + lane 06 contract"
+    }
+  ],
+  "attack_surfaces": [
+    {
+      "id": "atk-05-01",
+      "issue": "Loopback condition 'buried == surface across ALL sections' is too lenient — partial duplication slides through.",
+      "detail": "A model can pass calibration by varying buried/operational *lexically* (changed verb, swapped clause) while keeping them semantically identical to surface. The lane marks testable, downstream NLI in lane 06 sees three near-identical sentences per claim, entailment scores spike, false-coherence signal reaches lane 10 rigor. Fix: replace string-equality loopback with embedding-distance check using shared_lib (sbert) — require cos_sim(surface, buried) < 0.85 and cos_sim(surface, operational) < 0.85 OR write loopback.",
+      "severity": "load-bearing"
+    },
+    {
+      "id": "atk-05-02",
+      "issue": "rhetorical_load has no anchored ground truth for Theophysics articles.",
+      "detail": "run_prompt.md says map 'overclaimed' from David's gradient to rhetorical_load=high. But the calibration article is AVIATION/low, and there is no Theophysics calibration article with a known rhetorical_load distribution. A model could systematically rate Theophysics claims medium/low to keep the article 'clean' and the article passes rigor with no flags. Need either (a) a second calibration article in Theophysics domain with a known rhetorical_load distribution, OR (b) cross-check against the 'load-bearing / suggestive / overclaimed' tags from CLAUDE.md and trigger loopback when section author labels disagree with lane 05 emit.",
+      "severity": "load-bearing"
+    },
+    {
+      "id": "atk-05-03",
+      "issue": "Pass-1 station has a hardcoded output dir that can silently fail.",
+      "detail": "claim-extractor.station/extract.py hardcodes output_dir = D:\\brain\\08_CLAIMS\\_OUTPUT. If D: is absent (running on a worker without that share mounted), Path.mkdir(parents=True) succeeds on a virtual path but writes go nowhere, OR the script raises mid-run. Lane 05 'two-pass' becomes 'one-pass LLM only' with no warning. Mitigation: lane 05 run_prompt should pre-flight the station output dir AND set provenance='llm-only' (already present) when pass-1 is unavailable. Should also be visible in claim-ledger.csv.provenance count.",
+      "severity": "suggestive"
+    }
+  ]
+}

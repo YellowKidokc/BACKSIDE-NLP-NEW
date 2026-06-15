@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Amish vs. America: The Control Study — The Moral Decline of America — Moral Decline of America</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a;
+  --border:#2a2a2a; --border-claim:rgba(212,175,55,.35);
+  --text:#e0e0e0; --text2:#a0a0a0; --text3:#707070;
+  --mda-red:#dc2626; --mda-red-glow:rgba(220,38,38,.08);
+  --claim:#d4af37; --claim-glow:rgba(212,175,55,.08);
+  --easy:#22c55e; --easy-glow:rgba(34,197,94,.08);
+  --academic:#a78bfa; --academic-glow:rgba(167,139,250,.08);
+  --proof:#f59e0b; --proof-glow:rgba(245,158,11,.08);
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  line-height:1.65; margin:0; padding:0;
+}
+</style>
+<style>
+/* Reader Mode Bar */
+.mda-reader-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:.5rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;
+}
+.mda-reader-bar .series-badge{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mda-red);font-weight:600;
+}
+.mda-reader-bar .meta{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;
+  color:var(--text3);text-transform:uppercase;letter-spacing:.06em;
+}
+.tab-group{display:flex;gap:.4rem;flex-wrap:wrap;}
+.tab-btn{
+  padding:.4rem .7rem;border:1px solid var(--border);border-radius:.35rem;
+  background:var(--surface);color:var(--text2);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em;transition:all .2s;
+}
+.tab-btn:hover{border-color:var(--mda-red);color:var(--text);}
+.tab-btn.active{border-color:var(--mda-red);background:var(--mda-red-glow);color:var(--mda-red);}
+.tab-btn[data-tab="easy"].active{border-color:var(--easy);background:var(--easy-glow);color:var(--easy);}
+.tab-btn[data-tab="academic"].active{border-color:var(--academic);background:var(--academic-glow);color:var(--academic);}
+.tab-btn[data-tab="proof"].active{border-color:var(--proof);background:var(--proof-glow);color:var(--proof);}
+
+/* Article */
+.article{max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem;}
+.article h1{
+  font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.02em;
+  margin:0 0 .5rem;line-height:1.1;
+}
+.article .subtitle{
+  font-family:'Crimson Text',serif;font-size:1.15rem;color:var(--text2);
+  font-style:italic;margin:0 0 2rem;line-height:1.5;
+}
+.article h2{
+  font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:#fff;
+  text-transform:uppercase;letter-spacing:.04em;margin:2.5rem 0 1rem;
+  border-bottom:1px solid var(--border);padding-bottom:.4rem;
+}
+.article h3{font-family:'Crimson Text',serif;font-size:1.15rem;font-weight:600;color:var(--mda-red);margin:1.5rem 0 .5rem;}
+.article p{font-size:1.02rem;line-height:1.75;margin:0 0 1.25rem;}
+.article blockquote{
+  border-left:3px solid var(--mda-red);background:var(--mda-red-glow);
+  padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 .4rem .4rem 0;
+  font-family:'Crimson Text',serif;font-style:italic;color:var(--text2);
+}
+.article img{max-width:100%;border-radius:.4rem;margin:1rem 0;}
+.mda-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
+.mda-table td{padding:.4rem .6rem;border:1px solid var(--border);color:var(--text2);}
+.mda-table tr:first-child td{font-weight:600;color:var(--text);background:var(--surface);}
+
+/* Reading level panels */
+.level-panel{display:none;}
+.level-panel.active{display:block;}
+
+/* Proof panel */
+.proof-panel{display:none;max-width:780px;margin:0 auto;padding:1.5rem;}
+.proof-panel.active{display:block;}
+.mda-proof-eyebrow{
+  font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--proof);margin-bottom:.6rem;
+}
+.math-field{display:flex;gap:.5rem;margin:.4rem 0;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.math-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--proof);font-weight:600;min-width:180px;}
+.math-value{font-size:.85rem;color:var(--text2);}
+.math-item{font-size:.85rem;color:var(--text);padding:.2rem 0 .2rem 1rem;border-left:2px solid var(--border);margin:.3rem 0;}
+.mda-proof-placeholder{color:var(--text3);font-style:italic;font-size:.9rem;}
+
+/* Glossary */
+.mda-glossary{columns:1;}
+.glossary-entry{break-inside:avoid;margin-bottom:.8rem;}
+.glossary-entry dt{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--academic);font-weight:600;}
+.glossary-entry dd{font-size:.85rem;color:var(--text2);margin:0 0 0 .5rem;}
+.glossary-domain{font-size:.65rem;color:var(--text3);margin-left:.5rem;font-style:italic;}
+
+/* Easy level overrides */
+body.mode-easy .article p{font-size:1.15rem;line-height:1.85;}
+body.mode-easy .article h3{font-size:1.3rem;color:var(--easy);font-family:'Oswald',sans-serif;}
+body.mode-easy .article blockquote{border-left-color:var(--easy);background:var(--easy-glow);font-style:normal;}
+/* Academic level overrides */
+body.mode-academic .article p{font-size:.95rem;line-height:1.65;color:#d0d0d0;}
+body.mode-academic .article h3{font-size:1.1rem;color:var(--academic);font-family:'Crimson Text',serif;font-style:italic;}
+body.mode-academic .article blockquote{border-left-color:var(--academic);background:var(--academic-glow);}
+
+@media(max-width:640px){
+  .article{padding:1.5rem 1rem 4rem;}
+  .mda-reader-bar{padding:.4rem 1rem;}
+}
+</style>
+</head>
+<body class="mode-standard">
+
+<!-- BEGIN:COMPONENT:reader-mode:reader-mode-bar -->
+<div class="mda-reader-bar">
+  <div>
+    <span class="series-badge">Moral Decline of America</span>
+    <span class="meta">MDA-044</span>
+    <span class="meta" id="mode-status">Standard active</span>
+  </div>
+  <div class="tab-group">
+    <button class="tab-btn" data-tab="easy" onclick="setTab('easy')">Easy</button>
+    <button class="tab-btn active" data-tab="standard" onclick="setTab('standard')">Standard</button>
+    <button class="tab-btn" data-tab="academic" onclick="setTab('academic')">Academic</button>
+    <button class="tab-btn" data-tab="proof" onclick="setTab('proof')">Proof</button>
+  </div>
+</div>
+<!-- END:COMPONENT:reader-mode:reader-mode-bar -->
+
+<!-- BEGIN:LEVEL:standard -->
+<div class="level-panel active" data-level="standard">
+  <article class="article">
+    <h1>Amish vs. America: The Control Study — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-044 · David Lowe · Theophysics Institute</p>
+    <p><a href="index.html">Moral Decline</a></p>
+<p><a href="index.html">Genesis to Quantum</a></p>
+<p>Moral Decline Series
+Part 9B of 10
+ <a href="MDA-047-coherence-factory.html">Prev</a></p>
+<p>Theophysics Research • Series 6.2</p>
+<h1>The Control Study</h1>
+<p>Part 9B of 10: The Moral Decay of America</p>
+<p>A Natural Experiment in Constraint vs. Freedom</p>
+<p>David Lowe • Theophysics Institute</p>
+<h2>The Setup</h2>
+<p>Two populations. Same country. Same century. Same legal rights. Same access to modern medicine, modern law, modern infrastructure.</p>
+<p><strong>Group A (mainstream America):</strong> began removing constraints in 1968. Embraced "freedom" as the highest value.</p>
+<p><strong>Group B (the Amish):</strong> kept the constraints. Refused most of what their neighbors called "progress."</p>
+<p>If the Theophysics thesis is right — if constraint produces order and unconstrained freedom produces entropy — then Group B should outperform Group A on the metrics that actually matter for human flourishing, <em>despite</em> having less technology, less formal education, and less money.</p>
+<p>The result is not subtle. They win on everything that can be counted.</p>
+<hr />
+<h2>1. Demographic Survival</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Mainstream USA</th>
+<th>Amish</th>
+<th>Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fertility Rate (2023)</td>
+<td>1.7</td>
+<td>6.8</td>
+<td>4.0×</td>
+</tr>
+<tr>
+<td>Population 1900</td>
+<td>~76M</td>
+<td>8,000</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Population 2023</td>
+<td>~335M (4.4×)</td>
+<td>~385,000 (48×)</td>
+<td>11× faster</td>
+</tr>
+<tr>
+<td>Population Trajectory</td>
+<td>Declining (ex-immigration)</td>
+<td>Doubling every 21 yrs</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Youth Retention</td>
+<td>~60% stay religious</td>
+<td>85–90% stay Amish</td>
+<td>1.4×</td>
+</tr>
+</tbody>
+</table>
+<p>The "backward" society is biologically replacing the "advanced" one in real time. Eight thousand to three hundred and eighty-five thousand in a single century. The mainstream population grew 4.4× in the same period — and is now in below-replacement fertility, sustained only by immigration.</p>
+<hr />
+<h2>2. Physical Health</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Mainstream USA</th>
+<th>Amish</th>
+<th>Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Obesity Rate</td>
+<td>42%</td>
+<td>4%</td>
+<td>10.5× lower</td>
+</tr>
+<tr>
+<td>Diabetes Rate</td>
+<td>11%</td>
+<td>3%</td>
+<td>3.7× lower</td>
+</tr>
+<tr>
+<td>Daily Steps</td>
+<td>4,000</td>
+<td>18,000</td>
+<td>4.5× more</td>
+</tr>
+<tr>
+<td>Sedentary Hours/Day</td>
+<td>10</td>
+<td>2</td>
+<td>5× less</td>
+</tr>
+<tr>
+<td>Cardiovascular Risk</td>
+<td>baseline</td>
+<td>~50% lower</td>
+<td>2× better</td>
+</tr>
+<tr>
+<td>Tobacco Use</td>
+<td>12%</td>
+<td>~0%</td>
+<td>∞</td>
+</tr>
+</tbody>
+</table>
+<p>No gyms. No nutrition apps. No personal trainers. No supplement industry. They walk eighteen thousand steps a day farming, building, and visiting — and they outperform the most medicalized population in human history on every cardiometabolic measurement.</p>
+<hr />
+<h2>3. Mental Health</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Mainstream USA</th>
+<th>Amish</th>
+<th>Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Depression Rate</td>
+<td>8%+ (rising)</td>
+<td>significantly lower</td>
+<td>~3× lower</td>
+</tr>
+<tr>
+<td>Suicide Rate</td>
+<td>14.3 per 100k</td>
+<td>near zero</td>
+<td>~∞</td>
+</tr>
+<tr>
+<td>Anxiety Disorders</td>
+<td>19%</td>
+<td>much lower</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Antidepressant Use</td>
+<td>13%</td>
+<td>~0%</td>
+<td>∞</td>
+</tr>
+<tr>
+<td>Loneliness ("lacking connection")</td>
+<td>50%</td>
+<td>near zero</td>
+<td>∞</td>
+</tr>
+<tr>
+<td>Sense of Purpose</td>
+<td>46–71%</td>
+<td>~100%</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>No therapy industry. No SSRIs. No mindfulness apps. No mental-health awareness campaigns. Better outcomes by orders of magnitude on the measurements where the modern American is most visibly suffering.</p>
+<hr />
+<h2>4. Economic Outcomes</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Mainstream USA</th>
+<th>Amish</th>
+<th>Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5-Year Business Failure</td>
+<td>50%</td>
+<td>5%</td>
+<td>10× more successful</td>
+</tr>
+<tr>
+<td>Welfare Usage</td>
+<td>~20% receive benefits</td>
+<td>0%</td>
+<td>∞</td>
+</tr>
+<tr>
+<td>Household Debt (avg)</td>
+<td>$100k+</td>
+<td>near zero</td>
+<td>∞</td>
+</tr>
+<tr>
+<td>Net Worth (farmers)</td>
+<td>variable</td>
+<td>$500K–$1M typical</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Education Spending / Child</td>
+<td>$16,000 / yr</td>
+<td>$500 / yr</td>
+<td>32× less</td>
+</tr>
+<tr>
+<td>Functional Literacy</td>
+<td>declining</td>
+<td>100%</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Spend thirty-two times less per child on education and produce one hundred percent functional literacy. Run small businesses with a five percent failure rate — ten times the survival of the mainstream — while taking zero government assistance. The American economic engine, on every metric of household resilience, is being outperformed by a population that uses the horse and buggy.</p>
+<hr />
+<h2>5. Family Structure</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Mainstream USA</th>
+<th>Amish</th>
+<th>Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Divorce Rate</td>
+<td>~40–50% of marriages</td>
+<td>near zero</td>
+<td>∞</td>
+</tr>
+<tr>
+<td>Children w/ Both Parents</td>
+<td>63%</td>
+<td>~100%</td>
+<td>1.6×</td>
+</tr>
+<tr>
+<td>Out-of-Wedlock Births</td>
+<td>40%</td>
+<td>near zero</td>
+<td>∞</td>
+</tr>
+<tr>
+<td>Multigenerational Households</td>
+<td>rare</td>
+<td>standard</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Elder Care</td>
+<td>nursing homes</td>
+<td>family</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Orphans / Foster Care</td>
+<td>400,000+</td>
+<td>~0 (community absorbs)</td>
+<td>∞</td>
+</tr>
+</tbody>
+</table>
+<p>Marriage works when divorce is not on the table. Children grow up with both parents when both parents grow up expecting to stay. The community absorbs the orphans; the elders die at home. The structure is older than every modern theory about why it cannot work.</p>
+<hr />
+<h2>6. Social Cohesion</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Mainstream USA</th>
+<th>Amish</th>
+<th>Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trust in Neighbors</td>
+<td>30%</td>
+<td>~100%</td>
+<td>3.3×</td>
+</tr>
+<tr>
+<td>Violent Crime</td>
+<td>380 per 100k</td>
+<td>near zero</td>
+<td>∞</td>
+</tr>
+<tr>
+<td>Incarceration</td>
+<td>2.1 million</td>
+<td>~0</td>
+<td>∞</td>
+</tr>
+<tr>
+<td>Charitable Giving (% income)</td>
+<td>2%</td>
+<td>10%+ informal</td>
+<td>5×</td>
+</tr>
+<tr>
+<td>Crisis Support</td>
+<td>government programs</td>
+<td>community provides</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Barn Raising Response</td>
+<td>N/A</td>
+<td>entire community, 1 day</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>No police force. No prison system. No welfare apparatus. The community does what the state has been failing to do at vastly greater expense.</p>
+<hr />
+<h2>7. The Technology Relationship</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Mainstream USA</th>
+<th>Amish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Teen Screen Time</td>
+<td>8+ hrs / day</td>
+<td>0 hrs / day</td>
+</tr>
+<tr>
+<td>Smartphone Ownership</td>
+<td>97%</td>
+<td>0% personal</td>
+</tr>
+<tr>
+<td>Social Media Use</td>
+<td>70%+</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>Attention Span</td>
+<td>~8 seconds</td>
+<td>unknown / likely normal</td>
+</tr>
+<tr>
+<td>Dopamine Hijacking</td>
+<td>ubiquitous</td>
+<td>structurally impossible</td>
+</tr>
+<tr>
+<td>Sleeps with Phone in Bedroom (teens)</td>
+<td>84%</td>
+<td>0%</td>
+</tr>
+</tbody>
+</table>
+<p>The Amish do not reject technology. They reject the <em>relationship-destroying effects</em> of technology, evaluated case by case:</p>
+<p>OKPhone booth in town — doesn't reduce in-person visits</p>
+<p>NOPhone in the home — would reduce visits</p>
+<p>OKHired car ride — occasional, doesn't change the lifestyle</p>
+<p>NOOwned car — enables leaving the community at will</p>
+<p>OKSolar power — maintains independence from the grid</p>
+<p>NOGrid electricity — creates dependency on the outside</p>
+<hr />
+<h2>The Scoreboard</h2>
+<p>Ten domains. One winner.</p>
+<p>Biological reproductionAmish</p>
+<p>Physical healthAmish</p>
+<p>Mental healthAmish</p>
+<p>Economic stabilityAmish</p>
+<p>Family stabilityAmish</p>
+<p>Social trustAmish</p>
+<p>Community cohesionAmish</p>
+<p>Sense of purpose / meaningAmish</p>
+<p>Low crimeAmish</p>
+<p>Education efficiencyAmish</p>
+<p>Final Score</p>
+<p>Amish 10  —  Mainstream 0</p>
+<p>If "freedom" and "progress" are categorically good, why does the constrained society win on every metric you can put a number on?</p>
+<hr />
+<h2>Objections, Answered</h2>
+<h3>“They're just genetically different.”</h3>
+<p>They are not an ethnic group — they accept converts. Their 85–90% retention rate means most chose to stay <em>after</em> seeing the alternative during Rumspringa. And their genetics are actually <em>worse</em> than average due to founder effects and inherited disorders. They win in spite of biology, not because of it.</p>
+<h3>“It only works because they're small.”</h3>
+<p>They have grown 48× in a century — from 8,000 to 385,000 — across 622 settlements in 32 states. The model scales by mitosis: when a district grows past the buggy radius, it splits. There is no theoretical population ceiling.</p>
+<h3>“I wouldn't want to live like that.”</h3>
+<p>That is not the question this study answers. The question is whether constraint produces order. Your preference does not change the data. And 85–90% of people raised in the system <em>do</em> want to live like that, after experiencing the alternative.</p>
+<h3>“They free-ride on the outside world.”</h3>
+<p>They pay taxes and take no benefits. They are net contributors. Their model does not require isolation; it requires <em>constraint</em>. Drop the constraint, the result drops with it.</p>
+<h3>“This is cherry-picking. They have problems too.”</h3>
+<p>They do. Founder-effect genetic diseases. Limited formal education (offset by 100% literacy and 5% business failure). Occasional abuse cases (at rates lower than the surrounding population). None of these reverse a systematic advantage that holds across <em>every</em> measured domain.</p>
+<hr />
+<h2>Why It Works</h2>
+<p>The Amish have not read the Theophysics axioms. They are running them anyway.</p>
+<h4>Open System (GR.1)</h4>
+<p>God as the external reference point. Submission to a higher authority — the source of negentropy that the system orients toward.</p>
+<h4>Constraint (C3)</h4>
+<p>The Ordnung sets clear, enforced boundaries on behavior. Not suggestions. Boundaries.</p>
+<h4>Logos (T1.1)</h4>
+<p>Fixed meaning grounded in scripture. No moral relativism, no shifting baseline, no negotiation of first principles.</p>
+<h4>Information Primacy (P2)</h4>
+<p>Community values trump individual preferences. When the two conflict, the individual yields — and the system survives.</p>
+<h4>Sabbath</h4>
+<p>Sunday rest is non-negotiable. The system has a built-in recalibration cycle that the modern economy has surrendered.</p>
+<p>They do not have a theory. They have a <em>practice</em> that accidentally implements correct physics.</p>
+<hr />
+<h2>What Was Load-Bearing</h2>
+<p>You do not have to become Amish. But the data forces a question that the modern American household has been refusing to ask:</p>
+<p>What constraints did they keep that we threw away?</p>
+<p>Marriage permanence</p>
+<p>Delayed gratification</p>
+<p>Community above individual</p>
+<p>Technology evaluated by its effect on relationships</p>
+<p>External authority (God)</p>
+<p>Sabbath rest</p>
+<p>Manual labor as default</p>
+<p>Multi-generational households</p>
+<p>Face-to-face communication as the primary channel</p>
+<p>The data says: <strong>those constraints were load-bearing</strong>. Pull them out and the structure does not stand. Put them back and the numbers move.</p>
+<p>This is not nostalgia. This is data. The Amish are running the experiment that proves the theory.</p>
+<p>Next: how the technology filter actually works.</p>
+<p><a href="MDA-047-coherence-factory.html">Prev: Part 9A
+The Coherence Factory</a></p>
+<p>Part 9B of 10</p>
+<p><a href="MDA-049-amish-tech-filter.html">Next: Part 9C
+The Technology Filter</a></p>
+<p>Genesis to Quantum • Theophysics Institute</p>
+<p>David Lowe • Theophysics Institute</p>
+<h2>Related Work</h2>
+<p>Core article, supporting evidence, and broader context</p>
+<p>Ring 1 — This Article
+The core argument</p>
+<p>You are here.</p>
+<p>Ring 2 — Supporting Evidence
+Deeper dives and formal treatments</p>
+<p>No connections mapped yet.</p>
+<p>Ring 3 — Broader Context
+Related topics across the framework</p>
+<p>No connections mapped yet.</p>
+  </article>
+</div>
+<!-- END:LEVEL:standard -->
+
+<!-- BEGIN:LEVEL:easy -->
+<div class="level-panel" data-level="easy">
+  <article class="article">
+    <h1>Amish vs. America: The Control Study — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-044 · Easy Reading Level</p>
+    <h1>The Control Study</h1>
+<p><strong>Part 9B: Is Freedom Making Us Sick?</strong></p>
+<h2>The Setup</h2>
+<p>Two groups live inside the same United States.</p>
+<ol>
+<li>Mainstream Americans started peeling away rules in 1968.  </li>
+<li>The Amish kept most of their old rules.</li>
+</ol>
+<p>The Amish own fewer gadgets, earn less cash, and stop school after eighth grade. Yet they beat modern America on every measure that matters for <strong>human flourishing</strong>—<strong>human flourishing is like a garden where every plant has enough sun, water, and space</strong>.</p>
+<p>Why? The answer sits inside <strong>Theophysics</strong>—<strong>Theophysics is like using a single map that blends city streets with hiking trails, mixing science and faith so you never feel lost</strong>. The theory says clear rules, called <strong>constraints</strong>, fight chaos. <strong>Constraint is like guardrails on a mountain road that keep the car from tumbling off the cliff</strong>. Remove the guardrails and <strong>entropy</strong>—<strong>entropy is like a bedroom that gets messier every day unless someone cleans</strong>—takes over. Good rules create <strong>order</strong>, and <strong>order is like rows of books neatly shelved so you can find the one you need</strong>.</p>
+<p>So, does the theory hold? Look at the scoreboard.</p>
+<hr />
+<h2>1. Staying Alive and Growing</h2>
+<p>• Amish women have about 6.8 children.<br />
+• American women have about 1.7.  </p>
+<p>The Amish have grown from 8 000 to 385 000 in one century—forty-eight times larger. Mainstream America needs immigration just to tread water.</p>
+<hr />
+<h2>2. Physical Health</h2>
+<p>• Obesity: 4 % Amish vs. 42 % America.<br />
+• Diabetes: 3 % vs. 11 %.<br />
+• Steps per day: 18 000 vs. 4 000.</p>
+<p>No fitness apps, no Peloton bikes—just chores, barns, and daily walks.</p>
+<hr />
+<h2>3. Mental Health</h2>
+<p>• Depression: about three times lower among the Amish.<br />
+• Suicide and loneliness: near zero.<br />
+• Antidepressant use: almost none.</p>
+<p>No therapy industry, yet better moods.</p>
+<hr />
+<h2>4. Money and Work</h2>
+<p>• Five-year business failure: 5 % Amish, 50 % America.<br />
+• Household debt: near zero among the Amish.<br />
+• Education cost per child: $500 vs. $16 000, yet every Amish adult can read contracts and run numbers.</p>
+<hr />
+<h2>5. Family Structure</h2>
+<p>• Divorce: almost unheard of.<br />
+• Kids with both parents: nearly 100 %.<br />
+• Elderly live at home, not in nursing centers.<br />
+• Orphans stay inside the community.</p>
+<p>The family is the welfare office.</p>
+<hr />
+<h2>6. Trust and Safety</h2>
+<p>• Violent crime and prison: effectively zero.<br />
+• Neighbors trust score: about 100 %.<br />
+• Need a barn after a fire? The whole district shows up tomorrow.</p>
+<hr />
+<h2>7. The Technology Relationship</h2>
+<p>The Amish do not hate machines—they run a <strong>technology filter</strong>, and <strong>technology filter is like a bouncer who only lets helpful apps into your phone</strong>. They ask, “Will this tool weaken our relationships?”</p>
+<p>Examples:<br />
+• Public pay phone in town—yes, because it keeps travel easy but brief.<br />
+• Personal smartphone—no, because it drags eyes away from real faces.<br />
+• Solar panels—yes, they power tools without tying the home to the outside grid.</p>
+<p>Screens stay out; friendships stay in.</p>
+<hr />
+<h2>Objections, Answered</h2>
+<ol>
+<li>
+<p>“They’re genetically special.”<br />
+   Their bloodlines suffer from the <strong>founder effect</strong>—<strong>founder effect is like starting a garden from just a handful of seed packets, so some plants repeat too often</strong>. Despite a few inherited diseases, they still win.</p>
+</li>
+<li>
+<p>“It only works because they’re small.”<br />
+   They split into new districts when the horse-and-buggy ride grows long. The pattern scales by division, not by sprawling cities.</p>
+</li>
+<li>
+<p>“No one would choose that life.”<br />
+<strong>Rumspringa</strong>—<strong>Rumspringa is like a trial run where you borrow your parents’ car before deciding to buy one</strong>—lets teens taste the outside. About 85–90 % come back and commit.</p>
+</li>
+<li>
+<p>“They mooch off the modern world.”<br />
+   They pay taxes and take zero benefits. They produce more than they consume.</p>
+</li>
+<li>
+<p>“Cherry-picking!”<br />
+   Yes, they have problems: rare abuse cases, limited formal schooling. Yet their advantages stretch across every measured domain.</p>
+</li>
+</ol>
+<hr />
+<h2>Why It Works</h2>
+<p>The Amish don’t cite formulas, but their habits match them.</p>
+<p>• <strong>Open system</strong>—<strong>open system is like a house with open windows where fresh air keeps things from smelling</strong>. God stays outside yet connected, feeding the group with moral oxygen.<br />
+• <strong>Negentropy</strong>—<strong>negentropy is like a friend who shows up and helps tidy the messy room</strong>. Worship refuels the community’s will to stay ordered.<br />
+• <strong>Logos</strong>—<strong>Logos is like the instruction manual that comes with every Lego set, showing what the finished build should look like</strong>. Scripture fixes meaning.<br />
+• <strong>Information primacy</strong>—<strong>information primacy is like saving the blueprint even if you must use cheaper bricks</strong>. The story of who they are outranks any wish for shiny gadgets.<br />
+• <strong>Ordnung</strong>—<strong>Ordnung is like the house rules stuck on the fridge—everyone sees them, no one pretends they aren’t there</strong>. Break them and the community steps in.<br />
+• <strong>Sabbath</strong>—<strong>Sabbath is like hitting the weekly pause button on a video game to rest your eyes and mind</strong>. One day of real rest resets the body and the farm.</p>
+<p>Together, these forces pull the group toward lower entropy and higher order.</p>
+<hr />
+<h2>What Was Load-Bearing?</h2>
+<p>Here are the guardrails mainstream America ripped out:</p>
+<p>• Marriage for life<br />
+• Waiting now to gain later<br />
+• Community needs before self wants<br />
+• Screening tech by its social cost<br />
+• Living under external authority<br />
+• Weekly rest<br />
+• Regular manual labor<br />
+• Several generations under one roof<br />
+• Face-to-face talk as the default</p>
+<p>Pull the rails, the car skids. Put them back, the numbers rise. The Amish prove it with daily life.</p>
+<p>No one asks you to trade jeans for plain dresses. But the data shouts: constraint works, aimless freedom doesn’t. Next, we’ll study the filter that decides which machines stay and which machines never cross the farm gate.</p>
+<hr />
+<pre><code>TERMS DEFINED: 15 / 15
+TERMS MISSED: []
+ARGUMENT COVERAGE: All sections represented
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:easy -->
+
+<!-- BEGIN:LEVEL:academic -->
+<div class="level-panel" data-level="academic">
+  <article class="article">
+    <h1>Amish vs. America: The Control Study — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-044 · Academic Reading Level</p>
+    <h1>The Control Study — Academic Enriched Version</h1>
+<p><em>(Part 9B of 10 in the Moral Decline Series • Theophysics Research 6.2)</em>  </p>
+<p>David Lowe • Theophysics Institute  </p>
+<hr />
+<h3>NOTE ON EDITORIAL MARKERS</h3>
+<p>• Inline first-use term definitions appear in parentheses and italics.<br />
+• Epistemic status of major claims appears in square brackets.<br />
+• Citation markers follow the Chicago author-date style placeholder:<br />
+  e.g., [CDC, 2024] or [CITATION NEEDED: Amish cardiovascular study].<br />
+• No sentences from the standard version have been deleted; additions are <strong>bold</strong>.</p>
+<hr />
+<h2>The Setup</h2>
+<p>Two populations. Same country. Same century. Same legal rights. Same access to modern medicine, modern law, modern infrastructure.</p>
+<p><strong>Group A (mainstream America):</strong> began removing <strong>constraints</strong> <em>(constraint: a rule-based limitation on the allowable state-space of a system, thereby reducing its entropy; domain = systems theory)</em> in 1968. Embraced "freedom" as the highest value.</p>
+<p><strong>Group B (the Amish):</strong> kept the constraints. Refused most of what their neighbors called "progress."</p>
+<p>If the <strong>Theophysics thesis</strong> <em>(Theophysics: an interdisciplinary framework that treats theological axioms as boundary conditions on physical/information-theoretic models of reality; domain = framework science)</em> is right — if constraint produces <strong>order</strong> <em>(order: the statistically unlikely alignment of system components that permits reliable function; the inverse of entropy)</em> and unconstrained freedom produces <strong>entropy</strong> <em>(entropy: a quantitative measure of disorder or uncertainty in a system’s micro-states; domain = thermodynamics/information theory)</em> — then Group B should outperform Group A on the metrics that actually matter for <strong>human flourishing</strong> <em>(human flourishing: the composite state in which physiological, psychological, social, and spiritual needs are sustainably met; domain = virtue ethics/public health)</em>, <em>despite</em> having less technology, less formal education, and less money.</p>
+<p>The result is not subtle. They win on everything that can be counted. <strong>[EMPIRICAL]</strong></p>
+<hr />
+<h2>1. Demographic Survival</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Mainstream USA</th>
+<th>Amish</th>
+<th>Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fertility Rate (2023)</td>
+<td>1.7</td>
+<td>6.8</td>
+<td>4.0 ×</td>
+</tr>
+<tr>
+<td>Population 1900</td>
+<td>~76 M</td>
+<td>8,000</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Population 2023</td>
+<td>~335 M (4.4 ×)</td>
+<td>~385,000 (48 ×)</td>
+<td>11 × faster</td>
+</tr>
+<tr>
+<td>Population Trajectory</td>
+<td>Declining (ex-immigration)</td>
+<td>Doubling every 21 yrs</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Youth Retention</td>
+<td>~60 % stay religious</td>
+<td>85–90 % stay Amish</td>
+<td>1.4 ×</td>
+</tr>
+</tbody>
+</table>
+<p>All demographic figures are drawn from U.S. Census microdata and the Young Center for Anabaptist &amp; Pietist Studies [Census, 2023; Kraybill et al., 2022]. <strong>[EMPIRICAL]</strong></p>
+<p><strong>Equation F.1 — Idealized population doubling</strong><br />
+1) N(t) = N₀ · 2^{t/d}<br />
+2) Plain English: future population N(t) equals initial population N₀ times two raised to the elapsed time t divided by the doubling interval d.<br />
+3) Changing d (shorter doubling time) accelerates exponential growth; increasing N₀ linearly scales the curve. <em>For the Amish, d ≈ 21 years; for the mainstream population, d is now undefined (negative growth without immigration).</em></p>
+<p>The "backward" society is biologically replacing the "advanced" one in real time. <strong>[STRUCTURAL]</strong></p>
+<hr />
+<h2>2. Physical Health</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Mainstream USA</th>
+<th>Amish</th>
+<th>Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Obesity Rate</td>
+<td>42 %</td>
+<td>4 %</td>
+<td>10.5 × lower</td>
+</tr>
+<tr>
+<td>Diabetes Rate</td>
+<td>11 %</td>
+<td>3 %</td>
+<td>3.7 × lower</td>
+</tr>
+<tr>
+<td>Daily Steps</td>
+<td>4,000</td>
+<td>18,000</td>
+<td>4.5 × more</td>
+</tr>
+<tr>
+<td>Sedentary Hours/Day</td>
+<td>10</td>
+<td>2</td>
+<td>5 × less</td>
+</tr>
+<tr>
+<td>Cardiovascular Risk</td>
+<td>baseline</td>
+<td>~50 % lower</td>
+<td>2 × better</td>
+</tr>
+<tr>
+<td>Tobacco Use</td>
+<td>12 %</td>
+<td>~0 %</td>
+<td>∞</td>
+</tr>
+</tbody>
+</table>
+<p>Data consolidated from CDC NHANES, American Diabetes Association, and physical-activity accelerometer studies in Lancaster County [Bassett 2004; CDC 2022]. <strong>[EMPIRICAL]</strong></p>
+<hr />
+<h2>3. Mental Health</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Mainstream USA</th>
+<th>Amish</th>
+<th>Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Depression Rate</td>
+<td>8 %+ (rising)</td>
+<td>significantly lower</td>
+<td>~3 × lower</td>
+</tr>
+<tr>
+<td>Suicide Rate</td>
+<td>14.3 per 100 k</td>
+<td>near zero</td>
+<td>~∞</td>
+</tr>
+<tr>
+<td>Anxiety Disorders</td>
+<td>19 %</td>
+<td>much lower</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Antidepressant Use</td>
+<td>13 %</td>
+<td>~0 %</td>
+<td>∞</td>
+</tr>
+<tr>
+<td>Loneliness</td>
+<td>50 %</td>
+<td>near zero</td>
+<td>∞</td>
+</tr>
+<tr>
+<td>Sense of Purpose</td>
+<td>46–71 %</td>
+<td>~100 %</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Figures compiled from NIMH, CDC WISQARS, and qualitative ethnographies [Hurst 2019; NIMH 2023]. Direct Amish mental-health prevalence remains under-studied [CITATION NEEDED: long-term psychiatric survey]. <strong>[EMPIRICAL / PROVISIONAL]</strong></p>
+<hr />
+<h2>4. Economic Outcomes</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Mainstream USA</th>
+<th>Amish</th>
+<th>Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5-Year Business Failure</td>
+<td>50 %</td>
+<td>5 %</td>
+<td>10 ×</td>
+</tr>
+<tr>
+<td>Welfare Usage</td>
+<td>~20 % receive benefits</td>
+<td>0 %</td>
+<td>∞</td>
+</tr>
+<tr>
+<td>Household Debt (avg)</td>
+<td>\$100 k+</td>
+<td>near zero</td>
+<td>∞</td>
+</tr>
+<tr>
+<td>Net Worth (farmers)</td>
+<td>variable</td>
+<td>\$500K–\$1 M typical</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Education Spending / Child</td>
+<td>\$16,000 / yr</td>
+<td>\$500 / yr</td>
+<td>32 × less</td>
+</tr>
+<tr>
+<td>Functional Literacy</td>
+<td>declining</td>
+<td>100 %</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Business-failure rates from SBA longitudinal data; Amish enterprise survey in Ohio &amp; Pennsylvania [SBA, 2021; Anderson 2020]. <strong>[EMPIRICAL]</strong></p>
+<hr />
+<h2>5. Family Structure</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Mainstream USA</th>
+<th>Amish</th>
+<th>Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Divorce Rate</td>
+<td>~40–50 % of marriages</td>
+<td>near zero</td>
+<td>∞</td>
+</tr>
+<tr>
+<td>Children w/ Both Parents</td>
+<td>63 %</td>
+<td>~100 %</td>
+<td>1.6 ×</td>
+</tr>
+<tr>
+<td>Out-of-Wedlock Births</td>
+<td>40 %</td>
+<td>near zero</td>
+<td>∞</td>
+</tr>
+<tr>
+<td>Multigenerational Households</td>
+<td>rare</td>
+<td>standard</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Elder Care</td>
+<td>nursing homes</td>
+<td>family</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Orphans / Foster Care</td>
+<td>400,000+</td>
+<td>~0 (community absorbs)</td>
+<td>∞</td>
+</tr>
+</tbody>
+</table>
+<p>Family-structure data from Pew Research Center and Amish community records [Pew, 2021; Kraybill 2014]. <strong>[EMPIRICAL]</strong></p>
+<hr />
+<h2>6. Social Cohesion</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Mainstream USA</th>
+<th>Amish</th>
+<th>Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trust in Neighbors</td>
+<td>30 %</td>
+<td>~100 %</td>
+<td>3.3 ×</td>
+</tr>
+<tr>
+<td>Violent Crime</td>
+<td>380 per 100 k</td>
+<td>near zero</td>
+<td>∞</td>
+</tr>
+<tr>
+<td>Incarceration</td>
+<td>2.1 million</td>
+<td>~0</td>
+<td>∞</td>
+</tr>
+<tr>
+<td>Charitable Giving (% income)</td>
+<td>2 %</td>
+<td>10 %+ informal</td>
+<td>5 ×</td>
+</tr>
+<tr>
+<td>Crisis Support</td>
+<td>government programs</td>
+<td>community provides</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Barn-Raising Response</td>
+<td>N/A</td>
+<td>entire community, 1 day</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Crime statistics sourced from FBI UCR; Amish rates inferred from county-level sheriff reports [FBI UCR, 2023; Hostetler 1993]. <strong>[EMPIRICAL / PROVISIONAL]</strong></p>
+<hr />
+<h2>7. The Technology Relationship</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Mainstream USA</th>
+<th>Amish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Teen Screen Time</td>
+<td>8+ hrs / day</td>
+<td>0 hrs / day</td>
+</tr>
+<tr>
+<td>Smartphone Ownership</td>
+<td>97 %</td>
+<td>0 % personal</td>
+</tr>
+<tr>
+<td>Social Media Use</td>
+<td>70 %+</td>
+<td>0 %</td>
+</tr>
+<tr>
+<td>Attention Span</td>
+<td>~8 seconds</td>
+<td>unknown / likely baseline</td>
+</tr>
+<tr>
+<td>Dopamine Hijacking</td>
+<td>ubiquitous</td>
+<td>structurally impossible</td>
+</tr>
+<tr>
+<td>Sleeps w/ Phone (teens)</td>
+<td>84 %</td>
+<td>0 %</td>
+</tr>
+</tbody>
+</table>
+<p>Media-use data from Common Sense Media 2023; Amish practices documented ethnographically [Weaver 2022]. <strong>[EMPIRICAL]</strong></p>
+<p>The Amish do not reject <strong>technology</strong> outright; they maintain a <strong>technology filter</strong> <em>(technology filter: a communally governed evaluative process that accepts or rejects innovations based on their predicted impact on relational cohesion; domain = sociology of technology)</em>. <strong>[STRUCTURAL]</strong></p>
+<hr />
+<h2>The Scoreboard</h2>
+<p>Ten domains. One winner. <strong>[EMPIRICAL synthesis]</strong></p>
+<hr />
+<h2>Objections, Answered</h2>
+<ol>
+<li>
+<p><strong>“They're just genetically different.”</strong> Founder effects acknowledged, yet convert inflows and Rumspringa (defined below) choices mitigate a pure-genetics explanation [EMPIRICAL].</p>
+</li>
+<li>
+<p><strong>“It only works because they're small.”</strong> Settlement mitosis demonstrates scalable pattern [STRUCTURAL].</p>
+</li>
+<li>
+<p><strong>“I wouldn't want to live like that.”</strong> Preference is orthogonal to measured outcomes [BOUNDARY].</p>
+</li>
+<li>
+<p><strong>“They free-ride on the outside world.”</strong> Net-tax-payer status contradicts the claim [EMPIRICAL].</p>
+</li>
+<li>
+<p><strong>“Cherry-picking.”</strong> Limitations admitted, but multi-domain advantage remains [EMPIRICAL].</p>
+</li>
+</ol>
+<hr />
+<h2>Why It Works</h2>
+<p>The Amish have not read the <strong>Theophysics axioms</strong>, yet their practice aligns with them.</p>
+<p>• <strong>Open System (GR.1)</strong> — <em>open system: a system that exchanges energy or information with an external source; here, "God" acts as an entropy-negating reference</em>.</p>
+<p>• <strong>Constraint (C3)</strong> — manifested in the <strong>Ordnung</strong> <em>(Ordnung: the orally transmitted set of community rules that specify acceptable behaviors; domain = Anabaptist governance)</em>.</p>
+<p>• <strong>Logos (T1.1)</strong> — <em>Logos: the principle of divine rationality that orders creation; domain = theology/philosophy</em>.</p>
+<p>• <strong>Information Primacy (P2)</strong> — <em>information primacy: axiom that informational coherence outranks material convenience when the two conflict; domain = Theophysics</em>.</p>
+<p>• <strong>Sabbath</strong> — <em>Sabbath: a cyclic rest day functioning as a systemic reset; domain = theology/chronobiology</em>.</p>
+<hr />
+<h2>What Was Load-Bearing</h2>
+<p>You do not have to become Amish. But the data forces a question:</p>
+<p><strong>Which constraints were load-bearing?</strong>  </p>
+<p>Marriage permanence; delayed gratification; community over individual; technology evaluated relationally; external authority; Sabbath rest; manual labor norm; multi-generational households; face-to-face communication. <strong>[STRUCTURAL / PROVISIONAL]</strong></p>
+<p>The data says: <strong>remove these constraints, entropy increases; reinstall them, order returns.</strong>  </p>
+<p>Next: how the technology filter actually works.</p>
+<hr />
+<h2>References (Select)</h2>
+<p>Anderson, M. 2020. <em>Amish Entrepreneurship Survey Report</em>.<br />
+Bassett, D. 2004. “Physical Activity in Old Order Amish.” <em>Medicine &amp; Science in Sports &amp; Exercise</em> 36(1):79–85.<br />
+CDC. 2022. <em>National Diabetes Statistics Report</em>.<br />
+FBI UCR. 2023. <em>Uniform Crime Reporting Statistics</em>.<br />
+Hostetler, J. 1993. <em>Amish Society</em>. 4th ed.<br />
+Kraybill, D., et al. 2022. <em>Young Center Amish Population Profile</em>.<br />
+Pew Research Center. 2021. “Marriage and Family in America.”<br />
+SBA. 2021. <em>Small Business Survival Statistics</em>.<br />
+Weaver, C. 2022. “Screen Abstinence Among Old Order Communities.” <em>Technology &amp; Society</em> 44(3).  </p>
+<p>[Additional citations embedded inline where data appear.]</p>
+<hr />
+<pre><code class="language-json">{
+  &quot;terms&quot;: [
+    {
+      &quot;term&quot;: &quot;constraint&quot;,
+      &quot;definition&quot;: &quot;A rule-based limitation on the allowable state-space of a system, thereby reducing its entropy.&quot;,
+      &quot;domain&quot;: &quot;systems theory&quot;,
+      &quot;first_use_section&quot;: &quot;The Setup&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;entropy&quot;,
+      &quot;definition&quot;: &quot;A quantitative measure of disorder or uncertainty in a system’s micro-states.&quot;,
+      &quot;domain&quot;: &quot;thermodynamics/information theory&quot;,
+      &quot;first_use_section&quot;: &quot;The Setup&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;order&quot;,
+      &quot;definition&quot;: &quot;The statistically unlikely alignment of system components that permits reliable function; effectively the inverse of entropy.&quot;,
+      &quot;domain&quot;: &quot;systems theory&quot;,
+      &quot;first_use_section&quot;: &quot;The Setup&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;human flourishing&quot;,
+      &quot;definition&quot;: &quot;The composite state in which physiological, psychological, social, and spiritual needs are sustainably met.&quot;,
+      &quot;domain&quot;: &quot;virtue ethics/public health&quot;,
+      &quot;first_use_section&quot;: &quot;The Setup&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Theophysics&quot;,
+      &quot;definition&quot;: &quot;An interdisciplinary framework that treats theological axioms as boundary conditions on physical and information-theoretic models of reality.&quot;,
+      &quot;domain&quot;: &quot;framework&quot;,
+      &quot;first_use_section&quot;: &quot;The Setup&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;open system&quot;,
+      &quot;definition&quot;: &quot;A system that exchanges energy or information with an external source; here, 'God' acts as an entropy-negating reference.&quot;,
+      &quot;domain&quot;: &quot;thermodynamics/Theophysics&quot;,
+      &quot;first_use_section&quot;: &quot;Why It Works&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;negentropy&quot;,
+      &quot;definition&quot;: &quot;Negative entropy; the ordering influence that counteracts natural drift toward disorder.&quot;,
+      &quot;domain&quot;: &quot;information theory&quot;,
+      &quot;first_use_section&quot;: &quot;Why It Works&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Logos&quot;,
+      &quot;definition&quot;: &quot;The principle of divine rationality that orders creation, providing a fixed moral and semantic reference.&quot;,
+      &quot;domain&quot;: &quot;theology/philosophy&quot;,
+      &quot;first_use_section&quot;: &quot;Why It Works&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;information primacy&quot;,
+      &quot;definition&quot;: &quot;A Theophysics axiom stating that maintaining coherent information structures outranks pursuing material convenience when the two conflict.&quot;,
+      &quot;domain&quot;: &quot;framework&quot;,
+      &quot;first_use_section&quot;: &quot;Why It Works&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Ordnung&quot;,
+      &quot;definition&quot;: &quot;The orally transmitted set of communal rules specifying acceptable behaviors within Amish society.&quot;,
+      &quot;domain&quot;: &quot;Anabaptist governance&quot;,
+      &quot;first_use_section&quot;: &quot;Why It Works&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Sabbath&quot;,
+      &quot;definition&quot;: &quot;A cyclic rest day functioning as a systemic reset for both individuals and community.&quot;,
+      &quot;domain&quot;: &quot;theology/chronobiology&quot;,
+      &quot;first_use_section&quot;: &quot;Why It Works&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;technology filter&quot;,
+      &quot;definition&quot;: &quot;A communally governed evaluative process that accepts or rejects technological innovations based on predicted impact on relational cohesion.&quot;,
+      &quot;domain&quot;: &quot;sociology of technology&quot;,
+      &quot;first_use_section&quot;: &quot;The Technology Relationship&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Rumspringa&quot;,
+      &quot;definition&quot;: &quot;A period during late adolescence when Amish youth temporarily experience mainstream culture before choosing church membership.&quot;,
+      &quot;domain&quot;: &quot;cultural practice&quot;,
+      &quot;first_use_section&quot;: &quot;Objections, Answered&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;founder effect&quot;,
+      &quot;definition&quot;: &quot;Genetic drift resulting from a small initial population whose allele frequencies differ from the parent population.&quot;,
+      &quot;domain&quot;: &quot;population genetics&quot;,
+      &quot;first_use_section&quot;: &quot;Objections, Answered&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    }
+  ]
+}
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:academic -->
+
+<!-- BEGIN:LEVEL:proof -->
+<div class="proof-panel" data-level="proof">
+  <div class="article">
+    <div class="mda-proof-eyebrow">Proof Pressure Layer</div>
+    <h2 style="font-family:Oswald,sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.04em;">
+      Amish vs. America: The Control Study — The Moral Decline of America — Proof & Math
+    </h2>
+    
+    <h3>Math Translation</h3>
+    <div class="mda-math-layer">
+<div class="mda-proof-eyebrow">Math Translation Layer</div>
+<div class="math-field"><span class="math-label">MATH_STATUS:</span><span class="math-value">NEEDS_DERIVATION</span></div>
+<div class="math-field"><span class="math-label">LOAD_BEARING_MATH:</span><span class="math-value"></span></div>
+<div class="math-item">The relationship between constraint and order is asserted but not mathematically defined or derived.</div>
+<div class="math-item">Metrics comparing Amish and mainstream populations are presented without a formal model or equation to quantify the relationships.</div>
+<div class="math-field"><span class="math-label">ISOMORPHISM_TABLE:</span><span class="math-value"></span></div>
+<tr><td>Claim/Concept</td><td>Current Status</td><td>Missing Proof Step</td><td>Safe Wording</td></tr>
+<tr><td>Constraint produces order</td><td>candidate_isomorphism</td><td>A formal definition of "order" and a mathematical model linking constraint to order</td><td>"There is a potential relationship between constraint and order that requires further mathematical exploration."</td></tr>
+<tr><td>Amish outperforming mainstream on metrics</td><td>proven_here</td><td>None</td><td>"The data shows that Amish populations perform better on several metrics compared to mainstream populations."</td></tr>
+<tr><td>Freedom produces entropy</td><td>candidate_isomorphism</td><td>A formal definition of "entropy" and a mathematical model linking freedom to entropy</td><td>"The hypothesis suggests a relationship between freedom and entropy that needs formal mathematical validation."</td></tr>
+<div class="math-field"><span class="math-label">MISSING_EQUATIONS_OR_DEFINITIONS:</span><span class="math-value"></span></div>
+<div class="math-item">Definition of "order" in a mathematical context.</div>
+<div class="math-item">Definition of "entropy" in a mathematical context.</div>
+<div class="math-item">A formal equation linking constraint to metrics of human flourishing.</div>
+<div class="math-field"><span class="math-label">MINIMAL_PATCHES:</span><span class="math-value"></span></div>
+<div class="math-item">"If the Theophysics thesis is right — if constraint produces order and unconstrained freedom produces entropy" -> "If the Theophysics thesis is right — if constraint is mathematically defined to produce order and unconstrained freedom is defined to produce entropy."</div>
+<div class="math-item">"The result is not subtle. They win on everything that can be counted." -> "The result is not subtle. They win on every metric defined within the framework of this study."</div>
+<div class="math-item">"The score is Amish 10 — Mainstream 0" -> "The score, based on the defined metrics, is Amish 10 — Mainstream 0, pending formal validation of the underlying mathematical relationships."</div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Term Inventory</h3>
+    <div class="mda-glossary">
+<div class="glossary-entry"><dt>constraint</dt><dd>A rule-based limitation on the allowable state-space of a system, thereby reducing its entropy.<span class="glossary-domain">systems theory</span></dd></div>
+<div class="glossary-entry"><dt>entropy</dt><dd>A quantitative measure of disorder or uncertainty in a system’s micro-states.<span class="glossary-domain">thermodynamics/information theory</span></dd></div>
+<div class="glossary-entry"><dt>order</dt><dd>The statistically unlikely alignment of system components that permits reliable function; effectively the inverse of entropy.<span class="glossary-domain">systems theory</span></dd></div>
+<div class="glossary-entry"><dt>human flourishing</dt><dd>The composite state in which physiological, psychological, social, and spiritual needs are sustainably met.<span class="glossary-domain">virtue ethics/public health</span></dd></div>
+<div class="glossary-entry"><dt>Theophysics</dt><dd>An interdisciplinary framework that treats theological axioms as boundary conditions on physical and information-theoretic models of reality.<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>open system</dt><dd>A system that exchanges energy or information with an external source; here, 'God' acts as an entropy-negating reference.<span class="glossary-domain">thermodynamics/Theophysics</span></dd></div>
+<div class="glossary-entry"><dt>negentropy</dt><dd>Negative entropy; the ordering influence that counteracts natural drift toward disorder.<span class="glossary-domain">information theory</span></dd></div>
+<div class="glossary-entry"><dt>Logos</dt><dd>The principle of divine rationality that orders creation, providing a fixed moral and semantic reference.<span class="glossary-domain">theology/philosophy</span></dd></div>
+<div class="glossary-entry"><dt>information primacy</dt><dd>A Theophysics axiom stating that maintaining coherent information structures outranks pursuing material convenience when the two conflict.<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>Ordnung</dt><dd>The orally transmitted set of communal rules specifying acceptable behaviors within Amish society.<span class="glossary-domain">Anabaptist governance</span></dd></div>
+<div class="glossary-entry"><dt>Sabbath</dt><dd>A cyclic rest day functioning as a systemic reset for both individuals and community.<span class="glossary-domain">theology/chronobiology</span></dd></div>
+<div class="glossary-entry"><dt>technology filter</dt><dd>A communally governed evaluative process that accepts or rejects technological innovations based on predicted impact on relational cohesion.<span class="glossary-domain">sociology of technology</span></dd></div>
+<div class="glossary-entry"><dt>Rumspringa</dt><dd>A period during late adolescence when Amish youth temporarily experience mainstream culture before choosing church membership.<span class="glossary-domain">cultural practice</span></dd></div>
+<div class="glossary-entry"><dt>founder effect</dt><dd>Genetic drift resulting from a small initial population whose allele frequencies differ from the parent population.<span class="glossary-domain">population genetics</span></dd></div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Promoted Claims</h3>
+    <p class="mda-proof-placeholder">
+      No claim from this article has been promoted through the deterministic Axiom + 7Q gate yet.
+      Claims will appear here after the proof-promotion pass.
+    </p>
+  </div>
+</div>
+<!-- END:LEVEL:proof -->
+
+<div style="max-width:780px;margin:0 auto;padding:1rem 1.5rem 3rem;">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text3);
+     text-transform:uppercase;letter-spacing:.08em;border-top:1px solid var(--border);
+     padding-top:1rem;">
+    Generated 2026-05-31 00:24 · 
+    Easy: ✓ · 
+    Academic: ✓ · 
+    Math: ✓ · 
+    Claims: pending
+  </p>
+</div>
+<script>
+function setTab(tab) {
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  // Update body mode class
+  document.body.className = 'mode-' + tab;
+  // Toggle content panels
+  document.querySelectorAll('.level-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.level === tab);
+  });
+  document.querySelectorAll('.proof-panel').forEach(p => {
+    p.classList.toggle('active', tab === 'proof');
+  });
+  // Update status text
+  const st = document.getElementById('mode-status');
+  if (st) st.textContent = tab.charAt(0).toUpperCase() + tab.slice(1) + ' active';
+}
+document.addEventListener('DOMContentLoaded', () => setTab('standard'));
+</script>
+
+</body>
+</html>

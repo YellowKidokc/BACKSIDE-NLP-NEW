@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BIL</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <h1>BIL</h1>
+        <p>Preference machine</p>
+      </div>
+      <span id="statusDot" class="status-dot" title="Checking"></span>
+    </header>
+
+    <section class="metrics" aria-label="Signal summary">
+      <div class="metric">
+        <strong id="eventTotal">-</strong>
+        <span>events</span>
+      </div>
+      <div class="metric">
+        <strong id="clipTotal">-</strong>
+        <span>clips</span>
+      </div>
+      <div class="metric">
+        <strong id="searchAvg">-</strong>
+        <span>avg rank</span>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Top domains</h2>
+        <span id="apiLabel">localhost:8420</span>
+      </div>
+      <div id="domains" class="rows"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Clipboard</h2>
+        <span>recent</span>
+      </div>
+      <div id="clipboard" class="rows"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Brain Capture</h2>
+        <span id="captureLabel">ready</span>
+      </div>
+      <div class="capture-actions">
+        <button id="capturePageBtn" type="button">Capture Page</button>
+        <button id="captureSelectionBtn" type="button">Capture Selection</button>
+      </div>
+      <div id="captureStatus" class="empty compact">Sends to BIL if available, otherwise downloads markdown.</div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Health</h2>
+        <span>local stack</span>
+      </div>
+      <div id="healthRows" class="rows compact-rows"></div>
+    </section>
+
+    <footer class="actions">
+      <button id="refreshBtn" type="button">Refresh</button>
+      <button id="dashboardBtn" type="button">Dashboard</button>
+    </footer>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>

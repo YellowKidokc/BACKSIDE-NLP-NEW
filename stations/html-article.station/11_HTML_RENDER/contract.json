@@ -1,0 +1,45 @@
+{
+  "lane_id": "11",
+  "lane_name": "HTML Render",
+  "input": {
+    "requires": [
+      "15_SECTION_PACKETS",
+      "03_YAML_METADATA/metadata.json",
+      "04_TAGS/tags.json",
+      "07_MATH_TRANSLATION/math-payload.json",
+      "10_RIGOR/rigor-report.json"
+    ],
+    "format": "section-level and page-level JSON packets"
+  },
+  "output": {
+    "produces": [
+      "render-blocks.json",
+      "render-blocks.md",
+      "sample_output/rendered-section.html"
+    ],
+    "format": "JSON block registry plus human-readable HTML snippet output"
+  },
+  "loopback_conditions": [
+    "math block missing required translated math for section with equations",
+    "section packet missing stable section_id",
+    "render payload cannot preserve required workflow badges"
+  ],
+  "dependencies": {
+    "upstream_lanes": ["03", "04", "07", "10", "15"],
+    "stations": [],
+    "models": []
+  },
+  "excel_columns": {
+    "tab_name": "Render_Blocks_Index",
+    "columns": [
+      {"name": "page_id", "type": "string"},
+      {"name": "section_id", "type": "string"},
+      {"name": "block_type", "type": "string"},
+      {"name": "has_math", "type": "boolean"},
+      {"name": "has_tags", "type": "boolean"},
+      {"name": "has_rigor_badge", "type": "boolean"},
+      {"name": "render_status", "type": "enum:pending|passed|loopback|failed"}
+    ]
+  },
+  "confidence": "draft"
+}

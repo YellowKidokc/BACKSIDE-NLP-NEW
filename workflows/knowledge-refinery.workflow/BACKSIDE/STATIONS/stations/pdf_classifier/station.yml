@@ -1,0 +1,62 @@
+# Station contract — copy from _TEMPLATE/
+# Mirrors the shape of MODELS/_TEMPLATE/model.yml so stations and models read alike.
+# new_station.py substitutes every {{PLACEHOLDER}} from CLI args.
+
+station_id: ST-CONV-027              # next free slot in CONV lane (script's per-lane counter assumed contiguous 001..016 and computed 017, which collided with video_to_txt)
+name: PDF Classifier
+lane: conv
+status: draft
+order: 53
+purpose: >
+  Open a PDF and decide whether it has selectable text (route to ST-CONV-013 pdf_to_md)
+  or is image-only/scanned (route to ST-CONV-024 ocr_scan). Pre-dispatcher for the
+  CONV dispatcher. Dumb-layer: no reasoning, just character-density sampling.
+
+# What this station calls. For model-wrapper stations this is the bound model.
+# For LLM stations this is the API model id (gpt-4o-mini, claude-opus-4-7, etc.).
+model:
+  primary:   local:pypdfium2          # e.g. M-EMB-SCI-001 or gpt-4o-mini
+  fallback:  
+  provider:  local_wrapper         # local_wrapper | openai | anthropic | hf
+
+prompt:
+  primary:   PROMPT_SYSTEM.md         # filename in this folder, e.g. PROMPT_SYSTEM.md
+  fallback:  
+
+script:
+  runner:    scripts/03_run_prompt.bat          # entry point, e.g. scripts/run.py or scripts/03_run_prompt.bat
+
+input:
+  accepts:
+    - pdf                    # e.g. markdown_article, text_pair, query_passages
+  required_files:
+    - source.pdf                    # primary input filename convention
+
+output:
+  produces:
+    - result.json
+    - result.md
+  required_format: json
+
+healthcheck:
+  prompt: "Return JSON: {\"status\":\"ok\"}"
+  expected_contains: "\"status\""
+
+gate:
+  pass_if:
+    - valid_json: true
+    - classification_made: true   # output.classification is one of {text, scanned, mixed, empty}
+  fail_to: 99_ERROR
+  review_to: 03_REVIEW
+
+# Conditional routing based on output.classification:
+#   text    -> ST-CONV-013 pdf_to_md (Docling, do_ocr=False)
+#   scanned -> ST-CONV-024 ocr_scan  (Marker)
+#   mixed   -> ST-CONV-024 ocr_scan  (Marker handles both)
+#   empty   -> ST-ERR-001
+# (Routing is workflow-tier; this `next.pass` is the default fallthrough.)
+next:
+  pass:
+    - ST-CONV-013
+  fail:
+    - ST-ERR-001

@@ -1,0 +1,16 @@
+﻿---
+type: source-annotation
+title: "Jehovah's Witnesses - ReligionFacts"
+source: "ReligionFacts.com"
+domain: "13-Comparative-Religion"
+url: "https://religionfacts.com/"
+reliability: medium
+tags:
+  - religionfacts
+  - world-religions
+  - comparative-religion
+imported: 2026-05-08
+---
+The group now known as the Jehovah's Witnesses was founded in 1879 by Charles Taze Russell, a Pennsylvania businessman. Russell's Adventist background and study of the Bible led him to conclude, among other things, that the second coming of Christ would occur in 1914, that Hellfire did not exist, and God was not a Trinity. Today, there are 6.4 million practicing Jehovah's Witnesses worldwide. Witnesses are very active in evangelism and missions, both in the group's original home of the United States and throughout the world.
+
+Jehovah's Witnesses adhere to Russell's teachings on Hell and the Trinity and emphasize the immanent End Times, clean and moral living, the equality of all races, and adherence to the teachings of the Bible. They reject blood transfusions because of the New Testament command to "abstain from blood" and do not vote or serve in the military. Witnesses reject the symbol of the cross, do not celebrate any traditional Christian holidays, and do not celebrate birthdays.

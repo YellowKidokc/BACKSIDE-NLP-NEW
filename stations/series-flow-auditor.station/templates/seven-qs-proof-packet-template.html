@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{PAPER_ID}} | 7QS Proof Packet</title>
+
+<!-- BEGIN:SECTION:contract-json data-source-artifact="seven-qs-proof-packet.json,paper-grade.json,trace-ledger.csv" data-fill="direct" -->
+<script type="application/json" id="seven-qs-proof-packet-contract" data-source-artifact="seven-qs-proof-packet.json,paper-grade.json,trace-ledger.csv" data-fill="direct">
+{
+  "schema_version": "{{SCHEMA_VERSION}}",
+  "packet_id": "{{PACKET_ID}}",
+  "snapshot_id": "{{SNAPSHOT_ID}}",
+  "source_id": "{{SOURCE_ID}}",
+  "source_path": "{{SOURCE_PATH}}",
+  "trace_ledger_path": "{{TRACE_LEDGER_PATH}}",
+  "grade_path": "{{PAPER_GRADE_PATH}}",
+  "generated_at": "{{GENERATED_AT}}",
+  "sections": [
+    "forward_classification",
+    "reverse_kill_test",
+    "evidence_pressure",
+    "dependencies_consequences",
+    "trace_anchors"
+  ]
+}
+</script>
+<!-- END:SECTION:contract-json -->
+
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --bg: #050505;
+  --bg-panel: #0a0a0a;
+  --bg-card: #111111;
+  --bg-hover: #1a1a1a;
+  --border: #222;
+  --border-hover: #333;
+  --text: #e0e0e0;
+  --text-dim: #999;
+  --text-muted: #555;
+  --gold: #d4af37;
+  --gold-dim: rgba(212,175,55,0.1);
+  --red: #c94040;
+  --red-dim: rgba(201,64,64,0.1);
+  --blue: #3b82f6;
+  --blue-dim: rgba(59,130,246,0.1);
+  --teal: #14b8a6;
+  --teal-dim: rgba(20,184,166,0.1);
+  --violet: #8b7fc2;
+  --violet-dim: rgba(139,127,194,0.1);
+  --green: #22c55e;
+  --green-dim: rgba(34,197,94,0.1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(5,5,5,0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-main {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.brand {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  color: var(--gold);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.nav-links {
+  display: flex;
+  gap: 0.25rem;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+.nav-links a {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.3rem;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.nav-links a:hover, .nav-links a.active {
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+.framework-tabs {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.5rem 1.5rem;
+  overflow-x: auto;
+  background: rgba(10,10,10,0.8);
+}
+.fw-tab {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  padding: 0.3rem 0.7rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  cursor: pointer;
+  background: none;
+}
+.fw-tab:hover { color: var(--text-dim); background: var(--bg-hover); }
+.fw-tab.active {
+  color: var(--gold);
+  border-color: rgba(212,175,55,0.3);
+  background: var(--gold-dim);
+}
+.fw-tab .badge {
+  font-size: 0.6rem;
+  margin-left: 0.3rem;
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.15rem;
+}
+.fw-tab .badge.green { background: rgba(34,197,94,0.2); color: var(--green); }
+.fw-tab .badge.gold { background: rgba(212,175,55,0.2); color: var(--gold); }
+.fw-tab .badge.blue { background: rgba(59,130,246,0.2); color: var(--blue); }
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr 300px;
+  gap: 1px;
+  min-height: calc(100vh - 94px);
+}
+.sidebar {
+  background: var(--bg-panel);
+  padding: 1.25rem;
+  overflow-y: auto;
+  max-height: calc(100vh - 94px);
+}
+.sidebar h3 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  margin: 1.1rem 0 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border);
+}
+.sidebar h3:first-child { margin-top: 0; }
+.q-item {
+  display: block;
+  padding: 0.5rem 0.6rem;
+  border-radius: 0.35rem;
+  text-decoration: none;
+  color: var(--text-dim);
+  transition: all 0.2s;
+  margin-bottom: 0.2rem;
+}
+.q-item:hover { background: var(--bg-hover); color: var(--text); }
+.q-item.active {
+  background: var(--gold-dim);
+  border-left: 2px solid var(--gold);
+}
+.q-row { display: flex; align-items: baseline; gap: 0.5rem; }
+.q-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--gold);
+  min-width: 1.75rem;
+}
+.q-label { font-size: 0.8rem; font-weight: 500; }
+.q-desc {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  padding-left: 2.25rem;
+}
+.main {
+  background: var(--bg);
+  padding: 2rem;
+  overflow-y: auto;
+  max-height: calc(100vh - 94px);
+}
+.breadcrumb {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+}
+.breadcrumb a { color: var(--text-dim); text-decoration: none; }
+.breadcrumb a:hover { color: var(--gold); }
+.breadcrumb .sep { margin: 0 0.4rem; color: var(--text-muted); }
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+.badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 0.3rem;
+  border: 1px solid var(--border);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.badge.gold { color: var(--gold); border-color: rgba(212,175,55,0.3); background: var(--gold-dim); }
+.badge.green { color: var(--green); border-color: rgba(34,197,94,0.3); background: var(--green-dim); }
+.badge.blue { color: var(--blue); border-color: rgba(59,130,246,0.3); background: var(--blue-dim); }
+.badge.red { color: var(--red); border-color: rgba(201,64,64,0.3); background: var(--red-dim); }
+.badge.violet { color: var(--violet); border-color: rgba(139,127,194,0.3); background: var(--violet-dim); }
+.paper-title {
+  font-family: 'Crimson Text', serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 0.4rem;
+}
+.paper-subtitle {
+  font-family: 'Crimson Text', serif;
+  font-size: 1.1rem;
+  color: var(--text-dim);
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.875rem;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+}
+.card-header .subtle {
+  margin-left: auto;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0;
+}
+.rigor-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.875rem;
+}
+.rigor-cell {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  padding: 0.875rem;
+}
+.label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+.value {
+  font-size: 0.82rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+.slot {
+  color: var(--text-muted);
+  border: 1px dashed var(--border-hover);
+  background: rgba(255,255,255,0.02);
+  border-radius: 0.3rem;
+  padding: 0.65rem;
+  min-height: 2.2rem;
+}
+.packet-tab-panel { display: none; }
+.packet-tab-panel.active { display: block; }
+.q-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 0.45rem;
+  padding: 1rem;
+  margin-bottom: 0.9rem;
+}
+.q-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 0.8rem;
+}
+.q-chip {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--gold);
+  background: var(--gold-dim);
+  border: 1px solid rgba(212,175,55,0.25);
+  border-radius: 0.3rem;
+  padding: 0.25rem 0.45rem;
+  font-size: 0.72rem;
+}
+.q-title {
+  font-family: 'Oswald', sans-serif;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+}
+.q-fields {
+  display: grid;
+  grid-template-columns: 1.1fr 1.4fr 0.6fr;
+  gap: 0.75rem;
+}
+.q-fields .wide { grid-column: span 2; }
+.q-fields .full { grid-column: 1 / -1; }
+.field-box {
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  background: var(--bg-card);
+  padding: 0.75rem;
+}
+.field-label {
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.58rem;
+  color: var(--text-muted);
+  margin-bottom: 0.35rem;
+}
+.field-value {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+}
+.kill-box {
+  background: var(--red-dim);
+  border: 1px solid rgba(201,64,64,0.3);
+  border-radius: 0.4rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.kill-header {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--red);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+th, td { padding: 0.6rem 0.5rem; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+th {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+td { color: var(--text-dim); overflow-wrap: anywhere; }
+tr:hover td { background: var(--bg-hover); }
+.pressure-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.875rem;
+}
+.pressure-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  padding: 0.9rem;
+}
+.pressure-meter {
+  height: 7px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  overflow: hidden;
+  margin-top: 0.65rem;
+}
+.pressure-meter .fill {
+  height: 100%;
+  width: var(--slot-width, 0%);
+  background: linear-gradient(90deg, var(--red), var(--gold), var(--green));
+}
+.chain-list {
+  display: grid;
+  gap: 0.65rem;
+}
+.chain-item {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 0.75rem;
+  align-items: start;
+  padding: 0.7rem;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  border-radius: 0.35rem;
+}
+.chain-key {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--gold);
+}
+.trace-anchor {
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  border-radius: 0.35rem;
+  padding: 0.85rem;
+  margin-bottom: 0.65rem;
+}
+.trace-topline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.6rem;
+}
+.mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+}
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.78rem;
+}
+.meta-label { color: var(--text-muted); }
+.meta-value {
+  color: var(--text-dim);
+  text-align: right;
+  max-width: 60%;
+  overflow-wrap: anywhere;
+}
+.tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.45rem;
+  margin: 0 0.3rem 0.35rem 0;
+}
+.spine-item { margin-bottom: 0.85rem; }
+.spine-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  margin-bottom: 0.2rem;
+}
+.spine-name { color: var(--text-dim); }
+.spine-status { color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; }
+.spine-bar {
+  height: 4px;
+  background: var(--bg-card);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.spine-bar .fill { height: 100%; background: var(--gold); width: var(--slot-width, 0%); }
+.spine-bar .fill.blue { background: var(--blue); }
+.spine-bar .fill.red { background: var(--red); }
+.spine-bar .fill.green { background: var(--green); }
+.spine-bar .fill.violet { background: var(--violet); }
+.empty-note {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  border-left: 2px solid var(--border-hover);
+  padding-left: 0.75rem;
+}
+@media (max-width: 1100px) {
+  .layout { grid-template-columns: 220px 1fr; }
+  .right-rail { display: none; }
+}
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar, .main { max-height: none; }
+  .main { padding: 1rem; }
+  .rigor-grid, .pressure-grid, .q-fields { grid-template-columns: 1fr; }
+  .q-fields .wide, .q-fields .full { grid-column: auto; }
+  .chain-item { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- BEGIN:SECTION:top-navigation data-source-artifact="seven-qs-proof-packet.json,paper-grade.json" data-fill="direct" -->
+<nav class="top-nav" data-source-artifact="seven-qs-proof-packet.json,paper-grade.json" data-fill="direct">
+  <div class="nav-main">
+    <a class="brand" href="{{PROOF_EXPLORER_HOME_URL}}"><i class="fas fa-layer-group"></i>7QS Proof Packet</a>
+    <div class="nav-links">
+      <a class="active" href="#packet">Packet</a>
+      <a href="#forward">Forward</a>
+      <a href="#reverse">Reverse</a>
+      <a href="#evidence">Evidence</a>
+      <a href="#trace">Trace</a>
+    </div>
+  </div>
+  <!-- BEGIN:SECTION:framework-tabs data-source-artifact="seven-qs-proof-packet.json" data-fill="repeat" -->
+  <div class="framework-tabs" role="tablist" aria-label="Proof packet sections" data-source-artifact="seven-qs-proof-packet.json" data-fill="repeat">
+    <button class="fw-tab active" data-tab="forward" type="button"><i class="fas fa-layer-group" style="margin-right:0.3rem;"></i>Q0-Q7 Forward<span class="badge gold">SLOT</span></button>
+    <button class="fw-tab" data-tab="reverse" type="button"><i class="fas fa-skull" style="margin-right:0.3rem;"></i>Reverse / Kill<span class="badge blue">SLOT</span></button>
+    <button class="fw-tab" data-tab="evidence" type="button"><i class="fas fa-flask" style="margin-right:0.3rem;"></i>Evidence Pressure<span class="badge green">SLOT</span></button>
+    <button class="fw-tab" data-tab="chain" type="button"><i class="fas fa-sitemap" style="margin-right:0.3rem;"></i>Dependencies<span class="badge gold">SLOT</span></button>
+    <button class="fw-tab" data-tab="trace" type="button"><i class="fas fa-location-crosshairs" style="margin-right:0.3rem;"></i>Trace Anchors<span class="badge blue">SLOT</span></button>
+  </div>
+  <!-- END:SECTION:framework-tabs -->
+</nav>
+<!-- END:SECTION:top-navigation -->
+
+<div class="layout" id="packet">
+  <aside class="sidebar">
+    <h3><i class="fas fa-compass" style="margin-right:0.4rem;"></i>7QS Spine</h3>
+    <a class="q-item active" href="#q0"><span class="q-row"><span class="q-num">Q0</span><span class="q-label">Posture</span></span><span class="q-desc">{{Q0_SHORT_SLOT}}</span></a>
+    <a class="q-item" href="#q1"><span class="q-row"><span class="q-num">Q1</span><span class="q-label">Identity</span></span><span class="q-desc">{{Q1_SHORT_SLOT}}</span></a>
+    <a class="q-item" href="#q2"><span class="q-row"><span class="q-num">Q2</span><span class="q-label">Location</span></span><span class="q-desc">{{Q2_SHORT_SLOT}}</span></a>
+    <a class="q-item" href="#q3"><span class="q-row"><span class="q-num">Q3</span><span class="q-label">Assertion</span></span><span class="q-desc">{{Q3_SHORT_SLOT}}</span></a>
+    <a class="q-item" href="#q4"><span class="q-row"><span class="q-num">Q4</span><span class="q-label">Evidence</span></span><span class="q-desc">{{Q4_SHORT_SLOT}}</span></a>
+    <a class="q-item" href="#q5"><span class="q-row"><span class="q-num">Q5</span><span class="q-label">Dependencies</span></span><span class="q-desc">{{Q5_SHORT_SLOT}}</span></a>
+    <a class="q-item" href="#q6"><span class="q-row"><span class="q-num">Q6</span><span class="q-label">Consequences</span></span><span class="q-desc">{{Q6_SHORT_SLOT}}</span></a>
+    <a class="q-item" href="#q7"><span class="q-row"><span class="q-num">Q7</span><span class="q-label">Falsification</span></span><span class="q-desc">{{Q7_SHORT_SLOT}}</span></a>
+
+    <h3><i class="fas fa-filter" style="margin-right:0.4rem;"></i>Reader Mode</h3>
+    <div class="tag">Easy Read: {{EASY_READ_STATUS_SLOT}}</div>
+    <div class="tag">Theophysics: {{THEOPHYSICS_READ_STATUS_SLOT}}</div>
+    <div class="tag">Audit: {{AUDIT_READ_STATUS_SLOT}}</div>
+    <div class="tag">Debug: {{DEBUG_READ_STATUS_SLOT}}</div>
+  </aside>
+
+  <main class="main">
+    <div class="breadcrumb">
+      <a href="{{WORKFLOW_HOME_URL}}">Series Flow Auditor</a><span class="sep">/</span><a href="{{SNAPSHOT_URL}}">Paper Snapshot</a><span class="sep">/</span><span style="color:var(--gold);">{{PAPER_ID}}</span>
+    </div>
+
+    <div class="badges">
+      <span class="badge gold"><i class="fas fa-fingerprint"></i>{{PACKET_ID}}</span>
+      <span class="badge blue"><i class="fas fa-file-code"></i>{{SNAPSHOT_ID}}</span>
+      <span class="badge violet"><i class="fas fa-route"></i>{{TRACE_STATUS}}</span>
+      <span class="badge green"><i class="fas fa-check-circle"></i>{{PACKET_STATUS}}</span>
+    </div>
+
+    <h1 class="paper-title">{{PAPER_TITLE}}</h1>
+    <p class="paper-subtitle">{{ONE_SENTENCE_CLAIM_SLOT}}</p>
+
+    <!-- BEGIN:SECTION:rigor-card data-source-artifact="paper-grade.json,claim-ledger.csv,trace-ledger.csv" data-fill="direct" data-trace-required="true" data-trace-status="missing-span" -->
+    <section class="card" data-source-artifact="paper-grade.json,claim-ledger.csv,trace-ledger.csv" data-fill="direct" data-trace-required="true" data-trace-status="missing-span">
+      <div class="card-header"><i class="fas fa-bolt"></i>Packet Rigor Card<span class="subtle">SLOT: {{RIGOR_CARD_TRACE_ID}}</span></div>
+      <div class="rigor-grid">
+        <div class="rigor-cell">
+          <div class="label">Claim Boundary</div>
+          <div class="value slot">{{CLAIM_BOUNDARY_SLOT}}</div>
+        </div>
+        <div class="rigor-cell">
+          <div class="label">Maturity Level</div>
+          <div class="value slot">{{CLAIM_MATURITY_LEVEL_SLOT}}</div>
+        </div>
+        <div class="rigor-cell">
+          <div class="label">Decisive Missing Data</div>
+          <div class="value slot">{{DECISIVE_MISSING_DATA_SLOT}}</div>
+        </div>
+      </div>
+    </section>
+    <!-- END:SECTION:rigor-card -->
+
+    <!-- BEGIN:SECTION:forward-7q data-source-artifact="seven-qs-proof-packet.json,paper-grade.json,trace-ledger.csv" data-fill="repeat" data-trace-required="true" data-trace-status="missing-span" -->
+    <section class="packet-tab-panel active" id="panel-forward" data-source-artifact="seven-qs-proof-packet.json,paper-grade.json,trace-ledger.csv" data-fill="repeat" data-trace-required="true" data-trace-status="missing-span">
+      <div class="card" id="forward">
+        <div class="card-header"><i class="fas fa-layer-group"></i>Q0-Q7 Forward Classification<span class="subtle">SLOT: {{FORWARD_CLASSIFICATION_TRACE_ID}}</span></div>
+
+        <!-- BEGIN:SLOT:q-forward-card repeat="seven-qs-proof-packet.json:forward_q0_q7" -->
+        <article class="q-card" id="q0">
+          <div class="q-card-header"><span class="q-chip">Q0</span><span class="q-title">Posture Before Inquiry</span></div>
+          <div class="q-fields">
+            <div class="field-box wide"><div class="field-label">Question</div><div class="field-value slot">{{Q0_QUESTION}}</div></div>
+            <div class="field-box"><div class="field-label">Confidence</div><div class="field-value slot">{{Q0_CONFIDENCE}}</div></div>
+            <div class="field-box full"><div class="field-label">Answer</div><div class="field-value slot">{{Q0_ANSWER}}</div></div>
+            <div class="field-box"><div class="field-label">Source Span / Trace ID</div><div class="field-value slot">{{Q0_SOURCE_SPAN}} / {{Q0_TRACE_ID}}</div></div>
+            <div class="field-box"><div class="field-label">Missing Data</div><div class="field-value slot">{{Q0_MISSING_DATA}}</div></div>
+            <div class="field-box"><div class="field-label">Repair Action</div><div class="field-value slot">{{Q0_REPAIR_ACTION}}</div></div>
+          </div>
+        </article>
+
+        <article class="q-card" id="q1">
+          <div class="q-card-header"><span class="q-chip">Q1</span><span class="q-title">Identity</span></div>
+          <div class="q-fields">
+            <div class="field-box wide"><div class="field-label">Question</div><div class="field-value slot">{{Q1_QUESTION}}</div></div>
+            <div class="field-box"><div class="field-label">Confidence</div><div class="field-value slot">{{Q1_CONFIDENCE}}</div></div>
+            <div class="field-box full"><div class="field-label">Answer</div><div class="field-value slot">{{Q1_ANSWER}}</div></div>
+            <div class="field-box"><div class="field-label">Source Span / Trace ID</div><div class="field-value slot">{{Q1_SOURCE_SPAN}} / {{Q1_TRACE_ID}}</div></div>
+            <div class="field-box"><div class="field-label">Missing Data</div><div class="field-value slot">{{Q1_MISSING_DATA}}</div></div>
+            <div class="field-box"><div class="field-label">Repair Action</div><div class="field-value slot">{{Q1_REPAIR_ACTION}}</div></div>
+          </div>
+        </article>
+
+        <article class="q-card" id="q2">
+          <div class="q-card-header"><span class="q-chip">Q2</span><span class="q-title">Location / Domain</span></div>
+          <div class="q-fields">
+            <div class="field-box wide"><div class="field-label">Question</div><div class="field-value slot">{{Q2_QUESTION}}</div></div>
+            <div class="field-box"><div class="field-label">Confidence</div><div class="field-value slot">{{Q2_CONFIDENCE}}</div></div>
+            <div class="field-box full"><div class="field-label">Answer</div><div class="field-value slot">{{Q2_ANSWER}}</div></div>
+            <div class="field-box"><div class="field-label">Source Span / Trace ID</div><div class="field-value slot">{{Q2_SOURCE_SPAN}} / {{Q2_TRACE_ID}}</div></div>
+            <div class="field-box"><div class="field-label">Missing Data</div><div class="field-value slot">{{Q2_MISSING_DATA}}</div></div>
+            <div class="field-box"><div class="field-label">Repair Action</div><div class="field-value slot">{{Q2_REPAIR_ACTION}}</div></div>
+          </div>
+        </article>
+
+        <article class="q-card" id="q3">
+          <div class="q-card-header"><span class="q-chip">Q3</span><span class="q-title">Assertion</span></div>
+          <div class="q-fields">
+            <div class="field-box wide"><div class="field-label">Question</div><div class="field-value slot">{{Q3_QUESTION}}</div></div>
+            <div class="field-box"><div class="field-label">Confidence</div><div class="field-value slot">{{Q3_CONFIDENCE}}</div></div>
+            <div class="field-box full"><div class="field-label">Answer</div><div class="field-value slot">{{Q3_ANSWER}}</div></div>
+            <div class="field-box"><div class="field-label">Source Span / Trace ID</div><div class="field-value slot">{{Q3_SOURCE_SPAN}} / {{Q3_TRACE_ID}}</div></div>
+            <div class="field-box"><div class="field-label">Missing Data</div><div class="field-value slot">{{Q3_MISSING_DATA}}</div></div>
+            <div class="field-box"><div class="field-label">Repair Action</div><div class="field-value slot">{{Q3_REPAIR_ACTION}}</div></div>
+          </div>
+        </article>
+
+        <article class="q-card" id="q4">
+          <div class="q-card-header"><span class="q-chip">Q4</span><span class="q-title">Evidence</span></div>
+          <div class="q-fields">
+            <div class="field-box wide"><div class="field-label">Question</div><div class="field-value slot">{{Q4_QUESTION}}</div></div>
+            <div class="field-box"><div class="field-label">Confidence</div><div class="field-value slot">{{Q4_CONFIDENCE}}</div></div>
+            <div class="field-box full"><div class="field-label">Answer</div><div class="field-value slot">{{Q4_ANSWER}}</div></div>
+            <div class="field-box"><div class="field-label">Source Span / Trace ID</div><div class="field-value slot">{{Q4_SOURCE_SPAN}} / {{Q4_TRACE_ID}}</div></div>
+            <div class="field-box"><div class="field-label">Missing Data</div><div class="field-value slot">{{Q4_MISSING_DATA}}</div></div>
+            <div class="field-box"><div class="field-label">Repair Action</div><div class="field-value slot">{{Q4_REPAIR_ACTION}}</div></div>
+          </div>
+        </article>
+
+        <article class="q-card" id="q5">
+          <div class="q-card-header"><span class="q-chip">Q5</span><span class="q-title">Dependencies</span></div>
+          <div class="q-fields">
+            <div class="field-box wide"><div class="field-label">Question</div><div class="field-value slot">{{Q5_QUESTION}}</div></div>
+            <div class="field-box"><div class="field-label">Confidence</div><div class="field-value slot">{{Q5_CONFIDENCE}}</div></div>
+            <div class="field-box full"><div class="field-label">Answer</div><div class="field-value slot">{{Q5_ANSWER}}</div></div>
+            <div class="field-box"><div class="field-label">Source Span / Trace ID</div><div class="field-value slot">{{Q5_SOURCE_SPAN}} / {{Q5_TRACE_ID}}</div></div>
+            <div class="field-box"><div class="field-label">Missing Data</div><div class="field-value slot">{{Q5_MISSING_DATA}}</div></div>
+            <div class="field-box"><div class="field-label">Repair Action</div><div class="field-value slot">{{Q5_REPAIR_ACTION}}</div></div>
+          </div>
+        </article>
+
+        <article class="q-card" id="q6">
+          <div class="q-card-header"><span class="q-chip">Q6</span><span class="q-title">Consequences</span></div>
+          <div class="q-fields">
+            <div class="field-box wide"><div class="field-label">Question</div><div class="field-value slot">{{Q6_QUESTION}}</div></div>
+            <div class="field-box"><div class="field-label">Confidence</div><div class="field-value slot">{{Q6_CONFIDENCE}}</div></div>
+            <div class="field-box full"><div class="field-label">Answer</div><div class="field-value slot">{{Q6_ANSWER}}</div></div>
+            <div class="field-box"><div class="field-label">Source Span / Trace ID</div><div class="field-value slot">{{Q6_SOURCE_SPAN}} / {{Q6_TRACE_ID}}</div></div>
+            <div class="field-box"><div class="field-label">Missing Data</div><div class="field-value slot">{{Q6_MISSING_DATA}}</div></div>
+            <div class="field-box"><div class="field-label">Repair Action</div><div class="field-value slot">{{Q6_REPAIR_ACTION}}</div></div>
+          </div>
+        </article>
+
+        <article class="q-card" id="q7">
+          <div class="q-card-header"><span class="q-chip">Q7</span><span class="q-title">Falsification</span></div>
+          <div class="q-fields">
+            <div class="field-box wide"><div class="field-label">Question</div><div class="field-value slot">{{Q7_QUESTION}}</div></div>
+            <div class="field-box"><div class="field-label">Confidence</div><div class="field-value slot">{{Q7_CONFIDENCE}}</div></div>
+            <div class="field-box full"><div class="field-label">Answer</div><div class="field-value slot">{{Q7_ANSWER}}</div></div>
+            <div class="field-box"><div class="field-label">Source Span / Trace ID</div><div class="field-value slot">{{Q7_SOURCE_SPAN}} / {{Q7_TRACE_ID}}</div></div>
+            <div class="field-box"><div class="field-label">Missing Data</div><div class="field-value slot">{{Q7_MISSING_DATA}}</div></div>
+            <div class="field-box"><div class="field-label">Repair Action</div><div class="field-value slot">{{Q7_REPAIR_ACTION}}</div></div>
+          </div>
+        </article>
+        <!-- END:SLOT:q-forward-card -->
+      </div>
+    </section>
+    <!-- END:SECTION:forward-7q -->
+
+    <!-- BEGIN:SECTION:reverse-kill-test data-source-artifact="seven-qs-proof-packet.json,kill-conditions.csv,trace-ledger.csv" data-fill="repeat" data-trace-required="true" data-trace-status="missing-span" -->
+    <section class="packet-tab-panel" id="panel-reverse" data-source-artifact="seven-qs-proof-packet.json,kill-conditions.csv,trace-ledger.csv" data-fill="repeat" data-trace-required="true" data-trace-status="missing-span">
+      <div class="card" id="reverse">
+        <div class="card-header"><i class="fas fa-skull"></i>Reverse / Kill Test<span class="subtle">SLOT: {{REVERSE_TRACE_ID}}</span></div>
+        <div class="kill-box">
+          <div class="kill-header"><i class="fas fa-triangle-exclamation"></i>Survives Only If These Slots Close</div>
+          <table>
+            <tr><th>#</th><th>Kill Condition</th><th>Test Mode</th><th>Status</th><th>Trace ID</th><th>Repair Action</th></tr>
+            <!-- BEGIN:SLOT:kill-condition-row repeat="kill-conditions.csv" -->
+            <tr><td>{{KILL_ID_1}}</td><td>{{KILL_CONDITION_1}}</td><td>{{KILL_TEST_MODE_1}}</td><td>{{KILL_STATUS_1}}</td><td>{{KILL_TRACE_ID_1}}</td><td>{{KILL_REPAIR_ACTION_1}}</td></tr>
+            <tr><td>{{KILL_ID_2}}</td><td>{{KILL_CONDITION_2}}</td><td>{{KILL_TEST_MODE_2}}</td><td>{{KILL_STATUS_2}}</td><td>{{KILL_TRACE_ID_2}}</td><td>{{KILL_REPAIR_ACTION_2}}</td></tr>
+            <tr><td>{{KILL_ID_3}}</td><td>{{KILL_CONDITION_3}}</td><td>{{KILL_TEST_MODE_3}}</td><td>{{KILL_STATUS_3}}</td><td>{{KILL_TRACE_ID_3}}</td><td>{{KILL_REPAIR_ACTION_3}}</td></tr>
+            <!-- END:SLOT:kill-condition-row -->
+          </table>
+        </div>
+        <table>
+          <tr><th>Eliminated Branches</th><th>Surviving Branches</th><th>Unresolved Branches</th><th>Weakest Link</th></tr>
+          <tr><td>{{ELIMINATED_BRANCHES_SLOT}}</td><td>{{SURVIVING_BRANCHES_SLOT}}</td><td>{{UNRESOLVED_BRANCHES_SLOT}}</td><td>{{WEAKEST_LINK_SLOT}}</td></tr>
+        </table>
+      </div>
+    </section>
+    <!-- END:SECTION:reverse-kill-test -->
+
+    <!-- BEGIN:SECTION:evidence-pressure data-source-artifact="evidence-pressure.csv,paper-grade.json,trace-ledger.csv" data-fill="repeat" data-trace-required="true" data-trace-status="missing-span" -->
+    <section class="packet-tab-panel" id="panel-evidence" data-source-artifact="evidence-pressure.csv,paper-grade.json,trace-ledger.csv" data-fill="repeat" data-trace-required="true" data-trace-status="missing-span">
+      <div class="card" id="evidence">
+        <div class="card-header"><i class="fas fa-flask"></i>Evidence Pressure<span class="subtle">SLOT: {{EVIDENCE_PRESSURE_TRACE_ID}}</span></div>
+        <div class="pressure-grid">
+          <div class="pressure-card"><div class="label">Formal</div><div class="value slot">{{FORMAL_PRESSURE_SLOT}}</div><div class="pressure-meter"><div class="fill" style="--slot-width:{{FORMAL_PRESSURE_PERCENT}};"></div></div></div>
+          <div class="pressure-card"><div class="label">Empirical</div><div class="value slot">{{EMPIRICAL_PRESSURE_SLOT}}</div><div class="pressure-meter"><div class="fill" style="--slot-width:{{EMPIRICAL_PRESSURE_PERCENT}};"></div></div></div>
+          <div class="pressure-card"><div class="label">Theological</div><div class="value slot">{{THEOLOGICAL_PRESSURE_SLOT}}</div><div class="pressure-meter"><div class="fill" style="--slot-width:{{THEOLOGICAL_PRESSURE_PERCENT}};"></div></div></div>
+          <div class="pressure-card"><div class="label">Trace Completeness</div><div class="value slot">{{TRACE_COMPLETENESS_SLOT}}</div><div class="pressure-meter"><div class="fill" style="--slot-width:{{TRACE_COMPLETENESS_PERCENT}};"></div></div></div>
+        </div>
+        <div style="margin-top:1rem;">
+          <table>
+            <tr><th>Evidence ID</th><th>Claim ID</th><th>Pressure Type</th><th>Source Span / Trace ID</th><th>Missing Data</th><th>Repair Action</th></tr>
+            <!-- BEGIN:SLOT:evidence-pressure-row repeat="evidence-pressure.csv" -->
+            <tr><td>{{EVIDENCE_ID_1}}</td><td>{{EVIDENCE_CLAIM_ID_1}}</td><td>{{EVIDENCE_TYPE_1}}</td><td>{{EVIDENCE_SOURCE_SPAN_1}} / {{EVIDENCE_TRACE_ID_1}}</td><td>{{EVIDENCE_MISSING_DATA_1}}</td><td>{{EVIDENCE_REPAIR_ACTION_1}}</td></tr>
+            <tr><td>{{EVIDENCE_ID_2}}</td><td>{{EVIDENCE_CLAIM_ID_2}}</td><td>{{EVIDENCE_TYPE_2}}</td><td>{{EVIDENCE_SOURCE_SPAN_2}} / {{EVIDENCE_TRACE_ID_2}}</td><td>{{EVIDENCE_MISSING_DATA_2}}</td><td>{{EVIDENCE_REPAIR_ACTION_2}}</td></tr>
+            <!-- END:SLOT:evidence-pressure-row -->
+          </table>
+        </div>
+      </div>
+    </section>
+    <!-- END:SECTION:evidence-pressure -->
+
+    <!-- BEGIN:SECTION:dependency-chain data-source-artifact="dependency-chain.csv,paper-grade.json,trace-ledger.csv" data-fill="repeat" data-trace-required="true" data-trace-status="missing-span" -->
+    <section class="packet-tab-panel" id="panel-chain" data-source-artifact="dependency-chain.csv,paper-grade.json,trace-ledger.csv" data-fill="repeat" data-trace-required="true" data-trace-status="missing-span">
+      <div class="card" id="dependencies">
+        <div class="card-header"><i class="fas fa-sitemap"></i>Dependencies + Consequences<span class="subtle">SLOT: {{DEPENDENCY_TRACE_ID}}</span></div>
+        <div class="chain-list">
+          <!-- BEGIN:SLOT:dependency-item repeat="dependency-chain.csv" -->
+          <div class="chain-item"><div class="chain-key">DEPENDS_ON</div><div class="slot">{{DEPENDENCY_SLOT_1}}</div></div>
+          <div class="chain-item"><div class="chain-key">SUPPORTS</div><div class="slot">{{SUPPORTS_SLOT_1}}</div></div>
+          <div class="chain-item"><div class="chain-key">CONTRADICTS</div><div class="slot">{{CONTRADICTION_SLOT_1}}</div></div>
+          <div class="chain-item"><div class="chain-key">CONSEQUENCE</div><div class="slot">{{CONSEQUENCE_SLOT_1}}</div></div>
+          <div class="chain-item"><div class="chain-key">BREAK_IF_FALSE</div><div class="slot">{{BREAK_IF_FALSE_SLOT}}</div></div>
+          <!-- END:SLOT:dependency-item -->
+        </div>
+      </div>
+    </section>
+    <!-- END:SECTION:dependency-chain -->
+
+    <!-- BEGIN:SECTION:trace-anchors data-source-artifact="trace-ledger.csv,structure-map.json,normalized-text.md" data-fill="repeat" data-trace-required="true" data-trace-status="missing-span" -->
+    <section class="packet-tab-panel" id="panel-trace" data-source-artifact="trace-ledger.csv,structure-map.json,normalized-text.md" data-fill="repeat" data-trace-required="true" data-trace-status="missing-span">
+      <div class="card" id="trace">
+        <div class="card-header"><i class="fas fa-location-crosshairs"></i>Trace Anchors<span class="subtle">SLOT: {{TRACE_ANCHOR_LEDGER_ID}}</span></div>
+        <p class="empty-note">SLOT ONLY. Each rendered claim, chart, Q answer, and kill condition must resolve to exact section, paragraph, sentence, character offsets, quoted span, confidence, and trace status.</p>
+        <div style="margin-top:1rem;">
+          <!-- BEGIN:SLOT:trace-anchor-card repeat="trace-ledger.csv" -->
+          <div class="trace-anchor">
+            <div class="trace-topline">
+              <span class="badge gold">{{TRACE_ID_1}}</span>
+              <span class="badge blue">{{CLAIM_ID_1}}</span>
+              <span class="badge violet">{{SIGNAL_TYPE_1}}</span>
+              <span class="badge green">{{TRACE_STATUS_1}}</span>
+            </div>
+            <div class="q-fields">
+              <div class="field-box"><div class="field-label">Section</div><div class="field-value slot">{{SECTION_ID_1}} / {{SECTION_TITLE_1}}</div></div>
+              <div class="field-box"><div class="field-label">Paragraph / Sentence</div><div class="field-value slot">{{PARAGRAPH_INDEX_1}} / {{SENTENCE_INDEX_1}}</div></div>
+              <div class="field-box"><div class="field-label">Char Range</div><div class="field-value slot">{{CHAR_START_1}}-{{CHAR_END_1}}</div></div>
+              <div class="field-box full"><div class="field-label">Quoted Span</div><div class="field-value slot">{{QUOTED_SPAN_1}}</div></div>
+              <div class="field-box wide"><div class="field-label">Why It Counts</div><div class="field-value slot">{{WHY_IT_COUNTS_1}}</div></div>
+              <div class="field-box"><div class="field-label">Repair Flag</div><div class="field-value slot">{{TRACE_REPAIR_FLAG_1}}</div></div>
+            </div>
+          </div>
+
+          <div class="trace-anchor">
+            <div class="trace-topline">
+              <span class="badge gold">{{TRACE_ID_2}}</span>
+              <span class="badge blue">{{CLAIM_ID_2}}</span>
+              <span class="badge violet">{{SIGNAL_TYPE_2}}</span>
+              <span class="badge green">{{TRACE_STATUS_2}}</span>
+            </div>
+            <div class="q-fields">
+              <div class="field-box"><div class="field-label">Section</div><div class="field-value slot">{{SECTION_ID_2}} / {{SECTION_TITLE_2}}</div></div>
+              <div class="field-box"><div class="field-label">Paragraph / Sentence</div><div class="field-value slot">{{PARAGRAPH_INDEX_2}} / {{SENTENCE_INDEX_2}}</div></div>
+              <div class="field-box"><div class="field-label">Char Range</div><div class="field-value slot">{{CHAR_START_2}}-{{CHAR_END_2}}</div></div>
+              <div class="field-box full"><div class="field-label">Quoted Span</div><div class="field-value slot">{{QUOTED_SPAN_2}}</div></div>
+              <div class="field-box wide"><div class="field-label">Why It Counts</div><div class="field-value slot">{{WHY_IT_COUNTS_2}}</div></div>
+              <div class="field-box"><div class="field-label">Repair Flag</div><div class="field-value slot">{{TRACE_REPAIR_FLAG_2}}</div></div>
+            </div>
+          </div>
+          <!-- END:SLOT:trace-anchor-card -->
+        </div>
+      </div>
+    </section>
+    <!-- END:SECTION:trace-anchors -->
+  </main>
+
+  <aside class="sidebar right-rail">
+    <h3><i class="fas fa-database" style="margin-right:0.4rem;"></i>Packet Metadata</h3>
+    <div class="meta-row"><span class="meta-label">Paper ID</span><span class="meta-value mono">{{PAPER_ID}}</span></div>
+    <div class="meta-row"><span class="meta-label">Source ID</span><span class="meta-value mono">{{SOURCE_ID}}</span></div>
+    <div class="meta-row"><span class="meta-label">Snapshot</span><span class="meta-value mono">{{SNAPSHOT_ID}}</span></div>
+    <div class="meta-row"><span class="meta-label">Series</span><span class="meta-value">{{SERIES_NAME}}</span></div>
+    <div class="meta-row"><span class="meta-label">Canonical Status</span><span class="meta-value">{{CANONICAL_STATUS}}</span></div>
+    <div class="meta-row"><span class="meta-label">Updated</span><span class="meta-value">{{UPDATED_AT}}</span></div>
+
+    <h3>Graph Tags</h3>
+    <div>
+      <span class="tag">{{TAG_TOPICAL_SLOT}}</span>
+      <span class="tag">{{TAG_METHOD_SLOT}}</span>
+      <span class="tag">{{TAG_LAW_SLOT}}</span>
+      <span class="tag">{{TAG_AXIOM_SLOT}}</span>
+      <span class="tag">{{TAG_EPISTEMIC_SLOT}}</span>
+    </div>
+
+    <!-- BEGIN:SECTION:trace-spine data-source-artifact="trace-ledger.csv,seven-qs-proof-packet.json" data-fill="repeat" data-trace-required="true" data-trace-status="missing-span" -->
+    <h3>Trace Spine</h3>
+    <!-- BEGIN:SLOT:trace-spine-item repeat="trace-ledger.csv:spine_summary" -->
+    <div class="spine-item"><div class="spine-header"><span class="spine-name">Forward 7QS</span><span class="spine-status">{{FORWARD_TRACE_STATUS}}</span></div><div class="spine-bar"><div class="fill gold" style="--slot-width:{{FORWARD_TRACE_PERCENT}};"></div></div></div>
+    <div class="spine-item"><div class="spine-header"><span class="spine-name">Reverse</span><span class="spine-status">{{REVERSE_TRACE_STATUS}}</span></div><div class="spine-bar"><div class="fill red" style="--slot-width:{{REVERSE_TRACE_PERCENT}};"></div></div></div>
+    <div class="spine-item"><div class="spine-header"><span class="spine-name">Evidence</span><span class="spine-status">{{EVIDENCE_TRACE_STATUS}}</span></div><div class="spine-bar"><div class="fill blue" style="--slot-width:{{EVIDENCE_TRACE_PERCENT}};"></div></div></div>
+    <div class="spine-item"><div class="spine-header"><span class="spine-name">Dependencies</span><span class="spine-status">{{DEPENDENCY_TRACE_STATUS}}</span></div><div class="spine-bar"><div class="fill violet" style="--slot-width:{{DEPENDENCY_TRACE_PERCENT}};"></div></div></div>
+    <div class="spine-item"><div class="spine-header"><span class="spine-name">Anchors</span><span class="spine-status">{{ANCHOR_TRACE_STATUS}}</span></div><div class="spine-bar"><div class="fill green" style="--slot-width:{{ANCHOR_TRACE_PERCENT}};"></div></div></div>
+    <!-- END:SLOT:trace-spine-item -->
+    <!-- END:SECTION:trace-spine -->
+  </aside>
+</div>
+
+<!-- BEGIN:SECTION:script-behavior data-source-artifact="dom" data-fill="static" -->
+<script>
+document.querySelectorAll('.fw-tab').forEach((tab) => {
+  tab.addEventListener('click', () => {
+    const target = tab.dataset.tab;
+    document.querySelectorAll('.fw-tab').forEach((item) => item.classList.remove('active'));
+    document.querySelectorAll('.packet-tab-panel').forEach((panel) => panel.classList.remove('active'));
+    tab.classList.add('active');
+    const panel = document.getElementById('panel-' + target);
+    if (panel) panel.classList.add('active');
+  });
+});
+</script>
+<!-- END:SECTION:script-behavior -->
+</body>
+</html>

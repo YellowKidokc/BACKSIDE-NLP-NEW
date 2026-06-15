@@ -1,0 +1,42 @@
+{
+  "station_id": "ST-NLP-LLM-001",
+  "name": "llm-runner",
+  "role": "Local raw-weight LLM station",
+  "status": "draft",
+  "category": "nlp",
+  "model_front_door": "X:\\Models\\front-doors\\06_llm_FD\\config.json",
+  "model_path": "X:\\Models\\M06_llm",
+  "inputs": [
+    "prompt",
+    "context_optional"
+  ],
+  "outputs": [
+    "completion_text",
+    "completion_json_optional"
+  ],
+  "notes": [
+    "Do not bypass Ollama unless a workflow requires this raw-weight model."
+  ],
+  "folder_contract": {
+    "exports": [
+      "EXPORTS\\json",
+      "EXPORTS\\markdown",
+      "EXPORTS\\prompt-traces",
+      "EXPORTS\\audit"
+    ],
+    "output": [
+      "OUTPUT\\responses",
+      "OUTPUT\\structured-json",
+      "OUTPUT\\scratch"
+    ],
+    "logs": [
+      "_LOGS\\runs",
+      "_LOGS\\errors"
+    ],
+    "input": [
+      "INPUT\\prompts",
+      "INPUT\\contexts",
+      "INPUT\\rubrics"
+    ]
+  }
+}

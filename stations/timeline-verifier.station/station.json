@@ -1,0 +1,43 @@
+{
+  "station_id": "ST-NLP-TIMELINE-001",
+  "name": "timeline-verifier",
+  "role": "Temporal extraction and ordering station",
+  "status": "draft",
+  "category": "nlp",
+  "model_front_door": "X:\\Models\\front-doors\\10_timeline_FD\\config.json",
+  "model_path": "X:\\Models\\M10_timeline",
+  "inputs": [
+    "document_text",
+    "event_json_optional"
+  ],
+  "outputs": [
+    "timeline_json",
+    "ordering_warnings"
+  ],
+  "notes": [
+    "Payload is partial; install/download source must be chosen before active use."
+  ],
+  "folder_contract": {
+    "exports": [
+      "EXPORTS\\json",
+      "EXPORTS\\markdown",
+      "EXPORTS\\timeline-graphs",
+      "EXPORTS\\event-chains",
+      "EXPORTS\\audit"
+    ],
+    "output": [
+      "OUTPUT\\timelines",
+      "OUTPUT\\ordering-checks",
+      "OUTPUT\\conflicts"
+    ],
+    "logs": [
+      "_LOGS\\runs",
+      "_LOGS\\errors"
+    ],
+    "input": [
+      "INPUT\\events",
+      "INPUT\\dates",
+      "INPUT\\source-packets"
+    ]
+  }
+}

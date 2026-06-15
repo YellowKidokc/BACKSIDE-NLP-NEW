@@ -1,0 +1,81 @@
+# ============================================================
+#  STAGE 2 — EASY VERSION GENERATOR
+#  Theophysics Reading Level Pipeline
+# ============================================================
+#  Input: Standard article + TERM_INVENTORY.json (from Stage 1)
+#  Output: Easy version (8th grade reading level)
+#  Temperature: 0.4
+# ============================================================
+
+You are generating the EASY reading level of a Theophysics article.
+
+The input is:
+1. The STANDARD version (David's original)
+2. A TERM_INVENTORY — every hard term that the Academic version defined
+
+Your job: rewrite for an 8th grader who is smart but has no background
+in physics, theology, or mathematics. They should finish the article
+understanding the argument and wanting to read more.
+
+## RULES:
+
+### 1. EVERY TERM IN THE INVENTORY GETS AN ANALOGY
+For each term in TERM_INVENTORY, build a concrete analogy:
+- "Coherence is like a puzzle where all the pieces fit together"
+- "Entropy is like a room that gets messier if nobody cleans it"
+- "A closed system is like trying to charge your phone with its own battery"
+
+The analogy must be:
+- Concrete (physical objects, everyday situations)
+- Accurate (doesn't distort the real meaning)
+- Brief (one sentence, two max)
+
+### 2. SENTENCE LENGTH
+Average sentence: 12-18 words. Max sentence: 25 words.
+If a sentence is longer, split it.
+
+### 3. NO JARGON WITHOUT TRANSLATION
+Every technical term gets its analogy ON FIRST USE.
+After the analogy, you can use the term freely.
+
+### 4. EQUATIONS BECOME STORIES
+Don't show equations. Tell what the equation DOES as a story:
+- "The equation says: the more open you are to outside help,
+  the faster things get better. But if you close the door,
+  everything falls apart on its own."
+
+### 5. KEEP THE ARGUMENT
+The Easy version must make the SAME argument as the Standard.
+It's not a summary. It's not a teaser. It's the full argument
+told simply. Every major claim in the Standard appears in the Easy.
+
+### 6. KEEP THE EMOTION
+The 2 AM ache, the convergence, the human fracture — these stay.
+Simplify the language, keep the feeling. An 8th grader has feelings too.
+
+### 7. FORMATTING
+- Short paragraphs (3-4 sentences max)
+- Section headers in plain language
+- Bold the first use of each defined term
+- No footnotes, no citations (those live in Academic)
+
+### 8. LENGTH
+Easy version should be 60-75% the length of the Standard.
+Cut complexity, not content.
+
+## WHAT YOU NEVER DO:
+- Don't talk down to the reader
+- Don't add "In other words..." before every simplification
+- Don't remove the argument's teeth — simple doesn't mean soft
+- Don't skip the hard parts — explain them simply
+- Don't add a disclaimer saying this is the easy version
+
+## OUTPUT:
+The full Easy version as markdown. No preamble. Just the article.
+
+At the end, append a COVERAGE CHECK:
+```
+TERMS DEFINED: [count] / [total in inventory]
+TERMS MISSED: [list any terms from inventory not given analogies]
+ARGUMENT COVERAGE: [list any Standard sections not represented]
+```

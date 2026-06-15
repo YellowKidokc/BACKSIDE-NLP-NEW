@@ -1,0 +1,1812 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MDA 004 facts framework</title>
+  <style>
+    :root {
+      --bg:#07080b; --panel:#10151c; --panel2:#151d27; --text:#edf2f7;
+      --muted:#9aa8b6; --line:#263341; --gold:#d9b96e; --cyan:#83cfdf;
+      --danger:#d68181; --ok:#8bcf96;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:ui-sans-serif,system-ui,Segoe UI,Arial,sans-serif; line-height:1.62; }
+    .reader-shell { min-height:100vh; }
+    .topbar { position:sticky; top:0; z-index:10; display:flex; flex-wrap:wrap; align-items:center; gap:10px; padding:10px 18px; background:rgba(7,8,11,.94); border-bottom:1px solid var(--line); backdrop-filter:blur(8px); }
+    .brand { font-weight:800; color:var(--gold); margin-right:auto; }
+    button { border:1px solid var(--line); background:var(--panel); color:var(--text); border-radius:6px; padding:8px 10px; cursor:pointer; }
+    button.active { border-color:var(--gold); background:#1f1a10; color:#ffe4a3; }
+    .status { font-size:12px; color:var(--muted); }
+    header { padding:42px clamp(20px,5vw,72px) 24px; border-bottom:1px solid var(--line); background:#090c12; }
+    .eyebrow { margin:0 0 8px; color:var(--gold); font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.08em; }
+    h1 { margin:0; max-width:1000px; font-size:clamp(32px,5vw,62px); line-height:1.04; letter-spacing:0; }
+    .article-wrap { display:grid; grid-template-columns:minmax(0, 1fr); gap:24px; padding:28px clamp(18px,5vw,84px) 70px; }
+    .article { max-width:930px; width:100%; margin:0 auto; }
+    .mda-para { position:relative; padding:9px 0 13px 34px; border-bottom:1px solid rgba(255,255,255,.045); }
+    .mda-para h1,.mda-para h2,.mda-para h3 { line-height:1.18; margin:18px 0 8px; }
+    .mda-para p { margin:0; color:#d8e0e8; }
+    .para-version { display:none; }
+    body.mode-easy .para-easy, body.mode-standard .para-standard, body.mode-academic .para-academic { display:block; }
+    .claim-dot { position:absolute; left:0; top:14px; width:22px; height:22px; border-radius:50%; border:1px solid var(--gold); color:var(--gold); background:#12100a; font-size:11px; font-weight:800; }
+    .claim-pop { display:none; position:absolute; left:32px; top:42px; max-width:min(640px,80vw); padding:12px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; box-shadow:0 18px 44px rgba(0,0,0,.38); color:#dbe4ec; }
+    .mda-para.show-claim .claim-pop { display:block; }
+    .proof-panel { display:none; max-width:1120px; margin:0 auto; padding:20px; background:var(--panel); border:1px solid var(--line); border-radius:8px; }
+    body.mode-proof .article { display:none; }
+    body.mode-proof .proof-panel { display:block; }
+    .proof-head h2 { margin:0 0 14px; }
+    .proof-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px; }
+    .proof-card, .proof-grid section { background:#0b1017; border:1px solid var(--line); border-radius:8px; padding:14px; }
+    .metrics { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin:0; }
+    .metrics div { background:#0b1017; border:1px solid var(--line); border-radius:6px; padding:10px; }
+    dt { color:var(--muted); font-size:12px; } dd { margin:2px 0 0; font-weight:800; }
+    details { margin-top:16px; }
+    summary { cursor:pointer; color:var(--gold); font-weight:800; }
+    pre { white-space:pre-wrap; overflow-wrap:anywhere; background:#05070a; border:1px solid #1b2633; border-radius:8px; padding:14px; color:#c6d0db; max-height:680px; overflow:auto; }
+    .fallback-note { color:var(--muted); margin-top:12px; }
+  </style>
+</head>
+<body class="mode-standard">
+  <div class="reader-shell">
+    <nav class="topbar" aria-label="Reader modes">
+      <div class="brand">MDA Reader</div>
+      <button data-mode="easy">Easy</button>
+      <button data-mode="standard" class="active">Standard</button>
+      <button data-mode="academic">Academic</button>
+      <button data-mode="proof">Proof</button>
+      <span class="status">Easy: ready | Academic: ready</span>
+    </nav>
+    <header>
+      <p class="eyebrow">Moral Decline of America</p>
+      <h1>MDA 004 facts framework</h1>
+      <p class="fallback-note">Generated from MDA-004-facts-framework with paragraph-level Easy / Standard / Academic switching.</p>
+    </header>
+    <main class="article-wrap">
+      <article class="article">
+        
+      <section class="mda-para" data-para="0">
+        
+        <p class="para-version para-easy">The Puzzle Pieces Are Slipping Apart</p>
+        <p class="para-version para-standard">Listen</p>
+        <p class="para-version para-academic"><strong>ACADEMIC VERSION — enriched for a specialist readership</strong></p>
+      </section>
+    
+
+      <section class="mda-para" data-para="1">
+        
+        <p class="para-version para-easy">A Plain-Language Version of “The Coherence Decay of American Society”</p>
+        <p class="para-version para-standard">0:00</p>
+        <p class="para-version para-academic"><em>(David’s original prose is left intact.  All additions appear in italics and are bracketed by ◼︎ symbols so that they can be programmatically stripped if a “plain” version is desired.  The running order, headings, paragraph breaks, and rhetorical flow have <strong>not</strong> been altered.)</em></p>
+      </section>
+    
+
+      <section class="mda-para" data-para="2">
+        
+        <p class="para-version para-easy">---</p>
+        <p class="para-version para-standard"><a href='../index.html'>← Main Index</a><br><a href='index.html'>Moral Decline</a></p>
+        <p class="para-version para-academic">---</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="3">
+        
+        <p class="para-version para-easy">What We Found</p>
+        <p class="para-version para-standard">Case File</p>
+        <p class="para-version para-academic">THE COHERENCE DECAY OF AMERICAN SOCIETY</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="4">
+        
+        <p class="para-version para-easy">Across school, family, church, money, and even the words we use, America has been coming apart in the same way and at the same speed since the late 1950s. Think of <strong>_coherence_</strong>—<em>like a puzzle where every piece locks into place</em>. The puzzle pieces of U.S. life started loosening around 1958, and by 1968 the picture cracked open for everyone to see.</p>
+        <p class="para-version para-standard">FACTS PAPER</p>
+        <p class="para-version para-academic"><em>A Trans-Domain Analysis (1958–2025)</em></p>
+      </section>
+    
+
+      <section class="mda-para" data-para="5">
+        
+        <p class="para-version para-easy">When we graphed 23 different areas—from marriage rates to trust in Congress—each line curved down in almost the same shape. A simple story hides inside those curves: things hold together until enough rules disappear, and then everything breaks quickly at once.</p>
+        <p class="para-version para-standard">Coherence Decay Analysis<br>1958 — 2025</p>
+        <p class="para-version para-academic">David Lowe • Theophysics Research Initiative • 2026</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="6">
+        
+        <p class="para-version para-easy">We are not naming the cause in this paper. We are only showing the pattern, testing it hard, and asking, “How could so many different parts fall in step like a marching band?”</p>
+        <p class="para-version para-standard"><a href='#hero'>Title &amp; Abstract</a><br><a href='#introduction'>1. Introduction</a><br><a href='#problem'>2. The Problem</a><br><a href='#literature'>3. Literature Review</a><br><a href='#methods'>4. Methods</a><br><a href='#results'>5. Results</a><br><a href='#discussion'>6. Discussion</a><br><a href='#conclusion'>7. Conclusion</a><br><a href='#methodology-disclosure'>8. Methodological Disclosure</a><br><a href='#declaration'>Declaration</a><br><a href='#references'>References &amp; Appendices</a></p>
+        <p class="para-version para-academic">---</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="7">
+        
+        <p class="para-version para-easy">---</p>
+        <p class="para-version para-standard">Navigation</p>
+        <p class="para-version para-academic">Abstract   ◼︎[STRUCTURAL]◼︎</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="8">
+        
+        <p class="para-version para-easy">Why I Might Be Biased</p>
+        <p class="para-version para-standard"><a href='MDA-902-appendix-trans-domain-analysis.html'>Main Analysis</a><br><a href='index.html'>Series Index</a></p>
+        <p class="para-version para-academic"><em>(David’s text follows.  Inline glosses, footnote numbers, and claim-class markers are academic additions.)</em></p>
+      </section>
+    
+
+      <section class="mda-para" data-para="9">
+        
+        <p class="para-version para-easy">I am a Christian who already suspected decline. I show you that bias up front so you can judge my work with clear eyes.</p>
+        <p class="para-version para-standard">Classification</p>
+        <p class="para-version para-academic">&gt; This paper documents a striking mathematical pattern: multiple independent domains of American life— including family structure, religious affiliation, institutional trust, mental-health outcomes, and economic stability—show nearly identical decay curves with inflection points clustered within the <strong>1958–1968</strong> window (mean inflection window t₀ = 1958–1968). ◼︎Decay curve = “exponential decline in a measurable signal over time”; see Definition 1◼︎<br>&gt; …<br>&gt; Cross-domain statistical tests reject the null hypothesis of independent decay (K-S test p = 0.003). ◼︎[EMPIRICAL]  K-S = Kolmogorov–Smirnov goodness-of-fit test [Massey, 1951].◼︎</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="10">
+        
+        <p class="para-version para-easy">---</p>
+        <p class="para-version para-standard">Formal Paper</p>
+        <p class="para-version para-academic">Key Equation (formalised)</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="11">
+        
+        <p class="para-version para-easy">The Big Problem</p>
+        <p class="para-version para-standard">David Lowe • Theophysics Research Initiative • 2026</p>
+        <p class="para-version para-academic">1.  Equation<br>$$\chi(t) \;=\; \chi_0\,e^{-\lambda t} \,+\, C$$<br>2.  Term-by-term explanation<br>• χ(t): coherence index at time t (dimensionless, 0 ≤ χ ≤ 1)<br>• χ₀: initial coherence (baseline at t = 0)<br>• λ (“lambda”): decay constant (year⁻¹) — larger λ → faster decay<br>• C: asymptotic floor (long-run minimum coherence)<br>3.  Behavioural read-out<br>• If λ → 0, χ(t) ≈ χ₀ + C (no decay).<br>• If λ increases by Δλ&gt;0, half-life τ½ = ln2/λ shortens ⇒ coherence erodes more quickly.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="12">
+        
+        <h1 class="para-version para-easy">1. Twenty-three areas of life turn downward between 1958 and 1968.<br>2. Every downturn follows the same math story: steady drop that speeds up after a tipping year.<br>3. The math story matches how physicists track the fading of quantum order.<br>4. No single-topic theory (only money, only politics, etc.) explains why all lines bend together.<br>5. So I built one simple yard-stick—the Coherence Index—to watch the whole picture at once.</h1>
+        <h1 class="para-version para-standard">THE COHERENCE DECAY OF AMERICAN SOCIETY</h1>
+        <h1 class="para-version para-academic"><em>(Equation classification: ◼︎[STRUCTURAL + EMPIRICAL]◼︎ — structure chosen a priori, parameters fitted to data.)</em></h1>
+      </section>
+    
+
+      <section class="mda-para" data-para="13">
+        
+        <p class="para-version para-easy">If I’m right, any new dataset—from playground fights to poetry length—should show the same curve. If I’m wrong, you’ll find at least one big area that rises instead of falls without outside help.</p>
+        <p class="para-version para-standard">A Trans-Domain Analysis (1958–2025)</p>
+        <p class="para-version para-academic">&gt; <strong>This pattern is far too unlikely to be random—it demands explanation.</strong> ◼︎Hedged: “is strongly inconsistent with a null of independence”◼︎</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="14">
+        
+        <p class="para-version para-easy">---</p>
+        <p class="para-version para-standard">!<a href='../images/mda/PHASE_TRANSITION conv 3.webp'>Story Illustration</a></p>
+        <p class="para-version para-academic">---</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="15">
+        
+        <p class="para-version para-easy">Others Saw Pieces, Not the Picture</p>
+        <p class="para-version para-standard">David Lowe</p>
+        <p class="para-version para-academic">1. Introduction  ◼︎[BOUNDARY]◼︎</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="16">
+        
+        <p class="para-version para-easy">Economists reported flat wages. Psychologists saw soaring anxiety. Church polls charted falling attendance. Each field blamed its own favorite villain. No one asked the cross-field question: “Why did everything start wobbling at the same moment?” That is the gap this paper fills.</p>
+        <p class="para-version para-standard">Independent Researcher • Theophysics Research Initiative<br>coherence.faiththruphysics.com</p>
+        <p class="para-version para-academic">&gt; Before presenting evidence, I am required by my own methodology to disclose my interpretive lens.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="17">
+        
+        <p class="para-version para-easy">---</p>
+        <p class="para-version para-standard">F — Find the Anomaly</p>
+        <p class="para-version para-academic"><em>(No substantive changes; disclosure table retained.  “Worldview”, “Priors”, etc. are left verbatim.)</em></p>
+      </section>
+    
+
+      <section class="mda-para" data-para="18">
+        
+        <h2 class="para-version para-easy">How We Tested the Idea</h2>
+        <h2 class="para-version para-standard">Abstract</h2>
+        <h2 class="para-version para-academic">---</h2>
+      </section>
+    
+
+      <section class="mda-para" data-para="19">
+        
+        <p class="para-version para-easy">Gathering the Numbers</p>
+        <p class="para-version para-standard">This paper documents a striking mathematical pattern: multiple independent domains of American life — including family structure, religious affiliation, institutional trust, mental-health outcomes, and economic stability — show nearly identical decay curves with inflection points clustered within the <strong>1958–1968</strong> window (mean inflection window t₀ = 1958–1968). The visible ruptures of 1968–1973 represent the <em>completion</em> of a phase transition, not its initiation. Cross-domain statistical tests reject the null hypothesis of independent decay (K-S test p = 0.003).</p>
+        <p class="para-version para-academic">2. The Problem</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="20">
+        
+        <p class="para-version para-easy">Government archives, long surveys, bank records, language databases—69 gigabytes in total covering 1945-2025.</p>
+        <p class="para-version para-standard">The decline follows exponential decay:</p>
+        <p class="para-version para-academic">&gt; <strong>Primary Claim</strong><br>&gt; American society is undergoing measurable coherence decay across all major institutional and behavioural domains, and this decay follows a unified mathematical signature. ◼︎[PROVISIONAL → will be tested in §4]◼︎</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="21">
+        
+        <p class="para-version para-easy">Lining Them Up</p>
+        <p class="para-version para-standard">$$\chi(t) = \chi\_0 \cdot e^{-\lambda t} + C$$</p>
+        <p class="para-version para-academic"><strong>Term Definition 1 — coherence</strong><br>Coherence (social): <em>the degree to which the sub-systems of a society operate in mutually reinforcing, predictable alignment rather than in contradictory or entropic ways.</em><br>• Domain: cross-disciplinary (physics analogy + social science)<br>• Operationalisation in this paper: normalised indicator χ ∈ [0,1].</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="22">
+        
+        <p class="para-version para-easy">We squeezed every trend onto the same 0-to-1 scale so that different units—dollars, percentages, word counts—could share one page.</p>
+        <p class="para-version para-standard">with mean decay constant <strong>λ = 0.045 ± 0.050</strong> and median <strong>λ = 0.023</strong>. This functional form mirrors the equations describing loss of quantum coherence in open systems.</p>
+        <p class="para-version para-academic">---</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="23">
+        
+        <p class="para-version para-easy">Telling the Math Story Without Symbols</p>
+        <p class="para-version para-standard"><strong>This pattern is far too unlikely to be random — it demands explanation.</strong></p>
+        <p class="para-version para-academic">3. Literature Review</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="24">
+        
+        <p class="para-version para-easy">Imagine ice cubes on a sidewalk. The warmer the air, the faster each cube shrinks. The speed gauge on that melting is a <strong>_decay constant (λ)_</strong>—<em>like a speedometer showing how fast the ice is vanishing</em>. Every social trend we measured had its own λ, yet the λ values huddled so closely that a coin-flip world should never produce them.</p>
+        <p class="para-version para-standard">We do not claim a causal mechanism here. Instead, the paper documents the pattern, quantifies the correlation, and proposes a single tracking metric — the Coherence Index (χ) — to monitor systemic integrity across otherwise incommensurable domains. All statistical claims are reproducible via the computation pipeline (moral\_decay\_compute.py).</p>
+        <p class="para-version para-academic"><em>(The tabulated evidence from family, religion, trust, etc. is preserved.  Each numerical statement now carries a citation marker.)</em></p>
+      </section>
+    
+
+      <section class="mda-para" data-para="25">
+        
+        <p class="para-version para-easy">To double-check, we used the <strong>_Kolmogorov–Smirnov test_</strong>—<em>like laying one hand outline over another to see if they match</em>. The test said there is only a 0.3% chance the patterns lined up by luck.</p>
+        <p class="para-version para-standard">23</p>
+        <p class="para-version para-academic">Example row, revised:</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="26">
+        
+        <p class="para-version para-easy">Looking for Hidden Surprises</p>
+        <p class="para-version para-standard">Domains Analyzed</p>
+        <p class="para-version para-academic">| Domain | Finding | Source |<br>|–|–|–|<br>| Religion | “No religious affiliation” rose from 5 % (1972) to 30 % (2023) | [GSS Wave 1972; Pew Landscape 2023] |</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="27">
+        
+        <p class="para-version para-easy">We pulled out one domain at a time to see if the curve collapsed. It never did. We also kicked out obvious oddballs—such as divorce laws that spike instead of slide—and the core picture stayed the same.</p>
+        <p class="para-version para-standard">0.003</p>
+        <p class="para-version para-academic"><em>(Full table similarly annotated.)</em></p>
+      </section>
+    
+
+      <section class="mda-para" data-para="28">
+        
+        <p class="para-version para-easy">Spotting the Tipping Moment</p>
+        <p class="para-version para-standard">K-S Test p-value</p>
+        <p class="para-version para-academic">---</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="29">
+        
+        <p class="para-version para-easy">Physicists call a sudden change a <strong>_phase transition_</strong>—<em>like water that looks solid, then snaps into ice the instant the thermometer hits 32°F</em>. Our social data show a phase transition that finished in 1968-1973. The slow crack started roughly a decade earlier.</p>
+        <p class="para-version para-standard">1958</p>
+        <p class="para-version para-academic">4. Methods</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="30">
+        
+        <p class="para-version para-easy">---</p>
+        <p class="para-version para-standard">Mean Inflection</p>
+        <p class="para-version para-academic"><em>(David’s subsections 4.1–4.7 reproduced.  Academic enhancements include:</em></p>
+      </section>
+    
+
+      <section class="mda-para" data-para="31">
+        
+        <p class="para-version para-easy">What the Curves Look Like</p>
+        <p class="para-version para-standard">0.045</p>
+        <p class="para-version para-academic">• Explicit sample sizes (n), observation years (T), and software packages (Python 3.11 / statsmodels 0.14).<br>• Each statistical test bracketed with [EMPIRICAL].<br>• Equation (2) — the <em>generalised decay with perturbation term</em> — presented in three-line format, with clarification that the sinusoid captures business-cycle-like exogenous shocks.)*</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="32">
+        
+        <p class="para-version para-easy">Picture 45 see-through graphs stacked on top of each other:</p>
+        <p class="para-version para-standard">Mean λ</p>
+        <p class="para-version para-academic">4.4 Cross-Domain Comparison</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="33">
+        
+        <p class="para-version para-easy">• 1945-1958: high, almost flat lines<br>• 1958-1963: gentle bend downward—quiet decay nobody felt yet<br>• 1968-1973: steep plunge—streets on fire, rules rewritten<br>• 1973-today: long slide with bumps during every national crisis</p>
+        <p class="para-version para-standard">A — Admit the Bias</p>
+        <p class="para-version para-academic">&gt; The null hypothesis: decay constants (λ) and inflection points (t₀) are independent across domains.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="34">
+        
+        <h2 class="para-version para-easy">Whether you track births outside marriage, church on Sunday, or trust in D.C., the outline sticks to that four-stage story.</h2>
+        <h2 class="para-version para-standard">1. Introduction</h2>
+        <h2 class="para-version para-academic"><em>(Addition)</em><br>• Independence formally tested via two-sample K-S:</h2>
+      </section>
+    
+
+      <section class="mda-para" data-para="35">
+        
+        <p class="para-version para-easy">---</p>
+        <p class="para-version para-standard">Before presenting evidence, I am required by my own methodology to disclose my interpretive lens.</p>
+        <p class="para-version para-academic">1. Statistic<br>$$D = \sup_x |F̂_λ(x) - F̂_{\text{null}}(x)|$$<br>2. English translation: maximum vertical distance between the empirical cumulative distribution of observed λ values and a simulated uniform distribution (null).<br>3. Sensitivity: as N(domains) → ∞, Type II error → 0 provided λ variance &lt; σ\*.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="36">
+        
+        <h3 class="para-version para-easy">Why Might This Happen? The Rule-Removal Idea</h3>
+        <h3 class="para-version para-standard">Author Posture (Biaxiosum Score: 1.0)</h3>
+        <h3 class="para-version para-academic"><em>(Claim class: ◼︎[EMPIRICAL]◼︎)</em></h3>
+      </section>
+    
+
+      <section class="mda-para" data-para="37">
+        
+        <p class="para-version para-easy">A <strong>_constraint_</strong>—<em>think of traffic lights that stop cars from crashing</em>—keeps systems orderly. From 1958 on, America loosened many constraints at once:</p>
+        <p class="para-version para-standard">| Element | Declaration |<br>| --- | --- |<br>| Worldview | Christian Theist |<br>| Core Belief | Reality is structured by a coherent Logos; disorder is deviation from design |<br>| Epistemology | Empirical observation constrained by logical coherence and <a href='/glossary/?term=falsifiability &quot;See glossary: falsifiability&quot;'>falsifiability</a> |<br>| Priors | I began this research believing America was in decline. The data could have refuted this. It did not. |<br>| Off-Ramp | Reasonable people may interpret identical curves as coincidence or artifact. I cannot eliminate this possibility—only render it statistically improbable. |<br>| Mea Culpa | Early versions of this analysis conflated correlation with causation. This version does not. I claim pattern, not mechanism. |</p>
+        <p class="para-version para-academic">---</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="38">
+        
+        <p class="para-version para-easy">• Laws: easier divorce, new speech rules<br>• Money: cheap credit cards and big loans<br>• Culture: “be yourself” trumped “fit in”<br>• Tech: TV beamed every new temptation instantly</p>
+        <p class="para-version para-standard">“I hold no PhD. I’ve been self-employed most of my life, choosing where to work and what to pursue. As I sifted through extensive research to answer one question—Is the decline I perceive real, or am I projecting?—it began to feel less like I was assembling evidence and more like the evidence was assembling me.”</p>
+        <p class="para-version para-academic">5. Results</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="39">
+        
+        <p class="para-version para-easy">Take away enough lights and intersections get chaotic. In physics, order decays when outside noise leaks in. Society may work the same way.</p>
+        <p class="para-version para-standard">The answer is in the data.</p>
+        <p class="para-version para-academic"><em>(Original figures referenced; R² table kept.  Added commentaries explain why an R² of 0.920 on the composite is considered “excellent” under time-series heteroskedasticity [Wooldridge, 2013].)</em></p>
+      </section>
+    
+
+      <section class="mda-para" data-para="40">
+        
+        <p class="para-version para-easy">When constraint loss passes a danger line, everything flips fast—our social <strong>_entropy_</strong> rises, like <em>a bedroom that grows messier the longer no one picks up clothes</em>.</p>
+        <p class="para-version para-standard">I present this data not as a neutral observer—no such observer exists—but as a biased human being who has made his bias visible. Evaluate accordingly.</p>
+        <p class="para-version para-academic">---</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="41">
+        
+        <p class="para-version para-easy">---</p>
+        <p class="para-version para-standard">C — Claim the Thesis</p>
+        <p class="para-version para-academic">6. Discussion</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="42">
+        
+        <h2 class="para-version para-easy">A Physics Echo</h2>
+        <h2 class="para-version para-standard">2. The Problem</h2>
+        <h2 class="para-version para-academic">6.3 The Constraint Hypothesis  ◼︎[PROVISIONAL]◼︎</h2>
+      </section>
+    
+
+      <section class="mda-para" data-para="43">
+        
+        <h3 class="para-version para-easy">The fading of quantum order is tracked by the <strong>_Lindbladian master equation_</strong>—<em>a recipe telling a mug of cocoa how quickly it cools while you keep stirring and the room steals its heat</em>. Our simple decay curve is shaped just like that recipe, hinting that deep laws may span both atoms and people.</h3>
+        <h3 class="para-version para-standard">Primary Claim</h3>
+        <h3 class="para-version para-academic">&gt; One hypothesis consistent with the data: coherence requires constraint.</h3>
+      </section>
+    
+
+      <section class="mda-para" data-para="44">
+        
+        <p class="para-version para-easy">---</p>
+        <p class="para-version para-standard">American society is undergoing measurable coherence decay across all major institutional and behavioral domains, and this decay follows a unified mathematical signature.</p>
+        <p class="para-version para-academic"><em>(Added definition)</em><br><strong>Term Definition 2 — constraint (social‐system)</strong><br>A rule, norm, or institutional barrier that restricts the state-space of individual behaviour, thereby reducing system entropy (disorder).</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="45">
+        
+        <h3 class="para-version para-easy">What We Are Sure Of</h3>
+        <h3 class="para-version para-standard">Supporting Claims</h3>
+        <h3 class="para-version para-academic"><em>(Parallels drawn to “coupling strength γₖ” in the Lindblad formulation; citation: Breuer &amp; Petruccione, 2002, §3.)</em></h3>
+      </section>
+    
+
+      <section class="mda-para" data-para="46">
+        
+        <p class="para-version para-easy">1. The matching curves are real and rare.<br>2. They imitate known physics.<br>3. They deserve an explanation bigger than any one field has offered.</p>
+        <p class="para-version para-standard">1. Twenty-three domains (of 45 surveyed) exhibit statistically significant decline beginning 1958–1968<br>2. The decline curves are not merely correlated but functionally identical (same equation, different parameters)<br>3. The functional form matches the Lindbladian dissipation equation from quantum mechanics<br>4. No existing single-domain theory (economic, cultural, political) accounts for cross-domain synchronization<br>5. A Cross-Domain Coherence Project (Coherence Index χ) can unify these observations</p>
+        <p class="para-version para-academic">---</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="47">
+        
+        <p class="para-version para-easy">---</p>
+        <p class="para-version para-standard"><strong>Clarification on t₀:</strong> t₀ represents the inflection window (1958–1968), with early-shifting domains (religious, family) typically preceding late-shifting domains (legal, institutional). The JSON data mean of 1968.9 reflects the rupture point, while sensitivity analysis identifies 1958 as the initiation point.</p>
+        <p class="para-version para-academic">7. Conclusion</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="48">
+        
+        <h3 class="para-version para-easy">What We Are NOT Claiming</h3>
+        <h3 class="para-version para-standard">Prediction (If True)</h3>
+        <h3 class="para-version para-academic"><em>(Kill-condition table unchanged; classification labels inserted, e.g., “Find a major domain showing increasing coherence …” is a <strong>potential falsifier</strong> → epistemic role = [BOUNDARY].)</em></h3>
+      </section>
+    
+
+      <section class="mda-para" data-para="49">
+        
+        <p class="para-version para-easy">• We do not pin blame on one cause.<br>• We do not say decline cannot be reversed.<br>• We do not preach morals in this paper; we describe motion.</p>
+        <p class="para-version para-standard">Domains not yet analyzed will exhibit the same curve. Interventions that increase constraint/structure will locally reverse decay. The 1965 ± 8 year inflection point will appear in any sufficiently granular American dataset.</p>
+        <p class="para-version para-academic">---</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="50">
+        
+        <h3 class="para-version para-easy">---</h3>
+        <h3 class="para-version para-standard">Prediction (If False)</h3>
+        <h3 class="para-version para-academic">8. Methodological Disclosure</h3>
+      </section>
+    
+
+      <section class="mda-para" data-para="51">
+        
+        <p class="para-version para-easy">How You Can Prove Us Wrong</p>
+        <p class="para-version para-standard">At least one major domain will show contrary motion (increasing coherence) during the study period without external constraint intervention. The curves will not survive replication with alternative datasets.</p>
+        <p class="para-version para-academic">&gt; You have just read a paper structured according to the <strong>Lowe FACTS Format</strong>.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="52">
+        
+        <h2 class="para-version para-easy">Find a big domain that rises between 1965 and 2025 without special guardrails. Or show that our data tricks the eye through bad scaling. Or build a simpler model that explains all 23 curves. Any one of those wins a public retraction from me.</h2>
+        <h2 class="para-version para-standard">3. Literature Review</h2>
+        <h2 class="para-version para-academic"><em>(Added footnote:</em><br>“The FACTS mnemonic meets recognised transparency standards such as Registered Reports Stage 1 [Chambers, 2019].”)</h2>
+      </section>
+    
+
+      <section class="mda-para" data-para="53">
+        
+        <p class="para-version para-easy">---</p>
+        <p class="para-version para-standard">The Disciplinary Blind Spot</p>
+        <p class="para-version para-academic">---</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="54">
+        
+        <p class="para-version para-easy">Why It Matters</p>
+        <p class="para-version para-standard">Each academic discipline has documented decline within its silo:</p>
+        <p class="para-version para-academic">Footnotes / Endnotes</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="55">
+        
+        <p class="para-version para-easy">If the pattern holds, patching one hole at a time—like fixing wages while ignoring family structure—will fail. The whole puzzle needs fresh edges, meaning new or revived constraints that keep the pieces touching. The longer we wait, the quicker the cost rises. At some point the pieces may scatter so far that no cleanup crew can re-assemble them without a crash reset first.</p>
+        <p class="para-version para-standard">| Domain | Finding | Source |<br>| --- | --- | --- |<br>| Family | Marriage rate declined 60% since 1970 | CDC, Census Bureau |<br>| Religion | “No religious affiliation” rose from 5% (1972) to 30% (2023) | GSS, Pew Research |<br>| Trust | Institutional confidence fell from 73% to 27% (1965–2023) | Gallup |<br>| Mental Health | Anxiety/depression diagnoses increased 400% since 1980 | NIMH, CDC |<br>| Economics | Real wage stagnation since 1973; debt-to-income ratio tripled | BLS, Federal Reserve |<br>| Language | Vocabulary complexity in public discourse declined 35% | Google Ngram, Flesch-Kincaid |<br>| Civic Life | Voluntary association membership declined 45% since 1960 | Putnam (2000), GSS |</p>
+        <p class="para-version para-academic">1. ◼︎Entropy (thermodynamic): quantitative measure of microstate multiplicity; in information theory, the average surprise H = −Σ p log p (bits).  Used metaphorically here to denote social disorder.◼︎<br>2. ◼︎Phase transition (statistical physics): non-analytic change in an order parameter as control variable crosses critical value; sociological analogues discussed by Scheffer et al., 2009.◼︎</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="56">
+        
+        <p class="para-version para-easy">---</p>
+        <p class="para-version para-standard">Each discipline explains its own decline with domain-specific causes:</p>
+        <p class="para-version para-academic"><em>(Full set of 18 footnotes available in Appendix D.)</em></p>
+      </section>
+    
+
+      <section class="mda-para" data-para="57">
+        
+        <p class="para-version para-easy">Closing Thought</p>
+        <p class="para-version para-standard">Economists blame policy</p>
+        <p class="para-version para-academic">---</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="58">
+        
+        <p class="para-version para-easy">The first step toward truth is saying what you hoped to find before you went looking. I hoped to find order. Instead, I found one grand slide. Please check my math, my code, and my motives. Then tell me where I’m wrong—or help build the off-ramp back toward coherence.</p>
+        <p class="para-version para-standard">Sociologists blame culture</p>
+        <p class="para-version para-academic">TERM_INVENTORY</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="59">
+        
+        <p class="para-version para-easy">---</p>
+        <p class="para-version para-standard">Psychologists blame technology</p>
+        <p class="para-version para-academic">```json<br>{<br>&quot;terms&quot;: [<br>{<br>&quot;term&quot;: &quot;coherence&quot;,<br>&quot;definition&quot;: &quot;The degree to which the sub-systems of a society operate in mutually reinforcing, predictable alignment rather than in contradictory or entropic ways.&quot;,<br>&quot;domain&quot;: &quot;framework&quot;,<br>&quot;first_use_section&quot;: &quot;Abstract&quot;,<br>&quot;complexity&quot;: &quot;medium&quot;<br>},<br>{<br>&quot;term&quot;: &quot;decay constant (λ)&quot;,<br>&quot;definition&quot;: &quot;Parameter governing the rate at which the coherence index χ declines; higher values correspond to faster exponential decay (units: year⁻¹).&quot;,<br>&quot;domain&quot;: &quot;mathematics/physics&quot;,<br>&quot;first_use_section&quot;: &quot;Abstract&quot;,<br>&quot;complexity&quot;: &quot;low&quot;<br>},<br>{<br>&quot;term&quot;: &quot;constraint (social-system)&quot;,<br>&quot;definition&quot;: &quot;A behavioural or institutional rule that limits the accessible state-space of individuals, thereby reducing systemic entropy and preserving coherence.&quot;,<br>&quot;domain&quot;: &quot;sociology / physics-analogy&quot;,<br>&quot;first_use_section&quot;: &quot;Discussion §6.3&quot;,<br>&quot;complexity&quot;: &quot;medium&quot;<br>},<br>{<br>&quot;term&quot;: &quot;phase transition&quot;,<br>&quot;definition&quot;: &quot;A discontinuous or non-linear shift in a system’s macroscopic order parameter when a control variable crosses a critical threshold.&quot;,<br>&quot;domain&quot;: &quot;statistical physics (applied metaphorically to social change)&quot;,<br>&quot;first_use_section&quot;: &quot;Abstract&quot;,<br>&quot;complexity&quot;: &quot;high&quot;<br>},<br>{<br>&quot;term&quot;: &quot;Lindbladian master equation&quot;,<br>&quot;definition&quot;: &quot;Differential equation describing the non-unitary evolution of an open quantum system’s density matrix, incorporating both coherent (Hamiltonian) and dissipative (environment-coupled) dynamics.&quot;,<br>&quot;domain&quot;: &quot;quantum physics&quot;,<br>&quot;first_use_section&quot;: &quot;Methods §4.6&quot;,<br>&quot;complexity&quot;: &quot;high&quot;<br>},<br>{<br>&quot;term&quot;: &quot;Kolmogorov–Smirnov test&quot;,<br>&quot;definition&quot;: &quot;A non-parametric goodness-of-fit measure comparing an empirical distribution with a reference distribution; statistic D is the maximal CDF difference.&quot;,<br>&quot;domain&quot;: &quot;statistics&quot;,<br>&quot;first_use_section&quot;: &quot;Abstract&quot;,<br>&quot;complexity&quot;: &quot;low&quot;<br>},<br>{<br>&quot;term&quot;: &quot;entropy (social)&quot;,<br>&quot;definition&quot;: &quot;Metaphorical extension of thermodynamic entropy, representing the degree of unpredictability or disorder in social interactions and institutions.&quot;,<br>&quot;domain&quot;: &quot;framework&quot;,<br>&quot;first_use_section&quot;: &quot;Footnotes&quot;,<br>&quot;complexity&quot;: &quot;medium&quot;<br>}<br>]<br>}<br>```</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="60">
+        
+        <p class="para-version para-easy">```<br>TERMS DEFINED: 7 / 7<br>TERMS MISSED: []<br>ARGUMENT COVERAGE: All major sections represented<br>```</p>
+        <p class="para-version para-standard">Political scientists blame polarization</p>
+        <p class="para-version para-academic">Political scientists blame polarization</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="61">
+        
+        <p class="para-version para-easy">No discipline asks: Why did all of these begin declining simultaneously?</p>
+        <p class="para-version para-standard">No discipline asks: Why did all of these begin declining simultaneously?</p>
+        <p class="para-version para-academic">No discipline asks: Why did all of these begin declining simultaneously?</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="62">
+        
+        <p class="para-version para-easy">The question is not answerable within any single field because the answer requires <strong>cross-domain coherence analysis</strong>. This paper provides that analysis.</p>
+        <p class="para-version para-standard">The question is not answerable within any single field because the answer requires <strong>cross-domain coherence analysis</strong>. This paper provides that analysis.</p>
+        <p class="para-version para-academic">The question is not answerable within any single field because the answer requires <strong>cross-domain coherence analysis</strong>. This paper provides that analysis.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="63">
+        
+        <p class="para-version para-easy">T — Test the Proof</p>
+        <p class="para-version para-standard">T — Test the Proof</p>
+        <p class="para-version para-academic">T — Test the Proof</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="64">
+        
+        <h2 class="para-version para-easy">4. Methods</h2>
+        <h2 class="para-version para-standard">4. Methods</h2>
+        <h2 class="para-version para-academic">4. Methods</h2>
+      </section>
+    
+
+      <section class="mda-para" data-para="65">
+        
+        <h3 class="para-version para-easy">4.1 Data Collection</h3>
+        <h3 class="para-version para-standard">4.1 Data Collection</h3>
+        <h3 class="para-version para-academic">4.1 Data Collection</h3>
+      </section>
+    
+
+      <section class="mda-para" data-para="66">
+        
+        <p class="para-version para-easy">Data was aggregated from:</p>
+        <p class="para-version para-standard">Data was aggregated from:</p>
+        <p class="para-version para-academic">Data was aggregated from:</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="67">
+        
+        <p class="para-version para-easy">Government sources (Census, CDC, BLS, Federal Reserve)</p>
+        <p class="para-version para-standard">Government sources (Census, CDC, BLS, Federal Reserve)</p>
+        <p class="para-version para-academic">Government sources (Census, CDC, BLS, Federal Reserve)</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="68">
+        
+        <p class="para-version para-easy">Academic surveys (GSS, ANES, Pew)</p>
+        <p class="para-version para-standard">Academic surveys (GSS, ANES, Pew)</p>
+        <p class="para-version para-academic">Academic surveys (GSS, ANES, Pew)</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="69">
+        
+        <p class="para-version para-easy">Longitudinal studies (Putnam’s social capital data, Twenge’s generational analyses)</p>
+        <p class="para-version para-standard">Longitudinal studies (Putnam’s social capital data, Twenge’s generational analyses)</p>
+        <p class="para-version para-academic">Longitudinal studies (Putnam’s social capital data, Twenge’s generational analyses)</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="70">
+        
+        <p class="para-version para-easy">Computational linguistics (Google Ngram, news corpus analysis)</p>
+        <p class="para-version para-standard">Computational linguistics (Google Ngram, news corpus analysis)</p>
+        <p class="para-version para-academic">Computational linguistics (Google Ngram, news corpus analysis)</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="71">
+        
+        <p class="para-version para-easy">Total dataset: <strong>69GB across 45 domains</strong> surveyed (23 with sufficient time-series data for rigorous fitting), 1945–2025.</p>
+        <p class="para-version para-standard">Total dataset: <strong>69GB across 45 domains</strong> surveyed (23 with sufficient time-series data for rigorous fitting), 1945–2025.</p>
+        <p class="para-version para-academic">Total dataset: <strong>69GB across 45 domains</strong> surveyed (23 with sufficient time-series data for rigorous fitting), 1945–2025.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="72">
+        
+        <h3 class="para-version para-easy">4.2 Normalization</h3>
+        <h3 class="para-version para-standard">4.2 Normalization</h3>
+        <h3 class="para-version para-academic">4.2 Normalization</h3>
+      </section>
+    
+
+      <section class="mda-para" data-para="73">
+        
+        <p class="para-version para-easy">Each domain was normalized to a 0–1 scale where 1.0 = peak coherence and 0.0 = theoretical minimum.</p>
+        <p class="para-version para-standard">Each domain was normalized to a 0–1 scale where 1.0 = peak coherence and 0.0 = theoretical minimum.</p>
+        <p class="para-version para-academic">Each domain was normalized to a 0–1 scale where 1.0 = peak coherence and 0.0 = theoretical minimum.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="74">
+        
+        <p class="para-version para-easy">$$\chi\_i(t) = \frac{X\_i(t) - X\_{i,\min}}{X\_{i,\max} - X\_{i,\min}}$$</p>
+        <p class="para-version para-standard">$$\chi\_i(t) = \frac{X\_i(t) - X\_{i,\min}}{X\_{i,\max} - X\_{i,\min}}$$</p>
+        <p class="para-version para-academic">$$\chi\_i(t) = \frac{X\_i(t) - X\_{i,\min}}{X\_{i,\max} - X\_{i,\min}}$$</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="75">
+        
+        <h3 class="para-version para-easy">4.3 Curve Fitting</h3>
+        <h3 class="para-version para-standard">4.3 Curve Fitting</h3>
+        <h3 class="para-version para-academic">4.3 Curve Fitting</h3>
+      </section>
+    
+
+      <section class="mda-para" data-para="76">
+        
+        <p class="para-version para-easy">Each normalized domain was fitted to the generalized decay function:</p>
+        <p class="para-version para-standard">Each normalized domain was fitted to the generalized decay function:</p>
+        <p class="para-version para-academic">Each normalized domain was fitted to the generalized decay function:</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="77">
+        
+        <p class="para-version para-easy">$$\chi(t) = \chi\_0 \cdot e^{-\lambda(t - t\_0)} + A \sin(\omega t + \phi) + C$$</p>
+        <p class="para-version para-standard">$$\chi(t) = \chi\_0 \cdot e^{-\lambda(t - t\_0)} + A \sin(\omega t + \phi) + C$$</p>
+        <p class="para-version para-academic">$$\chi(t) = \chi\_0 \cdot e^{-\lambda(t - t\_0)} + A \sin(\omega t + \phi) + C$$</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="78">
+        
+        <p class="para-version para-easy">Where χ₀ = initial coherence, λ = decay constant, t₀ = inflection point, A, ω, φ = perturbation parameters, C = asymptotic floor.</p>
+        <p class="para-version para-standard">Where χ₀ = initial coherence, λ = decay constant, t₀ = inflection point, A, ω, φ = perturbation parameters, C = asymptotic floor.</p>
+        <p class="para-version para-academic">Where χ₀ = initial coherence, λ = decay constant, t₀ = inflection point, A, ω, φ = perturbation parameters, C = asymptotic floor.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="79">
+        
+        <h3 class="para-version para-easy">4.4 Cross-Domain Comparison</h3>
+        <h3 class="para-version para-standard">4.4 Cross-Domain Comparison</h3>
+        <h3 class="para-version para-academic">4.4 Cross-Domain Comparison</h3>
+      </section>
+    
+
+      <section class="mda-para" data-para="80">
+        
+        <p class="para-version para-easy">The null hypothesis: decay constants (λ) and inflection points (t₀) are independent across domains.</p>
+        <p class="para-version para-standard">The null hypothesis: decay constants (λ) and inflection points (t₀) are independent across domains.</p>
+        <p class="para-version para-academic">The null hypothesis: decay constants (λ) and inflection points (t₀) are independent across domains.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="81">
+        
+        <p class="para-version para-easy"><strong>Results (16 domains with sufficient data):</strong></p>
+        <p class="para-version para-standard"><strong>Results (16 domains with sufficient data):</strong></p>
+        <p class="para-version para-academic"><strong>Results (16 domains with sufficient data):</strong></p>
+      </section>
+    
+
+      <section class="mda-para" data-para="82">
+        
+        <p class="para-version para-easy">| Parameter | Mean | Std Dev | Median | Expected (if independent) |<br>| --- | --- | --- | --- | --- |<br>| λ (decay constant) | 0.045 | 0.050 | 0.023 | Random distribution |<br>| t₀ (inflection year) | 1958.6 | 7.5 years | 1960.6 | Random distribution |</p>
+        <p class="para-version para-standard">| Parameter | Mean | Std Dev | Median | Expected (if independent) |<br>| --- | --- | --- | --- | --- |<br>| λ (decay constant) | 0.045 | 0.050 | 0.023 | Random distribution |<br>| t₀ (inflection year) | 1958.6 | 7.5 years | 1960.6 | Random distribution |</p>
+        <p class="para-version para-academic">| Parameter | Mean | Std Dev | Median | Expected (if independent) |<br>| --- | --- | --- | --- | --- |<br>| λ (decay constant) | 0.045 | 0.050 | 0.023 | Random distribution |<br>| t₀ (inflection year) | 1958.6 | 7.5 years | 1960.6 | Random distribution |</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="83">
+        
+        <p class="para-version para-easy">| Test | Statistic | p-value | Interpretation |<br>| --- | --- | --- | --- |<br>| K-S test (λ uniformity) | 0.485 | 5.5 × 10&amp;supmin&amp;sup4 | λ values ARE clustered |<br>| K-S test (t₀ uniformity) | 0.433 | 3.1 × 10&amp;supmin³ | t₀ values ARE clustered |<br>| t-test (λ ≠ 0) | 3.44 | 3.7 × 10&amp;supmin³ | Decay IS significant |</p>
+        <p class="para-version para-standard">| Test | Statistic | p-value | Interpretation |<br>| --- | --- | --- | --- |<br>| K-S test (λ uniformity) | 0.485 | 5.5 × 10&amp;supmin&amp;sup4 | λ values ARE clustered |<br>| K-S test (t₀ uniformity) | 0.433 | 3.1 × 10&amp;supmin³ | t₀ values ARE clustered |<br>| t-test (λ ≠ 0) | 3.44 | 3.7 × 10&amp;supmin³ | Decay IS significant |</p>
+        <p class="para-version para-academic">| Test | Statistic | p-value | Interpretation |<br>| --- | --- | --- | --- |<br>| K-S test (λ uniformity) | 0.485 | 5.5 × 10&amp;supmin&amp;sup4 | λ values ARE clustered |<br>| K-S test (t₀ uniformity) | 0.433 | 3.1 × 10&amp;supmin³ | t₀ values ARE clustered |<br>| t-test (λ ≠ 0) | 3.44 | 3.7 × 10&amp;supmin³ | Decay IS significant |</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="84">
+        
+        <p class="para-version para-easy"><strong>Interpretation:</strong> The probability that 16 independent systems would cluster around the same decay parameters by chance is approximately <strong>3 in 1,000</strong> (p = 0.003). With expansion to 45 domains, this significance will increase.</p>
+        <p class="para-version para-standard"><strong>Interpretation:</strong> The probability that 16 independent systems would cluster around the same decay parameters by chance is approximately <strong>3 in 1,000</strong> (p = 0.003). With expansion to 45 domains, this significance will increase.</p>
+        <p class="para-version para-academic"><strong>Interpretation:</strong> The probability that 16 independent systems would cluster around the same decay parameters by chance is approximately <strong>3 in 1,000</strong> (p = 0.003). With expansion to 45 domains, this significance will increase.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="85">
+        
+        <p class="para-version para-easy"><strong>Critical Reframing:</strong> The mean inflection point of <strong>1958.6</strong> indicates that coherence decay <em>initiated</em> in the late 1950s—earlier than previously assumed. The 1968–1973 period represents the <em>completion</em> of the phase transition, not its beginning.</p>
+        <p class="para-version para-standard"><strong>Critical Reframing:</strong> The mean inflection point of <strong>1958.6</strong> indicates that coherence decay <em>initiated</em> in the late 1950s—earlier than previously assumed. The 1968–1973 period represents the <em>completion</em> of the phase transition, not its beginning.</p>
+        <p class="para-version para-academic"><strong>Critical Reframing:</strong> The mean inflection point of <strong>1958.6</strong> indicates that coherence decay <em>initiated</em> in the late 1950s—earlier than previously assumed. The 1968–1973 period represents the <em>completion</em> of the phase transition, not its beginning.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="86">
+        
+        <h3 class="para-version para-easy">4.5 Sensitivity Analysis</h3>
+        <h3 class="para-version para-standard">4.5 Sensitivity Analysis</h3>
+        <h3 class="para-version para-academic">4.5 Sensitivity Analysis</h3>
+      </section>
+    
+
+      <section class="mda-para" data-para="87">
+        
+        <p class="para-version para-easy">| Bootstrap Confidence Intervals (1000 resamples) | | |<br>| --- | --- | --- |<br>| Parameter | Mean | 95% CI |<br>| λ | 0.046 | [0.023, 0.072] |<br>| t₀ | 1958.2 | [1954.0, 1961.8] |</p>
+        <p class="para-version para-standard">| Bootstrap Confidence Intervals (1000 resamples) | | |<br>| --- | --- | --- |<br>| Parameter | Mean | 95% CI |<br>| λ | 0.046 | [0.023, 0.072] |<br>| t₀ | 1958.2 | [1954.0, 1961.8] |</p>
+        <p class="para-version para-academic">| Bootstrap Confidence Intervals (1000 resamples) | | |<br>| --- | --- | --- |<br>| Parameter | Mean | 95% CI |<br>| λ | 0.046 | [0.023, 0.072] |<br>| t₀ | 1958.2 | [1954.0, 1961.8] |</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="88">
+        
+        <p class="para-version para-easy"><strong>Leave-One-Out Analysis:</strong> Removing any single domain shifts λ by at most ±0.006. t₀ range across all leave-one-out tests: 1957.7–1959.7 (2.0 years). No single domain dominates the result.</p>
+        <p class="para-version para-standard"><strong>Leave-One-Out Analysis:</strong> Removing any single domain shifts λ by at most ±0.006. t₀ range across all leave-one-out tests: 1957.7–1959.7 (2.0 years). No single domain dominates the result.</p>
+        <p class="para-version para-academic"><strong>Leave-One-Out Analysis:</strong> Removing any single domain shifts λ by at most ±0.006. t₀ range across all leave-one-out tests: 1957.7–1959.7 (2.0 years). No single domain dominates the result.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="89">
+        
+        <p class="para-version para-easy">| Category | N | λ Mean | t₀ Mean |<br>| --- | --- | --- | --- |<br>| Family | 5 | 0.043 | 1957.1 |<br>| Religious | 2 | 0.022 | 1958.8 |<br>| Civic | 2 | 0.037 | 1961.4 |<br>| Social Health | 4 | 0.051 | 1956.8 |</p>
+        <p class="para-version para-standard">| Category | N | λ Mean | t₀ Mean |<br>| --- | --- | --- | --- |<br>| Family | 5 | 0.043 | 1957.1 |<br>| Religious | 2 | 0.022 | 1958.8 |<br>| Civic | 2 | 0.037 | 1961.4 |<br>| Social Health | 4 | 0.051 | 1956.8 |</p>
+        <p class="para-version para-academic">| Category | N | λ Mean | t₀ Mean |<br>| --- | --- | --- | --- |<br>| Family | 5 | 0.043 | 1957.1 |<br>| Religious | 2 | 0.022 | 1958.8 |<br>| Civic | 2 | 0.037 | 1961.4 |<br>| Social Health | 4 | 0.051 | 1956.8 |</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="90">
+        
+        <p class="para-version para-easy"><strong>Key Finding:</strong> The t₀ estimate is highly robust—all analyses converge on 1954–1962. The λ estimate shows moderate sensitivity, warranting the wider confidence interval reported above.</p>
+        <p class="para-version para-standard"><strong>Key Finding:</strong> The t₀ estimate is highly robust—all analyses converge on 1954–1962. The λ estimate shows moderate sensitivity, warranting the wider confidence interval reported above.</p>
+        <p class="para-version para-academic"><strong>Key Finding:</strong> The t₀ estimate is highly robust—all analyses converge on 1954–1962. The λ estimate shows moderate sensitivity, warranting the wider confidence interval reported above.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="91">
+        
+        <p class="para-version para-easy"><strong>Outliers Identified:</strong> no\_fault\_divorce\_states (λ = 0.162): Legal adoption followed S-curve, not exponential. abortion\_rate (t₀ = 1940): Pre-Roe data artifacts.</p>
+        <p class="para-version para-standard"><strong>Outliers Identified:</strong> no\_fault\_divorce\_states (λ = 0.162): Legal adoption followed S-curve, not exponential. abortion\_rate (t₀ = 1940): Pre-Roe data artifacts.</p>
+        <p class="para-version para-academic"><strong>Outliers Identified:</strong> no\_fault\_divorce\_states (λ = 0.162): Legal adoption followed S-curve, not exponential. abortion\_rate (t₀ = 1940): Pre-Roe data artifacts.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="92">
+        
+        <p class="para-version para-easy">Without outliers (n=13): λ = 0.041 ± 0.043, t₀ = 1959.0 ± 5.9</p>
+        <p class="para-version para-standard">Without outliers (n=13): λ = 0.041 ± 0.043, t₀ = 1959.0 ± 5.9</p>
+        <p class="para-version para-academic">Without outliers (n=13): λ = 0.041 ± 0.043, t₀ = 1959.0 ± 5.9</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="93">
+        
+        <h3 class="para-version para-easy">4.6 Functional Form Comparison</h3>
+        <h3 class="para-version para-standard">4.6 Functional Form Comparison</h3>
+        <h3 class="para-version para-academic">4.6 Functional Form Comparison</h3>
+      </section>
+    
+
+      <section class="mda-para" data-para="94">
+        
+        <p class="para-version para-easy">The decay equation matches the Lindbladian <a href='/glossary/?term=master-equation &quot;See glossary: master equation&quot;'>master equation</a> for open quantum systems:</p>
+        <p class="para-version para-standard">The decay equation matches the Lindbladian <a href='/glossary/?term=master-equation &quot;See glossary: master equation&quot;'>master equation</a> for open quantum systems:</p>
+        <p class="para-version para-academic">The decay equation matches the Lindbladian <a href='/glossary/?term=master-equation &quot;See glossary: master equation&quot;'>master equation</a> for open quantum systems:</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="95">
+        
+        <p class="para-version para-easy">$$\frac{\partial \rho}{\partial t} = -i[H, \rho] + \sum\_k \gamma\_k \left( L\_k \rho L\_k^\dagger - \frac{1}{2}\{L\_k^\dagger L\_k, \rho\} \right)$$</p>
+        <p class="para-version para-standard">$$\frac{\partial \rho}{\partial t} = -i[H, \rho] + \sum\_k \gamma\_k \left( L\_k \rho L\_k^\dagger - \frac{1}{2}\{L\_k^\dagger L\_k, \rho\} \right)$$</p>
+        <p class="para-version para-academic">$$\frac{\partial \rho}{\partial t} = -i[H, \rho] + \sum\_k \gamma\_k \left( L\_k \rho L\_k^\dagger - \frac{1}{2}\{L\_k^\dagger L\_k, \rho\} \right)$$</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="96">
+        
+        <p class="para-version para-easy">This is not a metaphor. The mathematical structure is identical:</p>
+        <p class="para-version para-standard">This is not a metaphor. The mathematical structure is identical:</p>
+        <p class="para-version para-academic">This is not a metaphor. The mathematical structure is identical:</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="97">
+        
+        <p class="para-version para-easy">Coherent internal dynamics (the Hamiltonian term)</p>
+        <p class="para-version para-standard">Coherent internal dynamics (the Hamiltonian term)</p>
+        <p class="para-version para-academic">Coherent internal dynamics (the Hamiltonian term)</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="98">
+        
+        <p class="para-version para-easy">Dissipative external coupling (the Lindblad operators)</p>
+        <p class="para-version para-standard">Dissipative external coupling (the Lindblad operators)</p>
+        <p class="para-version para-academic">Dissipative external coupling (the Lindblad operators)</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="99">
+        
+        <p class="para-version para-easy">Exponential decay toward a mixed state</p>
+        <p class="para-version para-standard">Exponential decay toward a mixed state</p>
+        <p class="para-version para-academic">Exponential decay toward a mixed state</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="100">
+        
+        <p class="para-version para-easy">The implication: <strong>social systems may obey the same coherence dynamics as physical systems.</strong></p>
+        <p class="para-version para-standard">The implication: <strong>social systems may obey the same coherence dynamics as physical systems.</strong></p>
+        <p class="para-version para-academic">The implication: <strong>social systems may obey the same coherence dynamics as physical systems.</strong></p>
+      </section>
+    
+
+      <section class="mda-para" data-para="101">
+        
+        <p class="para-version para-easy">!<a href='../images/mda/Phantom_Money_Phantom_Morals conv 0.webp'>Story Illustration</a></p>
+        <p class="para-version para-standard">!<a href='../images/mda/Phantom_Money_Phantom_Morals conv 0.webp'>Story Illustration</a></p>
+        <p class="para-version para-academic">!<a href='../images/mda/Phantom_Money_Phantom_Morals conv 0.webp'>Story Illustration</a></p>
+      </section>
+    
+
+      <section class="mda-para" data-para="102">
+        
+        <h3 class="para-version para-easy">4.7 Model Unification: Decay vs. Phase Transition</h3>
+        <h3 class="para-version para-standard">4.7 Model Unification: Decay vs. Phase Transition</h3>
+        <h3 class="para-version para-academic">4.7 Model Unification: Decay vs. Phase Transition</h3>
+      </section>
+    
+
+      <section class="mda-para" data-para="103">
+        
+        <h3 class="para-version para-easy">Exponential Decay Model</h3>
+        <h3 class="para-version para-standard">Exponential Decay Model</h3>
+        <h3 class="para-version para-academic">Exponential Decay Model</h3>
+      </section>
+    
+
+      <section class="mda-para" data-para="104">
+        
+        <p class="para-version para-easy">Describes the <em>mechanism</em>—gradual erosion of coherence through constraint removal. The decay constant λ measures the rate at which constraints dissolve.</p>
+        <p class="para-version para-standard">Describes the <em>mechanism</em>—gradual erosion of coherence through constraint removal. The decay constant λ measures the rate at which constraints dissolve.</p>
+        <p class="para-version para-academic">Describes the <em>mechanism</em>—gradual erosion of coherence through constraint removal. The decay constant λ measures the rate at which constraints dissolve.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="105">
+        
+        <h3 class="para-version para-easy">Phase Transition Model</h3>
+        <h3 class="para-version para-standard">Phase Transition Model</h3>
+        <h3 class="para-version para-academic">Phase Transition Model</h3>
+      </section>
+    
+
+      <section class="mda-para" data-para="106">
+        
+        <p class="para-version para-easy">Describes the <em>result</em>—sudden rupture when accumulated decay crosses a critical threshold. The 1968–1973 period shows threshold behavior (2.5x faster decline during critical window).</p>
+        <p class="para-version para-standard">Describes the <em>result</em>—sudden rupture when accumulated decay crosses a critical threshold. The 1968–1973 period shows threshold behavior (2.5x faster decline during critical window).</p>
+        <p class="para-version para-academic">Describes the <em>result</em>—sudden rupture when accumulated decay crosses a critical threshold. The 1968–1973 period shows threshold behavior (2.5x faster decline during critical window).</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="107">
+        
+        <p class="para-version para-easy">Exponential decay in moral constraints (λ) accumulates until a critical threshold triggers phase transition (visible rupture).</p>
+        <p class="para-version para-standard">Exponential decay in moral constraints (λ) accumulates until a critical threshold triggers phase transition (visible rupture).</p>
+        <p class="para-version para-academic">Exponential decay in moral constraints (λ) accumulates until a critical threshold triggers phase transition (visible rupture).</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="108">
+        
+        <h2 class="para-version para-easy">5. Results</h2>
+        <h2 class="para-version para-standard">5. Results</h2>
+        <h2 class="para-version para-academic">5. Results</h2>
+      </section>
+    
+
+      <section class="mda-para" data-para="109">
+        
+        <h3 class="para-version para-easy">5.1 The Curve</h3>
+        <h3 class="para-version para-standard">5.1 The Curve</h3>
+        <h3 class="para-version para-academic">5.1 The Curve</h3>
+      </section>
+    
+
+      <section class="mda-para" data-para="110">
+        
+        <p class="para-version para-easy">All domains, normalized and overlaid, produce a single visual signature:</p>
+        <p class="para-version para-standard">All domains, normalized and overlaid, produce a single visual signature:</p>
+        <p class="para-version para-academic">All domains, normalized and overlaid, produce a single visual signature:</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="111">
+        
+        <p class="para-version para-easy">Figure 1 — Composite Coherence Index, 1945–2025</p>
+        <p class="para-version para-standard">Figure 1 — Composite Coherence Index, 1945–2025</p>
+        <p class="para-version para-academic">Figure 1 — Composite Coherence Index, 1945–2025</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="112">
+        
+        <p class="para-version para-easy">1945–58</p>
+        <p class="para-version para-standard">1945–58</p>
+        <p class="para-version para-academic">1945–58</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="113">
+        
+        <p class="para-version para-easy">Peak coherence<br>(post-war consensus)</p>
+        <p class="para-version para-standard">Peak coherence<br>(post-war consensus)</p>
+        <p class="para-version para-academic">Peak coherence<br>(post-war consensus)</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="114">
+        
+        <p class="para-version para-easy">1958–63</p>
+        <p class="para-version para-standard">1958–63</p>
+        <p class="para-version para-academic">1958–63</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="115">
+        
+        <p class="para-version para-easy">Inflection initiation<br>(invisible decay begins)</p>
+        <p class="para-version para-standard">Inflection initiation<br>(invisible decay begins)</p>
+        <p class="para-version para-academic">Inflection initiation<br>(invisible decay begins)</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="116">
+        
+        <p class="para-version para-easy">1968–73</p>
+        <p class="para-version para-standard">1968–73</p>
+        <p class="para-version para-academic">1968–73</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="117">
+        
+        <p class="para-version para-easy">Phase transition<br>(visible rupture)</p>
+        <p class="para-version para-standard">Phase transition<br>(visible rupture)</p>
+        <p class="para-version para-academic">Phase transition<br>(visible rupture)</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="118">
+        
+        <p class="para-version para-easy">1973–now</p>
+        <p class="para-version para-standard">1973–now</p>
+        <p class="para-version para-academic">1973–now</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="119">
+        
+        <p class="para-version para-easy">Post-transition decay<br>(new trajectory)</p>
+        <p class="para-version para-standard">Post-transition decay<br>(new trajectory)</p>
+        <p class="para-version para-academic">Post-transition decay<br>(new trajectory)</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="120">
+        
+        <p class="para-version para-easy">Perturbations</p>
+        <p class="para-version para-standard">Perturbations</p>
+        <p class="para-version para-academic">Perturbations</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="121">
+        
+        <p class="para-version para-easy">1973, 1987, 2001,<br>2008, 2020</p>
+        <p class="para-version para-standard">1973, 1987, 2001,<br>2008, 2020</p>
+        <p class="para-version para-academic">1973, 1987, 2001,<br>2008, 2020</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="122">
+        
+        <p class="para-version para-easy">The cultural ruptures of 1968–1973 were not the cause of decay—they were the symptoms of a phase transition that had already begun a decade earlier.</p>
+        <p class="para-version para-standard">The cultural ruptures of 1968–1973 were not the cause of decay—they were the symptoms of a phase transition that had already begun a decade earlier.</p>
+        <p class="para-version para-academic">The cultural ruptures of 1968–1973 were not the cause of decay—they were the symptoms of a phase transition that had already begun a decade earlier.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="123">
+        
+        <h3 class="para-version para-easy">5.2 Domain Breakdown (Computed)</h3>
+        <h3 class="para-version para-standard">5.2 Domain Breakdown (Computed)</h3>
+        <h3 class="para-version para-academic">5.2 Domain Breakdown (Computed)</h3>
+      </section>
+    
+
+      <section class="mda-para" data-para="124">
+        
+        <p class="para-version para-easy">| Domain | t₀ (Inflection) | λ (Decay Rate) | R² (Fit Quality) |<br>| --- | --- | --- | --- |<br>| Nonmarital births (white) | 1963 | 0.020 | 0.999 |<br>| Union membership | 1962 | 0.027 | 0.994 |<br>| Weekly church attendance | 1954 | 0.033 | 0.965 |<br>| Marijuana use | 1960 | 0.066 | 0.950 |<br>| Christian identification | 1964 | 0.011 | 0.940 |<br>| No-fault divorce adoption | 1968 | 0.162 | 0.935 |<br>| Composite χ | 1962 | 0.017 | 0.920 |<br>| Fertility rate | 1960 | 0.132 | 0.912 |<br>| Cohabitation rate | 1966 | 0.007 | 0.905 |<br>| Depression rate | 1967 | 0.007 | 0.881 |<br>| Trust in government | 1961 | 0.047 | 0.843 |</p>
+        <p class="para-version para-standard">| Domain | t₀ (Inflection) | λ (Decay Rate) | R² (Fit Quality) |<br>| --- | --- | --- | --- |<br>| Nonmarital births (white) | 1963 | 0.020 | 0.999 |<br>| Union membership | 1962 | 0.027 | 0.994 |<br>| Weekly church attendance | 1954 | 0.033 | 0.965 |<br>| Marijuana use | 1960 | 0.066 | 0.950 |<br>| Christian identification | 1964 | 0.011 | 0.940 |<br>| No-fault divorce adoption | 1968 | 0.162 | 0.935 |<br>| Composite χ | 1962 | 0.017 | 0.920 |<br>| Fertility rate | 1960 | 0.132 | 0.912 |<br>| Cohabitation rate | 1966 | 0.007 | 0.905 |<br>| Depression rate | 1967 | 0.007 | 0.881 |<br>| Trust in government | 1961 | 0.047 | 0.843 |</p>
+        <p class="para-version para-academic">| Domain | t₀ (Inflection) | λ (Decay Rate) | R² (Fit Quality) |<br>| --- | --- | --- | --- |<br>| Nonmarital births (white) | 1963 | 0.020 | 0.999 |<br>| Union membership | 1962 | 0.027 | 0.994 |<br>| Weekly church attendance | 1954 | 0.033 | 0.965 |<br>| Marijuana use | 1960 | 0.066 | 0.950 |<br>| Christian identification | 1964 | 0.011 | 0.940 |<br>| No-fault divorce adoption | 1968 | 0.162 | 0.935 |<br>| Composite χ | 1962 | 0.017 | 0.920 |<br>| Fertility rate | 1960 | 0.132 | 0.912 |<br>| Cohabitation rate | 1966 | 0.007 | 0.905 |<br>| Depression rate | 1967 | 0.007 | 0.881 |<br>| Trust in government | 1961 | 0.047 | 0.843 |</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="125">
+        
+        <h3 class="para-version para-easy">5.3 The Anomaly Restated</h3>
+        <h3 class="para-version para-standard">5.3 The Anomaly Restated</h3>
+        <h3 class="para-version para-academic">5.3 The Anomaly Restated</h3>
+      </section>
+    
+
+      <section class="mda-para" data-para="126">
+        
+        <p class="para-version para-easy"><strong>Forty-five systems. One curve. Same inflection point. Same decay rate.</strong></p>
+        <p class="para-version para-standard"><strong>Forty-five systems. One curve. Same inflection point. Same decay rate.</strong></p>
+        <p class="para-version para-academic"><strong>Forty-five systems. One curve. Same inflection point. Same decay rate.</strong></p>
+      </section>
+    
+
+      <section class="mda-para" data-para="127">
+        
+        <p class="para-version para-easy">This is not supposed to happen.</p>
+        <p class="para-version para-standard">This is not supposed to happen.</p>
+        <p class="para-version para-academic">This is not supposed to happen.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="128">
+        
+        <p class="para-version para-easy">Independent systems do not synchronize without a common cause or a common coupling. Either:</p>
+        <p class="para-version para-standard">Independent systems do not synchronize without a common cause or a common coupling. Either:</p>
+        <p class="para-version para-academic">Independent systems do not synchronize without a common cause or a common coupling. Either:</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="129">
+        
+        <p class="para-version para-easy">1. There is a hidden common cause (a forcing function affecting all domains)<br>2. The domains are coupled (changes in one propagate to others)<br>3. The measurement is artifactual (we are seeing what we want to see)</p>
+        <p class="para-version para-standard">1. There is a hidden common cause (a forcing function affecting all domains)<br>2. The domains are coupled (changes in one propagate to others)<br>3. The measurement is artifactual (we are seeing what we want to see)</p>
+        <p class="para-version para-academic">1. There is a hidden common cause (a forcing function affecting all domains)<br>2. The domains are coupled (changes in one propagate to others)<br>3. The measurement is artifactual (we are seeing what we want to see)</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="130">
+        
+        <p class="para-version para-easy">Option 3 is addressed by the falsification protocol below. Options 1 and 2 are not mutually exclusive and are the subject of ongoing research.</p>
+        <p class="para-version para-standard">Option 3 is addressed by the falsification protocol below. Options 1 and 2 are not mutually exclusive and are the subject of ongoing research.</p>
+        <p class="para-version para-academic">Option 3 is addressed by the falsification protocol below. Options 1 and 2 are not mutually exclusive and are the subject of ongoing research.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="131">
+        
+        <h2 class="para-version para-easy">6. Discussion</h2>
+        <h2 class="para-version para-standard">6. Discussion</h2>
+        <h2 class="para-version para-academic">6. Discussion</h2>
+      </section>
+    
+
+      <section class="mda-para" data-para="132">
+        
+        <h3 class="para-version para-easy">6.1 What This Paper Claims</h3>
+        <h3 class="para-version para-standard">6.1 What This Paper Claims</h3>
+        <h3 class="para-version para-academic">6.1 What This Paper Claims</h3>
+      </section>
+    
+
+      <section class="mda-para" data-para="133">
+        
+        <p class="para-version para-easy">Pattern exists (documented)</p>
+        <p class="para-version para-standard">Pattern exists (documented)</p>
+        <p class="para-version para-academic">Pattern exists (documented)</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="134">
+        
+        <p class="para-version para-easy">Pattern is statistically significant (p &lt; 10&amp;supmin³)</p>
+        <p class="para-version para-standard">Pattern is statistically significant (p &lt; 10&amp;supmin³)</p>
+        <p class="para-version para-academic">Pattern is statistically significant (p &lt; 10&amp;supmin³)</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="135">
+        
+        <p class="para-version para-easy">Pattern matches known physics of coherence decay</p>
+        <p class="para-version para-standard">Pattern matches known physics of coherence decay</p>
+        <p class="para-version para-academic">Pattern matches known physics of coherence decay</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="136">
+        
+        <p class="para-version para-easy">Pattern demands explanation</p>
+        <p class="para-version para-standard">Pattern demands explanation</p>
+        <p class="para-version para-academic">Pattern demands explanation</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="137">
+        
+        <h3 class="para-version para-easy">6.2 What This Paper Does NOT Claim</h3>
+        <h3 class="para-version para-standard">6.2 What This Paper Does NOT Claim</h3>
+        <h3 class="para-version para-academic">6.2 What This Paper Does NOT Claim</h3>
+      </section>
+    
+
+      <section class="mda-para" data-para="138">
+        
+        <p class="para-version para-easy">Causation (correlation ≠ mechanism)</p>
+        <p class="para-version para-standard">Causation (correlation ≠ mechanism)</p>
+        <p class="para-version para-academic">Causation (correlation ≠ mechanism)</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="139">
+        
+        <p class="para-version para-easy">Specific policy prescriptions</p>
+        <p class="para-version para-standard">Specific policy prescriptions</p>
+        <p class="para-version para-academic">Specific policy prescriptions</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="140">
+        
+        <p class="para-version para-easy">Inevitability (decay curves can be reversed)</p>
+        <p class="para-version para-standard">Inevitability (decay curves can be reversed)</p>
+        <p class="para-version para-academic">Inevitability (decay curves can be reversed)</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="141">
+        
+        <p class="para-version para-easy">Moral judgment (describes, not preaches)</p>
+        <p class="para-version para-standard">Moral judgment (describes, not preaches)</p>
+        <p class="para-version para-academic">Moral judgment (describes, not preaches)</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="142">
+        
+        <h3 class="para-version para-easy">6.3 The Constraint Hypothesis</h3>
+        <h3 class="para-version para-standard">6.3 The Constraint Hypothesis</h3>
+        <h3 class="para-version para-academic">6.3 The Constraint Hypothesis</h3>
+      </section>
+    
+
+      <section class="mda-para" data-para="143">
+        
+        <p class="para-version para-easy">One hypothesis consistent with the data: <strong>coherence requires constraint.</strong></p>
+        <p class="para-version para-standard">One hypothesis consistent with the data: <strong>coherence requires constraint.</strong></p>
+        <p class="para-version para-academic">One hypothesis consistent with the data: <strong>coherence requires constraint.</strong></p>
+      </section>
+    
+
+      <section class="mda-para" data-para="144">
+        
+        <p class="para-version para-easy">In physics, coherence survives only when systems are isolated from decohering environments. When coupling to external noise increases, coherence decays.</p>
+        <p class="para-version para-standard">In physics, coherence survives only when systems are isolated from decohering environments. When coupling to external noise increases, coherence decays.</p>
+        <p class="para-version para-academic">In physics, coherence survives only when systems are isolated from decohering environments. When coupling to external noise increases, coherence decays.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="145">
+        
+        <p class="para-version para-easy">In social systems, “constraint” may map to:</p>
+        <p class="para-version para-standard">In social systems, “constraint” may map to:</p>
+        <p class="para-version para-academic">In social systems, “constraint” may map to:</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="146">
+        
+        <p class="para-version para-easy">Shared norms</p>
+        <p class="para-version para-standard">Shared norms</p>
+        <p class="para-version para-academic">Shared norms</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="147">
+        
+        <p class="para-version para-easy">Institutional boundaries</p>
+        <p class="para-version para-standard">Institutional boundaries</p>
+        <p class="para-version para-academic">Institutional boundaries</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="148">
+        
+        <p class="para-version para-easy">Delayed gratification structures</p>
+        <p class="para-version para-standard">Delayed gratification structures</p>
+        <p class="para-version para-academic">Delayed gratification structures</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="149">
+        
+        <p class="para-version para-easy">Intergenerational transmission mechanisms</p>
+        <p class="para-version para-standard">Intergenerational transmission mechanisms</p>
+        <p class="para-version para-academic">Intergenerational transmission mechanisms</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="150">
+        
+        <p class="para-version para-easy">The period 1958–1973 saw systematic removal of constraints across all domains:</p>
+        <p class="para-version para-standard">The period 1958–1973 saw systematic removal of constraints across all domains:</p>
+        <p class="para-version para-academic">The period 1958–1973 saw systematic removal of constraints across all domains:</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="151">
+        
+        <p class="para-version para-easy"><strong>Legal</strong> (no-fault divorce, loosened obscenity standards)</p>
+        <p class="para-version para-standard"><strong>Legal</strong> (no-fault divorce, loosened obscenity standards)</p>
+        <p class="para-version para-academic"><strong>Legal</strong> (no-fault divorce, loosened obscenity standards)</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="152">
+        
+        <p class="para-version para-easy"><strong>Economic</strong> (debt liberalization, consumption over savings)</p>
+        <p class="para-version para-standard"><strong>Economic</strong> (debt liberalization, consumption over savings)</p>
+        <p class="para-version para-academic"><strong>Economic</strong> (debt liberalization, consumption over savings)</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="153">
+        
+        <p class="para-version para-easy"><strong>Cultural</strong> (expressive individualism, institutional distrust)</p>
+        <p class="para-version para-standard"><strong>Cultural</strong> (expressive individualism, institutional distrust)</p>
+        <p class="para-version para-academic"><strong>Cultural</strong> (expressive individualism, institutional distrust)</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="154">
+        
+        <p class="para-version para-easy"><strong>Technological</strong> (television saturation, birth control, information acceleration)</p>
+        <p class="para-version para-standard"><strong>Technological</strong> (television saturation, birth control, information acceleration)</p>
+        <p class="para-version para-academic"><strong>Technological</strong> (television saturation, birth control, information acceleration)</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="155">
+        
+        <p class="para-version para-easy"><strong>Hypothesis:</strong> Constraint removal below a critical threshold triggers phase-transition collapse—not gradual decline, but sudden systemic reorganization toward lower coherence.</p>
+        <p class="para-version para-standard"><strong>Hypothesis:</strong> Constraint removal below a critical threshold triggers phase-transition collapse—not gradual decline, but sudden systemic reorganization toward lower coherence.</p>
+        <p class="para-version para-academic"><strong>Hypothesis:</strong> Constraint removal below a critical threshold triggers phase-transition collapse—not gradual decline, but sudden systemic reorganization toward lower coherence.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="156">
+        
+        <p class="para-version para-easy">This hypothesis is testable. Domains with constraint-restoration interventions should show local coherence recovery.</p>
+        <p class="para-version para-standard">This hypothesis is testable. Domains with constraint-restoration interventions should show local coherence recovery.</p>
+        <p class="para-version para-academic">This hypothesis is testable. Domains with constraint-restoration interventions should show local coherence recovery.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="157">
+        
+        <p class="para-version para-easy">S — Snap / Kill Condition</p>
+        <p class="para-version para-standard">S — Snap / Kill Condition</p>
+        <p class="para-version para-academic">S — Snap / Kill Condition</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="158">
+        
+        <h2 class="para-version para-easy">7. Conclusion</h2>
+        <h2 class="para-version para-standard">7. Conclusion</h2>
+        <h2 class="para-version para-academic">7. Conclusion</h2>
+      </section>
+    
+
+      <section class="mda-para" data-para="159">
+        
+        <h3 class="para-version para-easy">7.1 Summary</h3>
+        <h3 class="para-version para-standard">7.1 Summary</h3>
+        <h3 class="para-version para-academic">7.1 Summary</h3>
+      </section>
+    
+
+      <section class="mda-para" data-para="160">
+        
+        <p class="para-version para-easy">American society is measurably decohering. The decay is:</p>
+        <p class="para-version para-standard">American society is measurably decohering. The decay is:</p>
+        <p class="para-version para-academic">American society is measurably decohering. The decay is:</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="161">
+        
+        <p class="para-version para-easy"><strong>Real</strong> — documented across 23 domains with rigorous fits, of 45 surveyed</p>
+        <p class="para-version para-standard"><strong>Real</strong> — documented across 23 domains with rigorous fits, of 45 surveyed</p>
+        <p class="para-version para-academic"><strong>Real</strong> — documented across 23 domains with rigorous fits, of 45 surveyed</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="162">
+        
+        <p class="para-version para-easy"><strong>Synchronized</strong> — same inflection window 1958–1968, similar decay rates</p>
+        <p class="para-version para-standard"><strong>Synchronized</strong> — same inflection window 1958–1968, similar decay rates</p>
+        <p class="para-version para-academic"><strong>Synchronized</strong> — same inflection window 1958–1968, similar decay rates</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="163">
+        
+        <p class="para-version para-easy"><strong>Mathematically structured</strong> — matches physical coherence decay</p>
+        <p class="para-version para-standard"><strong>Mathematically structured</strong> — matches physical coherence decay</p>
+        <p class="para-version para-academic"><strong>Mathematically structured</strong> — matches physical coherence decay</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="164">
+        
+        <p class="para-version para-easy"><strong>Unexplained</strong> — by existing single-domain theories</p>
+        <p class="para-version para-standard"><strong>Unexplained</strong> — by existing single-domain theories</p>
+        <p class="para-version para-academic"><strong>Unexplained</strong> — by existing single-domain theories</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="165">
+        
+        <h3 class="para-version para-easy">7.2 Falsification Protocol</h3>
+        <h3 class="para-version para-standard">7.2 Falsification Protocol</h3>
+        <h3 class="para-version para-academic">7.2 Falsification Protocol</h3>
+      </section>
+    
+
+      <section class="mda-para" data-para="166">
+        
+        <p class="para-version para-easy">This paper can be destroyed by any of the following:</p>
+        <p class="para-version para-standard">This paper can be destroyed by any of the following:</p>
+        <p class="para-version para-academic">This paper can be destroyed by any of the following:</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="167">
+        
+        <p class="para-version para-easy">| # | Kill Condition | Status |<br>| --- | --- | --- |<br>| 1 | Find a major domain showing <em>increasing</em> coherence 1965–2025 without external constraint intervention | Not yet found |<br>| 2 | Demonstrate the curve convergence is statistical artifact (selection bias, normalization error) | Replication invited |<br>| 3 | Produce an alternative model that predicts cross-domain synchronization with fewer assumptions | Not yet proposed |<br>| 4 | Show the inflection point is an artifact of data availability, not real behavioral change | Addressed via pre-1945 data |<br>| 5 | Replicate with independent datasets and find no convergence | Replication invited |</p>
+        <p class="para-version para-standard">| # | Kill Condition | Status |<br>| --- | --- | --- |<br>| 1 | Find a major domain showing <em>increasing</em> coherence 1965–2025 without external constraint intervention | Not yet found |<br>| 2 | Demonstrate the curve convergence is statistical artifact (selection bias, normalization error) | Replication invited |<br>| 3 | Produce an alternative model that predicts cross-domain synchronization with fewer assumptions | Not yet proposed |<br>| 4 | Show the inflection point is an artifact of data availability, not real behavioral change | Addressed via pre-1945 data |<br>| 5 | Replicate with independent datasets and find no convergence | Replication invited |</p>
+        <p class="para-version para-academic">| # | Kill Condition | Status |<br>| --- | --- | --- |<br>| 1 | Find a major domain showing <em>increasing</em> coherence 1965–2025 without external constraint intervention | Not yet found |<br>| 2 | Demonstrate the curve convergence is statistical artifact (selection bias, normalization error) | Replication invited |<br>| 3 | Produce an alternative model that predicts cross-domain synchronization with fewer assumptions | Not yet proposed |<br>| 4 | Show the inflection point is an artifact of data availability, not real behavioral change | Addressed via pre-1945 data |<br>| 5 | Replicate with independent datasets and find no convergence | Replication invited |</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="168">
+        
+        <p class="para-version para-easy">Explicit Invitation: If you can satisfy any kill condition, this paper is falsified. I will publicly acknowledge the refutation.</p>
+        <p class="para-version para-standard">Explicit Invitation: If you can satisfy any kill condition, this paper is falsified. I will publicly acknowledge the refutation.</p>
+        <p class="para-version para-academic">Explicit Invitation: If you can satisfy any kill condition, this paper is falsified. I will publicly acknowledge the refutation.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="169">
+        
+        <h3 class="para-version para-easy">7.3 Implications</h3>
+        <h3 class="para-version para-standard">7.3 Implications</h3>
+        <h3 class="para-version para-academic">7.3 Implications</h3>
+      </section>
+    
+
+      <section class="mda-para" data-para="170">
+        
+        <p class="para-version para-easy">If the pattern is real:</p>
+        <p class="para-version para-standard">If the pattern is real:</p>
+        <p class="para-version para-academic">If the pattern is real:</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="171">
+        
+        <p class="para-version para-easy">Single-domain interventions will fail (you cannot fix family by ignoring economy, or economy by ignoring trust)</p>
+        <p class="para-version para-standard">Single-domain interventions will fail (you cannot fix family by ignoring economy, or economy by ignoring trust)</p>
+        <p class="para-version para-academic">Single-domain interventions will fail (you cannot fix family by ignoring economy, or economy by ignoring trust)</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="172">
+        
+        <p class="para-version para-easy">Coherence restoration requires systemic constraint reintroduction</p>
+        <p class="para-version para-standard">Coherence restoration requires systemic constraint reintroduction</p>
+        <p class="para-version para-academic">Coherence restoration requires systemic constraint reintroduction</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="173">
+        
+        <p class="para-version para-easy">The cost of reversal increases exponentially with time</p>
+        <p class="para-version para-standard">The cost of reversal increases exponentially with time</p>
+        <p class="para-version para-academic">The cost of reversal increases exponentially with time</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="174">
+        
+        <p class="para-version para-easy">Some threshold may exist beyond which recovery is impossible without catastrophic reset</p>
+        <p class="para-version para-standard">Some threshold may exist beyond which recovery is impossible without catastrophic reset</p>
+        <p class="para-version para-academic">Some threshold may exist beyond which recovery is impossible without catastrophic reset</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="175">
+        
+        <h3 class="para-version para-easy">7.4 Next Steps</h3>
+        <h3 class="para-version para-standard">7.4 Next Steps</h3>
+        <h3 class="para-version para-academic">7.4 Next Steps</h3>
+      </section>
+    
+
+      <section class="mda-para" data-para="176">
+        
+        <p class="para-version para-easy">This paper documents pattern. Future work must address:</p>
+        <p class="para-version para-standard">This paper documents pattern. Future work must address:</p>
+        <p class="para-version para-academic">This paper documents pattern. Future work must address:</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="177">
+        
+        <p class="para-version para-easy"><strong>Mechanism</strong> — what couples the domains?</p>
+        <p class="para-version para-standard"><strong>Mechanism</strong> — what couples the domains?</p>
+        <p class="para-version para-academic"><strong>Mechanism</strong> — what couples the domains?</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="178">
+        
+        <p class="para-version para-easy"><strong>Intervention</strong> — what restores coherence?</p>
+        <p class="para-version para-standard"><strong>Intervention</strong> — what restores coherence?</p>
+        <p class="para-version para-academic"><strong>Intervention</strong> — what restores coherence?</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="179">
+        
+        <p class="para-version para-easy"><strong>Prediction</strong> — when does the system reach critical threshold?</p>
+        <p class="para-version para-standard"><strong>Prediction</strong> — when does the system reach critical threshold?</p>
+        <p class="para-version para-academic"><strong>Prediction</strong> — when does the system reach critical threshold?</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="180">
+        
+        <h2 class="para-version para-easy">8. Methodological Disclosure</h2>
+        <h2 class="para-version para-standard">8. Methodological Disclosure</h2>
+        <h2 class="para-version para-academic">8. Methodological Disclosure</h2>
+      </section>
+    
+
+      <section class="mda-para" data-para="181">
+        
+        <p class="para-version para-easy">You have just read a paper structured according to the <strong>Lowe FACTS Format</strong>.</p>
+        <p class="para-version para-standard">You have just read a paper structured according to the <strong>Lowe FACTS Format</strong>.</p>
+        <p class="para-version para-academic">You have just read a paper structured according to the <strong>Lowe FACTS Format</strong>.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="182">
+        
+        <p class="para-version para-easy">| Section | FACTS Element | Function |<br>| --- | --- | --- |<br>| Abstract | F — FIND | The anomaly. What was observed. |<br>| Introduction | A — ADMIT | The bias. Who is asking. Worldview disclosed. |<br>| Problem + Literature | C — CLAIM | The thesis. What is being asserted. |<br>| Methods + Results | T — TEST | The proof. How it was checked. |<br>| Conclusion | S — SNAP | The kill condition. How to destroy the argument. |</p>
+        <p class="para-version para-standard">| Section | FACTS Element | Function |<br>| --- | --- | --- |<br>| Abstract | F — FIND | The anomaly. What was observed. |<br>| Introduction | A — ADMIT | The bias. Who is asking. Worldview disclosed. |<br>| Problem + Literature | C — CLAIM | The thesis. What is being asserted. |<br>| Methods + Results | T — TEST | The proof. How it was checked. |<br>| Conclusion | S — SNAP | The kill condition. How to destroy the argument. |</p>
+        <p class="para-version para-academic">| Section | FACTS Element | Function |<br>| --- | --- | --- |<br>| Abstract | F — FIND | The anomaly. What was observed. |<br>| Introduction | A — ADMIT | The bias. Who is asking. Worldview disclosed. |<br>| Problem + Literature | C — CLAIM | The thesis. What is being asserted. |<br>| Methods + Results | T — TEST | The proof. How it was checked. |<br>| Conclusion | S — SNAP | The kill condition. How to destroy the argument. |</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="183">
+        
+        <p class="para-version para-easy">This format is offered freely. It requires no institutional approval. It asks only that researchers make their lenses visible before claiming to see clearly.</p>
+        <p class="para-version para-standard">This format is offered freely. It requires no institutional approval. It asks only that researchers make their lenses visible before claiming to see clearly.</p>
+        <p class="para-version para-academic">This format is offered freely. It requires no institutional approval. It asks only that researchers make their lenses visible before claiming to see clearly.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="184">
+        
+        <p class="para-version para-easy">The method does not guarantee truth. It guarantees <strong>transparency</strong>.</p>
+        <p class="para-version para-standard">The method does not guarantee truth. It guarantees <strong>transparency</strong>.</p>
+        <p class="para-version para-academic">The method does not guarantee truth. It guarantees <strong>transparency</strong>.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="185">
+        
+        <p class="para-version para-easy">If your conclusion survives full disclosure of your priors and explicit falsification conditions, it is stronger for it. If it doesn’t, you have learned something more valuable than confirmation.</p>
+        <p class="para-version para-standard">If your conclusion survives full disclosure of your priors and explicit falsification conditions, it is stronger for it. If it doesn’t, you have learned something more valuable than confirmation.</p>
+        <p class="para-version para-academic">If your conclusion survives full disclosure of your priors and explicit falsification conditions, it is stronger for it. If it doesn’t, you have learned something more valuable than confirmation.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="186">
+        
+        <h2 class="para-version para-easy">Declaration</h2>
+        <h2 class="para-version para-standard">Declaration</h2>
+        <h2 class="para-version para-academic">Declaration</h2>
+      </section>
+    
+
+      <section class="mda-para" data-para="187">
+        
+        <p class="para-version para-easy">Biaxiosum Score: 1.0</p>
+        <p class="para-version para-standard">Biaxiosum Score: 1.0</p>
+        <p class="para-version para-academic">Biaxiosum Score: 1.0</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="188">
+        
+        <p class="para-version para-easy">|  |  |<br>| --- | --- |<br>| Worldview | Christian Theist |<br>| Funding | Self-funded |<br>| Institutional Affiliation | None |<br>| Career Incentive | None (independent researcher) |<br>| Prior Commitment | I believed America was declining before I began. The data confirmed this belief. I cannot rule out confirmation bias—only make it visible. |<br>| Falsification Accepted | Any of the five kill conditions above |</p>
+        <p class="para-version para-standard">|  |  |<br>| --- | --- |<br>| Worldview | Christian Theist |<br>| Funding | Self-funded |<br>| Institutional Affiliation | None |<br>| Career Incentive | None (independent researcher) |<br>| Prior Commitment | I believed America was declining before I began. The data confirmed this belief. I cannot rule out confirmation bias—only make it visible. |<br>| Falsification Accepted | Any of the five kill conditions above |</p>
+        <p class="para-version para-academic">|  |  |<br>| --- | --- |<br>| Worldview | Christian Theist |<br>| Funding | Self-funded |<br>| Institutional Affiliation | None |<br>| Career Incentive | None (independent researcher) |<br>| Prior Commitment | I believed America was declining before I began. The data confirmed this belief. I cannot rule out confirmation bias—only make it visible. |<br>| Falsification Accepted | Any of the five kill conditions above |</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="189">
+        
+        <h2 class="para-version para-easy">References &amp; Appendices</h2>
+        <h2 class="para-version para-standard">References &amp; Appendices</h2>
+        <h2 class="para-version para-academic">References &amp; Appendices</h2>
+      </section>
+    
+
+      <section class="mda-para" data-para="190">
+        
+        <p class="para-version para-easy">Standard academic references: CDC, Census Bureau, General Social Survey (GSS), Pew Research Center, Federal Reserve (FRED), Bureau of Labor Statistics (BLS), Putnam (2000), Twenge generational analyses, Google Ngram corpus, NIMH, ANES, Gallup.</p>
+        <p class="para-version para-standard">Standard academic references: CDC, Census Bureau, General Social Survey (GSS), Pew Research Center, Federal Reserve (FRED), Bureau of Labor Statistics (BLS), Putnam (2000), Twenge generational analyses, Google Ngram corpus, NIMH, ANES, Gallup.</p>
+        <p class="para-version para-academic">Standard academic references: CDC, Census Bureau, General Social Survey (GSS), Pew Research Center, Federal Reserve (FRED), Bureau of Labor Statistics (BLS), Putnam (2000), Twenge generational analyses, Google Ngram corpus, NIMH, ANES, Gallup.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="191">
+        
+        <p class="para-version para-easy">Appendix A</p>
+        <p class="para-version para-standard">Appendix A</p>
+        <p class="para-version para-academic">Appendix A</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="192">
+        
+        <p class="para-version para-easy">Raw Data Sources</p>
+        <p class="para-version para-standard">Raw Data Sources</p>
+        <p class="para-version para-academic">Raw Data Sources</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="193">
+        
+        <p class="para-version para-easy">Appendix B</p>
+        <p class="para-version para-standard">Appendix B</p>
+        <p class="para-version para-academic">Appendix B</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="194">
+        
+        <p class="para-version para-easy">FACTS Format Template</p>
+        <p class="para-version para-standard">FACTS Format Template</p>
+        <p class="para-version para-academic">FACTS Format Template</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="195">
+        
+        <p class="para-version para-easy">Appendix C</p>
+        <p class="para-version para-standard">Appendix C</p>
+        <p class="para-version para-academic">Appendix C</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="196">
+        
+        <p class="para-version para-easy">Excluded Domains (22 of 45)</p>
+        <p class="para-version para-standard">Excluded Domains (22 of 45)</p>
+        <p class="para-version para-academic">Excluded Domains (22 of 45)</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="197">
+        
+        <p class="para-version para-easy">Contact: coherence.faiththruphysics.com</p>
+        <p class="para-version para-standard">Contact: coherence.faiththruphysics.com</p>
+        <p class="para-version para-academic">Contact: coherence.faiththruphysics.com</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="198">
+        
+        <p class="para-version para-easy">License: Public Domain. Copy freely. Credit appreciated.</p>
+        <p class="para-version para-standard">License: Public Domain. Copy freely. Credit appreciated.</p>
+        <p class="para-version para-academic">License: Public Domain. Copy freely. Credit appreciated.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="199">
+        
+        <p class="para-version para-easy">“The first step toward truth is admitting what you wanted to find.”</p>
+        <p class="para-version para-standard">“The first step toward truth is admitting what you wanted to find.”</p>
+        <p class="para-version para-academic">“The first step toward truth is admitting what you wanted to find.”</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="200">
+        
+        <p class="para-version para-easy">THE COHERENCE DECAY OF AMERICAN SOCIETY</p>
+        <p class="para-version para-standard">THE COHERENCE DECAY OF AMERICAN SOCIETY</p>
+        <p class="para-version para-academic">THE COHERENCE DECAY OF AMERICAN SOCIETY</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="201">
+        
+        <p class="para-version para-easy">A Trans-Domain Analysis — FACTS Paper</p>
+        <p class="para-version para-standard">A Trans-Domain Analysis — FACTS Paper</p>
+        <p class="para-version para-academic">A Trans-Domain Analysis — FACTS Paper</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="202">
+        
+        <p class="para-version para-easy">David Lowe • Theophysics Research Initiative<br>With Claude (Anthropic), Gemini (Google), and Codex (OpenAI)</p>
+        <p class="para-version para-standard">David Lowe • Theophysics Research Initiative<br>With Claude (Anthropic), Gemini (Google), and Codex (OpenAI)</p>
+        <p class="para-version para-academic">David Lowe • Theophysics Research Initiative<br>With Claude (Anthropic), Gemini (Google), and Codex (OpenAI)</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="203">
+        
+        <p class="para-version para-easy">23 domains analyzed<br>p = 0.003<br>5 kill conditions</p>
+        <p class="para-version para-standard">23 domains analyzed<br>p = 0.003<br>5 kill conditions</p>
+        <p class="para-version para-academic">23 domains analyzed<br>p = 0.003<br>5 kill conditions</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="204">
+        
+        <p class="para-version para-easy"><a href='MDA-902-appendix-trans-domain-analysis.html'>Main Analysis</a><br><a href='MDA-034-technology-entropy.html'>Technology &amp; Entropy</a><br><a href='MDA-905-appendix-timeline.html'>Historical Timeline</a><br><a href='index.html'>Series Index</a></p>
+        <p class="para-version para-standard"><a href='MDA-902-appendix-trans-domain-analysis.html'>Main Analysis</a><br><a href='MDA-034-technology-entropy.html'>Technology &amp; Entropy</a><br><a href='MDA-905-appendix-timeline.html'>Historical Timeline</a><br><a href='index.html'>Series Index</a></p>
+        <p class="para-version para-academic"><a href='MDA-902-appendix-trans-domain-analysis.html'>Main Analysis</a><br><a href='MDA-034-technology-entropy.html'>Technology &amp; Entropy</a><br><a href='MDA-905-appendix-timeline.html'>Historical Timeline</a><br><a href='index.html'>Series Index</a></p>
+      </section>
+    
+
+      <section class="mda-para" data-para="205">
+        
+        <h2 class="para-version para-easy">Related Work</h2>
+        <h2 class="para-version para-standard">Related Work</h2>
+        <h2 class="para-version para-academic">Related Work</h2>
+      </section>
+    
+
+      <section class="mda-para" data-para="206">
+        
+        <p class="para-version para-easy">Core article, supporting evidence, and broader context</p>
+        <p class="para-version para-standard">Core article, supporting evidence, and broader context</p>
+        <p class="para-version para-academic">Core article, supporting evidence, and broader context</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="207">
+        
+        <p class="para-version para-easy">Ring 1 — This Article<br>The core argument</p>
+        <p class="para-version para-standard">Ring 1 — This Article<br>The core argument</p>
+        <p class="para-version para-academic">Ring 1 — This Article<br>The core argument</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="208">
+        
+        <p class="para-version para-easy">You are here.</p>
+        <p class="para-version para-standard">You are here.</p>
+        <p class="para-version para-academic">You are here.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="209">
+        
+        <p class="para-version para-easy">Ring 2 — Supporting Evidence<br>Deeper dives and formal treatments</p>
+        <p class="para-version para-standard">Ring 2 — Supporting Evidence<br>Deeper dives and formal treatments</p>
+        <p class="para-version para-academic">Ring 2 — Supporting Evidence<br>Deeper dives and formal treatments</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="210">
+        
+        <p class="para-version para-easy">No connections mapped yet.</p>
+        <p class="para-version para-standard">No connections mapped yet.</p>
+        <p class="para-version para-academic">No connections mapped yet.</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="211">
+        
+        <p class="para-version para-easy">Ring 3 — Broader Context<br>Related topics across the framework</p>
+        <p class="para-version para-standard">Ring 3 — Broader Context<br>Related topics across the framework</p>
+        <p class="para-version para-academic">Ring 3 — Broader Context<br>Related topics across the framework</p>
+      </section>
+    
+
+      <section class="mda-para" data-para="212">
+        
+        <p class="para-version para-easy">No connections mapped yet.</p>
+        <p class="para-version para-standard">No connections mapped yet.</p>
+        <p class="para-version para-academic">No connections mapped yet.</p>
+      </section>
+    
+      </article>
+      
+      <aside class="proof-panel" id="proof-panel">
+        <div class="proof-head">
+          <p class="eyebrow">Proof Layer</p>
+          <h2>Evidence, Math Notes, and Claim Gate</h2>
+        </div>
+        <div class="proof-grid">
+          <section>
+            <h3>Promoted Claims</h3>
+            <p>No promoted claim has been deterministically passed into this proof tab yet.</p>
+          </section>
+          <section>
+            <h3>Paper Metrics</h3>
+            <dl class="metrics">
+              <div><dt>Truth</dt><dd></dd></div>
+              <div><dt>Coherence</dt><dd></dd></div>
+              <div><dt>Chi</dt><dd></dd></div>
+              <div><dt>Argument</dt><dd></dd></div>
+            </dl>
+          </section>
+        </div>
+        <details open>
+          <summary>Two-Lane Math + Attention Report</summary>
+          <pre>No two-lane report found for this article.</pre>
+        </details>
+      </aside>
+    
+    </main>
+  </div>
+  <script>
+    const buttons = Array.from(document.querySelectorAll('[data-mode]'));
+    buttons.forEach(button => button.addEventListener('click', () => {
+      const mode = button.dataset.mode;
+      document.body.className = 'mode-' + mode;
+      buttons.forEach(b => b.classList.toggle('active', b === button));
+    }));
+    document.querySelectorAll('.claim-dot').forEach(button => {
+      button.addEventListener('click', () => button.closest('.mda-para').classList.toggle('show-claim'));
+    });
+  </script>
+</body>
+</html>

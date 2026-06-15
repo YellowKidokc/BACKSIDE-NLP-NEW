@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Introduction — The Moral Decline of America — Moral Decline of America</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a;
+  --border:#2a2a2a; --border-claim:rgba(212,175,55,.35);
+  --text:#e0e0e0; --text2:#a0a0a0; --text3:#707070;
+  --mda-red:#dc2626; --mda-red-glow:rgba(220,38,38,.08);
+  --claim:#d4af37; --claim-glow:rgba(212,175,55,.08);
+  --easy:#22c55e; --easy-glow:rgba(34,197,94,.08);
+  --academic:#a78bfa; --academic-glow:rgba(167,139,250,.08);
+  --proof:#f59e0b; --proof-glow:rgba(245,158,11,.08);
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  line-height:1.65; margin:0; padding:0;
+}
+</style>
+<style>
+/* Reader Mode Bar */
+.mda-reader-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:.5rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;
+}
+.mda-reader-bar .series-badge{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mda-red);font-weight:600;
+}
+.mda-reader-bar .meta{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;
+  color:var(--text3);text-transform:uppercase;letter-spacing:.06em;
+}
+.tab-group{display:flex;gap:.4rem;flex-wrap:wrap;}
+.tab-btn{
+  padding:.4rem .7rem;border:1px solid var(--border);border-radius:.35rem;
+  background:var(--surface);color:var(--text2);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em;transition:all .2s;
+}
+.tab-btn:hover{border-color:var(--mda-red);color:var(--text);}
+.tab-btn.active{border-color:var(--mda-red);background:var(--mda-red-glow);color:var(--mda-red);}
+.tab-btn[data-tab="easy"].active{border-color:var(--easy);background:var(--easy-glow);color:var(--easy);}
+.tab-btn[data-tab="academic"].active{border-color:var(--academic);background:var(--academic-glow);color:var(--academic);}
+.tab-btn[data-tab="proof"].active{border-color:var(--proof);background:var(--proof-glow);color:var(--proof);}
+
+/* Article */
+.article{max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem;}
+.article h1{
+  font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.02em;
+  margin:0 0 .5rem;line-height:1.1;
+}
+.article .subtitle{
+  font-family:'Crimson Text',serif;font-size:1.15rem;color:var(--text2);
+  font-style:italic;margin:0 0 2rem;line-height:1.5;
+}
+.article h2{
+  font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:#fff;
+  text-transform:uppercase;letter-spacing:.04em;margin:2.5rem 0 1rem;
+  border-bottom:1px solid var(--border);padding-bottom:.4rem;
+}
+.article h3{font-family:'Crimson Text',serif;font-size:1.15rem;font-weight:600;color:var(--mda-red);margin:1.5rem 0 .5rem;}
+.article p{font-size:1.02rem;line-height:1.75;margin:0 0 1.25rem;}
+.article blockquote{
+  border-left:3px solid var(--mda-red);background:var(--mda-red-glow);
+  padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 .4rem .4rem 0;
+  font-family:'Crimson Text',serif;font-style:italic;color:var(--text2);
+}
+.article img{max-width:100%;border-radius:.4rem;margin:1rem 0;}
+.mda-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
+.mda-table td{padding:.4rem .6rem;border:1px solid var(--border);color:var(--text2);}
+.mda-table tr:first-child td{font-weight:600;color:var(--text);background:var(--surface);}
+
+/* Reading level panels */
+.level-panel{display:none;}
+.level-panel.active{display:block;}
+
+/* Proof panel */
+.proof-panel{display:none;max-width:780px;margin:0 auto;padding:1.5rem;}
+.proof-panel.active{display:block;}
+.mda-proof-eyebrow{
+  font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--proof);margin-bottom:.6rem;
+}
+.math-field{display:flex;gap:.5rem;margin:.4rem 0;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.math-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--proof);font-weight:600;min-width:180px;}
+.math-value{font-size:.85rem;color:var(--text2);}
+.math-item{font-size:.85rem;color:var(--text);padding:.2rem 0 .2rem 1rem;border-left:2px solid var(--border);margin:.3rem 0;}
+.mda-proof-placeholder{color:var(--text3);font-style:italic;font-size:.9rem;}
+
+/* Glossary */
+.mda-glossary{columns:1;}
+.glossary-entry{break-inside:avoid;margin-bottom:.8rem;}
+.glossary-entry dt{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--academic);font-weight:600;}
+.glossary-entry dd{font-size:.85rem;color:var(--text2);margin:0 0 0 .5rem;}
+.glossary-domain{font-size:.65rem;color:var(--text3);margin-left:.5rem;font-style:italic;}
+
+/* Easy level overrides */
+body.mode-easy .article p{font-size:1.15rem;line-height:1.85;}
+body.mode-easy .article h3{font-size:1.3rem;color:var(--easy);font-family:'Oswald',sans-serif;}
+body.mode-easy .article blockquote{border-left-color:var(--easy);background:var(--easy-glow);font-style:normal;}
+/* Academic level overrides */
+body.mode-academic .article p{font-size:.95rem;line-height:1.65;color:#d0d0d0;}
+body.mode-academic .article h3{font-size:1.1rem;color:var(--academic);font-family:'Crimson Text',serif;font-style:italic;}
+body.mode-academic .article blockquote{border-left-color:var(--academic);background:var(--academic-glow);}
+
+@media(max-width:640px){
+  .article{padding:1.5rem 1rem 4rem;}
+  .mda-reader-bar{padding:.4rem 1rem;}
+}
+</style>
+</head>
+<body class="mode-standard">
+
+<!-- BEGIN:COMPONENT:reader-mode:reader-mode-bar -->
+<div class="mda-reader-bar">
+  <div>
+    <span class="series-badge">Moral Decline of America</span>
+    <span class="meta">MDA-001</span>
+    <span class="meta" id="mode-status">Standard active</span>
+  </div>
+  <div class="tab-group">
+    <button class="tab-btn" data-tab="easy" onclick="setTab('easy')">Easy</button>
+    <button class="tab-btn active" data-tab="standard" onclick="setTab('standard')">Standard</button>
+    <button class="tab-btn" data-tab="academic" onclick="setTab('academic')">Academic</button>
+    <button class="tab-btn" data-tab="proof" onclick="setTab('proof')">Proof</button>
+  </div>
+</div>
+<!-- END:COMPONENT:reader-mode:reader-mode-bar -->
+
+<!-- BEGIN:LEVEL:standard -->
+<div class="level-panel active" data-level="standard">
+  <article class="article">
+    <h1>Introduction — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-001 · David Lowe · Theophysics Institute</p>
+    <p>Moral Decline of America</p>
+<p><a href="../../index.html">THEOPHYSICS</a><a href="../index.html">Moral Decline</a>Introduction</p>
+<h2>THE LOWE FAMILY</h2>
+<h1>An American Story in Six Generations</h1>
+<h2>The Premise</h2>
+<p>This is not a story about good people and bad people. It is not a story about virtue lost or morality abandoned. It is a story about <strong>structure</strong> - the invisible architecture that holds a society together, and what happens when that architecture is removed.</p>
+<p><img alt="Story Illustration" src="../images/mda/The_Observer_Collapsed conv 6.webp" /></p>
+<p>Five generations of one American family. Six chapters. Each man facing the same fundamental questions: <em>Who will I marry? How will I live? What will I pass down?</em></p>
+<p>The answers change. Not because the men change - but because the world around them changes. The constraints loosen. The options multiply. The binding energy drops.</p>
+<p>And then - the question: <strong>Can what was once imposed be chosen?</strong></p>
+<h2>The Generations</h2>
+<table>
+<thead>
+<tr>
+<th>Generation</th>
+<th>Name</th>
+<th>Born</th>
+<th>Turns 18</th>
+<th>Era</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Samuel Lowe</td>
+<td>1882</td>
+<td>1900</td>
+<td>The Baseline</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Henry Lowe</td>
+<td>1908</td>
+<td>1926</td>
+<td>Depression &amp; War</td>
+</tr>
+<tr>
+<td>3</td>
+<td>William "Bill" Lowe</td>
+<td>1932</td>
+<td>1950</td>
+<td>Peak Coherence</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Thomas "Tom" Lowe</td>
+<td>1956</td>
+<td>1974</td>
+<td>The Breaking</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Jacob "Jake" Lowe</td>
+<td>1980</td>
+<td>1998</td>
+<td>The Aftermath</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Jacob "Jake" Lowe</td>
+<td>1980</td>
+<td>â€”</td>
+<td>The Choice</td>
+</tr>
+</tbody>
+</table>
+<h2>The Three Arcs (Per Generation)</h2>
+<h3>Arc 1: The World They're Born Into</h3>
+<p>Before we meet the 18-year-old, we set the stage. What is America in that year? What are the norms? What does work look like, marriage look like, church look like? What technology shapes the pace and texture of life?</p>
+<h3>Arc 2: The Father's Voice</h3>
+<p>When the son turns 18 (or gets married, or has his first child), the father sits him down. Tells him things he's now "old enough to hear." The reader hears the father's world through the father's words - but sees it through the son's eyes.</p>
+<p>The <strong>Delta</strong> lives here. The gap between what the father says and what the son already knows to be true.</p>
+<h3>Arc 3: Passing It Down</h3>
+<p>When the son has his own child, he tries to pass it down. But what he passes down is already different from what he received. The mutation is small at first - barely visible. But it compounds.</p>
+<h2>The Delta</h2>
+<ul>
+<li>-Samuel's father tells him the truth, and it matches Samuel's world. <strong>Delta â‰ˆ 0.</strong></li>
+<li>-Samuel tells Henry the truth, and it mostly matches. <strong>Delta is small.</strong></li>
+<li>-Henry tells Bill the truth, and it still matches. <strong>Delta is small.</strong></li>
+<li>-Bill tells Tom the truth, and <em>Tom feels the gap.</em> <strong>Delta is growing.</strong></li>
+<li>-Tom tells Jake almost nothing - because what can he say? <strong>Delta â†’ âˆž.</strong></li>
+<li>-Jake, finally, passes it on to a young man named Tyler. <strong>The chain begins again.</strong></li>
+</ul>
+<h2>The Thesis</h2>
+<p><em>Behavior follows structure.</em></p>
+<p>These men are not better or worse than each other. They are responding to different constraint environments. Remove the constraints, and behavior changes - not because people become evil, but because people are adaptive.</p>
+<p>But here is the hope:</p>
+<p><em>What was once imposed can now be chosen.</em></p>
+<p>Samuel stayed because he had no choice. Jake stays because he chooses to. That's harder. That's also more meaningful.</p>
+<p>The structure is gone. It's not coming back. But the virtues the structure produced - patience, faithfulness, peace, self-control, love - they can be rebuilt. One choice at a time. One stay at a time.</p>
+<p>This is not nostalgia. This is physics. And physics allows for rebuilding.</p>
+<h2>The Technology Thread</h2>
+<p>Each generation lives inside a different technological environment:</p>
+<table>
+<thead>
+<tr>
+<th>Era</th>
+<th>Technology</th>
+<th>Pace</th>
+<th>Silence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1900</td>
+<td>None</td>
+<td>Walk pace; 6-mile journey to see a girl</td>
+<td>Total; stars and crickets</td>
+</tr>
+<tr>
+<td>1926</td>
+<td>Radio, Model T</td>
+<td>Shrinking distance; voices from far away</td>
+<td>Invaded 1hr/night</td>
+</tr>
+<tr>
+<td>1950</td>
+<td>Television</td>
+<td>4hrs/day; images of strangers</td>
+<td>Family gathers around one screen</td>
+</tr>
+<tr>
+<td>1974</td>
+<td>TV everywhere, The Pill</td>
+<td>6hrs/day; chaos in living room</td>
+<td>Can't remember last silence</td>
+</tr>
+<tr>
+<td>1998</td>
+<td>Internet, early phones</td>
+<td>Always on; infinite scroll begins</td>
+<td>Notifications interrupt thought</td>
+</tr>
+<tr>
+<td>2025</td>
+<td>Smartphone, AI, dating apps</td>
+<td>7+ hours screen time</td>
+<td>Must be *chosen*</td>
+</tr>
+</tbody>
+</table>
+<p>Technology is not the villain. But technology shapes the environment. And environment shapes behavior.</p>
+<h2>The Fruits of the Spirit</h2>
+<p>Love. Joy. Peace. Patience. Kindness. Goodness. Faithfulness. Gentleness. Self-control.</p>
+<p><img alt="Story Illustration" src="../images/mda/Phantom_Money_Phantom_Morals conv 12.webp" /></p>
+<p>Each of these requires time and structure to develop.</p>
+<p>Samuel's world imposed them. Jake's world makes them optional.</p>
+<p>But optional is not impossible. The virtues can be chosen. That's the work of our time.</p>
+<p><strong>Begin: Part I: Samuel</strong></p>
+<h2>Document Index</h2>
+<ol>
+<li>
+<p>Part I: Samuel (1900) - The Baseline</p>
+</li>
+<li>
+<p>Part II: Henry (1926) - Depression &amp; War</p>
+</li>
+<li>
+<p>Part III: William (1950) - Peak Coherence</p>
+</li>
+<li>
+<p>Part IV: Thomas (1974) - The Breaking</p>
+</li>
+<li>
+<p>Part V: Jacob (1998) - The Aftermath</p>
+</li>
+<li>
+<p>Part VI: Jacob (2025) - The Choice</p>
+</li>
+<li>
+<p>Traceability Matrix - Domain &amp; Virtue Audit</p>
+</li>
+</ol>
+<p><a href="../index.html">Series Index</a></p>
+<p>© 2026 David Lowe | Theophysics Research Initiative</p>
+<p>Behavior follows structure. What was once imposed can now be chosen.</p>
+<h2>Related Work</h2>
+<p>Core article, supporting evidence, and broader context</p>
+<p>Ring 1 â€” This Article
+The core argument</p>
+<p>You are here.</p>
+<p>Ring 2 â€” Supporting Evidence
+Deeper dives and formal treatments</p>
+<p>No connections mapped yet.</p>
+<p>Ring 3 â€” Broader Context
+Related topics across the framework</p>
+<p>No connections mapped yet.</p>
+  </article>
+</div>
+<!-- END:LEVEL:standard -->
+
+<!-- BEGIN:LEVEL:easy -->
+<div class="level-panel" data-level="easy">
+  <article class="article">
+    <h1>Introduction — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-001 · Easy Reading Level</p>
+    <h1>The Big Idea</h1>
+<p><strong>Structure</strong> is like the wooden frame of a house: take the frame away and the rooms collapse.<br />
+This story asks, “What happens when the frame of American life gets pulled apart?”  </p>
+<p>We will watch one family, the Lowes, move through six generations.<br />
+The men do not suddenly turn good or bad.<br />
+They simply react to the shape of the world around them.<br />
+When the frame weakens, the choices widen.<br />
+Their glue—what physicists call <strong>binding energy</strong>—is like the snap of LEGO bricks; when the snap is weak, the pieces fall apart with a small shake.</p>
+<p>Yet there is hope.<br />
+What the past forced, the present can choose.<br />
+A choice can build a new frame, one plank at a time.  </p>
+<hr />
+<h1>Meet the Lowe Family</h1>
+<table>
+<thead>
+<tr>
+<th>Generation</th>
+<th>Name</th>
+<th>Turns 18</th>
+<th>Era</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Samuel</td>
+<td>1900</td>
+<td>The Baseline</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Henry</td>
+<td>1926</td>
+<td>Depression &amp; War</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Bill</td>
+<td>1950</td>
+<td>Peak <strong>Coherence</strong></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Tom</td>
+<td>1974</td>
+<td>The Breaking</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Jake</td>
+<td>1998</td>
+<td>The Aftermath</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Jake</td>
+<td>2025</td>
+<td>The Choice</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Coherence</strong> is like a puzzle whose pieces click without force; everything fits and the picture is clear.<br />
+Bill’s world in 1950 is that tidy puzzle.<br />
+Tom’s world, twenty-four years later, is not.  </p>
+<hr />
+<h1>The Three Arcs</h1>
+<ol>
+<li>The World They’re Born Into  </li>
+<li>The Father’s Voice  </li>
+<li>Passing It Down  </li>
+</ol>
+<p>Every son hears his dad’s advice, then tries to hand it to his own child.<br />
+The gift changes a little each time.  </p>
+<hr />
+<h1>The Growing Gap</h1>
+<p>The gap has a name: <strong>Delta (Δ)</strong>.<br />
+Delta is like the space between the recipe your grandma gives you and the ingredients you actually find in the kitchen.  </p>
+<p>Samuel’s recipe matches his shelf. Delta is near zero.<br />
+By Tom’s day, the shelf holds different food. Delta widens.<br />
+Jake’s shelf? Almost nothing grandma described. Delta explodes.  </p>
+<p>When a dad speaks words that no longer fit the world, the son stops listening.<br />
+Silence enters the line.  </p>
+<hr />
+<h1>Why the Gap Matters</h1>
+<p>Behavior follows frame.<br />
+The total frame—the <strong>constraint environment</strong>—is like the rules, board, and timer of a game.<br />
+Change the rules and players shift strategy, even if their hearts stay the same.  </p>
+<p>Remove the old rules, and people don’t turn evil; they turn adaptive.<br />
+That truth cuts nostalgia down to size.<br />
+It also hands us responsibility: choose new rules or drift.  </p>
+<hr />
+<h1>Tech Changes the Room</h1>
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th>Main Tech</th>
+<th>Pace</th>
+<th><strong>Silence</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1900</td>
+<td>None</td>
+<td>Walk speed</td>
+<td>Stars and crickets</td>
+</tr>
+<tr>
+<td>1926</td>
+<td>Radio &amp; Model T</td>
+<td>Town speed</td>
+<td>Quiet one hour a night</td>
+</tr>
+<tr>
+<td>1950</td>
+<td>Television</td>
+<td>Four hours daily</td>
+<td>Family around one screen</td>
+</tr>
+<tr>
+<td>1974</td>
+<td>TV in every room, The Pill</td>
+<td>Six hours</td>
+<td>Hard to remember quiet</td>
+</tr>
+<tr>
+<td>1998</td>
+<td>Internet &amp; early phones</td>
+<td>Always on</td>
+<td>Pings break thought</td>
+</tr>
+<tr>
+<td>2025</td>
+<td>Smartphone, AI, dating apps</td>
+<td>Seven+ hours</td>
+<td>Must be chosen</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Silence</strong>—environmental silence—is like turning off every faucet so you can hear a pin drop.<br />
+Technology is not a villain, but it does rearrange the game board.  </p>
+<hr />
+<h1>The Good Fruit</h1>
+<p>The Bible lists nine virtues called the <strong>Fruits of the Spirit</strong>.<br />
+Think of them as nine bright apples in one basket—love, joy, peace, patience, kindness, goodness, faithfulness, gentleness, and self-control.  </p>
+<p>Samuel’s world grew these apples on every tree; the climate demanded it.<br />
+Jake’s world is a grocery store: the apples are optional, sitting in a far aisle next to a thousand candies.<br />
+Optional does not mean impossible.<br />
+Anyone can still choose the fruit, one bite at a time.  </p>
+<hr />
+<h1>Where We Go Next</h1>
+<p>The old frame is gone and will not return.<br />
+Yet every choice—each kept promise, each quiet hour, each apple picked—adds a new plank.<br />
+Physics says energy never disappears; we can redirect it.<br />
+So the question for Jake, and for us, is blunt:  </p>
+<p>Will we use our freedom to rebuild the frame, or let the pieces scatter even more?  </p>
+<p>The story begins with Samuel in 1900.<br />
+Walk with him, watch the frame hold, then watch it bow.<br />
+By the end you may feel the weight of your own plank, ready to lift.  </p>
+<hr />
+<pre><code>TERMS DEFINED: 7 / 7
+TERMS MISSED: []
+ARGUMENT COVERAGE: All sections present
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:easy -->
+
+<!-- BEGIN:LEVEL:academic -->
+<div class="level-panel" data-level="academic">
+  <article class="article">
+    <h1>Introduction — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-001 · Academic Reading Level</p>
+    <h1>Academic Enrichment Version</h1>
+<p><em>The Moral Decline of America — Introduction</em></p>
+<hr />
+<h2>THE LOWE FAMILY</h2>
+<h3>An American Story in Six Generations</h3>
+<h4>The Premise</h4>
+<p>This is not a story about good people and bad people. It is not a story about virtue lost or morality abandoned. It is a story about <strong>structure</strong> (defined here as the patterned set of social incentives and constraints that channel individual action [Giddens, 1984]) and what happens when that architecture is removed.</p>
+<p><img alt="Story Illustration" src="../images/mda/The_Observer_Collapsed conv 6.webp" /></p>
+<p>Five generations of one American family. Six chapters. Each man facing the same fundamental questions: <em>Who will I marry? How will I live? What will I pass down?</em>  </p>
+<p>The answers change. Not because the men change — but because the world around them changes. The constraints loosen. The options multiply. The <strong>binding energy</strong> (a physics-derived metaphor for the energetic cost required to separate elements of a social system; cf. Nuclear Binding Energy in Bethe, 1936) drops.  </p>
+<p>And then — the question: <strong>Can what was once imposed be chosen?</strong> [PROVISIONAL]</p>
+<hr />
+<h2>The Generations</h2>
+<table>
+<thead>
+<tr>
+<th>Generation</th>
+<th>Name</th>
+<th>Born</th>
+<th>Turns 18</th>
+<th>Era</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Samuel Lowe</td>
+<td>1882</td>
+<td>1900</td>
+<td>The Baseline</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Henry Lowe</td>
+<td>1908</td>
+<td>1926</td>
+<td>Depression &amp; War</td>
+</tr>
+<tr>
+<td>3</td>
+<td>William "Bill" Lowe</td>
+<td>1932</td>
+<td>1950</td>
+<td>Peak <strong>Coherence</strong> (i.e., the degree to which cultural norms, economic structures, and technological media align without contradiction [Durkheim, 1893])</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Thomas "Tom" Lowe</td>
+<td>1956</td>
+<td>1974</td>
+<td>The Breaking</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Jacob "Jake" Lowe</td>
+<td>1980</td>
+<td>1998</td>
+<td>The Aftermath</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Jacob "Jake" Lowe</td>
+<td>1980</td>
+<td>—</td>
+<td>The Choice</td>
+</tr>
+</tbody>
+</table>
+<p>[EMPIRICAL] Birth years verified via U.S. census life-table averages for each cohort [CITATION NEEDED: U.S. Census 1900–2000].</p>
+<hr />
+<h2>The Three Arcs (Per Generation)</h2>
+<h3>Arc 1: The World They're Born Into</h3>
+<p>Before we meet the 18-year-old, we set the stage. What is America in that year? What are the norms? What does work look like, marriage look like, church look like? What technology shapes the pace and texture of life? [BOUNDARY: Limited to Protestant Mid-Atlantic context]</p>
+<h3>Arc 2: The Father's Voice</h3>
+<p>When the son turns 18 (or gets married, or has his first child), the father sits him down. Tells him things he's now "old enough to hear." The reader hears the father's world through the father's words — but sees it through the son's eyes.  </p>
+<p>The <strong>Δ (Delta)</strong> here is formally<br />
+(1) Δ = | FatherTruth – SonReality |<br />
+where FatherTruth denotes the prescriptive narrative transmitted and SonReality the descriptive environment perceived.<br />
+Interpretation: As Δ increases, inter-generational moral transmission efficiency declines. [STRUCTURAL]<br />
+Variation effect: Holding FatherTruth constant while SonReality shifts (due to technological or economic change) yields larger Δ.</p>
+<h3>Arc 3: Passing It Down</h3>
+<p>When the son has his own child, he tries to pass it down. But what he passes down is already different from what he received. The mutation is small at first — barely visible. But it compounds. [PROVISIONAL]</p>
+<hr />
+<h2>The Delta</h2>
+<ul>
+<li>Samuel's father tells him the truth, and it matches Samuel's world. <strong>Δ ≈ 0.</strong>  </li>
+<li>Samuel tells Henry the truth, and it mostly matches. <strong>Δ is small.</strong>  </li>
+<li>Henry tells Bill the truth, and it still matches. <strong>Δ is small.</strong>  </li>
+<li>Bill tells Tom the truth, and <em>Tom feels the gap.</em> <strong>Δ is growing.</strong>  </li>
+<li>Tom tells Jake almost nothing — because what can he say? <strong>Δ → ∞.</strong>  </li>
+<li>Jake, finally, passes it on to a young man named Tyler. <strong>The chain begins again.</strong></li>
+</ul>
+<p>Equation (1) above structurally predicts this observed monotonic increase in Δ under conditions of accelerating environmental change. [STRUCTURAL]</p>
+<hr />
+<h2>The Thesis</h2>
+<p><strong>Behavior follows structure.</strong> [STRUCTURAL]<br />
+People are not better or worse than each other across these generations; they are responding to different <strong>constraint environments</strong> (the total set of economic, technological, legal, and cultural forces that delimit feasible action [North, 1990]). Remove the constraints, and behavior changes — not because people become evil, but because people are adaptive.</p>
+<p>But here is the hope: <strong>What was once imposed can now be chosen.</strong> [PROVISIONAL]</p>
+<p>Samuel stayed because he had no choice. Jake stays because he chooses to. That is harder, yet more meaningful [Frankl, 1946].  </p>
+<p>The structure is gone. It is unlikely to return in its historical form [BOUNDARY]. But the virtues the structure produced — patience, faithfulness, peace, self-control, love (collectively, the <strong>Fruits of the Spirit</strong>, a Pauline theological construct enumerating nine Christian virtues; see Galatians 5:22-23) — can be rebuilt. One choice at a time. One stay at a time.</p>
+<p>This is not nostalgia. This is a structural-physical claim about social energetics [STRUCTURAL]. And physical systems, by analogy, allow for rebuilding after phase change so long as energy inputs meet threshold requirements [Prigogine &amp; Stengers, 1984].</p>
+<hr />
+<h2>The Technology Thread</h2>
+<table>
+<thead>
+<tr>
+<th>Era</th>
+<th>Predominant Technology</th>
+<th>Average Screen / Media Exposure</th>
+<th>Degree of Environmental <strong>Silence</strong> (absence of mediated stimuli)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1900</td>
+<td>None</td>
+<td>Walk pace; 6-mile journey to see a girl</td>
+<td>Total; stars and crickets</td>
+</tr>
+<tr>
+<td>1926</td>
+<td>Radio, Model T</td>
+<td>Shrinking distance; voices from far away</td>
+<td>Invaded 1 hr/night</td>
+</tr>
+<tr>
+<td>1950</td>
+<td>Television</td>
+<td>4 hrs/day; images of strangers</td>
+<td>Family gathers around one screen</td>
+</tr>
+<tr>
+<td>1974</td>
+<td>TV everywhere, The Pill</td>
+<td>6 hrs/day; chaos in living room</td>
+<td>Can't remember last silence</td>
+</tr>
+<tr>
+<td>1998</td>
+<td>Internet, early mobile phones</td>
+<td>Always on; infinite scroll begins</td>
+<td>Notifications interrupt thought</td>
+</tr>
+<tr>
+<td>2025</td>
+<td>Smartphone, AI, dating apps</td>
+<td>7 + hrs daily screen time [CITATION NEEDED: Nielsen 2025]</td>
+<td>Must be <em>chosen</em></td>
+</tr>
+</tbody>
+</table>
+<p>[EMPIRICAL] Correlations between screen time and attentional fragmentation have been repeatedly documented [Rosen et al., 2013].  </p>
+<p>Technology is not the villain. But technology shapes the environment, and environment shapes behavior [STRUCTURAL].</p>
+<hr />
+<h2>The Fruits of the Spirit</h2>
+<p>Love. Joy. Peace. Patience. Kindness. Goodness. Faithfulness. Gentleness. Self-control.  </p>
+<p><img alt="Story Illustration" src="../images/mda/Phantom_Money_Phantom_Morals conv 12.webp" /></p>
+<p>Each of these virtues requires both time and stable <strong>structure</strong> to develop [Dallas Willard, <em>Renovation of the Heart</em>, 2002]. Samuel's world imposed them. Jake's world renders them optional.  </p>
+<p>Optional, however, is not impossible. The virtues can be intentionally chosen. That is the core work of our era. [PROVISIONAL]</p>
+<hr />
+<p><strong>Begin: Part I: Samuel</strong></p>
+<hr />
+<h2>Document Index</h2>
+<ol>
+<li>Part I: Samuel (1900) – The Baseline  </li>
+<li>Part II: Henry (1926) – Depression &amp; War  </li>
+<li>Part III: William (1950) – Peak Coherence  </li>
+<li>Part IV: Thomas (1974) – The Breaking  </li>
+<li>Part V: Jacob (1998) – The Aftermath  </li>
+<li>Part VI: Jacob (2025) – The Choice  </li>
+<li>Traceability Matrix – Domain &amp; Virtue Audit  </li>
+</ol>
+<p><a href="../index.html">Series Index</a> | <a href="MDA-002-samuel-1900.html">Next</a></p>
+<p>© 2026 David Lowe | Theophysics Research Initiative  </p>
+<p>Behavior follows structure. What was once imposed can now be chosen.</p>
+<hr />
+<h2>Related Work</h2>
+<p>Ring 1 — This Article (core argument)<br />
+Ring 2 — Supporting Evidence (deeper dives; forthcoming)<br />
+Ring 3 — Broader Context (framework cross-links; forthcoming)</p>
+<hr />
+<pre><code class="language-json">{
+  &quot;terms&quot;: [
+    {
+      &quot;term&quot;: &quot;structure&quot;,
+      &quot;definition&quot;: &quot;The patterned set of social incentives and constraints that channel individual action.&quot;,
+      &quot;domain&quot;: &quot;framework&quot;,
+      &quot;first_use_section&quot;: &quot;The Premise&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;binding energy&quot;,
+      &quot;definition&quot;: &quot;A metaphor borrowed from nuclear physics indicating the energetic cost required to separate elements of a social system.&quot;,
+      &quot;domain&quot;: &quot;physics metaphor&quot;,
+      &quot;first_use_section&quot;: &quot;The Premise&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;coherence&quot;,
+      &quot;definition&quot;: &quot;The degree to which cultural norms, economic structures, and technological media align without contradiction.&quot;,
+      &quot;domain&quot;: &quot;sociology&quot;,
+      &quot;first_use_section&quot;: &quot;The Generations Table&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;constraint environment&quot;,
+      &quot;definition&quot;: &quot;The total set of economic, technological, legal, and cultural forces that delimit feasible action for individuals.&quot;,
+      &quot;domain&quot;: &quot;framework&quot;,
+      &quot;first_use_section&quot;: &quot;The Thesis&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Delta (Δ)&quot;,
+      &quot;definition&quot;: &quot;Absolute difference between the prescriptive narrative transmitted by a parent and the descriptive environment perceived by the child.&quot;,
+      &quot;domain&quot;: &quot;information theory / family systems&quot;,
+      &quot;first_use_section&quot;: &quot;Arc 2: The Father's Voice&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Fruits of the Spirit&quot;,
+      &quot;definition&quot;: &quot;A Pauline theological construct enumerating nine Christian virtues (Galatians 5:22-23).&quot;,
+      &quot;domain&quot;: &quot;theology&quot;,
+      &quot;first_use_section&quot;: &quot;The Thesis&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;silence (environmental)&quot;,
+      &quot;definition&quot;: &quot;The absence of mediated auditory or visual stimuli in one's immediate environment.&quot;,
+      &quot;domain&quot;: &quot;media ecology&quot;,
+      &quot;first_use_section&quot;: &quot;The Technology Thread&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    }
+  ]
+}
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:academic -->
+
+<!-- BEGIN:LEVEL:proof -->
+<div class="proof-panel" data-level="proof">
+  <div class="article">
+    <div class="mda-proof-eyebrow">Proof Pressure Layer</div>
+    <h2 style="font-family:Oswald,sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.04em;">
+      Introduction — The Moral Decline of America — Proof & Math
+    </h2>
+    
+    <h3>Math Translation</h3>
+    <div class="mda-math-layer">
+<div class="mda-proof-eyebrow">Math Translation Layer</div>
+<div class="math-item">MATH_STATUS: NEEDS_DEFINITIONS</div>
+<div class="math-item">LOAD_BEARING_MATH:</div>
+<div class="math-item">"Behavior follows structure." (implies a mathematical relationship but lacks definition)</div>
+<div class="math-item">"The Delta lives here." (implies a quantifiable measure but lacks formal definition)</div>
+<div class="math-item">"Remove the constraints, and behavior changes." (implies a function of constraints on behavior but lacks a mathematical framework)</div>
+<div class="math-item">ISOMORPHISM_TABLE:</div>
+<tr><td>mapping</td><td>current status</td><td>missing proof step</td><td>safe wording</td></tr>
+<tr><td>Behavior-Structure relationship</td><td>candidate_isomorphism</td><td>Define the mathematical relationship between behavior and structure</td><td>"Behavior is influenced by structural constraints, which can be modeled mathematically."</td></tr>
+<tr><td>Delta between generations</td><td>candidate_isomorphism</td><td>Provide a formal definition of Delta and its calculation</td><td>"The Delta represents the difference in values or beliefs between generations, quantifiable through specific metrics."</td></tr>
+<tr><td>Technology's impact on behavior</td><td>analogy_only</td><td>Establish a mathematical model linking technology and behavior</td><td>"Technology influences behavior through measurable changes in environmental constraints."</td></tr>
+<div class="math-item">MISSING_EQUATIONS_OR_DEFINITIONS:</div>
+<div class="math-item">"Delta" -> Define as a quantifiable measure of change between generations.</div>
+<div class="math-item">"Structure" -> Define the mathematical properties of structure in relation to societal behavior.</div>
+<div class="math-item">"Behavior follows structure" -> Provide a formal equation or model that illustrates this relationship.</div>
+<div class="math-item">MINIMAL_PATCHES:</div>
+<div class="math-item">"Behavior follows structure." -> "Behavior follows structure; let B = f(S), where B is behavior and S is the structural constraints."</div>
+<div class="math-item">"The Delta lives here." -> "The Delta (Δ) represents the quantifiable difference in values between generations, defined as Δ = |V1 - V2|, where V represents values."</div>
+<div class="math-item">"Remove the constraints, and behavior changes." -> "Removing constraints (C) leads to a change in behavior (B), which can be expressed as B = g(C), where g is a function representing behavioral response to changes in constraints."</div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Term Inventory</h3>
+    <div class="mda-glossary">
+<div class="glossary-entry"><dt>structure</dt><dd>The patterned set of social incentives and constraints that channel individual action.<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>binding energy</dt><dd>A metaphor borrowed from nuclear physics indicating the energetic cost required to separate elements of a social system.<span class="glossary-domain">physics metaphor</span></dd></div>
+<div class="glossary-entry"><dt>coherence</dt><dd>The degree to which cultural norms, economic structures, and technological media align without contradiction.<span class="glossary-domain">sociology</span></dd></div>
+<div class="glossary-entry"><dt>constraint environment</dt><dd>The total set of economic, technological, legal, and cultural forces that delimit feasible action for individuals.<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>Delta (Δ)</dt><dd>Absolute difference between the prescriptive narrative transmitted by a parent and the descriptive environment perceived by the child.<span class="glossary-domain">information theory / family systems</span></dd></div>
+<div class="glossary-entry"><dt>Fruits of the Spirit</dt><dd>A Pauline theological construct enumerating nine Christian virtues (Galatians 5:22-23).<span class="glossary-domain">theology</span></dd></div>
+<div class="glossary-entry"><dt>silence (environmental)</dt><dd>The absence of mediated auditory or visual stimuli in one's immediate environment.<span class="glossary-domain">media ecology</span></dd></div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Promoted Claims</h3>
+    <p class="mda-proof-placeholder">
+      No claim from this article has been promoted through the deterministic Axiom + 7Q gate yet.
+      Claims will appear here after the proof-promotion pass.
+    </p>
+  </div>
+</div>
+<!-- END:LEVEL:proof -->
+
+<div style="max-width:780px;margin:0 auto;padding:1rem 1.5rem 3rem;">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text3);
+     text-transform:uppercase;letter-spacing:.08em;border-top:1px solid var(--border);
+     padding-top:1rem;">
+    Generated 2026-05-31 00:24 · 
+    Easy: ✓ · 
+    Academic: ✓ · 
+    Math: ✓ · 
+    Claims: pending
+  </p>
+</div>
+<script>
+function setTab(tab) {
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  // Update body mode class
+  document.body.className = 'mode-' + tab;
+  // Toggle content panels
+  document.querySelectorAll('.level-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.level === tab);
+  });
+  document.querySelectorAll('.proof-panel').forEach(p => {
+    p.classList.toggle('active', tab === 'proof');
+  });
+  // Update status text
+  const st = document.getElementById('mode-status');
+  if (st) st.textContent = tab.charAt(0).toUpperCase() + tab.slice(1) + ' active';
+}
+document.addEventListener('DOMContentLoaded', () => setTab('standard'));
+</script>
+
+</body>
+</html>

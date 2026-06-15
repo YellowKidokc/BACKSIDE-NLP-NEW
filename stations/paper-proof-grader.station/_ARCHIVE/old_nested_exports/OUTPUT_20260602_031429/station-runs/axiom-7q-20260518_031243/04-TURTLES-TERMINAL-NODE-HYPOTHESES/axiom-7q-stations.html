@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>04-TURTLES-TERMINAL-NODE-HYPOTHESES - Axiom + 7Q</title>
+  <style>
+    :root {
+      --bg: #f6f7f3;
+      --panel: #ffffff;
+      --ink: #1d2524;
+      --muted: #586260;
+      --line: #d8ded8;
+      --navy: #1f4e78;
+      --ok: #dcebd8;
+      --ok-ink: #24522b;
+      --repair: #fff0bf;
+      --repair-ink: #6a4a00;
+      --weak: #f7d6c7;
+      --weak-ink: #743716;
+      --fail: #f3c4c4;
+      --fail-ink: #7d2020;
+      --neutral: #e8eceb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 15px/1.55 "Segoe UI", Arial, sans-serif;
+    }
+    header {
+      background: #172b33;
+      color: #fff;
+      padding: 24px clamp(18px, 4vw, 48px);
+      border-bottom: 5px solid #b78f3b;
+    }
+    header h1 { margin: 0 0 6px; font-size: clamp(24px, 3vw, 38px); letter-spacing: 0; }
+    header p { margin: 0; color: #d7e2e0; max-width: 1100px; }
+    main { width: min(1360px, calc(100vw - 32px)); margin: 22px auto 44px; }
+    h2 { margin: 26px 0 10px; font-size: 22px; }
+    h3 { margin: 0 0 8px; font-size: 18px; }
+    a { color: var(--navy); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+    .metric, .claim, .table-wrap {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    }
+    .metric { padding: 14px; }
+    .metric .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
+    .metric .value { font-size: 26px; font-weight: 700; margin-top: 3px; }
+    .claim { padding: 16px; margin: 14px 0; }
+    .claim-text { white-space: pre-wrap; }
+    .meta { color: var(--muted); font-size: 13px; }
+    .badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 10px; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.12);
+      font-size: 12px;
+      font-weight: 650;
+    }
+    .ok { background: var(--ok); color: var(--ok-ink); }
+    .repair { background: var(--repair); color: var(--repair-ink); }
+    .weak { background: var(--weak); color: var(--weak-ink); }
+    .fail { background: var(--fail); color: var(--fail-ink); }
+    .neutral { background: var(--neutral); color: var(--ink); }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; text-align: left; }
+    th { background: #edf2f0; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+    .table-wrap { overflow-x: auto; }
+    .two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+    .note { background: #eef3f6; border-left: 4px solid var(--navy); padding: 10px 12px; margin: 10px 0; }
+    code { background: #eef0ed; padding: 1px 4px; border-radius: 4px; }
+    @media (max-width: 820px) {
+      main { width: min(100% - 18px, 1360px); }
+      .two-col { grid-template-columns: 1fr; }
+      th, td { padding: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>04-TURTLES-TERMINAL-NODE-HYPOTHESES</h1>
+  <p>Axiom + 7Q station report. Generated 2026-05-18T03:13:31.</p>
+</header>
+<main>
+  <section class="grid">
+    <div class="metric"><div class="label">Claims</div><div class="value">9</div></div>
+    <div class="metric"><div class="label">Average 7Q Forward</div><div class="value">2.22/7</div></div>
+    <div class="metric"><div class="label">Reverse Verdicts</div><div class="value">{&#x27;FAIL_REVIEW&#x27;: 8, &#x27;WEAKENED&#x27;: 1}</div></div>
+    <div class="metric"><div class="label">Axiom Hits</div><div class="value">6</div></div>
+  </section>
+  <section>
+    <h2>Claim Review</h2>
+    
+      <article class="claim">
+        <div class="meta">Claim 1 / HYPOTHESES FROM &quot;THE TURTLES AND THE FLOOR&quot;</div>
+        <h3>HYPOTHESES FROM &quot;THE TURTLES AND THE FLOOR&quot;</h3>
+        <div class="badges">
+          <span class="badge neutral">7Q 3/7</span>
+          <span class="badge fail">FAIL_REVIEW</span>
+          <span class="badge neutral">Formal Model</span>
+        </div>
+        <p><strong>Axiom hits:</strong> Model coupling / susceptibility</p>
+        <p><strong>Weaknesses:</strong> missing_evidence, missing_kill_condition, missing_mechanism, overbroad_scope</p>
+        <p class="claim-text">The Standard Model describes 17 particles with extraordinary precision and cannot define what any of them are. ---</p>
+        
+          <div class="two-col">
+            <div>
+              <h3>O3 Verifier</h3>
+              <div class="badges">
+                <span class="badge repair">repair</span>
+                <span class="badge neutral">confidence 0.46</span>
+                <span class="badge neutral">o3</span>
+              </div>
+              <p><strong>Axiom ids:</strong> model_coupling</p>
+              <p><strong>Suggested registry terms:</strong> standard_model_particle_inventory, ontological_definition_gap</p>
+              <p><strong>Rationale:</strong> Particle count and precision are correct, but the claim’s second clause is philosophical and vague; needs tighter language, evidence, and explicit kill conditions.</p>
+            </div>
+            <div>
+              <h3>Verifier Pressure</h3>
+              <p><strong>Required evidence:</strong> peer-reviewed summaries (e.g., PDG) confirming the 17 elementary particles and the numerical precision of SM predictions (e.g., anomalous magnetic moment, electroweak fits), statements or citations from SM textbooks/reviews noting the absence of an underlying ontological ‘what-is-it’ explanation (only operational properties), comparison showing where SM gives parameters but not origin stories (e.g., Yukawa couplings set by experiment)</p>
+              <p><strong>Failure conditions:</strong> documentation of an SM‐consistent framework that derives the identity or essence of each particle from first principles (ontological closure), evidence that the SM currently enumerates a different particle count (e.g., discovery of 4th-generation fermions or proven compositeness), measurements that substantially contradict the claimed “extraordinary precision” (e.g., &gt;5σ persistent deviations)</p>
+            </div>
+          </div>
+
+      </article>
+
+      <article class="claim">
+        <div class="meta">Claim 2 / H-TF-02: The Self-Grounding Substrate Hypothesis</div>
+        <h3>H-TF-02: The Self-Grounding Substrate Hypothesis</h3>
+        <div class="badges">
+          <span class="badge neutral">7Q 1/7</span>
+          <span class="badge fail">FAIL_REVIEW</span>
+          <span class="badge neutral">Formal Model</span>
+        </div>
+        <p><strong>Axiom hits:</strong> Information substrate, Master Equation / chi field</p>
+        <p><strong>Weaknesses:</strong> missing_evidence, missing_kill_condition, missing_mechanism, overbroad_scope, missing_boundary</p>
+        <p class="claim-text">The Q5 derivation in the Master Equation demonstrates necessity of all six properties. ---</p>
+        <p class="note">OpenAI verifier not run for this claim.</p>
+      </article>
+
+      <article class="claim">
+        <div class="meta">Claim 3 / H-TF-03: The Structural Isomorphism Hypothesis</div>
+        <h3>H-TF-03: The Structural Isomorphism Hypothesis</h3>
+        <div class="badges">
+          <span class="badge neutral">7Q 1/7</span>
+          <span class="badge fail">FAIL_REVIEW</span>
+          <span class="badge neutral">Metaphor</span>
+        </div>
+        <p><strong>Axiom hits:</strong> Falsification / kill condition</p>
+        <p><strong>Weaknesses:</strong> missing_evidence, missing_kill_condition, missing_mechanism, overbroad_scope, missing_boundary</p>
+        <p class="claim-text">One confirmed asymmetry kills the isomorphism claim. **Status:** Unfalsified.</p>
+        <p class="note">OpenAI verifier not run for this claim.</p>
+      </article>
+
+      <article class="claim">
+        <div class="meta">Claim 4 / H-TF-04: The Convergence Hypothesis</div>
+        <h3>H-TF-04: The Convergence Hypothesis</h3>
+        <div class="badges">
+          <span class="badge neutral">7Q 3/7</span>
+          <span class="badge fail">FAIL_REVIEW</span>
+          <span class="badge neutral">Formal Model</span>
+        </div>
+        <p><strong>Axiom hits:</strong> Master Equation / chi field</p>
+        <p><strong>Weaknesses:</strong> missing_evidence, missing_kill_condition, overbroad_scope, missing_boundary</p>
+        <p class="claim-text">**Statement:** The conclusions forced by the Master Equation are independently confirmed by convergent research from Oxford theology-physics programs.</p>
+        <p class="note">OpenAI verifier not run for this claim.</p>
+      </article>
+
+      <article class="claim">
+        <div class="meta">Claim 5 / H-TF-04: The Convergence Hypothesis</div>
+        <h3>H-TF-04: The Convergence Hypothesis</h3>
+        <div class="badges">
+          <span class="badge neutral">7Q 3/7</span>
+          <span class="badge fail">FAIL_REVIEW</span>
+          <span class="badge neutral">Metaphor</span>
+        </div>
+        <p><strong>Axiom hits:</strong> Truth / Logos ground, Falsification / kill condition</p>
+        <p><strong>Weaknesses:</strong> missing_evidence, missing_kill_condition, overbroad_scope, missing_boundary</p>
+        <p class="claim-text">This convergence is evidence of structural truth, not coincidence. **Falsification:** Calculate the probability of 4/7 independent convergence by chance alone.</p>
+        <p class="note">OpenAI verifier not run for this claim.</p>
+      </article>
+
+      <article class="claim">
+        <div class="meta">Claim 6 / H-TF-04: The Convergence Hypothesis</div>
+        <h3>H-TF-04: The Convergence Hypothesis</h3>
+        <div class="badges">
+          <span class="badge neutral">7Q 2/7</span>
+          <span class="badge fail">FAIL_REVIEW</span>
+          <span class="badge neutral">Metaphor</span>
+        </div>
+        <p><strong>Axiom hits:</strong> none</p>
+        <p><strong>Weaknesses:</strong> missing_evidence, missing_kill_condition, missing_mechanism, missing_boundary</p>
+        <p class="claim-text">If the probability exceeds 5% (p &gt; 0.05), the convergence claim has no statistical weight.</p>
+        <p class="note">OpenAI verifier not run for this claim.</p>
+      </article>
+
+      <article class="claim">
+        <div class="meta">Claim 7 / H-TF-05: The Moral Field Hypothesis</div>
+        <h3>H-TF-05: The Moral Field Hypothesis</h3>
+        <div class="badges">
+          <span class="badge neutral">7Q 2/7</span>
+          <span class="badge weak">WEAKENED</span>
+          <span class="badge neutral">Metaphor</span>
+        </div>
+        <p><strong>Axiom hits:</strong> Falsification / kill condition, Master Equation / chi field, Moral conservation</p>
+        <p><strong>Weaknesses:</strong> missing_evidence, missing_mechanism, overbroad_scope, missing_boundary</p>
+        <p class="claim-text">The conservation law div(C) = 0 predicts that the moral signal cannot be created or destroyed, only received or attenuated. **Falsification:** Identify a human culture with zero moral concepts (no justice, no sacrifice, no duty, no concept of fairness).</p>
+        <p class="note">OpenAI verifier not run for this claim.</p>
+      </article>
+
+      <article class="claim">
+        <div class="meta">Claim 8 / H-TF-06: The Intelligibility Hypothesis</div>
+        <h3>H-TF-06: The Intelligibility Hypothesis</h3>
+        <div class="badges">
+          <span class="badge neutral">7Q 4/7</span>
+          <span class="badge fail">FAIL_REVIEW</span>
+          <span class="badge neutral">Metaphor</span>
+        </div>
+        <p><strong>Axiom hits:</strong> Truth / Logos ground, Information substrate</p>
+        <p><strong>Weaknesses:</strong> missing_evidence, missing_kill_condition, missing_boundary</p>
+        <p class="claim-text">If the substrate is the Logos — coherent, self-consistent, non-deceptive information authored by a rational mind — then math works because the universe was designed in a language math can read.</p>
+        <p class="note">OpenAI verifier not run for this claim.</p>
+      </article>
+
+      <article class="claim">
+        <div class="meta">Claim 9 / H-TF-06: The Intelligibility Hypothesis</div>
+        <h3>H-TF-06: The Intelligibility Hypothesis</h3>
+        <div class="badges">
+          <span class="badge neutral">7Q 1/7</span>
+          <span class="badge fail">FAIL_REVIEW</span>
+          <span class="badge neutral">Metaphor</span>
+        </div>
+        <p><strong>Axiom hits:</strong> Falsification / kill condition</p>
+        <p><strong>Weaknesses:</strong> missing_evidence, missing_kill_condition, missing_mechanism, overbroad_scope, missing_boundary</p>
+        <p class="claim-text">The non-deception axiom guarantees intelligibility: an unintelligible universe would be a form of structural deception. **Falsification:** Derive a non-theistic explanation for why mathematics describes physical reality with arbitrary precision.</p>
+        <p class="note">OpenAI verifier not run for this claim.</p>
+      </article>
+
+  </section>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+{
+  "lane_id": "05",
+  "folder": "05_CLAIMS",
+  "lane_name": "Claims",
+  "pipeline_step": 8,
+  "owner": "worker-2 (round-1 swarm)",
+  "intent": "Extract per-section claims as three-layer claim arch (surface / buried / operational), plus rhetorical load, domain shift, and domain badges. Two-pass: claim-extractor.station does flat first-pass classification + claim block identification; LLM refinement produces the three-layer arch. Output feeds 06_CONTRADICTIONS, 09_GRAPH_LINKS, 10_RIGOR, 15_SECTION_PACKETS.",
+  "input": {
+    "requires": [
+      "02_SECTION_MAP/section-map.json",
+      "01_LOSSLESS/normalized-text.md (or raw 00_DROP file as fallback)",
+      "03_YAML_METADATA/metadata.json (for paper_uuid + domain context)",
+      "07_MATH_TRANSLATION/math-payload.json (optional — math-translated claims preferred when available)"
+    ],
+    "format": "section-map.json supplies per-section text + section_id + heading_path + block_types. Lane 05 reads each section, runs the station's classifier as a first pass, then LLM-refines each block into surface/buried/operational triplets.",
+    "mock_policy": "If 02 absent, lane runs the station's section splitter directly on the raw drop file. Mock provenance recorded in claim-packets.json under provenance.mocked = true."
+  },
+  "output": {
+    "produces": [
+      "05_CLAIMS/claim-packets.json",
+      "05_CLAIMS/claim-ledger.csv",
+      "05_CLAIMS/claims.md",
+      "05_CLAIMS/station-firstpass.json"
+    ],
+    "format": "claim-packets.json: page_id + sections[].claims[] where each claim is a ClaimArch (shared_lib/schemas.py:ClaimArch). claim-ledger.csv: Excel-ready flat. claims.md: human-readable. station-firstpass.json: raw output from claim-extractor.station/extract.py for traceability."
+  },
+  "claim_arch_schema": {
+    "claim_id": "stable_uuid('claim', page_id, section_id, surface_claim_hash)",
+    "block_id": "section_id (or finer-grained block_id when available)",
+    "surface_claim": "what the section explicitly says",
+    "buried_claim": "the implicit claim that the surface claim presupposes",
+    "operational_claim": "what the surface claim commits the reader/system to do or measure",
+    "rhetorical_load": "low|medium|high",
+    "domain_shift": "true if the section crosses domains within itself",
+    "domain_badges": "subset of DomainBadge from shared_lib/schemas.py + AVIATION/SAFETY/PROCEDURE",
+    "support_needed": "true if claim requires evidence backing (feeds workflow tag 'needs-evidence')",
+    "station_classification": "carried through from station: AXIOM|DEFINITION|THEOREM|PREDICTION|EVIDENCE|THEOLOGICAL_POSTULATE|CONJECTURE|RESTATEMENT|EQUATION|UNCLASSIFIED",
+    "confidence": "float 0..1"
+  },
+  "excel_columns": {
+    "tab_name": "Claim_Ledger",
+    "columns": [
+      {"name": "paper_uuid", "type": "string"},
+      {"name": "page_id", "type": "string"},
+      {"name": "section_id", "type": "string"},
+      {"name": "claim_id", "type": "string"},
+      {"name": "claim_type", "type": "enum:surface|buried|operational"},
+      {"name": "claim_text", "type": "string"},
+      {"name": "rhetorical_load", "type": "enum:low|medium|high"},
+      {"name": "domain_shift", "type": "boolean"},
+      {"name": "domain_badges", "type": "string[]"},
+      {"name": "support_needed", "type": "boolean"},
+      {"name": "station_classification", "type": "enum:AXIOM|DEFINITION|THEOREM|PREDICTION|EVIDENCE|THEOLOGICAL_POSTULATE|CONJECTURE|RESTATEMENT|EQUATION|UNCLASSIFIED"},
+      {"name": "confidence", "type": "float[0..1]"},
+      {"name": "provenance", "type": "enum:station+llm|station-only|llm-only|mocked"}
+    ]
+  },
+  "loopback_conditions": [
+    "A claim depends on a section span that no longer exists in 01_LOSSLESS (broken source span — write loopback artifact and skip the claim).",
+    "Station classifies 0 claims AND text length > 200 chars — likely upstream split failure.",
+    "LLM refinement produces buried_claim or operational_claim identical to surface_claim across all sections — prompt or input failure.",
+    "Math-bearing claim arrives WITHOUT corresponding 07_MATH_TRANSLATION entry — write loopback so math lane can revisit."
+  ],
+  "dependencies": {
+    "upstream_lanes": ["02"],
+    "soft_upstream_lanes": ["07"],
+    "downstream_lanes": ["06", "09", "10", "15"],
+    "stations": ["claim-extractor.station"],
+    "models": ["claim-extractor.station/extract.py for first-pass classification", "LLM for three-layer arch refinement"]
+  },
+  "station_use": {
+    "station": "\\\\dlowenas\\brain\\Backside\\stations\\claim-extractor.station",
+    "entrypoint": "extract.py",
+    "first_pass_output": "claims_<run_id>.json with flat per-claim classification + signal-keyword scoring",
+    "override_output_dir": "Run extract.py with --output-dir set to the workflow's 05_CLAIMS directory rather than the station's hardcoded D:\\brain\\08_CLAIMS\\_OUTPUT. Round-1 captures station output as station-firstpass.json in this lane folder.",
+    "second_pass": "run_prompt.md drives LLM refinement of each first-pass claim into ClaimArch shape."
+  },
+  "confidence": "draft",
+  "version": "0.1.0",
+  "round": "round-1"
+}

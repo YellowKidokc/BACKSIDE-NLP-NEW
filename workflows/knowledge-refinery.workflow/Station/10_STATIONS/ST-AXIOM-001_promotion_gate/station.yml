@@ -1,0 +1,57 @@
+# Station contract — ST-AXIOM-001
+# First concrete instance. Demonstrates the pattern; serves as a working example
+# of what a fully-filled-in template looks like.
+
+station_id: ST-AXIOM-001
+name: Axiom Promotion Gate
+lane: axiom
+status: active
+purpose: >
+  Decide whether a candidate axiom is ready to be promoted into the
+  188-axiom canon. Verifies the derivation chain hooks cleanly into
+  the existing spine (Truth -> Existence -> Grounding -> Observation ->
+  Moral Physics -> Spiritual Reality -> Grace), that the claim does
+  not contradict any standing axiom, and that the supporting evidence
+  meets the load-bearing / suggestive / overclaimed gradient required
+  by the contract.
+
+model:
+  primary: M-REASON-001              # Opus, hub coordinator
+  fallback: M-REASON-002             # Sonnet, research backup
+
+prompt:
+  primary: P-AXIOM-001               # promotion_review.prompt.md
+  fallback: P-AXIOM-002               # promotion_review.strict.prompt.md
+
+script:
+  runner: S-AXIOM-001                # run_promotion_gate.py
+
+input:
+  accepts:
+    - candidate_axiom_markdown
+    - derivation_chain_proof
+  required_files:
+    - candidate.md                    # the proposed axiom text
+    - derivation.md                   # the proof / chain into the spine
+
+output:
+  produces:
+    - verdict.json                    # {decision, confidence, gradient, contradictions}
+    - verdict.md                      # human-readable reasoning
+    - canon_diff.md                   # if accepted, the proposed canon insertion
+
+gate:
+  pass_if:
+    - valid_json: true
+    - decision_in: [accept, accept_with_revisions]
+    - no_contradictions_with_canon: true
+    - hooks_into_spine: true
+    - gradient_labeled: true          # must be load-bearing | suggestive | overclaimed
+  fail_to: 99_ERROR
+  review_to: 03_REVIEW
+
+next:
+  pass:
+    - ST-AXIOM-002                    # canon_writer (writes accepted axiom into D:\01_Axioms)
+  fail:
+    - ST-ERR-001

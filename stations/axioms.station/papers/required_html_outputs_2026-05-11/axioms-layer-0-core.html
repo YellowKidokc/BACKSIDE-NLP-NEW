@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layer 0 + Tier 1: The Trinitarian Core — Proof Explorer</title>
+<meta name="description" content="Two primitives. Seven irreducible axioms. The complete foundation of the Theophysics axiom chain, formalized in Lean4 and verified by machine proof.">
+<meta property="og:title" content="The Trinitarian Core — 2 Primitives, 7 Axioms, Machine-Verified">
+<meta property="og:description" content="From Distinction and Substrate to the Trinity. The floor beneath all Theophysics claims.">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "Layer 0 + Tier 1: The Trinitarian Core",
+  "author": {"@type": "Person", "name": "David Lowe"},
+  "publisher": {"@type": "Organization", "name": "Faith Through Physics"},
+  "datePublished": "2026-04-27",
+  "description": "Two primitives, seven irreducible axioms. The foundation of the Theophysics axiom chain."
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --bg: #050505;
+  --bg-panel: #0a0a0a;
+  --bg-card: #111111;
+  --bg-hover: #1a1a1a;
+  --border: #222;
+  --border-hover: #333;
+  --text: #e0e0e0;
+  --text-dim: #999;
+  --text-muted: #555;
+  --gold: #d4af37;
+  --gold-dim: rgba(212,175,55,0.1);
+  --red: #c94040;
+  --red-dim: rgba(201,64,64,0.1);
+  --blue: #3b82f6;
+  --blue-dim: rgba(59,130,246,0.1);
+  --teal: #14b8a6;
+  --teal-dim: rgba(20,184,166,0.1);
+  --violet: #8b7fc2;
+  --violet-dim: rgba(139,127,194,0.1);
+  --green: #22c55e;
+  --green-dim: rgba(34,197,94,0.1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at 25% 0%, rgba(212,175,55,0.04), transparent 55%),
+              radial-gradient(ellipse at 75% 100%, rgba(212,175,55,0.02), transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+.top-nav {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(5,5,5,0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 1.5rem;
+  display: flex; align-items: center; gap: 2rem;
+}
+.top-nav .brand {
+  font-family: 'Cinzel', serif; font-size: 1rem; color: var(--gold);
+  text-decoration: none; display: flex; align-items: center; gap: 0.5rem;
+}
+.top-nav .nav-links { display: flex; gap: 0.5rem; margin-left: auto; }
+.top-nav .nav-links a {
+  font-family: 'Oswald', sans-serif; font-size: 0.75rem; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--text-dim); text-decoration: none;
+  padding: 0.35rem 0.85rem; border-radius: 0.3rem; transition: all 0.2s;
+}
+.top-nav .nav-links a:hover, .top-nav .nav-links a.active {
+  color: var(--gold); background: var(--gold-dim);
+}
+.layout {
+  display: grid; grid-template-columns: 260px 1fr 300px;
+  gap: 1px; min-height: calc(100vh - 60px); position: relative; z-index: 1;
+}
+.sidebar {
+  background: var(--bg-panel); padding: 1.25rem;
+  overflow-y: auto; max-height: calc(100vh - 60px);
+}
+.sidebar h3 {
+  font-family: 'Oswald', sans-serif; font-size: 0.65rem; text-transform: uppercase;
+  letter-spacing: 0.2em; color: var(--text-muted); margin-bottom: 0.75rem;
+  padding-bottom: 0.4rem; border-bottom: 1px solid var(--border);
+}
+.q-item {
+  display: block; padding: 0.5rem 0.6rem; border-radius: 0.35rem;
+  text-decoration: none; color: var(--text-dim); transition: all 0.2s; margin-bottom: 0.2rem;
+}
+.q-item:hover { background: var(--bg-hover); color: var(--text); }
+.q-item .q-row { display: flex; align-items: baseline; gap: 0.5rem; }
+.q-item .q-num { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--gold); min-width: 2.5rem; }
+.q-item .q-label { font-size: 0.8rem; font-weight: 500; }
+.q-item .q-desc { font-size: 0.7rem; color: var(--text-muted); padding-left: 3rem; }
+.q-item.active { background: var(--gold-dim); border-left: 2px solid var(--gold); }
+.q-item.active .q-label { color: var(--gold); }
+.main {
+  background: var(--bg); padding: 2rem;
+  overflow-y: auto; max-height: calc(100vh - 60px);
+}
+.breadcrumb { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+.breadcrumb a { color: var(--text-dim); text-decoration: none; }
+.breadcrumb a:hover { color: var(--gold); }
+.breadcrumb .sep { margin: 0 0.4rem; color: var(--text-muted); }
+.badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.25rem; }
+.badge {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+  padding: 0.3rem 0.7rem; border-radius: 0.3rem; border: 1px solid var(--border);
+  display: flex; align-items: center; gap: 0.35rem;
+}
+.badge.gold { color: var(--gold); border-color: rgba(212,175,55,0.3); background: var(--gold-dim); }
+.badge.green { color: var(--green); border-color: rgba(34,197,94,0.3); background: var(--green-dim); }
+.badge.blue { color: var(--blue); border-color: rgba(59,130,246,0.3); background: var(--blue-dim); }
+.badge.red { color: var(--red); border-color: rgba(201,64,64,0.3); background: var(--red-dim); }
+.badge.violet { color: var(--violet); border-color: rgba(139,127,194,0.3); background: var(--violet-dim); }
+.paper-title {
+  font-family: 'Crimson Text', serif; font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 400; color: var(--text); line-height: 1.2; margin-bottom: 0.4rem;
+}
+.paper-subtitle {
+  font-family: 'Crimson Text', serif; font-size: 1.1rem; color: var(--text-dim);
+  font-style: italic; margin-bottom: 1.5rem;
+}
+.card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 0.5rem; padding: 1.25rem; margin-bottom: 1.25rem;
+}
+.card-header {
+  display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.875rem;
+  font-family: 'Oswald', sans-serif; font-size: 0.75rem; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--gold);
+}
+.card-header i { font-size: 0.9rem; }
+.section-title {
+  font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--gold);
+  margin: 2rem 0 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border);
+}
+.formal-box {
+  background: var(--bg-panel); border-left: 3px solid var(--gold);
+  padding: 1rem 1.25rem; font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem; color: var(--text-dim); line-height: 1.7; margin-bottom: 1rem;
+}
+.axiom-card {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.5rem;
+  padding: 1.5rem; margin-bottom: 1.25rem; position: relative;
+  border-left: 3px solid var(--gold);
+}
+.axiom-card.proven { border-left-color: var(--green); }
+.axiom-card .axiom-id {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--gold);
+  background: var(--gold-dim); padding: 0.2rem 0.5rem; border-radius: 0.2rem;
+  display: inline-block; margin-bottom: 0.5rem;
+}
+.axiom-card.proven .axiom-id { color: var(--green); background: var(--green-dim); }
+.axiom-card .axiom-name {
+  font-family: 'Cinzel', serif; font-size: 1rem; color: #fff; margin-bottom: 0.4rem;
+}
+.axiom-card .axiom-statement {
+  font-family: 'Crimson Text', serif; font-size: 1.05rem; color: var(--text);
+  font-style: italic; margin-bottom: 0.75rem; line-height: 1.6;
+  padding: 0.75rem; background: rgba(212,175,55,0.04); border-radius: 0.3rem;
+}
+.axiom-card .axiom-meaning {
+  font-size: 0.85rem; color: var(--text-dim); line-height: 1.65; margin-bottom: 0.75rem;
+}
+.axiom-card .lean-proof {
+  background: #0d1117; border: 1px solid #21262d; border-radius: 0.35rem;
+  padding: 0.75rem 1rem; font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem; color: #c9d1d9; line-height: 1.6; overflow-x: auto;
+}
+.axiom-card .lean-proof .keyword { color: #ff7b72; }
+.axiom-card .lean-proof .type { color: #79c0ff; }
+.axiom-card .lean-proof .comment { color: #8b949e; font-style: italic; }
+.defeat-list {
+  list-style: none; padding: 0; margin: 0.5rem 0;
+}
+.defeat-list li {
+  font-size: 0.8rem; color: var(--text-dim); padding: 0.35rem 0 0.35rem 1.5rem;
+  position: relative; line-height: 1.5;
+}
+.defeat-list li::before {
+  content: '\f00d'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+  position: absolute; left: 0; color: var(--red); font-size: 0.7rem; top: 0.45rem;
+}
+.bridge-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.5rem; margin: 0.5rem 0;
+}
+.bridge-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+  padding: 0.3rem 0.5rem; border-radius: 0.25rem;
+  background: var(--bg-hover); border: 1px solid var(--border); color: var(--text-dim);
+  text-align: center;
+}
+.kill-box {
+  background: var(--red-dim); border: 1px solid rgba(201,64,64,0.3);
+  border-radius: 0.4rem; padding: 1rem;
+}
+.kill-box .kill-header {
+  font-family: 'Oswald', sans-serif; font-size: 0.75rem; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--red); margin-bottom: 0.75rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+th, td { padding: 0.6rem 0.5rem; text-align: left; border-bottom: 1px solid var(--border); }
+th {
+  font-family: 'Oswald', sans-serif; font-size: 0.68rem; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--text-muted); font-weight: 500;
+}
+td { color: var(--text-dim); }
+.dep-graph { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; padding: 0.75rem; }
+.dep-node {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+  padding: 0.35rem 0.7rem; border-radius: 0.25rem; border: 1px solid var(--border);
+  background: var(--bg-card); color: var(--text-dim); text-align: center;
+}
+.dep-node.core { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
+.dep-node.proven { border-color: var(--green); color: var(--green); background: var(--green-dim); }
+.dep-arrow { color: var(--text-muted); font-size: 0.75rem; }
+.meta-row {
+  display: flex; justify-content: space-between; padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border); font-size: 0.78rem;
+}
+.meta-row .meta-label { color: var(--text-muted); }
+.meta-row .meta-value { color: var(--text-dim); text-align: right; max-width: 55%; }
+.meta-value.gold { color: var(--gold); }
+.spine-item { margin-bottom: 0.875rem; }
+.spine-header { display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 0.2rem; }
+.spine-name { color: var(--text-dim); }
+.spine-status { color: var(--text-muted); font-size: 0.72rem; }
+.spine-bar { height: 3px; background: var(--bg-hover); border-radius: 2px; overflow: hidden; }
+.spine-bar .fill { height: 100%; border-radius: 2px; }
+.fill.gold { background: var(--gold); }
+.fill.green { background: var(--green); }
+.fill.blue { background: var(--blue); }
+.fill.red { background: var(--red); }
+.tag {
+  display: inline-block; font-size: 0.68rem; padding: 0.2rem 0.5rem; border-radius: 0.2rem;
+  background: var(--bg-hover); border: 1px solid var(--border); color: var(--text-dim); margin: 0.1rem;
+}
+.action-btn {
+  display: flex; width: 100%; padding: 0.55rem 0.7rem; margin-bottom: 0.4rem;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.35rem;
+  color: var(--text-dim); text-decoration: none; font-size: 0.78rem;
+  transition: all 0.2s; align-items: center; gap: 0.5rem;
+}
+.action-btn:hover { background: var(--bg-hover); border-color: var(--gold); color: var(--gold); }
+@media (max-width: 1200px) { .layout { grid-template-columns: 220px 1fr 260px; } }
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { max-height: none; }
+  .main { max-height: none; padding: 1rem; }
+}
+</style>
+  <script defer src="https://analytics.faiththruphysics.com/script.js" data-website-id="2f2e3a0f-e8e5-4900-a1e0-1b33592403ee"></script>
+  <link rel="canonical" href="https://faiththruphysics.com/proof-explorer/axioms-layer-0-core.html">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta property="og:image" content="https://faiththruphysics.com/favicon.svg"/>
+<!-- RING NAVIGATION -->
+<style>
+.ring-nav{margin:4rem auto;max-width:1100px;padding:3rem 1.5rem;}
+.ring-nav .ring-header{text-align:center;margin-bottom:2.5rem;}
+.ring-nav .ring-header h2{font-family:'Oswald',sans-serif;font-size:1.6rem;color:var(--highlight,#d4af37);text-transform:uppercase;letter-spacing:3px;margin-bottom:.5rem;}
+.ring-nav .ring-header p{color:var(--text-secondary,#a0a0a0);font-size:.9rem;}
+.ring-tier{border:1px solid var(--border,#333);border-radius:8px;margin-bottom:1rem;overflow:hidden;}
+.ring-tier-header{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;cursor:pointer;transition:background .2s;}
+.ring-tier-header:hover{background:rgba(255,255,255,0.03);}
+.ring-tier-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.ring-1 .ring-tier-dot{background:#d4af37;}
+.ring-2 .ring-tier-dot{background:#4a9eff;}
+.ring-3 .ring-tier-dot{background:#8b7fc2;}
+.ring-tier-label{font-family:'Oswald',sans-serif;font-size:.85rem;text-transform:uppercase;letter-spacing:2px;color:var(--text-primary,#e0e0e0);}
+.ring-tier-desc{color:var(--text-secondary,#a0a0a0);font-size:.8rem;margin-left:auto;}
+.ring-tier-chevron{color:var(--text-secondary,#a0a0a0);font-size:.7rem;transition:transform .3s;margin-left:.5rem;}
+.ring-tier.open .ring-tier-chevron{transform:rotate(90deg);}
+.ring-tier-cards{display:none;padding:1rem 1.25rem;}
+.ring-tier.open .ring-tier-cards{display:block;}
+.ring-empty{color:#666;font-size:.85rem;font-style:italic;}
+</style>
+</head>
+<body>
+<nav class="tp-ribbon" style="position:sticky;top:0;z-index:1000;background:#0a0a0a;border-bottom:2px solid #a855f733;padding:.5rem 1.5rem;display:flex;align-items:center;justify-content:space-between;font-family:'Inter',sans-serif;font-size:.8rem;">
+  <div style="display:flex;gap:1rem;align-items:center;">
+    <a href="/index.html" style="color:#999;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#a855f7'" onmouseout="this.style.color='#999'">&larr; Main Index</a>
+    <span style="color:#333;">|</span>
+    <span style="color:#a855f7;font-weight:500;">Proof Explorer</span>
+  </div>
+</nav>
+
+
+<nav class="top-nav">
+  <a href="../index.html" class="brand"><i class="fas fa-atom"></i> THEOPHYSICS</a>
+  <div class="nav-links">
+    <a href="axioms-layer-0-core.html" class="active">Core Axioms</a>
+    <a href="axioms-layer-2-derived.html">Derived</a>
+    <a href="axioms-layer-3-extended.html">Extended</a>
+    <a href="axioms-closure.html">Closure</a>
+  </div>
+</nav>
+
+<div class="layout">
+
+<!-- LEFT SIDEBAR -->
+<aside class="sidebar">
+  <h3><i class="fas fa-compass" style="margin-right:0.4rem;"></i>Axiom Chain</h3>
+
+  <div style="font-family:'Oswald',sans-serif;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin:0.75rem 0 0.5rem;">Layer 0 &mdash; Primitives</div>
+  <a href="#p01" class="q-item active"><div class="q-row"><span class="q-num">P0.1</span><span class="q-label">Distinction</span></div></a>
+  <a href="#p02" class="q-item"><div class="q-row"><span class="q-num">P0.2</span><span class="q-label">Substrate</span></div></a>
+
+  <div style="font-family:'Oswald',sans-serif;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin:1rem 0 0.5rem;">Tier 1 &mdash; The Seven</div>
+  <a href="#a11" class="q-item"><div class="q-row"><span class="q-num">A1.1</span><span class="q-label">Existence</span></div><span class="q-desc">Something exists</span></a>
+  <a href="#a13" class="q-item"><div class="q-row"><span class="q-num">A1.3</span><span class="q-label">Other Exists</span></div><span class="q-desc">Relation</span></a>
+  <a href="#a21" class="q-item"><div class="q-row"><span class="q-num">A2.1</span><span class="q-label">Substrate Req.</span></div><span class="q-desc">Information needs a carrier</span></a>
+  <a href="#a22" class="q-item"><div class="q-row"><span class="q-num">A2.2</span><span class="q-label">Self-Grounding</span></div><span class="q-desc">Regress terminates</span></a>
+  <a href="#a51" class="q-item"><div class="q-row"><span class="q-num">A5.1</span><span class="q-label">Observation</span></div><span class="q-desc">Info needs observer</span></a>
+  <a href="#bc4" class="q-item"><div class="q-row"><span class="q-num">BC4</span><span class="q-label">Three Observers</span></div><span class="q-desc">Trinity terminus</span></a>
+  <a href="#bc6" class="q-item"><div class="q-row"><span class="q-num">BC6</span><span class="q-label">Infinite Source</span></div><span class="q-desc">Open system</span></a>
+
+  <div style="font-family:'Oswald',sans-serif;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--green);margin:1rem 0 0.5rem;">Proven Theorems</div>
+  <a href="#t-info" class="q-item"><div class="q-row"><span class="q-num" style="color:var(--green);">T1</span><span class="q-label">Info Primacy</span></div><span class="q-desc">Lean4 verified</span></a>
+  <a href="#t-grace" class="q-item"><div class="q-row"><span class="q-num" style="color:var(--green);">T2</span><span class="q-label">Grace Reduces Disorder</span></div><span class="q-desc">Lean4 verified</span></a>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+  <div class="breadcrumb">
+    <a href="../index.html">Main Site</a><span class="sep">&rarr;</span><a href="index.html">Proof Explorer</a><span class="sep">&rarr;</span><span style="color:var(--gold);">Core Axioms</span>
+  </div>
+
+  <div class="badges">
+    <span class="badge green"><i class="fas fa-check-circle"></i> Lean4 Verified</span>
+    <span class="badge gold"><i class="fas fa-layer-group"></i> 2 Primitives + 7 Axioms</span>
+    <span class="badge blue"><i class="fas fa-link"></i> Chain: 1&ndash;9 of 188</span>
+    <span class="badge violet"><i class="fas fa-project-diagram"></i> Trinitarian Core</span>
+  </div>
+
+  <h1 class="paper-title">The Trinitarian Core</h1>
+  <p class="paper-subtitle">Two primitives. Seven irreducible axioms. The floor beneath everything.</p>
+
+  <!-- OVERVIEW CARD -->
+  <div class="card">
+    <div class="card-header"><i class="fas fa-bolt"></i> Architecture</div>
+    <p style="font-size:0.85rem;color:var(--text-dim);line-height:1.7;margin-bottom:1rem;">The entire Theophysics framework compresses to <strong style="color:var(--gold);">two Layer 0 primitives</strong>. Everything else &mdash; all 188 axioms, all theorems, all predictions &mdash; derives from the claim that distinguishable things exist in something. The seven Tier 1 axioms unpack what that logically requires.</p>
+    <div class="formal-box">
+      Distinction + Substrate<br>
+      &nbsp;&nbsp;&rarr; Information Primacy (distinguishability IS information)<br>
+      &nbsp;&nbsp;&rarr; Order Requirement (information must be organized)<br>
+      &nbsp;&nbsp;&rarr; Logical inference becomes possible<br>
+      &nbsp;&nbsp;&rarr; Math emerges as fully instantiated chain<br>
+      &nbsp;&nbsp;&rarr; Coherence = the attractor state<br>
+      &nbsp;&nbsp;&rarr; &chi; = the Logos field
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- EPISTEMIC STATUS -->
+  <!-- ═══════════════════════════════════════════ -->
+
+  <div class="card" style="border-left:3px solid var(--gold);">
+    <div class="card-header"><i class="fas fa-balance-scale"></i> Epistemic Status &mdash; The Three Tiers</div>
+    <p style="font-size:0.82rem;color:var(--text-dim);line-height:1.7;margin-bottom:1rem;">Not all claims share the same epistemic status. Conflating them weakens the case. Every axiom is tagged with its tier &mdash; how it is justified, not how confident we are in it.</p>
+    <table>
+      <tr>
+        <th style="width:6rem;">Tier</th>
+        <th>Kind</th>
+        <th>How Tested</th>
+        <th>On This Page</th>
+      </tr>
+      <tr>
+        <td><span class="badge gold" style="font-size:0.6rem;">Tier 0</span></td>
+        <td style="color:var(--gold);">Preconditions of inquiry</td>
+        <td>Self-refuting to deny. Transcendental argument. Lean4 formalization.</td>
+        <td style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;">P0.1, P0.2, A1.1, A1.3</td>
+      </tr>
+      <tr>
+        <td><span class="badge blue" style="font-size:0.6rem;">Tier 1</span></td>
+        <td style="color:var(--blue);">Foundational commitments</td>
+        <td>Formal consistency + generative power + parsimony. Required for closure, not arbitrary.</td>
+        <td style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;">A2.1, A2.2, A5.1, BC4, BC6</td>
+      </tr>
+      <tr>
+        <td><span class="badge green" style="font-size:0.6rem;">Tier 2</span></td>
+        <td style="color:var(--green);">Empirical predictions</td>
+        <td>Experimental protocols with &sigma; thresholds, replication, pre-registration.</td>
+        <td style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;">&mdash;</td>
+      </tr>
+    </table>
+    <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.75rem;line-height:1.6;">
+      <strong style="color:var(--text-dim);">Why this matters:</strong> A protocol for A1.1 Existence is theater &mdash; the Lean4 proof (<code style="font-size:0.7rem;color:var(--gold);">Nonempty S</code>) is real rigor. A critic who says "unfalsifiable" is correct about Tier 0, partially correct about Tier 1, and wrong about Tier 2. Every framework has Tier 1 commitments &mdash; QM has the Born rule, GR has the equivalence principle. The difference here is we name them instead of hiding them.
+    </p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- LAYER 0: THE TWO PRIMITIVES -->
+  <!-- ═══════════════════════════════════════════ -->
+
+  <h2 class="section-title" id="layer0">Layer 0 &mdash; The Two Primitives</h2>
+
+  <div class="axiom-card" id="p01">
+    <span class="axiom-id">P0.1 &mdash; PRIMITIVE</span>
+    <div class="axiom-name">Distinction</div>
+    <div class="axiom-statement">"There exist distinguishable things."</div>
+    <div class="axiom-meaning">
+      Without stable differences, there is no content for description, no observable contrast, no basis for any model. Distinction is the minimal bridge between "something exists" and "something can be identified." Denying it is self-refuting: claiming "distinctions don't exist" requires distinguishing that claim from its negation.
+    </div>
+    <div class="lean-proof">
+      <span class="comment">-- Lean4 formalization</span><br>
+      <span class="keyword">axiom</span> <span class="type">distinction_exists</span> : &exist; (a b : S), a &ne; b
+    </div>
+    <div style="margin-top:0.75rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);margin-bottom:0.4rem;">Defeat Conditions</div>
+      <ul class="defeat-list">
+        <li>Self-refuting to deny &mdash; any denial requires distinguishing the claim from its negation</li>
+        <li>QM is fundamentally a theory of distinguishability (orthogonality, Pauli exclusion, Gibbs paradox)</li>
+        <li>Spencer-Brown's Laws of Form: the "mark" (distinction) is the primitive from which all logic derives</li>
+      </ul>
+    </div>
+    <div style="margin-top:0.5rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--blue);margin-bottom:0.4rem;">Cross-Domain Bridges</div>
+      <div class="bridge-grid">
+        <span class="bridge-tag">Physics: Observables</span>
+        <span class="bridge-tag">QM: Orthogonality</span>
+        <span class="bridge-tag">Info: Shannon bit</span>
+        <span class="bridge-tag">Math: Partition</span>
+        <span class="bridge-tag">Scripture: Gen 1:4</span>
+        <span class="bridge-tag">Logic: Laws of Form</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="axiom-card" id="p02">
+    <span class="axiom-id">P0.2 &mdash; PRIMITIVE</span>
+    <div class="axiom-name">Substrate</div>
+    <div class="axiom-statement">"Distinctions are instantiated in something."</div>
+    <div class="axiom-meaning">
+      Information as pure abstraction is causally impotent. For information to do anything &mdash; to cause, to interact, to be measured &mdash; it must be instantiated somewhere. Landauer's principle (erasing 1 bit costs kT ln 2 energy) empirically confirms the physical nature of information. No counterexample has ever been found.
+    </div>
+    <div class="lean-proof">
+      <span class="comment">-- Lean4 formalization</span><br>
+      <span class="keyword">axiom</span> <span class="type">substrate_exists</span> : Nonempty S
+    </div>
+    <div style="margin-top:0.75rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);margin-bottom:0.4rem;">Defeat Conditions</div>
+      <ul class="defeat-list">
+        <li>Show information existing without any substrate</li>
+        <li>Show causal efficacy of pure abstraction</li>
+        <li>Falsify Landauer's principle (experimentally confirmed: Berut 2012, Jun 2014, Gavrilov 2016)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- TIER 1: THE SEVEN IRREDUCIBLE AXIOMS -->
+  <!-- ═══════════════════════════════════════════ -->
+
+  <h2 class="section-title" id="tier1">Tier 1 &mdash; The Seven Irreducible Axioms</h2>
+
+  <!-- A1.1 EXISTENCE -->
+  <div class="axiom-card" id="a11">
+    <span class="axiom-id">A1.1 &mdash; Chain Position 1/188</span>
+    <div class="axiom-name">Existence</div>
+    <div class="axiom-statement">"Something exists rather than nothing."</div>
+    <div class="axiom-meaning">
+      The minimal commitment required for any claim, observation, or inference to have a referent. Denying it is self-refuting: to assert "nothing exists," an arguer, an argument, and a claim must all exist. Quantum vacuum |0&rang; is not "nothing" &mdash; it has structure, energy density ~10<sup>&minus;9</sup> J/m&sup3;, virtual fluctuations.
+    </div>
+    <div class="lean-proof">
+      <span class="comment">-- Lean4: Existence = Nonempty substrate</span><br>
+      <span class="keyword">axiom</span> <span class="type">existence</span> : Nonempty S
+    </div>
+    <div style="margin-top:0.75rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);margin-bottom:0.4rem;">Defeat Conditions</div>
+      <ul class="defeat-list">
+        <li>Self-refuting to deny &mdash; any denial requires an arguer, argument, and claim (all existing things)</li>
+        <li>Modal logic: existence is necessary &mdash; no possible world with nothing</li>
+        <li>ZFC: even the empty set itself exists</li>
+      </ul>
+    </div>
+    <div style="margin-top:0.5rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--blue);margin-bottom:0.4rem;">Trinitarian Mapping</div>
+      <div style="font-size:0.82rem;color:var(--gold);font-family:'Cinzel',serif;">Father &mdash; Source</div>
+    </div>
+  </div>
+
+  <!-- A1.3 OTHER EXISTS -->
+  <div class="axiom-card" id="a13">
+    <span class="axiom-id">A1.3 &mdash; Chain Position 2/188</span>
+    <div class="axiom-name">Other Exists (Relation)</div>
+    <div class="axiom-statement">"More than one thing exists."</div>
+    <div class="axiom-meaning">
+      Without plurality, there is no information, no measurement, no physics. Shannon entropy H(X) = &minus;&Sigma; p(x) log p(x) requires distinguishable outcomes. This is the relational axiom: reality is not monistic.
+    </div>
+    <div class="lean-proof">
+      <span class="comment">-- Lean4: At least two distinct elements</span><br>
+      <span class="keyword">axiom</span> <span class="type">other_exists</span> : &exist; (a b : S), a &ne; b
+    </div>
+    <div style="margin-top:0.5rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--blue);margin-bottom:0.4rem;">Trinitarian Mapping</div>
+      <div style="font-size:0.82rem;color:var(--gold);font-family:'Cinzel',serif;">Son &mdash; Distinction / Logos / Word</div>
+    </div>
+  </div>
+
+  <!-- A2.1 SUBSTRATE REQUIREMENT -->
+  <div class="axiom-card" id="a21">
+    <span class="axiom-id">A2.1 &mdash; Chain Position 8/188</span>
+    <div class="axiom-name">Substrate Requirement</div>
+    <div class="axiom-statement">"Information requires a substrate for instantiation."</div>
+    <div class="axiom-meaning">
+      Since matter itself derives from information (Wheeler's "It from Bit"), matter cannot be the ultimate substrate. Something deeper is needed. The chi-field (&chi;) is proposed as "the substrate that substrates all other substrates." Colossians 1:17: "In him all things hold together."
+    </div>
+    <div class="lean-proof">
+      <span class="comment">-- Lean4: Typeclass with existence proof</span><br>
+      <span class="keyword">class</span> <span class="type">InformationSubstrate</span> (S : Type) <span class="keyword">where</span><br>
+      &nbsp;&nbsp;carries : S &rarr; Prop<br>
+      &nbsp;&nbsp;nonempty : &exist; s, carries s
+    </div>
+    <div style="margin-top:0.5rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--blue);margin-bottom:0.4rem;">Trinitarian Mapping</div>
+      <div style="font-size:0.82rem;color:var(--gold);font-family:'Cinzel',serif;">Spirit &mdash; The medium in which everything is held</div>
+    </div>
+  </div>
+
+  <!-- A2.2 SELF-GROUNDING -->
+  <div class="axiom-card" id="a22">
+    <span class="axiom-id">A2.2 &mdash; Chain Position 9/188</span>
+    <div class="axiom-name">Self-Grounding</div>
+    <div class="axiom-statement">"The fundamental substrate must be self-instantiating. No infinite regress."</div>
+    <div class="axiom-meaning">
+      If substrate A requires substrate B, and B requires C, ad infinitum, nothing is ever grounded. There must exist a self-grounding substrate that terminates the regress. This is the bridge from physics to theology: the self-grounding entity must be ontologically primary, self-sustaining, and the substrate for all other information &mdash; classical attributes of God (aseity, necessity, omnipresence). Penrose's calculation: probability of initial entropy configuration ~10<sup>&minus;10<sup>123</sup></sup>.
+    </div>
+    <div class="lean-proof">
+      <span class="comment">-- Lean4: Self-grounding = universal carrier</span><br>
+      <span class="keyword">class</span> <span class="type">SelfGrounding</span> (S : Type) <span class="keyword">extends</span> InformationSubstrate S <span class="keyword">where</span><br>
+      &nbsp;&nbsp;is_ground : &forall; (s : S), carries s
+    </div>
+    <div style="margin-top:0.75rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);margin-bottom:0.4rem;">Defeat Conditions</div>
+      <ul class="defeat-list">
+        <li>Show infinite regress is coherent (no one has)</li>
+        <li>Provide an alternative to self-grounding</li>
+        <li>Show the universe can exist as brute fact without explanation</li>
+        <li>G&ouml;del's incompleteness: no physical theory can ground itself from within</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- A5.1 OBSERVATION REQUIREMENT -->
+  <div class="axiom-card" id="a51">
+    <span class="axiom-id">A5.1 &mdash; Chain Position 35/188</span>
+    <div class="axiom-name">Observation Requirement</div>
+    <div class="axiom-statement">"Empirically meaningful physics requires at least one locus of phenomenal appearance for outcome attribution."</div>
+    <div class="axiom-meaning">
+      Decoherence explains why interference vanishes but NOT why we see <em>this</em> outcome rather than <em>that</em>. Many-Worlds trades one mystery for another (why this branch?). The projection postulate (non-unitary collapse) requires something outside the unitary system. This axiom is the bridge between consciousness and physics.
+    </div>
+    <div class="lean-proof">
+      <span class="comment">-- Lean4: Observer registers distinctions</span><br>
+      <span class="keyword">class</span> <span class="type">Observer</span> (O : Type) <span class="keyword">where</span><br>
+      &nbsp;&nbsp;registers : O &rarr; S &rarr; S &rarr; Prop<br>
+      &nbsp;&nbsp;effective : &forall; (o : O) (a b : S), a &ne; b &rarr; registers o a b
+    </div>
+    <div style="margin-top:0.75rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);margin-bottom:0.4rem;">Defeat Conditions</div>
+      <ul class="defeat-list">
+        <li>Provide interpretation-neutral account of empirical definiteness with no observer</li>
+        <li>Resolve measurement problem without any appearance-bearing entity</li>
+        <li>Double-slit, quantum eraser, delayed choice &mdash; all confirm observer role</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- BC4 THREE OBSERVERS -->
+  <div class="axiom-card" id="bc4">
+    <span class="axiom-id">BC4 &mdash; BOUNDARY CONDITION &mdash; Chain Position 61/188</span>
+    <div class="axiom-name">Three Observers Required</div>
+    <div class="axiom-statement">"N_observers = 3 is the minimal closure model for Subject-Object-Relation adjudication."</div>
+    <div class="axiom-meaning">
+      The Born Rule P(a) = |&lang;a|&psi;&rang;|&sup2; has a three-term structure: bra (measurement outcome), ket (system state), norm-squared (relation). Gleason's theorem: Born Rule is unique in dim &ge; 3. Wigner's friend paradox requires a third meta-observer for resolution. 1 observer = no information. 2 observers = residual uncertainty. 3 observers = triangulation yields unique probabilities. N &gt; 3 = redundant.
+    </div>
+    <div class="lean-proof">
+      <span class="comment">-- Lean4: Three distinct observers exist</span><br>
+      <span class="keyword">axiom</span> <span class="type">three_observers</span> (O : Type) [Observer S O] :<br>
+      &nbsp;&nbsp;&exist; (o&sub1; o&sub2; o&sub3; : O), o&sub1; &ne; o&sub2; &and; o&sub2; &ne; o&sub3; &and; o&sub1; &ne; o&sub3;
+    </div>
+    <div style="margin-top:0.5rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--blue);margin-bottom:0.4rem;">Trinitarian Reading</div>
+      <div style="font-size:0.82rem;color:var(--text-dim);line-height:1.6;">Father (Source/Potentiality) &middot; Son (Distinction/Word) &middot; Spirit (Relation/Actualization) &mdash; maps to the three terms of the Born Rule. "The Trinity is not an arbitrary doctrine but the minimal structure required for reality to be determinate."</div>
+    </div>
+  </div>
+
+  <!-- BC6 INFINITE ENERGY SOURCE -->
+  <div class="axiom-card" id="bc6">
+    <span class="axiom-id">BC6 &mdash; BOUNDARY CONDITION &mdash; Chain Position 63/188</span>
+    <div class="axiom-name">Infinite Energy Source</div>
+    <div class="axiom-statement">"Source capacity is modeled as inexhaustible relative to the created system."</div>
+    <div class="axiom-meaning">
+      Second Law: dS/dt &ge; 0. Heat death at ~10<sup>100</sup> years. Eternal existence requires entropy not winning. Sustained coherence requires continuous negentropy input. Continuous input forever requires infinite total energy. Only an infinite being has infinite energy. Therefore: eternal existence requires God. This is the thermodynamic proof of God's necessity for eternal life.
+    </div>
+    <div class="lean-proof">
+      <span class="comment">-- Lean4: Open system with grace injection</span><br>
+      <span class="keyword">structure</span> <span class="type">OpenEntropyState</span> <span class="keyword">where</span><br>
+      &nbsp;&nbsp;ordered : Nat<br>
+      &nbsp;&nbsp;disordered : Nat<br>
+      &nbsp;&nbsp;external : Nat<br>
+      &nbsp;&nbsp;redeemed : Nat<br><br>
+      <span class="keyword">def</span> <span class="type">openGraceConvert</span> (s : OpenEntropyState)<br>
+      &nbsp;&nbsp;(injection : Nat) (k : Nat) : OpenEntropyState :=<br>
+      &nbsp;&nbsp;<span class="keyword">let</span> redemption := <span class="keyword">if</span> s.disordered &ge; k <span class="keyword">then</span> k <span class="keyword">else</span> s.disordered<br>
+      &nbsp;&nbsp;{ ordered := s.ordered + injection + redemption,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;disordered := s.disordered - redemption,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;external := s.external + injection,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;redeemed := s.redeemed + redemption }
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PROVEN THEOREMS -->
+  <!-- ═══════════════════════════════════════════ -->
+
+  <h2 class="section-title" id="theorems">Machine-Verified Theorems</h2>
+
+  <div class="axiom-card proven" id="t-info">
+    <span class="axiom-id">THEOREM &mdash; LEAN4 VERIFIED &check;</span>
+    <div class="axiom-name">Information Primacy</div>
+    <div class="axiom-statement">"Distinguishability IS information."</div>
+    <div class="axiom-meaning">
+      This is the identity function on Distinction. If you have distinguishable things (P0.1), you have information. The proof is trivial &mdash; which is the point. The claim isn't deep. It's definitional. And that's what makes it unbreakable.
+    </div>
+    <div class="lean-proof">
+      <span class="comment">-- PROVED: identity function</span><br>
+      <span class="keyword">theorem</span> <span class="type">information_primacy</span> :<br>
+      &nbsp;&nbsp;(&exist; (a b : S), a &ne; b) &rarr; &exist; (a b : S), a &ne; b := <span class="keyword">id</span>
+    </div>
+  </div>
+
+  <div class="axiom-card proven" id="t-grace">
+    <span class="axiom-id">THEOREM &mdash; LEAN4 VERIFIED &check;</span>
+    <div class="axiom-name">Grace Reduces Disorder</div>
+    <div class="axiom-statement">"Open-system grace injection reduces total disorder."</div>
+    <div class="axiom-meaning">
+      When the grace operator injects external energy and converts a portion of disorder to order (with voluntary coupling factor k &gt; 0), the resulting disordered count is strictly less than before. This is the mathematical proof that redemption works: grace, from outside the system, reduces entropy.
+    </div>
+    <div class="lean-proof">
+      <span class="comment">-- PROVED: by omega (arithmetic solver)</span><br>
+      <span class="keyword">theorem</span> <span class="type">grace_reduces_disorder</span><br>
+      &nbsp;&nbsp;(s : OpenEntropyState) (inj k : Nat)<br>
+      &nbsp;&nbsp;(h : k &gt; 0) (d : s.disordered &gt; 0) :<br>
+      &nbsp;&nbsp;(openGraceConvert s inj k).disordered &lt; s.disordered := <span class="keyword">by</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;unfold openGraceConvert; dsimp<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;split &lt;&gt; (try split) &lt;&gt; omega
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="card" style="margin-top:2rem;">
+    <div class="card-header"><i class="fas fa-flag-checkered"></i> The Floor</div>
+    <table>
+      <tr><th>#</th><th>Axiom</th><th>Maps To</th><th>Status</th></tr>
+      <tr><td style="color:var(--gold);">1</td><td>Existence</td><td style="color:var(--gold);">Father (Source)</td><td><span class="badge gold" style="font-size:0.6rem;">Self-evident</span></td></tr>
+      <tr><td style="color:var(--gold);">2</td><td>Relation</td><td style="color:var(--gold);">Son (Distinction)</td><td><span class="badge gold" style="font-size:0.6rem;">Self-evident</span></td></tr>
+      <tr><td style="color:var(--gold);">3</td><td>Substrate</td><td style="color:var(--gold);">Spirit (Medium)</td><td><span class="badge gold" style="font-size:0.6rem;">Self-evident</span></td></tr>
+      <tr><td>4</td><td>Self-Grounding</td><td>Ontological Independence</td><td><span class="badge blue" style="font-size:0.6rem;">Logical necessity</span></td></tr>
+      <tr><td>5</td><td>Observation</td><td>Actualization</td><td><span class="badge blue" style="font-size:0.6rem;">QM measurement</span></td></tr>
+      <tr><td>6</td><td>Three Observers</td><td>Trinity terminating chain</td><td><span class="badge violet" style="font-size:0.6rem;">Closure model</span></td></tr>
+      <tr><td>7</td><td>Infinite Source</td><td>Open System / Grace</td><td><span class="badge violet" style="font-size:0.6rem;">Thermodynamic</span></td></tr>
+    </table>
+    <p style="font-size:0.85rem;color:var(--text-dim);margin-top:1rem;line-height:1.7;">
+      <strong style="color:var(--gold);">Result:</strong> 7 Axioms. Trinity Floor. Creation + Redemption. Everything downstream in the 188-axiom chain derives from these seven. If these hold, the framework holds. If any fails, everything above it collapses.
+    </p>
+  </div>
+</main>
+
+<!-- RIGHT SIDEBAR -->
+<aside class="sidebar">
+  <h3><i class="fas fa-database" style="margin-right:0.4rem;"></i>Metadata</h3>
+  <div class="meta-row"><span class="meta-label">Scope</span><span class="meta-value gold">Layer 0 + Tier 1</span></div>
+  <div class="meta-row"><span class="meta-label">Axioms</span><span class="meta-value">2 primitives + 7 core</span></div>
+  <div class="meta-row"><span class="meta-label">Chain</span><span class="meta-value">Positions 1&ndash;63 of 188</span></div>
+  <div class="meta-row"><span class="meta-label">Verified</span><span class="meta-value gold">Lean4 (2 theorems)</span></div>
+  <div class="meta-row"><span class="meta-label">Author</span><span class="meta-value">David Lowe (POF 2828)</span></div>
+  <div class="meta-row"><span class="meta-label">Date</span><span class="meta-value">2026-04-27</span></div>
+
+  <h3 style="margin-top:1.25rem;">Tags</h3>
+  <div style="margin-bottom:0.5rem;">
+    <span class="tag">layer-0</span>
+    <span class="tag">tier-1</span>
+    <span class="tag">lean4-verified</span>
+    <span class="tag">trinitarian-core</span>
+    <span class="tag">primitives</span>
+    <span class="tag">boundary-conditions</span>
+  </div>
+
+  <h3 style="margin-top:1.25rem;">Verification Status</h3>
+  <div class="spine-item">
+    <div class="spine-header"><span class="spine-name">Lean4 Compilation</span><span class="spine-status">Passes</span></div>
+    <div class="spine-bar"><div class="fill green" style="width:100%;"></div></div>
+  </div>
+  <div class="spine-item">
+    <div class="spine-header"><span class="spine-name">Information Primacy</span><span class="spine-status">Proven</span></div>
+    <div class="spine-bar"><div class="fill green" style="width:100%;"></div></div>
+  </div>
+  <div class="spine-item">
+    <div class="spine-header"><span class="spine-name">Grace Reduces Disorder</span><span class="spine-status">Proven</span></div>
+    <div class="spine-bar"><div class="fill green" style="width:100%;"></div></div>
+  </div>
+  <div class="spine-item">
+    <div class="spine-header"><span class="spine-name">FP-005 Main Theorem</span><span class="spine-status">Framework (sorry)</span></div>
+    <div class="spine-bar"><div class="fill gold" style="width:60%;"></div></div>
+  </div>
+
+  <h3 style="margin-top:1.25rem;">Derivation Chain</h3>
+  <div class="dep-graph">
+    <div class="dep-node core">P0.1 Distinction</div>
+    <div class="dep-arrow">&darr;</div>
+    <div class="dep-node core">P0.2 Substrate</div>
+    <div class="dep-arrow">&darr;</div>
+    <div class="dep-node">A1.1 Existence</div>
+    <div class="dep-arrow">&darr;</div>
+    <div class="dep-node">A1.3 Other Exists</div>
+    <div class="dep-arrow">&darr;</div>
+    <div class="dep-node">A2.1 Substrate Req.</div>
+    <div class="dep-arrow">&darr;</div>
+    <div class="dep-node">A2.2 Self-Grounding</div>
+    <div class="dep-arrow">&darr;</div>
+    <div class="dep-node">A5.1 Observation</div>
+    <div class="dep-arrow">&darr;</div>
+    <div class="dep-node">BC4 Three Observers</div>
+    <div class="dep-arrow">&darr;</div>
+    <div class="dep-node">BC6 Infinite Source</div>
+    <div class="dep-arrow">&darr;</div>
+    <div class="dep-node proven">T: Info Primacy &check;</div>
+    <div class="dep-arrow">&darr;</div>
+    <div class="dep-node proven">T: Grace &check;</div>
+    <div class="dep-arrow">&darr;</div>
+    <div class="dep-node" style="color:var(--text-muted);">Layer 2 &rarr; Layer 3 &rarr; Closure</div>
+  </div>
+
+  <h3 style="margin-top:1.25rem;">Navigate</h3>
+  <a href="axioms-layer-2-derived.html" class="action-btn"><i class="fas fa-arrow-right"></i> Layer 2: Derived Theorems</a>
+  <a href="axioms-layer-3-extended.html" class="action-btn"><i class="fas fa-arrow-right"></i> Layer 3: Extended Framework</a>
+  <a href="axioms-closure.html" class="action-btn"><i class="fas fa-arrow-right"></i> Closure &amp; Omega</a>
+  <a href="../index.html" class="action-btn"><i class="fas fa-home"></i> Back to Main Site</a>
+</aside>
+
+</div>
+
+<script src="/glossary-linker.js" defer></script>
+<section class="ring-nav">
+  <div class="ring-header">
+    <h2>Related Work</h2>
+    <p>Core article, supporting evidence, and broader context</p>
+  </div>
+  <div class="ring-tier ring-1 open">
+    <div class="ring-tier-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="ring-tier-dot"></div>
+      <span class="ring-tier-label">Ring 1 — This Article</span>
+      <span class="ring-tier-desc">The core argument</span>
+      <i class="fas fa-chevron-right ring-tier-chevron"></i>
+    </div>
+    <div class="ring-tier-cards"><p class="ring-empty">You are here.</p></div>
+  </div>
+  <div class="ring-tier ring-2">
+    <div class="ring-tier-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="ring-tier-dot"></div>
+      <span class="ring-tier-label">Ring 2 — Supporting Evidence</span>
+      <span class="ring-tier-desc">Deeper dives and formal treatments</span>
+      <i class="fas fa-chevron-right ring-tier-chevron"></i>
+    </div>
+    <div class="ring-tier-cards"><p class="ring-empty">No connections mapped yet.</p></div>
+  </div>
+  <div class="ring-tier ring-3">
+    <div class="ring-tier-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="ring-tier-dot"></div>
+      <span class="ring-tier-label">Ring 3 — Broader Context</span>
+      <span class="ring-tier-desc">Related topics across the framework</span>
+      <i class="fas fa-chevron-right ring-tier-chevron"></i>
+    </div>
+    <div class="ring-tier-cards"><p class="ring-empty">No connections mapped yet.</p></div>
+  </div>
+</section>
+</body>
+</html>

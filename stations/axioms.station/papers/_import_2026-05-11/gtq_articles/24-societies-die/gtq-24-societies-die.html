@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="paper-slug" content="GTQ-24">
+<title>GTQ-24 Societies Die the Same Way People Do — Genesis to Quantum</title>
+<meta name="description" content="The Canaanite system and the modern Western framework are structurally isomorphic."/>
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<!-- MathJax -->
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']] }, svg: { fontCache: 'global' } };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+:root{
+  --primary:#1a1a1a;
+  --accent:#2c2c2c;
+  --text-primary:#e0e0e0;
+  --text-secondary:#a0a0a0;
+  --highlight:#d4af37;
+  --highlight-bright:#f4d03f;
+  --highlight-dim:#8b7a1e;
+  --highlight-glow:rgba(212,175,55,0.12);
+  --border:#333333;
+  --surface:#0a0a0a;
+  --surface-light:#1a1a1a;
+  --surface-hover:#2a2a2a;
+  --red:#ef4444;
+  --blue:#4a9eff;
+  --teal:#2dd4bf;
+  --purple:#a855f7;
+  --green:#22c55e;
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--surface);
+  color:var(--text-primary);
+  line-height:1.65;
+  margin:0;
+  padding:0;
+  overflow-x:hidden;
+}
+.serif{font-family:'Crimson Text',serif;}
+.display{font-family:'Oswald',sans-serif;}
+.mono{font-family:'JetBrains Mono',monospace;}
+
+/* ─────────── SIDEBAR NAV ─────────── */
+.sidebar{
+  position:fixed;top:0;left:0;width:300px;height:100vh;
+  background:var(--surface);border-right:1px solid var(--border);
+  z-index:100;overflow-y:auto;
+  transform:translateX(-100%);transition:transform .3s ease;
+  padding:1.5rem 1rem;
+}
+.sidebar.open{transform:translateX(0);}
+.sidebar-toggle{
+  position:fixed;top:1rem;left:1rem;z-index:101;
+  background:var(--surface-light);border:1px solid var(--border);
+  color:var(--highlight);width:40px;height:40px;border-radius:.375rem;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:1rem;transition:all .2s ease;
+}
+.sidebar-toggle:hover{border-color:var(--highlight);background:var(--surface-hover);}
+.sidebar-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:99;}
+.sidebar-overlay.show{display:block;}
+.sidebar .series-title{
+  font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--highlight);margin-bottom:1rem;
+  padding-bottom:.5rem;border-bottom:1px solid var(--border);
+}
+.sidebar a{display:block;padding:.45rem .75rem;color:var(--text-secondary);text-decoration:none;font-size:.8rem;border-radius:.3rem;transition:all .15s ease;line-height:1.4;}
+.sidebar a:hover{color:var(--text-primary);background:var(--surface-hover);}
+.sidebar a.current{color:var(--highlight);background:var(--highlight-glow);font-weight:600;}
+.sidebar .nav-section{padding:.5rem .75rem .25rem;font-family:'Oswald',sans-serif;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);opacity:.6;margin-top:.5rem;}
+.sidebar a.main-article{font-weight:500;color:var(--text-primary);}
+.sidebar a.deep-dive{padding-left:1.25rem;font-size:.78rem;opacity:.85;}
+.sidebar a.deep-dive::before{content:"└ ";color:var(--border);}
+.sidebar-header{display:flex;align-items:center;gap:.5rem;padding:.5rem 0 .9rem;margin-bottom:.6rem;border-bottom:1px solid var(--border);}
+.sidebar-home-btn{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:.3rem;font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);background:transparent;flex:1;justify-content:center;}
+.sidebar-home-btn.home-main{color:var(--text-secondary);}
+.sidebar-home-btn.home-main:hover{color:var(--text-primary);border-color:var(--text-secondary);background:var(--surface-hover);}
+.sidebar-home-btn.home-series{color:var(--highlight);border-color:rgba(212,175,55,.4);background:var(--highlight-glow);}
+.sidebar-home-btn.home-series:hover{color:var(--highlight-bright);border-color:var(--highlight);}
+
+/* ─────────── PROGRESS BAR ─────────── */
+.progress-track{position:fixed;top:0;left:0;right:0;height:3px;background:var(--border);z-index:90;}
+.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--highlight),var(--highlight-bright));transition:width 0.1s ease;border-radius:0 2px 2px 0;}
+
+/* ─────────── HERO GRID ─────────── */
+.hero-grid{
+  display:grid;grid-template-columns:2fr 1fr;grid-template-rows:auto auto;
+  gap:1.25rem;min-height:420px;margin-bottom:2.5rem;
+}
+.hero-main{
+  grid-column:1/2;grid-row:1/3;position:relative;overflow:hidden;
+  border-radius:.75rem;background:linear-gradient(135deg,var(--surface-light) 0%,var(--accent,#2c2c2c) 100%);
+  border:1px solid var(--border);min-height:420px;
+}
+.hero-main img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35;}
+.hero-main .overlay{
+  position:relative;z-index:2;height:100%;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:2.5rem;
+  background:linear-gradient(0deg,rgba(10,10,10,.85) 0%,rgba(10,10,10,0) 60%);
+}
+.hero-side{
+  background:var(--surface-light);border:1px solid var(--border);border-radius:.75rem;
+  padding:1.5rem;transition:border-color .25s ease;
+}
+.hero-side:hover{border-color:var(--highlight);}
+.hero-side h3{font-family:'Crimson Text',serif;font-size:1.05rem;font-weight:600;color:#fff;margin:0 0 .65rem;}
+.hero-side p{font-size:.875rem;color:var(--text-secondary);margin:0;}
+.hero-side .label{display:block;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);margin-bottom:.4rem;font-weight:700;}
+@media(max-width:1024px){
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-main{grid-column:1;grid-row:1;min-height:300px;}
+  .hero-main .overlay{padding:1.5rem;}
+}
+.meta-row{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;font-size:.8125rem;color:var(--text-secondary);margin-bottom:1rem;}
+.meta-row i{color:var(--highlight);margin-right:.4rem;}
+.status-pill{
+  padding:.25rem .65rem;background:var(--highlight-glow);color:var(--highlight);
+  border-radius:.25rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+}
+.domain-tag{display:inline-block;padding:.2rem .65rem;border-radius:999px;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+.tag-physics{background:rgba(74,158,255,.15);color:#4a9eff;}
+.tag-theology{background:rgba(212,175,55,.15);color:#d4af37;}
+.tag-quantum{background:rgba(201,64,64,.15);color:var(--red);}
+.tag-bridge{background:rgba(45,212,191,.15);color:#2dd4bf;}
+.tag-data{background:rgba(34,197,94,.15);color:var(--green);}
+.tag-consciousness{background:rgba(168,85,247,.15);color:var(--purple);}
+.tag-history{background:rgba(212,175,55,.12);color:#caa040;}
+.tag-moral{background:rgba(239,68,68,.15);color:var(--red);}
+.tag-civilizational{background:rgba(168,85,247,.12);color:#b594d8;}
+
+/* ─────────── STICKY TAB BAR ─────────── */
+.tab-shell{
+  position:sticky;top:0;z-index:50;
+  background:rgba(10,10,10,.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.tab-nav{display:flex;gap:.125rem;overflow-x:auto;scrollbar-width:none;}
+.tab-nav::-webkit-scrollbar{display:none;}
+.tab-btn{
+  padding:.85rem 1.1rem;background:transparent;border:none;color:var(--text-secondary);
+  font-size:.825rem;font-weight:500;cursor:pointer;white-space:nowrap;
+  transition:all .2s ease;border-bottom:2px solid transparent;margin-bottom:-1px;letter-spacing:.02em;
+}
+.tab-btn:hover{color:var(--text-primary);background:var(--surface-light);}
+.tab-btn.active{color:var(--highlight);border-bottom-color:var(--highlight);background:var(--surface-light);}
+.tab-btn i{margin-right:.4rem;}
+
+/* ─────────── TAB CONTENT ─────────── */
+.tab-content{display:none;animation:fadeIn .3s ease;}
+.tab-content.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* ─────────── LAYOUT: MAIN ─────────── */
+.main-layout{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:grid;grid-template-columns:1fr 280px;gap:3rem;}
+@media(max-width:1024px){.main-layout{grid-template-columns:1fr;}}
+
+.story{max-width:900px;margin:0 auto;}
+.story.wide{max-width:100%;}
+.story h2{
+  font-family:'Oswald',sans-serif;font-size:1.6rem;font-weight:600;color:#fff;
+  margin:3rem 0 1.25rem;letter-spacing:.03em;text-transform:uppercase;
+  border-bottom:1px solid var(--border);padding-bottom:.5rem;
+}
+.story h3{font-family:'Crimson Text',serif;font-size:1.3rem;font-weight:600;color:#fff;margin:2rem 0 .75rem;}
+.story h4{font-family:'Crimson Text',serif;font-size:1.1rem;font-weight:600;color:var(--highlight);margin:1.5rem 0 .5rem;}
+.story p{font-size:1.0625rem;color:#cfcfcf;margin:0 0 1.25rem;line-height:1.75;}
+.story p strong{color:#fff;}
+.story p em{color:var(--highlight);font-style:italic;}
+.story li{color:#cfcfcf;margin-bottom:.5rem;line-height:1.65;}
+.story li strong{color:#fff;}
+.story ul,.story ol{margin:0 0 1.25rem 1.5rem;}
+.story blockquote{
+  border-left:4px solid var(--highlight);background:var(--highlight-glow);
+  padding:1rem 1.5rem;margin:1.5rem 0;border-radius:0 .5rem .5rem 0;
+  font-family:'Crimson Text',serif;font-size:1.05rem;font-style:italic;color:#cfcfcf;
+}
+.story blockquote p{margin:0;font-size:1.05rem;}
+
+.drop-cap::first-letter{font-family:'Crimson Text',serif;font-size:4.5rem;float:left;line-height:.85;padding:.4rem .6rem 0 0;color:var(--highlight);font-weight:600;}
+
+.exec-summary{
+  background:var(--highlight-glow);border:1px solid var(--highlight-dim);
+  border-radius:.5rem;padding:1.5rem;margin:2rem 0;
+}
+.exec-summary-label{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);margin-bottom:.75rem;
+}
+.exec-summary p{font-size:1rem;color:#e0e0e0;margin:0;line-height:1.7;}
+
+.insight{border-left:4px solid var(--highlight);background:var(--highlight-glow);padding:1.25rem 1.5rem;margin:2rem 0;border-radius:0 .5rem .5rem 0;}
+.insight .label{font-family:'Crimson Text',serif;font-style:italic;color:var(--highlight);font-size:.85rem;letter-spacing:.05em;display:block;margin-bottom:.4rem;}
+.insight p{margin:0;color:#fff;font-size:1.05rem;}
+
+/* ─────────── KILL CONDITIONS ─────────── */
+.kill-sidebar{position:sticky;top:120px;height:fit-content;}
+.kill-sidebar-title{
+  font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);
+  margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);
+}
+.kill-card{
+  background:rgba(34,197,94,.04);border:1px solid rgba(34,197,94,.2);
+  border-radius:.5rem;padding:1rem;margin-bottom:.75rem;
+}
+.kill-card.suggestive{background:var(--highlight-glow);border-color:var(--highlight-dim);}
+.kill-card.destructive{background:rgba(239,68,68,.04);border-color:rgba(239,68,68,.2);}
+.kill-label{font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.35rem;}
+.kill-card .kill-label{color:var(--green);}
+.kill-card.suggestive .kill-label{color:var(--highlight);}
+.kill-card.destructive .kill-label{color:var(--red);}
+.kill-card p{margin:.25rem 0 0;color:#cfcfcf;font-size:.85rem;line-height:1.5;}
+.kill-card .kill-detail{font-size:.75rem;color:var(--text-secondary);margin-top:.35rem;}
+
+/* ─────────── AUDIO DOCK ─────────── */
+.audio-dock{width:100%;background:var(--surface-light);border:1px solid var(--border);border-radius:.625rem;overflow:hidden;transition:border-color .3s ease;margin:2rem 0;}
+.audio-dock:hover{border-color:var(--highlight-dim);}
+.dock-pills{display:flex;gap:0;border-bottom:1px solid var(--border);}
+.dock-pill{flex:1;display:flex;align-items:center;justify-content:center;gap:.4rem;padding:.6rem .5rem;background:transparent;border:none;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);transition:all .25s ease;position:relative;}
+.dock-pill::after{content:'';position:absolute;bottom:0;left:15%;right:15%;height:2px;border-radius:1px;background:transparent;transition:all .25s ease;}
+.dock-pill:hover{color:var(--text-primary);background:rgba(255,255,255,.03);}
+.dock-pill[data-src="deep"]{--pill-c:var(--blue);}
+.dock-pill[data-src="read"]{--pill-c:var(--highlight);}
+.dock-pill[data-src="debate"]{--pill-c:var(--purple);}
+.dock-pill[data-src="critique"]{--pill-c:var(--teal);}
+.dock-pill.active{color:var(--pill-c);background:rgba(255,255,255,.02);}
+.dock-pill.active::after{background:var(--pill-c);}
+.dock-pill .pill-dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.5;transition:opacity .25s;}
+.dock-pill.active .pill-dot{opacity:1;}
+.dock-pill.unavailable{opacity:.3;cursor:default;pointer-events:none;}
+.dock-body{display:flex;align-items:center;gap:.65rem;padding:.65rem .85rem;}
+.dock-play{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--highlight);background:transparent;color:var(--highlight);font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s ease;}
+.dock-play:hover{background:var(--highlight-glow);transform:scale(1.05);}
+.dock-play.playing{animation:pulse-dock 2s ease-in-out infinite;}
+@keyframes pulse-dock{0%,100%{box-shadow:0 0 0 0 var(--highlight-glow);}50%{box-shadow:0 0 0 4px transparent;}}
+.dock-track-wrap{flex:1;display:flex;flex-direction:column;gap:.25rem;min-width:0;}
+.dock-track{width:100%;height:4px;background:#222;border-radius:2px;cursor:pointer;overflow:hidden;position:relative;}
+.dock-fill{height:100%;width:0%;border-radius:2px;background:var(--highlight);transition:width .15s linear,background .3s;}
+.dock-times{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--text-secondary);}
+.dock-vol{background:none;border:none;color:var(--text-secondary);cursor:pointer;font-size:.75rem;flex-shrink:0;padding:2px;transition:color .2s;}
+.dock-vol:hover{color:var(--text-primary);}
+.dock-empty{display:none;align-items:center;justify-content:center;padding:.85rem;font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);opacity:.5;font-style:italic;}
+.dock-body.hidden{display:none;}.dock-empty.visible{display:flex;}
+
+/* ─────────── BOTTOM NAVIGATION ─────────── */
+.bottom-nav{
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:1.5rem 0;margin:3rem 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+.bottom-nav a{
+  display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;
+  background:var(--surface-light);border:1px solid var(--border);border-radius:.375rem;
+  color:var(--text-secondary);text-decoration:none;font-size:.85rem;transition:all .2s ease;
+}
+.bottom-nav a:hover{border-color:var(--highlight);color:var(--text-primary);background:var(--highlight-glow);}
+.bottom-nav a.primary{border-color:var(--highlight);color:var(--highlight);}
+.bottom-nav a.primary:hover{background:var(--highlight-glow);}
+.bottom-nav .nav-center{font-size:.8rem;color:var(--text-secondary);text-align:center;}
+
+/* ─────────── FOOTER ─────────── */
+.site-footer{text-align:center;padding:3rem 1.5rem;color:var(--text-secondary);font-size:.8rem;border-top:1px solid var(--border);margin-top:2rem;}
+.site-footer .eq{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--highlight);opacity:.6;margin-bottom:.5rem;}
+
+@media(max-width:1024px){
+  .kill-sidebar{display:none;}
+  .main-layout{grid-template-columns:1fr;padding:0 1rem;}
+  .story{max-width:100%;}
+}
+@media(max-width:640px){
+  .tab-btn{padding:.65rem .8rem;font-size:.75rem;}
+  .story h2{font-size:1.3rem;}
+  .bottom-nav{flex-direction:column;align-items:stretch;}
+  .bottom-nav a{justify-content:center;}
+}
+
+/* GTQ bottom audit gradient: what we overstated vs. what still carries weight */
+.gtq-bottom-audit{margin:4rem 0 2rem;border:1px solid rgba(255,255,255,.12);border-radius:1rem;overflow:hidden;background:#080808;box-shadow:0 24px 80px rgba(0,0,0,.35);}
+.gtq-bottom-audit .audit-band{padding:2rem clamp(1.25rem,3vw,2.5rem);border-bottom:1px solid rgba(255,255,255,.08);}
+.gtq-bottom-audit .audit-band:last-child{border-bottom:0;}
+.gtq-bottom-audit .audit-red{background:linear-gradient(135deg,rgba(239,68,68,.28),rgba(127,29,29,.12) 62%,rgba(8,8,8,.96));border-left:6px solid #ef4444;}
+.gtq-bottom-audit .audit-amber{background:linear-gradient(135deg,rgba(239,68,68,.14),rgba(245,158,11,.18) 48%,rgba(8,8,8,.96));border-left:6px solid #f59e0b;}
+.gtq-bottom-audit .audit-green{background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(34,197,94,.22) 56%,rgba(8,8,8,.96));border-left:6px solid #22c55e;}
+.gtq-bottom-audit .audit-kicker{font-family:'Oswald',sans-serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.62);margin-bottom:.55rem;}
+.gtq-bottom-audit .audit-title{font-family:'Oswald',sans-serif;font-size:clamp(2rem,6vw,4.6rem);line-height:.92;letter-spacing:.02em;text-transform:uppercase;margin:0 0 1rem;}
+.gtq-bottom-audit .audit-red .audit-title{color:#ff5a5a;}
+.gtq-bottom-audit .audit-amber .audit-title{color:#fbbf24;}
+.gtq-bottom-audit .audit-green .audit-title{color:#4ade80;}
+.gtq-bottom-audit p{font-size:1.05rem;line-height:1.75;color:#d6d6d6;margin:.7rem 0 0;max-width:76ch;}
+.gtq-bottom-audit strong{color:#fff;}
+.gtq-bottom-audit .audit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1rem;}
+.gtq-bottom-audit .audit-chip{background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.1);border-radius:.65rem;padding:1rem;}
+@media(max-width:720px){.gtq-bottom-audit .audit-grid{grid-template-columns:1fr}.gtq-bottom-audit .audit-band{padding:1.35rem}.gtq-bottom-audit .audit-title{font-size:2.2rem}}
+/* BEGIN: HERO-BELOW-TABS NORMALIZATION */
+.article-hero-wrap{
+  max-width:1380px;
+  margin:0 auto;
+  padding:3.5rem 1.5rem 0;
+}
+.article-hero-wrap .hero-grid{
+  width:100%;
+  gap:1.5rem;
+  min-height:480px;
+  margin-bottom:3rem;
+}
+.article-hero-wrap .hero-main{
+  min-height:480px;
+}
+@media(max-width:1024px){
+  .article-hero-wrap{padding:2rem 1rem 0;}
+  .article-hero-wrap .hero-grid{min-height:0;}
+  .article-hero-wrap .hero-main{min-height:340px;}
+}
+/* END: HERO-BELOW-TABS NORMALIZATION */
+
+
+/* BEGIN: SUMMARY MEDIA NORMALIZATION */
+#summary .story.wide{
+  max-width:780px;
+}
+#summary .summary-video-card{
+  width:min(980px,calc(100% + 6rem));
+  margin:0 -3rem 1.15rem;
+  padding:1rem;
+}
+.main-layout.sidebar-collapsed #summary .summary-video-card{
+  width:min(1160px,calc(100% + 10rem));
+  margin-left:-5rem;
+  margin-right:-5rem;
+}
+#summary .summary-video-card .video-frame{
+  position:relative;
+  width:100%;
+  padding-top:56.25%;
+  border-radius:.5rem;
+  overflow:hidden;
+  background:#000;
+}
+#summary .summary-video-card video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+#summary .summary-audio-dock{
+  max-width:680px;
+  margin:0 auto 2.5rem;
+}
+#summary .summary-audio-dock .dock-body{
+  padding:.75rem .9rem;
+}
+#summary .summary-audio-dock .dock-pill:nth-child(n+2){
+  display:none;
+}
+@media(max-width:1180px){
+  #summary .summary-video-card,
+  .main-layout.sidebar-collapsed #summary .summary-video-card{
+    width:100%;
+    margin-left:0;
+    margin-right:0;
+  }
+}
+@media(max-width:760px){
+  #summary .story.wide{
+    max-width:100%;
+  }
+  #summary .summary-video-card{
+    padding:.75rem;
+  }
+  #summary .summary-audio-dock{
+    max-width:100%;
+  }
+}
+/* END: SUMMARY MEDIA NORMALIZATION */
+
+
+/* GLOSSARY + MATH GRID (canonical schema, Job B sweep) */
+.score-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:1.5rem 0;}
+.score-card{background:var(--surface-light);border:1px solid var(--border);border-radius:.65rem;padding:1rem;}
+.score-card .label{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);margin-bottom:.5rem;display:block;}
+.score-card p{font-size:.92rem;color:#cfcfcf;margin:0;line-height:1.5;}
+@media(max-width:760px){.score-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+
+<body>
+
+<!-- Progress bar -->
+<div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+
+<!-- GTQ CANON HEADER: managed by tools/apply_article_topbars.py -->
+<style>
+.gtq-canon-shell{
+  min-height:214px;background:#070707;border-bottom:1px solid rgba(212,175,55,.34);
+  color:var(--text-primary);position:relative;z-index:50;overflow:hidden;
+  box-shadow:0 18px 36px rgba(0,0,0,.28);
+}
+.gtq-canon-shell::before{
+  content:"";position:absolute;inset:0;background:
+    radial-gradient(circle at var(--canon-glow-x,18%) 18%,rgba(212,175,55,.16),transparent 30%),
+    linear-gradient(90deg,rgba(212,175,55,.08),transparent 35%);
+  pointer-events:none;
+}
+.gtq-canon-topline{
+  height:40px;padding:0 1.5rem 0 4.5rem;border-bottom:1px solid rgba(212,175,55,.22);
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;position:relative;z-index:1;
+  background:rgba(5,5,5,.72);
+}
+.gtq-canon-chip,.gtq-canon-link{
+  height:26px;display:inline-flex;align-items:center;gap:.38rem;border:1px solid rgba(212,175,55,.24);
+  background:rgba(255,255,255,.025);border-radius:4px;padding:0 .65rem;
+  color:var(--text-dim);font-family:'JetBrains Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;
+  text-decoration:none;white-space:nowrap;
+}
+.gtq-canon-chip strong{color:var(--highlight);font-weight:700;}
+.gtq-canon-link{font-family:'Inter',sans-serif;font-size:.68rem;letter-spacing:.04em;font-weight:700;}
+.gtq-canon-link:hover{border-color:var(--highlight);color:var(--highlight);background:var(--highlight-glow);}
+.gtq-canon-nav{display:flex;align-items:center;gap:.4rem;}
+.gtq-canon-header{
+  min-height:174px;padding:1.45rem 1.5rem 1.4rem 4.5rem;position:relative;z-index:1;
+  display:grid;align-items:center;gap:1.2rem;
+}
+.gtq-canon-kicker{
+  color:var(--highlight);font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;
+  margin-bottom:.58rem;font-weight:700;
+}
+.gtq-canon-title{
+  font-family:'Crimson Text',serif;font-size:clamp(2rem,4.5vw,3.8rem);line-height:.96;
+  color:#fff;font-weight:700;letter-spacing:0;margin:0;
+}
+.gtq-canon-sub{
+  color:var(--text-secondary);font-size:.94rem;line-height:1.55;max-width:780px;margin-top:.78rem;
+}
+.gtq-canon-meta{display:flex;align-items:center;flex-wrap:wrap;gap:.55rem;margin-top:1rem;}
+.gtq-canon-meta span{
+  height:28px;display:inline-flex;align-items:center;gap:.38rem;padding:0 .7rem;border-radius:999px;
+  border:1px solid rgba(212,175,55,.22);background:rgba(212,175,55,.07);color:var(--text-dim);
+  font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.045em;
+}
+.gtq-canon-meta i{color:var(--highlight);}
+.gtq-canon-mark{
+  color:var(--highlight);font-family:'Oswald',sans-serif;font-size:7.8rem;line-height:.8;font-weight:700;
+  letter-spacing:.02em;user-select:none;text-shadow:0 0 30px rgba(212,175,55,.16);
+}
+.gtq-canon-formula{
+  color:rgba(212,175,55,.48);font-family:'JetBrains Mono',monospace;font-size:.72rem;line-height:1.8;
+  border-left:1px solid rgba(212,175,55,.35);padding-left:1rem;
+}
+.gtq-canon-classic{grid-template-columns:minmax(0,1fr) 170px;--canon-glow-x:16%;}
+.gtq-canon-classic .gtq-canon-mark{justify-self:end;opacity:.72;}
+.gtq-canon-spine{grid-template-columns:104px minmax(0,1fr) 250px;--canon-glow-x:50%;}
+.gtq-canon-spine::before{
+  content:"";position:absolute;left:4.5rem;right:1.5rem;top:0;height:4px;
+  background:linear-gradient(90deg,var(--highlight),var(--highlight-dim),var(--highlight-bright));
+}
+.gtq-canon-spine .gtq-canon-mark{
+  color:#050505;background:var(--highlight);width:74px;height:74px;display:grid;place-items:center;
+  font-size:2.15rem;border-radius:3px;box-shadow:0 0 34px rgba(212,175,55,.14);
+}
+.gtq-canon-edge{grid-template-columns:minmax(0,1fr) 330px;--canon-glow-x:86%;}
+.gtq-canon-edge .gtq-canon-title{max-width:760px;}
+.gtq-canon-edge .gtq-canon-mark{justify-self:end;opacity:.82;}
+.gtq-canon-edge .gtq-canon-formula{
+  border-left:0;border-top:1px solid rgba(212,175,55,.35);padding:1rem 0 0;text-align:center;
+}
+@media(max-width:900px){
+  .gtq-canon-topline{height:auto;min-height:40px;padding-right:.8rem;align-items:flex-start;flex-direction:column;padding-top:.55rem;padding-bottom:.55rem;}
+  .gtq-canon-nav{flex-wrap:wrap;}
+  .gtq-canon-header,.gtq-canon-classic,.gtq-canon-spine,.gtq-canon-edge{grid-template-columns:1fr;padding-right:1rem;}
+  .gtq-canon-mark,.gtq-canon-formula{display:none;}
+  .gtq-canon-title{font-size:clamp(1.8rem,9vw,2.55rem);}
+}
+</style>
+<!-- BEGIN: TOPBAR -->
+<section class="gtq-canon-shell" aria-label="Article identity">
+  <nav class="gtq-canon-topline" aria-label="Article navigation">
+    <div class="gtq-canon-chip"><i class="fas fa-atom"></i><strong>Genesis to Quantum</strong></div>
+    <div class="gtq-canon-nav">
+      <a class="gtq-canon-link" href="../index.html"><i class="fas fa-th-list"></i>Index</a>
+      <a class="gtq-canon-link" href="../23-regime-dependent-theology/gtq-23-regime-dependent-theology.html"><i class="fas fa-arrow-left"></i>Prev</a>
+      <a class="gtq-canon-link" href="../25-counter-move/gtq-25-counter-move.html">Next<i class="fas fa-arrow-right"></i></a>
+    </div>
+  </nav>
+  <header class="gtq-canon-header gtq-canon-edge">
+    <div>
+      <div class="gtq-canon-kicker">Origin Story / Article 24 / Formal Canon</div>
+      <h1 class="gtq-canon-title">Societies Die the Same Way People Do</h1>
+      <p class="gtq-canon-sub">The Canaanite system and the modern Western framework are structurally isomorphic.</p>
+      <div class="gtq-canon-meta">
+        <span><i class="fas fa-fingerprint"></i>GTQ-24</span>
+        <span><i class="fas fa-layer-group"></i>Foundation Track</span>
+        <span><i class="fas fa-scale-balanced"></i>Bounded Claim</span>
+      </div>
+    </div>
+    <div class="gtq-canon-mark">#24</div>
+    <div class="gtq-canon-formula">
+      chi_local = G * M * E * S_eff * T * K * R * Q * F * C<br/>
+      C is factor / chi is output / no drift
+    </div>
+  </header>
+</section>
+<!-- END: TOPBAR -->
+<!-- /GTQ CANON HEADER -->
+
+<!-- Sidebar toggle -->
+<button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle series navigation"><i class="fas fa-bars"></i></button>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- Sidebar nav -->
+<!-- BEGIN: SIDEBAR-NAV -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <a href="https://faiththruphysics.com" class="sidebar-home-btn home-main" title="Main Site Home"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="../../Home%20Page/index.html" class="sidebar-home-btn home-series" title="Series Home"><i class="fas fa-atom"></i><span>Series</span></a>
+  </div>
+  <div class="series-title"><i class="fas fa-atom" style="margin-right:.4rem;"></i> Genesis to Quantum</div>
+
+  <div class="nav-section">Main Articles</div>
+  <a href="../01-measurement-collapsed-reality/gtq-01-measurement-collapsed-reality.html" class="main-article">01 The Measurement That Collapsed Reality</a>
+  <a href="../03-first-quantum-state/gtq-03-first-quantum-state.html" class="main-article">03 The First Quantum State</a>
+  <a href="../04-free-will-two-frames/gtq-04-free-will-two-frames.html" class="main-article">04 Free Will in Two Frames</a>
+  <a href="../08-day-time-began/gtq-08-day-time-began.html" class="main-article">08 The Day Time Began</a>
+  <a href="../11-substrate-fractured/gtq-11-substrate-fractured.html" class="main-article">11 The Substrate Fractured</a>
+  <a href="../15-why-reality-needs-three/gtq-15-why-reality-needs-three.html" class="main-article">15 Why Reality Needs Three</a>
+  <a href="../16-photon-isnt-watching/gtq-16-photon-isnt-watching.html" class="main-article">16 The Photon Isn't Watching You Back</a>
+  <a href="../18-eraser-and-the-cross/gtq-18-eraser-and-the-cross.html" class="main-article">18 The Eraser and the Cross</a>
+  <a href="../22-same-god-both-testaments/gtq-22-same-god-both-testaments.html" class="main-article">22 The Same God in Both Testaments</a>
+  <a href="../25-counter-move/gtq-25-counter-move.html" class="main-article">25 The Counter-Move</a>
+  <div class="nav-section">Deep Dives</div>
+  <a href="../02-collapse-threshold/gtq-02-collapse-threshold.html" class="deep-dive">02 The Collapse Threshold</a>
+  <a href="../05-macarthur-equation/gtq-05-macarthur-equation.html" class="deep-dive">05 MacArthur and the Equation</a>
+  <a href="../06-three-pathways/gtq-06-three-pathways.html" class="deep-dive">06 The Three Pathways</a>
+  <a href="../07-why-god-drowned-everybody/gtq-07-why-god-drowned-everybody.html" class="deep-dive">07 Why Did God Drown Everybody?</a>
+  <a href="../09-decoherence-curve/gtq-09-decoherence-curve.html" class="deep-dive">09 The Decoherence Curve</a>
+  <a href="../10-how-lies-kill/gtq-10-how-lies-kill.html" class="deep-dive">10 How Lies Kill</a>
+  <a href="../12-trinity-mechanism/gtq-12-trinity-mechanism.html" class="deep-dive">12 The Trinity Mechanism</a>
+  <a href="../13-trinity-timeline/gtq-13-trinity-timeline.html" class="deep-dive">13 The Trinity Timeline</a>
+  <a href="../14-physics-broken-in-two/gtq-14-physics-broken-in-two.html" class="deep-dive">14 Why Physics Is Broken in Two</a>
+  <a href="../17-ran-the-numbers/gtq-17-ran-the-numbers.html" class="deep-dive">17 We Actually Ran the Numbers</a>
+  <a href="../19-temporal-trap/gtq-19-temporal-trap.html" class="deep-dive">19 The Temporal Trap</a>
+  <a href="../20-how-god-restores/gtq-20-how-god-restores.html" class="deep-dive">20 How God Restores</a>
+  <a href="../21-science-behind-restoration/gtq-21-science-behind-restoration.html" class="deep-dive">21 The Science Behind the Restoration</a>
+  <a href="../23-regime-dependent-theology/gtq-23-regime-dependent-theology.html" class="deep-dive">23 The Structural Case for Regime-Dependent Theology</a>
+  <a href="../24-societies-die/gtq-24-societies-die.html" class="deep-dive current">24 Societies Die the Same Way People Do</a>
+  <a href="../26-pattern-is-the-signal/gtq-26-pattern-is-the-signal.html" class="deep-dive">26 Why the Pattern Is the Signal</a>
+</nav>
+<!-- END: SIDEBAR-NAV -->
+
+<!-- Sticky tab bar -->
+<!-- BEGIN: TAB-BAR -->
+<div class="tab-shell">
+  <div class="container mx-auto px-6" style="padding-left:4.5rem;">
+    <nav class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('paper')"><i class="fas fa-scroll"></i>The Paper</button>
+      <button class="tab-btn" onclick="switchTab('summary')"><i class="fas fa-compress-alt"></i>Executive Summary</button>
+      <button class="tab-btn" onclick="switchTab('rigor')"><i class="fas fa-crosshairs"></i>Rigor &amp; Kill Conditions</button>
+      <button class="tab-btn" onclick="switchTab('mathematics')"><i class="fas fa-calculator"></i>Mathematics</button>
+      <button class="tab-btn" onclick="switchTab('glossary')"><i class="fas fa-book"></i>Glossary</button>
+      <button class="tab-btn" onclick="switchTab('media')"><i class="fas fa-headphones"></i>Watch &amp; Listen</button>
+      <button class="tab-btn" onclick="switchTab('blackboard')"><i class="fas fa-chalkboard"></i>Blackboard</button>
+    </nav>
+  </div>
+</div>
+<!-- END: TAB-BAR -->
+
+<!-- Hero grid -->
+<!-- Main content -->
+<!-- BEGIN: MAIN-LAYOUT -->
+<main class="main-layout py-10">
+  <div>
+    <!-- BEGIN: TAB-PAPER -->
+<section id="paper" class="tab-content active">
+
+<!-- Hero grid -->
+<div class="container mx-auto px-6 pt-8" style="padding-left:4.5rem;">
+  <!-- BEGIN: HERO -->
+<div class="hero-grid">
+    <div class="hero-main">
+      <img src="images/hero/GTQ-24%20-%20Hero%20-%20Societies%20Die.webp" alt="Societies Die the Same Way People Do" onerror="this.style.display='none'"/>
+      <div class="overlay">
+        <div class="meta-row" style="margin-bottom:.5rem;">
+          <span><i class="fas fa-atom"></i>Article 24 &middot; Genesis to Quantum</span>
+          <span class="status-pill">Deep Dive</span>
+        </div>
+        <h1 class="serif text-3xl md:text-5xl font-bold text-white mb-3 leading-tight">
+          Societies Die the Same Way People Do
+        </h1>
+        <p class="text-lg md:text-xl text-gray-200 font-light">
+          The Canaanite system and the modern Western framework are structurally isomorphic.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-3">
+          <span class="domain-tag tag-civilizational">Civilizational</span><span class="domain-tag tag-bridge">Cross-Domain</span><span class="domain-tag tag-history">History</span><span class="domain-tag tag-moral">Moral Physics</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-side">
+      <span class="label">Key Finding</span>
+      <h3>The single thing they should remember</h3>
+      <p>The Canaanite system of 1400 BC and the modern Western post-Enlightenment framework are structurally isomorphic — same architecture, industrialized counterfeits. Across seven categories (sacrifice, sacred sexuality, <em>pharmakeia</em>, divination, idolatry, blood feud, debt) the modern West is running the same spiritual operating system Canaan ran, with bronze statues replaced by clinic waiting rooms, screens, and balance sheets.</p>
+    </div>
+    <div class="hero-side">
+      <span class="label">Critical Insight</span>
+      <h3>Why it matters now</h3>
+      <p>The coherence equation $dC/dt = O \cdot G(1-C) - S \cdot C$ does not care that bronze statues were replaced by clinics; it only cares that the output sacrifices the future for a counterfeit present. The Canaanite tophet drowned out infant cries with drums; the modern equivalent — 73.3 million abortions a year, \$97B porn industry, 6M children on ADHD meds, \$34T of intergenerational debt — uses screens, ideology, and balance sheets to drown out the same instincts.</p>
+    </div>
+  </div>
+<!-- END: HERO -->
+</div>
+<article class="story wide"><p>The structural foundations of human civilization are rarely as novel as the aesthetic of their era suggests. While the transition from the Late Bronze Age to the digital epoch is characterized by immense technological advancement, a rigorous comparative analysis of spiritual and societal &ldquo;architecture&rdquo; suggests a profound isomorphism between the Canaanite system of the second millennium BC and the modern Western post-enlightenment framework. This report posits that the underlying mechanics of societal coherence—defined by the relationship between ritual, sacrifice, law, and the self—have not evolved so much as they have been substituted with sophisticated counterfeits that maintain the same spiritual and psychological functions. The transition from bronze statues to digital interfaces does not represent a change in the fundamental human drive toward transactional divinity, but rather a more efficient industrialization of that drive.</p>
+<h2>The Environment of 1400 BC: The Biological and Geopolitical Baseline</h2>
+<p>To understand the modern parallel, the baseline of the ancient Near East must be established through empirical archaeological and historical data. The Levant in 1400 BC was a world defined by extreme fragility and the absence of institutional stability. Bioarchaeological evidence from sites such as Amarna (Akhetaten) provides a window into a population under constant physiological stress. The absence of germ theory and antibiotics resulted in mortality rates that shaped every religious and social impulse. This was a world where survival was a ritual achievement rather than a biological expectation.</p>
+<h3>Biological and Demographic Constraints of the Bronze Age</h3>
+<p>In the 14th century BC, the concept of hygiene was spiritual rather than biological. Ritual &ldquo;uncleanness&rdquo; served as a proto-quarantine, but it operated within a world where parasitic infections, malaria, and flesh-disfiguring diseases like leishmaniasis were endemic. Bioarchaeological surveys of Amarna&rsquo;s cemeteries indicate high disease frequencies and unusual demographic characteristics, including burials of multiple individuals in single graves, which suggests the impact of localized epidemics or chronic high-stress living conditions. The &ldquo;hand of Nergal,&rdquo; a phrase used in the Amarna Letters to describe disease, illustrates how mortality was interpreted as a divine or demonic intervention rather than a manageable biological event.</p>
+<p>Infant mortality was the primary driver of the Canaanite religious psyche. Historical estimates suggest that nearly fifty percent of all children did not survive to the age of fifteen. This biological reality created a &ldquo;math of desperation&rdquo; for the ancient family. When survival is not guaranteed by infrastructure, it is sought through ritual. The burial of dead infants in storage jars beneath the floors of family homes—a common practice in the region—reflects a refusal to relegate the deceased to the exterior chaos where jackals and decay prevailed. The mother slept over her dead child every night, not out of a macabre impulse, but out of a desperate desire to protect the remains in a world where nothing outside the house was safe.</p>
+<h3>The Collapse of Order and the Amarna Correspondence</h3>
+<p>The geopolitical landscape was equally precarious. The Amarna Letters, a cache of nearly 382 diplomatic tablets found at Tel el-Amarna, reveal a system of city-states in a condition of near-constant attrition. The letters from Abdi-Heba, the ruler of Jerusalem, describe a world where the &ldquo;Habiru&rdquo; (nomadic or socially marginalized groups) were plundering the lands of the king. The repeated pleas for &ldquo;archers&rdquo; or Egyptian regular troops emphasize the lack of a centralized police force or judiciary.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Tablet ID</strong></th>
+<th><strong>Origin</strong></th>
+<th><strong>Content Summary</strong></th>
+<th><strong>Primary Concern</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EA 286</td>
+<td>Jerusalem (Abdi-Heba)</td>
+<td>&ldquo;The king has no lands! The Habiru have plundered all.&rdquo;</td>
+<td>Lack of military security</td>
+</tr>
+<tr>
+<td>EA 287</td>
+<td>Jerusalem (Abdi-Heba)</td>
+<td>&ldquo;The deed of Milkili&hellip; they have given the land to the Habiru.&rdquo;</td>
+<td>Internal betrayal and subversion</td>
+</tr>
+<tr>
+<td>EA 288</td>
+<td>Jerusalem (Abdi-Heba)</td>
+<td>&ldquo;I am situated like a ship in the midst of the sea.&rdquo;</td>
+<td>Isolation and imminent collapse</td>
+</tr>
+<tr>
+<td>EA 299</td>
+<td>Gezer (Yapahu)</td>
+<td>&ldquo;The Habiru are stronger than we&hellip; lest they destroy us.&rdquo;</td>
+<td>Existential threat from outsiders</td>
+</tr>
+<tr>
+<td>EA 307</td>
+<td>Unknown Ruler</td>
+<td>&ldquo;The Habiru men are strong against us.&rdquo;</td>
+<td>Persistent military pressure</td>
+</tr>
+</tbody>
+</table>
+<p>In this environment, justice was administered through the blood feud. The absence of a central state meant that the clan was the only arbiter of safety. If a member of one clan was killed, the code of honor necessitated a retaliatory strike, often leading to escalatory cycles of violence that could decimate entire bloodlines. This &ldquo;pre-Mosaic&rdquo; pattern of escalation represents the baseline of human justice prior to the introduction of proportional legal codes. The &ldquo;eye for an eye&rdquo; principle of the later Mosaic Law was not an invitation to cruelty but a radical limitation on the blood feud, capping retribution at parity rather than allowing it to spiral into total clan warfare.</p>
+<h2>The Mathematics of Moral and Civilizational Coherence</h2>
+<p>The &ldquo;Same God in Both Testaments&rdquo; argument posits that divine actions in history are not arbitrary outbursts of temper, but the functioning of a moral and spiritual equation. This can be modeled using a differential equation for coherence ($C$), which tracks the alignment of a system with its generative source.</p>
+<h3>The Coherence Equation</h3>
+<p>The movement of a soul or a society toward or away from alignment can be represented as:</p>
+<p>$\frac{dC}{dt} = O \cdot G(1-C) - S \cdot C$</p>
+<p>In this model:</p>
+<ul>
+<li>
+<p><strong>$C$ (Coherence)</strong> represents the degree of alignment, ranging from 1 (total alignment) to 0 (total decoherence).</p>
+</li>
+<li>
+<p><strong>$O$ (Openness)</strong> is the human variable—the willingness to receive and participate in the system&rsquo;s order.</p>
+</li>
+<li>
+<p><strong>$G$ (Grace)</strong> is the negentropic input from the divine that restores order to the system.</p>
+</li>
+<li>
+<p><strong>$S$ (Entropy)</strong> is the cost of living in a &ldquo;fallen&rdquo; universe where disorder is the default.</p>
+</li>
+</ul>
+<p>The $S \cdot C$ term represents structural justice. It is not punishment in the sense of an emotional reaction, but the mechanical fact that decoherence has consequences. Sin damages the coherence state of the system that commits it, just as friction degrades a moving part. When the Old Testament describes the &ldquo;wrath&rdquo; of God falling on Canaan, it is describing the $S \cdot C$ term operating at industrial scale. After four centuries of accumulated decoherence—ritual child-killing, systemic deception, and the normalization of the blood feud—the society reached a state where the entropy of its own choices became terminal.</p>
+<h3>The R² = 0.888 Lifespan Data and Civilizational Decay</h3>
+<p>Statistical analysis of the lifespan data recorded in the early chapters of the biblical narrative provides an empirical basis for this entropy model. The rapid decline in recorded lifespans following the &ldquo;Flood&rdquo; event fits an exponential decay curve with a correlation coefficient of $R^2 = 0.888$. This suggests that the narrative describes a consistent process of biological and spiritual entropy—a &ldquo;winding down&rdquo; of the system as it moves further from its initial coherent state. The transition from the semi-mythic lifespans of the patriarchs to the modern biological limit is a quantification of the $S$ term&rsquo;s dominance over time.</p>
+<p>The $G$ term (Grace) is the persistent variable that prevents total system collapse. Without $G$, the equation reduces to pure exponential decay. The fact that any society survived the Bronze Age pandemonium is evidence of the $G$ term operating to preserve a &ldquo;remnant.&rdquo; The New Testament did not introduce grace; it unveiled the mechanism that had been preventing the $S$ term from zeroing out the human equation for millennia.</p>
+<h2>Category 1: The Architecture of Sacrifice—Molech to the Modern Clinic</h2>
+<p>The most statistically visible symptom of the Canaanite system was the ritual of infant sacrifice. While modern sensibilities view this as an act of inexplicable cruelty, historical and archaeological analysis suggests it was an act of economic and spiritual desperation. The Canaanites were parents making what they believed was a necessary transaction with the divine to ensure the survival of the remaining community.</p>
+<h3>The Tophet and the Mechanism of Drowning Noise</h3>
+<p>Excavations at Carthage, where Phoenician colonists exported Canaanite religious practices, have uncovered &ldquo;tophets&rdquo; containing upwards of 20,000 urns with the cremated remains of infants. The term &ldquo;Tophet&rdquo; is derived from the Hebrew word <em>toph</em>, meaning &ldquo;drum&rdquo;. Historical accounts from sources such as Plutarch describe the use of drums during the sacrifice specifically to drown out the cries of the children so that the parents would not be deterred by their natural instincts from completing the ritual.</p>
+<p>In the modern context, the sacrifice of children has shifted from a ritual for agricultural survival to a mechanism for economic convenience and individual autonomy. Globally, abortion accounts for approximately 73.3 million procedures per year. The &ldquo;drums&rdquo; of the modern era are digital and ideological; they represent the noise of consumerism, the &ldquo;shout your abortion&rdquo; movement, and the clinical language of &ldquo;fetal tissue&rdquo; that serves to desensitize the individual to the biological reality of the act. The architecture is the same: the drowning out of a natural moral instinct to facilitate a transaction for future stability.</p>
+<h3>The Substituted Counterfeit: Screen-Parenting and Pharmaceutical Control</h3>
+<p>The sacrifice of the child is not limited to the termination of pregnancy; it extends into the &ldquo;sacrificial&rdquo; nature of modern parenting. The presence and attention of the parent—something that &ldquo;costs&rdquo; the parent&rsquo;s time and ego—is replaced by substitutes that feel free but cost the child&rsquo;s development more.</p>
+<ol>
+<li>
+<p><strong>Pharmaceutical Sedation</strong>: Over 6 million children in the United States are currently prescribed ADHD medications. While some cases are medically necessary, the mass sedation of children to fit the constraints of an industrialized school system mirrors the ancient practice of modifying the child to fit the needs of the adult economy. This is the use of <em>pharmakeia</em> (drugs) to solve a social and structural problem by chemically altering the victim.</p>
+</li>
+<li>
+<p><strong>Screen-Parenting</strong>: The replacement of the &ldquo;sacred&rdquo; parental bond with digital consumption serves as a soft sacrifice of the child&rsquo;s neurological development to the convenience of the adult&rsquo;s schedule. The &ldquo;Spotify&rdquo; playlist or the YouTube algorithm has become the modern <em>toph</em> drum.</p>
+</li>
+<li>
+<p><strong>Collapse of Fatherhood</strong>: The statistically documented absence of present fathers in the modern West functions as a structural abandonment. This is the sacrifice of the child&rsquo;s stability for the adult&rsquo;s &ldquo;self-actualization&rdquo; or freedom from covenantal obligation.</p>
+</li>
+</ol>
+<h2>Category 2: Sacred Sexuality vs. Commoditized Consumption</h2>
+<p>The Canaanite system integrated sexuality into the divine economy through temple prostitution. This was not merely about sexual gratification; it was a ritual transaction where the &ldquo;sacred&rdquo; was accessed through a commercialized sexual act. It was the branding of the sexual encounter as a means of spiritual experience and agricultural fertility.</p>
+<h3>OnlyFans as the New Temple Prostitution</h3>
+<p>The modern era has seen the resurrection of this architecture through platforms like OnlyFans and the broader &ldquo;influencer&rdquo; sexual economy. The transaction is fundamentally identical to that of the ancient Near East: a financial exchange for a sexualized &ldquo;experience&rdquo; that is marketed as a personal connection with an idol. It is temple prostitution rebranded for a decentralized digital economy. The &ldquo;god&rdquo; in this scenario is the influencer, and the &ldquo;worship&rdquo; is the subscription.</p>
+<h3>The Default Sexual Formation: Pornography and Trafficking</h3>
+<p>Pornography has become the default sexual formation for an entire generation, representing a \$97 billion global industry. The shift from &ldquo;sacred sexuality&rdquo;—sex within the context of a permanent, costly covenant—to &ldquo;consumptive sexuality&rdquo; is the exact transition that characterized the pagan fertility cults. In the Canaanite system, sex was a tool to manipulate the gods for rain; in the modern system, sex is a tool to manipulate the brain&rsquo;s dopamine reward system for pleasure without the cost of a person.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Feature</strong></th>
+<th><strong>Ancient Temple Prostitution</strong></th>
+<th><strong>Modern Pornography / OnlyFans</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Transaction</strong></td>
+<td>Currency for ritual sexual access</td>
+<td>Subscription for digital sexual access</td>
+</tr>
+<tr>
+<td><strong>Context</strong></td>
+<td>Religious/Ritualistic</td>
+<td>Entertainment/Economic</td>
+</tr>
+<tr>
+<td><strong>Spiritual Goal</strong></td>
+<td>Communion with a deity / Fertility</td>
+<td>&ldquo;Self-actualization&rdquo; / Dopamine regulation</td>
+</tr>
+<tr>
+<td><strong>Architecture</strong></td>
+<td>Physical temple</td>
+<td>Digital platform (The &ldquo;Screen&rdquo;)</td>
+</tr>
+<tr>
+<td><strong>Status of Actor</strong></td>
+<td>Sacred slave / Vessel</td>
+<td>Content creator / Independent &ldquo;idol&rdquo;</td>
+</tr>
+<tr>
+<td><strong>Industry Value</strong></td>
+<td>Community-funded</td>
+<td>\$97B &ndash; \$150B annually</td>
+</tr>
+</tbody>
+</table>
+<p>This transition mirrors the ILO estimate of sex trafficking as a \$150 billion annual industry—actual temple slavery utilizing modern logistics to maintain a steady supply of bodies for a world that has replaced the &ldquo;sacred&rdquo; with the &ldquo;consumable.&rdquo; The mechanism of the hookup culture further normalizes this, treating the sexual encounter as a &ldquo;free&rdquo; counterfeit of intimacy that eventually costs the participants their ability to form long-term, stable pair-bonds.</p>
+<h2>Category 3: Pharmakeia and the Chemical Priesthood</h2>
+<p>The Greek word for sorcery in the New Testament is <em>pharmakeia</em>, which literally refers to the use of drugs and potions to alter consciousness. In the ancient world, these substances were used to induce trances, facilitate contact with the demonic, or bypass the slow work of prayer and virtue.</p>
+<h3>The Mass Sedation of the Population</h3>
+<p>Modern pharmaceutical dependence mirrors this architecture. While medicine itself is a &ldquo;common grace&rdquo; , the mass sedation of the Western population so they can tolerate a lifestyle that is fundamentally destructive is a different phenomenon.</p>
+<ol>
+<li>
+<p><strong>The Opioid Crisis</strong>: Over 500,000 deaths in the U.S. since 1999 represent the high-end cost of the &ldquo;chemical solution&rdquo; to spiritual and physical pain. This is the industrialization of the <em>pharmakĕia</em> that Paul warned against in Galatians 5.</p>
+</li>
+<li>
+<p><strong>Antidepressants</strong>: With 1 in 8 Americans on antidepressants, the population is increasingly reliant on a &ldquo;chemical priesthood&rdquo; to maintain a state of &ldquo;functional decoherence.&rdquo; The absence of normal serotonin levels in a &ldquo;pleasure-pumped culture&rdquo; creates a seriously depressed state of mind that is then &ldquo;treated&rdquo; with more hits of the same underlying chemical logic.</p>
+</li>
+<li>
+<p><strong>Psychedelics as &ldquo;Spiritual Practice&rdquo;</strong>: The resurgence of psychedelics (psilocybin, ayahuasca) as &ldquo;spiritual awakening&rdquo; is the literal return to the pharmacological rituals of the ancient Near East. It is the search for the &ldquo;shortcut&rdquo; to transcendence that bypasses the ego and the will, exactly like the drug-induced ecstatic states of the priests of Baal.</p>
+</li>
+</ol>
+<p>The case of T.M., a patient who religious objected to psychoactive medication by citing Paul&rsquo;s warning against <em>pharmakeia</em>, highlights the tension between medical intervention and the spiritual perception of drug use. The modern world views drugs as a biological fix; the ancient world viewed them as a spiritual door. Both are currently being used to &ldquo;manage&rdquo; a population that has lost its natural coherence.</p>
+<h2>Category 4: Divination, Sorcery, and the Power Fantasy</h2>
+<p>In the ancient world, divination and sorcery were tools used to gain control over a world that felt chaotic. It was the search for hidden knowledge (gnosis) that bypassed the need for covenant obedience. The modern West has seen a resurgence in this architecture through the language of entertainment and self-help.</p>
+<h3>Astrology and Rebranded Divination</h3>
+<p>Astrology currently enjoys more adherents in the West than at any point since the Enlightenment. The appeal is identical to that of the ancient liver-diviners of Babylon: the desire to see the &ldquo;scripts&rdquo; of the universe to avoid the anxiety of free will and personal responsibility. Similarly, &ldquo;manifestation&rdquo; and the &ldquo;law of attraction&rdquo; are modern terms for sympathetic magic—the belief that one&rsquo;s internal desires can manipulate external reality through ritualized focus rather than through labor and virtue.</p>
+<h3>The Entertainment Economy as Power Fantasy</h3>
+<p>The modern obsession with superhero culture and high-fantasy narratives (e.g., Harry Potter) normalizes the idea that power is a function of &ldquo;hidden knowledge&rdquo; or &ldquo;special bloodlines&rdquo; rather than the slow work of virtue. These stories allow the consumer to rehearse godlike power without godlike responsibility.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Ancient Divination</strong></th>
+<th><strong>Modern Parallel</strong></th>
+<th><strong>Underlying Mechanism</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Astrology (Zodiac)</strong></td>
+<td>Astrology / Horoscope Apps</td>
+<td>Seeking external scripts to bypass moral agency</td>
+</tr>
+<tr>
+<td><strong>Tarot / Lot Casting</strong></td>
+<td>Tarot / Manifestation</td>
+<td>Seeking to control reality via ritualized focus</td>
+</tr>
+<tr>
+<td><strong>Sorcery (Spells)</strong></td>
+<td>&ldquo;Law of Attraction&rdquo;</td>
+<td>Believing internal states dictate external outcomes</td>
+</tr>
+<tr>
+<td><strong>Bloodline Magic</strong></td>
+<td>Superhero / Potter tropes</td>
+<td>Power as an inherent/hidden trait vs. earned virtue</td>
+</tr>
+</tbody>
+</table>
+<p>This &ldquo;rehearsal of power&rdquo; in video games and cinema provides a counterfeit experience of agency. The consumer feels powerful while remaining physically and socially stagnant. The cost of this &ldquo;free&rdquo; fantasy is the atrophy of the will required to engage with the real, difficult world of 2026.</p>
+<h2>Category 5: Idolatry and the Sovereignty of the Self</h2>
+<p>The ultimate shift in the architecture of idolatry is the move from the external bronze statue to the internal self. The phrase &ldquo;my truth&rdquo; functions as a declaration that the self is the final arbiter of reality. This is the definition of a &ldquo;god that tells you what you want to hear.&rdquo;</p>
+<h3>Social Media as the Altar of the Self</h3>
+<p>Social media platforms function as modern &ldquo;high places.&rdquo; The &ldquo;influencer&rdquo; is a literal idol-maker as a career path. The individual curates their image (the idol), sacrifices their real self to maintain that image, and receives &ldquo;worship&rdquo; in the form of likes. This is a closed-loop system of self-idolatry that results in profound psychological decoherence when the &ldquo;real self&rdquo; inevitably fails to live up to the &ldquo;digital idol.&rdquo;</p>
+<h3>The Weaponization of Therapy Language</h3>
+<p>Therapy language, originally designed for healing, is increasingly weaponized to defend the self-as-god. Terms like &ldquo;boundaries&rdquo; are often used to mean &ldquo;I do not have to love anyone who costs me anything.&rdquo; This is the abandonment of the &ldquo;costly reality&rdquo; for a &ldquo;counterfeit that feels free.&rdquo; True love and true covenant require the death of the self; the modern counterfeit offers &ldquo;self-care&rdquo; as the highest moral good. This &ldquo;autonomy&rdquo; is the same absolute freedom claimed by the pagan kings—a freedom that eventually leads to the &ldquo;hand of Nergal&rdquo; and the collapse of the social fabric.</p>
+<h2>Category 6: Blood Feuds and Digital Retribution</h2>
+<p>The Mosaic Law introduced the principle of <em>lex talionis</em> (an eye for an eye) and the &ldquo;Cities of Refuge&rdquo; as mechanisms of restraint. In a world of blood feuds, if you took a man&rsquo;s tooth, he would take your head. The &ldquo;eye for an eye&rdquo; rule capped the retribution at proportionality. It was a step toward a &ldquo;house of mercy&rdquo; in a world of &ldquo;pandemonium&rdquo;.</p>
+<h3>Cancel Culture as the Digital Blood Feud</h3>
+<p>Modern &ldquo;cancel culture&rdquo; represents a rejection of proportional justice and a return to the pre-Mosaic blood feud. When an individual offends a digital &ldquo;clan,&rdquo; the escalation is non-proportional. There is no &ldquo;city of refuge&rdquo; where an unintentional offender can find asylum until the &ldquo;heat of anger&rdquo; subsides.</p>
+<ol>
+<li>
+<p><strong>Lack of Proportionality</strong>: Digital retribution seeks the total destruction of the offender&rsquo;s livelihood, regardless of the severity of the offense.</p>
+</li>
+<li>
+<p><strong>Absence of Cities of Refuge</strong>: The biblical cities of refuge were designed to protect the unintentional killer from the &ldquo;avenger of blood&rdquo;. In the digital architecture, there is no &ldquo;pause&rdquo; between the offense and the retribution. The outrage cycle functions at the speed of the algorithm, ensuring the &ldquo;avenger of blood&rdquo; always reaches the offender first.</p>
+</li>
+<li>
+<p><strong>Return to Clan Warfare</strong>: Digital subcultures function like ancient clans, where an offense against one member is treated as a casus belli for the entire group, leading to the same &ldquo;escalatory cycles&rdquo; seen in the Amarna-era Levant.</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th><strong>Legal Concept</strong></th>
+<th><strong>Mosaic/Biblical Infrastructure</strong></th>
+<th><strong>Modern Western Reality (Digital)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Justice Type</strong></td>
+<td>Proportional (Lex Talionis)</td>
+<td>Escalatory (Cancel Culture)</td>
+</tr>
+<tr>
+<td><strong>Asylum</strong></td>
+<td>Cities of Refuge (Arei Miklat)</td>
+<td>None; &ldquo;the internet never forgets&rdquo;</td>
+</tr>
+<tr>
+<td><strong>Intent</strong></td>
+<td>Distinction between accidental and premeditated</td>
+<td>Intent is irrelevant to the impact</td>
+</tr>
+<tr>
+<td><strong>Role of Elders</strong></td>
+<td>Inquiry and diligent trial</td>
+<td>Mob rule / Algorithmic &ldquo;piling on&rdquo;</td>
+</tr>
+<tr>
+<td><strong>Sanctuary</strong></td>
+<td>The Altar / The Levitical City</td>
+<td>De-platforming / Total exile</td>
+</tr>
+</tbody>
+</table>
+<h2>Category 7: Molech Economics and Debt Slavery</h2>
+<p>The god Molech was synonymous with the sacrifice of the future (the child) for the sake of the present (the harvest). Modern economics has adopted this exact structural pattern through the mechanism of permanent, intergenerational debt.</p>
+<h3>Intergenerational Wealth Extraction</h3>
+<p>The United States national debt, exceeding \$34 trillion, is a literal structure of intergenerational wealth extraction. It is the sacrifice of the children&rsquo;s future economic security for the sake of the current generation&rsquo;s consumption. This is a complete inversion of the Mosaic Law, which mandated a debt release every seven years (the Shemitah) to prevent the emergence of a permanent debt-slave class.</p>
+<h3>Student Loan Debt as Initiation Ritual</h3>
+<p>The requirement for the current generation to sacrifice their twenties and their financial independence to the &ldquo;credential system&rdquo; functions as a modern ritual of initiation. It is the price paid to the institutions (the modern temples) to be allowed to participate in the economy. We have built an economy on permanent debt—a &ldquo;Molech system&rdquo; that eats the future to fund the present.</p>
+<h2>Synthesis: The Terminal Nature of Decoherence</h2>
+<p>The isomorphism between the Canaanite world and the modern West is not a series of four coincidences; it is a complete structural alignment. We are running the same spiritual architecture at an industrial scale. The &ldquo;dirt&rdquo; of 1400 BC was a world of physical pandemonium that the Mosaic Law attempted to humanize through costly mercy and proportional justice. The &ldquo;dust&rdquo; of 2026 is a world of digital pandemonium where we have thrown away those restraints in favor of counterfeits that feel free but cost the entire system its coherence.</p>
+<p>The mathematical reality of the coherence equation ($\frac{dC}{dt} = O \cdot G(1-C) - S \cdot C$) suggests that a system cannot optimize for $S$ (entropy) indefinitely. The $S$ term eventually overwhelms the system&rsquo;s ability to remain &ldquo;open&rdquo; ($O$) to the restorative &ldquo;grace&rdquo; ($G$). The Old Testament&rsquo;s judgment on Canaan was the mechanical conclusion of 400 years of accumulated decoherence. The equation does not care that we replaced bronze statues with clinic waiting rooms; it only cares that the output of the system is the sacrifice of the future for the sake of a counterfeit present. The challenge for the modern observer is to recognize that the &ldquo;dirt&rdquo; has been paved over, but the drums of the Tophet are still beating, now amplified by a billion screens.</p>
+      <!-- GTQ BOTTOM AUDIT PANEL -->
+      <section class="gtq-bottom-audit" aria-label="Bottom audit: wrong, overstated, load-bearing, and right">
+        <div class="audit-band audit-red">
+          <div class="audit-kicker">Audit floor / red zone</div>
+          <h2 class="audit-title">What We Got Carried Away With</h2>
+          <p><strong>This is where the article has to pay for its own confidence.</strong> Any claim that turns a structural resemblance into a proven mechanism belongs here until the math, experiment, or textual chain can carry the weight.</p>
+          <p>Red does not mean useless. It means: do not build doctrine, physics, or public certainty on this layer yet.</p>
+        </div>
+        <div class="audit-band audit-amber">
+          <div class="audit-kicker">Gradient zone / interpretive caution</div>
+          <h2 class="audit-title">What Is Suggestive</h2>
+          <div class="audit-grid">
+            <div class="audit-chip"><p><strong>Promising pattern:</strong> the correspondence is strong enough to keep investigating, but not strong enough to call settled.</p></div>
+            <div class="audit-chip"><p><strong>Possible overstatement:</strong> language that sounds final should be read as a working model unless the article explicitly proves it.</p></div>
+          </div>
+        </div>
+        <div class="audit-band audit-green">
+          <div class="audit-kicker">Green zone / carries weight</div>
+          <h2 class="audit-title">What Is Load-Bearing</h2>
+          <p><strong>This is the part that should survive a hostile reading:</strong> the direct textual observations, the explicit cross-references, the formal definitions, and the places where the article clearly admits what it has not proven.</p>
+          <h2 class="audit-title" style="margin-top:1.4rem;">What We Got Right</h2>
+          <p>The useful result is not pretending every connection is equally proven. The useful result is sorting the work honestly: wrong or overconfident claims in red, suggestive bridges in the middle, and durable load-bearing claims in green.</p>
+        </div>
+      </section></article>
+    </section>
+<!-- END: TAB-PAPER -->
+
+    <!-- BEGIN: TAB-SUMMARY -->
+<section id="summary" class="tab-content">
+      <article class="story wide">
+        <div class="exec-summary" style="margin-top:1rem;">
+          <div class="exec-summary-label"><i class="fas fa-bolt" style="margin-right:.4rem;"></i>Executive Summary</div>
+          <p>Civilizations decay the same way individuals do — through accumulated decoherence on the same equation, $dC/dt = O \cdot G(1-C) - S \cdot C$. The Canaanite system that triggered the OT's hardest passages and the modern Western framework are structurally isomorphic across seven categories: child sacrifice (Molech tophet → 73.3M abortions/year, screen-parenting, mass child-sedation); sacred sexuality (temple prostitution → \$97B porn industry, OnlyFans, \$150B trafficking); <em>pharmakeia</em> (Baal-priest pharmacology → 500K opioid deaths, 1-in-8 on antidepressants, psychedelic "spirituality"); divination (Babylonian astrology → manifestation, superhero power-fantasy); idolatry (high places → social-media altar of self, weaponized therapy language); blood feud (pre-Mosaic clan retribution → cancel culture with no Cities of Refuge); and Molech economics (sacrificing the child for the harvest → \$34T national debt, student-loan initiation). The mathematical reality is that no system can optimize for $S$ indefinitely. The dirt has been paved over, but the drums of the tophet are still beating — now amplified by a billion screens.</p>
+        </div>
+      </article>
+    
+<!-- BEGIN: EXEC-KEY-TERMS -->
+<section data-placeholder="true" data-section="EXEC-KEY-TERMS" style="display:none;">
+<!-- TODO: fill EXEC-KEY-TERMS content -->
+</section>
+<!-- END: EXEC-KEY-TERMS -->
+</section>
+<!-- END: TAB-SUMMARY -->
+
+    <!-- BEGIN: TAB-RIGOR -->
+<section id="rigor" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-2">Rigor &amp; Kill Conditions</h2>
+        <p class="text-[#a0a0a0] mb-6">Every claim is held to explicit falsification standards.</p>
+        <div class="kill-card"><div class="kill-label">Load-Bearing</div><p><strong>Kill if:</strong> The seven cited statistical anchors fail to hold under audit — Phoenician tophet urn counts (~20,000 cremated infant remains), ~73.3M global annual abortions, ~6M U.S. children on ADHD medication, ~\$97B–\$150B sex / porn / trafficking economy, ~500K U.S. opioid deaths since 1999, ~1-in-8 Americans on antidepressants, and ~\$34T U.S. national debt. If any of those numbers is materially wrong, the empirical spine collapses.</p></div>
+        <div class="kill-card suggestive"><div class="kill-label">Suggestive</div><p><strong>Kill if:</strong> The seven category mappings (sacrifice, sacred sexuality, <em>pharmakeia</em>, divination, idolatry, blood feud, Molech economics) cannot be sustained as structural isomorphism — i.e., the modern parallel for any category is shown to be a surface analogy rather than a same-architecture counterfeit serving the same psychological / spiritual function.</p></div>
+        <div class="kill-card destructive"><div class="kill-label">Destructive</div><p><strong>Kill if:</strong> The coherence equation does not generalize from individual decay to civilizational decay — i.e., societies do not, in measurable historical record, follow the same accumulated-$S \cdot C$ trajectory under prolonged decoherence that the lifespan-decay data ($R^2 = 0.888$) shows for individuals. If civilizational collapse is structurally unrelated to the moral-physics equation, the framework fails at scale.</p></div>
+      </article>
+    
+<!-- BEGIN: RIGOR-WHAT-WE-GOT-RIGHT -->
+<section data-placeholder="true" data-section="RIGOR-WHAT-WE-GOT-RIGHT" style="display:none;">
+<!-- TODO: fill RIGOR-WHAT-WE-GOT-RIGHT content -->
+</section>
+<!-- END: RIGOR-WHAT-WE-GOT-RIGHT -->
+
+<!-- BEGIN: RIGOR-WHAT-WE-GOT-WRONG -->
+<section data-placeholder="true" data-section="RIGOR-WHAT-WE-GOT-WRONG" style="display:none;">
+<!-- TODO: fill RIGOR-WHAT-WE-GOT-WRONG content -->
+</section>
+<!-- END: RIGOR-WHAT-WE-GOT-WRONG -->
+
+<!-- BEGIN: RIGOR-WHAT-WE-OVERCLAIMED -->
+<section data-placeholder="true" data-section="RIGOR-WHAT-WE-OVERCLAIMED" style="display:none;">
+<!-- TODO: fill RIGOR-WHAT-WE-OVERCLAIMED content -->
+</section>
+<!-- END: RIGOR-WHAT-WE-OVERCLAIMED -->
+</section>
+<!-- END: TAB-RIGOR -->
+
+    <!-- BEGIN: TAB-MATHEMATICS -->
+<section id="mathematics" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-2">Mathematics</h2>
+        <p class="text-[#a0a0a0] mb-6">Every equation referenced in the paper, collected as a single index.</p>
+
+        <div class="eq-block">
+          <div class="eq-label">Coherence Equation — Civilizational Application</div>
+          $$\frac{dC}{dt} = O \cdot G \cdot (1 - C) - S \cdot C$$
+        </div>
+        <p><strong>$C$</strong> = coherence of the society, $0$ = total decoherence, $1$ = total alignment. <strong>$O$</strong> = openness, the population&rsquo;s willingness to receive ordering. <strong>$G$</strong> = grace, the divine input. <strong>$S$</strong> = entropy / sin pressure. <strong>Plain English:</strong> the same differential equation that governs a single soul governs a civilization. Either growth dominates or decay dominates — there is no neutral.</p>
+
+        <div class="eq-block">
+          <div class="eq-label">Pure Decay Limit</div>
+          $$\frac{dC}{dt} = -S \cdot C$$
+        </div>
+        <p><strong>Plain English:</strong> when $O \to 0$, the equation collapses to exponential decay. The article&rsquo;s civilizational claim: no society survives this regime. The terminal nature of accumulated decoherence is not metaphor — it&rsquo;s the equation under boundary conditions.</p>
+
+        <div class="eq-block">
+          <div class="eq-label">Lifespan Decay Fit (Genesis Series)</div>
+          $$L(n) = L_0 \, e^{-\lambda n}, \qquad R^2 = 0.888$$
+        </div>
+        <p><strong>$L(n)$</strong> = lifespan at generation $n$ after the Flood. <strong>Plain English:</strong> the Genesis lifespan series fits exponential decay with $R^2 = 0.888$. Used here as quantitative evidence that the narrative tracks an entropic process the equation predicts.</p>
+
+        <div class="eq-block">
+          <div class="eq-label">Three-Term Mapping</div>
+          $$\underbrace{S \cdot C}_{\text{Justice}} \;\;\; \underbrace{G}_{\text{Mercy}} \;\;\; \underbrace{O}_{\text{Free Will}}$$
+        </div>
+        <p><strong>Plain English:</strong> the wrath of God falling on Canaan is the $S \cdot C$ term operating at industrial scale, not an emotional outburst. After four centuries of accumulated $S$, the term went terminal.</p>
+      </article>
+    </section>
+<!-- END: TAB-MATHEMATICS -->
+
+    <!-- BEGIN: TAB-GLOSSARY -->
+<section id="glossary" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-4">Glossary</h2>
+        <div class="score-grid">
+          <div class="score-card"><div class="label">Coherence (C)</div><p>State variable for alignment with the divine ordering principle, applied here at civilizational scale. (Defined in Article 03.)</p></div>
+          <div class="score-card"><div class="label">Openness (O)</div><p>The population-level willingness to receive ordering. Without it the growth term collapses, regardless of how much $G$ is available.</p></div>
+          <div class="score-card"><div class="label">Grace (G)</div><p>The negentropic divine input that prevents the equation from running to zero. Article&rsquo;s claim: $G$ is what kept any society alive through Bronze Age pandemonium.</p></div>
+          <div class="score-card"><div class="label">Entropy / Sin ($S$)</div><p>The decay term. Tracks accumulated decoherence. When $S \cdot C$ goes terminal, the system can&rsquo;t recover from inside. <strong>Framework note:</strong> Entropy (physical frame) and Sin (theological frame) name the same dynamical quantity at the master-equation level. The notation is $S$ either way.</p></div>
+          <div class="score-card"><div class="label">Decoherence</div><p>Loss of alignment between a system and its generative source. The article&rsquo;s diagnosis of both Canaan in 1400 BC and the modern West.</p></div>
+          <div class="score-card"><div class="label">Isomorphism</div><p>Structural identity. The article&rsquo;s thesis: Canaanite religion and modern Western consumer architecture share the same skeleton, only the materials differ.</p></div>
+          <div class="score-card"><div class="label">Tophet</div><p>Phoenician/Canaanite child-sacrifice site. From Hebrew <em>toph</em> (drum), played to drown out children&rsquo;s cries during the ritual.</p></div>
+          <div class="score-card"><div class="label">Molech</div><p>Canaanite deity of child sacrifice. The article uses &ldquo;Molech economics&rdquo; for any system that sacrifices the future for the present.</p></div>
+          <div class="score-card"><div class="label">Pharmakeia</div><p>NT Greek for sorcery, literally use of drugs/potions to alter consciousness. The article reads opioid, antidepressant, and psychedelic culture as its successor.</p></div>
+          <div class="score-card"><div class="label">Habiru</div><p>The displaced Bronze Age population referenced in the Amarna Letters as a destabilizing force in Canaan.</p></div>
+          <div class="score-card"><div class="label">Amarna Letters</div><p>14th-century BC clay-tablet dispatches from Canaanite city-state rulers to Egypt. Independent witness to the &ldquo;pandemonium&rdquo; of the conquest period.</p></div>
+          <div class="score-card"><div class="label">Lex Talionis</div><p>&ldquo;Eye for an eye&rdquo;. The first de-escalation law in recorded history — a ceiling on retribution, not a floor.</p></div>
+          <div class="score-card"><div class="label">Cities of Refuge (Arei Miklat)</div><p>Six Mosaic-Law cities where accidental killers could flee. Introduced <em>mens rea</em> into legal proceedings 3,400 years early.</p></div>
+          <div class="score-card"><div class="label">Blood Feud</div><p>Pre-Mosaic justice mechanism: clan-on-clan retribution with no ceiling. The article reads cancel culture as its digital successor.</p></div>
+          <div class="score-card"><div class="label">Shemitah</div><p>The Mosaic seventh-year debt-release law. Designed to prevent a permanent debt-slave class from forming.</p></div>
+          <div class="score-card"><div class="label">High Places</div><p>OT term for elevated cult sites of pagan worship. The article reads social-media platforms as the modern functional equivalent.</p></div>
+          <div class="score-card"><div class="label">Dopamine Reward Circuit</div><p>The neural pathway hijacked by pornography, social media, and consumer feedback loops. Modern counterfeit for fertility-cult ecstasy.</p></div>
+          <div class="score-card"><div class="label">Counterfeit Architecture</div><p>The article&rsquo;s framing of modern systems that look free but extract a hidden cost (intimacy, future, coherence).</p></div>
+          <div class="score-card"><div class="label">Late Bronze Age Collapse</div><p>~1200 BC multi-decade Mediterranean drought and palace-economy failure. Tree-ring confirmed; Dead Sea dropped 50+ meters.</p></div>
+          <div class="score-card"><div class="label">Schistosomiasis / Falciparum Malaria</div><p>Two of the parasitic disease loads driving Bronze Age morbidity. Set the biological floor against which the Mosaic code was written.</p></div>
+          <div class="score-card"><div class="label">Hand of Nergal</div><p>Mesopotamian-cult phrase for plague/death. Used here as a pattern term for the collapse outcome of unchecked decoherence.</p></div>
+          <div class="score-card"><div class="label">Logos Field ($\chi$)</div><p>The pervasive substrate of coherent reality &mdash; the framework's $\chi$ field; the Master-Equation field whose value is total system coherence. (Earlier drafts denoted this with $\Lambda$; that symbol is now reserved for the cosmological constant.) <em>Field</em> &ne; <em>coupling</em>: this entry locks the substrate sense.</p></div>
+          <div class="score-card"><div class="label">Logos Coupling</div><p>The interaction architecture between the Logos field and the systems embedded in it &mdash; the channel structure ($C_0$, $C_1$, inter-substrate coupling) that determines how the field acts on a subsystem. Distinct from the field itself: <em>field</em> = pervasive substrate; <em>coupling</em> = how interaction happens. Both terms stay; they are not interchangeable.</p></div>
+
+        </div>
+      </article>
+    </section>
+<!-- END: TAB-GLOSSARY -->
+
+    <!-- BEGIN: TAB-MEDIA -->
+<section id="media" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-4">Watch &amp; Listen</h2>
+</article>
+    </section>
+<!-- END: TAB-MEDIA -->
+
+    <!-- BEGIN: TAB-BLACKBOARD -->
+<section id="blackboard" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-4">Blackboard</h2>
+        <p class="text-[#a0a0a0] mb-6">Interactive scratch space.</p>
+      </article>
+    </section>
+<!-- END: TAB-BLACKBOARD -->
+  </div>
+
+  <!-- BEGIN: KILL-SIDEBAR -->
+<aside class="kill-sidebar">
+    <div class="kill-sidebar-title"><i class="fas fa-skull-crossbones" style="margin-right:.4rem;"></i>Kill Conditions</div>
+    <!-- BEGIN: KILL-CARD-LOAD-BEARING -->
+<div class="kill-card"><div class="kill-label">Load-Bearing</div><p><strong>Kill if:</strong> Cited statistical anchors fail under audit.</p></div>
+<!-- END: KILL-CARD-LOAD-BEARING -->
+    <!-- BEGIN: KILL-CARD-SUGGESTIVE -->
+<div class="kill-card suggestive"><div class="kill-label">Suggestive</div><p><strong>Kill if:</strong> Category isomorphisms reduce to surface analogies.</p></div>
+<!-- END: KILL-CARD-SUGGESTIVE -->
+    <!-- BEGIN: KILL-CARD-DESTRUCTIVE -->
+<div class="kill-card destructive"><div class="kill-label">Destructive</div><p><strong>Kill if:</strong> Coherence equation does not scale from person to society.</p></div>
+<!-- END: KILL-CARD-DESTRUCTIVE -->
+    <!-- BEGIN: ARTICLE-STATS -->
+<div style="margin-top:1.5rem;padding:1rem;background:var(--surface-light);border:1px solid var(--border);border-radius:.5rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:.5rem;">Article Stats</div>
+      <div style="font-size:.8rem;color:var(--text-secondary);line-height:1.8;">
+        <div><i class="fas fa-clock" style="width:1rem;color:var(--highlight);"></i> 10 min read</div>
+        <div><i class="fas fa-layer-group" style="width:1rem;color:var(--highlight);"></i> Deep Dive</div>
+        <div><i class="fas fa-crosshairs" style="width:1rem;color:var(--highlight);"></i> 4 kill conditions</div>
+        <div><i class="fas fa-headphones" style="width:1rem;color:var(--highlight);"></i> 0 audio versions</div>
+      </div>
+    </div>
+<!-- END: ARTICLE-STATS -->
+  </aside>
+<!-- END: KILL-SIDEBAR -->
+</main>
+<!-- END: MAIN-LAYOUT -->
+
+<!-- Bottom navigation -->
+<div class="container mx-auto px-6" style="padding-left:4.5rem;">
+  <!-- BEGIN: BOTTOM-NAV -->
+<div class="bottom-nav">
+    <a href="../23-regime-dependent-theology/gtq-23-regime-dependent-theology.html"><i class="fas fa-arrow-left"></i>Previous: The Structural Case for Regime-Dependent Theology</a>
+    <div class="nav-center">Article 24 of 26</div>
+    <a href="../25-counter-move/gtq-25-counter-move.html" class="primary">Next: The Counter-Move<i class="fas fa-arrow-right"></i></a>
+  </div>
+<!-- END: BOTTOM-NAV -->
+  <div style="text-align:center;margin-bottom:2rem;">
+    <a href="../25-counter-move/gtq-25-counter-move.html" style="display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;background:var(--highlight-glow);border:1px solid var(--highlight-dim);border-radius:.375rem;color:var(--highlight);text-decoration:none;font-size:.8rem;">
+      <i class="fas fa-forward"></i>Skip to next main: The Counter-Move
+    </a>
+  </div>
+</div>
+
+<!-- BEGIN: FOOTER -->
+<footer class="site-footer">
+  <div class="eq">χ = f(G, M, E, S, T, K, R, Q, F, C)</div>
+  <p>David Lowe &middot; Genesis to Quantum &middot; Part 24 of 26</p>
+  <p class="serif" style="font-style:italic;color:var(--text-secondary);margin-top:.5rem;">&ldquo;But while he was still a long way off, his father saw him.&rdquo;</p>
+</footer>
+<!-- END: FOOTER -->
+
+<script>
+function toggleSidebar(){
+  var sb=document.getElementById('sidebar');
+  var ov=document.getElementById('sidebarOverlay');
+  sb.classList.toggle('open');
+  ov.classList.toggle('show');
+  document.body.style.overflow=sb.classList.contains('open')?'hidden':'';
+}
+window.addEventListener('scroll',function(){
+  var st=window.scrollY||document.documentElement.scrollTop;
+  var dh=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+  var pct=dh>0?(st/dh)*100:0;
+  document.getElementById('progressBar').style.width=pct+'%';
+});
+function switchTab(tabId){
+  document.querySelectorAll('.tab-content').forEach(function(el){el.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(el){el.classList.remove('active');});
+  document.getElementById(tabId).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    var sb=document.getElementById('sidebar');
+    if(sb&&sb.classList.contains('open')) toggleSidebar();
+  }
+});
+
+/* Audio dock engine */
+(function(){
+  var dock = document.getElementById('audioDock');
+  if(!dock) return;
+  var body=document.getElementById('dockBody'), empty=document.getElementById('dockEmpty');
+  var playBtn=document.getElementById('dockPlay'), icon=document.getElementById('dockPlayIcon');
+  var fill=document.getElementById('dockFill'), curEl=document.getElementById('dockCurrent'), durEl=document.getElementById('dockDuration');
+  var volBtn=document.getElementById('dockVol');
+  var pills=dock.querySelectorAll('.dock-pill');
+  var audio=new Audio(); audio.preload='metadata';
+  var activeKey=null, muted=false;
+  var pillColors={deep:'#4a9eff',read:'#e08040',debate:'#a855f7',critique:'#2dd4bf'};
+
+  function fmt(s){if(!s||isNaN(s))return '0:00';var m=Math.floor(s/60),sec=Math.floor(s%60);return m+':'+(sec<10?'0':'')+sec;}
+
+  pills.forEach(function(p){if(!p.dataset.url)p.classList.add('unavailable');});
+
+  pills.forEach(function(p){
+    p.addEventListener('click',function(){
+      var key=p.dataset.src, url=p.dataset.url;
+      if(!url)return;
+      if(key===activeKey){if(audio.paused)audio.play();else audio.pause();return;}
+      audio.pause(); audio.src=url; activeKey=key;
+      pills.forEach(function(q){q.classList.remove('active');}); p.classList.add('active');
+      var c=pillColors[key]||'#e08040';
+      fill.style.background=c; playBtn.style.borderColor=c; playBtn.style.color=c;
+      body.classList.remove('hidden'); empty.classList.remove('visible');
+      audio.play();
+    });
+  });
+
+  var firstAvail=dock.querySelector('.dock-pill[data-url]');
+  if(firstAvail){var key=firstAvail.dataset.src; audio.src=firstAvail.dataset.url; activeKey=key;}
+  else{body.classList.add('hidden');empty.classList.add('visible');}
+
+  window.dockToggle=function(){if(!audio.src)return;if(audio.paused)audio.play();else audio.pause();};
+  audio.addEventListener('play',function(){icon.className='fas fa-pause';playBtn.classList.add('playing');});
+  audio.addEventListener('pause',function(){icon.className='fas fa-play';playBtn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){icon.className='fas fa-play';playBtn.classList.remove('playing');fill.style.width='0%';curEl.textContent='0:00';});
+  audio.addEventListener('timeupdate',function(){if(!audio.duration)return;fill.style.width=(audio.currentTime/audio.duration*100)+'%';curEl.textContent=fmt(audio.currentTime);});
+  audio.addEventListener('loadedmetadata',function(){durEl.textContent=fmt(audio.duration);});
+  window.dockSeek=function(e){if(!audio.duration)return;var t=e.currentTarget;var r=t.getBoundingClientRect();var p=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));audio.currentTime=p*audio.duration;};
+  window.dockMute=function(){muted=!muted;audio.muted=muted;volBtn.innerHTML=muted?'<i class="fas fa-volume-mute"></i>':'<i class="fas fa-volume-up"></i>';};
+})();
+</script>
+
+</body>
+</html>
+
+

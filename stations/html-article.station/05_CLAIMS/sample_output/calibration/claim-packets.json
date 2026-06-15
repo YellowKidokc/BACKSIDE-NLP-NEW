@@ -1,0 +1,132 @@
+{
+  "protocol_version": "0.1.0",
+  "lane": "05_CLAIMS",
+  "run_id": "2026-05-22T20:00:00Z",
+  "worker": "claude-code-worker-2",
+  "paper_uuid": "MOCK-paper-uuid-calibration-pilot-preflight",
+  "page_id": "MOCK-page-id-calibration-pilot-preflight",
+  "source_file": "00_DROP/CALIBRATION_pilot-preflight-checklist.md",
+  "provenance": {
+    "mocked": true,
+    "reason": "Upstream 02_SECTION_MAP not yet produced; lane synthesized section_ids locally from drop file. Station first pass was skipped in this round-1 sample (deterministic run requires extract.py); LLM refinement produced ClaimArch directly from the drop file.",
+    "pass_1_station": "skipped-in-sample",
+    "pass_2_llm": "claude-code-worker-2"
+  },
+  "sections": [
+    {
+      "section_id": "sec_01_pilot-pre-flight-checklist-intro",
+      "heading_path": ["Pilot Pre-Flight Checklist"],
+      "claims": [
+        {
+          "claim_id": "claim-cal-s01-c01",
+          "block_id": "sec_01_pilot-pre-flight-checklist-intro",
+          "surface_claim": "This checklist ensures aircraft, crew, instruments, fuel, communication systems, and safety controls are ready before flight.",
+          "buried_claim": "Flight safety depends on completing standardized checks before takeoff.",
+          "operational_claim": "Each checklist item must have a pass/fail state.",
+          "rhetorical_load": "low",
+          "domain_shift": false,
+          "domain_badges": ["AVIATION","SAFETY","PROCEDURE"],
+          "support_needed": false,
+          "station_classification": "DEFINITION",
+          "confidence": 0.85,
+          "provenance": "llm-only"
+        }
+      ]
+    },
+    {
+      "section_id": "sec_02_checklist",
+      "heading_path": ["Pilot Pre-Flight Checklist","Checklist"],
+      "claims": [
+        {
+          "claim_id": "claim-cal-s02-c01",
+          "block_id": "sec_02_checklist",
+          "surface_claim": "The checklist must be completed in order. If any required item fails, takeoff must stop until the issue is corrected.",
+          "buried_claim": "A checklist is an ordered sequence whose validity depends on every prior step having passed.",
+          "operational_claim": "On any failed item, takeoff is blocked until the failed item is re-verified as passing.",
+          "rhetorical_load": "low",
+          "domain_shift": false,
+          "domain_badges": ["AVIATION","SAFETY","PROCEDURE"],
+          "support_needed": false,
+          "station_classification": "DEFINITION",
+          "confidence": 0.92,
+          "provenance": "llm-only"
+        },
+        {
+          "claim_id": "claim-cal-s02-c02",
+          "block_id": "sec_02_checklist",
+          "surface_claim": "Authorize takeoff only after all checks pass.",
+          "buried_claim": "Takeoff authorization is conditional on full checklist completion.",
+          "operational_claim": "Takeoff authorization is a terminal step that gates on every preceding item.",
+          "rhetorical_load": "low",
+          "domain_shift": false,
+          "domain_badges": ["AVIATION","SAFETY","PROCEDURE"],
+          "support_needed": false,
+          "station_classification": "DEFINITION",
+          "confidence": 0.9,
+          "provenance": "llm-only"
+        }
+      ]
+    },
+    {
+      "section_id": "sec_03_kill-condition",
+      "heading_path": ["Pilot Pre-Flight Checklist","Kill Condition"],
+      "claims": [
+        {
+          "claim_id": "claim-cal-s03-c01",
+          "block_id": "sec_03_kill-condition",
+          "surface_claim": "This checklist fails if pilots cannot determine whether a required safety item passed or failed.",
+          "buried_claim": "Checklist validity requires every required item to be decidable as pass or fail.",
+          "operational_claim": "Every required item must have an explicit pass/fail state before the checklist can be marked complete.",
+          "rhetorical_load": "low",
+          "domain_shift": false,
+          "domain_badges": ["AVIATION","SAFETY","PROCEDURE"],
+          "support_needed": false,
+          "station_classification": "DEFINITION",
+          "confidence": 0.95,
+          "provenance": "llm-only"
+        }
+      ]
+    },
+    {
+      "section_id": "sec_04_risk",
+      "heading_path": ["Pilot Pre-Flight Checklist","Risk"],
+      "claims": [
+        {
+          "claim_id": "claim-cal-s04-c01",
+          "block_id": "sec_04_risk",
+          "surface_claim": "Failure to complete this checklist could lead to aircraft malfunction, communication failure, or unsafe takeoff.",
+          "buried_claim": "Incomplete pre-flight verification raises operational risk in flight-critical systems.",
+          "operational_claim": "Risk is mitigated by completing every checklist item; risk pressure is measurable as the count of unverified items at takeoff.",
+          "rhetorical_load": "low",
+          "domain_shift": false,
+          "domain_badges": ["AVIATION","SAFETY"],
+          "support_needed": false,
+          "station_classification": "PREDICTION",
+          "confidence": 0.88,
+          "provenance": "llm-only"
+        }
+      ]
+    }
+  ],
+  "page_summary": {
+    "total_claims": 5,
+    "by_rhetorical_load": {"low": 5, "medium": 0, "high": 0},
+    "domain_shift_count": 0,
+    "support_needed_count": 0,
+    "station_classification_distribution": {"DEFINITION": 4, "PREDICTION": 1}
+  },
+  "calibration_expected": {
+    "surface_claim_match": "This checklist ensures aircraft, crew, instruments, fuel, communication systems, and safety controls are ready before flight.",
+    "buried_claim_match": "Flight safety depends on completing standardized checks before takeoff.",
+    "operational_claim_match": "Each checklist item must have a pass/fail state.",
+    "rhetorical_load_match": "low",
+    "domain_badges_match": ["AVIATION","SAFETY","PROCEDURE"],
+    "status": "MATCH"
+  },
+  "loopback_required": false,
+  "notes": [
+    "Calibration article — no Theophysics claims, no Master Equation invocation, no Law_X claims.",
+    "operational_claim for sec_01 matches CALIBRATION_EXPECTED.md exactly.",
+    "When 02_SECTION_MAP lands, replace mocked section_ids and re-emit. ClaimArch shapes are stable."
+  ]
+}

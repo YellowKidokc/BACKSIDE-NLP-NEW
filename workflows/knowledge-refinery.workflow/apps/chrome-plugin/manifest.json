@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "Bill - Behavioral Intelligence Layer",
+  "version": "2.0.0",
+  "description": "Learns from your browsing. Extracts GitHub repo signals. Sends to BIL on your local network. Nothing leaves your network.",
+  "permissions": [
+    "tabs",
+    "bookmarks",
+    "storage",
+    "activeTab",
+    "downloads"
+  ],
+  "host_permissions": [
+    "http://localhost:8420/*",
+    "http://localhost:11434/*",
+    "http://192.168.1.177:8420/*",
+    "http://192.168.1.177:6333/*",
+    "http://192.168.1.177:7997/*"
+  ],
+  "action": {
+    "default_title": "BIL Preference Machine",
+    "default_popup": "popup.html"
+  },
+  "options_page": "dashboard.html",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

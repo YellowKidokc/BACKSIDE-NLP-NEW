@@ -1,0 +1,27 @@
+{
+  "id": "mda-citation-spine",
+  "name": "MDA Citation Spine",
+  "status": "experimental",
+  "entrypoint": "RUN.bat",
+  "safe_probe": "python claim_inventory.py && python pipeline.py --article MDA-043-amish-proof-THE-PROOF.md --dry-run",
+  "real_probe": "python pipeline.py --article MDA-043-amish-proof-THE-PROOF.md",
+  "inputs": [
+    "X:\\WORKFLOWS\\MDA-PUBLICATION\\01_LOSSLESS\\articles",
+    "X:\\Backside\\MDA\\03_FINAL_READY",
+    "X:\\Backside\\MDA\\06_RIGOR_GATES\\Unsorted"
+  ],
+  "outputs": [
+    "X:\\Backside\\stations\\mda-citation-spine.station\\EXPORTS\\runs",
+    "X:\\Backside\\stations\\mda-citation-spine.station\\EXPORTS\\claim_inventory"
+  ],
+  "copied_runtime": {
+    "source": "Z:\\_Theophysics_v3\\00_SYSTEM\\01_ENGINE\\81_OPENAI_BLANK",
+    "local_copy": "X:\\Backside\\stations\\mda-citation-spine.station\\openai_runner",
+    "secrets_copied": false
+  },
+  "guardrails": [
+    "The copied OpenAI runner must not annotate source files unless OPENAI_RUNNER_ANNOTATE_SOURCE=1.",
+    "Do not store OPENAI_API_KEY in this station.",
+    "Candidate citations must not be marked verified."
+  ]
+}

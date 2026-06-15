@@ -1,0 +1,42 @@
+{
+  "name": "facts.model",
+  "kind": "nlp-lane",
+  "anchor_role": "Extract and maintain a provenance-first fact ledger.",
+  "status": "planned",
+  "owner": "shared",
+  "base_model": null,
+  "runtime_path": "X:\\Backside\\_models\\facts.model",
+  "backing_models": [
+    "mistral-7b-instruct.model",
+    "deberta-v3-large.model"
+  ],
+  "called_by": [
+    "Backside/workflows/grade-paper",
+    "Backside/workflows/route-and-convert",
+    "Backside/workflows/refresh-axiom-snapshot"
+  ],
+  "inputs": [
+    "converted markdown",
+    "papers",
+    "canon deposits",
+    "session notes",
+    "web captures"
+  ],
+  "outputs": [
+    "claim ledger",
+    "fact table with source path",
+    "confidence and uncertainty fields",
+    "contradiction queue"
+  ],
+  "non_goals": [
+    "Do not produce unsupported facts.",
+    "Do not remove uncertainty to sound cleaner.",
+    "Do not merge claims unless their source/evidence relation is explicit."
+  ],
+  "verification": [
+    "Every fact has source_path, excerpt_or_locator, confidence, and status.",
+    "Conflicts are preserved as conflicts.",
+    "Canon claims point to canon source, not memory."
+  ],
+  "notes": "This is the anti-slop lane. It should be uncomfortable when provenance is weak."
+}

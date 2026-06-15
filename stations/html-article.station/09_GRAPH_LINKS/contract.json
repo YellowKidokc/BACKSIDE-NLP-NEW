@@ -1,0 +1,73 @@
+{
+  "lane_id": "09",
+  "folder": "09_GRAPH_LINKS",
+  "lane_name": "Graph Links",
+  "pipeline_step": 11,
+  "owner": "worker-4 (round-1 swarm)",
+  "intent": "Generate graph-ready edge candidates from section vectors, claims, tags, and structural section roles without over-owning graph storage or render policy. Prefer real upstream packets; when claims or tags are missing for the current article, derive lightweight local signals and mark them as mocked.",
+  "input": {
+    "requires": [
+      "08_SECTION_VECTORS/section-vectors.jsonl",
+      "02_SECTION_MAP/section-map.json",
+      "03_YAML_METADATA/metadata.json"
+    ],
+    "preferred": [
+      "04_TAGS/tags.json",
+      "05_CLAIMS/claim-packets.json",
+      "07_MATH_TRANSLATION/math-payload.json"
+    ],
+    "format": "Vectors provide reusable similarity objects. Section map provides stable ids + heading hierarchy. Tags provide chi/law overlap signals. Claims provide claim overlap and support-needed hooks. Math payload can flag equation-bearing sections for structural links."
+  },
+  "output": {
+    "produces": [
+      "09_GRAPH_LINKS/graph-edges.json",
+      "09_GRAPH_LINKS/graph-edges.csv",
+      "09_GRAPH_LINKS/graph-review.md"
+    ],
+    "format": "graph-edges.json is the source of truth. CSV is workbook-friendly. graph-review.md is the human-readable QA pass for the lane."
+  },
+  "excel_columns": {
+    "tab_name": "Graph_Edges",
+    "columns": [
+      { "name": "paper_uuid", "type": "string" },
+      { "name": "page_id", "type": "string" },
+      { "name": "edge_id", "type": "string" },
+      { "name": "source_id", "type": "string" },
+      { "name": "target_id", "type": "string" },
+      { "name": "edge_type", "type": "enum:THEMATIC_SIMILARITY|CLAIM_OVERLAP|VARIABLE_OVERLAP|LAW_FAMILY|CROSS_DOMAIN|STRUCTURAL_DEPENDENCY" },
+      { "name": "weight", "type": "float[0..1]" },
+      { "name": "evidence", "type": "string" },
+      { "name": "provenance", "type": "enum:lane09|mocked|loopback" }
+    ]
+  },
+  "edge_policy": {
+    "core_edge_types": [
+      "THEMATIC_SIMILARITY",
+      "CLAIM_OVERLAP",
+      "VARIABLE_OVERLAP",
+      "LAW_FAMILY",
+      "CROSS_DOMAIN",
+      "STRUCTURAL_DEPENDENCY"
+    ],
+    "calibration_expectation": "Calibration must include checklist -> kill_condition and checklist -> risk section edges. These may arrive as STRUCTURAL_DEPENDENCY edges with explicit evidence notes.",
+    "idempotence": "Running twice against the same inputs should produce the same sorted edge list.",
+    "storage_boundary": "Lane 09 emits candidate edges only. It does not own graph persistence, Postgres writes, or site rendering."
+  },
+  "loopback_conditions": [
+    "08 vectors missing or row count does not cover every section_id.",
+    "Edge generation produces zero edges for a multi-section article.",
+    "Edge explosion exceeds 5x section_count without a documented reason.",
+    "Claims are missing for a non-calibration article and no mocked local claim signals were recorded.",
+    "Duplicate edge_ids appear after sort/dedup."
+  ],
+  "dependencies": {
+    "upstream_lanes": ["08", "02"],
+    "soft_upstream_lanes": ["04", "05", "07"],
+    "downstream_lanes": ["10", "12", "15", "16"],
+    "stations": ["graph-linker.station"],
+    "models": ["cosine similarity over section vectors", "lightweight local signal extraction when claims/tags absent"]
+  },
+  "confidence": "draft",
+  "version": "0.1.0",
+  "round": "round-1"
+}
