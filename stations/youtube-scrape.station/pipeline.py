@@ -198,6 +198,7 @@ def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
 # The ONE action this station performs: Processes youtube scrape station inputs.
+# PHASE2_SKIP: legacy core is a multi-file/external-service workflow that is too complex to migrate safely in Phase 2.
 
 def _read_input_payload(path: Path) -> Any:
     if path.suffix.lower() == ".json":
@@ -207,7 +208,7 @@ def _read_input_payload(path: Path) -> Any:
 
 def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
                 log: logging.Logger) -> dict[str, Any]:
-    """Process one input by preserving the station's legacy action contract."""
+    """Record the input with an explicit Phase 2 skip reason."""
     result = {
         "input_file": str(path.name),
         "station_id": STATION_ID,
@@ -219,26 +220,18 @@ def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
         "errors": [],
         "data": {},
     }
-
     try:
-        payload = _read_input_payload(path)
         result["data"] = {
             "action": STATION_DESC,
+            "phase2_skip": "legacy core is a multi-file/external-service workflow that is too complex to migrate safely in Phase 2",
             "worker": nlp_info.get("nlp_id", "NONE"),
             "input_type": path.suffix.lower(),
-            "content": payload,
+            "content": _read_input_payload(path),
         }
-
-        legacy_path = HERE / "pipeline_legacy.py"
-        if legacy_path.exists():
-            result["data"]["legacy_reference"] = str(legacy_path.name)
-            log.info("Legacy implementation retained at %s", legacy_path.name)
-
     except Exception as exc:
         log.exception("Station processing failed for %s", path.name)
         result["success"] = False
         result["errors"].append(str(exc))
-
     return result
 
 # ============================================================
