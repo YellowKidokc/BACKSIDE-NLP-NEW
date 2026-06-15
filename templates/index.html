@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  PAGE_META
+  series: proof-explorer
+  article: proof-explorer-homepage
+  title: Proof Explorer — Theophysics
+  version: 1.0
+  template: proof-explorer
+  marked_by: kimi
+  marked_date: 2026-05-16
+-->
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Proof Explorer — Theophysics</title>
+<meta name="description" content="Navigate formal proofs, axiom layers, claims, evidence, and falsification tests for the Theophysics framework."/>
+
+<!-- BEGIN:COMPONENT:head:head-common -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<!-- END:COMPONENT:head:head-common -->
+
+<!-- BEGIN:COMPONENT:style:style-proof-explorer -->
+<style>
+:root{
+  --bg:#050505; --surface:#0a0a0a; --surface2:#111; --surface3:#1a1a1a;
+  --border:#222; --border-2:#2a2a2a; --border-hi:#3a3a3a;
+  --text:#e5e3df; --text-dim:#9a9a9a; --text-muted:#5a5a5a;
+  --gold:#d4af37; --gold-dim:rgba(212,175,55,.1); --gold-glow:rgba(212,175,55,.06);
+  --rung-easy:#4ade80; --rung-med:#fb923c; --rung-hard:#f87171;
+  --serif:'Crimson Text',Georgia,serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --display:'Oswald','Inter',sans-serif;
+  --sans:'Inter',system-ui,sans-serif;
+  --max:1100px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+/* ═══════ COMPONENT:topbar:header-proof-explorer ═══════ */
+.pe-header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.5rem;backdrop-filter:blur(14px) saturate(140%);background:rgba(5,5,5,.7);border-bottom:1px solid transparent;transition:all .25s ease}
+.pe-header-scrolled{background:rgba(8,8,8,.9);border-bottom-color:var(--border)}
+.pe-brand{display:flex;align-items:center;gap:.6rem}
+.pe-mark{font-family:var(--serif);font-size:1.3rem;color:var(--gold);line-height:1}
+.pe-name{font-family:var(--mono);font-size:.6rem;letter-spacing:.25em;color:var(--text-muted);text-transform:uppercase}
+.pe-name span{color:var(--gold)}
+.pe-nav{display:flex;gap:.15rem}
+.pe-nav a{font-family:var(--display);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;padding:.5rem .8rem;border-radius:4px;color:var(--text-dim);transition:all .15s}
+.pe-nav a:hover{color:var(--gold);background:var(--gold-dim)}
+@media(max-width:640px){.pe-nav{display:none}}
+
+/* ═══════ COMPONENT:hero:hero-proof-explorer ═══════ */
+.pe-hero{position:relative;padding:8rem 1.5rem 3rem;text-align:center;overflow:hidden}
+.pe-hero::before{content:'';position:absolute;top:20%;left:50%;transform:translate(-50%,-50%);width:900px;height:500px;background:radial-gradient(ellipse,rgba(212,175,55,.06) 0%,transparent 65%);pointer-events:none}
+.pe-hero-inner{max-width:800px;margin:0 auto;position:relative}
+.pe-hero-eyebrow{font-family:var(--mono);font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+.pe-hero h1{font-family:var(--display);font-weight:500;font-size:clamp(3rem,8vw,5.5rem);line-height:1;color:#fff;margin-bottom:1rem;text-wrap:balance;letter-spacing:.02em}
+.pe-hero-sub{font-family:var(--serif);font-size:clamp(1rem,2vw,1.25rem);color:var(--text-dim);max-width:560px;margin:0 auto 1.8rem;text-wrap:pretty;line-height:1.6;font-style:italic}
+.pe-doi{display:inline-flex;align-items:center;gap:.6rem;padding:.5rem .9rem;background:var(--surface2);border:1px solid var(--border);border-radius:5px;margin-bottom:1.8rem}
+.pe-doi-badge{font-family:var(--mono);font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bg);background:var(--gold);padding:.2rem .4rem;border-radius:3px}
+.pe-doi-num{font-family:var(--mono);font-size:.7rem;color:var(--text-dim)}
+.pe-hero-cta{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}
+.btn{font-family:var(--sans);font-size:.82rem;font-weight:500;padding:.7rem 1.3rem;border-radius:6px;border:1px solid transparent;cursor:pointer;display:inline-flex;align-items:center;gap:.5rem;transition:all .15s;text-decoration:none}
+.btn-gold{background:var(--gold);color:#0a0a0a;border-color:var(--gold)}
+.btn-gold:hover{background:#e0bd49;border-color:#e0bd49;transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--text);border-color:var(--border-2)}
+.btn-ghost:hover{border-color:var(--border-hi);background:var(--surface)}
+
+/* ═══════ COMPONENT:section:stats-ribbon ═══════ */
+.pe-stats{max-width:var(--max);margin:0 auto;padding:0 1.5rem 3rem}
+.pe-stats-inner{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--surface2)}
+.pe-stat{padding:1.4rem 1rem;text-align:center;border-right:1px solid var(--border)}
+.pe-stat:last-child{border-right:0}
+.pe-stat-num{font-family:var(--display);font-size:1.7rem;color:var(--gold);display:block;margin-bottom:.2rem}
+.pe-stat-label{font-family:var(--mono);font-size:.6rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.12em}
+.pe-stat-live{display:inline-block;width:6px;height:6px;border-radius:50%;background:#4ade80;margin-right:.35rem;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+
+/* ═══════ COMPONENT:section:papers ═══════ */
+.pe-sec{max-width:var(--max);margin:0 auto;padding:3rem 1.5rem}
+.pe-sec-head{display:flex;align-items:center;gap:.8rem;margin-bottom:1.2rem}
+.pe-sec-dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.pe-sec-kicker{font-family:var(--mono);font-size:.65rem;color:var(--text-muted);letter-spacing:.15em;text-transform:uppercase}
+.pe-sec h2{font-family:var(--serif);font-size:clamp(1.4rem,2.5vw,1.8rem);font-weight:400;color:#fff}
+.pe-sec-desc{font-size:.9rem;color:var(--text-dim);max-width:600px;margin-bottom:1.5rem}
+
+/* ═══════ COMPONENT:card:paper-cards ═══════ */
+.card-grid{display:grid;gap:.7rem}
+.card-grid-2{grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.pe-card{display:flex;flex-direction:column;padding:1.1rem 1.2rem;background:var(--surface2);border:1px solid var(--border);border-radius:6px;transition:all .2s;min-height:100px}
+.pe-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.3),0 0 0 1px var(--gold-dim)}
+.pe-card-row{display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.1em}
+.pe-card-code{color:var(--gold);background:var(--gold-dim);padding:.1rem .4rem;border-radius:3px}
+.pe-card-tier{color:var(--text-muted);padding:.05rem .35rem;border:1px solid var(--border-2);border-radius:2px}
+.pe-card h3{font-family:var(--serif);font-size:1.05rem;color:#fff;font-weight:400;line-height:1.25;margin-bottom:.3rem}
+.pe-card p{font-size:.82rem;color:var(--text-dim);flex:1}
+.pe-card-foot{font-family:var(--mono);font-size:.6rem;color:var(--text-muted);margin-top:.6rem}
+
+/* ═══════ COMPONENT:section:axiom-layers ═══════ */
+.layer-strip{display:flex;gap:.6rem;overflow-x:auto;padding:.5rem 0 1rem;scrollbar-width:thin;scrollbar-color:var(--gold) var(--bg)}
+.layer-strip::-webkit-scrollbar{height:3px}
+.layer-strip::-webkit-scrollbar-thumb{background:var(--gold)}
+.layer-card{flex:0 0 260px;padding:1.2rem;background:var(--surface2);border:1px solid var(--border);border-radius:6px;transition:all .2s}
+.layer-card:hover{border-color:var(--gold)}
+.layer-card h3{font-family:var(--serif);font-size:1.1rem;color:#fff;margin-bottom:.3rem}
+.layer-card p{font-size:.82rem;color:var(--text-dim);margin-bottom:.6rem}
+.layer-card-meta{font-family:var(--mono);font-size:.6rem;color:var(--text-muted)}
+
+/* ═══════ COMPONENT:section:claims-table ═══════ */
+.pe-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.pe-table th{text-align:left;padding:.7rem .8rem;font-family:var(--mono);font-size:.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;border-bottom:1px solid var(--border);font-weight:500}
+.pe-table td{padding:.65rem .8rem;border-bottom:1px solid var(--border-2);color:var(--text)}
+.pe-table tr:hover td{background:var(--surface2)}
+.pe-table td:first-child{font-family:var(--mono);font-size:.75rem;color:var(--gold)}
+.pe-status{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:.4rem}
+.status-pass{background:var(--rung-easy)}
+.status-warn{background:var(--rung-med)}
+.status-fail{background:var(--rung-hard)}
+
+/* ═══════ COMPONENT:section:falsification-cards ═══════ */
+/* Uses pe-card styles above */
+
+/* ═══════ COMPONENT:footer:footer-proof-explorer ═══════ */
+.pe-footer{max-width:var(--max);margin:3rem auto 0;padding:3rem 1.5rem;text-align:center;border-top:1px solid var(--border)}
+.pe-footer .feq{font-family:var(--mono);font-size:.75rem;color:var(--gold);opacity:.5;margin-bottom:.7rem}
+.pe-footer p{color:var(--text-muted);font-size:.78rem;margin:.3rem 0}
+
+@media(max-width:640px){
+  .pe-hero-cta{flex-direction:column;align-items:center}
+  .card-grid-2{grid-template-columns:1fr}
+}
+</style>
+<!-- END:COMPONENT:style:style-proof-explorer -->
+<link rel="canonical" href="https://proof-explorer.faiththruphysics.com/">\n<script defer src="https://analytics.faiththruphysics.com/script.js" data-website-id="2f2e3a0f-e8e5-4900-a1e0-1b33592403ee"></script>\n</head>
+<body>
+
+<!-- BEGIN:COMPONENT:topbar:header-proof-explorer -->
+<header class="pe-header" id="pe-header" data-component="topbar" data-name="header-proof-explorer">
+  <a href="../index.html" class="pe-brand">
+    <span class="pe-mark">χ</span>
+    <span class="pe-name">Theophysics <span>//</span> Proof Explorer</span>
+  </a>
+  <nav class="pe-nav">
+    <a href="../index.html">Main Site</a>
+    <a href="../../03-moral-decline/index.html">MDA</a>
+    <a href="../glossary/">Glossary</a>
+    <a href="../equation/">Equation</a>
+    <a href="../media/">Media</a>
+    <a href="../audio/">Audio</a>
+    <a href="../podcast/">Podcast</a>
+  </nav>
+</header>
+<!-- END:COMPONENT:topbar:header-proof-explorer -->
+
+<!-- BEGIN:COMPONENT:hero:hero-proof-explorer -->
+<section class="pe-hero" data-component="hero" data-name="hero-proof-explorer">
+  <div class="pe-hero-inner">
+    <div class="pe-hero-eyebrow">Faith Through Physics</div>
+    <h1>PROOF EXPLORER</h1>
+    <p class="pe-hero-sub">A framework for systematically grading, structuring, and exploring the intersection of physics and theology.</p>
+    <div class="pe-doi">
+      <span class="pe-doi-badge">DOI</span>
+      <span class="pe-doi-num">10.5281/zenodo.19346623</span>
+    </div>
+    <div class="pe-hero-cta">
+      <a href="#papers" class="btn btn-gold">Browse Papers →</a>
+      <a href="#axioms" class="btn btn-ghost">View Axiom Layers</a>
+    </div>
+  </div>
+</section>
+<!-- END:COMPONENT:hero:hero-proof-explorer -->
+
+<!-- BEGIN:COMPONENT:section:stats-ribbon -->
+<div class="pe-stats" data-component="section" data-name="stats-ribbon">
+  <div class="pe-stats-inner">
+    <div class="pe-stat"><span class="pe-stat-live"></span><span class="pe-stat-num">188</span><span class="pe-stat-label">Axioms Formalized</span></div>
+    <div class="pe-stat"><span class="pe-stat-num">16</span><span class="pe-stat-label">Papers on Zenodo</span></div>
+    <div class="pe-stat"><span class="pe-stat-num">4</span><span class="pe-stat-label">Axiom Layers</span></div>
+    <div class="pe-stat"><span class="pe-stat-num">55+</span><span class="pe-stat-label">Claims Graded</span></div>
+    <div class="pe-stat"><span class="pe-stat-num">7</span><span class="pe-stat-label">Kill Conditions</span></div>
+  </div>
+</div>
+<!-- END:COMPONENT:section:stats-ribbon -->
+
+<!-- BEGIN:COMPONENT:section:papers -->
+<section class="pe-sec" id="papers" data-component="section" data-name="papers">
+  <div class="pe-sec-head">
+    <span class="pe-sec-dot"></span>
+    <span class="pe-sec-kicker">Papers</span>
+  </div>
+  <h2>Formal Papers</h2>
+  <p class="pe-sec-desc">Peer-review-ready papers archived on Zenodo with persistent DOIs. Each paper includes kill conditions and falsification criteria.</p>
+  <div class="card-grid card-grid-2">
+    <a href="fp-005.html" class="pe-card">
+      <div class="pe-card-row"><span class="pe-card-code">FP-005</span><span class="pe-card-tier">Foundation</span></div>
+      <h3>The Resurrection Paper</h3>
+      <p>The foundational paper on resurrection as phase transition. Derivation from first principles.</p>
+      <div class="pe-card-foot">Zenodo DOI · 6σ confidence</div>
+    </a>
+    <a href="fp-005-enhanced.html" class="pe-card">
+      <div class="pe-card-row"><span class="pe-card-code">FP-005-E</span><span class="pe-card-tier">Enhanced</span></div>
+      <h3>The Resurrection Paper — 6-Layer Stack</h3>
+      <p>Enhanced six-layer proof stack with full derivation and cross-domain verification.</p>
+      <div class="pe-card-foot">Zenodo DOI · Full stack</div>
+    </a>
+    <a href="00_GENESIS-TO-QUANTUM-black-axiom-snapshot.html" class="pe-card">
+      <div class="pe-card-row"><span class="pe-card-code">GTQ</span><span class="pe-card-tier">Snapshot</span></div>
+      <h3>Genesis to Quantum — Paper Grade + Axiom Snapshot</h3>
+      <p>Treaties scoring, NLP stack pass, Universal Paper Model, and black axiom mapping.</p>
+      <div class="pe-card-foot">Graded · Axioms mapped</div>
+    </a>
+    <a href="mda-grades.html" class="pe-card">
+      <div class="pe-card-row"><span class="pe-card-code">MDA</span><span class="pe-card-tier">Registry</span></div>
+      <h3>Moral Decline of America — Grade Registry</h3>
+      <p>61 papers graded across 10+ layers. NLP scoring, claim audits, chi-field analysis, and layer health.</p>
+      <div class="pe-card-foot">61 papers · Pipeline v2026.04.07-B</div>
+    </a>
+    <a href="./mda-proof-packet.html" class="pe-card">
+      <div class="pe-card-row"><span class="pe-card-code">MDA-PROOF</span><span class="pe-card-tier">Series Packet</span></div>
+      <h3>Moral Decline of America ? Series Proof Packet</h3>
+      <p>Series-level proof hub: 61 article links, 63 markdown companions, promoted 7QS claims, evidence rows, and kill conditions.</p>
+      <div class="pe-card-foot">61 articles ? 5 promoted claims ? 63 companions</div>
+    </a>
+    <a href="https://zenodo.org/communities/theophysics/" class="pe-card" target="_blank" rel="noopener">
+      <div class="pe-card-row"><span class="pe-card-code">FT-001–016</span><span class="pe-card-tier">Zenodo</span></div>
+      <h3>Formal Theophysics Archive</h3>
+      <p>All 16 formal papers with DOIs, citations, and Lean 4 verification. The complete academic record.</p>
+      <div class="pe-card-foot">↗ zenodo.org · Open access</div>
+    </a>
+  </div>
+</section>
+<!-- END:COMPONENT:section:papers -->
+
+<!-- BEGIN:COMPONENT:section:axiom-layers -->
+<section class="pe-sec" id="axioms" data-component="section" data-name="axiom-layers">
+  <div class="pe-sec-head">
+    <span class="pe-sec-dot"></span>
+    <span class="pe-sec-kicker">Axioms</span>
+  </div>
+  <h2>The Axiom Architecture</h2>
+  <p class="pe-sec-desc">188 axioms organized in four layers. From irreducible primitives to derived theorems to the Omega closure.</p>
+  <div class="layer-strip">
+    <a href="axioms-layer-0-core.html" class="layer-card">
+      <h3>Layer 0 — Core</h3>
+      <p>Two primitives. Seven irreducible axioms. The complete foundation, formalized in Lean 4.</p>
+      <div class="layer-card-meta">7 axioms · Lean 4 verified</div>
+    </a>
+    <a href="axioms-layer-2-derived.html" class="layer-card">
+      <h3>Layer 2 — Derived</h3>
+      <p>Five derived theorems bridging physics and theology: information primacy, moral Second Law, grace mechanics.</p>
+      <div class="layer-card-meta">5 theorems · Cross-domain</div>
+    </a>
+    <a href="axioms-layer-3-extended.html" class="layer-card">
+      <h3>Layer 3 — Extended</h3>
+      <p>From Terminal Observer to the Master Equation. God identification, grace operator, unified field.</p>
+      <div class="layer-card-meta">Extended framework · χ-field</div>
+    </a>
+    <a href="axioms-closure.html" class="layer-card">
+      <h3>Ω — Closure</h3>
+      <p>Meta-axioms, final theorems, closure, and the terminal Omega axiom. The 188-axiom chain closes the loop.</p>
+      <div class="layer-card-meta">Closure · Omega terminal</div>
+    </a>
+  </div>
+</section>
+<!-- END:COMPONENT:section:axiom-layers -->
+
+
+
+<!-- BEGIN:COMPONENT:section:mda-proof-stack -->
+<section class="pe-sec" id="mda-proof-stack" data-component="section" data-name="mda-proof-stack">
+  <div class="pe-sec-head">
+    <span class="pe-sec-dot"></span>
+    <span class="pe-sec-kicker">MDA Proof Stack</span>
+  </div>
+  <h2>MDA Promoted Proof-Layer Claims</h2>
+  <p class="pe-sec-desc">This table is generated from the strict claim gate, not the raw extractor. Raw candidates: 442. Promoted claims: 5. Personal/testimonial material is labeled separately and does not get promoted as framework proof by default.</p>
+  <div class="card-grid card-grid-2" style="margin-bottom:1rem">
+    <a href="../../03-moral-decline/_MDA_PRODUCTION_ARCHITECTURE_DRAFT_20260525-101649/proof-packet/MDA-series-proof-packet.html" class="pe-card">
+      <div class="pe-card-row"><span class="pe-card-code">MDA</span><span class="pe-card-tier">Series Packet</span></div>
+      <h3>Open Full Series Proof Packet</h3>
+      <p>Article grid, companion ledger, evidence, kill conditions, and selected 7QS claims.</p>
+      <div class="pe-card-foot">Generated 2026-05-30T07:20:25</div>
+    </a>
+    <a href="mda-proof-layer-data.json" class="pe-card">
+      <div class="pe-card-row"><span class="pe-card-code">JSON</span><span class="pe-card-tier">Data Source</span></div>
+      <h3>Open MDA Proof-Layer Data</h3>
+      <p>Machine-readable promoted claim registry with paper ID, section, status, claim layer, scorecard link, and stable claim hash.</p>
+      <div class="pe-card-foot">Automation source ? idempotent</div>
+    </a>
+  </div>
+  <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+    <table class="pe-table">
+      <thead><tr><th>ID</th><th>Claim</th><th>Locator</th><th>Status</th><th>Layer</th><th>Proof</th></tr></thead>
+      <tbody>
+      <tr>
+        <td><a href="../../03-moral-decline/html/MDA-004-facts-framework.html">MDA-CLAIM-C8822F5B81</a></td>
+        <td>This paper can be destroyed by any of the following: | # | Kill Condition | Status | | --- | --- | --- | | 1 | Find a major domain showing *increasing* coherence 1965–2025 without external constraint intervention | Not yet found | | 2 | Demonstrate the curve convergence is statistical artifact (selection bias, normalization error) | Replication invited | | 3 | Produce an alternative model that predicts cross-domain synchronization with fewer assumptions | Not yet proposed | | 4 | Show the inflection point is an artifact of data availability, not real behavioral change | Addressed via pre-1945 data | | 5 | Replicate with independent datasets and find no convergence | Replication invited | Explicit Invitation: If you can satisfy any kill condition, this paper is falsified.</td>
+        <td>MDA-004-facts-framework<br/><span style="color:var(--text-muted);font-size:.72rem">7.2 Falsification Protocol</span></td>
+        <td><span class="pe-status status-pass"></span>SURVIVES ? 7QS 6/6</td>
+        <td>EVIDENCE_PROOF</td>
+        <td><a href="mda-scorecards/PI_MDA-004-facts-framework.html">Scorecard</a></td>
+      </tr>
+      <tr>
+        <td><a href="../../03-moral-decline/MDA-045-amish-control-group-THE-DATA.html">MDA-CLAIM-783761106C</a></td>
+        <td>Structural factors that enable this: * Patriarchal authority structures * Theology of forgiveness that pressures victims to reconcile * Cultural reluctance to involve “English” law enforcement * Limited access to outside support services * No reliable prevalence data because reporting rates are extremely low **No system built on human authority is immune to the abuse of that authority.** The Amish binding variable (external authority/Ordnung) constrains entropy — but when the authority itself becomes the source of harm, the system’s own design impedes correction.</td>
+        <td>MDA-045-amish-control-group-THE-DATA<br/><span style="color:var(--text-muted);font-size:.72rem">Sexual Abuse and Domestic Violence</span></td>
+        <td><span class="pe-status status-pass"></span>SURVIVES ? 7QS 5/6</td>
+        <td>FRAMEWORK_FORMAL</td>
+        <td><a href="mda-scorecards/PI_MDA-045-amish-control-group-THE-DATA.html">Scorecard</a></td>
+      </tr>
+      <tr>
+        <td><a href="../../03-moral-decline/MDA-054-way-back.html">MDA-CLAIM-2337B31BBC</a></td>
+        <td>If a competing model explains the same data with equal or greater predictive accuracy, fewer parameters, and a different causal mechanism, our model should be replaced. **Status: Not challenged.</td>
+        <td>MDA-054-way-back<br/><span style="color:var(--text-muted);font-size:.72rem">KC-4: Superior alternative model</span></td>
+        <td><span class="pe-status status-pass"></span>SURVIVES ? 7QS 5/6</td>
+        <td>EVIDENCE_PROOF</td>
+        <td><a href="mda-scorecards/PI_MDA-054-way-back.html">Scorecard</a></td>
+      </tr>
+      <tr>
+        <td><a href="../../03-moral-decline/MDA-902-appendix-trans-domain-analysis.html">MDA-CLAIM-165B2C231E</a></td>
+        <td>If a competing model explains the same data with equal or greater predictive accuracy, fewer parameters, and a different causal mechanism, our model should be replaced.</td>
+        <td>MDA-902-appendix-trans-domain-analysis<br/><span style="color:var(--text-muted);font-size:.72rem">SUPERIOR ALTERNATIVE MODEL</span></td>
+        <td><span class="pe-status status-pass"></span>SURVIVES ? 7QS 5/6</td>
+        <td>EVIDENCE_PROOF</td>
+        <td><a href="mda-scorecards/PI_MDA-902-appendix-trans-domain-analysis.html">Scorecard</a></td>
+      </tr>
+      <tr>
+        <td><a href="../../03-moral-decline/MDA-906-appendix-93-year-floor.html">MDA-CLAIM-AAE082B1E4</a></td>
+        <td>When a mathematical model, a three-thousand-year-old text, and modern epidemiological data all independently point at the same region of the number line, you are not looking at coincidence.</td>
+        <td>MDA-906-appendix-93-year-floor<br/><span style="color:var(--text-muted);font-size:.72rem">Modern Average</span></td>
+        <td><span class="pe-status status-warn"></span>SURVIVES_WITH_REPAIRS ? 7QS 4/6</td>
+        <td>FRAMEWORK_FORMAL</td>
+        <td><a href="mda-scorecards/PI_MDA-906-appendix-93-year-floor.html">Scorecard</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<!-- END:COMPONENT:section:mda-proof-stack -->
+
+
+<!-- BEGIN:COMPONENT:section:claims-table -->
+<section class="pe-sec" id="claims" data-component="section" data-name="claims-table">
+  <div class="pe-sec-head">
+    <span class="pe-sec-dot"></span>
+    <span class="pe-sec-kicker">Claims Registry</span>
+  </div>
+  <h2>Claims, Evidence, Status</h2>
+  <p class="pe-sec-desc">Every claim in the framework is graded, evidenced, and tracked. Green = substantiated. Orange = partial. Red = failed or under review.</p>
+  <table class="pe-table">
+    <thead>
+      <tr><th>Claim</th><th>Evidence</th><th>Status</th><th>Domain</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>χ-field predicts sociopolitical collapse</td><td>Seshat DB · 114K rows · 3.3× base rate</td><td><span class="pe-status status-pass"></span>Substantiated</td><td>History</td></tr>
+      <tr><td>Consciousness affects randomness</td><td>PEAR Lab · 6.35σ · GCP · 6σ</td><td><span class="pe-status status-pass"></span>Substantiated</td><td>Physics</td></tr>
+      <tr><td>Grace as negentropy input</td><td>Amish control group · family tests</td><td><span class="pe-status status-pass"></span>Substantiated</td><td>Theology</td></tr>
+      <tr><td>Trinity required by Noether symmetry</td><td>Derivation chain · boundary proof</td><td><span class="pe-status status-pass"></span>Substantiated</td><td>Math</td></tr>
+      <tr><td>χ-field explains NGC 3198 without dark matter</td><td>Rotation curves · χ² reduction 97%</td><td><span class="pe-status status-warn"></span>Partial</td><td>Astrophysics</td></tr>
+      <tr><td>Resurrection as phase transition</td><td>FP-005 · formal proof · 6σ</td><td><span class="pe-status status-pass"></span>Substantiated</td><td>Theology</td></tr>
+    </tbody>
+  </table>
+</section>
+<!-- END:COMPONENT:section:claims-table -->
+
+<!-- BEGIN:COMPONENT:section:falsification-cards -->
+<section class="pe-sec" id="falsification" data-component="section" data-name="falsification-cards">
+  <div class="pe-sec-head">
+    <span class="pe-sec-dot"></span>
+    <span class="pe-sec-kicker">Kill Conditions</span>
+  </div>
+  <h2>Falsification Tests</h2>
+  <p class="pe-sec-desc">The framework stands or falls on these tests. If any kill condition is met, the mapping is discarded.</p>
+  <div class="card-grid card-grid-2">
+    <div class="pe-card">
+      <div class="pe-card-row"><span class="pe-card-code">KILL-01</span></div>
+      <h3>χ-field fails to predict collapse</h3>
+      <p>If the χ-field cannot predict sociopolitical collapse at better than base rate across independent historical datasets, the mapping is discarded.</p>
+      <div class="pe-card-foot">Status: PASSED · 3.3× base rate</div>
+    </div>
+    <div class="pe-card">
+      <div class="pe-card-row"><span class="pe-card-code">KILL-02</span></div>
+      <h3>No consciousness-field correlation</h3>
+      <p>If independent replication of PEAR/GCP protocols shows no significant deviation from chance, the observer-dependence axiom is discarded.</p>
+      <div class="pe-card-foot">Status: PASSED · 6.35σ / 6σ</div>
+    </div>
+    <div class="pe-card">
+      <div class="pe-card-row"><span class="pe-card-code">KILL-03</span></div>
+      <h3>Internal contradiction in derivation chain</h3>
+      <p>If any step in the 188-axiom derivation chain produces a logical contradiction under Lean 4 verification, the chain is broken.</p>
+      <div class="pe-card-foot">Status: PASSED · No contradictions</div>
+    </div>
+    <div class="pe-card">
+      <div class="pe-card-row"><span class="pe-card-code">KILL-04</span></div>
+      <h3>Mapping fails bidirectional prediction</h3>
+      <p>If a spiritual-to-physical mapping cannot constrain predictions in both directions, the mapping is discarded per the methodology standard.</p>
+      <div class="pe-card-foot">Status: ONGOING · Audited</div>
+    </div>
+  </div>
+</section>
+<!-- END:COMPONENT:section:falsification-cards -->
+
+<!-- BEGIN:COMPONENT:footer:footer-proof-explorer -->
+<footer class="pe-footer" data-component="footer" data-name="footer-proof-explorer">
+  <div class="feq">χ = f(G, M, E, S, T, K, R, Q, F, C)</div>
+  <p>David Lowe · POF 2828 · <span style="color:var(--gold)">15 + 15 = 100</span></p>
+  <p style="margin-top:.5rem;font-size:.7rem;color:var(--text-muted)">All papers archived on Zenodo with persistent DOIs. Kill conditions are live and under continuous test.</p>
+</footer>
+<!-- END:COMPONENT:footer:footer-proof-explorer -->
+
+<!-- BEGIN:COMPONENT:script:script-proof-explorer -->
+<script>
+const header = document.getElementById('pe-header');
+window.addEventListener('scroll',()=>{
+  header.classList.toggle('pe-header-scrolled', window.scrollY > 80);
+});
+</script>
+<!-- END:COMPONENT:script:script-proof-explorer -->
+
+<!-- MDA_PROOF_WIRED: 2026-05-30T07:21:01 source=mda-proof-layer-data.json -->
+</body>
+</html>
