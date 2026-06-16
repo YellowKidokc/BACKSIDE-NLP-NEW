@@ -1,0 +1,12 @@
+{
+  "description": "Process a YouTube URL through the apologetics transcript pipeline.",
+  "imports": [
+    "from apologetics_pipeline import process_video"
+  ],
+  "process_code": [
+    "url = text.strip()",
+    "out_dir = Path(cfg.get(\"output_dir\", HERE / \"outputs\"))",
+    "video_result = process_video(url, out_dir, model_size=cfg.get(\"whisper_model\", \"base\"))",
+    "result[\"data\"] = {\"url\": url, \"video\": video_result}"
+  ]
+}

@@ -195,75 +195,47 @@ def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
-# The ONE action this station performs: Generates SBERT sentence embeddings
-# via Infinity service, optionally upserts to Qdrant.
+# Embed text via Infinity SBERT service, return 384-dim vector
 
-# Lazy-init client — created once per run, reused across all files.
-_infinity_client = None
+import numpy as np
+
+_client = None
 
 
 def _get_client(cfg: dict[str, Any], log: logging.Logger):
-    """Get or create the InfinityClient singleton for this run."""
-    global _infinity_client
-    if _infinity_client is not None:
-        return _infinity_client
+    """Lazy-init client — created once per run."""
+    global _client
+    if _client is not None:
+        return _client
 
     from sbert_runner import InfinityClient
-
-    ms = cfg.get("model_settings", {})
-    _infinity_client = InfinityClient(
-        base_url=cfg["infinity_url"],
-        model=ms.get("model_name", "sentence-transformers/all-MiniLM-L6-v2"),
-        http_batch_size=int(ms.get("http_batch_size", 32)),
+    ms = cfg.get('model_settings', {})
+    _client = InfinityClient(
+        base_url=cfg['infinity_url'],
+        model=ms.get('model_name', 'sentence-transformers/all-MiniLM-L6-v2'),
+        http_batch_size=int(ms.get('http_batch_size', 32)),
     )
-    log.info("InfinityClient ready: model=%s dim=%d", _infinity_client.model, _infinity_client.dim)
-    return _infinity_client
+    log.info('InfinityClient ready: model=%s dim=%d', _client.model, _client.dim)
+
+    return _client
 
 
 def _read_text(path: Path) -> str:
-    """Read file content as text. JSON files get their text values concatenated."""
-    if path.suffix.lower() == ".json":
-        data = json.loads(path.read_text(encoding="utf-8-sig"))
+    """Read file content as text. JSON files get string values concatenated."""
+    if path.suffix.lower() == '.json':
+        data = json.loads(path.read_text(encoding='utf-8-sig'))
         if isinstance(data, str):
             return data
         if isinstance(data, dict):
             parts = [str(v) for v in data.values() if v and isinstance(v, str)]
-            return "\n".join(parts) if parts else json.dumps(data)
+            return '\n'.join(parts) if parts else json.dumps(data)
         return json.dumps(data)
-    return path.read_text(encoding="utf-8", errors="replace")
-
-
-def _upsert_qdrant(file_id: str, vec: np.ndarray, text_preview: str,
-                   cfg: dict[str, Any], log: logging.Logger) -> bool:
-    """Upsert a single vector to Qdrant. Returns True on success."""
-    from sbert_runner import _qdrant_client, ensure_collection
-    from qdrant_client.http.models import PointStruct
-
-    collection = cfg["qdrant_collection"]
-    qd = _qdrant_client(cfg["qdrant_url"])
-    client = _get_client(cfg, log)
-    ensure_collection(qd, collection, client.dim, cfg.get("vector_distance", "cosine"))
-
-    preview_chars = int(cfg.get("source", {}).get("text_preview_chars", 300))
-    payload = {
-        "source": "pipeline_inbox",
-        "filename": file_id,
-        "text_preview": text_preview[:preview_chars] if preview_chars else text_preview,
-        "embedded_at": datetime.now().isoformat(timespec="seconds"),
-    }
-    point = PointStruct(
-        id=abs(hash(file_id)) % (2**63),
-        vector=vec.tolist(),
-        payload=payload,
-    )
-    qd.upsert(collection_name=collection, points=[point], wait=True)
-    log.info("Qdrant upsert OK: %s -> %s", file_id, collection)
-    return True
+    return path.read_text(encoding='utf-8', errors='replace')
 
 
 def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
                 log: logging.Logger) -> dict[str, Any]:
-    """Embed one input file via Infinity and return the vector artifact."""
+    """Embed text via Infinity SBERT service, return 384-dim vector"""
     result = {
         "input_file": str(path.name),
         "station_id": STATION_ID,
@@ -280,33 +252,25 @@ def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
         text = _read_text(path)
         client = _get_client(cfg, log)
         vec = client.embed([text], normalize=True)[0]
-
-        result["data"] = {
-            "action": STATION_DESC,
-            "worker": nlp_info.get("nlp_id", "NONE"),
-            "input_type": path.suffix.lower(),
-            "embedding_dim": int(vec.shape[0]),
-            "embedding_model": client.model,
-            "text_length_chars": len(text),
-            "embedding": vec.tolist(),
+        
+        result['data'] = {
+            'action': STATION_DESC,
+            'worker': nlp_info.get('nlp_id', 'NONE'),
+            'input_type': path.suffix.lower(),
+            'embedding_dim': int(vec.shape[0]),
+            'embedding_model': client.model,
+            'text_length_chars': len(text),
+            'embedding': vec.tolist(),
         }
-        log.info("Embedded %s: %d chars -> %d-dim vector", path.name, len(text), vec.shape[0])
-
-        # Optional Qdrant upsert (only if collection is configured)
-        if cfg.get("qdrant_url") and cfg.get("qdrant_collection"):
-            try:
-                _upsert_qdrant(path.name, vec, text, cfg, log)
-            except Exception as qe:
-                log.warning("Qdrant upsert failed for %s: %s", path.name, qe)
-                result["errors"].append(f"qdrant_upsert: {qe}")
-                # Embedding still succeeded — don't mark as failure
+        log.info('Embedded %s: %d chars -> %d-dim vector', path.name, len(text), vec.shape[0])
 
     except Exception as exc:
-        log.exception("Embedding failed for %s", path.name)
+        log.exception("Processing failed for %s", path.name)
         result["success"] = False
         result["errors"].append(str(exc))
 
     return result
+
 
 # ============================================================
 # 08_ARTIFACTS

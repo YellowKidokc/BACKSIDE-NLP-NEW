@@ -197,18 +197,27 @@ def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
-# The ONE action this station performs: Processes apologetic pipeline station inputs.
-# PHASE2_SKIP: no original legacy implementation was available after Phase 1.
+# Process a YouTube URL through the apologetics transcript pipeline.
 
-def _read_input_payload(path: Path) -> Any:
-    if path.suffix.lower() == ".json":
-        return json.loads(path.read_text(encoding="utf-8-sig"))
-    return path.read_text(encoding="utf-8", errors="replace")
+from apologetics_pipeline import process_video
+
+
+def _read_text(path: Path) -> str:
+    """Read file content as text. JSON files get string values concatenated."""
+    if path.suffix.lower() == '.json':
+        data = json.loads(path.read_text(encoding='utf-8-sig'))
+        if isinstance(data, str):
+            return data
+        if isinstance(data, dict):
+            parts = [str(v) for v in data.values() if v and isinstance(v, str)]
+            return '\n'.join(parts) if parts else json.dumps(data)
+        return json.dumps(data)
+    return path.read_text(encoding='utf-8', errors='replace')
 
 
 def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
                 log: logging.Logger) -> dict[str, Any]:
-    """Record the input with an explicit Phase 2 skip reason."""
+    """Process a YouTube URL through the apologetics transcript pipeline."""
     result = {
         "input_file": str(path.name),
         "station_id": STATION_ID,
@@ -220,19 +229,21 @@ def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
         "errors": [],
         "data": {},
     }
+
     try:
-        result["data"] = {
-            "action": STATION_DESC,
-            "phase2_skip": "no original legacy implementation was available after Phase 1",
-            "worker": nlp_info.get("nlp_id", "NONE"),
-            "input_type": path.suffix.lower(),
-            "content": _read_input_payload(path),
-        }
+        text = _read_text(path)
+        url = text.strip()
+        out_dir = Path(cfg.get("output_dir", HERE / "outputs"))
+        video_result = process_video(url, out_dir, model_size=cfg.get("whisper_model", "base"))
+        result["data"] = {"url": url, "video": video_result}
+
     except Exception as exc:
-        log.exception("Station processing failed for %s", path.name)
+        log.exception("Processing failed for %s", path.name)
         result["success"] = False
         result["errors"].append(str(exc))
+
     return result
+
 
 # ============================================================
 # 08_ARTIFACTS

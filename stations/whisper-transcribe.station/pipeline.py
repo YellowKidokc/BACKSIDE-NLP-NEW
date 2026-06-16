@@ -197,18 +197,40 @@ def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
-# The ONE action this station performs: Processes whisper transcribe station inputs.
-# PHASE2_SKIP: legacy core is a multi-file/external-service workflow that is too complex to migrate safely in Phase 2.
+# Transcribe one media file with Whisper.
 
-def _read_input_payload(path: Path) -> Any:
-    if path.suffix.lower() == ".json":
-        return json.loads(path.read_text(encoding="utf-8-sig"))
-    return path.read_text(encoding="utf-8", errors="replace")
+from whisper_runner import WhisperTranscriber
+
+_transcriber = None
+
+
+def _get_transcriber(cfg: dict[str, Any], log: logging.Logger):
+    """Lazy-init transcriber — created once per run."""
+    global _transcriber
+    if _transcriber is not None:
+        return _transcriber
+
+    _transcriber = WhisperTranscriber(model_size=cfg.get("model_size", "base"), device=cfg.get("device", "auto"))
+
+    return _transcriber
+
+
+def _read_text(path: Path) -> str:
+    """Read file content as text. JSON files get string values concatenated."""
+    if path.suffix.lower() == '.json':
+        data = json.loads(path.read_text(encoding='utf-8-sig'))
+        if isinstance(data, str):
+            return data
+        if isinstance(data, dict):
+            parts = [str(v) for v in data.values() if v and isinstance(v, str)]
+            return '\n'.join(parts) if parts else json.dumps(data)
+        return json.dumps(data)
+    return path.read_text(encoding='utf-8', errors='replace')
 
 
 def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
                 log: logging.Logger) -> dict[str, Any]:
-    """Record the input with an explicit Phase 2 skip reason."""
+    """Transcribe one media file with Whisper."""
     result = {
         "input_file": str(path.name),
         "station_id": STATION_ID,
@@ -220,19 +242,20 @@ def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
         "errors": [],
         "data": {},
     }
+
     try:
-        result["data"] = {
-            "action": STATION_DESC,
-            "phase2_skip": "legacy core is a multi-file/external-service workflow that is too complex to migrate safely in Phase 2",
-            "worker": nlp_info.get("nlp_id", "NONE"),
-            "input_type": path.suffix.lower(),
-            "content": _read_input_payload(path),
-        }
+        text = _read_text(path)
+        transcriber = _get_transcriber(cfg, log)
+        transcript = transcriber.transcribe(path)
+        result["data"] = {"transcript": transcript}
+
     except Exception as exc:
-        log.exception("Station processing failed for %s", path.name)
+        log.exception("Processing failed for %s", path.name)
         result["success"] = False
         result["errors"].append(str(exc))
+
     return result
+
 
 # ============================================================
 # 08_ARTIFACTS

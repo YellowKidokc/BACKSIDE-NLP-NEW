@@ -1,0 +1,12 @@
+{
+  "description": "Index the operators canon source set.",
+  "imports": [
+    "from station import DEFAULT_SOURCES",
+    "from _shared.canon_index import build_index"
+  ],
+  "process_code": [
+    "sources = [Path(p) for p in cfg.get(\"sources\", DEFAULT_SOURCES)]",
+    "index = build_index(\"operators-canon\", sources)",
+    "result[\"data\"] = {\"canon_index\": index}"
+  ]
+}
