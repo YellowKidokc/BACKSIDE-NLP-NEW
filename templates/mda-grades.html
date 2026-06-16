@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  PAGE_META
+  series: proof-explorer
+  article: mda-grade-registry
+  title: MDA Grade Registry — Proof Explorer
+  version: 1.0
+  template: proof-explorer
+  marked_by: kimi
+  marked_date: 2026-05-30
+  purpose: Full grade registry for all 61 MDA papers. Paper intelligence, NLP scores, claim audits, layer health.
+-->
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MDA Grade Registry — Proof Explorer</title>
+<meta name="description" content="Complete paper intelligence registry for the Moral Decline of America series. 61 papers graded across 10+ layers."/>
+<link rel="canonical" href="https://proof-explorer.faiththruphysics.com/mda-grades.html"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<style>
+:root{
+  --bg:#050505; --surface:#0a0a0a; --surface2:#111; --surface3:#1a1a1a;
+  --border:#222; --border-2:#2a2a2a; --border-hi:#3a3a3a;
+  --text:#e5e3df; --text-dim:#9a9a9a; --text-muted:#5a5a5a;
+  --gold:#dc2626; --gold-dim:rgba(220,38,38,.1); --gold-glow:rgba(245,158,11,.06);
+  --amber:#f59e0b; --amber-dim:rgba(245,158,11,.1);
+  --serif:'Crimson Text',Georgia,serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --display:'Oswald','Inter',sans-serif;
+  --sans:'Inter',system-ui,sans-serif;
+  --max:1200px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+/* Header */
+.pe-header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.5rem;backdrop-filter:blur(14px) saturate(140%);background:rgba(5,5,5,.7);border-bottom:1px solid transparent;transition:all .25s ease}
+.pe-header-scrolled{background:rgba(8,8,8,.92);border-bottom-color:rgba(220,38,38,.25)}
+.pe-brand{display:flex;align-items:center;gap:.6rem}
+.pe-mark{font-family:var(--serif);font-size:1.3rem;color:var(--gold);line-height:1}
+.pe-name{font-family:var(--mono);font-size:.6rem;letter-spacing:.25em;color:var(--text-muted);text-transform:uppercase}
+.pe-name span{color:var(--gold)}
+.pe-nav{display:flex;gap:.1rem;flex-wrap:wrap}
+.pe-nav a{font-family:var(--display);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;padding:.45rem .65rem;border-radius:4px;color:var(--text-dim);transition:all .15s}
+.pe-nav a:hover,.pe-nav a.active{color:var(--gold);background:var(--gold-dim)}
+@media(max-width:800px){.pe-nav{display:none}}
+
+/* Hero */
+.pe-hero{position:relative;padding:8rem 1.5rem 3rem;text-align:center;overflow:hidden}
+.pe-hero::before{content:'';position:absolute;top:20%;left:50%;transform:translate(-50%,-50%);width:900px;height:500px;background:radial-gradient(ellipse,rgba(245,158,11,.08) 0%,rgba(220,38,38,.04) 40%,transparent 65%);pointer-events:none}
+.pe-hero-inner{max-width:800px;margin:0 auto;position:relative}
+.pe-hero-eyebrow{font-family:var(--mono);font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:#f59e0b;margin-bottom:1.2rem}
+.pe-hero h1{font-family:var(--display);font-weight:500;font-size:clamp(2.4rem,6vw,4rem);line-height:1;color:#fff;margin-bottom:1rem;text-wrap:balance;letter-spacing:.02em}
+.pe-hero-sub{font-family:var(--serif);font-size:clamp(1rem,2vw,1.2rem);color:var(--text-dim);max-width:560px;margin:0 auto 1.8rem;text-wrap:pretty;line-height:1.6;font-style:italic}
+
+/* Gradient line */
+.gradient-line{height:3px;background:linear-gradient(90deg,#991b1b,#dc2626,#f59e0b,#dc2626,#991b1b);width:100%}
+
+/* Stats */
+.pe-stats{max-width:var(--max);margin:0 auto;padding:0 1.5rem 2rem}
+.pe-stats-inner{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0;border:1px solid rgba(220,38,38,.2);border-radius:8px;overflow:hidden;background:var(--surface2)}
+.pe-stat{padding:1.4rem 1rem;text-align:center;border-right:1px solid var(--border)}
+.pe-stat:last-child{border-right:0}
+.pe-stat-num{font-family:var(--display);font-size:1.7rem;color:var(--gold);display:block;margin-bottom:.2rem}
+.pe-stat-label{font-family:var(--mono);font-size:.6rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.12em}
+
+/* Grade distribution bars */
+.dist-sec{max-width:var(--max);margin:0 auto;padding:0 1.5rem 2rem}
+.dist-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.dist-card{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:1.2rem}
+.dist-card h3{font-family:var(--serif);font-size:1rem;color:#fff;margin-bottom:.8rem}
+.dist-row{display:flex;align-items:center;gap:.6rem;margin-bottom:.4rem;font-size:.8rem}
+.dist-label{font-family:var(--mono);font-size:.6rem;color:var(--text-muted);width:30px;text-align:right}
+.dist-bar{flex:1;height:8px;background:var(--surface3);border-radius:4px;overflow:hidden}
+.dist-fill{height:100%;border-radius:4px}
+.dist-val{font-family:var(--mono);font-size:.6rem;color:var(--text-dim);width:24px;text-align:right}
+
+/* Sections */
+.pe-sec{max-width:var(--max);margin:0 auto;padding:2.5rem 1.5rem}
+.pe-sec-head{display:flex;align-items:center;gap:.8rem;margin-bottom:.6rem}
+.pe-sec-dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.pe-sec-kicker{font-family:var(--mono);font-size:.65rem;color:var(--text-muted);letter-spacing:.15em;text-transform:uppercase}
+.pe-sec h2{font-family:var(--serif);font-size:clamp(1.4rem,2.5vw,1.8rem);font-weight:400;color:#fff;margin-bottom:.3rem}
+.pe-sec-desc{font-size:.88rem;color:var(--text-dim);max-width:640px;margin-bottom:1.5rem;line-height:1.6}
+
+/* Filters */
+.filters{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin-bottom:1.2rem;padding:.55rem;background:var(--surface);border:1px solid var(--border);border-radius:8px}
+.filter-search{display:flex;align-items:center;gap:.4rem;padding:.35rem .6rem;background:var(--surface2);border:1px solid var(--border);border-radius:5px;flex:1;min-width:180px}
+.filter-search span{color:var(--text-muted)}
+.filter-search input{flex:1;background:transparent;border:0;outline:0;color:var(--text);font-family:var(--sans);font-size:.82rem}
+.filter-tier{display:flex;gap:.15rem;background:var(--surface2);padding:.2rem;border:1px solid var(--border);border-radius:5px}
+.filter-tier button{font-family:var(--sans);font-size:.72rem;padding:.35rem .65rem;background:transparent;border:0;color:var(--text-dim);border-radius:3px;cursor:pointer}
+.filter-tier button.on{background:var(--surface3);color:var(--text)}
+.filter-count{font-family:var(--mono);font-size:.7rem;color:var(--text-muted);margin-left:auto;padding:0 .5rem}
+
+/* Table */
+.pe-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.pe-table{width:100%;border-collapse:collapse;font-size:.82rem;min-width:800px}
+.pe-table th{text-align:left;padding:.7rem .8rem;font-family:var(--mono);font-size:.55rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;border-bottom:1px solid var(--border);font-weight:500;position:sticky;top:0;background:var(--bg);cursor:pointer;white-space:nowrap}
+.pe-table th:hover{color:var(--text)}
+.pe-table td{padding:.55rem .8rem;border-bottom:1px solid var(--border-2);color:var(--text)}
+.pe-table tr:hover td{background:var(--surface2)}
+.pe-table td:first-child{font-family:var(--mono);font-size:.75rem;color:var(--gold)}
+.pe-status{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:.4rem}
+.status-pass{background:#f59e0b}
+.status-warn{background:#dc2626}
+.status-fail{background:#991b1b}
+.status-draft{background:#f59e0b}
+
+/* Footer */
+.pe-footer{max-width:var(--max);margin:3rem auto 0;padding:3rem 1.5rem;text-align:center;border-top:1px solid var(--border)}
+.pe-footer .feq{font-family:var(--mono);font-size:.75rem;color:#dc2626;opacity:.5;margin-bottom:.7rem}
+.pe-footer p{color:var(--text-muted);font-size:.78rem;margin:.3rem 0}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:#991b1b;border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:#dc2626}
+
+@media(max-width:640px){
+  .pe-stats-inner{grid-template-columns:repeat(3,1fr)}
+  .pe-stat{border-bottom:1px solid var(--border)}
+}
+</style>
+</head>
+<body>
+
+<header class="pe-header" id="pe-header">
+  <a href="index.html" class="pe-brand">
+    <span class="pe-mark">χ</span>
+    <span class="pe-name">Theophysics <span>//</span> Proof Explorer</span>
+  </a>
+  <nav class="pe-nav">
+    <a href="index.html">Main Site</a>
+    <a href="../../03-moral-decline/index.html">MDA</a>
+    <a href="../glossary/">Glossary</a>
+    <a href="../equation/">Equation</a>
+    <a href="../media/">Media</a>
+    <a href="../audio/">Audio</a>
+    <a href="../podcast/">Podcast</a>
+  </nav>
+</header>
+
+<section class="pe-hero">
+  <div class="pe-hero-inner">
+    <div class="pe-hero-eyebrow">Proof Explorer · MDA Series</div>
+    <h1>MDA Grade Registry</h1>
+    <p class="pe-hero-sub">61 papers. 10 layers. Full paper intelligence — math translation, NLP scoring, claim audits, and layer health.</p>
+  </div>
+</section>
+<div class="gradient-line"></div>
+
+<!-- Stats -->
+<section class="pe-stats">
+  <div class="pe-stats-inner">
+    <div class="pe-stat"><span class="pe-stat-num" id="s-count">61</span><span class="pe-stat-label">Papers</span></div>
+    <div class="pe-stat"><span class="pe-stat-num" id="s-chi">—</span><span class="pe-stat-label">Avg χ</span></div>
+    <div class="pe-stat"><span class="pe-stat-num" id="s-claims">—</span><span class="pe-stat-label">Total Claims</span></div>
+    <div class="pe-stat"><span class="pe-stat-num" id="s-words">—</span><span class="pe-stat-label">Total Words</span></div>
+    <div class="pe-stat"><span class="pe-stat-num" id="s-top">—</span><span class="pe-stat-label">Top Grade</span></div>
+    <div class="pe-stat"><span class="pe-stat-num" id="s-ok">—</span><span class="pe-stat-label">Avg Layers OK</span></div>
+  </div>
+</section>
+
+<!-- Series Proof Packet -->
+<section style="max-width:var(--max);margin:0 auto;padding:0 1.5rem 1.5rem;">
+  <a href="./mda-proof-packet.html" style="display:flex;align-items:center;gap:.75rem;padding:.85rem 1.1rem;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text-dim);font-family:var(--mono);font-size:.72rem;transition:all .2s;">
+    <span style="width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px rgba(212,175,55,.3);flex-shrink:0;"></span>
+    <span style="color:var(--gold);text-transform:uppercase;letter-spacing:.1em;">Series Proof Packet</span>
+    <span style="margin-left:auto;">61 articles · 5 promoted claims · 63 companions →</span>
+  </a>
+</section>
+
+<!-- Grade Distribution -->
+<section class="dist-sec">
+  <div class="dist-grid">
+    <div class="dist-card">
+      <h3><i class="fas fa-graduation-cap" style="color:var(--gold);margin-right:.4rem"></i>Academic Grade Distribution</h3>
+      <div id="gradeDist"></div>
+    </div>
+    <div class="dist-card">
+      <h3><i class="fas fa-bolt" style="color:#f59e0b;margin-right:.4rem"></i>χ Score Distribution</h3>
+      <div id="chiDist"></div>
+    </div>
+    <div class="dist-card">
+      <h3><i class="fas fa-layer-group" style="color:#f59e0b;margin-right:.4rem"></i>Layer Health</h3>
+      <div id="layerDist"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Full Table -->
+<section class="pe-sec" id="registry">
+  <div class="pe-sec-head">
+    <span class="pe-sec-dot"></span>
+    <span class="pe-sec-kicker">Registry</span>
+  </div>
+  <h2>All 61 Papers — Full Intelligence</h2>
+  <p class="pe-sec-desc">Click any column header to sort. Use the filter to search by paper code, title, grade, or status.</p>
+
+  <div class="filters">
+    <div class="filter-search">
+      <span>⌕</span>
+      <input placeholder="Filter papers…" id="filterInput" oninput="renderTable()"/>
+    </div>
+    <div class="filter-tier">
+      <button class="on" data-tier="all" onclick="setTier('all')">All</button>
+      <button data-tier="A" onclick="setTier('A')">A</button>
+      <button data-tier="B" onclick="setTier('B')">B</button>
+      <button data-tier="C" onclick="setTier('C')">C</button>
+      <button data-tier="D" onclick="setTier('D')">D</button>
+      <button data-tier="F" onclick="setTier('F')">F</button>
+    </div>
+    <span class="filter-count" id="filterCount">61 of 61</span>
+  </div>
+
+  <div class="pe-table-wrap">
+  <table class="pe-table" id="registryTable">
+    <thead>
+      <tr>
+        <th onclick="sortBy('code')">Paper ↕</th>
+        <th onclick="sortBy('title')">Title ↕</th>
+        <th onclick="sortBy('grade')">Grade ↕</th>
+        <th onclick="sortBy('chi')">χ ↕</th>
+        <th onclick="sortBy('ckg')">CKG ↕</th>
+        <th onclick="sortBy('fruit')">Fruit ↕</th>
+        <th onclick="sortBy('truth')">Truth ↕</th>
+        <th onclick="sortBy('coherence')">Coh. ↕</th>
+        <th onclick="sortBy('claims')">Claims ↕</th>
+        <th onclick="sortBy('words')">Words ↕</th>
+        <th onclick="sortBy('read_time')">Min ↕</th>
+        <th onclick="sortBy('layers_ok')">Layers ↕</th>
+      </tr>
+    </thead>
+    <tbody id="registryBody">
+      <tr><td colspan="12" style="text-align:center;color:var(--text-muted)">Loading registry…</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<footer class="pe-footer">
+  <div class="feq">χ = f(G, M, E, S, T, K, R, Q, F, C)</div>
+  <p>David Lowe · POF 2828 · <span style="color:var(--gold)">15 + 15 = 100</span></p>
+  <p style="margin-top:.5rem;font-size:.7rem;color:var(--text-muted)">Pipeline v2026.04.07-B · Local NLP run · L4/L13 skipped pending OpenAI/o3 review.</p>
+</footer>
+
+<script>
+const header = document.getElementById('pe-header');
+window.addEventListener('scroll',()=>{
+  header.classList.toggle('pe-header-scrolled', window.scrollY > 80);
+});
+
+let ALL_DATA = [];
+let SORT_COL = 'code';
+let SORT_DIR = 1;
+let TIER_FILTER = 'all';
+
+async function init() {
+  try {
+    const resp = await fetch('grades_summary.json');
+    if(resp.ok) ALL_DATA = await resp.json();
+  } catch(e) {
+    document.getElementById('registryBody').innerHTML = '<tr><td colspan="12" style="text-align:center;color:var(--text-muted)">Could not load grades_summary.json</td></tr>';
+    return;
+  }
+  updateStats();
+  renderDist();
+  renderTable();
+}
+
+function gradeVal(g) {
+  const map = {'A':5,'B':4,'C':3,'D':2,'F':1};
+  return map[(g||'').charAt(0)] || 0;
+}
+function gradeClass(g) {
+  const c = (g||'').charAt(0);
+  if(c==='A') return 'status-pass';
+  if(c==='B' || c==='C') return 'status-warn';
+  return 'status-fail';
+}
+function chiClass(chi) {
+  if(chi >= 7) return 'status-pass';
+  if(chi >= 4) return 'status-warn';
+  return 'status-fail';
+}
+
+function updateStats() {
+  const avgChi = ALL_DATA.reduce((s,p)=>s+p.chi,0)/ALL_DATA.length;
+  const totalClaims = ALL_DATA.reduce((s,p)=>s+p.claims,0);
+  const totalWords = ALL_DATA.reduce((s,p)=>s+p.words,0);
+  const avgLayers = ALL_DATA.reduce((s,p)=>s+p.layers_ok,0)/ALL_DATA.length;
+  const best = ALL_DATA.reduce((b,p)=>gradeVal(p.grade)>gradeVal(b)?p.grade:b, 'F');
+  document.getElementById('s-chi').textContent = avgChi.toFixed(1);
+  document.getElementById('s-claims').textContent = totalClaims.toLocaleString();
+  document.getElementById('s-words').textContent = (totalWords/1000).toFixed(1)+'K';
+  document.getElementById('s-top').textContent = best.charAt(0);
+  document.getElementById('s-ok').textContent = avgLayers.toFixed(1)+'/11';
+}
+
+function renderDist() {
+  // Grade dist
+  const grades = {'A':0,'B':0,'C':0,'D':0,'F':0};
+  ALL_DATA.forEach(p=>{const g=(p.grade||'').charAt(0);if(grades[g]!==undefined)grades[g]++;});
+  const gMax = Math.max(...Object.values(grades))||1;
+  const gColors = {'A':'#f59e0b','B':'#f59e0b','C':'#dc2626','D':'#991b1b','F':'#7f1d1d'};
+  document.getElementById('gradeDist').innerHTML = Object.entries(grades).map(([g,n])=>`
+    <div class="dist-row"><span class="dist-label">${g}</span><div class="dist-bar"><div class="dist-fill" style="width:${(n/gMax*100)}%;background:${gColors[g]}"></div></div><span class="dist-val">${n}</span></div>
+  `).join('');
+
+  // Chi dist
+  const chiBins = {'High (7+)':0,'Strong (5-7)':0,'Moderate (4-5)':0,'Weak (<4)':0};
+  ALL_DATA.forEach(p=>{if(p.chi>=7)chiBins['High (7+)']++;else if(p.chi>=5)chiBins['Strong (5-7)']++;else if(p.chi>=4)chiBins['Moderate (4-5)']++;else chiBins['Weak (<4)']++;});
+  const cMax = Math.max(...Object.values(chiBins))||1;
+  const cColors = {'High (7+)':'#f59e0b','Strong (5-7)':'#dc2626','Moderate (4-5)':'#991b1b','Weak (<4)':'#7f1d1d'};
+  document.getElementById('chiDist').innerHTML = Object.entries(chiBins).map(([b,n])=>`
+    <div class="dist-row"><span class="dist-label" style="font-size:.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${b}</span><div class="dist-bar"><div class="dist-fill" style="width:${(n/cMax*100)}%;background:${cColors[b]}"></div></div><span class="dist-val">${n}</span></div>
+  `).join('');
+
+  // Layer dist
+  const layerBins = {'9/11':0,'8/11':0,'7/11':0,'≤6/11':0};
+  ALL_DATA.forEach(p=>{if(p.layers_ok>=9)layerBins['9/11']++;else if(p.layers_ok>=8)layerBins['8/11']++;else if(p.layers_ok>=7)layerBins['7/11']++;else layerBins['≤6/11']++;});
+  const lMax = Math.max(...Object.values(layerBins))||1;
+  document.getElementById('layerDist').innerHTML = Object.entries(layerBins).map(([b,n])=>`
+    <div class="dist-row"><span class="dist-label">${b}</span><div class="dist-bar"><div class="dist-fill" style="width:${(n/lMax*100)}%;background:${n===Math.max(...Object.values(layerBins))?'#f59e0b':'#dc2626'}"></div></div><span class="dist-val">${n}</span></div>
+  `).join('');
+}
+
+function setTier(tier) {
+  TIER_FILTER = tier;
+  document.querySelectorAll('.filter-tier button').forEach(b=>b.classList.toggle('on', b.dataset.tier===tier));
+  renderTable();
+}
+
+function sortBy(col) {
+  if(SORT_COL === col) SORT_DIR *= -1;
+  else { SORT_COL = col; SORT_DIR = 1; }
+  renderTable();
+}
+
+function renderTable() {
+  const q = document.getElementById('filterInput').value.toLowerCase().trim();
+  let filtered = ALL_DATA.filter(p=>{
+    if(TIER_FILTER !== 'all' && !(p.grade||'').startsWith(TIER_FILTER)) return false;
+    if(!q) return true;
+    const hay = (p.code+' '+p.title+' '+p.grade+' '+p.ckg+' '+p.chi_status+' '+p.fruit).toLowerCase();
+    return hay.includes(q);
+  });
+
+  filtered.sort((a,b)=>{
+    let av = a[SORT_COL], bv = b[SORT_COL];
+    if(SORT_COL==='grade'){av=gradeVal(av);bv=gradeVal(bv);}
+    if(typeof av==='string'){av=av.toLowerCase();bv=bv.toLowerCase();}
+    if(av<bv) return -1*SORT_DIR;
+    if(av>bv) return 1*SORT_DIR;
+    return 0;
+  });
+
+  const tbody = document.getElementById('registryBody');
+  if(filtered.length===0){
+    tbody.innerHTML = '<tr><td colspan="12" style="text-align:center;color:var(--text-muted)">No papers match.</td></tr>';
+  } else {
+    tbody.innerHTML = filtered.map(p=>`
+      <tr onclick="location.href='mda-scorecards/PI_${p.code}.html'" style="cursor:pointer" title="Open Paper Intelligence scorecard">
+        <td>${p.code.replace('MDA-','')}</td>
+        <td>${p.title}</td>
+        <td><span class="pe-status ${gradeClass(p.grade)}"></span>${p.grade}</td>
+        <td><span class="pe-status ${chiClass(p.chi)}"></span>${p.chi.toFixed(2)}</td>
+        <td>${p.ckg}</td>
+        <td>${p.fruit}</td>
+        <td>${p.truth.toFixed(3)}</td>
+        <td>${p.coherence.toFixed(3)}</td>
+        <td>${p.claims}</td>
+        <td>${p.words.toLocaleString()}</td>
+        <td>${p.read_time}</td>
+        <td>${p.layers_ok}/${p.layers_total}</td>
+      </tr>
+    `).join('');
+  }
+  document.getElementById('filterCount').textContent = filtered.length+' of '+ALL_DATA.length;
+}
+
+init();
+</script>
+</body>
+</html>
