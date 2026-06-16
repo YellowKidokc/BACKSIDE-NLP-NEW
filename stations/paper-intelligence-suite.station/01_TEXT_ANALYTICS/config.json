@@ -1,0 +1,29 @@
+{
+  "station_id": "PI_01",
+  "station_name": "text-analytics",
+  "station_type": "one_for_one",
+  "description": "Text analytics scoring wrapper",
+  "input_extensions": [
+    ".md",
+    ".txt",
+    ".json",
+    ".html"
+  ],
+  "workers": {
+    "default": [
+      "NONE"
+    ],
+    "optional": []
+  },
+  "entrypoint": {
+    "script": "paper_analyzer.py",
+    "module": "paper_analyzer",
+    "function": "analyze",
+    "mode": "function_path_is_path"
+  },
+  "outputs": {
+    "artifact_type": "json",
+    "update_job_card": false,
+    "final_export": false
+  }
+}

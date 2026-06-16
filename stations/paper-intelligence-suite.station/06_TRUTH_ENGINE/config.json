@@ -1,0 +1,28 @@
+{
+  "station_id": "PI_06",
+  "station_name": "truth-engine",
+  "station_type": "one_for_one",
+  "description": "Truth coherence scoring wrapper",
+  "input_extensions": [
+    ".md",
+    ".txt",
+    ".json"
+  ],
+  "workers": {
+    "default": [
+      "NONE"
+    ],
+    "optional": []
+  },
+  "entrypoint": {
+    "script": "truth_runner.py",
+    "module": "truth_runner",
+    "function": "score_paper",
+    "mode": "function_path_is_path"
+  },
+  "outputs": {
+    "artifact_type": "json",
+    "update_job_card": false,
+    "final_export": false
+  }
+}

@@ -1,4 +1,4 @@
-﻿"""
+"""
 nlp_layer.py â€” POF 2828 Shared NLP Brain
 ==========================================
 Single module. Every tool calls analyze() and gets back:
@@ -263,3 +263,20 @@ if __name__ == "__main__":
         print()
 
 
+
+
+def update_workflow_traveler(paper_id: str, station: str, success: bool,
+                             artifact: str = "", summary: str = "") -> dict:
+    """Stamp the workflow traveler after a station completes."""
+    import sys
+    orchestrator_dir = Path(__file__).resolve().parent
+    if str(orchestrator_dir) not in sys.path:
+        sys.path.insert(0, str(orchestrator_dir))
+    from tracker import stamp_station
+    return stamp_station(
+        paper_id=paper_id,
+        station=station,
+        success=success,
+        artifact=artifact,
+        summary=summary,
+    )

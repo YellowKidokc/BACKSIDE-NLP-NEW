@@ -1,0 +1,28 @@
+{
+  "station_id": "PI_12",
+  "station_name": "heartbeat",
+  "station_type": "one_for_one",
+  "description": "Heartbeat analyzer wrapper",
+  "input_extensions": [
+    ".md",
+    ".txt",
+    ".json"
+  ],
+  "workers": {
+    "default": [
+      "NONE"
+    ],
+    "optional": []
+  },
+  "entrypoint": {
+    "script": "heartbeat_analyzer.py",
+    "module": "heartbeat_analyzer",
+    "function": "analyze",
+    "mode": "function_path"
+  },
+  "outputs": {
+    "artifact_type": "json",
+    "update_job_card": false,
+    "final_export": false
+  }
+}

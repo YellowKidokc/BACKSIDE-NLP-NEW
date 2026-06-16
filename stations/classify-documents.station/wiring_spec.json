@@ -1,0 +1,11 @@
+{
+  "description": "Classify a paper/article into the downstream passport schema.",
+  "imports": [
+    "from classify_runner import classify_file"
+  ],
+  "process_code": [
+    "classification = classify_file(path, cfg)",
+    "result['data'] = classification",
+    "log.info('Classified %s: %s, %d tags, %d spine domains', path.name, classification.get('doc_type'), len(classification.get('tags', [])), len(classification.get('spine_mappings', {})))"
+  ]
+}

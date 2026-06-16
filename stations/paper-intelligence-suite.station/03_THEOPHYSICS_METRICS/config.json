@@ -1,0 +1,28 @@
+{
+  "station_id": "PI_03",
+  "station_name": "theophysics-metrics",
+  "station_type": "one_for_one",
+  "description": "Theophysics metrics scoring wrapper",
+  "input_extensions": [
+    ".md",
+    ".txt",
+    ".json"
+  ],
+  "workers": {
+    "default": [
+      "NONE"
+    ],
+    "optional": []
+  },
+  "entrypoint": {
+    "script": "theophysics_scorer.py",
+    "module": "theophysics_scorer",
+    "function": "analyze",
+    "mode": "function_path_is_path"
+  },
+  "outputs": {
+    "artifact_type": "json",
+    "update_job_card": false,
+    "final_export": false
+  }
+}

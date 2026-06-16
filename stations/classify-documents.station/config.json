@@ -2,11 +2,13 @@
   "station_id": "ST_009",
   "station_name": "classify-documents",
   "station_type": "one_for_one",
-  "description": "Classifies input documents",
+  "description": "Classifies papers/articles into the downstream passport schema",
   "input_extensions": [
     ".md",
     ".txt",
-    ".json"
+    ".json",
+    ".html",
+    ".htm"
   ],
   "workers": {
     "default": [
@@ -18,5 +20,13 @@
     "artifact_type": "json",
     "update_job_card": false,
     "final_export": false
+  },
+  "templates": {
+    "domain_mapping": "15_TEMPLATES/universal_domain_mapping_with_coherence.xlsx",
+    "snapshot_template": "15_TEMPLATES/proof-explorer-fp-005-enhanced.html"
+  },
+  "classification": {
+    "include_embedding": false,
+    "method": "keyword-heuristic-v1"
   }
 }

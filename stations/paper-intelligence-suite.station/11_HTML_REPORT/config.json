@@ -1,0 +1,26 @@
+{
+  "station_id": "PI_11",
+  "station_name": "html-report",
+  "station_type": "one_for_one",
+  "description": "HTML report renderer wrapper",
+  "input_extensions": [
+    ".json"
+  ],
+  "workers": {
+    "default": [
+      "NONE"
+    ],
+    "optional": []
+  },
+  "entrypoint": {
+    "script": "generate_report.py",
+    "module": "generate_report",
+    "function": "generate_paper_html",
+    "mode": "html_report"
+  },
+  "outputs": {
+    "artifact_type": "json",
+    "update_job_card": false,
+    "final_export": true
+  }
+}
