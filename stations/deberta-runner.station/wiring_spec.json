@@ -1,0 +1,18 @@
+{
+  "description": "Classify one text document with the DeBERTa zero-shot classifier.",
+  "imports": [
+    "from deberta_runner import Classifier"
+  ],
+  "init": {
+    "var_name": "classifier",
+    "code": [
+      "labels = cfg.get(\"labels\") or cfg.get(\"candidate_labels\") or [\"claim\", \"evidence\", \"question\", \"other\"]",
+      "_classifier = Classifier(labels=labels, model_name=cfg.get(\"model_name\", \"MoritzLaurer/deberta-v3-base-zeroshot-v1.1-all-33\"), device=cfg.get(\"device\", \"auto\"))"
+    ]
+  },
+  "process_code": [
+    "classifier = _get_classifier(cfg, log)",
+    "classification = classifier.classify(text[: int(cfg.get(\"max_chars\", 4000))])",
+    "result[\"data\"] = {\"classification\": classification}"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "description": "Extract AI-portal document metadata, summary bullets, equations, and claims.",
+  "imports": [
+    "from generator import clean_text, lossless_summary, extract_equations, extract_claims_from_text"
+  ],
+  "process_code": [
+    "cleaned = clean_text(text)",
+    "result[\"data\"] = {\"summary\": lossless_summary(cleaned), \"equations\": extract_equations(cleaned), \"claims\": extract_claims_from_text(cleaned, limit=int(cfg.get(\"claim_limit\", 20)))}"
+  ]
+}

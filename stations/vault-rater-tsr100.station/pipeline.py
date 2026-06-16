@@ -197,18 +197,42 @@ def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
-# The ONE action this station performs: Processes vault rater tsr100 station inputs.
-# PHASE2_SKIP: no original legacy implementation was available after Phase 1.
+# Score one vault document with Lowe prosecution and TSR rubrics.
 
-def _read_input_payload(path: Path) -> Any:
-    if path.suffix.lower() == ".json":
-        return json.loads(path.read_text(encoding="utf-8-sig"))
-    return path.read_text(encoding="utf-8", errors="replace")
+from lowe_scorer import get_client, load_config, score_prosecution, score_tsr
+
+_lowe_client = None
+
+
+def _get_lowe_client(cfg: dict[str, Any], log: logging.Logger):
+    """Lazy-init lowe_client — created once per run."""
+    global _lowe_client
+    if _lowe_client is not None:
+        return _lowe_client
+
+    scorer_cfg = load_config(cfg.get("lowe_config"))
+    scorer_cfg.update(cfg)
+    _lowe_client = get_client(scorer_cfg)
+
+    return _lowe_client
+
+
+def _read_text(path: Path) -> str:
+    """Read file content as text. JSON files get string values concatenated."""
+    if path.suffix.lower() == '.json':
+        data = json.loads(path.read_text(encoding='utf-8-sig'))
+        if isinstance(data, str):
+            return data
+        if isinstance(data, dict):
+            parts = [str(v) for v in data.values() if v and isinstance(v, str)]
+            return '\n'.join(parts) if parts else json.dumps(data)
+        return json.dumps(data)
+    return path.read_text(encoding='utf-8', errors='replace')
 
 
 def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
                 log: logging.Logger) -> dict[str, Any]:
-    """Record the input with an explicit Phase 2 skip reason."""
+    """Score one vault document with Lowe prosecution and TSR rubrics."""
     result = {
         "input_file": str(path.name),
         "station_id": STATION_ID,
@@ -220,19 +244,21 @@ def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
         "errors": [],
         "data": {},
     }
+
     try:
-        result["data"] = {
-            "action": STATION_DESC,
-            "phase2_skip": "no original legacy implementation was available after Phase 1",
-            "worker": nlp_info.get("nlp_id", "NONE"),
-            "input_type": path.suffix.lower(),
-            "content": _read_input_payload(path),
-        }
+        text = _read_text(path)
+        client = _get_lowe_client(cfg, log)
+        prosecution = score_prosecution(client, cfg, path.name, text)
+        tsr = score_tsr(client, cfg, path.name, text)
+        result["data"] = {"prosecution": prosecution, "tsr": tsr}
+
     except Exception as exc:
-        log.exception("Station processing failed for %s", path.name)
+        log.exception("Processing failed for %s", path.name)
         result["success"] = False
         result["errors"].append(str(exc))
+
     return result
+
 
 # ============================================================
 # 08_ARTIFACTS

@@ -1,0 +1,11 @@
+{
+  "description": "Fetch transcript text for one YouTube video id or URL.",
+  "imports": [
+    "from transcript_puller import pull_transcript"
+  ],
+  "process_code": [
+    "video_id = text.strip().split(\"v=\")[-1].split(\"&\")[0].rstrip(\"/\")",
+    "transcript = pull_transcript(video_id)",
+    "result[\"data\"] = {\"video_id\": video_id, \"transcript\": transcript}"
+  ]
+}

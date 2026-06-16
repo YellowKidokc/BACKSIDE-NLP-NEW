@@ -1,0 +1,13 @@
+{
+  "description": "Extract and classify claims from Markdown or HTML documents.",
+  "imports": [
+    "from extract import process_md_file, process_html_file"
+  ],
+  "process_code": [
+    "if path.suffix.lower() in {\".html\", \".htm\"}:",
+    "    claims = process_html_file(path)",
+    "else:",
+    "    claims = process_md_file(path)",
+    "result[\"data\"] = {\"claims\": claims, \"claim_count\": len(claims) if claims else 0}"
+  ]
+}

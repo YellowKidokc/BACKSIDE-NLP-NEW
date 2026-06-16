@@ -1,0 +1,19 @@
+{
+  "description": "Score paper text against Fruits of the Spirit proof-grader anchors.",
+  "imports": [
+    "from fruits_of_spirit_bridge import SemanticAnchorScorer, chunks_for_semantics"
+  ],
+  "init": {
+    "var_name": "fruit_scorer",
+    "code": [
+      "anchors = cfg.get(\"anchors\") or {}",
+      "_fruit_scorer = SemanticAnchorScorer(anchors)"
+    ]
+  },
+  "process_code": [
+    "scorer = _get_fruit_scorer(cfg, log)",
+    "chunks = chunks_for_semantics(text, max_chunks=int(cfg.get(\"max_chunks\", 120)))",
+    "scores = scorer.score(chunks)",
+    "result[\"data\"] = {\"scores\": scores}"
+  ]
+}

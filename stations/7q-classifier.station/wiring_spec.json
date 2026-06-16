@@ -1,0 +1,13 @@
+{
+  "description": "Run the refined 7Q paper classifier and integration pass for one document.",
+  "imports": [
+    "from seven_q_runner_refined import run_paper",
+    "from integration_pass_refined import run_integration_pass"
+  ],
+  "process_code": [
+    "out_dir = Path(cfg.get(\"output_dir\", HERE / \"outputs\")) / path.stem",
+    "seven_q = run_paper(path, out_dir, max_chars=int(cfg.get(\"max_chars\", 12000)), model=cfg.get(\"model\", \"gpt-4o-mini\"))",
+    "integration = run_integration_pass(path, out_dir / f\"{path.stem}_7q.json\", out_dir, model=cfg.get(\"model\", \"gpt-4o-mini\"))",
+    "result[\"data\"] = {\"seven_q\": seven_q, \"integration\": integration}"
+  ]
+}

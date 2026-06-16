@@ -1,0 +1,10 @@
+{
+  "description": "Extract claim inventory rows for MDA citation spine analysis.",
+  "imports": [
+    "from claim_inventory import extract_claims"
+  ],
+  "process_code": [
+    "claims = extract_claims(text)",
+    "result[\"data\"] = {\"claims\": claims, \"claim_count\": len(claims) if claims else 0}"
+  ]
+}

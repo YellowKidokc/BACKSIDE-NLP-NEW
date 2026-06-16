@@ -1,0 +1,20 @@
+{
+  "description": "Score one vault document with Lowe prosecution and TSR rubrics.",
+  "imports": [
+    "from lowe_scorer import get_client, load_config, score_prosecution, score_tsr"
+  ],
+  "init": {
+    "var_name": "lowe_client",
+    "code": [
+      "scorer_cfg = load_config(cfg.get(\"lowe_config\"))",
+      "scorer_cfg.update(cfg)",
+      "_lowe_client = get_client(scorer_cfg)"
+    ]
+  },
+  "process_code": [
+    "client = _get_lowe_client(cfg, log)",
+    "prosecution = score_prosecution(client, cfg, path.name, text)",
+    "tsr = score_tsr(client, cfg, path.name, text)",
+    "result[\"data\"] = {\"prosecution\": prosecution, \"tsr\": tsr}"
+  ]
+}
