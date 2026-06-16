@@ -1,0 +1,13 @@
+{
+  "description": "Load one JSON payload into the configured PostgreSQL table.",
+  "imports": [
+    "from db_utils import Database"
+  ],
+  "process_code": [
+    "payload = json.loads(text) if text.strip() else {}",
+    "table = cfg.get(\"table\", \"station_payloads\")",
+    "with Database(cfg.get(\"postgres\")) as db:",
+    "    inserted = db.insert_json(table, payload)",
+    "result[\"data\"] = {\"table\": table, \"inserted\": inserted}"
+  ]
+}

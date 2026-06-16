@@ -1,0 +1,11 @@
+{
+  "description": "Run the 7Q engine compact LLM analysis for one claim or document.",
+  "imports": [
+    "from llm_bridge import run_compact_analysis, parse_scoring_block, parse_knowledge_graph"
+  ],
+  "process_code": [
+    "claim_id = path.stem",
+    "analysis = run_compact_analysis(text, claim_id=claim_id, model=cfg.get(\"model\", \"gpt-4o\"))",
+    "result[\"data\"] = {\"claim_id\": claim_id, \"analysis\": analysis, \"scoring\": parse_scoring_block(analysis), \"knowledge_graph\": parse_knowledge_graph(analysis)}"
+  ]
+}

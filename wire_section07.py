@@ -21,8 +21,11 @@ from pathlib import Path
 from datetime import datetime
 
 # ── Paths ──────────────────────────────────────────────────
+REPO_ROOT = Path(__file__).resolve().parent
 NAS_STATIONS = Path(r"X:\04_STATIONS")
-REPO_STATIONS = Path(r"D:\GitHub\BACKSIDE-NLP-NEW\stations")
+REPO_STATIONS = REPO_ROOT / "stations"
+if not NAS_STATIONS.exists():
+    NAS_STATIONS = REPO_STATIONS
 
 SEC07_START = "# 07_PROCESS"
 SEC08_START = "# 08_ARTIFACTS"
@@ -199,7 +202,8 @@ def sync_to_repo(station_name: str) -> bool:
         src = nas_dir / fname
         dst = repo_dir / fname
         if src.exists():
-            shutil.copy2(src, dst)
+            if src.resolve() != dst.resolve():
+                shutil.copy2(src, dst)
             synced = True
     return synced
 

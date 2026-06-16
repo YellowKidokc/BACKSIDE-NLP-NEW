@@ -197,18 +197,27 @@ def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
-# The ONE action this station performs: Extracts claims from markdown and text documents.
-# PHASE2_SKIP: no original legacy implementation was available after Phase 1.
+# Extract and classify claims from Markdown or HTML documents.
 
-def _read_input_payload(path: Path) -> Any:
-    if path.suffix.lower() == ".json":
-        return json.loads(path.read_text(encoding="utf-8-sig"))
-    return path.read_text(encoding="utf-8", errors="replace")
+from extract import process_md_file, process_html_file
+
+
+def _read_text(path: Path) -> str:
+    """Read file content as text. JSON files get string values concatenated."""
+    if path.suffix.lower() == '.json':
+        data = json.loads(path.read_text(encoding='utf-8-sig'))
+        if isinstance(data, str):
+            return data
+        if isinstance(data, dict):
+            parts = [str(v) for v in data.values() if v and isinstance(v, str)]
+            return '\n'.join(parts) if parts else json.dumps(data)
+        return json.dumps(data)
+    return path.read_text(encoding='utf-8', errors='replace')
 
 
 def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
                 log: logging.Logger) -> dict[str, Any]:
-    """Record the input with an explicit Phase 2 skip reason."""
+    """Extract and classify claims from Markdown or HTML documents."""
     result = {
         "input_file": str(path.name),
         "station_id": STATION_ID,
@@ -220,19 +229,22 @@ def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
         "errors": [],
         "data": {},
     }
+
     try:
-        result["data"] = {
-            "action": STATION_DESC,
-            "phase2_skip": "no original legacy implementation was available after Phase 1",
-            "worker": nlp_info.get("nlp_id", "NONE"),
-            "input_type": path.suffix.lower(),
-            "content": _read_input_payload(path),
-        }
+        text = _read_text(path)
+        if path.suffix.lower() in {".html", ".htm"}:
+            claims = process_html_file(path)
+        else:
+            claims = process_md_file(path)
+        result["data"] = {"claims": claims, "claim_count": len(claims) if claims else 0}
+
     except Exception as exc:
-        log.exception("Station processing failed for %s", path.name)
+        log.exception("Processing failed for %s", path.name)
         result["success"] = False
         result["errors"].append(str(exc))
+
     return result
+
 
 # ============================================================
 # 08_ARTIFACTS

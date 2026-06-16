@@ -1,0 +1,21 @@
+{
+  "description": "Run OCR and CLIP image classification for one image.",
+  "imports": [
+    "from image_classifier import OCREngine, CLIPClassifier"
+  ],
+  "init": {
+    "var_name": "image_processors",
+    "code": [
+      "ocr = OCREngine(cfg)",
+      "clip = CLIPClassifier(cfg)",
+      "_image_processors = {\"ocr\": ocr, \"clip\": clip}"
+    ]
+  },
+  "process_code": [
+    "processors = _get_image_processors(cfg, log)",
+    "ocr_text = processors[\"ocr\"].read(path)",
+    "clip_labels = cfg.get(\"labels\") or [\"document\", \"diagram\", \"photo\", \"screenshot\"]",
+    "classification = processors[\"clip\"].classify(path, clip_labels)",
+    "result[\"data\"] = {\"ocr_text\": ocr_text, \"classification\": classification}"
+  ]
+}
