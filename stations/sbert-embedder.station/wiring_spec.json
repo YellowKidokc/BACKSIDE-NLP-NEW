@@ -1,0 +1,32 @@
+{
+  "description": "Embed text via Infinity SBERT service, return 384-dim vector",
+  "imports": ["import numpy as np"],
+  "init": {
+    "var_name": "client",
+    "code": [
+      "from sbert_runner import InfinityClient",
+      "ms = cfg.get('model_settings', {})",
+      "_client = InfinityClient(",
+      "    base_url=cfg['infinity_url'],",
+      "    model=ms.get('model_name', 'sentence-transformers/all-MiniLM-L6-v2'),",
+      "    http_batch_size=int(ms.get('http_batch_size', 32)),",
+      ")",
+      "log.info('InfinityClient ready: model=%s dim=%d', _client.model, _client.dim)"
+    ]
+  },
+  "process_code": [
+    "client = _get_client(cfg, log)",
+    "vec = client.embed([text], normalize=True)[0]",
+    "",
+    "result['data'] = {",
+    "    'action': STATION_DESC,",
+    "    'worker': nlp_info.get('nlp_id', 'NONE'),",
+    "    'input_type': path.suffix.lower(),",
+    "    'embedding_dim': int(vec.shape[0]),",
+    "    'embedding_model': client.model,",
+    "    'text_length_chars': len(text),",
+    "    'embedding': vec.tolist(),",
+    "}",
+    "log.info('Embedded %s: %d chars -> %d-dim vector', path.name, len(text), vec.shape[0])"
+  ]
+}

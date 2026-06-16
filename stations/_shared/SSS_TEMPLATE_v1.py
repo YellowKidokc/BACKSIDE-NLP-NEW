@@ -74,7 +74,7 @@ def _resolve(numbered: str, flat: str) -> Path:
 
 MODELS    = _resolve("05_MODELS",    "models")       # NLP models
 ENGINES   = _resolve("06_ENGINES",   "engines")      # preference engines
-JOB_CARDS = _resolve("03_JOB_CARDS", "job_cards")    # job card registry
+WORKFLOWS = _resolve("03_WORKFLOWS", "workflows")    # workflow orchestration
 EXPORTS   = _resolve("10_EXPORTS",   "exports")      # global exports
 
 # Station identity — CHANGE THESE per station
@@ -279,18 +279,18 @@ def write_artifact(result: dict[str, Any], input_path: Path) -> Path:
 
 
 # ============================================================
-# 09_JOB_CARD
+# 09_WORKFLOW
 # ============================================================
-# Update the job card so the workflow knows this station finished.
-# Job cards live at X:\03_JOB_CARDS\{job_id}.json
+# Update the workflow record so the orchestrator knows this station finished.
+# Workflows live at X:\03_WORKFLOWS\{workflow_id}.json
 
-def update_job_card(result: dict[str, Any], artifact_path: Path,
+def update_workflow(result: dict[str, Any], artifact_path: Path,
                     cfg: dict[str, Any], log: logging.Logger) -> None:
-    job_card_dir = cfg.get("job_card_dir") or JOB_CARDS
-    job_card_dir = Path(job_card_dir)
+    workflow_dir = cfg.get("workflow_dir") or WORKFLOWS
+    workflow_dir = Path(workflow_dir)
 
-    if not job_card_dir.exists():
-        return  # job cards not yet wired — silent skip
+    if not workflow_dir.exists():
+        return  # workflows not yet wired — silent skip
 
     return
 
@@ -377,8 +377,8 @@ def main() -> int:
             artifact_path = write_artifact(result, path)
             log.info("Artifact -> %s", artifact_path.name)
 
-            # 09: Update job card
-            update_job_card(result, artifact_path, cfg, log)
+            # 09: Update workflow
+            update_workflow(result, artifact_path, cfg, log)
 
             # 10: Handoff
             handoff(result, artifact_path, cfg, log)

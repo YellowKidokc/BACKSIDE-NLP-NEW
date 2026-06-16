@@ -22,7 +22,7 @@ SECTION MAP:
   06_NLP_ROUTE         — *** STATION-SPECIFIC *** Which NLP/model to call
   07_PROCESS           — *** STATION-SPECIFIC *** The one action this station does
   08_ARTIFACTS         — Write results to _outbox as JSON artifacts
-  09_JOB_CARD          — Update job card (X:\\03_JOB_CARDS)
+  09_WORKFLOW          — Update workflow (X:\\03_WORKFLOWS)
   10_HANDOFF           — Pass to next station/workflow or mark complete
   11_ARCHIVE           — Move processed inputs to _processed
   12_MAIN              — Wire everything together
@@ -47,10 +47,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-# Station-specific imports (uncomment/add as needed):
-# import requests
-# from sentence_transformers import SentenceTransformer
-# from transformers import pipeline as hf_pipeline
+# Station-specific imports
+import numpy as np
 
 # ============================================================
 # 01_CONSTANTS
@@ -74,7 +72,7 @@ def _resolve(numbered: str, flat: str) -> Path:
 
 MODELS    = _resolve("05_MODELS",    "models")       # NLP models
 ENGINES   = _resolve("06_ENGINES",   "engines")      # preference engines
-JOB_CARDS = _resolve("03_JOB_CARDS", "job_cards")    # job card registry
+WORKFLOWS = _resolve("03_WORKFLOWS", "workflows")    # workflow registry
 EXPORTS   = _resolve("10_EXPORTS",   "exports")      # global exports
 
 # Station identity — CHANGE THESE per station
@@ -197,18 +195,75 @@ def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
-# The ONE action this station performs: Generates SBERT sentence embeddings.
-# PHASE2_SKIP: legacy core is a multi-file/external-service workflow that is too complex to migrate safely in Phase 2.
+# The ONE action this station performs: Generates SBERT sentence embeddings
+# via Infinity service, optionally upserts to Qdrant.
 
-def _read_input_payload(path: Path) -> Any:
+# Lazy-init client — created once per run, reused across all files.
+_infinity_client = None
+
+
+def _get_client(cfg: dict[str, Any], log: logging.Logger):
+    """Get or create the InfinityClient singleton for this run."""
+    global _infinity_client
+    if _infinity_client is not None:
+        return _infinity_client
+
+    from sbert_runner import InfinityClient
+
+    ms = cfg.get("model_settings", {})
+    _infinity_client = InfinityClient(
+        base_url=cfg["infinity_url"],
+        model=ms.get("model_name", "sentence-transformers/all-MiniLM-L6-v2"),
+        http_batch_size=int(ms.get("http_batch_size", 32)),
+    )
+    log.info("InfinityClient ready: model=%s dim=%d", _infinity_client.model, _infinity_client.dim)
+    return _infinity_client
+
+
+def _read_text(path: Path) -> str:
+    """Read file content as text. JSON files get their text values concatenated."""
     if path.suffix.lower() == ".json":
-        return json.loads(path.read_text(encoding="utf-8-sig"))
+        data = json.loads(path.read_text(encoding="utf-8-sig"))
+        if isinstance(data, str):
+            return data
+        if isinstance(data, dict):
+            parts = [str(v) for v in data.values() if v and isinstance(v, str)]
+            return "\n".join(parts) if parts else json.dumps(data)
+        return json.dumps(data)
     return path.read_text(encoding="utf-8", errors="replace")
+
+
+def _upsert_qdrant(file_id: str, vec: np.ndarray, text_preview: str,
+                   cfg: dict[str, Any], log: logging.Logger) -> bool:
+    """Upsert a single vector to Qdrant. Returns True on success."""
+    from sbert_runner import _qdrant_client, ensure_collection
+    from qdrant_client.http.models import PointStruct
+
+    collection = cfg["qdrant_collection"]
+    qd = _qdrant_client(cfg["qdrant_url"])
+    client = _get_client(cfg, log)
+    ensure_collection(qd, collection, client.dim, cfg.get("vector_distance", "cosine"))
+
+    preview_chars = int(cfg.get("source", {}).get("text_preview_chars", 300))
+    payload = {
+        "source": "pipeline_inbox",
+        "filename": file_id,
+        "text_preview": text_preview[:preview_chars] if preview_chars else text_preview,
+        "embedded_at": datetime.now().isoformat(timespec="seconds"),
+    }
+    point = PointStruct(
+        id=abs(hash(file_id)) % (2**63),
+        vector=vec.tolist(),
+        payload=payload,
+    )
+    qd.upsert(collection_name=collection, points=[point], wait=True)
+    log.info("Qdrant upsert OK: %s -> %s", file_id, collection)
+    return True
 
 
 def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
                 log: logging.Logger) -> dict[str, Any]:
-    """Record the input with an explicit Phase 2 skip reason."""
+    """Embed one input file via Infinity and return the vector artifact."""
     result = {
         "input_file": str(path.name),
         "station_id": STATION_ID,
@@ -220,18 +275,37 @@ def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
         "errors": [],
         "data": {},
     }
+
     try:
+        text = _read_text(path)
+        client = _get_client(cfg, log)
+        vec = client.embed([text], normalize=True)[0]
+
         result["data"] = {
             "action": STATION_DESC,
-            "phase2_skip": "legacy core is a multi-file/external-service workflow that is too complex to migrate safely in Phase 2",
             "worker": nlp_info.get("nlp_id", "NONE"),
             "input_type": path.suffix.lower(),
-            "content": _read_input_payload(path),
+            "embedding_dim": int(vec.shape[0]),
+            "embedding_model": client.model,
+            "text_length_chars": len(text),
+            "embedding": vec.tolist(),
         }
+        log.info("Embedded %s: %d chars -> %d-dim vector", path.name, len(text), vec.shape[0])
+
+        # Optional Qdrant upsert (only if collection is configured)
+        if cfg.get("qdrant_url") and cfg.get("qdrant_collection"):
+            try:
+                _upsert_qdrant(path.name, vec, text, cfg, log)
+            except Exception as qe:
+                log.warning("Qdrant upsert failed for %s: %s", path.name, qe)
+                result["errors"].append(f"qdrant_upsert: {qe}")
+                # Embedding still succeeded — don't mark as failure
+
     except Exception as exc:
-        log.exception("Station processing failed for %s", path.name)
+        log.exception("Embedding failed for %s", path.name)
         result["success"] = False
         result["errors"].append(str(exc))
+
     return result
 
 # ============================================================
@@ -256,18 +330,18 @@ def write_artifact(result: dict[str, Any], input_path: Path) -> Path:
 
 
 # ============================================================
-# 09_JOB_CARD
+# 09_WORKFLOW
 # ============================================================
-# Update the job card so the workflow knows this station finished.
-# Job cards live at X:\03_JOB_CARDS\{job_id}.json
+# Update the workflow so the orchestrator knows this station finished.
+# Workflows live at X:\03_WORKFLOWS\{job_id}.json
 
-def update_job_card(result: dict[str, Any], artifact_path: Path,
+def update_workflow(result: dict[str, Any], artifact_path: Path,
                     cfg: dict[str, Any], log: logging.Logger) -> None:
-    job_card_dir = cfg.get("job_card_dir") or JOB_CARDS
-    job_card_dir = Path(job_card_dir)
+    workflow_dir = cfg.get("workflow_dir") or WORKFLOWS
+    workflow_dir = Path(workflow_dir)
 
-    if not job_card_dir.exists():
-        return  # job cards not yet wired — silent skip
+    if not workflow_dir.exists():
+        return  # workflows not yet wired — silent skip
 
     return
 
@@ -354,8 +428,8 @@ def main() -> int:
             artifact_path = write_artifact(result, path)
             log.info("Artifact -> %s", artifact_path.name)
 
-            # 09: Update job card
-            update_job_card(result, artifact_path, cfg, log)
+            # 09: Update workflow
+            update_workflow(result, artifact_path, cfg, log)
 
             # 10: Handoff
             handoff(result, artifact_path, cfg, log)

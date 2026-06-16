@@ -17,7 +17,7 @@ Every station Python script follows the same 13-section structure, in the same o
 | 06 | NLP_ROUTE | **YES** | Which NLP model to call (M01-M16) |
 | 07 | PROCESS | **YES** | The station's ONE action |
 | 08 | ARTIFACTS | Never | Write result to _outbox/ as JSON |
-| 09 | JOB_CARD | Never | Update job card in 03_JOB_CARDS |
+| 09 | WORKFLOW | Never | Update workflow record in 03_WORKFLOWS |
 | 10 | HANDOFF | Rarely | Pass to next station or export |
 | 11 | ARCHIVE | Never | Move input to _processed/ |
 | 12 | MAIN | Never | Wire it all together |
