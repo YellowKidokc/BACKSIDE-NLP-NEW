@@ -1,28 +1,13 @@
 @echo off
 setlocal
-echo ============================================
-echo  Running 01_WHISPER
-echo ============================================
-echo.
+cd /d "%~dp0"
 
-if defined PYTHON_EXE (
-    set PYTHON=%PYTHON_EXE%
-) else (
-    set PYTHON=C:\Users\lowes\AppData\Local\Programs\Python\Python312\python.exe
-)
+if not exist "_inbox" mkdir "_inbox"
+if not exist "_outbox" mkdir "_outbox"
+if not exist "_processed" mkdir "_processed"
 
-if not exist "%PYTHON%" (
-    echo ERROR: Python not found at %PYTHON%
-    echo Edit RUN.bat or set PYTHON_EXE env var.
-    pause & exit /b 1
-)
+set "PYTHON_EXE=%PYTHON_EXE%"
+if "%PYTHON_EXE%"=="" set "PYTHON_EXE=python"
 
-"%PYTHON%" "%~dp0whisper_runner.py" %*
-set RC=%ERRORLEVEL%
-
-echo.
-echo ============================================
-echo  Done (rc=%RC%). Check _LOGS for output.
-echo ============================================
-pause
-exit /b %RC%
+"%PYTHON_EXE%" "%~dp0pipeline.py" %*
+exit /b %ERRORLEVEL%

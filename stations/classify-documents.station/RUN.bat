@@ -1,24 +1,13 @@
 @echo off
 setlocal
-set "LOG_DIR=X:\WORKFLOWS\MDA-PUBLICATION\EXPORTS\_LOGS"
-if not exist "%LOG_DIR%" mkdir "%LOG_DIR%"
-for /f %%I in ('C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -Command "Get-Date -Format yyyyMMdd_HHmmss"') do set "STAMP=%%I"
-set "LOG_FILE=%LOG_DIR%\classify_documents_%STAMP%.log"
-echo ============================================
-echo  STATION: classify-documents
-echo  text files -^> vectors + labels -^> JSON sidecars + CSV summary
-echo ============================================
+cd /d "%~dp0"
 
-set PYTHON=C:\Users\lowes\AppData\Local\Programs\Python\Python313\python.exe
-if not exist "%PYTHON%" set PYTHON=C:\Users\lowes\AppData\Local\Programs\Python\Python312\python.exe
-if not exist "%PYTHON%" set PYTHON=C:\Users\lowes\AppData\Local\Programs\Python\Python311\python.exe
-if not exist "%PYTHON%" set PYTHON=py -3
+if not exist "_inbox" mkdir "_inbox"
+if not exist "_outbox" mkdir "_outbox"
+if not exist "_processed" mkdir "_processed"
 
-"%PYTHON%" "%~dp0pipeline.py" >> "%LOG_FILE%" 2>&1
-set RC=%ERRORLEVEL%
+set "PYTHON_EXE=%PYTHON_EXE%"
+if "%PYTHON_EXE%"=="" set "PYTHON_EXE=python"
 
-echo ============================================
-echo  Done (rc=%RC%). See X:\Backside\_logs\workflow_classify-documents_*.log
-echo ============================================
-echo Log: %LOG_FILE%
-exit /b %RC%
+"%PYTHON_EXE%" "%~dp0pipeline.py" %*
+exit /b %ERRORLEVEL%

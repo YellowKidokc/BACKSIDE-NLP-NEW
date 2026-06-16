@@ -1,0 +1,28 @@
+{
+  "station_id": "PI_10",
+  "station_name": "idea-density",
+  "station_type": "one_for_one",
+  "description": "Idea density analyzer wrapper",
+  "input_extensions": [
+    ".md",
+    ".txt",
+    ".json"
+  ],
+  "workers": {
+    "default": [
+      "NONE"
+    ],
+    "optional": []
+  },
+  "entrypoint": {
+    "script": "idea_density_analyzer.py",
+    "module": "idea_density_analyzer",
+    "function": "analyze",
+    "mode": "function_path"
+  },
+  "outputs": {
+    "artifact_type": "json",
+    "update_job_card": false,
+    "final_export": false
+  }
+}

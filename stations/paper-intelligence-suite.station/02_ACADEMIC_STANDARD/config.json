@@ -1,0 +1,28 @@
+{
+  "station_id": "PI_02",
+  "station_name": "academic-standard",
+  "station_type": "one_for_one",
+  "description": "Academic standard scoring wrapper",
+  "input_extensions": [
+    ".md",
+    ".txt",
+    ".json"
+  ],
+  "workers": {
+    "default": [
+      "NONE"
+    ],
+    "optional": []
+  },
+  "entrypoint": {
+    "script": "academic_scorer.py",
+    "module": "academic_scorer",
+    "function": "analyze",
+    "mode": "function_path_is_path"
+  },
+  "outputs": {
+    "artifact_type": "json",
+    "update_job_card": false,
+    "final_export": false
+  }
+}
