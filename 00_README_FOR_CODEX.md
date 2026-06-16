@@ -34,7 +34,17 @@ Add `templates` key to each station's config.json mapping input/output
 templates. Add `TEMPLATES = _resolve("15_TEMPLATES", "templates")`
 to pipeline.py Section 01 for stations with template dependencies.
 
-### Task 3 (future): Write processing logic for stations without runners
+### Task 3 (next): Classification station + workflow tracker
+**Prompt:** `CODEX_CLASSIFY_AND_TRACKER_PROMPT.md`
+
+Two pieces:
+- Part A: Write `classify_runner.py` for classify-documents station — reads
+  a paper, classifies across 7 dimensions (doc_type, tags, spine mappings,
+  dependencies, reading level), outputs classification artifact JSON.
+- Part B: Write `tracker.py` in orchestrator/ — creates traveler JSONs that
+  follow papers through the pipeline, aggregates into PIPELINE_TRACKER.xlsx.
+
+### Task 4 (future): Write processing logic for stations without runners
 ~40 stations have no runner scripts at all. These need actual processing
 logic written. This is a bigger task — each station does something different.
 Not yet prompted.
