@@ -11,7 +11,7 @@ Examples:
     python extract.py "K:\Folders\LEAN4\canonical" --format md
     python extract.py "T:\MASTER_EQUATION_TEST\theophysics-math" --recursive --format md
 """
-import os, sys, re, json, hashlib, argparse
+import os, sys, re, json, hashlib, argparse, importlib.util
 from datetime import datetime
 from pathlib import Path
 
@@ -29,14 +29,67 @@ except ImportError:
 
 SCRIPT_DIR = Path(__file__).parent
 CONFIG = json.loads((SCRIPT_DIR / "config.json").read_text(encoding="utf-8-sig"))
-OUTPUT_DIR = Path(CONFIG["output_dir"])
+OUTPUT_DIR = Path(CONFIG.get("output_dir", SCRIPT_DIR / "_outbox"))
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-LOG_DIR = Path(CONFIG["log_dir"])
+LOG_DIR = Path(CONFIG.get("log_dir", SCRIPT_DIR / "_logs"))
 LOG_DIR.mkdir(parents=True, exist_ok=True)
 
-SIGNALS = CONFIG["claim_signals"]
-MIN_LEN = CONFIG["min_claim_length"]
-MAX_LEN = CONFIG["max_claim_length"]
+DEFAULT_SIGNALS = {
+    "theological": ["god", "christ", "logos", "trinity", "resurrection", "scripture"],
+    "physics": ["physics", "quantum", "entropy", "field", "energy", "relativity"],
+    "mathematical": ["equation", "theorem", "axiom", "proof", "derive", "isomorphism"],
+    "evidence": ["data", "evidence", "sigma", "statistical", "observed", "study"],
+    "moral": ["justice", "mercy", "grace", "moral", "free will", "sin"],
+}
+SIGNALS = CONFIG.get("claim_signals", DEFAULT_SIGNALS)
+MIN_LEN = int(CONFIG.get("min_claim_length", 80))
+MAX_LEN = int(CONFIG.get("max_claim_length", 900))
+LEXICON = {}
+
+
+def _resolve_template_path(value):
+    if not value:
+        return None
+    path = Path(value)
+    if path.is_absolute():
+        return path
+    repo_root = SCRIPT_DIR.parents[1]
+    normalized = str(value).replace("15_TEMPLATES/", "templates/")
+    return repo_root / normalized
+
+
+def load_master_lexicon():
+    lex_cfg = CONFIG.get("lexicon", {})
+    path = _resolve_template_path(lex_cfg.get("path") or CONFIG.get("templates", {}).get("lexicon") or "15_TEMPLATES/paper_grader_lexicons_master_enhanced.xlsx")
+    if not path or not path.exists() or importlib.util.find_spec("openpyxl") is None:
+        return {}
+    import openpyxl
+    wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
+    lexicon = {}
+    max_terms = int(lex_cfg.get("max_terms", 30000))
+    for ws in wb.worksheets:
+        rows = ws.iter_rows(values_only=True)
+        headers = [str(v or "").strip().lower() for v in next(rows, [])]
+        for row in rows:
+            values = {headers[i]: row[i] for i in range(min(len(headers), len(row)))} if headers else {}
+            term = values.get("term") or values.get("keyword") or values.get("word") or values.get("phrase") or (row[0] if row else None)
+            if not term:
+                continue
+            category = values.get("category") or values.get("class") or values.get("bucket") or ws.title
+            term = str(term).strip().lower()
+            if len(term) < 3:
+                continue
+            lexicon.setdefault(str(category).strip().lower(), set()).add(term)
+            if sum(len(v) for v in lexicon.values()) >= max_terms:
+                return {k: sorted(v) for k, v in lexicon.items()}
+    return {k: sorted(v) for k, v in lexicon.items()}
+
+
+def get_signals():
+    global LEXICON
+    if not LEXICON:
+        LEXICON = load_master_lexicon()
+    return LEXICON or SIGNALS
 
 def content_hash(text):
     return hashlib.sha256(text.encode("utf-8")).hexdigest()[:16]
@@ -117,7 +170,8 @@ def extract_claims_from_text(text, source_file, section_heading=""):
 def classify_claim(text):
     text_lower = text.lower()
     scores = {}
-    for cls, keywords in SIGNALS.items():
+    active_signals = get_signals()
+    for cls, keywords in active_signals.items():
         score = sum(1 for kw in keywords if kw.lower() in text_lower)
         if score > 0:
             scores[cls] = score
@@ -137,7 +191,8 @@ def score_confidence(text, classification):
     if classification == "UNCLASSIFIED":
         return 0.1
     text_lower = text.lower()
-    hits = sum(1 for kw in SIGNALS.get(classification.lower(), []) if kw.lower() in text_lower)
+    active_signals = get_signals()
+    hits = sum(1 for kw in active_signals.get(classification.lower(), []) if kw.lower() in text_lower)
     return min(0.3 + hits * 0.2, 0.9)
 
 def process_md_file(filepath):
