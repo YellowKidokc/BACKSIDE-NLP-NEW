@@ -1,0 +1,94 @@
+{
+  "schema": "theophysics.page_feature_registry.v1",
+  "principle": "The Markdown owns meaning. The registry owns features. The builder owns design. The HTML owns nothing.",
+  "features": {
+    "reading_level_easy": {
+      "detect": ["article.easy.md", "data-level=\"easy\"", "Easy"],
+      "required_files": ["{stem}.easy.md"],
+      "renderer": "render_easy_layer",
+      "mode": "swap",
+      "allowed_series": ["MDA", "GTQ", "Theophysics"],
+      "failsafe": "disable_button_if_missing"
+    },
+    "reading_level_academic": {
+      "detect": ["article.academic.md", "data-level=\"academic\"", "Academic"],
+      "required_files": ["{stem}.academic.md"],
+      "renderer": "render_academic_layer",
+      "mode": "swap",
+      "allowed_series": ["MDA", "GTQ", "Theophysics"],
+      "failsafe": "disable_button_if_missing"
+    },
+    "claims_layer": {
+      "detect": ["claims.json", "CLAIM-", "7Q", "kill condition", "claim_kind"],
+      "required_files": ["{stem}.claims.json"],
+      "renderer": "render_claim_cards",
+      "mode": "overlay",
+      "allowed_series": ["MDA", "GTQ", "Theophysics"],
+      "failsafe": "hide_if_missing"
+    },
+    "math_layer": {
+      "detect": ["math.json", "equation", "\\chi", "χ", "=", "math-catalog.json"],
+      "required_files": ["{stem}.math.json"],
+      "renderer": "render_math_panels",
+      "mode": "overlay",
+      "allowed_series": ["MDA", "GTQ", "Theophysics"],
+      "failsafe": "hide_if_missing"
+    },
+    "glossary_terms": {
+      "detect": ["glossary", "definition", "term inventory"],
+      "required_files": [],
+      "renderer": "render_glossary_popover",
+      "mode": "inline",
+      "allowed_series": ["MDA", "GTQ", "Theophysics"],
+      "failsafe": "skip_if_missing"
+    },
+    "bible_references": {
+      "detect": ["Genesis", "Exodus", "Matthew", "John", "Romans", "Ephesians", "Revelation"],
+      "required_files": [],
+      "renderer": "render_bible_reference",
+      "mode": "inline",
+      "allowed_series": ["MDA", "GTQ", "Theophysics"],
+      "failsafe": "skip_if_missing"
+    },
+    "academic_citations": {
+      "detect": ["doi:", "DOI", "et al.", "Journal", "citation_needed", "[CITATION NEEDED]"],
+      "required_files": [],
+      "renderer": "render_citation_marker",
+      "mode": "inline",
+      "allowed_series": ["MDA", "GTQ", "Theophysics"],
+      "failsafe": "flag_if_missing"
+    },
+    "saturday_block": {
+      "detect": ["Saturday", "Sabbath", "weekend edition"],
+      "required_files": [],
+      "renderer": "render_saturday_section",
+      "mode": "section",
+      "allowed_series": ["Theophysics"],
+      "failsafe": "skip_if_missing"
+    },
+    "pull_quotes": {
+      "detect": ["blockquote", "> ", "pull quote"],
+      "required_files": [],
+      "renderer": "render_pull_quote",
+      "mode": "section",
+      "allowed_series": ["MDA", "GTQ", "Theophysics"],
+      "failsafe": "skip_if_missing"
+    },
+    "tables": {
+      "detect": ["|", "<table"],
+      "required_files": [],
+      "renderer": "render_table",
+      "mode": "section",
+      "allowed_series": ["MDA", "GTQ", "Theophysics"],
+      "failsafe": "preserve_standard"
+    },
+    "proof_blocks": {
+      "detect": ["proof", "theorem", "lemma", "formal verification", "Lean", "Alloy"],
+      "required_files": [],
+      "renderer": "render_proof_block",
+      "mode": "overlay",
+      "allowed_series": ["MDA", "GTQ", "Theophysics"],
+      "failsafe": "flag_if_missing"
+    }
+  }
+}

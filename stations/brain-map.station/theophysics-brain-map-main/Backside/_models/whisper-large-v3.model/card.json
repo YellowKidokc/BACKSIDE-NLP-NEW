@@ -1,0 +1,33 @@
+{
+  "name": "whisper-large-v3.model",
+  "kind": "weight",
+  "anchor_role": "Audio and video transcription.",
+  "status": "planned",
+  "owner": "shared",
+  "base_model": "openai/whisper-large-v3 or local Whisper equivalent",
+  "runtime_path": "D:\\brain\\01_WHISPER\\_MODELS",
+  "backing_models": [],
+  "called_by": [
+    "Conversions/conversion-layer",
+    "Backside/workflows/pull-link",
+    "Backside/workflows/handoff-session"
+  ],
+  "inputs": [
+    "audio files",
+    "video files",
+    "YouTube downloads"
+  ],
+  "outputs": [
+    "timestamped transcript",
+    "plain transcript markdown"
+  ],
+  "non_goals": [
+    "Do not overwrite original media.",
+    "Do not treat transcript as source-perfect when audio quality is poor."
+  ],
+  "verification": [
+    "Transcript includes source media path.",
+    "Low-confidence or unclear spans are flagged."
+  ],
+  "notes": "Referenced by the conversion-layer prompt as optional; should not redownload weights if already local."
+}

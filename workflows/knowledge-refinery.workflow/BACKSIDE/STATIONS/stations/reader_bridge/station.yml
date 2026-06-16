@@ -1,0 +1,59 @@
+station_id: ST-PROJ-010
+name: Reader Definition Bridge
+lane: projection
+status: draft
+order: 68
+purpose: >
+  Read the academic projection and identify terms, equations, concepts, and
+  recurring themes that exceed an 8th-grade reading level or are likely opaque
+  to a general reader. Define them and create analogies only when a concept
+  recurs enough to need a teaching bridge.
+
+model:
+  primary: qwen2.5:7b
+  fallback:
+  provider: ollama
+
+prompt:
+  primary: PROMPT_SYSTEM.md
+  fallback:
+
+script:
+  runner: scripts/03_run_prompt.bat
+
+input:
+  accepts:
+    - academic_projection
+    - trace_ledger
+    - paper_snapshot
+  required_files:
+    - projection.academic.md
+    - projection.academic.json
+    - paper-snapshot.json
+    - trace-ledger.json
+
+output:
+  produces:
+    - reader_bridge.json
+    - reader_bridge.md
+  required_format: json
+
+healthcheck:
+  prompt: "Return JSON: {\"status\":\"ok\"}"
+  expected_contains: "\"status\""
+
+gate:
+  pass_if:
+    - valid_json: true
+    - no_new_claims: true
+    - definitions_trace_to_academic_spans: true
+    - analogies_marked_as_analogies: true
+    - analogy_does_not_replace_argument: true
+  fail_to: 99_ERROR
+  review_to: 03_REVIEW
+
+next:
+  pass:
+    - ST-PUB-017
+  fail:
+    - ST-ERR-001

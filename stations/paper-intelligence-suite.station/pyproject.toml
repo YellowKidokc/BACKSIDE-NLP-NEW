@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "theophysics-paper-intelligence"
+version = "2.0.0"
+description = "7-layer academic paper intelligence pipeline for Theophysics research"
+authors = [{name = "David Lowe", email = "lowesfencing@gmail.com"}]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.10"
+keywords = ["theophysics", "nlp", "academic", "knowledge-graph", "paper-analysis"]
+
+dependencies = [
+    "textstat>=0.7.0",
+    "keybert>=0.9.0",
+    "yake>=0.7.0",
+    "sumy>=0.12.0",
+    "semanticscholar>=0.11.0",
+    "python-louvain>=0.16",
+    "nltk>=3.9",
+    "sentence-transformers>=5.0",
+    "networkx>=2.8",
+    "pyvis>=0.3.0",
+    "spacy>=3.8",
+    "gensim>=4.4",
+    "openai>=1.0",
+    "openpyxl>=3.1",
+    "pandas>=2.0",
+    "numpy>=2.0",
+    "scipy>=1.10",
+    "scikit-learn>=1.2",
+    "requests>=2.31",
+    "tqdm>=4.66",
+    "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+neo4j = ["neo4j>=6.0"]
+bertopic = ["bertopic>=0.16"]
+full = ["neo4j>=6.0", "bertopic>=0.16", "torch>=2.0"]
+
+[project.scripts]
+theophysics-run = "theophysics_paper_intelligence.orchestrator.run_pipeline:main"
+theophysics-launch = "theophysics_paper_intelligence.launch:main"
+
+[tool.setuptools.packages.find]
+where = ["."]

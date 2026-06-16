@@ -1,0 +1,25 @@
+{
+  "schema": "theophysics.workflow.config.v1",
+  "workflow": "refresh-axiom-snapshot",
+  "name": "default",
+  "packet_contract": "PACKETS_CONVENTION.md",
+  "steps": [
+    {
+      "station": "seven-questions",
+      "enabled": true,
+      "input": "WORKING/source.md",
+      "output": "WORKING/station-outputs/seven-questions/"
+    },
+    {
+      "station": "axiom-candidates",
+      "enabled": true,
+      "input": "WORKING/station-outputs/seven-questions/",
+      "output": "WORKING/station-outputs/axiom-candidates/"
+    }
+  ],
+  "exports": [
+    "PUBLIC/axiom-snapshot.html",
+    "PUBLIC/axiom-snapshot.xlsx",
+    "MACHINE/manifest.json"
+  ]
+}

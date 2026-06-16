@@ -1,0 +1,50 @@
+{
+  "lane_id": "07",
+  "lane_name": "Math Translation",
+  "input": {
+    "requires": [
+      "00_DROP source article (.html or .md)",
+      "semantic address candidate or source metadata when available",
+      "optional upstream math preview/report artifacts"
+    ],
+    "format": "raw article text plus optional existing math report JSON"
+  },
+  "output": {
+    "produces": [
+      "math-payload.json",
+      "math-translation.md",
+      "math-snippets.html"
+    ],
+    "format": "machine-first JSON with human-readable markdown and HTML snippet sidecars"
+  },
+  "loopback_conditions": [
+    "upstream preview artifact points to a missing translation table or stale path",
+    "equation translation is fallback-only or remains structurally ambiguous",
+    "section hint cannot be stabilized from visible article structure"
+  ],
+  "dependencies": {
+    "upstream_lanes": [],
+    "stations": [
+      "math-layer.station"
+    ],
+    "models": [
+      "none required for wrapper path",
+      "math-layer.station OpenAI fallback remains optional"
+    ]
+  },
+  "excel_columns": {
+    "tab_name": "Math_Translation",
+    "columns": [
+      { "name": "page_id", "type": "string" },
+      { "name": "equation_id", "type": "string" },
+      { "name": "section_hint", "type": "string" },
+      { "name": "raw_math", "type": "string" },
+      { "name": "word_equation", "type": "string" },
+      { "name": "spoken_explanation", "type": "string" },
+      { "name": "translation_source", "type": "enum:preview|rule_map|generic_fallback" },
+      { "name": "confidence", "type": "float" },
+      { "name": "loopback_required", "type": "boolean" }
+    ]
+  },
+  "confidence": "tested"
+}

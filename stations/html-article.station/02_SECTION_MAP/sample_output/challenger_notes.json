@@ -1,0 +1,53 @@
+{
+  "lane_id": "02",
+  "lane_name": "Section Map",
+  "challenger": "claude-code-worker-1",
+  "generated_at_utc": "2026-05-22",
+  "overlooked": [
+    {
+      "id": "02-O1",
+      "headline": "Section text spans lose inline HTML structure.",
+      "detail": "run.py captures only the text content between headings. Inline tables, lists, blockquotes, figures, and code blocks collapse to plain text in section_packets/*.md. 11_HTML_RENDER will need to rebuild structure from the original source HTML, not from these packets. The packets are faithful for body text but NOT a substitute for the source span.",
+      "load_bearing": false,
+      "recommended_action": "Document in README and have 11_HTML_RENDER consume section-map.json + raw source jointly, using source_offset_start/end as the slice boundary."
+    },
+    {
+      "id": "02-O2",
+      "headline": "source_offset_start / source_offset_end are wired in the parser but never written to section objects.",
+      "detail": "HtmlSectionWalker tracks _char_offset and emits offsets on every event, but parse_html() does not record them on the emitted section dicts. Both fields are currently None on every section. If 14_LOOPBACK_REVIEW or 12_EXPORTS need byte-precise reattachment to the original source, the information is dropped.",
+      "load_bearing": true,
+      "recommended_action": "Capture the offset at heading_open and the next heading_open (or section_close) as the section's [start,end). Cheap fix; missed it."
+    },
+    {
+      "id": "02-O3",
+      "headline": "Tab containers and main-flow content are flattened.",
+      "detail": "GTQ-03 contains parallel content under <section id=\"paper\"> and tangent <section id=\"tangent-macarthur\"> with the same h2 headings (\"MacArthur and the Equation\", \"The Equation\", etc.). The lane disambiguates section_ids with -2/-3 suffixes by source order, but loses the semantic distinction that one is the canonical body and the other is a tangent expansion. Downstream 09_GRAPH_LINKS will not know these are intentional duplicates.",
+      "load_bearing": true,
+      "recommended_action": "Add a section.role field {body|tangent|summary|media|rigor} derived from source_anchor prefix; preserve a tangent_of pointer to the canonical sibling."
+    }
+  ],
+  "attack_surfaces": [
+    {
+      "id": "02-A1",
+      "headline": "Equation count is fooled by literal dollar signs and inline single-symbol math.",
+      "detail": "count_equations() matches `$...$` pairs. Text like 'cost was $5 vs $10' would register as one inline equation. Single-character math like '$s = -1$' inflates totals (GTQ-03 reports 192 equations; many are pathway labels, not derivations). An adversarial article quoting many currency figures could push 02 over the equation-mismatch loopback threshold.",
+      "exploitation": "Author quotes 12 dollar amounts in a financial example, lane writes loopback to 14, 07_MATH_TRANSLATION halts.",
+      "mitigation": "Require regex content to include an operator or LaTeX command between `$...$`, or trust 07 to filter and have 02 emit a more conservative count alongside the raw count."
+    },
+    {
+      "id": "02-A2",
+      "headline": "html.parser is forgiving to a fault. Mal-formed HTML can desync section/heading nesting.",
+      "detail": "Word-exported HTML, RTF-converted pages, and AI-generated HTML often have unclosed tags or out-of-order `</h2>` markers. html.parser does not raise on these. The HtmlSectionWalker state machine (open_stack, section_anchor_stack) could end up with phantom open sections, producing inferred=false sections that should be inferred=true.",
+      "exploitation": "Drop a Word-saved HTML article with an unclosed <section> tag. 02 emits a polluted heading tree without flagging the source as mal-formed.",
+      "mitigation": "After parse, validate that section_count <= count of regex matches of `<h[1-6]` in source. If they diverge by >1, write a structural-noise loopback."
+    },
+    {
+      "id": "02-A3",
+      "headline": "section_id is heading-text-derived. Editorial rewording silently invalidates downstream joins.",
+      "detail": "If David edits 'The Equation' to 'The Master Equation' between runs, every downstream packet keyed on `sec-002-the-equation` orphans. stable_uuid is computed from slug(heading_path), so it also changes. Re-runs lose the join.",
+      "exploitation": "Innocuous editorial pass on headings between Round 1 and Round 2 silently breaks 04_TAGS, 05_CLAIMS, 08_SECTION_VECTORS, 10_RIGOR linkage.",
+      "mitigation": "13_LAYER_LEDGER should own a section_id_redirects table. On rerun, 02 emits {old_id, new_id, similarity_score, action} for each section that drifted, and downstream lanes consult the redirect table before treating an id as missing."
+    }
+  ],
+  "decision": "All six are concrete; none triggered a loopback for the Round 1 deliverable. 02-O2 (source offsets) is the cheapest to fix and most load-bearing for 14_LOOPBACK_REVIEW — flagged as a next-iteration task on this lane rather than blocking testable status."
+}

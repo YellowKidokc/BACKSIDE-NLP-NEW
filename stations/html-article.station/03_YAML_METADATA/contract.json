@@ -1,0 +1,163 @@
+{
+  "lane_id": "03",
+  "lane_name": "YAML + Filing",
+  "owner": "worker-1 (claude-code)",
+  "round": "ROUND1",
+  "input": {
+    "requires": [
+      "00_DROP/{article}.(html|md)",
+      "02_SECTION_MAP/{article}/section-map.json"
+    ],
+    "format": "Raw source for page-level meta extraction, plus the 02 section ledger for section-level metadata."
+  },
+  "output": {
+    "produces": [
+      "03_YAML_METADATA/{article}/frontmatter.yaml",
+      "03_YAML_METADATA/{article}/metadata.json",
+      "03_YAML_METADATA/{article}/metadata.md",
+      "03_YAML_METADATA/{article}/section_metadata.json"
+    ],
+    "format": "YAML frontmatter block + JSON page metadata + Markdown human view + per-section metadata JSON. Field names match SEMANTIC_ADDRESS_AND_ROUTING.md and ARTICLE_OUTPUT_REGISTRY.md exactly."
+  },
+  "loopback_conditions": [
+    "section-map.json missing or unreadable",
+    "Source declares routing fields that conflict with derived values (e.g. frontmatter says domain=AVIATION but inferred series=GTQ)",
+    "primary_bucket cannot be resolved to one of the canonical buckets in SEMANTIC_ADDRESS_AND_ROUTING (01_CANON|02_THEORIES|03_SERIES|04_FRAMEWORKS|05_EVIDENCE|06_DRAFTS|07_PUBLISH|08_ARCHIVE|09_MEDIA)",
+    "type or story_flag mismatch (e.g. story_flag=true but type=note)"
+  ],
+  "dependencies": {
+    "upstream_lanes": ["00_DROP", "02_SECTION_MAP"],
+    "stations": ["metadata-extractor.station"],
+    "models": []
+  },
+  "page_metadata_fields": {
+    "identity": [
+      "paper_uuid",
+      "page_id",
+      "title",
+      "source_file_name",
+      "paper_slug"
+    ],
+    "routing": [
+      "primary_bucket",
+      "secondary_bucket",
+      "type",
+      "story_flag",
+      "series",
+      "series_article_number",
+      "status",
+      "maturity",
+      "website_layers"
+    ],
+    "address_candidate": [
+      "domain",
+      "named_entity",
+      "state",
+      "audience",
+      "use",
+      "risk",
+      "address_string",
+      "vector_string",
+      "hash",
+      "candidate_confidence",
+      "vector_owner_lane",
+      "hash_owner_lane"
+    ],
+    "rollups": [
+      "section_count",
+      "equation_count",
+      "citation_count",
+      "inferred_section_count"
+    ],
+    "provenance": [
+      "extracted_fields",
+      "derived_fields",
+      "inferred_fields",
+      "last_updated_utc",
+      "lane_owner"
+    ]
+  },
+  "section_metadata_fields": [
+    "section_id",
+    "stable_uuid",
+    "ordinal",
+    "heading_level",
+    "heading_text",
+    "heading_path",
+    "parent_section_id",
+    "source_anchor",
+    "inferred",
+    "equation_count",
+    "citation_count",
+    "word_count",
+    "type_hint",
+    "yaml_anchor",
+    "passes_pointer"
+  ],
+  "downstream_consumers": [
+    "04_TAGS",
+    "11_HTML_RENDER",
+    "12_EXPORTS",
+    "16_FINAL_PAGE_ASSEMBLY",
+    "Master_Index workbook (Page_Metadata + Section_Metadata tabs)"
+  ],
+  "excel_columns": [
+    {
+      "tab_name": "Page_Metadata",
+      "columns": [
+        {"name": "paper_uuid", "type": "string"},
+        {"name": "page_id", "type": "string"},
+        {"name": "title", "type": "string"},
+        {"name": "source_file_name", "type": "string"},
+        {"name": "paper_slug", "type": "string"},
+        {"name": "primary_bucket", "type": "enum:01_CANON|02_THEORIES|03_SERIES|04_FRAMEWORKS|05_EVIDENCE|06_DRAFTS|07_PUBLISH|08_ARCHIVE|09_MEDIA"},
+        {"name": "secondary_bucket", "type": "string"},
+        {"name": "type", "type": "enum:paper|note|axiom|claim|evidence|dashboard|story"},
+        {"name": "story_flag", "type": "boolean"},
+        {"name": "series", "type": "string"},
+        {"name": "series_article_number", "type": "string"},
+        {"name": "status", "type": "string"},
+        {"name": "maturity", "type": "string"},
+        {"name": "website_layers", "type": "string[]"},
+        {"name": "domain", "type": "string"},
+        {"name": "named_entity", "type": "string"},
+        {"name": "state", "type": "string"},
+        {"name": "audience", "type": "string"},
+        {"name": "use", "type": "string"},
+        {"name": "risk", "type": "string"},
+        {"name": "address_candidate", "type": "string"},
+        {"name": "section_count", "type": "integer"},
+        {"name": "equation_count", "type": "integer"},
+        {"name": "citation_count", "type": "integer"},
+        {"name": "candidate_confidence", "type": "enum:high|medium|low"},
+        {"name": "last_updated_utc", "type": "string"}
+      ]
+    },
+    {
+      "tab_name": "Section_Metadata",
+      "columns": [
+        {"name": "paper_uuid", "type": "string"},
+        {"name": "section_id", "type": "string"},
+        {"name": "stable_uuid", "type": "string"},
+        {"name": "ordinal", "type": "integer"},
+        {"name": "heading_level", "type": "integer"},
+        {"name": "heading_text", "type": "string"},
+        {"name": "heading_path", "type": "string"},
+        {"name": "parent_section_id", "type": "string|null"},
+        {"name": "source_anchor", "type": "string|null"},
+        {"name": "inferred", "type": "boolean"},
+        {"name": "equation_count", "type": "integer"},
+        {"name": "citation_count", "type": "integer"},
+        {"name": "word_count", "type": "integer"},
+        {"name": "type_hint", "type": "enum:body|callout|equation|kill_condition|risk|summary|tangent|media|nav"}
+      ]
+    }
+  ],
+  "ownership_boundary": {
+    "this_lane_emits": ["address_candidate (D/N/V/A/U/R portion only)", "routing fields", "filing metadata", "YAML frontmatter"],
+    "this_lane_does_not_emit": ["vector_string (owned by 04_TAGS)", "hash (owned by 04_TAGS)", "Tags / chi_vars / law refs (owned by 04_TAGS)"],
+    "rationale": "Per SWARM_WORK_ORDER_ROUND1 + CALIBRATION_EXPECTED.md. Drift with lane_registry.json v2 is flagged in workflow-4 status; pending Opus reconciliation."
+  },
+  "naming_rule": "address_string identifies the artifact. status, maturity, scores DO NOT become the permanent filename. Filename uses {SERIES}-{ARTICLE}[-{SUFFIX}].{ext} per FILE-NAMING-SYSTEM.md.",
+  "confidence": "draft"
+}

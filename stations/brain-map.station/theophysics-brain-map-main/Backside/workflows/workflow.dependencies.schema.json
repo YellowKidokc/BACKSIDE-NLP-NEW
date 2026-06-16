@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "theophysics.workflow.dependencies.v1",
+  "title": "Theophysics workflow dependencies",
+  "type": "object",
+  "required": ["schema", "workflow", "stations"],
+  "properties": {
+    "schema": {
+      "const": "theophysics.workflow.dependencies.v1"
+    },
+    "workflow": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "stations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9-]*$"
+      },
+      "uniqueItems": true
+    },
+    "models": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "external_services": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "endpoint": { "type": "string" },
+          "required": { "type": "boolean", "default": true }
+        },
+        "additionalProperties": true
+      }
+    },
+    "sinks": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,34 @@
+{
+  "name": "clip-vision.model",
+  "kind": "weight",
+  "anchor_role": "Image and figure description / similarity support.",
+  "status": "planned",
+  "owner": "shared",
+  "base_model": "CLIP or compatible vision encoder",
+  "runtime_path": "X:\\models",
+  "backing_models": [],
+  "called_by": [
+    "Backside/stations/describe-figure",
+    "Backside/stations/deconstruct-picture"
+  ],
+  "inputs": [
+    "figures",
+    "charts",
+    "screenshots",
+    "paper images"
+  ],
+  "outputs": [
+    "image description",
+    "visual similarity score",
+    "prompt reconstruction notes"
+  ],
+  "non_goals": [
+    "Do not infer unseen data from an image.",
+    "Do not describe decorative style as evidence."
+  ],
+  "verification": [
+    "Image outputs include source filename.",
+    "Charts are flagged for OCR/table extraction when needed."
+  ],
+  "notes": "Supports figure handling in paper workflows and prompt generation from images."
+}

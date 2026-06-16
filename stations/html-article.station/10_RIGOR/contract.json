@@ -1,0 +1,100 @@
+{
+  "lane_id": "10",
+  "lane_name": "Rigor",
+  "input": {
+    "requires": [
+      "00_DROP/*.md|*.html",
+      "02_SECTION_MAP/section-map.json (optional if present)",
+      "05_CLAIMS/claim-packets.json (optional if present)",
+      "06_CONTRADICTIONS/contradiction-ledger.json (optional if present)",
+      "07_MATH_TRANSLATION/math-payload.json (optional if present)"
+    ],
+    "format": "Source article plus optional upstream JSON packets. When upstream is absent, worker-5 may mock from source and document the fallback."
+  },
+  "output": {
+    "produces": [
+      "rigor-report.json",
+      "rigor-report.md",
+      "readiness-decision.json"
+    ],
+    "format": "JSON-first rigor packet plus Markdown review summary. Section/page markers remain machine-readable."
+  },
+  "loopback_conditions": [
+    "page_id or section_id cannot be stabilized from the source artifact",
+    "readiness decision cannot cite the source or a concrete upstream packet",
+    "math/claims/contradictions drift so far that the source-only fallback would hide a structural break"
+  ],
+  "dependencies": {
+    "upstream_lanes": [
+      "02_SECTION_MAP",
+      "05_CLAIMS",
+      "06_CONTRADICTIONS",
+      "07_MATH_TRANSLATION"
+    ],
+    "stations": [
+      "7q-classifier.station",
+      "deberta-runner.station (if later added to the station tree)"
+    ],
+    "models": [
+      "7Q model-backed pass is optional and external to this packet",
+      "DeBERTa/NLI pass is optional and not locally wired in this round"
+    ]
+  },
+  "excel_columns": {
+    "primary_tab": "Rigor",
+    "columns": [
+      {
+        "name": "paper_uuid",
+        "type": "string"
+      },
+      {
+        "name": "page_id",
+        "type": "string"
+      },
+      {
+        "name": "section_id",
+        "type": "string"
+      },
+      {
+        "name": "rigor_status",
+        "type": "enum:passed|loopback|failed|pending"
+      },
+      {
+        "name": "upstream_mode",
+        "type": "enum:existing_upstream|mocked_source_only"
+      },
+      {
+        "name": "notes",
+        "type": "string"
+      }
+    ],
+    "supporting_tabs": [
+      {
+        "tab_name": "Readiness_Decision",
+        "columns": [
+          {
+            "name": "paper_uuid",
+            "type": "string"
+          },
+          {
+            "name": "page_id",
+            "type": "string"
+          },
+          {
+            "name": "decision",
+            "type": "string"
+          },
+          {
+            "name": "decision_basis",
+            "type": "string"
+          },
+          {
+            "name": "next_lanes",
+            "type": "string[]"
+          }
+        ]
+      }
+    ]
+  },
+  "confidence": "tested"
+}

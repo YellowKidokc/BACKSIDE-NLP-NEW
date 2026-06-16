@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  PAGE_META
+  series: GTQ
+  article: gtq-10-how-lies-kill
+  title: gtq-10-how-lies-kill — Paper Grade Dashboard
+  version: 2.0
+  template: paper-grade-dashboard
+  marked_by: opus
+  marked_date: 2026-05-24
+  purpose: Per-article proof dashboard. Shows claims, 7Q coverage, maturity,
+    evidence markers, kill conditions, derivation chain snapshot, Fruits vectors,
+    and repair pressure — all in one page. THE SPINE for individual articles.
+  consumes: .paper-grade.json, .paper-snapshot.json
+  links_up_to: series-proof-packet (GTQ)
+  links_down_to: none (terminal leaf)
+  design_language: Proof Explorer dark theme (pe-/sp- family, pg- sub-prefix)
+  generator_notes: Every section labeled with BEGIN/END component markers.
+    Every data-bearing element has data-component and data-name attributes.
+    Template slots use  syntax for Python population.
+    CSS components labeled with ═══════ COMPONENT: comments.
+    data-static="true" marks content that never changes across articles.
+-->
+<head>
+
+<!-- BEGIN:COMPONENT:head:head-paper-grade -->
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>gtq-10-how-lies-kill — Paper Grade Dashboard</title>
+<meta name="description" content="Proof dashboard for gtq-10-how-lies-kill: claims, 7Q, maturity, evidence, kill conditions, and repair pressure."/>
+<meta name="author" content="David Lowe"/>
+<link rel="canonical" href="https://proof-explorer.theophysics.pro/series/gtq/articles/gtq-10-how-lies-kill-dashboard.html"/>
+
+<!-- Open Graph -->
+<meta property="og:title" content="gtq-10-how-lies-kill — Paper Grade"/>
+<meta property="og:description" content="Claims, evidence, falsification, and maturity grading for gtq-10-how-lies-kill."/>
+<meta property="og:type" content="article"/>
+
+<!-- JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "gtq-10-how-lies-kill — Paper Grade Dashboard",
+  "author": {"@type": "Person", "name": "David Lowe"},
+  "datePublished": "2026-05-24",
+  "dateModified": "2026-05-24"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<!-- END:COMPONENT:head:head-paper-grade -->
+
+<!-- BEGIN:COMPONENT:style:style-paper-grade -->
+<style>
+/* ═══════ COMPONENT:style:design-tokens ═══════ */
+:root{
+  --bg:#050505; --surface:#0a0a0a; --surface2:#111; --surface3:#1a1a1a;
+  --border:#222; --border-2:#2a2a2a; --border-hi:#3a3a3a;
+  --text:#e5e3df; --text-dim:#9a9a9a; --text-muted:#5a5a5a;
+  --gold:#d4af37; --gold-dim:rgba(212,175,55,.1); --gold-glow:rgba(212,175,55,.06);
+  --green:#4ade80; --green-dim:rgba(74,222,128,.1);
+  --amber:#fb923c; --amber-dim:rgba(251,146,60,.1);
+  --red:#f87171; --red-dim:rgba(248,113,113,.1);
+  --blue:#38bdf8; --blue-dim:rgba(56,189,248,.1);
+  --serif:'Crimson Text',Georgia,serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --display:'Oswald','Inter',sans-serif;
+  --sans:'Inter',system-ui,sans-serif;
+  --max:1100px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a.skip-link{position:absolute;top:-40px;left:0;background:var(--gold);color:#000;padding:.5rem 1rem;z-index:100;font-size:.85rem}
+a.skip-link:focus{top:0}
+
+/* ═══════ COMPONENT:topbar:header-paper-grade ═══════ */
+.pg-header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:.65rem 1.5rem;backdrop-filter:blur(14px) saturate(140%);background:rgba(5,5,5,.7);border-bottom:1px solid transparent;transition:all .25s ease}
+.pg-header-scrolled{background:rgba(8,8,8,.92);border-bottom-color:var(--border)}
+.pg-brand{display:flex;align-items:center;gap:.6rem}
+.pg-mark{font-family:var(--serif);font-size:1.3rem;color:var(--gold);line-height:1}
+.pg-name{font-family:var(--mono);font-size:.58rem;letter-spacing:.2em;color:var(--text-muted);text-transform:uppercase}
+.pg-name span{color:var(--gold)}
+.pg-back{font-family:var(--mono);font-size:.58rem;color:var(--text-muted);display:flex;align-items:center;gap:.35rem;padding:.35rem .55rem;border-radius:4px;transition:all .15s}
+.pg-back:hover{color:var(--gold);background:var(--gold-dim)}
+.pg-nav{display:flex;gap:.1rem;flex-wrap:wrap}
+.pg-nav a{font-family:var(--display);font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;padding:.4rem .55rem;border-radius:4px;color:var(--text-dim);transition:all .15s}
+.pg-nav a:hover,.pg-nav a.active{color:var(--gold);background:var(--gold-dim)}
+@media(max-width:800px){.pg-nav{display:none}}
+
+/* ═══════ COMPONENT:hero:hero-paper-grade ═══════ */
+.pg-hero{position:relative;padding:6.5rem 1.5rem 2.5rem;overflow:hidden}
+.pg-hero::before{content:'';position:absolute;top:15%;left:50%;transform:translate(-50%,-50%);width:700px;height:350px;background:radial-gradient(ellipse,rgba(212,175,55,.04) 0%,transparent 65%);pointer-events:none}
+.pg-hero-inner{max-width:var(--max);margin:0 auto;position:relative}
+.pg-hero-row{display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.pg-hero-text{flex:1;min-width:260px}
+.pg-hero-eyebrow{font-family:var(--mono);font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.7rem}
+.pg-hero h1{font-family:var(--display);font-weight:500;font-size:clamp(1.8rem,4.5vw,3rem);line-height:1.08;color:#fff;margin-bottom:.7rem;letter-spacing:.02em}
+.pg-hero-sub{font-family:var(--serif);font-size:1rem;color:var(--text-dim);line-height:1.55;font-style:italic;max-width:520px;margin-bottom:.8rem}
+.pg-hero-address{font-family:var(--mono);font-size:.62rem;color:var(--text-muted);line-height:1.7;padding:.8rem 1rem;background:var(--surface2);border:1px solid var(--border);border-radius:6px;margin-top:.6rem;overflow-wrap:anywhere}
+.pg-hero-address b{color:var(--text-dim)}
+
+/* ═══════ COMPONENT:hero:grade-badge ═══════ */
+.pg-grade-badge{flex:0 0 auto;padding:1.3rem 1.8rem;background:var(--surface2);border:1px solid var(--border);border-radius:8px;text-align:center;min-width:130px}
+.pg-grade-label{font-family:var(--mono);font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.35rem}
+.pg-grade-value{font-family:var(--display);font-size:2.8rem;color:var(--gold);line-height:1}
+.pg-grade-sub{font-family:var(--mono);font-size:.55rem;color:var(--text-dim);margin-top:.35rem}
+
+/* ═══════ COMPONENT:section:stats-ribbon ═══════ */
+.pg-stats{max-width:var(--max);margin:0 auto;padding:0 1.5rem 2.5rem}
+.pg-stats-inner{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--surface2)}
+.pg-stat{padding:1rem .6rem;text-align:center;border-right:1px solid var(--border)}
+.pg-stat:last-child{border-right:0}
+.pg-stat-num{font-family:var(--display);font-size:1.35rem;color:var(--gold);display:block;margin-bottom:.15rem}
+.pg-stat-label{font-family:var(--mono);font-size:.5rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em}
+
+/* ═══════ COMPONENT:section:generic ═══════ */
+.pg-sec{max-width:var(--max);margin:0 auto;padding:2.5rem 1.5rem}
+.pg-sec-head{display:flex;align-items:center;gap:.7rem;margin-bottom:.45rem}
+.pg-sec-dot{width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.pg-sec-kicker{font-family:var(--mono);font-size:.6rem;color:var(--text-muted);letter-spacing:.15em;text-transform:uppercase}
+.pg-sec h2{font-family:var(--serif);font-size:clamp(1.25rem,2.5vw,1.6rem);font-weight:400;color:#fff;margin-bottom:.2rem}
+.pg-sec-desc{font-size:.84rem;color:var(--text-dim);max-width:600px;margin-bottom:1.3rem;line-height:1.55}
+
+/* ═══════ COMPONENT:section:7q-coverage ═══════ */
+.pg-7q-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.5rem}
+.pg-7q-item{padding:.85rem 1rem;background:var(--surface2);border:1px solid var(--border);border-radius:5px;border-left:3px solid var(--gold)}
+.pg-7q-label{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:.3rem}
+.pg-7q-values{font-size:.78rem;color:var(--text-dim);margin-bottom:.35rem}
+.pg-7q-bar{height:5px;background:var(--surface3);border-radius:3px;overflow:hidden;margin-top:.3rem}
+.pg-7q-fill{height:100%;border-radius:3px;transition:width .3s}
+.pg-7q-fill.high{background:var(--green)}
+.pg-7q-fill.mid{background:var(--amber)}
+.pg-7q-fill.low{background:var(--red)}
+.pg-7q-pct{font-family:var(--mono);font-size:.55rem;color:var(--text-muted);margin-top:.2rem}
+.pg-7q-weak{font-family:var(--mono);font-size:.52rem;color:var(--red);margin-top:.15rem}
+
+/* ═══════ COMPONENT:section:maturity-distribution ═══════ */
+.pg-maturity-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+@media(max-width:640px){.pg-maturity-grid{grid-template-columns:1fr}}
+.pg-mat-panel{padding:1rem 1.1rem;background:var(--surface2);border:1px solid var(--border);border-radius:6px}
+.pg-mat-panel h3{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:.7rem}
+.pg-mat-row{display:flex;align-items:center;justify-content:space-between;padding:.45rem 0;border-bottom:1px solid var(--border-2)}
+.pg-mat-row:last-child{border-bottom:0}
+.pg-mat-row-label{font-size:.82rem;color:var(--text)}
+.pg-mat-row-val{font-family:var(--mono);font-size:.78rem;color:var(--gold)}
+.pg-mat-row-pct{font-family:var(--mono);font-size:.68rem;color:var(--text-muted);margin-left:.5rem}
+
+/* ═══════ COMPONENT:section:repair-pressure ═══════ */
+.pg-pressure-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.45rem}
+.pg-pressure-card{display:flex;align-items:center;justify-content:space-between;padding:.75rem .9rem;background:var(--surface2);border:1px solid var(--border);border-radius:5px;border-left:3px solid var(--red)}
+.pg-pressure-name{font-family:var(--mono);font-size:.65rem;color:var(--text-dim)}
+.pg-pressure-count{font-family:var(--display);font-size:1.3rem;color:var(--red)}
+
+/* ═══════ COMPONENT:section:claims-table ═══════ */
+.pg-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.pg-table{width:100%;border-collapse:collapse;font-size:.8rem;min-width:700px}
+.pg-table th{text-align:left;padding:.6rem .7rem;font-family:var(--mono);font-size:.52rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border);font-weight:500;position:sticky;top:0;background:var(--bg)}
+.pg-table td{padding:.5rem .7rem;border-bottom:1px solid var(--border-2);color:var(--text);vertical-align:top}
+.pg-table tr:hover td{background:var(--surface2)}
+.pg-table td:first-child{font-family:var(--mono);font-size:.72rem;color:var(--gold);white-space:nowrap}
+.pg-table .mat-badge{display:inline-block;font-family:var(--mono);font-size:.52rem;padding:.12rem .35rem;border-radius:3px;letter-spacing:.05em}
+.pg-table .mat-metaphor{background:var(--red-dim);color:var(--red)}
+.pg-table .mat-structural{background:var(--amber-dim);color:var(--amber)}
+.pg-table .mat-formal{background:var(--blue-dim);color:var(--blue)}
+.pg-table .mat-proof{background:var(--green-dim);color:var(--green)}
+.pg-table .kill-note{font-size:.72rem;color:var(--red);font-style:italic}
+.pg-table .ev-note{font-size:.72rem;color:var(--text-muted)}
+
+/* ═══════ COMPONENT:section:derivation-snapshot ═══════ */
+.pg-deriv-chain{display:flex;align-items:center;gap:.25rem;flex-wrap:wrap;padding:.8rem 0}
+.pg-deriv-node{font-family:var(--mono);font-size:.68rem;padding:.35rem .6rem;background:var(--surface2);border:1px solid var(--border);border-radius:4px;color:var(--gold);white-space:nowrap}
+.pg-deriv-node.active{border-color:var(--gold);background:var(--gold-dim)}
+.pg-deriv-arrow{color:var(--text-muted);font-size:.65rem}
+
+/* ═══════ COMPONENT:section:fruits-snapshot ═══════ */
+.pg-fruits-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.35rem}
+.pg-fruit-card{padding:.65rem .7rem;background:var(--surface2);border:1px solid var(--border);border-radius:5px;text-align:center}
+.pg-fruit-name{font-family:var(--serif);font-size:.85rem;color:#fff;margin-bottom:.2rem}
+.pg-fruit-greek{font-family:var(--mono);font-size:.52rem;color:var(--text-muted);margin-bottom:.3rem}
+.pg-fruit-eq{font-family:var(--mono);font-size:.58rem;color:var(--gold);line-height:1.35}
+.pg-fruit-status{font-family:var(--mono);font-size:.48rem;letter-spacing:.08em;text-transform:uppercase;margin-top:.3rem;padding:.1rem .3rem;border-radius:2px;display:inline-block}
+.pg-fruit-status.derived{background:var(--green-dim);color:var(--green)}
+.pg-fruit-status.pending{background:var(--amber-dim);color:var(--amber)}
+
+/* ═══════ COMPONENT:section:station-marks ═══════ */
+.pg-station-table{width:100%;border-collapse:collapse;font-size:.82rem}
+.pg-station-table th{text-align:left;padding:.55rem .7rem;font-family:var(--mono);font-size:.52rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border)}
+.pg-station-table td{padding:.55rem .7rem;border-bottom:1px solid var(--border-2)}
+
+/* ═══════ COMPONENT:section:kill-conditions ═══════ */
+.pg-kill-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.5rem}
+.pg-kill-card{padding:1rem 1.1rem;background:var(--surface2);border:1px solid var(--border);border-radius:6px;transition:all .2s}
+.pg-kill-card:hover{border-color:var(--gold);transform:translateY(-1px)}
+.pg-kill-row{display:flex;align-items:center;gap:.4rem;margin-bottom:.35rem;font-family:var(--mono);font-size:.55rem;letter-spacing:.08em}
+.pg-kill-code{color:var(--gold);background:var(--gold-dim);padding:.1rem .35rem;border-radius:3px}
+.pg-kill-status{padding:.1rem .35rem;border-radius:3px;font-size:.5rem;font-weight:600}
+.pg-kill-status.pass{background:rgba(74,222,128,.12);color:#4ade80}
+.pg-kill-status.warn{background:rgba(251,146,60,.12);color:#fb923c}
+.pg-kill-status.fail{background:rgba(248,113,113,.12);color:#f87171}
+.pg-kill-card h3{font-family:var(--serif);font-size:.95rem;color:#fff;font-weight:400;margin-bottom:.25rem}
+.pg-kill-card p{font-size:.78rem;color:var(--text-dim)}
+.pg-kill-foot{font-family:var(--mono);font-size:.52rem;color:var(--text-muted);margin-top:.5rem}
+
+/* ═══════ COMPONENT:section:chart-placeholder ═══════ */
+.pg-chart-slot{padding:2.5rem 1.5rem;background:var(--surface2);border:1px solid var(--border);border-radius:8px;text-align:center}
+.pg-chart-slot i{font-size:2rem;color:var(--gold);opacity:.3;margin-bottom:.7rem;display:block}
+.pg-chart-slot p{color:var(--text-dim);font-size:.82rem}
+.pg-chart-slot .pg-chart-meta{font-family:var(--mono);font-size:.58rem;color:var(--text-muted);margin-top:.5rem}
+
+/* ═══════ COMPONENT:footer:footer-paper-grade ═══════ */
+.pg-footer{max-width:var(--max);margin:2.5rem auto 0;padding:2rem 1.5rem;text-align:center;border-top:1px solid var(--border)}
+.pg-footer .feq{font-family:var(--mono);font-size:.7rem;color:var(--gold);opacity:.5;margin-bottom:.5rem}
+.pg-footer p{color:var(--text-muted);font-size:.72rem;margin:.2rem 0}
+
+/* ═══════ COMPONENT:style:responsive ═══════ */
+@media(max-width:640px){
+  .pg-hero-row{flex-direction:column}
+  .pg-grade-badge{align-self:flex-start}
+  .pg-stats-inner{grid-template-columns:repeat(3,1fr)}
+  .pg-stat{border-bottom:1px solid var(--border)}
+  .pg-7q-grid{grid-template-columns:1fr}
+  .pg-maturity-grid{grid-template-columns:1fr}
+  .pg-pressure-grid{grid-template-columns:1fr 1fr}
+  .pg-kill-grid{grid-template-columns:1fr}
+  .pg-fruits-grid{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+<!-- END:COMPONENT:style:style-paper-grade -->
+
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to content</a>
+
+<!-- BEGIN:COMPONENT:topbar:header-paper-grade -->
+<header class="pg-header" id="pg-header" data-component="topbar" data-name="header-paper-grade">
+  <div style="display:flex;align-items:center;gap:.9rem">
+    <a href="../gtq-proof-packet.html" class="pg-back" data-component="nav-link" data-name="back-to-series"><i class="fas fa-arrow-left"></i> GTQ</a>
+    <span class="pg-brand">
+      <span class="pg-mark">χ</span>
+      <span class="pg-name"><span>Paper Grade</span> // Dashboard</span>
+    </span>
+  </div>
+  <nav class="pg-nav" aria-label="Dashboard navigation" data-component="nav" data-name="section-nav">
+    <a href="#metrics">Metrics</a>
+    <a href="#7q">7Q</a>
+    <a href="#maturity">Maturity</a>
+    <a href="#pressure">Pressure</a>
+    <a href="#claims">Claims</a>
+    <a href="#derivation">Derivation</a>
+    <a href="#fruits">Fruits</a>
+    <a href="#kill">Kill</a>
+    <a href="#charts">Charts</a>
+  </nav>
+</header>
+<!-- END:COMPONENT:topbar:header-paper-grade -->
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION: HERO
+     ═══════════════════════════════════════════════════════════════ -->
+
+<!-- BEGIN:COMPONENT:hero:hero-paper-grade -->
+<section class="pg-hero" data-component="hero" data-name="hero-paper-grade">
+  <div class="pg-hero-inner">
+    <div class="pg-hero-row">
+
+      <!-- BEGIN:COMPONENT:hero:hero-text -->
+      <div class="pg-hero-text" data-component="hero-text" data-name="hero-text">
+        <div class="pg-hero-eyebrow" data-static="true">Paper Grader Surface</div>
+        <h1 id="main-content">gtq-10-how-lies-kill</h1>
+        <p class="pg-hero-sub">Deterministic paper-grader metrics: claims, equations, 7Q gaps, evidence markers, maturity distribution, and station status. This does not replace the canonical JSON/XLSX — it makes the audit readable.</p>
+
+        <!-- BEGIN:COMPONENT:hero:semantic-address -->
+        <div class="pg-hero-address" data-component="data-block" data-name="semantic-address">
+          <b>Semantic Address:</b> not present in loaded snapshot<br/>
+          <b>Filename Safe:</b> gtq-10-how-lies-kill<br/>
+          <b>Vector / Hash:</b> not present / not present<br/>
+          <b>Rigor Verdict:</b> not loaded &nbsp; <b>Math Layer:</b> not loaded (0 translated spans)
+        </div>
+        <!-- END:COMPONENT:hero:semantic-address -->
+      </div>
+      <!-- END:COMPONENT:hero:hero-text -->
+
+      <!-- BEGIN:COMPONENT:hero:grade-badge -->
+      <div class="pg-grade-badge" data-component="data-block" data-name="grade-badge">
+        <div class="pg-grade-label">Article Grade</div>
+        <div class="pg-grade-value">D</div>
+        <div class="pg-grade-sub">avg maturity 3.6/7</div>
+      </div>
+      <!-- END:COMPONENT:hero:grade-badge -->
+
+    </div>
+  </div>
+</section>
+<!-- END:COMPONENT:hero:hero-paper-grade -->
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION: STATS RIBBON
+     ═══════════════════════════════════════════════════════════════ -->
+
+<!-- BEGIN:COMPONENT:section:stats-ribbon -->
+<!--
+  PROMPT:generator: Populate from .paper-grade.json metadata.
+  - words: metadata.word_count
+  - sections: metadata.section_count
+  - equations: metadata.equation_count
+  - claims: len(claims)
+  - maturity_levels: count of unique maturity_level values
+  - evidence_markers: count of claims with evidence != "No explicit evidence marker"
+-->
+<section class="pg-stats" id="metrics" data-component="section" data-name="stats-ribbon">
+  <div class="pg-stats-inner">
+    <!-- BEGIN:TEMPLATE:SLOT:stat-cell -->
+    <div class="pg-stat" data-component="stat" data-name="stat-words"><span class="pg-stat-num">5733</span><span class="pg-stat-label">Words</span></div>
+    <div class="pg-stat" data-component="stat" data-name="stat-sections"><span class="pg-stat-num">55</span><span class="pg-stat-label">Sections</span></div>
+    <div class="pg-stat" data-component="stat" data-name="stat-equations"><span class="pg-stat-num">88</span><span class="pg-stat-label">Equations</span></div>
+    <div class="pg-stat" data-component="stat" data-name="stat-claims"><span class="pg-stat-num">73</span><span class="pg-stat-label">Claims</span></div>
+    <div class="pg-stat" data-component="stat" data-name="stat-evidence"><span class="pg-stat-num">9</span><span class="pg-stat-label">Evidenced</span></div>
+    <div class="pg-stat" data-component="stat" data-name="stat-kill"><span class="pg-stat-num">2</span><span class="pg-stat-label">Kill Tests</span></div>
+    <!-- END:TEMPLATE:SLOT:stat-cell -->
+  </div>
+</section>
+<!-- END:COMPONENT:section:stats-ribbon -->
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION: 7Q COVERAGE
+     ═══════════════════════════════════════════════════════════════ -->
+
+<!-- BEGIN:COMPONENT:section:7q-coverage -->
+<!--
+  PROMPT:generator: Build 7Q coverage grid from .paper-grade.json 7qs_coverage.
+  For each Q (Q1-Q7): question_name, observed_values (comma-separated counts),
+  weak_count, coverage_percentage.
+  Bar fill class: >=70% = high, 40-69% = mid, <40% = low.
+-->
+<section class="pg-sec" id="7q" data-component="section" data-name="7q-coverage">
+  <div class="pg-sec-head">
+    <span class="pg-sec-dot"></span>
+    <span class="pg-sec-kicker">7Q Engine</span>
+  </div>
+  <h2>Seven-Question Coverage</h2>
+  <p class="pg-sec-desc">How completely does this article address each of the seven questions? Low coverage = repair target.</p>
+
+  <div class="pg-7q-grid">
+    <!-- TEMPLATE:SLOT:7q-item — repeat for Q1 through Q7 -->
+        <div class="pg-7q-item" data-component="7q-item" data-name="7q-Q1_identity">
+      <div class="pg-7q-label">Identity</div>
+      <div class="pg-7q-values">implicit: 46, clear: 27</div>
+      <div class="pg-7q-bar"><div class="pg-7q-fill low" style="width:37.0%"></div></div>
+      <div class="pg-7q-pct">37.0% coverage</div>
+      <div class="pg-7q-weak">46 weak</div>
+    </div>
+    <div class="pg-7q-item" data-component="7q-item" data-name="7q-Q2_scope">
+      <div class="pg-7q-label">Scope</div>
+      <div class="pg-7q-values">broad: 65, bounded: 8</div>
+      <div class="pg-7q-bar"><div class="pg-7q-fill low" style="width:11.0%"></div></div>
+      <div class="pg-7q-pct">11.0% coverage</div>
+      <div class="pg-7q-weak">65 weak</div>
+    </div>
+    <div class="pg-7q-item" data-component="7q-item" data-name="7q-Q3_mechanism">
+      <div class="pg-7q-label">Mechanism</div>
+      <div class="pg-7q-values">missing: 53, present: 20</div>
+      <div class="pg-7q-bar"><div class="pg-7q-fill low" style="width:27.4%"></div></div>
+      <div class="pg-7q-pct">27.4% coverage</div>
+      <div class="pg-7q-weak">53 weak</div>
+    </div>
+    <div class="pg-7q-item" data-component="7q-item" data-name="7q-Q4_evidence">
+      <div class="pg-7q-label">Evidence</div>
+      <div class="pg-7q-values">missing: 64, present: 9</div>
+      <div class="pg-7q-bar"><div class="pg-7q-fill low" style="width:12.3%"></div></div>
+      <div class="pg-7q-pct">12.3% coverage</div>
+      <div class="pg-7q-weak">64 weak</div>
+    </div>
+    <div class="pg-7q-item" data-component="7q-item" data-name="7q-Q5_falsifiability">
+      <div class="pg-7q-label">Falsifiability</div>
+      <div class="pg-7q-values">missing: 71, present: 2</div>
+      <div class="pg-7q-bar"><div class="pg-7q-fill low" style="width:2.7%"></div></div>
+      <div class="pg-7q-pct">2.7% coverage</div>
+      <div class="pg-7q-weak">71 weak</div>
+    </div>
+    <div class="pg-7q-item" data-component="7q-item" data-name="7q-Q6_boundary">
+      <div class="pg-7q-label">Boundary</div>
+      <div class="pg-7q-values">missing: 65, present: 8</div>
+      <div class="pg-7q-bar"><div class="pg-7q-fill low" style="width:11.0%"></div></div>
+      <div class="pg-7q-pct">11.0% coverage</div>
+      <div class="pg-7q-weak">65 weak</div>
+    </div>
+    <div class="pg-7q-item" data-component="7q-item" data-name="7q-Q7_listener_risk">
+      <div class="pg-7q-label">Listener Risk</div>
+      <div class="pg-7q-values">normal: 71, high: 2</div>
+      <div class="pg-7q-bar"><div class="pg-7q-fill high" style="width:97.3%"></div></div>
+      <div class="pg-7q-pct">97.3% coverage</div>
+      <div class="pg-7q-weak">2 weak</div>
+    </div>
+        <!-- END:TEMPLATE:SLOT:7q-item -->
+  </div>
+</section>
+<!-- END:COMPONENT:section:7q-coverage -->
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION: MATURITY + EVIDENCE
+     ═══════════════════════════════════════════════════════════════ -->
+
+<!-- BEGIN:COMPONENT:section:maturity-evidence -->
+<!--
+  PROMPT:generator: Two panels side by side.
+  Left: Maturity Distribution from claims.maturity_level counts.
+  Right: Evidence Markers from claims.evidence field.
+  Pull from: .paper-grade.json claims array, aggregate by maturity_level and evidence.
+-->
+<section class="pg-sec" id="maturity" data-component="section" data-name="maturity-evidence">
+  <div class="pg-sec-head">
+    <span class="pg-sec-dot"></span>
+    <span class="pg-sec-kicker">Maturity</span>
+  </div>
+  <h2>Claim Maturity &amp; Evidence</h2>
+  <p class="pg-sec-desc">How mature are the claims? How many have explicit evidence markers?</p>
+
+  <div class="pg-maturity-grid">
+
+    <!-- BEGIN:COMPONENT:panel:maturity-distribution -->
+    <div class="pg-mat-panel" data-component="panel" data-name="maturity-distribution">
+      <h3>Maturity Distribution</h3>
+      <!-- TEMPLATE:SLOT:maturity-row — repeat for each maturity level -->
+            <div class="pg-mat-row" data-component="mat-row" data-name="mat-formal-model">
+        <span class="pg-mat-row-label">Formal Model</span>
+        <span><span class="pg-mat-row-val">37</span><span class="pg-mat-row-pct">50.7%</span></span>
+      </div>
+      <div class="pg-mat-row" data-component="mat-row" data-name="mat-metaphor">
+        <span class="pg-mat-row-label">Metaphor</span>
+        <span><span class="pg-mat-row-val">22</span><span class="pg-mat-row-pct">30.1%</span></span>
+      </div>
+      <div class="pg-mat-row" data-component="mat-row" data-name="mat-public-proof-claim">
+        <span class="pg-mat-row-label">Public Proof Claim</span>
+        <span><span class="pg-mat-row-val">12</span><span class="pg-mat-row-pct">16.4%</span></span>
+      </div>
+      <div class="pg-mat-row" data-component="mat-row" data-name="mat-structural-correspondence">
+        <span class="pg-mat-row-label">Structural Correspondence</span>
+        <span><span class="pg-mat-row-val">1</span><span class="pg-mat-row-pct">1.4%</span></span>
+      </div>
+      <div class="pg-mat-row" data-component="mat-row" data-name="mat-empirical-support">
+        <span class="pg-mat-row-label">Empirical Support</span>
+        <span><span class="pg-mat-row-val">1</span><span class="pg-mat-row-pct">1.4%</span></span>
+      </div>
+            <!-- END:TEMPLATE:SLOT:maturity-row -->
+    </div>
+    <!-- END:COMPONENT:panel:maturity-distribution -->
+
+    <!-- BEGIN:COMPONENT:panel:evidence-markers -->
+    <div class="pg-mat-panel" data-component="panel" data-name="evidence-markers">
+      <h3>Evidence Markers</h3>
+      <!-- TEMPLATE:SLOT:evidence-marker-row — repeat for each marker type -->
+            <div class="pg-mat-row" data-component="ev-row" data-name="ev-no-explicit-marker">
+        <span class="pg-mat-row-label">no explicit marker</span>
+        <span class="pg-mat-row-val">64</span>
+      </div>
+      <div class="pg-mat-row" data-component="ev-row" data-name="ev-source">
+        <span class="pg-mat-row-label">source</span>
+        <span class="pg-mat-row-val">4</span>
+      </div>
+      <div class="pg-mat-row" data-component="ev-row" data-name="ev-observation">
+        <span class="pg-mat-row-label">observation</span>
+        <span class="pg-mat-row-val">1</span>
+      </div>
+      <div class="pg-mat-row" data-component="ev-row" data-name="ev-prediction">
+        <span class="pg-mat-row-label">prediction</span>
+        <span class="pg-mat-row-val">1</span>
+      </div>
+      <div class="pg-mat-row" data-component="ev-row" data-name="ev-data">
+        <span class="pg-mat-row-label">data</span>
+        <span class="pg-mat-row-val">1</span>
+      </div>
+      <div class="pg-mat-row" data-component="ev-row" data-name="ev-experiment">
+        <span class="pg-mat-row-label">experiment</span>
+        <span class="pg-mat-row-val">1</span>
+      </div>
+      <div class="pg-mat-row" data-component="ev-row" data-name="ev-reference">
+        <span class="pg-mat-row-label">reference</span>
+        <span class="pg-mat-row-val">1</span>
+      </div>
+            <!-- END:TEMPLATE:SLOT:evidence-marker-row -->
+    </div>
+    <!-- END:COMPONENT:panel:evidence-markers -->
+
+  </div>
+</section>
+<!-- END:COMPONENT:section:maturity-evidence -->
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION: REPAIR PRESSURE
+     ═══════════════════════════════════════════════════════════════ -->
+
+<!-- BEGIN:COMPONENT:section:repair-pressure -->
+<!--
+  PROMPT:generator: Identify top repair targets from 7Q weak counts.
+  Sort by weak_count descending. Show top 6 (or fewer if less exist).
+  Pull from: .paper-grade.json 7qs_coverage where weak > 0.
+-->
+<section class="pg-sec" id="pressure" data-component="section" data-name="repair-pressure">
+  <div class="pg-sec-head">
+    <span class="pg-sec-dot"></span>
+    <span class="pg-sec-kicker">Repair</span>
+  </div>
+  <h2>Primary Repair Pressure</h2>
+  <p class="pg-sec-desc">Where is this article weakest? Fix these first.</p>
+
+  <div class="pg-pressure-grid">
+    <!-- TEMPLATE:SLOT:pressure-card — repeat for each weak Q -->
+        <div class="pg-pressure-card" data-component="pressure-card" data-name="pressure-weak-q5-falsifiability">
+      <span class="pg-pressure-name">weak:Q5_falsifiability</span>
+      <span class="pg-pressure-count">71</span>
+    </div>
+    <div class="pg-pressure-card" data-component="pressure-card" data-name="pressure-weak-q6-boundary">
+      <span class="pg-pressure-name">weak:Q6_boundary</span>
+      <span class="pg-pressure-count">65</span>
+    </div>
+    <div class="pg-pressure-card" data-component="pressure-card" data-name="pressure-weak-q2-scope">
+      <span class="pg-pressure-name">weak:Q2_scope</span>
+      <span class="pg-pressure-count">65</span>
+    </div>
+    <div class="pg-pressure-card" data-component="pressure-card" data-name="pressure-weak-q4-evidence">
+      <span class="pg-pressure-name">weak:Q4_evidence</span>
+      <span class="pg-pressure-count">64</span>
+    </div>
+    <div class="pg-pressure-card" data-component="pressure-card" data-name="pressure-weak-q3-mechanism">
+      <span class="pg-pressure-name">weak:Q3_mechanism</span>
+      <span class="pg-pressure-count">53</span>
+    </div>
+    <div class="pg-pressure-card" data-component="pressure-card" data-name="pressure-weak-q1-identity">
+      <span class="pg-pressure-name">weak:Q1_identity</span>
+      <span class="pg-pressure-count">46</span>
+    </div>
+    <div class="pg-pressure-card" data-component="pressure-card" data-name="pressure-risk-q7-listener-risk">
+      <span class="pg-pressure-name">risk:Q7_listener_risk</span>
+      <span class="pg-pressure-count">2</span>
+    </div>
+        <!-- END:TEMPLATE:SLOT:pressure-card -->
+  </div>
+</section>
+<!-- END:COMPONENT:section:repair-pressure -->
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION: CLAIM AUDIT TABLE
+     ═══════════════════════════════════════════════════════════════ -->
+
+<!-- BEGIN:COMPONENT:section:claims-table -->
+<!--
+  PROMPT:generator: Build full claim audit table from .paper-grade.json claims array.
+  For each claim: claim_number, section, claim_text, maturity_level, evidence, kill_condition, proof_boundary.
+  Show first 40 claims, note "full audit in XLSX/JSON" at bottom.
+  Maturity badge classes: Metaphor=mat-metaphor, Structural=mat-structural, Formal=mat-formal, Proof=mat-proof.
+-->
+<section class="pg-sec" id="claims" data-component="section" data-name="claims-table">
+  <div class="pg-sec-head">
+    <span class="pg-sec-dot"></span>
+    <span class="pg-sec-kicker">Claims</span>
+  </div>
+  <h2>Claim Audit</h2>
+  <p class="pg-sec-desc">Every extracted claim with maturity level, evidence status, kill condition, and proof boundary. The full canonical audit.</p>
+
+  <div class="pg-table-wrap">
+  <table class="pg-table" data-component="table" data-name="claim-audit-table">
+    <thead>
+      <tr>
+        <th data-column="number">#</th>
+        <th data-column="section">Section</th>
+        <th data-column="claim">Claim</th>
+        <th data-column="maturity">Maturity</th>
+        <th data-column="evidence">Evidence</th>
+        <th data-column="kill">Kill Condition</th>
+        <th data-column="boundary">Proof Boundary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- TEMPLATE:SLOT:claim-row — repeat for each claim (max 40 shown) -->
+            <tr data-component="claim-row" data-name="claim-1">
+        <td>1</td>
+        <td>Critical Insight</td>
+        <td>Lies compound at rate $e^{\lambda n}$ — corrupt civilizations don&#x27;t fall because of external enemies, they fall because deception is measurable entropy injection.</td>
+        <td><span class="mat-badge mat-formal">Formal Model</span><br/><span class="ev-note">Level 4</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-2">
+        <td>2</td>
+        <td>Romans 6:23</td>
+        <td>The Claim That sentence is not a legal judgment.</td>
+        <td><span class="mat-badge mat-metaphor">Metaphor</span><br/><span class="ev-note">Level 1</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-3">
+        <td>3</td>
+        <td>Lie Compound Rate</td>
+        <td>The truth, once spoken, requires no infrastructure. — The Asymmetry This is not a social observation.</td>
+        <td><span class="mat-badge mat-structural">Structural Correspondence</span><br/><span class="ev-note">Level 3</span></td>
+        <td><span class="ev-note">observation</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Structural Correspondence, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-4">
+        <td>4</td>
+        <td>Plain English</td>
+        <td>A lie cannot exist in isolation because it creates a discrepancy that the environment probes, and the probe requires another lie.</td>
+        <td><span class="mat-badge mat-metaphor">Metaphor</span><br/><span class="ev-note">Level 1</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-5">
+        <td>5</td>
+        <td>Plain English</td>
+        <td>Deterministic systems are eternal because they have zero internal entropy production.</td>
+        <td><span class="mat-badge mat-metaphor">Metaphor</span><br/><span class="ev-note">Level 1</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-6">
+        <td>6</td>
+        <td>The Chain</td>
+        <td>Therefore: any system that contains lies will, over sufficient time, destroy itself.</td>
+        <td><span class="mat-badge mat-metaphor">Metaphor</span><br/><span class="ev-note">Level 1</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-7">
+        <td>7</td>
+        <td>The Chain</td>
+        <td>Therefore: eternity requires total truth.</td>
+        <td><span class="mat-badge mat-metaphor">Metaphor</span><br/><span class="ev-note">Level 1</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-8">
+        <td>8</td>
+        <td>The Chain</td>
+        <td>This is Shannon&#x27;s noisy channel theorem .</td>
+        <td><span class="mat-badge mat-proof">Public Proof Claim</span><br/><span class="ev-note">Level 7</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Public Proof Claim, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-9">
+        <td>9</td>
+        <td>John 14:6</td>
+        <td>This is an ontological claim â€” an identification with the deterministic substrate itself.</td>
+        <td><span class="mat-badge mat-metaphor">Metaphor</span><br/><span class="ev-note">Level 1</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-10">
+        <td>10</td>
+        <td>John 8:44</td>
+        <td>Not because God kills the sinner as punishment.</td>
+        <td><span class="mat-badge mat-formal">Formal Model</span><br/><span class="ev-note">Level 4</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-11">
+        <td>11</td>
+        <td>John 8:44</td>
+        <td>Because noise kills channels as physics .</td>
+        <td><span class="mat-badge mat-formal">Formal Model</span><br/><span class="ev-note">Level 4</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-12">
+        <td>12</td>
+        <td>Shannon Bound on Noisy Channels</td>
+        <td>$$\text{BER} &gt; 0 \;\implies\; \text{Channel Capacity} \to 0 \;\;\text{as}\;\; t \to \infty$$ Over infinite time, ANY non-zero error rate â€” no matter how small â€” compounds to total signal loss.</td>
+        <td><span class="mat-badge mat-formal">Formal Model</span><br/><span class="ev-note">Level 4</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-13">
+        <td>13</td>
+        <td>John 8:32</td>
+        <td>Truth requires zero energy to sustain because it has zero entropy.</td>
+        <td><span class="mat-badge mat-formal">Formal Model</span><br/><span class="ev-note">Level 4</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-14">
+        <td>14</td>
+        <td>John 8:32</td>
+        <td>To know the truth â€” to align your internal model with the actual configuration of reality â€” is to drop the entire entropy burden of every lie you were carrying.</td>
+        <td><span class="mat-badge mat-formal">Formal Model</span><br/><span class="ev-note">Level 4</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-15">
+        <td>15</td>
+        <td>The Ten Commandments as Signal Integrity Protocol</td>
+        <td>Shannon&#x27;s noisy channel theorem says that to communicate reliably over a noisy channel, you need an error-correcting code.</td>
+        <td><span class="mat-badge mat-proof">Public Proof Claim</span><br/><span class="ev-note">Level 7</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Public Proof Claim, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-16">
+        <td>16</td>
+        <td>Commandment Noise Category Filtered</td>
+        <td>The Bible as Error-Correction Protocol If sin is noise and the channel between God and humanity is degrading, then God&#x27;s interventions across biblical history map precisely to the stages of error-correction engineering:</td>
+        <td><span class="mat-badge mat-metaphor">Metaphor</span><br/><span class="ev-note">Level 1</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-17">
+        <td>17</td>
+        <td>Intervention Error-Correction Function</td>
+        <td>What Eternity Requires Here is the claim that locks everything together.</td>
+        <td><span class="mat-badge mat-metaphor">Metaphor</span><br/><span class="ev-note">Level 1</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-18">
+        <td>18</td>
+        <td>Plain English</td>
+        <td>Because any noise â€” any non-zero error â€” compounds to system failure over eternal time.</td>
+        <td><span class="mat-badge mat-metaphor">Metaphor</span><br/><span class="ev-note">Level 1</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-19">
+        <td>19</td>
+        <td>Plain English</td>
+        <td>The eternal channel requires zero noise.</td>
+        <td><span class="mat-badge mat-metaphor">Metaphor</span><br/><span class="ev-note">Level 1</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-20">
+        <td>20</td>
+        <td>Plain English</td>
+        <td>Civilizational Evidence If lies compound thermodynamically, civilizations built on lies should exhibit a predictable collapse pattern: functional in early stages (when noise is low), increasingly dysfunctional as lies accumulate, then sudden catastrophic failure when the noise floor exceeds the signal.</td>
+        <td><span class="mat-badge mat-metaphor">Metaphor</span><br/><span class="ev-note">Level 1</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-21">
+        <td>21</td>
+        <td>Plain English</td>
+        <td>The initial lie â€” “we are building utopia” â€” requires supporting lies about production numbers, political prisoners, economic performance.</td>
+        <td><span class="mat-badge mat-metaphor">Metaphor</span><br/><span class="ev-note">Level 1</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-22">
+        <td>22</td>
+        <td>Plain English</td>
+        <td>Internal communication breaks down because no one knows what&#x27;s true.</td>
+        <td><span class="mat-badge mat-metaphor">Metaphor</span><br/><span class="ev-note">Level 1</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-23">
+        <td>23</td>
+        <td>Plain English</td>
+        <td>Decision-making degrades because the inputs are corrupted.</td>
+        <td><span class="mat-badge mat-metaphor">Metaphor</span><br/><span class="ev-note">Level 1</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-24">
+        <td>24</td>
+        <td>Plain English</td>
+        <td>The system becomes unable to respond to actual threats because its own information channels are full of noise. — Soviet Collapse as Channel Failure The Soviet Union didn&#x27;t fall because of external military pressure.</td>
+        <td><span class="mat-badge mat-metaphor">Metaphor</span><br/><span class="ev-note">Level 1</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-25">
+        <td>25</td>
+        <td>Plain English</td>
+        <td>It fell because its internal information channels had degraded past the point of functionality.</td>
+        <td><span class="mat-badge mat-metaphor">Metaphor</span><br/><span class="ev-note">Level 1</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-26">
+        <td>26</td>
+        <td>Plain English</td>
+        <td>This is Shannon&#x27;s noisy channel theorem operating at civilizational scale.</td>
+        <td><span class="mat-badge mat-proof">Public Proof Claim</span><br/><span class="ev-note">Level 7</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Public Proof Claim, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-27">
+        <td>27</td>
+        <td>Plain English</td>
+        <td>What This Predicts Prediction 1 Honesty Norms ↔ Longevity Institutions, civilizations, and relationships that maintain higher truth-to-noise ratios should survive longer than those with lower ratios, controlling for other variables.</td>
+        <td><span class="mat-badge mat-unknown">Empirical Support</span><br/><span class="ev-note">Level 6</span></td>
+        <td><span class="ev-note">prediction</span></td>
+        <td><span class="kill-note">Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-28">
+        <td>28</td>
+        <td>Plain English</td>
+        <td>Testable against historical and sociological data.</td>
+        <td><span class="mat-badge mat-metaphor">Metaphor</span><br/><span class="ev-note">Level 1</span></td>
+        <td><span class="ev-note">data</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-29">
+        <td>29</td>
+        <td>Prediction 2 Compounding Is Measurable</td>
+        <td>The exponential growth $L(n) = L_0 \cdot e^{\lambda n}$ should be observable in documented deception cases â€” political scandals, corporate fraud, personal deception.</td>
+        <td><span class="mat-badge mat-formal">Formal Model</span><br/><span class="ev-note">Level 4</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-30">
+        <td>30</td>
+        <td>Lies Compound Exponentially</td>
+        <td>Shannon&#x27;s Theorem Applies A channel with persistent uncorrected errors will eventually lose all information.</td>
+        <td><span class="mat-badge mat-proof">Public Proof Claim</span><br/><span class="ev-note">Level 7</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Public Proof Claim, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-31">
+        <td>31</td>
+        <td>Lies Compound Exponentially</td>
+        <td>But attributing collapse primarily to accumulated lies requires controlling for economic, military, geographic, and demographic variables.</td>
+        <td><span class="mat-badge mat-metaphor">Metaphor</span><br/><span class="ev-note">Level 1</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-32">
+        <td>32</td>
+        <td>Where We Got Carried Away</td>
+        <td>Framework Connections Information Theory ↔ Moral Theology (Structural Isomorphism) Shannon&#x27;s noisy channel theorem and Romans 6:23 describe the same phenomenon in different notation.</td>
+        <td><span class="mat-badge mat-proof">Public Proof Claim</span><br/><span class="ev-note">Level 7</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Public Proof Claim, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-33">
+        <td>33</td>
+        <td>Where We Got Carried Away</td>
+        <td>Boltzmann Entropy ↔ Christology Jesus&#x27; claim “I am the truth” (John 14:6) maps precisely to $\Omega = 1, S = 0$.</td>
+        <td><span class="mat-badge mat-formal">Formal Model</span><br/><span class="ev-note">Level 4</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-34">
+        <td>34</td>
+        <td>The Disclaimer</td>
+        <td>Every model is projection of higher-dimensional reality onto lower-dimensional surface we can comprehend.</td>
+        <td><span class="mat-badge mat-formal">Formal Model</span><br/><span class="ev-note">Level 4</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-35">
+        <td>35</td>
+        <td>The Disclaimer</td>
+        <td>We do not claim to have captured God in equations.</td>
+        <td><span class="mat-badge mat-formal">Formal Model</span><br/><span class="ev-note">Level 4</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-36">
+        <td>36</td>
+        <td>The Disclaimer</td>
+        <td>We claim that when we look at His creation honestly — with the tools of physics and the revelation of Scripture — the same structure appears in both.</td>
+        <td><span class="mat-badge mat-formal">Formal Model</span><br/><span class="ev-note">Level 4</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-37">
+        <td>37</td>
+        <td>The Disclaimer</td>
+        <td>Where our model limits what God can be, the limitation is ours, not His.</td>
+        <td><span class="mat-badge mat-formal">Formal Model</span><br/><span class="ev-note">Level 4</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-38">
+        <td>38</td>
+        <td>Audit floor / red zone</td>
+        <td>Any claim that turns a structural resemblance into a proven mechanism belongs here until the math, experiment, or textual chain can carry the weight.</td>
+        <td><span class="mat-badge mat-metaphor">Metaphor</span><br/><span class="ev-note">Level 1</span></td>
+        <td><span class="ev-note">experiment</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-39">
+        <td>39</td>
+        <td>Gradient zone / interpretive caution</td>
+        <td>Possible overstatement: language that sounds final should be read as a working model unless the article explicitly proves it.</td>
+        <td><span class="mat-badge mat-proof">Public Proof Claim</span><br/><span class="ev-note">Level 7</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Boundary needed: currently reads stronger than Public Proof Claim.</span></td>
+      </tr>
+      <tr data-component="claim-row" data-name="claim-40">
+        <td>40</td>
+        <td>No audio available</td>
+        <td>Shannon&#x27;s noisy channel theorem proves that any channel with non-zero error rate eventually loses all information; over infinite time, the only signal that survives is one with zero noise. “The wages of sin is death” isn&#x27;t a legal verdict.</td>
+        <td><span class="mat-badge mat-proof">Public Proof Claim</span><br/><span class="ev-note">Level 7</span></td>
+        <td><span class="ev-note">No explicit evidence marker in sentence.</span></td>
+        <td><span class="kill-note">Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</span></td>
+        <td><span class="ev-note">Boundary needed: currently reads stronger than Public Proof Claim.</span></td>
+      </tr>
+            <!-- END:TEMPLATE:SLOT:claim-row -->
+    </tbody>
+  </table>
+  </div>
+  <p style="font-size:.72rem;color:var(--text-muted);margin-top:.8rem" data-component="note" data-name="claim-table-footer">Showing first 40 claims. Full canonical claim audit remains in the XLSX/JSON.</p>
+</section>
+<!-- END:COMPONENT:section:claims-table -->
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION: DERIVATION CHAIN SNAPSHOT
+     ═══════════════════════════════════════════════════════════════ -->
+
+<!-- BEGIN:COMPONENT:section:derivation-snapshot -->
+<!--
+  PROMPT:generator: Show the 7-step derivation chain with this article's position highlighted.
+  Determine which chain nodes this article's claims touch (from law_mappings or claim domains).
+  Active nodes get class="active". Inactive nodes stay default.
+  Also show per-Law derivation status if available from .paper-snapshot.json.
+-->
+<section class="pg-sec" id="derivation" data-component="section" data-name="derivation-snapshot">
+  <div class="pg-sec-head">
+    <span class="pg-sec-dot"></span>
+    <span class="pg-sec-kicker">Derivation</span>
+  </div>
+  <h2>Derivation Chain Position</h2>
+  <p class="pg-sec-desc">Where does this article sit in the master derivation chain? Active nodes are touched by this article's claims.</p>
+
+  <!-- BEGIN:COMPONENT:data-viz:derivation-chain -->
+  <div class="pg-deriv-chain" data-component="data-viz" data-name="derivation-chain" data-static="true">
+    <span class="pg-deriv-node unknown" data-node="truth">Truth</span>
+    <span class="pg-deriv-arrow">→</span>
+    <span class="pg-deriv-node unknown" data-node="existence">Existence</span>
+    <span class="pg-deriv-arrow">→</span>
+    <span class="pg-deriv-node unknown" data-node="grounding">Grounding</span>
+    <span class="pg-deriv-arrow">→</span>
+    <span class="pg-deriv-node unknown" data-node="observation">Observation</span>
+    <span class="pg-deriv-arrow">→</span>
+    <span class="pg-deriv-node unknown" data-node="moral-physics">Moral Physics</span>
+    <span class="pg-deriv-arrow">→</span>
+    <span class="pg-deriv-node unknown" data-node="spiritual-reality">Spiritual Reality</span>
+    <span class="pg-deriv-arrow">→</span>
+    <span class="pg-deriv-node unknown" data-node="grace">Grace</span>
+  </div>
+  <!-- END:COMPONENT:data-viz:derivation-chain -->
+
+  <!-- BEGIN:COMPONENT:data-viz:law-coverage-inline -->
+  <!--
+    PROMPT:generator: Show which of the 10 Laws this specific article touches.
+    Same format as series coverage-matrix but inline as small badges.
+  -->
+  <div style="display:flex;gap:.25rem;flex-wrap:wrap;margin-top:.8rem" data-component="data-viz" data-name="law-coverage-inline">
+    <!-- TEMPLATE:SLOT:law-badge — repeat for 10 Laws -->
+        <span class="pg-deriv-node unknown" style="font-size:.55rem;padding:.2rem .45rem" data-component="law-badge" data-name="law-1">L1</span>
+    <span class="pg-deriv-node unknown" style="font-size:.55rem;padding:.2rem .45rem" data-component="law-badge" data-name="law-2">L2</span>
+    <span class="pg-deriv-node unknown" style="font-size:.55rem;padding:.2rem .45rem" data-component="law-badge" data-name="law-3">L3</span>
+    <span class="pg-deriv-node unknown" style="font-size:.55rem;padding:.2rem .45rem" data-component="law-badge" data-name="law-4">L4</span>
+    <span class="pg-deriv-node unknown" style="font-size:.55rem;padding:.2rem .45rem" data-component="law-badge" data-name="law-5">L5</span>
+    <span class="pg-deriv-node unknown" style="font-size:.55rem;padding:.2rem .45rem" data-component="law-badge" data-name="law-6">L6</span>
+    <span class="pg-deriv-node unknown" style="font-size:.55rem;padding:.2rem .45rem" data-component="law-badge" data-name="law-7">L7</span>
+    <span class="pg-deriv-node unknown" style="font-size:.55rem;padding:.2rem .45rem" data-component="law-badge" data-name="law-8">L8</span>
+    <span class="pg-deriv-node unknown" style="font-size:.55rem;padding:.2rem .45rem" data-component="law-badge" data-name="law-9">L9</span>
+    <span class="pg-deriv-node unknown" style="font-size:.55rem;padding:.2rem .45rem" data-component="law-badge" data-name="law-10">L10</span>
+        <!-- END:TEMPLATE:SLOT:law-badge -->
+  </div>
+  <!-- END:COMPONENT:data-viz:law-coverage-inline -->
+</section>
+<!-- END:COMPONENT:section:derivation-snapshot -->
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION: FRUITS OF THE SPIRIT SNAPSHOT
+     ═══════════════════════════════════════════════════════════════ -->
+
+<!-- BEGIN:COMPONENT:section:fruits-snapshot -->
+<!--
+  PROMPT:generator: Show the 9 Fruits of the Spirit with their equation mappings.
+  For each: fruit_name, greek_name, equation_summary, derivation_status (derived/pending).
+  This is a STATIC reference section — same across all articles.
+  Status comes from the NT Spiritual Terms canonical doc.
+  If a fruit's equation is formalized under Law 4, mark as "derived".
+  All 9 are currently derived (Strong Force family).
+-->
+<section class="pg-sec" id="fruits" data-component="section" data-name="fruits-snapshot">
+  <div class="pg-sec-head">
+    <span class="pg-sec-dot"></span>
+    <span class="pg-sec-kicker">Fruits Vector</span>
+  </div>
+  <h2>Fruits of the Spirit</h2>
+  <p class="pg-sec-desc">The nine-component vector derived from Law 4 (Strong Force / Yukawa). Each fruit maps to a specific physical equilibrium condition.</p>
+
+  <div class="pg-fruits-grid" data-component="data-viz" data-name="fruits-grid">
+    <!-- TEMPLATE:SLOT:fruit-card — repeat for each of 9 Fruits -->
+        <div class="pg-fruit-card" data-component="fruit-card" data-name="fruit-love">
+      <div class="pg-fruit-name">Love</div>
+      <div class="pg-fruit-greek">agape</div>
+      <div class="pg-fruit-eq">V(r) at minimum</div>
+      <span class="pg-fruit-status reference">Reference</span>
+    </div>
+    <div class="pg-fruit-card" data-component="fruit-card" data-name="fruit-joy">
+      <div class="pg-fruit-name">Joy</div>
+      <div class="pg-fruit-greek">chara</div>
+      <div class="pg-fruit-eq">omega = omega0 resonance</div>
+      <span class="pg-fruit-status reference">Reference</span>
+    </div>
+    <div class="pg-fruit-card" data-component="fruit-card" data-name="fruit-peace">
+      <div class="pg-fruit-name">Peace</div>
+      <div class="pg-fruit-greek">eirene</div>
+      <div class="pg-fruit-eq">sum F = 0</div>
+      <span class="pg-fruit-status reference">Reference</span>
+    </div>
+    <div class="pg-fruit-card" data-component="fruit-card" data-name="fruit-patience">
+      <div class="pg-fruit-name">Patience</div>
+      <div class="pg-fruit-greek">hypomone</div>
+      <div class="pg-fruit-eq">C = dQ/dT high</div>
+      <span class="pg-fruit-status reference">Reference</span>
+    </div>
+    <div class="pg-fruit-card" data-component="fruit-card" data-name="fruit-kindness">
+      <div class="pg-fruit-name">Kindness</div>
+      <div class="pg-fruit-greek">chrestotes</div>
+      <div class="pg-fruit-eq">E_activation -&gt; min</div>
+      <span class="pg-fruit-status reference">Reference</span>
+    </div>
+    <div class="pg-fruit-card" data-component="fruit-card" data-name="fruit-goodness">
+      <div class="pg-fruit-name">Goodness</div>
+      <div class="pg-fruit-greek">agathosyne</div>
+      <div class="pg-fruit-eq">W_out &gt; W_in</div>
+      <span class="pg-fruit-status reference">Reference</span>
+    </div>
+    <div class="pg-fruit-card" data-component="fruit-card" data-name="fruit-faithfulness">
+      <div class="pg-fruit-name">Faithfulness</div>
+      <div class="pg-fruit-greek">pistis</div>
+      <div class="pg-fruit-eq">dL/dt = 0</div>
+      <span class="pg-fruit-status reference">Reference</span>
+    </div>
+    <div class="pg-fruit-card" data-component="fruit-card" data-name="fruit-gentleness">
+      <div class="pg-fruit-name">Gentleness</div>
+      <div class="pg-fruit-greek">prautes</div>
+      <div class="pg-fruit-eq">F = k*F_needed, k &lt;= 1</div>
+      <span class="pg-fruit-status reference">Reference</span>
+    </div>
+    <div class="pg-fruit-card" data-component="fruit-card" data-name="fruit-self-control">
+      <div class="pg-fruit-name">Self-Control</div>
+      <div class="pg-fruit-greek">enkrateia</div>
+      <div class="pg-fruit-eq">u(t) = -K*e(t) PID</div>
+      <span class="pg-fruit-status reference">Reference</span>
+    </div>
+        <!-- END:TEMPLATE:SLOT:fruit-card -->
+  </div>
+</section>
+<!-- END:COMPONENT:section:fruits-snapshot -->
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION: KILL CONDITIONS
+     ═══════════════════════════════════════════════════════════════ -->
+
+<!-- BEGIN:COMPONENT:section:kill-conditions -->
+<!--
+  PROMPT:generator: List kill conditions relevant to this article.
+  Pull from: .paper-snapshot.json kill_conditions or falsification registry.
+  For each: kill_id, title, description, status (PASSED/FAILED/ONGOING), evidence.
+  Also include article-specific kill conditions from claim audit (claims missing kill conditions).
+-->
+<section class="pg-sec" id="kill" data-component="section" data-name="kill-conditions">
+  <div class="pg-sec-head">
+    <span class="pg-sec-dot"></span>
+    <span class="pg-sec-kicker">Falsification</span>
+  </div>
+  <h2>Kill Conditions</h2>
+  <p class="pg-sec-desc">What would break this article's argument? Framework-level and article-specific tests.</p>
+
+  <div class="pg-kill-grid">
+    <!-- TEMPLATE:SLOT:kill-card — repeat for each kill condition -->
+        <div class="pg-kill-card" data-component="kill-card" data-name="kill-K01">
+      <div class="pg-kill-row">
+        <span class="pg-kill-code">K01</span>
+        <span class="pg-kill-status open">Open</span>
+      </div>
+      <h3>Needs an explicit failure case: what observation, logic result, or counterexampl</h3>
+      <p>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</p>
+      <div class="pg-kill-foot">No explicit evidence marker in sentence.</div>
+    </div>
+    <div class="pg-kill-card" data-component="kill-card" data-name="kill-K02">
+      <div class="pg-kill-row">
+        <span class="pg-kill-code">K02</span>
+        <span class="pg-kill-status open">Open</span>
+      </div>
+      <h3>Sentence contains an explicit falsifiability or prediction marker; preserve it a</h3>
+      <p>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</p>
+      <div class="pg-kill-foot">No explicit evidence marker in sentence.</div>
+    </div>
+        <!-- END:TEMPLATE:SLOT:kill-card -->
+  </div>
+</section>
+<!-- END:COMPONENT:section:kill-conditions -->
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION: VISUAL CHARTS (RESERVED)
+     ═══════════════════════════════════════════════════════════════ -->
+
+<!-- BEGIN:COMPONENT:section:charts-reserved -->
+<!--
+  PROMPT:generator: Reserved slots for visual charts.
+  Planned charts:
+  1. Maturity distribution pie/donut (claims by maturity level)
+  2. 7Q radar chart (coverage across 7 questions)
+  3. Evidence density heatmap (which sections have the most evidence)
+  4. Derivation chain position map (where in the 7-step chain)
+  5. Cross-article comparison (this article vs series average)
+  These will be populated by D3.js, Chart.js, or matplotlib-generated SVGs.
+  For now, show placeholder slots with descriptions.
+-->
+<section class="pg-sec" id="charts" data-component="section" data-name="charts-reserved">
+  <div class="pg-sec-head">
+    <span class="pg-sec-dot"></span>
+    <span class="pg-sec-kicker">Visualization</span>
+  </div>
+  <h2>Visual Snapshots</h2>
+  <p class="pg-sec-desc">Standardized visual charts that remain consistent across all articles for at-a-glance comparison.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem" data-component="chart-grid" data-name="chart-slots">
+
+    <!-- BEGIN:COMPONENT:chart:maturity-donut -->
+    <div class="pg-chart-slot" data-component="chart" data-name="chart-maturity-donut">
+      <i class="fas fa-chart-pie"></i>
+      <p>Maturity Distribution</p>
+      <div class="pg-chart-meta">Claims by maturity level — Metaphor / Structural / Formal / Proof</div>
+    </div>
+    <!-- END:COMPONENT:chart:maturity-donut -->
+
+    <!-- BEGIN:COMPONENT:chart:7q-radar -->
+    <div class="pg-chart-slot" data-component="chart" data-name="chart-7q-radar">
+      <i class="fas fa-spider"></i>
+      <p>7Q Radar</p>
+      <div class="pg-chart-meta">Coverage strength across all seven questions</div>
+    </div>
+    <!-- END:COMPONENT:chart:7q-radar -->
+
+    <!-- BEGIN:COMPONENT:chart:evidence-heatmap -->
+    <div class="pg-chart-slot" data-component="chart" data-name="chart-evidence-heatmap">
+      <i class="fas fa-th"></i>
+      <p>Evidence Density</p>
+      <div class="pg-chart-meta">Which sections carry the most evidence markers</div>
+    </div>
+    <!-- END:COMPONENT:chart:evidence-heatmap -->
+
+    <!-- BEGIN:COMPONENT:chart:cross-comparison -->
+    <div class="pg-chart-slot" data-component="chart" data-name="chart-cross-comparison">
+      <i class="fas fa-balance-scale"></i>
+      <p>Series Comparison</p>
+      <div class="pg-chart-meta">This article vs series average across all metrics</div>
+    </div>
+    <!-- END:COMPONENT:chart:cross-comparison -->
+
+  </div>
+</section>
+<!-- END:COMPONENT:section:charts-reserved -->
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION: STATION MARKS
+     ═══════════════════════════════════════════════════════════════ -->
+
+<!-- BEGIN:COMPONENT:section:station-marks -->
+<!--
+  PROMPT:generator: Load station marks from .paper-snapshot.json station_marks.
+  For each: station_name, status, warnings.
+  If no snapshot station marks, show "No snapshot station marks loaded."
+-->
+<section class="pg-sec" id="stations" data-component="section" data-name="station-marks">
+  <div class="pg-sec-head">
+    <span class="pg-sec-dot"></span>
+    <span class="pg-sec-kicker">Stations</span>
+  </div>
+  <h2>Station Marks</h2>
+  <p class="pg-sec-desc">Internal audit stations from the paper grading pipeline.</p>
+
+  <table class="pg-station-table" data-component="table" data-name="station-table">
+    <thead>
+      <tr><th data-column="station">Station</th><th data-column="status">Status</th><th data-column="warnings">Warnings</th></tr>
+    </thead>
+    <tbody>
+      <!-- TEMPLATE:SLOT:station-row — repeat for each station -->
+            <tr><td colspan="3">No snapshot station marks loaded.</td></tr>
+            <!-- END:TEMPLATE:SLOT:station-row -->
+    </tbody>
+  </table>
+</section>
+<!-- END:COMPONENT:section:station-marks -->
+
+<!-- BEGIN:COMPONENT:footer:footer-paper-grade -->
+<footer class="pg-footer" data-component="footer" data-name="footer-paper-grade">
+  <div class="feq">χ = f(G, M, E, S, T, K, R, Q, F, C)</div>
+  <p>David Lowe · POF 2828 · <span style="color:var(--gold)">15 + 15 = 100</span></p>
+  <p style="margin-top:.35rem;font-size:.65rem;color:var(--text-muted)" data-component="note" data-name="generation-stamp">
+    Generated 2026-05-24T14:51:21 from \\dlowenas\brain\Backside\workflows\axioms.workflow\01_OUTBOX_REPORTS\gtq-10-how-lies-kill.paper-grade.json. Snapshot: not loaded.
+    <br/><a href="../gtq-proof-packet.html" style="color:var(--gold);text-decoration:underline">← Back to GTQ Proof Packet</a>
+    · <a href="../../index.html" style="color:var(--gold);text-decoration:underline">← Proof Explorer</a>
+  </p>
+</footer>
+<!-- END:COMPONENT:footer:footer-paper-grade -->
+
+<!-- BEGIN:COMPONENT:script:script-paper-grade -->
+<script>
+/* ═══════ COMPONENT:script:scroll-header ═══════ */
+const header = document.getElementById('pg-header');
+window.addEventListener('scroll',()=>{
+  header.classList.toggle('pg-header-scrolled', window.scrollY > 60);
+});
+
+/* ═══════ COMPONENT:script:smooth-nav ═══════ */
+document.querySelectorAll('.pg-nav a[href^="#"]').forEach(link=>{
+  link.addEventListener('click', e=>{
+    const target = document.querySelector(link.getAttribute('href'));
+    if(target){
+      e.preventDefault();
+      target.scrollIntoView({behavior:'smooth', block:'start'});
+      document.querySelectorAll('.pg-nav a').forEach(a=>a.classList.remove('active'));
+      link.classList.add('active');
+    }
+  });
+});
+
+/* ═══════ COMPONENT:script:intersection-observer ═══════ */
+const sections = document.querySelectorAll('.pg-sec[id]');
+const navLinks = document.querySelectorAll('.pg-nav a[href^="#"]');
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      navLinks.forEach(a=>a.classList.remove('active'));
+      const active = document.querySelector(`.pg-nav a[href="#${entry.target.id}"]`);
+      if(active) active.classList.add('active');
+    }
+  });
+},{threshold:0.25, rootMargin:'-70px 0px 0px 0px'});
+sections.forEach(s=>obs.observe(s));
+</script>
+<!-- END:COMPONENT:script:script-paper-grade -->
+
+</body>
+</html>

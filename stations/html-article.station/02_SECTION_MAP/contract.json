@@ -1,0 +1,101 @@
+{
+  "lane_id": "02",
+  "lane_name": "Section Map",
+  "owner": "worker-1 (claude-code)",
+  "round": "ROUND1",
+  "input": {
+    "requires": [
+      "00_DROP/{article}.html",
+      "00_DROP/{article}.md",
+      "01_LOSSLESS/normalized-text.md (optional, used when present)"
+    ],
+    "format": "Raw HTML, raw Markdown, or 01_LOSSLESS canonical text. UTF-8."
+  },
+  "output": {
+    "produces": [
+      "02_SECTION_MAP/{article}/section-map.json",
+      "02_SECTION_MAP/{article}/section-map.md",
+      "02_SECTION_MAP/{article}/section_packets/{section_id}.md"
+    ],
+    "format": "JSON section ledger with stable section_ids, heading_path list, source anchors, equation/citation counts, and pass markers stub. Per-section markdown packets for downstream consumption."
+  },
+  "loopback_conditions": [
+    "More than 10% of sections are inferred (no explicit heading) and adjacent boundaries are not detectable from structural cues",
+    "Heading hierarchy is structurally broken (e.g. h3 appears before any h2 with no <section> container to absorb it) and cannot be resolved deterministically",
+    "Same heading text repeats at the same level with no disambiguating ancestor, producing duplicate section_id candidates",
+    "Equation count differs from raw $...$ pair count by more than 2 (suggests math is split across sections wrongly; 07_MATH_TRANSLATION will not be able to reattach)"
+  ],
+  "dependencies": {
+    "upstream_lanes": ["00_DROP", "01_LOSSLESS (preferred when present)"],
+    "stations": ["section-splitter.station"],
+    "models": []
+  },
+  "fields": {
+    "section_object": [
+      "section_id",
+      "stable_uuid",
+      "ordinal",
+      "heading_level",
+      "heading_text",
+      "heading_path",
+      "parent_section_id",
+      "source_anchor",
+      "source_offset_start",
+      "source_offset_end",
+      "inferred",
+      "inferred_reason",
+      "equation_count",
+      "citation_count",
+      "word_count",
+      "text_excerpt",
+      "packet_path",
+      "passes"
+    ]
+  },
+  "downstream_consumers": [
+    "03_YAML_METADATA",
+    "04_TAGS",
+    "05_CLAIMS",
+    "07_MATH_TRANSLATION",
+    "08_SECTION_VECTORS",
+    "09_GRAPH_LINKS",
+    "10_RIGOR",
+    "15_SECTION_PACKETS"
+  ],
+  "excel_columns": {
+    "tab_name": "Section_Map",
+    "columns": [
+      {"name": "paper_uuid", "type": "string"},
+      {"name": "section_id", "type": "string"},
+      {"name": "stable_uuid", "type": "string"},
+      {"name": "ordinal", "type": "integer"},
+      {"name": "heading_level", "type": "integer"},
+      {"name": "heading_text", "type": "string"},
+      {"name": "heading_path", "type": "string"},
+      {"name": "parent_section_id", "type": "string|null"},
+      {"name": "source_anchor", "type": "string|null"},
+      {"name": "inferred", "type": "boolean"},
+      {"name": "equation_count", "type": "integer"},
+      {"name": "citation_count", "type": "integer"},
+      {"name": "word_count", "type": "integer"},
+      {"name": "packet_path", "type": "string"}
+    ]
+  },
+  "section_id_rules": [
+    "Format: sec-{ord:03}-{slug(heading_text)}",
+    "Ordinal is global (1..N) across the document in source order",
+    "slug() is configs/shared_lib/ids.slugify",
+    "stable_uuid uses configs/shared_lib/ids.stable_uuid('section', paper_uuid, slug(heading_path), str(ordinal))",
+    "If heading is inferred (no explicit h-tag), slug derives from the first 5 non-stopword tokens of the section text and inferred=true"
+  ],
+  "pass_markers_emitted": {
+    "section.passes.section_map": {"status": "passed", "timestamp_utc": "set by run", "worker": "worker-1"},
+    "other_section_passes": "left as {'status': 'pending'} for downstream lanes to fill (claims, vectors, math_translation, rigor)"
+  },
+  "alignment_notes": [
+    "Aligned to ARTICLE_OUTPUT_REGISTRY Section Structure family (section-map.json, section-map.md, section-packets/).",
+    "heading_path matches schemas.MarkdownBlock.heading_path semantics so block-level consumers can join cleanly.",
+    "DOES NOT emit semantic_address / vector / hash. Per SWARM_WORK_ORDER_ROUND1 + CALIBRATION_EXPECTED, those belong to 04_TAGS. Drift between this and lane_registry.json v2 (which moved PDS into 02) is flagged in workflow-4 status; awaiting Opus reconciliation."
+  ],
+  "confidence": "draft"
+}

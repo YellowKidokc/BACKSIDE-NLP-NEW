@@ -1,0 +1,57 @@
+# Station contract — copy from _TEMPLATE/
+# Mirrors the shape of MODELS/_TEMPLATE/model.yml so stations and models read alike.
+# new_station.py substitutes every {{PLACEHOLDER}} from CLI args.
+
+station_id: ST-CONV-001
+name: Route Conversion Dispatcher
+lane: conv
+status: draft
+order: 13
+purpose: >
+  Sniff incoming file type (extension + magika content classification) and route to
+  the appropriate downstream CONV station (ST-CONV-012..026). This station does NOT
+  convert — it only dispatches. MarkItDown, Docling, and Marker are BACKENDS used
+  inside the granular stations, not stations themselves.
+
+# What this station calls. For model-wrapper stations this is the bound model.
+# For LLM stations this is the API model id (gpt-4o-mini, claude-opus-4-7, etc.).
+model:
+  primary:   none
+  fallback:  
+  provider:  local_wrapper
+
+prompt:
+  primary:   PROMPT_SYSTEM.md
+  fallback:  
+
+script:
+  runner:    scripts/03_run_prompt.bat
+
+input:
+  accepts:
+    - routing_yml                    # e.g. markdown_article, text_pair, query_passages
+  required_files:
+    - routing.yml                    # primary input filename convention
+
+output:
+  produces:
+    - conversion_report.yml
+    - source.md
+  required_format: json
+
+healthcheck:
+  prompt: "Return JSON: {\"status\":\"ok\"}"
+  expected_contains: "\"status\""
+
+gate:
+  pass_if:
+    - valid_json: true
+    - markdown_produced: true
+  fail_to: 99_ERROR
+  review_to: 03_REVIEW
+
+next:
+  pass:
+    - ST-CLAIM-001
+  fail:
+    - ST-ERR-001

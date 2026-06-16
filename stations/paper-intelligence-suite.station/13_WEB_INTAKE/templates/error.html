@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pipeline error — {{ paper_id }}</title>
+<style>
+  :root {
+    --bg: #0b0b0d; --surface: #15151a; --border: #2a2a32;
+    --text: #e8e8e8; --muted: #9a9aa3; --gold: #d4af37; --danger: #ef4444;
+  }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    padding: 48px 24px; min-height: 100vh;
+  }
+  .card {
+    max-width: 880px; margin: 0 auto;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 32px;
+  }
+  h1 { color: var(--danger); margin: 0 0 4px; font-size: 1.4rem; }
+  .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 18px; }
+  pre {
+    background: #0e0e12; border: 1px solid var(--border);
+    border-radius: 8px; padding: 16px; overflow: auto;
+    font-size: 0.78rem; color: #d8d8d8; max-height: 400px;
+  }
+  a {
+    color: var(--gold); text-decoration: none;
+    border: 1px solid var(--gold); padding: 8px 16px;
+    border-radius: 8px; display: inline-block; margin-top: 18px;
+    font-size: 0.85rem;
+  }
+  a:hover { background: rgba(212,175,55,0.08); }
+  .mono { font-family: ui-monospace, Consolas, monospace; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>Pipeline error</h1>
+    <p class="meta">
+      <strong>{{ meta.title or paper_id }}</strong> &middot;
+      {{ meta.author or "" }} &middot; {{ meta.domain or "" }}<br>
+      <span class="mono" style="font-size: 0.75rem;">paper_id: {{ paper_id }}</span>
+    </p>
+    <p style="color: var(--text);">{{ error }}</p>
+    {% if trace %}
+    <details>
+      <summary style="cursor: pointer; color: var(--muted); margin-bottom: 8px;">Traceback</summary>
+      <pre>{{ trace }}</pre>
+    </details>
+    {% endif %}
+    <a href="/">← Back to intake</a>
+  </div>
+</body>
+</html>

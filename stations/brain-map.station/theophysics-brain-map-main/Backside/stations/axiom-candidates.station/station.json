@@ -1,0 +1,33 @@
+{
+  "schema": "theophysics.station.v1",
+  "name": "axiom-candidates",
+  "type": "analysis",
+  "status": "candidate",
+  "input": [
+    "WORKING/station-outputs/seven-questions/*_7QS_*.json"
+  ],
+  "output": [
+    "WORKING/station-outputs/axiom-candidates/*_AXIOM_CANDIDATES_*.json",
+    "WORKING/station-outputs/axiom-candidates/*_AXIOM_CANDIDATES_*.md",
+    "MACHINE/station-log.json"
+  ],
+  "does_not_touch": [
+    "PUBLIC/index.html",
+    "PUBLIC/promoted-axioms.html"
+  ],
+  "promotion_boundary": "Axiom candidate only. Promote manually or through a separate review station after denial, reversal, dependency, evidence, and kill-condition review.",
+  "pipeline": [
+    "Question",
+    "Claim",
+    "Dependency",
+    "Reversal",
+    "Evidence",
+    "Axiom Candidate",
+    "Promoted Axiom"
+  ],
+  "verification": [
+    "python -m py_compile station.py seven_q_core.py",
+    "sample refined 7QS JSON produces candidate JSON and Markdown",
+    "output includes promotion_status and caveat"
+  ]
+}

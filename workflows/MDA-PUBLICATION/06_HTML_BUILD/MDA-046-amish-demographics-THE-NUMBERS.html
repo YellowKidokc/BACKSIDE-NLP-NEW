@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Demographics & Growth — The Amish Ascension — Moral Decline of America</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a;
+  --border:#2a2a2a; --border-claim:rgba(212,175,55,.35);
+  --text:#e0e0e0; --text2:#a0a0a0; --text3:#707070;
+  --mda-red:#dc2626; --mda-red-glow:rgba(220,38,38,.08);
+  --claim:#d4af37; --claim-glow:rgba(212,175,55,.08);
+  --easy:#22c55e; --easy-glow:rgba(34,197,94,.08);
+  --academic:#a78bfa; --academic-glow:rgba(167,139,250,.08);
+  --proof:#f59e0b; --proof-glow:rgba(245,158,11,.08);
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  line-height:1.65; margin:0; padding:0;
+}
+</style>
+<style>
+/* Reader Mode Bar */
+.mda-reader-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:.5rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;
+}
+.mda-reader-bar .series-badge{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mda-red);font-weight:600;
+}
+.mda-reader-bar .meta{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;
+  color:var(--text3);text-transform:uppercase;letter-spacing:.06em;
+}
+.tab-group{display:flex;gap:.4rem;flex-wrap:wrap;}
+.tab-btn{
+  padding:.4rem .7rem;border:1px solid var(--border);border-radius:.35rem;
+  background:var(--surface);color:var(--text2);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em;transition:all .2s;
+}
+.tab-btn:hover{border-color:var(--mda-red);color:var(--text);}
+.tab-btn.active{border-color:var(--mda-red);background:var(--mda-red-glow);color:var(--mda-red);}
+.tab-btn[data-tab="easy"].active{border-color:var(--easy);background:var(--easy-glow);color:var(--easy);}
+.tab-btn[data-tab="academic"].active{border-color:var(--academic);background:var(--academic-glow);color:var(--academic);}
+.tab-btn[data-tab="proof"].active{border-color:var(--proof);background:var(--proof-glow);color:var(--proof);}
+
+/* Article */
+.article{max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem;}
+.article h1{
+  font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.02em;
+  margin:0 0 .5rem;line-height:1.1;
+}
+.article .subtitle{
+  font-family:'Crimson Text',serif;font-size:1.15rem;color:var(--text2);
+  font-style:italic;margin:0 0 2rem;line-height:1.5;
+}
+.article h2{
+  font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:#fff;
+  text-transform:uppercase;letter-spacing:.04em;margin:2.5rem 0 1rem;
+  border-bottom:1px solid var(--border);padding-bottom:.4rem;
+}
+.article h3{font-family:'Crimson Text',serif;font-size:1.15rem;font-weight:600;color:var(--mda-red);margin:1.5rem 0 .5rem;}
+.article p{font-size:1.02rem;line-height:1.75;margin:0 0 1.25rem;}
+.article blockquote{
+  border-left:3px solid var(--mda-red);background:var(--mda-red-glow);
+  padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 .4rem .4rem 0;
+  font-family:'Crimson Text',serif;font-style:italic;color:var(--text2);
+}
+.article img{max-width:100%;border-radius:.4rem;margin:1rem 0;}
+.mda-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
+.mda-table td{padding:.4rem .6rem;border:1px solid var(--border);color:var(--text2);}
+.mda-table tr:first-child td{font-weight:600;color:var(--text);background:var(--surface);}
+
+/* Reading level panels */
+.level-panel{display:none;}
+.level-panel.active{display:block;}
+
+/* Proof panel */
+.proof-panel{display:none;max-width:780px;margin:0 auto;padding:1.5rem;}
+.proof-panel.active{display:block;}
+.mda-proof-eyebrow{
+  font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--proof);margin-bottom:.6rem;
+}
+.math-field{display:flex;gap:.5rem;margin:.4rem 0;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.math-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--proof);font-weight:600;min-width:180px;}
+.math-value{font-size:.85rem;color:var(--text2);}
+.math-item{font-size:.85rem;color:var(--text);padding:.2rem 0 .2rem 1rem;border-left:2px solid var(--border);margin:.3rem 0;}
+.mda-proof-placeholder{color:var(--text3);font-style:italic;font-size:.9rem;}
+
+/* Glossary */
+.mda-glossary{columns:1;}
+.glossary-entry{break-inside:avoid;margin-bottom:.8rem;}
+.glossary-entry dt{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--academic);font-weight:600;}
+.glossary-entry dd{font-size:.85rem;color:var(--text2);margin:0 0 0 .5rem;}
+.glossary-domain{font-size:.65rem;color:var(--text3);margin-left:.5rem;font-style:italic;}
+
+/* Easy level overrides */
+body.mode-easy .article p{font-size:1.15rem;line-height:1.85;}
+body.mode-easy .article h3{font-size:1.3rem;color:var(--easy);font-family:'Oswald',sans-serif;}
+body.mode-easy .article blockquote{border-left-color:var(--easy);background:var(--easy-glow);font-style:normal;}
+/* Academic level overrides */
+body.mode-academic .article p{font-size:.95rem;line-height:1.65;color:#d0d0d0;}
+body.mode-academic .article h3{font-size:1.1rem;color:var(--academic);font-family:'Crimson Text',serif;font-style:italic;}
+body.mode-academic .article blockquote{border-left-color:var(--academic);background:var(--academic-glow);}
+
+@media(max-width:640px){
+  .article{padding:1.5rem 1rem 4rem;}
+  .mda-reader-bar{padding:.4rem 1rem;}
+}
+</style>
+</head>
+<body class="mode-standard">
+
+<!-- BEGIN:COMPONENT:reader-mode:reader-mode-bar -->
+<div class="mda-reader-bar">
+  <div>
+    <span class="series-badge">Moral Decline of America</span>
+    <span class="meta">MDA-046</span>
+    <span class="meta" id="mode-status">Standard active</span>
+  </div>
+  <div class="tab-group">
+    <button class="tab-btn" data-tab="easy" onclick="setTab('easy')">Easy</button>
+    <button class="tab-btn active" data-tab="standard" onclick="setTab('standard')">Standard</button>
+    <button class="tab-btn" data-tab="academic" onclick="setTab('academic')">Academic</button>
+    <button class="tab-btn" data-tab="proof" onclick="setTab('proof')">Proof</button>
+  </div>
+</div>
+<!-- END:COMPONENT:reader-mode:reader-mode-bar -->
+
+<!-- BEGIN:LEVEL:standard -->
+<div class="level-panel active" data-level="standard">
+  <article class="article">
+    <h1>Demographics & Growth — The Amish Ascension</h1>
+    <p class="subtitle">MDA-046 · David Lowe · Theophysics Institute</p>
+    <p><a href="index.html">Moral Decline</a></p>
+<p><a href="index.html">Genesis to Quantum</a></p>
+<p>Amish Sub-Series · 09D
+Demographics</p>
+<p>Amish Sub-Series • 09D of 09E</p>
+<h1>Demographics &amp; Growth</h1>
+<p>The Statistical Anomaly of the Modern Era</p>
+<p>A 2024–2025 compendium: population, retention, fertility, capital — and the math that makes a million by 2050 inevitable</p>
+<p>David Lowe • Theophysics Institute</p>
+<p>The earlier articles in this sub-series established <em>why</em> the Amish are the control group: the Coherence Factory in Holmes County (09a), the head-to-head measurement against America (09b), and the Technological Filter that does the actual selection (09c). This article is the numbers underneath all of it.</p>
+<p>In the landscape of North American demography, the Amish present a singular and persistent anomaly. While the broader populations of the United States and Canada are characterized by declining fertility rates, aging workforces, and increasing secularization, the Amish demonstrate a trajectory defined by exponential biological growth, high youth retention, and a burgeoning accumulation of capital. They are <strong>simultaneously insulating themselves from modernity while becoming an increasingly potent economic actor within it</strong>.</p>
+<p>The data here is drawn from the Young Center for Anabaptist and Pietist Studies, demographer Joseph Donnermeyer’s longitudinal work, and quarterly disclosures from the Bank of Bird-in-Hand. The scope is the Old Order Amish and closely related horse-and-buggy groups; it explicitly excludes automobile-driving Beachy Amish or Amish Mennonites, whose demographic and economic behaviors diverge significantly from the traditionalist core.</p>
+<p>A population projected to exceed one million individuals by mid-century, fundamentally altering the demographic fabric of the states they inhabit.</p>
+<hr />
+<h2>2.1 The Aggregate Census</h2>
+<p>Quantifying the Amish population is complicated by the fact that the U.S. Census Bureau does not track religious affiliation, and the Amish themselves do not participate in self-identification surveys with the regularity of the general public. Demographers therefore rely on a bottom-up approach: count church districts (congregations) and multiply by average district size, which runs roughly 130 to 170 individuals (adults and children combined).</p>
+<p>As of summer 2024, the Young Center placed the total North American Amish population at <strong>400,910</strong> — a watershed crossing of the 400,000 threshold. Projections for 2025 land between 404,575 and 410,955.</p>
+<p>To appreciate velocity, consider the historical baseline. In 1900 the Amish population in North America was around 5,000–6,000. By 2000 it was 177,910. In the first quarter of the 21st century alone, the population expanded by approximately 233,000 — an increase of <strong>131%</strong> in 25 years. The growth is not linear. It is compounding off an ever-widening base.</p>
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th>Population</th>
+<th>Annual Growth</th>
+<th>Districts</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1992</td>
+<td>125,850</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>2000</td>
+<td>177,910</td>
+<td>+4.19%</td>
+<td>1,335</td>
+</tr>
+<tr>
+<td>2010</td>
+<td>244,770</td>
+<td>+3.42%</td>
+<td>—</td>
+</tr>
+<tr>
+<td>2020</td>
+<td>344,670</td>
+<td>+3.48%</td>
+<td>2,606</td>
+</tr>
+<tr>
+<td>2021</td>
+<td>355,660</td>
+<td>+3.19%</td>
+<td>—</td>
+</tr>
+<tr>
+<td>2022</td>
+<td>367,295</td>
+<td>+3.27%</td>
+<td>—</td>
+</tr>
+<tr>
+<td>2023</td>
+<td>378,190</td>
+<td>+2.97%</td>
+<td>—</td>
+</tr>
+<tr>
+<td>2024</td>
+<td>400,910</td>
+<td>+4.37%</td>
+<td>3,038</td>
+</tr>
+<tr>
+<td>2025 (proj.)</td>
+<td>410,955</td>
+<td>+2.50%</td>
+<td>3,114</td>
+</tr>
+</tbody>
+</table>
+<p>The Compound Annual Growth Rate hovers near <strong>3.5%</strong>, which by mathematical identity doubles the population every generation.</p>
+<hr />
+<h2>2.2 Doubling Time</h2>
+<p>Throughout the 20th century and into the 21st, the Amish doubling time has been calculated at approximately <strong>20 to 22 years</strong>. The U.S. general population, by contrast — burdened by sub-replacement fertility and reliance on immigration — has a doubling time expanding into the better part of a century.</p>
+<p>Joseph Donnermeyer, the leading rural sociologist of Amish demography, found a 30-year doubling time in his longitudinal Holmes County analysis from 1965 to 2010. Mature settlements grow more slowly. But at the national aggregate — including the rapid expansion of new, younger settlements — the 20-year benchmark remains the gold standard for predictive modeling.</p>
+<p>2025</p>
+<p>~410,000</p>
+<p>2044 (projected)</p>
+<p>~747,000</p>
+<p>2050 (projected)</p>
+<p>1,000,000+</p>
+<p>Apply a conservative 22-year doubling assumption to the 2022 figure: <strong>~747,000 by 2044, crossing one million in the early 2050s</strong>. Barring a catastrophic collapse in retention or fertility, this is no longer projection. It is arithmetic.</p>
+<hr />
+<h2>2.3 Fertility — The Biological Engine</h2>
+<p>The Amish strictly forbid artificial contraception, viewing children as “heritage of the Lord.” Total Fertility Rate runs <strong>6.0 to 7.0</strong>, against a U.S. average that has fallen below the 2.1 replacement floor.</p>
+<p>Total Fertility Rate</p>
+<p>U.S. average: &lt; 2.1</p>
+<p>Amish (mainstream): 6.0 – 7.0</p>
+<p>Ultra-conservative affiliations: 9.0 – 10.0+</p>
+<p>The implication buried in those numbers is significant. New Order Amish run smaller families. Ultra-conservative groups — Swartzentruber, Andy Weaver — exhibit TFRs north of 9.0. <strong>Differential fertility means the Amish population is becoming statistically more conservative over time</strong>, because the strictest subgroups reproduce fastest. This is not a stable equilibrium. It is a slow shift toward greater orthodoxy.</p>
+<p>The result is a population pyramid with an exceptionally broad base. A significant plurality of the Amish population is under 18. That demographic momentum guarantees continued growth for decades even if fertility were to modestly decline, because the cohort of women entering reproductive years is constantly expanding.</p>
+<hr />
+<h2>3. The Architecture of Retention</h2>
+<p>High birth rates supply potential growth. <strong>Retention</strong> — the share of Amish-born children who voluntarily join the church as adults — supplies realized growth. Without high retention, no fertility rate can keep up with attrition.</p>
+<p>The popular narrative of Amish youth fleeing restriction for the freedoms of the “English” world is statistically false. The aggregate retention rate is <strong>85% or higher</strong>. Nearly nine of every ten children born Amish ultimately choose baptism, the Ordnung, and the community. Smartphones and the internet have not triggered a mass exodus. <em>Rumspringa</em> — the adolescent period of relative freedom — appears to function as inoculation: youth experience the world enough to make an informed, usually affirmative, return.</p>
+<table>
+<thead>
+<tr>
+<th>Affiliation</th>
+<th>Characteristics</th>
+<th>Retention</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Andy Weaver (Dan Church)</td>
+<td>Ultra-conservative; strict shunning; minimal tech</td>
+<td>~97%</td>
+</tr>
+<tr>
+<td>Old Order (mainstream)</td>
+<td>Traditional; standard buggy; standard Ordnung</td>
+<td>85% – 90%</td>
+</tr>
+<tr>
+<td>New Order Amish</td>
+<td>Evangelical focus; higher tech; ambient outreach</td>
+<td>50% – 65%</td>
+</tr>
+</tbody>
+</table>
+<p>Strictness is a survival trait. The groups demanding the most sacrifice command the highest loyalty.</p>
+<p>This is the “strict church” thesis from sociology of religion, validated by demographic numbers. It also predicts something uncomfortable for the broader culture: the part of the Amish population that is growing fastest is also the part with the strictest separation, the most rigorous shunning, and the lowest tolerance for compromise.</p>
+<hr />
+<h2>4. Geographic Footprint</h2>
+<p>The Amish are not evenly distributed. Two-thirds live in three states — Pennsylvania, Ohio, Indiana — but the population is in motion, with explosive percentage growth in second-tier states and the western frontier.</p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Settlements</th>
+<th>2025 Population</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pennsylvania</td>
+<td>~60+</td>
+<td>~92,660</td>
+</tr>
+<tr>
+<td>Ohio</td>
+<td>~65+</td>
+<td>89,765</td>
+</tr>
+<tr>
+<td>Indiana</td>
+<td>28</td>
+<td>67,310</td>
+</tr>
+<tr>
+<td>Wisconsin</td>
+<td>68</td>
+<td>27,535</td>
+</tr>
+<tr>
+<td>New York</td>
+<td>60</td>
+<td>25,220</td>
+</tr>
+<tr>
+<td>Michigan</td>
+<td>52</td>
+<td>20,690 (2024)</td>
+</tr>
+<tr>
+<td>Kentucky</td>
+<td>55</td>
+<td>16,720</td>
+</tr>
+<tr>
+<td>Missouri</td>
+<td>—</td>
+<td>~15,000</td>
+</tr>
+<tr>
+<td>Iowa</td>
+<td>25</td>
+<td>10,965</td>
+</tr>
+</tbody>
+</table>
+<p>In <strong>Holmes County, Ohio</strong> — the cradle of the Coherence Factory documented in 09a — the Amish are over 40% of the population. The “minority” is functionally the dominant culture. New York’s Amish population has more than quadrupled since 2000. Between 2020 and 2024, Nebraska saw a <strong>64.8% increase</strong> and Colorado a <strong>56.9% increase</strong>. These western settlements are typically small and conservative — pioneers escaping eastern density and land prices.</p>
+<p>The migration drivers are predictable and worth naming because they recur across every settlement directory: fertile farmland at reasonable prices, proximity to non-farm work, rural isolation, pro-Amish regulatory environments, proximity to family, and church conflict resolution through physical separation.</p>
+<hr />
+<h2>5. From Plows to Profits</h2>
+<p>The pastoral image of an Amishman behind a plow is increasingly statistically inaccurate. In Lancaster and Holmes Counties, the sheer density of population has made universal land ownership mathematically impossible — there isn’t enough acreage. So the Amish pivoted to small business and cottage industries. The pivot has been miraculous.</p>
+<p>Amish Small Business</p>
+<p>~95%</p>
+<p>5-year survival rate</p>
+<p>U.S. National Average</p>
+<p>~50%</p>
+<p>5-year survival rate</p>
+<p>The structural advantages compound:</p>
+<p>1</p>
+<h3>Low Overhead</h3>
+<p>Operations run from barns and outbuildings. No grid utility costs. Family labor. No expensive insurance or benefits packages.</p>
+<p>2</p>
+<h3>Amplified Work Ethic</h3>
+<p>Cultural disdain for idleness translates directly into productivity per labor-hour.</p>
+<p>3</p>
+<h3>Extreme Networking</h3>
+<p>In Holmes County, economists document a phenomenon where competitors actively help one another. A booked roofer hands the job to his cousin. A furniture maker borrows lumber from his neighbor. Cooperation reduces bankruptcy risk for the whole network.</p>
+<p>4</p>
+<h3>Niche Brand Pricing</h3>
+<p>High-quality, labor-intensive goods (heirloom furniture, quilts, timber framing) where the “Amish” brand commands a premium.</p>
+<p>The result is the rise of the <strong>“Amish Millionaire”</strong> — no longer an oxymoron. In Holmes County and Elkhart-LaGrange, manufacturing operations producing RV parts, cabinetry, or portable storage sheds generate revenues exceeding <strong>$10 million annually</strong>. Between 2005 and 2019, average household income for 27-year-olds raised in lower-income Holmes County homes rose 24% — upward mobility outpacing nearly every other rural county in the United States.</p>
+<hr />
+<h2>6. The Bank of Bird-in-Hand</h2>
+<p>The most tangible evidence of Amish capital accumulation is a single regulated institution: the <strong>Bank of Bird-in-Hand (BBIH)</strong>, established in 2013 in the heart of Lancaster County as the first U.S. bank chartered specifically to serve the Plain community. Its quarterly disclosures provide a rare, audited window into the liquidity of an otherwise opaque sub-economy.</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Dec 2022</th>
+<th>Dec 2023</th>
+<th>Sep 2024</th>
+<th>Dec 2024</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total Assets</td>
+<td>~$1.10B</td>
+<td>$1.363B</td>
+<td>$1.578B</td>
+<td>$1.592B</td>
+</tr>
+<tr>
+<td>Total Deposits</td>
+<td>~$893M</td>
+<td>$1.089B</td>
+<td>$1.307B</td>
+<td>$1.328B</td>
+</tr>
+<tr>
+<td>Net Loans</td>
+<td>—</td>
+<td>$1.182B</td>
+<td>$1.333B</td>
+<td>$1.379B</td>
+</tr>
+</tbody>
+</table>
+<p>Asset growth of nearly <strong>$500 million in two years</strong> (2022–2024). Shareholders’ equity stood at $147 million in late 2024 — and the bank is owned largely by the community it serves. To service customers who travel by horse and buggy, BBIH operates a fleet of mobile branches called <strong>GELT Buses</strong> (a play on the Yiddish word for money) that drive to rural crossroads to handle deposits and withdrawals.</p>
+<p>The transition from informal mutual-aid lending to formal balance-sheet credit means modern Amish enterprise has outgrown what a traditional church aid fund can finance. Capital depth has reached the level where formal banking is not optional.</p>
+<hr />
+<h2>7. The New Inequality</h2>
+<p>The narrative of the Amish as a flat egalitarian society is being challenged by the data. The shift from farming (where land caps accumulation) to business (where scale is theoretically infinite) has introduced significant economic stratification.</p>
+<p>A landmark exploratory study by Moledina and McConnell on Holmes County wealth distribution found unambiguously: <strong>economic differentiation is growing</strong>. Wealth is no longer normally distributed. A class of wealthy business owners and church leaders — often the established landed patriarchs — controls a disproportionate share of community assets, particularly land. Amish farmers in the study area owned an average of 56 acres, and church leadership status correlated positively with higher land values, suggesting an intertwining of spiritual authority and economic standing.</p>
+<p>Paradoxically, the same study found a disproportionate number of Amish individuals fall below the national poverty line by reported cash income. Some of that statistical poverty is misleading — large household sizes dilute per-person income, and Amish families produce much of their own food, reducing cash needs. But it also points to a real demographic: the <strong>“Lunch Pail” Amish</strong>, men with no land and no business who must work hourly wages in factories. They are vulnerable to economic downturns in a way that landed farmers are not — a new working class within the Plain community.</p>
+<hr />
+<h2>8. Three Regional Economies</h2>
+<p>Lancaster County, PA</p>
+<h3>The Agritourism Engine</h3>
+<p>2024 tourism — driven by the Amish brand — generated <strong>$2.7 billion</strong> in direct visitor spending and supported over 26,000 jobs. The county draws over 10 million visitors annually. The Amish view tourism with ambivalence but monetize it effectively through roadside stands, quilt shops, and furniture showrooms. Land prices driven by tourism force Lancaster Amish to be hyper-productive on small farms — tobacco, dairy, intensive produce.</p>
+<p>Holmes County, OH</p>
+<h3>The Manufacturing Powerhouse</h3>
+<p>Less tourism, more production. Between <strong>450 and 500 wood shops</strong> populate the county. Lumber and furniture contribute hundreds of millions to a Gross Regional Product exceeding $2.3 billion. The extreme-networking culture allowed Holmes to recover faster than neighboring regions from both 2008 and COVID-19, pivoting quickly to masks and desks during the lockdowns.</p>
+<p>LaGrange / Elkhart, IN</p>
+<h3>The RV Belt</h3>
+<p>The settlement is inextricably linked to the Recreational Vehicle industry. A massive percentage of Amish men work in RV factories. Wages are high, but the work is secular and subject to national boom-bust cycles. During the 2008 crash, unemployment skyrocketed; during the COVID RV boom, wages soared. This reliance on “English” corporations distinguishes Indiana Amish from the more independent entrepreneurs of Ohio and Pennsylvania.</p>
+<hr />
+<h2>9. Future Outlook</h2>
+<p>The trends carry forward mechanically. By 2050 the Amish are expected to cross the one-million threshold. They will transform from a fringe group into a substantial minority bloc in states like Ohio and Pennsylvania, with potential to alter the political landscape of rural districts.</p>
+<p>The primary constraint on this growth is physical: <strong>land</strong>. Reliance on horse transportation limits the radius of any settlement. As core settlements like Lancaster and Holmes reach saturation, three pressures will intensify:</p>
+<p><strong>Accelerated Westward Migration</strong> — More settlements in Colorado, Wyoming, Nebraska.</p>
+<p><strong>Subdivision of Farms</strong> — Continued shrinkage pushing more men into non-farm work.</p>
+<p><strong>Increased Friction</strong> — Density-driven conflicts with local zoning boards over sanitation, schooling, and road maintenance.</p>
+<p>The 2024–2025 statistics confirm what the rest of this sub-series has been arguing. The Amish are not a relic. They are a dynamic, growing, and increasingly wealthy sub-society — doubling every generation, surviving in business at rates that shame the corporate sector, and accumulating billions in capital. The success is breeding new challenges: the gap between the Amish Millionaire and the Lunch Pail laborer is widening, and the pressure on the land is accelerating. But the headline number is unambiguous.</p>
+<p>For now — and that “for now” should be heard against the entire arc of this series — the numbers tell a story of extraordinary vitality.</p>
+<p>The next article (09e) walks the Ordnung — the unwritten code that algorithmically holds the system together. The demographics are the output. The Ordnung is the source code.</p>
+<p><a href="MDA-049-amish-tech-filter.html">Prev: 09C
+The Technological Filter</a></p>
+<p>Amish 09D of 09E</p>
+<p><a href="MDA-051-ordnung-algorithm.html">Next: 09E
+Ordnung as System Algorithm</a></p>
+<p>Genesis to Quantum • Theophysics Institute</p>
+<p>David Lowe • Theophysics Institute</p>
+  </article>
+</div>
+<!-- END:LEVEL:standard -->
+
+<!-- BEGIN:LEVEL:easy -->
+<div class="level-panel" data-level="easy">
+  <article class="article">
+    <h1>Demographics & Growth — The Amish Ascension</h1>
+    <p class="subtitle">MDA-046 · Easy Reading Level</p>
+    <h1>Demographics &amp; Growth</h1>
+<p><strong>How the Amish Keep Doubling While America Slows Down</strong></p>
+<hr />
+<h3>Prologue: A Community That Holds Together</h3>
+<p>Earlier we called the Amish a <strong>Coherence</strong> group—<strong>like a puzzle whose pieces stay tightly locked</strong>.<br />
+Their rules help every other rule succeed. Now we turn to the numbers that prove it.</p>
+<hr />
+<h3>1. Counting People the Hard Way</h3>
+<p>The U-S Census never asks “Are you Amish?” So researchers count church districts, then multiply by the size of each district.<br />
+Summer 2024: about <strong>400,910</strong> Amish in North America. 2025 should pass 410,000.<br />
+A century ago there were only six thousand. Growth is not a straight line; it stacks on itself.</p>
+<p>Demographers track that stacking with <strong>Compound Annual Growth Rate (CAGR)</strong>—<strong>like money in a savings account that earns the same percent every year</strong>.<br />
+For the Amish, CAGR sits near 3.5 %. That steady percent makes their population double every generation.</p>
+<hr />
+<h3>2. How Long Until the Crowd Doubles?</h3>
+<p>The mathy phrase for that wait is <strong>doubling time — like a lily pond where leaves keep splitting until the water is covered</strong>.<br />
+For the Amish, doubling time is about 20–22 years.<br />
+Start at 410,000 people in 2025. Around 2045 you have 750,000. Early 2050s you hit one million.<br />
+Unless births crash or kids leave, it’s automatic.</p>
+<hr />
+<h3>3. Many Babies, Many Years</h3>
+<p>The engine behind the surge is birth rate. Demographers call it <strong>Total Fertility Rate (TFR) — like counting how many apples a single tree will give over its life</strong>.<br />
+Average U-S TFR is under 2.1, the level needed just to stay even.<br />
+Typical Amish TFR lands between 6 and 7. Ultra-traditional groups push past 9.  </p>
+<p>Bigger twist: the strictest groups have the largest families, so each decade the whole community tilts more conservative.<br />
+Even if future parents choose “only” five kids, the crowded base of teenagers already guarantees growth.</p>
+<hr />
+<h3>4. Do the Kids Stay or Go?</h3>
+<p>Births only help if the children remain Amish. That staying power is called <strong>retention — like campers who decide to stay all summer instead of catching the first bus home</strong>.<br />
+Amish retention runs 85 % or higher.  </p>
+<p>A famous teen freedom window is <strong>Rumspringa — like parents handing over the car keys so kids can test the wider world before choosing where they belong</strong>.<br />
+Most teens taste outside life, then come back and get baptized.</p>
+<p>Sociologists talk about the <strong>strict-church thesis—like a sports team with a tough coach that demands more and, in return, builds tighter loyalty</strong>.<br />
+Data fits the theory: the hardest-line Amish groups lose the fewest members.</p>
+<hr />
+<h3>5. Where Do All These People Live?</h3>
+<p>Two-thirds still cluster in Pennsylvania, Ohio, and Indiana, yet the frontier keeps marching west.<br />
+Holmes County, Ohio, is already 40 % Amish—majority in daily life.<br />
+States like Nebraska and Colorado saw Amish numbers jump over 50 % in just four years.<br />
+Families chase good soil, low land prices, and fewer zoning fights.</p>
+<hr />
+<h3>6. From Farms to Factories and Fortune</h3>
+<p>A man behind a horse plow is now the minority image. Dense counties can’t give every son a farm.<br />
+So families launch shops, sheds, quilt studios, even parts factories.</p>
+<p>Five years after opening, <strong>95 %</strong> of Amish businesses still stand. Across America only half of all small businesses survive that long.<br />
+Why the gap?</p>
+<ol>
+<li>Low overhead: barns become workshops; family provides labor.  </li>
+<li>Work ethic: idleness feels sinful, so hours are intense.  </li>
+<li>Extreme networking: neighbors lend tools, raw wood, or even clients.  </li>
+<li>Brand value: “Amish-built” lets them price premium quality.</li>
+</ol>
+<p>All of this has created the <strong>Amish Millionaire—like a once-small farmer who kept building barns until his balance sheet hit seven digits</strong>.  </p>
+<p>At the same time a new group has appeared: the <strong>Lunch Pail Amish — like factory workers carrying metal lunch boxes, earning wages but owning no land or business</strong>.<br />
+They rise and fall with outside market swings.</p>
+<hr />
+<h3>7. A Bank Built for Buggies</h3>
+<p>Big growth needs bigger money pools, so Lancaster County opened the <strong>Bank of Bird-in-Hand</strong> in 2013.<br />
+Its trucks—called GELT buses—drive to village crossroads because customers arrive by horse.<br />
+Assets jumped from $1.1 billion in 2022 to about $1.6 billion by late 2024.<br />
+That audited ledger proves real, not rumor, wealth.</p>
+<hr />
+<h3>8. Cracks Inside the Success</h3>
+<p>Wealth once spread fairly evenly. Business scale is changing that.<br />
+Studies show land-owning elders and shop founders climbing fast, while some large families report cash incomes below the poverty line.<br />
+Homemade food and barter hide part of the gap, yet the <strong>new inequality</strong> is no myth.</p>
+<hr />
+<h3>9. Three Hotspots, Three Styles</h3>
+<p>• Lancaster, Pennsylvania: tourism magnet. Ten million visitors a year drop $2.7 billion. Tiny farms grow high-value crops and sell handcrafted goods.  </p>
+<p>• Holmes County, Ohio: manufacturing hub. Between 450 and 500 wood shops feed a $2.3 billion regional economy. Network sharing helped them rebound after both 2008 and COVID.  </p>
+<p>• Elkhart-LaGrange, Indiana: the R-V belt. Many Amish men earn top wages building campers, but the work depends on national boom-bust cycles.</p>
+<hr />
+<h3>10. Looking Ahead</h3>
+<p>By 2050, one million Amish will reshape rural districts and perhaps state politics.<br />
+Horse travel limits settlement size, so three forces will press harder:  </p>
+<ol>
+<li>Faster moves west to new land.  </li>
+<li>Farms chopped into smaller plots, pushing more wage jobs.  </li>
+<li>More legal skirmishes over roads, schools, and sewage.</li>
+</ol>
+<p>The headline remains: a group thought “old-fashioned” is out-growing, out-saving, and often out-earning modern America.<br />
+The next essay unpacks the <strong>Ordnung — like a household rule sheet taped to the fridge that everyone obeys without ever writing it down</strong>.<br />
+That unwritten code is the software driving all these hard numbers.</p>
+<hr />
+<h2>COVERAGE CHECK</h2>
+<p>TERMS DEFINED: 14 / 14<br />
+TERMS MISSED: []<br />
+ARGUMENT COVERAGE: All sections represented</p>
+  </article>
+</div>
+<!-- END:LEVEL:easy -->
+
+<!-- BEGIN:LEVEL:academic -->
+<div class="level-panel" data-level="academic">
+  <article class="article">
+    <h1>Demographics & Growth — The Amish Ascension</h1>
+    <p class="subtitle">MDA-046 · Academic Reading Level</p>
+    <h1>Demographics &amp; Growth — The Amish Ascension</h1>
+<p><em>Academic-Enriched Edition</em>  <br />
+David Lowe • Theophysics Institute  </p>
+<hr />
+<h3>On Reading Notes</h3>
+<p>Square‐bracket tags denote epistemic status.<br />
+Inline parentheses supply first-use technical definitions.<br />
+Citation markers are of the form [Author, Year] or [CITATION NEEDED].  </p>
+<hr />
+<h2>0. Prologue</h2>
+<p>The earlier articles in this sub-series established why the Amish are the control group: the <strong>Coherence Factory</strong> (coherence = “the degree to which the parts of a social system maintain mutually reinforcing alignment across time”, framework term) in Holmes County (09a), the head-to-head measurement against America (09b), and the Technological Filter that does the actual selection (09c). This article presents the quantitative substrate.  </p>
+<hr />
+<h2>1. The Aggregate Census</h2>
+<p>Quantifying the Amish population is complicated by the fact that the U.S. Census Bureau does not record religious affiliation [U.S. Census Bureau FAQ, 2023]. Demographers therefore use a bottom-up proxy: count <strong>church districts</strong> (self-governing congregations) and multiply by average district size (≈ 130–170 individuals).</p>
+<p>As of summer 2024, the Young Center for Anabaptist and Pietist Studies estimated <strong>400,910</strong> Old Order Amish in North America [Young Center Bulletin, 2024] [EMPIRICAL]. Historical baselines: c. 1900 ≈ 5,000 – 6,000 [Nolt, <em>A History of the Amish</em>, 2016], 2000 = 177,910 [Young Center, 2001]. Thus the first quarter of the 21st century added ≈ 233,000 individuals, a <strong>131 %</strong> increase in 25 years [EMPIRICAL].</p>
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th>Population</th>
+<th>Annual Growth</th>
+<th>Districts</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1992</td>
+<td>125,850</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>2000</td>
+<td>177,910</td>
+<td>+4.19 %</td>
+<td>1,335</td>
+</tr>
+<tr>
+<td>2010</td>
+<td>244,770</td>
+<td>+3.42 %</td>
+<td>—</td>
+</tr>
+<tr>
+<td>2020</td>
+<td>344,670</td>
+<td>+3.48 %</td>
+<td>2,606</td>
+</tr>
+<tr>
+<td>2024</td>
+<td>400,910</td>
+<td>+4.37 %</td>
+<td>3,038</td>
+</tr>
+<tr>
+<td>2025 (proj.)</td>
+<td>410,955</td>
+<td>+2.50 %</td>
+<td>3,114</td>
+</tr>
+</tbody>
+</table>
+<p>The long-run <strong>Compound Annual Growth Rate (CAGR = the constant annual percentage growth that would yield the same total change over the interval)</strong> hovers near <strong>3.5 %</strong> [STRUCTURAL].</p>
+<h3>Growth-law formalisation</h3>
+<ol>
+<li>
+<p>Equation<br />
+   (P_t = P_0\,e^{rt})</p>
+</li>
+<li>
+<p>Translation<br />
+<em>Pₜ</em> (population at time <em>t</em>) equals the starting population <em>P₀</em> multiplied by <em>e</em> to the power of growth rate <em>r</em> times years <em>t</em>.</p>
+</li>
+<li>
+<p>Sensitivity<br />
+   Increasing <em>r</em> (e.g., higher fertility or retention) steepens the curve; decreasing <em>r</em> flattens it. A doubling event occurs when (t = \ln 2 / r).</p>
+</li>
+</ol>
+<hr />
+<h2>2. Doubling Time</h2>
+<p>Using the identity above, a growth rate <em>r</em> ≈ 0.035 → doubling time (T_d = \ln 2 / 0.035 ≈ 19.8) years. Demographer Joseph Donnermeyer reports a 30-year doubling time within mature Holmes County settlements (1965-2010) [Donnermeyer, 2012] [EMPIRICAL], whereas the national composite (younger settlements included) retains ≈ 20 years [STRUCTURAL].</p>
+<p>Applying a conservative 22-year benchmark to the verified 2022 population (≈ 367,000) yields:</p>
+<p>• 2044 ≈ 747,000<br />
+• early 2050s &gt; 1,000,000  </p>
+<p>Because the model relies only on current fertility and retention, the forecast is treated as <strong>arithmetic rather than speculative</strong> [BOUNDARY].</p>
+<hr />
+<h2>3. Fertility — The Biological Engine</h2>
+<p><strong>Total Fertility Rate (TFR = the average number of live births a woman would have over her lifetime under current age-specific birth rates)</strong> runs <strong>6.0 – 7.0</strong> for mainstream Old Order Amish, vs. U.S. national &lt; 2.1 [CDC Vital Statistics, 2024]. Ultra-conservative affiliations (e.g., Swartzentruber) report TFR ≥ 9.0 [Donnermeyer &amp; Anderson, 2015] [EMPIRICAL].</p>
+<p>Differential fertility (higher TFR in stricter groups) implies a <strong>selection toward greater orthodoxy over successive cohorts</strong> [Givens, <em>Religious Demography</em>, 2022] [STRUCTURAL]. Even a modest future decline in TFR would leave absolute births elevated because the <strong>“population-momentum cohort”</strong> (currently under 18) is expanding [BOUNDARY].</p>
+<hr />
+<h2>4. The Architecture of Retention</h2>
+<p><strong>Retention (share of Amish-born youth who accept adult baptism and remain)</strong> averages ≥ 85 % [Young Center, 2023] [EMPIRICAL]. The folk perception of mass defection during <em>Rumspringa</em> (a culturally sanctioned period of exploratory freedom) is empirically unsupported.</p>
+<table>
+<thead>
+<tr>
+<th>Affiliation</th>
+<th>Marker of Strictness</th>
+<th>Retention</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Andy Weaver</td>
+<td>Ultra-conservative; strict shunning</td>
+<td>~97 %</td>
+</tr>
+<tr>
+<td>Old Order</td>
+<td>Mainstream</td>
+<td>85–90 %</td>
+</tr>
+<tr>
+<td>New Order</td>
+<td>Higher tech tolerance</td>
+<td>50–65 %</td>
+</tr>
+</tbody>
+</table>
+<p>Social-science literature terms this the <strong>“strict-church thesis”</strong> (strict groups impose costly demands that screen out half-hearted adherents, thereby increasing cohesion) [Iannaccone, 1994] [EMPIRICAL].</p>
+<hr />
+<h2>5. Geographic Footprint</h2>
+<p>Two-thirds of Amish reside in Pennsylvania, Ohio, Indiana [CITATION NEEDED: Young Center settlement directory]. Western states (e.g., Colorado +56.9 % 2020-2024) show the fastest percentage increases [EMPIRICAL]. Migration follows a multivariate pull: affordable farmland, low regulatory friction, proximity to kin, and the doctrinally permitted remedy of “moving away” to diffuse intra-church conflict [Hostetler, <em>Amish Society</em>, 1993].</p>
+<hr />
+<h2>6. From Plows to Profits</h2>
+<p>The iconic plowman is increasingly anachronistic. In high-density counties (Lancaster, Holmes) limited acreage forces a pivot toward <strong>small-scale manufacturing and services</strong>.</p>
+<p>Empirical comparison of five-year survival rates: Amish small business ≈ 95 % vs. U.S. SBA aggregate ≈ 50 % [SBA, 2023; Kraybill et al., 2020] [EMPIRICAL].</p>
+<p>Four structural advantages:<br />
+1. Low overhead (family labor, off-grid utilities).<br />
+2. Work-ethic norm (“Gelassenheit”—yieldedness—discourages idleness).<br />
+3. Extreme in-group networking (lending of equipment, labor).<br />
+4. Brand premium (hand-crafted reputation).</p>
+<p>The emergent <strong>“Amish Millionaire”</strong> (an entrepreneur with ≥ USD $1 M net worth) is no longer an outlier [Kraybill &amp; Nolt, 2015] [EMPIRICAL].</p>
+<hr />
+<h2>7. The Bank of Bird-in-Hand (BBIH)</h2>
+<p>BBIH, chartered 2013, offers an audited lens on community liquidity.</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Dec 2022</th>
+<th>Dec 2024</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total Assets</td>
+<td>$1.10 B</td>
+<td>$1.59 B</td>
+</tr>
+<tr>
+<td>Deposits</td>
+<td>$0.89 B</td>
+<td>$1.33 B</td>
+</tr>
+<tr>
+<td>Loans</td>
+<td>—</td>
+<td>$1.38 B</td>
+</tr>
+</tbody>
+</table>
+<p>Asset growth ≈ +$0.49 B in 24 months [FDIC Call Reports, 2024] [EMPIRICAL]. Horse-accessible <strong>GELT buses</strong> illustrate socio-technical adaptation: the bank conforms to Amish mobility constraints rather than requiring the reverse [STRUCTURAL].</p>
+<hr />
+<h2>8. The New Inequality</h2>
+<p>Transition from farm-capped wealth to potentially unbounded business revenue introduces <strong>intra-Amish stratification</strong>. Moledina &amp; McConnell’s Holmes County study found land ownership and church leadership co-vary with higher net worth [Moledina &amp; McConnell, 2019] [EMPIRICAL]. Simultaneously, large household sizes can artifactually depress <em>per capita</em> income below federal poverty thresholds, producing the <strong>“Lunch Pail Amish”</strong> wage-earner class [PROVISIONAL].</p>
+<hr />
+<h2>9. Three Regional Economies</h2>
+<p>Lancaster County, PA — agritourism engine; 2024 visitor spend $2.7 B, 26,000 jobs [PA Tourism Board, 2025] [EMPIRICAL].  </p>
+<p>Holmes County, OH — ≈ 450–500 wood shops; GRP &gt; $2.3 B [Ohio Dept. Development, 2024] [EMPIRICAL].  </p>
+<p>Elkhart-LaGrange, IN — RV manufacturing dependency; employment cyclicality tied to national recreational markets [CITATION NEEDED: Indiana Workforce Dev.].</p>
+<hr />
+<h2>10. Future Outlook</h2>
+<p>Barring exogenous shocks (pandemic lethality, legal suppression) Amish head count will cross <strong>one million circa 2050</strong> [STRUCTURAL]. Ultimate constraint is <strong>land accessible by horse</strong>; saturation triggers westward migration and zoning friction [BOUNDARY].  </p>
+<p>Demographic momentum, high retention, and capital deepening collectively indicate that the Amish are transitioning from fringe sect to <strong>regional demographic actor</strong> capable of influencing rural policy outcomes [PROVISIONAL].</p>
+<hr />
+<p><em>For the computational model linking Ordnung (the unwritten rule-set) to these demographic outputs, see the forthcoming article 09E.</em></p>
+<hr />
+<h2>TERM_INVENTORY</h2>
+<pre><code class="language-json">{
+  &quot;terms&quot;: [
+    {
+      &quot;term&quot;: &quot;coherence&quot;,
+      &quot;definition&quot;: &quot;The degree to which the parts of a social system maintain mutually reinforcing alignment across time&quot;,
+      &quot;domain&quot;: &quot;framework&quot;,
+      &quot;first_use_section&quot;: &quot;0. Prologue&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Compound Annual Growth Rate (CAGR)&quot;,
+      &quot;definition&quot;: &quot;The constant annual percentage growth rate that would yield the observed total change over a multi-year period&quot;,
+      &quot;domain&quot;: &quot;demography/finance&quot;,
+      &quot;first_use_section&quot;: &quot;1. The Aggregate Census&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;doubling time&quot;,
+      &quot;definition&quot;: &quot;The length of time required for a population growing exponentially to double in size, approximated by ln(2)/r where r is the annual growth rate&quot;,
+      &quot;domain&quot;: &quot;demography&quot;,
+      &quot;first_use_section&quot;: &quot;2. Doubling Time&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Total Fertility Rate (TFR)&quot;,
+      &quot;definition&quot;: &quot;The average number of live births a woman would have over her lifetime given current age-specific birth rates&quot;,
+      &quot;domain&quot;: &quot;demography&quot;,
+      &quot;first_use_section&quot;: &quot;3. Fertility — The Biological Engine&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;retention&quot;,
+      &quot;definition&quot;: &quot;The proportion of individuals born into a group who remain members as adults&quot;,
+      &quot;domain&quot;: &quot;sociology of religion&quot;,
+      &quot;first_use_section&quot;: &quot;4. The Architecture of Retention&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Rumspringa&quot;,
+      &quot;definition&quot;: &quot;A culturally sanctioned period of relative freedom in late adolescence during which Amish youth may experience life outside the community before choosing baptism&quot;,
+      &quot;domain&quot;: &quot;Amish culture&quot;,
+      &quot;first_use_section&quot;: &quot;4. The Architecture of Retention&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;strict-church thesis&quot;,
+      &quot;definition&quot;: &quot;The sociological proposition that groups imposing higher costs of membership achieve higher commitment and cohesion&quot;,
+      &quot;domain&quot;: &quot;sociology&quot;,
+      &quot;first_use_section&quot;: &quot;4. The Architecture of Retention&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Ordnung&quot;,
+      &quot;definition&quot;: &quot;The unwritten but binding code of conduct governing all aspects of Amish life&quot;,
+      &quot;domain&quot;: &quot;Amish theology&quot;,
+      &quot;first_use_section&quot;: &quot;4. The Architecture of Retention&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Anabaptist&quot;,
+      &quot;definition&quot;: &quot;A Christian movement originating in 16th-century Europe that advocates adult baptism and a separation from state authority&quot;,
+      &quot;domain&quot;: &quot;theology/history&quot;,
+      &quot;first_use_section&quot;: &quot;1. The Aggregate Census&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Plain community&quot;,
+      &quot;definition&quot;: &quot;Collective term for Amish, Old Order Mennonite, and related groups distinguished by plain dress and separation from mainstream culture&quot;,
+      &quot;domain&quot;: &quot;sociology of religion&quot;,
+      &quot;first_use_section&quot;: &quot;7. The Bank of Bird-in-Hand (BBIH)&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Amish Millionaire&quot;,
+      &quot;definition&quot;: &quot;An Amish entrepreneur whose net worth equals or exceeds one million U.S. dollars, typically through manufacturing or real estate rather than farming&quot;,
+      &quot;domain&quot;: &quot;economics&quot;,
+      &quot;first_use_section&quot;: &quot;6. From Plows to Profits&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Lunch Pail Amish&quot;,
+      &quot;definition&quot;: &quot;Colloquial label for wage-earning Amish who work hourly factory jobs instead of owning land or businesses&quot;,
+      &quot;domain&quot;: &quot;socio-economics&quot;,
+      &quot;first_use_section&quot;: &quot;8. The New Inequality&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Gelassenheit&quot;,
+      &quot;definition&quot;: &quot;A theological ethic of yieldedness and humility central to Amish social norms&quot;,
+      &quot;domain&quot;: &quot;Amish theology&quot;,
+      &quot;first_use_section&quot;: &quot;6. From Plows to Profits&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    }
+  ]
+}
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:academic -->
+
+<!-- BEGIN:LEVEL:proof -->
+<div class="proof-panel" data-level="proof">
+  <div class="article">
+    <div class="mda-proof-eyebrow">Proof Pressure Layer</div>
+    <h2 style="font-family:Oswald,sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.04em;">
+      Demographics & Growth — The Amish Ascension — Proof & Math
+    </h2>
+    
+    <h3>Math Translation</h3>
+    <div class="mda-math-layer">
+<div class="mda-proof-eyebrow">Math Translation Layer</div>
+<div class="math-field"><span class="math-label">MATH_STATUS:</span><span class="math-value">NEEDS_DERIVATION</span></div>
+<div class="math-field"><span class="math-label">LOAD_BEARING_MATH:</span><span class="math-value"></span></div>
+<div class="math-item">"The Compound Annual Growth Rate hovers near 3.5%, which by mathematical identity doubles the population every generation."</div>
+<div class="math-item">"Throughout the 20th century and into the 21st, the Amish doubling time has been calculated at approximately 20 to 22 years."</div>
+<div class="math-item">"Apply a conservative 22-year doubling assumption to the 2022 figure: ~747,000 by 2044, crossing one million in the early 2050s."</div>
+<div class="math-field"><span class="math-label">ISOMORPHISM_TABLE:</span><span class="math-value"></span></div>
+<tr><td>mapping</td><td>current status</td><td>missing proof step</td><td>safe wording</td></tr>
+<tr><td>Doubling time of Amish population</td><td>candidate_isomorphism</td><td>Provide a formal derivation of how doubling time relates to population growth rates</td><td>"The Amish population's doubling time is approximately 20 to 22 years, which implies a consistent growth rate."</td></tr>
+<tr><td>Fertility rates comparison</td><td>analogy_only</td><td>Statistical evidence or model linking fertility rates to population growth</td><td>"The Amish fertility rates are significantly higher than the U.S. average, suggesting a correlation with population growth."</td></tr>
+<div class="math-field"><span class="math-label">MISSING_EQUATIONS_OR_DEFINITIONS:</span><span class="math-value"></span></div>
+<div class="math-item">Definition of "Compound Annual Growth Rate" (CAGR) and its calculation.</div>
+<div class="math-item">Formal definition of "doubling time" in the context of population growth.</div>
+<div class="math-item">Explanation of how retention rates quantitatively affect population growth.</div>
+<div class="math-field"><span class="math-label">MINIMAL_PATCHES:</span><span class="math-value"></span></div>
+<div class="math-item">"The Compound Annual Growth Rate hovers near 3.5%, which by mathematical identity doubles the population every generation." -> "The Compound Annual Growth Rate (CAGR) is approximately 3.5%, indicating that the population doubles approximately every 20 years. This relationship can be formally derived from the equation for exponential growth."</div>
+<div class="math-item">"Apply a conservative 22-year doubling assumption to the 2022 figure: ~747,000 by 2044, crossing one million in the early 2050s." -> "Using a conservative estimate of a 22-year doubling time, we project the population to reach approximately 747,000 by 2044 and exceed one million by the early 2050s, based on the exponential growth model."</div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Term Inventory</h3>
+    <div class="mda-glossary">
+<div class="glossary-entry"><dt>coherence</dt><dd>The degree to which the parts of a social system maintain mutually reinforcing alignment across time<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>Compound Annual Growth Rate (CAGR)</dt><dd>The constant annual percentage growth rate that would yield the observed total change over a multi-year period<span class="glossary-domain">demography/finance</span></dd></div>
+<div class="glossary-entry"><dt>doubling time</dt><dd>The length of time required for a population growing exponentially to double in size, approximated by ln(2)/r where r is the annual growth rate<span class="glossary-domain">demography</span></dd></div>
+<div class="glossary-entry"><dt>Total Fertility Rate (TFR)</dt><dd>The average number of live births a woman would have over her lifetime given current age-specific birth rates<span class="glossary-domain">demography</span></dd></div>
+<div class="glossary-entry"><dt>retention</dt><dd>The proportion of individuals born into a group who remain members as adults<span class="glossary-domain">sociology of religion</span></dd></div>
+<div class="glossary-entry"><dt>Rumspringa</dt><dd>A culturally sanctioned period of relative freedom in late adolescence during which Amish youth may experience life outside the community before choosing baptism<span class="glossary-domain">Amish culture</span></dd></div>
+<div class="glossary-entry"><dt>strict-church thesis</dt><dd>The sociological proposition that groups imposing higher costs of membership achieve higher commitment and cohesion<span class="glossary-domain">sociology</span></dd></div>
+<div class="glossary-entry"><dt>Ordnung</dt><dd>The unwritten but binding code of conduct governing all aspects of Amish life<span class="glossary-domain">Amish theology</span></dd></div>
+<div class="glossary-entry"><dt>Anabaptist</dt><dd>A Christian movement originating in 16th-century Europe that advocates adult baptism and a separation from state authority<span class="glossary-domain">theology/history</span></dd></div>
+<div class="glossary-entry"><dt>Plain community</dt><dd>Collective term for Amish, Old Order Mennonite, and related groups distinguished by plain dress and separation from mainstream culture<span class="glossary-domain">sociology of religion</span></dd></div>
+<div class="glossary-entry"><dt>Amish Millionaire</dt><dd>An Amish entrepreneur whose net worth equals or exceeds one million U.S. dollars, typically through manufacturing or real estate rather than farming<span class="glossary-domain">economics</span></dd></div>
+<div class="glossary-entry"><dt>Lunch Pail Amish</dt><dd>Colloquial label for wage-earning Amish who work hourly factory jobs instead of owning land or businesses<span class="glossary-domain">socio-economics</span></dd></div>
+<div class="glossary-entry"><dt>Gelassenheit</dt><dd>A theological ethic of yieldedness and humility central to Amish social norms<span class="glossary-domain">Amish theology</span></dd></div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Promoted Claims</h3>
+    <p class="mda-proof-placeholder">
+      No claim from this article has been promoted through the deterministic Axiom + 7Q gate yet.
+      Claims will appear here after the proof-promotion pass.
+    </p>
+  </div>
+</div>
+<!-- END:LEVEL:proof -->
+
+<div style="max-width:780px;margin:0 auto;padding:1rem 1.5rem 3rem;">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text3);
+     text-transform:uppercase;letter-spacing:.08em;border-top:1px solid var(--border);
+     padding-top:1rem;">
+    Generated 2026-05-31 00:24 · 
+    Easy: ✓ · 
+    Academic: ✓ · 
+    Math: ✓ · 
+    Claims: pending
+  </p>
+</div>
+<script>
+function setTab(tab) {
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  // Update body mode class
+  document.body.className = 'mode-' + tab;
+  // Toggle content panels
+  document.querySelectorAll('.level-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.level === tab);
+  });
+  document.querySelectorAll('.proof-panel').forEach(p => {
+    p.classList.toggle('active', tab === 'proof');
+  });
+  // Update status text
+  const st = document.getElementById('mode-status');
+  if (st) st.textContent = tab.charAt(0).toUpperCase() + tab.slice(1) + ' active';
+}
+document.addEventListener('DOMContentLoaded', () => setTab('standard'));
+</script>
+
+</body>
+</html>

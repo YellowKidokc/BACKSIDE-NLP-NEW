@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 7Q Framework — A New Scientific Method</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+<style>
+:root {
+  --bg: #0a0b0f;
+  --bg-card: #12141c;
+  --bg-row: #0e1018;
+  --border: #1e2233;
+  --border-active: #2a3050;
+  --text: #e8e6e1;
+  --text2: #8a8d9b;
+  --text3: #555869;
+  --gold: #d4a853;
+  --phys: #38bdf8;
+  --theo: #a78bfa;
+  --bif: #34d399;
+  --pass: #2dd4a0;
+  --fail: #ef4444;
+  --warn: #f59e0b;
+  --stop: #6366f1;
+  --info: #38bdf8;
+  --matter: #f97316;
+  --mind: #a78bfa;
+  --math: #34d399;
+  --rel: #fb923c;
+  --brute: #6b7280;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; background:var(--bg); }
+body { font-family:'DM Sans',sans-serif; color:var(--text); background:var(--bg); min-height:100vh; }
+
+body::before {
+  content:'';position:fixed;inset:0;
+  background:radial-gradient(ellipse at 20% 0%, rgba(56,189,248,0.03) 0%, transparent 50%),
+             radial-gradient(ellipse at 80% 100%, rgba(167,139,250,0.03) 0%, transparent 50%);
+  pointer-events:none;z-index:0;
+}
+
+/* ── NAV ── */
+.topnav {
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,11,15,0.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:0 24px;
+}
+.topnav-inner {
+  max-width:1200px;margin:0 auto;
+  display:flex;align-items:center;gap:8px;
+  overflow-x:auto;padding:12px 0;
+}
+.topnav a {
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;
+  text-transform:uppercase;color:var(--text3);text-decoration:none;
+  padding:8px 14px;border-radius:6px;white-space:nowrap;
+  transition:all 0.2s;border:1px solid transparent;
+}
+.topnav a:hover, .topnav a.active {
+  color:var(--gold);border-color:rgba(212,168,83,0.3);background:rgba(212,168,83,0.06);
+}
+
+.container { position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:40px 24px 120px; }
+
+/* ── SECTION DIVIDERS ── */
+.section-break {
+  margin:80px 0 48px;padding-top:48px;border-top:1px solid var(--border);
+  text-align:center;
+}
+.section-break .section-tag {
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:4px;
+  text-transform:uppercase;color:var(--gold);margin-bottom:16px;
+}
+.section-break h2 {
+  font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,44px);
+  font-weight:700;line-height:1.15;margin-bottom:14px;
+}
+.section-break .sub { font-size:15px;color:var(--text2);max-width:700px;margin:0 auto;line-height:1.7; }
+
+/* ── HERO ── */
+.hero { text-align:center;margin-bottom:64px;padding-bottom:48px;border-bottom:1px solid var(--border); }
+.hero-label { font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px; }
+.hero h1 { font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,60px);font-weight:700;line-height:1.1;margin-bottom:18px; }
+.hero .sub { font-size:16px;color:var(--text2);max-width:750px;margin:0 auto;line-height:1.8; }
+
+/* ── METHOD CARDS ── */
+.method-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:32px 0; }
+.method-card {
+  background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px;
+  transition:border-color 0.3s;
+}
+.method-card:hover { border-color:var(--border-active); }
+.method-card .q-num {
+  font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:600;color:var(--gold);
+  margin-bottom:8px;
+}
+.method-card .q-title { font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;margin-bottom:8px; }
+.method-card .q-desc { font-size:13px;color:var(--text2);line-height:1.7; }
+.method-card .q-plain { font-size:12px;color:var(--text3);margin-top:10px;font-style:italic; }
+
+/* ── DIRECTION BLOCKS ── */
+.directions { display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:40px 0; }
+@media(max-width:800px) { .directions { grid-template-columns:1fr; } }
+.dir-block {
+  background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:28px;
+}
+.dir-block h3 {
+  font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;margin-bottom:16px;
+}
+.dir-block.forward { border-left:3px solid var(--pass); }
+.dir-block.forward h3 { color:var(--pass); }
+.dir-block.reverse { border-left:3px solid var(--fail); }
+.dir-block.reverse h3 { color:var(--fail); }
+.dir-step { padding:8px 0;font-size:13px;color:var(--text2);line-height:1.6;border-bottom:1px solid rgba(255,255,255,0.03); }
+.dir-step:last-child { border-bottom:none; }
+.dir-step strong { color:var(--text); }
+
+/* ── Q0 BLOCK ── */
+.q0-block {
+  background:rgba(212,168,83,0.04);border:1px solid rgba(212,168,83,0.2);
+  border-radius:12px;padding:32px;margin:40px 0;text-align:center;
+}
+.q0-block h3 { font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--gold);margin-bottom:12px; }
+.q0-block p { font-size:15px;color:var(--text2);line-height:1.8;max-width:700px;margin:0 auto; }
+
+/* ── COMPARISON TABLE ── */
+.compare-table { width:100%;border-collapse:collapse;margin:32px 0;font-size:13px; }
+.compare-table th {
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.5px;
+  text-transform:uppercase;text-align:left;padding:12px 16px;
+  border-bottom:2px solid var(--border);color:var(--gold);
+}
+.compare-table td { padding:10px 16px;border-bottom:1px solid var(--border);color:var(--text2); }
+.compare-table tr:hover td { background:rgba(255,255,255,0.02); }
+.compare-table td:first-child { color:var(--text);font-weight:500; }
+
+/* ── DEATH CONDITIONS ── */
+.death-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:24px 0; }
+.death-card {
+  background:rgba(239,68,68,0.04);border:1px solid rgba(239,68,68,0.15);
+  border-radius:10px;padding:16px;
+}
+.death-card .dc-name { font-weight:600;font-size:14px;margin-bottom:6px;color:var(--fail); }
+.death-card .dc-desc { font-size:12px;color:var(--text2);line-height:1.6; }
+
+/* ── CALLOUT ── */
+.callout {
+  border-left:3px solid var(--gold);padding:18px 22px;margin:32px 0;
+  background:rgba(212,168,83,0.04);border-radius:0 12px 12px 0;
+  font-size:14px;color:var(--text2);line-height:1.7;
+}
+.callout strong { color:var(--text); }
+
+/* ── EMBED PLACEHOLDER ── */
+.embed-section {
+  background:var(--bg-card);border:1px solid var(--border);border-radius:12px;
+  overflow:hidden;margin:32px 0;
+}
+.embed-header {
+  padding:20px 24px;border-bottom:1px solid var(--border);display:flex;
+  align-items:center;justify-content:space-between;cursor:pointer;
+  user-select:none;transition:background 0.2s;
+}
+.embed-header:hover { background:rgba(255,255,255,0.02); }
+.embed-header h3 { font-family:'Cormorant Garamond',serif;font-size:22px; }
+.embed-header .embed-tag {
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--gold);
+}
+.embed-header .arrow { color:var(--text3);font-size:18px;transition:transform 0.3s; }
+.embed-section.open .embed-header .arrow { transform:rotate(180deg); }
+.embed-body { display:none;padding:24px; }
+.embed-section.open .embed-body { display:block; }
+.embed-body iframe { width:100%;border:none;border-radius:8px;min-height:600px; }
+.embed-body .placeholder {
+  text-align:center;padding:60px 20px;color:var(--text3);font-size:14px;
+}
+
+/* ── FOOTER ── */
+.footer { margin-top:80px;text-align:center;padding:32px;border-top:1px solid var(--border); }
+.footer p { font-size:12px;color:var(--text3);line-height:1.7; }
+.footer strong { color:var(--text2); }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- NAVIGATION -->
+<!-- ═══════════════════════════════════════════ -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="#method" class="active">The Method</a>
+    <a href="#tree">Ontological Tree</a>
+    <a href="#propagation">Propagation Map</a>
+    <a href="#isomorphism">Structural Isomorphism</a>
+    <a href="#evidence">Evidence</a>
+    <a href="#kill">Kill Conditions</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 0: THE METHOD -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="method">
+<div class="hero">
+  <div class="hero-label">A New Scientific Method</div>
+  <h1>The 7Q Framework</h1>
+  <p class="sub">Seven questions forward: classify anything. Seven questions reversed: prove anything by exhaustive elimination. Same engine. Two directions. Nothing escapes.</p>
+</div>
+
+<!-- Q0 -->
+<div class="q0-block">
+  <h3>Q0 — The Posture Before Inquiry</h3>
+  <p>Before the first question, there is a precondition. <strong>The inquirer cannot be the ground of inquiry.</strong> You do not arrive already decided. You arrive open. Humility is not a virtue bolted on — it is the precondition without which the engine does not start. Every major breakthrough in physics came from someone who held this posture. Every dead framework refused it.</p>
+</div>
+
+<!-- The 7 Questions -->
+<div class="method-grid">
+  <div class="method-card">
+    <div class="q-num">Q1</div>
+    <div class="q-title">What Is It?</div>
+    <div class="q-desc">Identity. Name the object. Classify it. What category does it belong to?</div>
+    <div class="q-plain">For anything in the system, start here: what is this thing?</div>
+  </div>
+  <div class="method-card">
+    <div class="q-num">Q2</div>
+    <div class="q-title">Where Does It Live?</div>
+    <div class="q-desc">Domain. Primary field. Cross-domain mappings. Scale — quantum, neural, individual, social, cosmic.</div>
+    <div class="q-plain">Where does it belong?</div>
+  </div>
+  <div class="method-card">
+    <div class="q-num">Q3</div>
+    <div class="q-title">What Does It Say?</div>
+    <div class="q-desc">The precise claim. No hedging. What is this object asserting? Classify: descriptive, causal, ontological, predictive, mathematical, mechanistic, normative.</div>
+    <div class="q-plain">What exactly is it claiming?</div>
+  </div>
+  <div class="method-card">
+    <div class="q-num">Q4</div>
+    <div class="q-title">What Supports It?</div>
+    <div class="q-desc">Evidence. Sources. Replication status. Tier. Empirical, experimental, mathematical, logical, historical, inferential.</div>
+    <div class="q-plain">Why should anyone believe it?</div>
+  </div>
+  <div class="method-card">
+    <div class="q-num">Q5</div>
+    <div class="q-title">What Does It Depend On?</div>
+    <div class="q-desc">Upstream dependencies. Axioms required. Assumptions made. What must already be true for this to work?</div>
+    <div class="q-plain">What must already be true?</div>
+  </div>
+  <div class="method-card">
+    <div class="q-num">Q6</div>
+    <div class="q-title">What Does It Force?</div>
+    <div class="q-desc">Downstream consequences. If this is true, what else must be true? What predictions does it generate?</div>
+    <div class="q-plain">What becomes true if it is right?</div>
+  </div>
+  <div class="method-card">
+    <div class="q-num">Q7</div>
+    <div class="q-title">What Kills It?</div>
+    <div class="q-desc">Death conditions. Falsification criteria. What breaks downstream if this fails? Every object carries its own death warrant.</div>
+    <div class="q-plain">What would prove it wrong?</div>
+  </div>
+</div>
+
+<!-- Two Directions -->
+<div class="directions">
+  <div class="dir-block forward">
+    <h3>Forward — Classify Anything</h3>
+    <div class="dir-step"><strong>1.</strong> Name the object (identity)</div>
+    <div class="dir-step"><strong>2.</strong> Locate it in domain space</div>
+    <div class="dir-step"><strong>3.</strong> State what it claims</div>
+    <div class="dir-step"><strong>4.</strong> Show what supports it</div>
+    <div class="dir-step"><strong>5.</strong> Trace what it depends on</div>
+    <div class="dir-step"><strong>6.</strong> Map what it forces downstream</div>
+    <div class="dir-step"><strong>7.</strong> Define what kills it</div>
+  </div>
+  <div class="dir-block reverse">
+    <h3>Reverse — Prove Anything</h3>
+    <div class="dir-step"><strong>1.</strong> Destroy — show every way it could die</div>
+    <div class="dir-step"><strong>2.</strong> Force — show what the survivor necessarily produces</div>
+    <div class="dir-step"><strong>3.</strong> Ground — show what it stands on</div>
+    <div class="dir-step"><strong>4.</strong> Support — bring evidence after survival is established</div>
+    <div class="dir-step"><strong>5.</strong> State — the claim is now a conclusion, not a hypothesis</div>
+    <div class="dir-step"><strong>6.</strong> Generalize — show it holds across domains</div>
+    <div class="dir-step"><strong>7.</strong> Name — identity earned through survival</div>
+  </div>
+</div>
+
+<!-- Death Conditions -->
+<h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;margin:40px 0 16px;">Five Death Conditions</h3>
+<p style="color:var(--text2);font-size:14px;margin-bottom:20px;line-height:1.7;">The traditional scientific method has one death condition: empirical contradiction. This method has five. A claim can die five different ways.</p>
+<div class="death-grid">
+  <div class="death-card">
+    <div class="dc-name">Self-Refutation</div>
+    <div class="dc-desc">The claim destroys itself when stated. The denial requires what it denies.</div>
+  </div>
+  <div class="death-card">
+    <div class="dc-name">Infinite Regress</div>
+    <div class="dc-desc">The answer pushes the question backward without ever resolving it.</div>
+  </div>
+  <div class="death-card">
+    <div class="dc-name">Empirical Contradiction</div>
+    <div class="dc-desc">The claim contradicts what we observe. Data kills it.</div>
+  </div>
+  <div class="death-card">
+    <div class="dc-name">Logical Incoherence</div>
+    <div class="dc-desc">The claim contradicts something already established in the chain.</div>
+  </div>
+  <div class="death-card">
+    <div class="dc-name">Explanatory Failure</div>
+    <div class="dc-desc">The claim cannot answer forced downstream questions. It runs out of road.</div>
+  </div>
+</div>
+
+<!-- Comparison Table -->
+<h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;margin:40px 0 16px;">Why This Is Different</h3>
+<table class="compare-table">
+  <thead>
+    <tr><th>Feature</th><th>Traditional Scientific Method</th><th>7Q Framework</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Starting point</td><td>Hypothesis</td><td>Destruction (reverse) or Identity (forward)</td></tr>
+    <tr><td>Number of models</td><td>Usually one</td><td>Mandatory competition</td></tr>
+    <tr><td>Asks "why"</td><td>No</td><td>Yes — Q5, all causal types</td></tr>
+    <tr><td>Death conditions</td><td>Empirical only</td><td>Five types</td></tr>
+    <tr><td>Evaluation</td><td>P-values</td><td>Seven dimensions</td></tr>
+    <tr><td>Cross-domain check</td><td>No</td><td>Yes — Q2 and Q6</td></tr>
+    <tr><td>Epistemic precondition</td><td>None</td><td>Q0 — humility</td></tr>
+    <tr><td>Model auditing</td><td>Informal</td><td>Mandatory meta-layer</td></tr>
+    <tr><td>Identity of result</td><td>Assumed at start</td><td>Earned at end (reverse)</td></tr>
+    <tr><td>Handles ontology</td><td>No</td><td>Yes</td></tr>
+    <tr><td>Handles teleology</td><td>No</td><td>Yes</td></tr>
+    <tr><td>Conclusion</td><td>At end</td><td>What's left standing</td></tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <strong>The anchoring principle:</strong> The model that survives the most attempts to kill it — across logic, metaphysics, mathematics, empirical data, and cross-domain coherence — is provisionally accepted. Not proven. Just the least wrong so far.
+</div>
+</div><!-- /method -->
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 1: ONTOLOGICAL DECISION TREE -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="tree" class="section-break">
+  <div class="section-tag">Section I — The Method Applied</div>
+  <h2>The Ontological Decision Tree</h2>
+  <p class="sub">The 7Q method applied to existence itself. Start with "does anything exist?" and follow the forced-question chain. Watch 18 worldviews enter. Watch most of them die.</p>
+</div>
+
+<div class="embed-section open" data-section="tree">
+  <div class="embed-header" onclick="toggleEmbed(this)">
+    <div><div class="embed-tag">Interactive</div><h3>Q0 through Q12 — Branch Elimination</h3></div>
+    <div class="arrow">▼</div>
+  </div>
+  <div class="embed-body">
+    <div class="placeholder">
+      <p style="font-size:18px;margin-bottom:12px;">📄 <strong>ontological_tree.html</strong></p>
+      <p>The full interactive ontological decision tree loads here.<br>18 worldviews tracked. Branches die by self-refutation, infinite regress, empirical contradiction, and logical incoherence.</p>
+      <p style="margin-top:16px;font-size:12px;color:var(--text3);">To embed: replace this placeholder with an iframe pointing to ontological_tree.html, or paste the full content inline.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 2: PROPAGATION MAP -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="propagation" class="section-break">
+  <div class="section-tag">Section II — Substrate Stress Test</div>
+  <h2>The Propagation Map</h2>
+  <p class="sub">Six substrate choices tracked through every question. Whatever you choose at Q2 becomes your foundation. That foundation must answer every subsequent question without contradiction. Only one survives clean.</p>
+</div>
+
+<div class="embed-section" data-section="propagation">
+  <div class="embed-header" onclick="toggleEmbed(this)">
+    <div><div class="embed-tag">Interactive</div><h3>Matter · Mind · Information · Mathematical · Relational · Brute</h3></div>
+    <div class="arrow">▼</div>
+  </div>
+  <div class="embed-body">
+    <div class="placeholder">
+      <p style="font-size:18px;margin-bottom:12px;">📄 <strong>propagation_map.html</strong></p>
+      <p>The full substrate propagation map loads here.<br>Six substrates enter. One exits. Published theories cited at every node.</p>
+      <p style="margin-top:16px;font-size:12px;color:var(--text3);">To embed: replace this placeholder with an iframe pointing to propagation_map.html, or paste the full content inline.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 3: STRUCTURAL ISOMORPHISM -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="isomorphism" class="section-break">
+  <div class="section-tag">Section III — The Architecture</div>
+  <h2>The Structural Isomorphism</h2>
+  <p class="sub">Physics and theology are not analogies of each other. They are two measurement frames projected from the same substrate. Swap the variable labels. The architecture stands. If it breaks anywhere, the whole thing fails.</p>
+</div>
+
+<div class="embed-section" data-section="isomorphism">
+  <div class="embed-header" onclick="toggleEmbed(this)">
+    <div><div class="embed-tag">Interactive</div><h3>Five Symmetry Pairs — Physics ↔ Theology</h3></div>
+    <div class="arrow">▼</div>
+  </div>
+  <div class="embed-body">
+    <div class="placeholder">
+      <p style="font-size:18px;margin-bottom:12px;">📄 <strong>structural-isomorphism.html</strong></p>
+      <p>The full structural isomorphism with all five symmetry pairs loads here.<br>Gravity↔Grace · Matter↔Entropy · Energy↔Faith · Time↔Knowledge · Quantum↔Coherence.<br>Each pair: physics equations on the left, theology on the right, variable mapping, bifurcation analysis, and falsifiable isomorphism tests.</p>
+      <p style="margin-top:16px;font-size:12px;color:var(--text3);">To embed: replace this placeholder with an iframe pointing to structural-isomorphism.html, or paste the full content inline.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 4: CONVERGENCE & EVIDENCE -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="evidence" class="section-break">
+  <div class="section-tag">Section IV — Empirical Reinforcement</div>
+  <h2>Convergence & Evidence</h2>
+  <p class="sub">The evidence layer is structurally downstream from the logical architecture. It is not the foundation. It is an evidentiary reinforcement strip showing that the proof is not living only in abstract language.</p>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin:24px 0;">
+  <div class="method-card" style="border-left:3px solid var(--pass);">
+    <div class="q-num" style="font-size:20px;">6.35σ</div>
+    <div class="q-title">PEAR Lab</div>
+    <div class="q-desc">2.5 million trials. Consciousness correlates with random event generator outputs. Observer-dependent collapse confirmed at statistical significance far beyond chance.</div>
+  </div>
+  <div class="method-card" style="border-left:3px solid var(--pass);">
+    <div class="q-num" style="font-size:20px;">6σ</div>
+    <div class="q-title">Global Consciousness Project</div>
+    <div class="q-desc">325+ events through 2010. Collective coherence spikes during major global events. P(chance) < 10⁻⁹. The global ψ-field exists in the data.</div>
+  </div>
+  <div class="method-card" style="border-left:3px solid var(--pass);">
+    <div class="q-num" style="font-size:20px;">5.7σ</div>
+    <div class="q-title">PROP-COSMOS</div>
+    <div class="q-desc">11/11 correlations confirmed. Biblical prophecy timeline maps onto cosmological event structure with statistical significance that eliminates coincidence.</div>
+  </div>
+  <div class="method-card" style="border-left:3px solid var(--info);">
+    <div class="q-num" style="font-size:20px;">4/7</div>
+    <div class="q-title">Oxford Convergence</div>
+    <div class="q-desc">Four of seven independent lines of evidence converge on the same shape of reality. The convergence is the signal, not any single line.</div>
+  </div>
+</div>
+
+<div class="callout">
+  The evidence layer is structurally downstream from the logical architecture. It is not the foundation of the framework. It is an evidentiary reinforcement strip meant to show that the proof is not living only in abstract language.
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 5: KILL CONDITIONS -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="kill" class="section-break">
+  <div class="section-tag">Section V — Falsification Court</div>
+  <h2>Kill Conditions</h2>
+  <p class="sub">If any of these conditions are met, the framework fails. They are published here deliberately. A framework that hides its death conditions isn't doing science.</p>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:24px 0;">
+  <div class="death-card" style="padding:20px;">
+    <div class="dc-name">χ Field Not Detectable</div>
+    <div class="dc-desc">If the coherence field (χ) has no measurable signature in any experimental protocol, the model fails. The field must have physical consequences or it is metaphysics, not physics.</div>
+  </div>
+  <div class="death-card" style="padding:20px;">
+    <div class="dc-name">Collapse Not Coherence-Linked</div>
+    <div class="dc-desc">If quantum wavefunction collapse occurs independently of the coherence field — if no observer-effect correlations exist — the consciousness-physics bridge collapses.</div>
+  </div>
+  <div class="death-card" style="padding:20px;">
+    <div class="dc-name">Moral Operator Indistinguishable From Noise</div>
+    <div class="dc-desc">If the moral conservation equation produces no statistical difference from random noise in any dataset, the spiritual-physical coupling claim dies.</div>
+  </div>
+  <div class="death-card" style="padding:20px;">
+    <div class="dc-name">Trinity Mapping Non-Isomorphic</div>
+    <div class="dc-desc">If the theological structure (Father/Son/Spirit = Potential/Structure/Actualization) fails structural mapping — if swapping labels breaks the math — the isomorphism claim is false.</div>
+  </div>
+  <div class="death-card" style="padding:20px;">
+    <div class="dc-name">Symmetry Pairs Break Under Substitution</div>
+    <div class="dc-desc">If substituting spiritual variables into physics equations does not preserve topology, falloff behavior, boundary conditions, and conservation laws, the structural isomorphism fails.</div>
+  </div>
+  <div class="death-card" style="padding:20px;">
+    <div class="dc-name">Entropy Reversal Without External Input</div>
+    <div class="dc-desc">If a closed spiritual system can self-restore coherence without external grace input, the Soteriological Limit is wrong and the thermodynamic proof of salvation's necessity fails.</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="footer">
+  <p style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--text);margin-bottom:12px;">Seven questions forward: classify anything.<br>Seven questions reversed: prove anything.<br>Q0: arrive humble or don't arrive at all.</p>
+  <p style="margin-top:16px;"><strong>David Lowe · POF 2828 · Theophysics</strong></p>
+  <p>The test: swap the labels. If the structure survives, you found something that was always in the equations.</p>
+</div>
+
+</div><!-- /container -->
+
+<script>
+function toggleEmbed(header) {
+  header.closest('.embed-section').classList.toggle('open');
+}
+
+// Active nav on scroll
+const sections = document.querySelectorAll('[id]');
+const navLinks = document.querySelectorAll('.topnav a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 120) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.remove('active');
+    if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

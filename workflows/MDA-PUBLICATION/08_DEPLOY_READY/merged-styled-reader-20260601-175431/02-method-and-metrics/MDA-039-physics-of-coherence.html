@@ -1,0 +1,796 @@
+﻿<!DOCTYPE html>
+<!--
+  PAGE_META
+  series: mda
+  article: mda-physics-of-coherence
+  title: The Physics of Coherence
+  status: production
+  template: methodology-v2
+  version: 2026-05-31
+  page_type: article
+  marked_by: codex
+  marked_date: 2026-05-31
+  source: MDA-039-physics-of-coherence.html
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Physics of Coherence | Moral Decline of America</title>
+<meta name="description" content="Connects coherence measurement to the physical language of stability, entropy, and system-level moral order.">
+<link rel="canonical" href="https://faiththruphysics.com/moral-decline/02-method-and-metrics/MDA-039-physics-of-coherence.html">
+
+<meta property="og:title" content="The Physics of Coherence | Moral Decline of America">
+<meta property="og:description" content="Connects coherence measurement to the physical language of stability, entropy, and system-level moral order.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://faiththruphysics.com/moral-decline/02-method-and-metrics/MDA-039-physics-of-coherence.html">
+<meta property="og:image" content="https://faiththruphysics.com/images/moral-decline-og.png">
+<meta property="og:site_name" content="Faith Through Physics">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Physics of Coherence | Moral Decline of America">
+<meta name="twitter:description" content="Connects coherence measurement to the physical language of stability, entropy, and system-level moral order.">
+<meta name="twitter:image" content="https://faiththruphysics.com/images/moral-decline-og.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                dark: '#050505',
+                card: '#0a0a0a',
+                cardHover: '#111111',
+                accent: '#dc2626',
+                accentDim: '#991b1b',
+                amber: '#f59e0b',
+                amberDim: '#b45309',
+            },
+            fontFamily: {
+                serif: ['Crimson Text', 'Georgia', 'serif'],
+                sans: ['Inter', 'system-ui', 'sans-serif'],
+                display: ['Oswald', 'Impact', 'sans-serif'],
+                mono: ['JetBrains Mono', 'monospace'],
+            }
+        }
+    }
+}
+</script>
+<style>
+    html { scroll-behavior: smooth; }
+    body { background-color: #050505; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #050505; }
+    ::-webkit-scrollbar-thumb { background: #991b1b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #dc2626; }
+    .gradient-line {
+        height: 3px;
+        background: linear-gradient(90deg, #991b1b, #dc2626, #f59e0b, #dc2626, #991b1b);
+    }
+    .hero-gradient {
+        background: radial-gradient(ellipse at 50% 0%, rgba(220,38,38,0.08) 0%, transparent 60%);
+    }
+    .pullquote {
+        border-left: 3px solid #dc2626;
+        background: linear-gradient(90deg, rgba(220,38,38,0.05), transparent);
+    }
+    .data-callout {
+        border: 1px solid rgba(245,158,11,0.2);
+        background: linear-gradient(135deg, rgba(245,158,11,0.03), transparent);
+    }
+    .stat-glow {
+        box-shadow: 0 0 20px rgba(220,38,38,0.1), inset 0 1px 0 rgba(245,158,11,0.1);
+    }
+    .prose-body p {
+        font-family: 'Crimson Text', Georgia, serif;
+        font-size: 1.25rem;
+        line-height: 1.85;
+        color: #d1d5db;
+        margin-bottom: 1.5rem;
+    }
+    .prose-body strong { color: #f9fafb; font-weight: 600; }
+    .prose-body em { color: #e5e7eb; }
+    .section-divider {
+        border: none;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(220,38,38,0.3), rgba(245,158,11,0.2), rgba(220,38,38,0.3), transparent);
+        margin: 3rem 0;
+    }
+    .equation-block {
+        background: linear-gradient(135deg, rgba(220,38,38,0.05), rgba(245,158,11,0.03));
+        border: 1px solid rgba(220,38,38,0.15);
+        border-radius: 0.75rem;
+        padding: 1.5rem 2rem;
+        text-align: center;
+        margin: 2rem 0;
+    }
+    .series-nav-link {
+        display: inline-flex; align-items: center; gap: 0.5rem;
+        padding: 0.75rem 1.5rem; border: 1px solid rgba(220,38,38,0.3);
+        border-radius: 0.5rem; color: #dc2626; font-family: 'Inter', sans-serif;
+        font-size: 0.85rem; text-decoration: none; transition: all 0.3s;
+    }
+    .series-nav-link:hover {
+        background: rgba(220,38,38,0.08); border-color: #dc2626;
+    }
+    .progress-track { position: fixed; top: 0; left: 0; right: 0; height: 3px; background: #2a2a2a; z-index: 1001; }
+    .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #991b1b, #dc2626, #f59e0b); transition: width 0.1s ease; }
+
+</style>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="assets/css/ring-nav.css">
+<link rel="stylesheet" href="assets/css/audio-player.css">
+<script defer src="https://analytics.faiththruphysics.com/script.js" data-website-id="2f2e3a0f-e8e5-4900-a1e0-1b33592403ee"></script>
+<style>
+.mda-proof-panel{max-width:56rem;margin:1.5rem auto 3rem;padding:0 1.5rem;}
+.mda-proof-panel-inner{border:1px solid rgba(212,175,55,.28);background:rgba(10,10,10,.78);padding:1.25rem;border-radius:6px;}
+.mda-proof-eyebrow{font-family:Inter,system-ui,sans-serif;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#d4af37;margin-bottom:.45rem;}
+.mda-proof-panel h2{font-family:Oswald,Impact,sans-serif;font-size:1.25rem;letter-spacing:.04em;text-transform:uppercase;color:#f8fafc;margin:0 0 1rem;}
+.mda-proof-claim{border-top:1px solid rgba(255,255,255,.08);padding-top:1rem;margin-top:1rem;}
+.mda-proof-claim:first-of-type{border-top:0;padding-top:0;margin-top:0;}
+.mda-proof-claim-kicker{font-family:Inter,system-ui,sans-serif;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#f59e0b;margin-bottom:.35rem;}
+.mda-proof-claim p{font-family:Crimson Text,Georgia,serif;font-size:1.05rem;line-height:1.7;color:#e5e7eb;margin:0;}
+</style>
+
+<style>
+.math-translation-block {
+  margin: 0.75rem 0 2rem 0;
+  border-left: 3px solid #dc2626;
+  background: rgba(220,38,38,0.05);
+  border-radius: 0 0.5rem 0.5rem 0;
+  overflow: hidden;
+}
+.math-translation-block summary {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #fbbf24;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  user-select: none;
+}
+.math-translation-block summary:hover {
+  background: rgba(220,38,38,0.1);
+}
+.math-translation-block .mtl-body {
+  padding: 0.75rem 1rem 1rem 1rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #d1d5db;
+  border-top: 1px solid rgba(220,38,38,0.15);
+}
+</style>
+
+<style>
+/* ===== MDA MERGED READER PANELS | 20260601 ===== */
+.mda-merged-reader-panels{margin:2rem auto;max-width:56rem;}
+.mda-merged-reader-panels .level-panel,
+.mda-merged-reader-panels .proof-panel{display:none;}
+.mda-merged-reader-panels [data-reader-panel="easy"],
+.mda-merged-reader-panels [data-reader-panel="academic"],
+.mda-merged-reader-panels [data-reader-panel="proof"]{max-width:56rem;margin:0 auto;}
+.mda-merged-reader-panels .article{
+  max-width:56rem;margin:0 auto;padding:1.25rem 0 2.5rem;
+  font-family:'Inter',system-ui,sans-serif;color:#d1d5db;line-height:1.75;
+}
+.mda-merged-reader-panels .article h1,
+.mda-merged-reader-panels .article h2{
+  font-family:'Oswald',sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.04em;
+}
+.mda-merged-reader-panels .article h1{font-size:clamp(2rem,4vw,3rem);line-height:1.08;margin:0 0 1rem;}
+.mda-merged-reader-panels .article h2{font-size:1.45rem;margin:2rem 0 1rem;border-bottom:1px solid rgba(255,255,255,.12);padding-bottom:.45rem;}
+.mda-merged-reader-panels .article h3{font-family:'Crimson Text',Georgia,serif;color:#f59e0b;font-size:1.35rem;margin:1.5rem 0 .6rem;}
+.mda-merged-reader-panels .article p{font-family:'Crimson Text',Georgia,serif;font-size:1.2rem;line-height:1.82;margin:0 0 1.25rem;}
+.mda-merged-reader-panels .article blockquote{border-left:3px solid #dc2626;background:rgba(220,38,38,.08);padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 .4rem .4rem 0;}
+.mda-merged-reader-panels .mda-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem;}
+.mda-merged-reader-panels .mda-table td{padding:.45rem .65rem;border:1px solid rgba(255,255,255,.12);color:#d1d5db;}
+.mda-merged-reader-panels .math-item{font-size:.92rem;color:#e5e7eb;padding:.35rem 0 .35rem 1rem;border-left:2px solid rgba(245,158,11,.4);margin:.35rem 0;}
+.mda-merged-reader-panels .glossary-entry{margin-bottom:.9rem;}
+.mda-merged-reader-panels .glossary-entry dt{font-family:'JetBrains Mono',monospace;font-size:.82rem;color:#a78bfa;font-weight:700;}
+.mda-merged-reader-panels .glossary-entry dd{font-size:.92rem;color:#c9c9c9;margin:0 0 0 .5rem;}
+.mda-merged-reader-panels .glossary-domain{font-size:.72rem;color:#888;margin-left:.5rem;font-style:italic;}
+.mda-merged-reader-panels .mda-proof-eyebrow{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#f59e0b;margin-bottom:.75rem;}
+.mda-standard-panel{display:block;}
+@media(max-width:700px){.mda-merged-reader-panels .article p{font-size:1.08rem;}.mda-merged-reader-panels{margin-top:1rem;}}
+</style>
+
+</head>
+<body class="bg-dark text-gray-300 min-h-screen">
+<!-- BEGIN:COMPONENT:reader-mode:reader-mode-bar -->
+<section class="mda-reader-mode-wrap" data-component="reader-mode" data-name="reader-mode-bar">
+  <div class="mda-reader-mode-bar">
+    <div class="mda-reader-mode-top">
+      <span style="color:#f59e0b;">Reader Mode</span>
+      <span data-reader-mode-state>Standard active</span>
+    </div>
+    <div class="mda-reader-mode-tabs" role="tablist" aria-label="Reader modes">
+      <button class="mda-reader-mode-btn" type="button" data-reader-mode="easy" aria-selected="false">
+        <span class="mda-reader-mode-label">Easy</span>
+        <span class="mda-reader-mode-note">Plain-language bridge</span>
+      </button>
+      <button class="mda-reader-mode-btn active" type="button" data-reader-mode="standard" aria-selected="true">
+        <span class="mda-reader-mode-label">Standard</span>
+        <span class="mda-reader-mode-note">Current article</span>
+      </button>
+      <button class="mda-reader-mode-btn" type="button" data-reader-mode="academic" aria-selected="false">
+        <span class="mda-reader-mode-label">Academic</span>
+        <span class="mda-reader-mode-note">Method + caveats</span>
+      </button>
+      <button class="mda-reader-mode-btn" type="button" data-reader-mode="proof" aria-selected="false">
+        <span class="mda-reader-mode-label">Proof</span>
+        <span class="mda-reader-mode-note">Proof pressure</span>
+      </button>
+    </div>
+    <div class="mda-reader-mode-status" data-reader-mode-message>
+      <strong>Standard</strong> is the live article. Easy and Academic are reserved surfaces. <strong>Proof</strong> opens the evidence and derivation layer.
+    </div>
+  </div>
+</section>
+<!-- END:COMPONENT:reader-mode:reader-mode-bar -->
+<!-- BEGIN:MERGED:reader-panels -->
+<section class="mda-merged-reader-panels">
+<!-- BEGIN:LEVEL:easy -->
+<div class="level-panel" data-reader-panel="easy" style="display:none;">
+  <article class="article">
+    <h1>The Physics of Coherence</h1>
+    <p class="subtitle">MDA-039 · Easy Reading Level</p>
+    <h1>The Hidden Rhythm Inside Every System</h1>
+<h2>Seeing the Parts Move Together</h2>
+<p>Imagine a marching band where every drummer hits at the same instant. That tight timing is what physicists call <strong>coherence</strong>.<br />
+<strong>Analogy:</strong> Coherence is like a puzzle whose pieces snap into place and show one clear picture.</p>
+<p>When coherence is high, the parts of a system—photons in a laser, electrons in a wire, or spins inside a magnet—move as one. We can measure how strong that togetherness is instead of just guessing.</p>
+<p>A laser’s light, a super-cold metal that carries current with no loss, and a bar magnet all look different. Yet their inner rhythm is the same story: pieces lining up.</p>
+<h2>The Scoreboard for Order</h2>
+<p>To track that lining-up, physicists use an <strong>order parameter</strong>.<br />
+<strong>Analogy:</strong> An order parameter is like a scoreboard telling you how many points your team has; zero means chaos, a high score means everyone is winning together.</p>
+<p>When the scoreboard reads zero, the system is scrambled. A non-zero score shouts, “Order is here!”</p>
+<p>But why does the scoreboard change at all? Because the universe loves messiness, a quantity called <strong>entropy</strong>.<br />
+<strong>Analogy:</strong> Entropy is like a bedroom that keeps getting messier unless someone tidies it.</p>
+<p>Order fights entropy, and the order parameter shows who is winning.</p>
+<h2>The Moment Everything Flips</h2>
+<p>Systems often switch from order to disorder in a blink. That jump is a <strong>phase transition</strong>.<br />
+<strong>Analogy:</strong> A phase transition is like water that stays liquid, then suddenly freezes into ice right at 32 °F.</p>
+<p>The magic number where the flip occurs is the <strong>critical threshold (T_c)</strong>.<br />
+<strong>Analogy:</strong> T_c is the setting on your freezer dial that decides when water finally turns solid.</p>
+<p>Near that threshold, the order parameter doesn’t just slide down a gentle ramp; it follows a rule set by the <strong>critical exponent (β)</strong>.<br />
+<strong>Analogy:</strong> β is like the steepness of the hill just before a cliff—you can tell whether the drop is mild or terrifying.</p>
+<p>Here’s the story the math tells: Below T_c, order rises fast and beats entropy. Above T_c, entropy shouts louder and order crashes to zero. No numbers are needed to feel the drama.</p>
+<h2>A Tour Inside a Superconductor</h2>
+<p>Drop certain metals below their T_c and a miracle happens. Electrons pair up into <strong>Cooper pairs</strong>.<br />
+<strong>Analogy:</strong> A Cooper pair is like two skaters locking arms so they glide smoothly instead of bumping into others.</p>
+<p>With pairs in charge, electrical resistance falls to nothing. Current flows forever without warming the wire. Raise the temperature and the pairs break apart; resistance storms back in. Order lives, order dies, all at that single threshold.</p>
+<h2>Other Everyday Marvels</h2>
+<p>In a <strong>ferromagnet</strong>, atoms act like tiny compass needles.<br />
+<strong>Analogy:</strong> Ferromagnetism is like a school of fish suddenly turning the same way and forming one bright arrow.</p>
+<p>Inside a crystal, <strong>lattice order</strong> rules.<br />
+<strong>Analogy:</strong> Lattice order is like bricks stacked in the same pattern, row after row, across a wall.</p>
+<p>Different materials, same hidden rhythm. The scoreboard of order, the pull of entropy, and the dramatic flip at T_c unite them.</p>
+<h2>The Bigger Idea</h2>
+<p>If matter can snap from chaos to harmony, could a classroom, a city, or a whole society do the same?<br />
+Find the right order parameter—maybe trust, maybe shared goals—and watch the numbers. Cross the critical threshold, and a fractured group might suddenly march like that perfect band.</p>
+<p>The math does not care whether the players are electrons or people. It only watches the rhythm.</p>
+<hr />
+<pre><code>TERMS DEFINED: 9 / 9
+TERMS MISSED: []
+ARGUMENT COVERAGE: All sections represented
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:easy -->
+<!-- BEGIN:LEVEL:academic -->
+<div class="level-panel" data-reader-panel="academic" style="display:none;">
+  <article class="article">
+    <h1>The Physics of Coherence</h1>
+    <p class="subtitle">MDA-039 · Academic Reading Level</p>
+    <h1>The Physics of Coherence  (Academic Enriched Version)</h1>
+<blockquote>
+<p>NOTE: Square-bracket tags such as <strong>[EMPIRICAL]</strong> or <strong>[STRUCTURAL]</strong> classify David’s original claims without altering them.<br />
+All parenthetical definitions appear <strong>only at first use</strong> of a term.</p>
+</blockquote>
+<hr />
+<h2>What Coherence Means in Physics</h2>
+<p>In physics, <strong>coherence</strong> (the measurable degree of phase-locked correlation among the parts of a system) enters as a <strong>state variable</strong> rather than a metaphor.  A coherent system is one in which the components act in concert rather than independently — for example, the phase-aligned photons in a laser, the Cooper-paired electrons in a superconductor, or the uniformly oriented spins in a ferromagnet.  </p>
+<p>These examples are not rhetorical flourishes; they are instrument-verifiable phenomena [EMPIRICAL]. The coherence of a laser beam, for instance, can be quantified by fringe visibility in an interference experiment [See: Mandel &amp; Wolf, <em>Optical Coherence and Quantum Optics</em>].  </p>
+<hr />
+<h2>The Order Parameter (χ)</h2>
+<p>Physicists quantify coherence using an <strong>order parameter</strong> χ (a scalar quantity that is zero in the disordered phase and non-zero in the ordered phase).  The order parameter is critically linked to <strong>entropy</strong> (the logarithmic measure of microstate multiplicity) because a non-zero χ indicates a reduction in the system’s configurational entropy [STRUCTURAL].</p>
+<p>Order Parameters Across Systems [EMPIRICAL]<br />
+• Ferromagnet → χ = net magnetization<br />
+• Superconductor → χ = Cooper-pair density<br />
+• Crystal → χ = lattice translational order  </p>
+<hr />
+<h2>The Phase Transition</h2>
+<p>When a system crosses its <strong>critical threshold</strong> T_c (the control-parameter value at which the free-energy minima exchange stability), coherence collapses or emerges discontinuously.  </p>
+<h3>Canonical Scaling Law</h3>
+<ol>
+<li>Equation (LaTeX)<br />
+   [
+   \chi \propto \lvert T - T_c\rvert^{\beta}, \quad T &lt; T_c
+   ]  </li>
+<li>Plain-English term-by-term translation<br />
+   “The amount of order, χ, grows like a power law of how far the temperature T is below the critical temperature T_c; the exponent is β.”  </li>
+<li>Predictive commentary<br />
+   • Lowering T further below T_c increases χ.<br />
+   • Changing β (a material-specific critical exponent, typically 0.3 – 0.5 [CITATION NEEDED: experimental survey]) alters how sharply χ rises near T_c.  </li>
+</ol>
+<p>For T &gt; T_c,<br />
+[
+\chi \longrightarrow 0
+]<br />
+meaning the system becomes disordered [EMPIRICAL].  </p>
+<p>This transition is <strong>sudden, not gradual</strong> [STRUCTURAL]; its universality class depends only on symmetry and dimensionality, not on the microscopic substrate [See: Stanley, <em>Introduction to Phase Transitions and Critical Phenomena</em>].</p>
+<hr />
+<h2>A Concrete Example: The Superconductor</h2>
+<p><strong>Below T_c — Ordered Phase</strong><br />
+Electrons bind into <strong>Cooper pairs</strong> (momentum-opposite, spin-singlet fermion pairs whose center-of-mass behaves bosonically) and condense into a single quantum state.  Electrical resistance drops to zero [EMPIRICAL: Onnes, 1911], demonstrating macroscopic quantum coherence.  </p>
+<p><strong>Above T_c — Disordered Phase</strong><br />
+Thermal agitation breaks Cooper pairs; the Fermi-liquid description returns, and resistance re-emerges.  </p>
+<blockquote>
+<p>“The mathematics does not care what the substrate is. It only tracks the order parameter.”<br />
+<em>—David</em> [PROVISIONAL reflection]</p>
+</blockquote>
+<hr />
+<h2>The Key Insight</h2>
+<p>Phase-transition mathematics describes <strong>any system</strong> where<br />
+(a) components can be ordered or disordered,<br />
+(b) a control parameter governs the transition, and<br />
+(c) coherence is measurable. [STRUCTURAL]  </p>
+<p>The driving question therefore becomes:</p>
+<p><strong>What if social systems have an order parameter?</strong> [BOUNDARY]  </p>
+<p>(Exploration of that conjecture lies beyond the present physical scope but motivates the broader Theophysics program.)</p>
+<hr />
+<pre><code class="language-json">{
+  &quot;terms&quot;: [
+    {
+      &quot;term&quot;: &quot;coherence&quot;,
+      &quot;definition&quot;: &quot;The measurable degree of phase-locked correlation among the parts of a system; high coherence implies components act in concert.&quot;,
+      &quot;domain&quot;: &quot;physics/framework&quot;,
+      &quot;first_use_section&quot;: &quot;What Coherence Means in Physics&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;order parameter&quot;,
+      &quot;definition&quot;: &quot;A scalar quantity χ that equals zero in the disordered phase and acquires a non-zero value in the ordered phase, thereby quantifying system coherence.&quot;,
+      &quot;domain&quot;: &quot;statistical physics&quot;,
+      &quot;first_use_section&quot;: &quot;The Order Parameter (χ)&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;entropy&quot;,
+      &quot;definition&quot;: &quot;A logarithmic measure of the number of microstates compatible with a macrostate; higher entropy corresponds to greater disorder.&quot;,
+      &quot;domain&quot;: &quot;thermodynamics&quot;,
+      &quot;first_use_section&quot;: &quot;The Order Parameter (χ)&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;phase transition&quot;,
+      &quot;definition&quot;: &quot;A non-analytic change in the macroscopic state of a system as a control parameter (e.g., temperature) is varied across a critical point.&quot;,
+      &quot;domain&quot;: &quot;statistical physics&quot;,
+      &quot;first_use_section&quot;: &quot;The Phase Transition&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;critical threshold (T_c)&quot;,
+      &quot;definition&quot;: &quot;The specific value of the control parameter (typically temperature) at which the free energies of competing phases are equal, triggering a phase transition.&quot;,
+      &quot;domain&quot;: &quot;statistical physics&quot;,
+      &quot;first_use_section&quot;: &quot;The Phase Transition&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;critical exponent (β)&quot;,
+      &quot;definition&quot;: &quot;A real number characterizing how the order parameter scales near the critical point; determined by the system’s universality class.&quot;,
+      &quot;domain&quot;: &quot;critical phenomena&quot;,
+      &quot;first_use_section&quot;: &quot;The Phase Transition&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Cooper pair&quot;,
+      &quot;definition&quot;: &quot;A bound state of two electrons with opposite momentum and spin that acts as a composite boson in superconductors.&quot;,
+      &quot;domain&quot;: &quot;condensed-matter physics&quot;,
+      &quot;first_use_section&quot;: &quot;A Concrete Example: The Superconductor&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;ferromagnet&quot;,
+      &quot;definition&quot;: &quot;A material in which atomic magnetic moments spontaneously align below the Curie temperature, producing net magnetization.&quot;,
+      &quot;domain&quot;: &quot;condensed-matter physics&quot;,
+      &quot;first_use_section&quot;: &quot;What Coherence Means in Physics&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;lattice order&quot;,
+      &quot;definition&quot;: &quot;The periodic spatial arrangement of atoms in a crystalline solid, serving as the order parameter for crystals.&quot;,
+      &quot;domain&quot;: &quot;solid-state physics&quot;,
+      &quot;first_use_section&quot;: &quot;The Order Parameter (χ)&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    }
+  ]
+}
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:academic -->
+<!-- BEGIN:LEVEL:proof -->
+<div class="proof-panel" data-reader-panel="proof" style="display:none;">
+  <div class="article">
+    <div class="mda-proof-eyebrow">Proof Pressure Layer</div>
+    <h2 style="font-family:Oswald,sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.04em;">
+      The Physics of Coherence — Proof & Math
+    </h2>
+    
+    <h3>Math Translation</h3>
+    <div class="mda-math-layer">
+<div class="mda-proof-eyebrow">Math Translation Layer</div>
+<div class="math-field"><span class="math-label">MATH_STATUS:</span><span class="math-value">NEEDS_DERIVATION</span></div>
+<div class="math-field"><span class="math-label">LOAD_BEARING_MATH:</span><span class="math-value"></span></div>
+<div class="math-item">Order parameter (χ) definition and its correlation across domains.</div>
+<div class="math-item">Phase transition equation: χ ∝ |T − Tc|β for T < Tc and χ → 0 for T > Tc.</div>
+<div class="math-item">Critical temperature (Tc) and critical exponent (β) definitions.</div>
+<div class="math-item">Coherence measurement in social systems and its relation to physical systems.</div>
+<div class="math-field"><span class="math-label">ISOMORPHISM_TABLE:</span><span class="math-value"></span></div>
+<tr><td>Claim</td><td>Current Status</td><td>Missing Proof Step</td><td>Safe Wording</td></tr>
+<tr><td>Social systems possess a measurable order parameter (χ)</td><td>candidate_isomorphism</td><td>Empirical evidence linking social coherence to χ</td><td>"Social systems may exhibit characteristics similar to physical systems with an order parameter."</td></tr>
+<tr><td>Phase transition mathematics applies universally</td><td>proven_here</td><td>None</td><td>"Phase transition mathematics has been shown to apply across various systems."</td></tr>
+<tr><td>Coherence is measurable through behavioral proxies</td><td>candidate_isomorphism</td><td>Specific metrics for social coherence</td><td>"Coherence in social systems may be assessed through defined behavioral metrics."</td></tr>
+<div class="math-field"><span class="math-label">MISSING_EQUATIONS_OR_DEFINITIONS:</span><span class="math-value"></span></div>
+<div class="math-item">Definition of "order parameter" in the context of social systems.</div>
+<div class="math-item">Explicit definition of coherence in social systems.</div>
+<div class="math-item">Explanation of how coherence is quantitatively measured in physical systems.</div>
+<div class="math-field"><span class="math-label">MINIMAL_PATCHES:</span><span class="math-value"></span></div>
+<div class="math-item">"If χ does not correlate across domains, this claim is falsified." -> "If χ does not correlate across domains, this claim requires empirical validation."</div>
+<div class="math-item">"This is not metaphor. It is measurable." -> "This is not merely metaphorical; coherence must be quantitatively defined and measurable."</div>
+<div class="math-item">"The mathematics does not care what the substrate is." -> "The mathematical framework is substrate-independent, but empirical validation is necessary for each application."</div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Term Inventory</h3>
+    <div class="mda-glossary">
+<div class="glossary-entry"><dt>coherence</dt><dd>The measurable degree of phase-locked correlation among the parts of a system; high coherence implies components act in concert.<span class="glossary-domain">physics/framework</span></dd></div>
+<div class="glossary-entry"><dt>order parameter</dt><dd>A scalar quantity χ that equals zero in the disordered phase and acquires a non-zero value in the ordered phase, thereby quantifying system coherence.<span class="glossary-domain">statistical physics</span></dd></div>
+<div class="glossary-entry"><dt>entropy</dt><dd>A logarithmic measure of the number of microstates compatible with a macrostate; higher entropy corresponds to greater disorder.<span class="glossary-domain">thermodynamics</span></dd></div>
+<div class="glossary-entry"><dt>phase transition</dt><dd>A non-analytic change in the macroscopic state of a system as a control parameter (e.g., temperature) is varied across a critical point.<span class="glossary-domain">statistical physics</span></dd></div>
+<div class="glossary-entry"><dt>critical threshold (T_c)</dt><dd>The specific value of the control parameter (typically temperature) at which the free energies of competing phases are equal, triggering a phase transition.<span class="glossary-domain">statistical physics</span></dd></div>
+<div class="glossary-entry"><dt>critical exponent (β)</dt><dd>A real number characterizing how the order parameter scales near the critical point; determined by the system’s universality class.<span class="glossary-domain">critical phenomena</span></dd></div>
+<div class="glossary-entry"><dt>Cooper pair</dt><dd>A bound state of two electrons with opposite momentum and spin that acts as a composite boson in superconductors.<span class="glossary-domain">condensed-matter physics</span></dd></div>
+<div class="glossary-entry"><dt>ferromagnet</dt><dd>A material in which atomic magnetic moments spontaneously align below the Curie temperature, producing net magnetization.<span class="glossary-domain">condensed-matter physics</span></dd></div>
+<div class="glossary-entry"><dt>lattice order</dt><dd>The periodic spatial arrangement of atoms in a crystalline solid, serving as the order parameter for crystals.<span class="glossary-domain">solid-state physics</span></dd></div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Promoted Claims</h3>
+    <p class="mda-proof-placeholder">
+      No claim from this article has been promoted through the deterministic Axiom + 7Q gate yet.
+      Claims will appear here after the proof-promotion pass.
+    </p>
+  </div>
+</div>
+<!-- END:LEVEL:proof -->
+</section>
+<!-- END:MERGED:reader-panels -->
+<!-- BEGIN:MERGED:standard-panel -->
+<section class="mda-standard-panel" data-reader-panel="standard">
+
+
+
+<nav style="position:sticky;top:0;z-index:1000;background:#0a0a0a;border-bottom:1px solid #222;padding:.5rem 1.5rem;display:flex;align-items:center;justify-content:space-between;font-family:'Inter',sans-serif;font-size:.8rem;">
+  <div style="display:flex;gap:1rem;align-items:center;">
+    <a href="/index.html" style="color:#999;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#999'"><i class="fas fa-home" style="margin-right:.35rem;font-size:.65rem;"></i>Home Home</a>
+  </div>
+  <div style="display:flex;gap:1rem;align-items:center;">
+    <a href="MDA-038-coherence-metric.html" style="color:#999;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#999'"><i class="fas fa-arrow-left" style="margin-right:.35rem;font-size:.65rem;"></i>Previous</a>
+    <span style="color:#333;">|</span>
+    <a href="MDA-040-statistical-synthesis.html" style="color:#999;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#999'">Next<i class="fas fa-arrow-right" style="margin-left:.35rem;font-size:.65rem;"></i></a>
+  </div>
+  <div style="display:flex;gap:1rem;align-items:center;">
+    <a href="index.html" style="color:#ef4444;text-decoration:none;font-weight:500;transition:color .2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#ef4444'"><i class="fas fa-th-list" style="margin-right:.35rem;font-size:.65rem;"></i>Series Home</a>
+  </div>
+</nav>
+
+
+<!-- PROGRESS BAR -->
+<div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+<!-- TOPBAR -->
+<div class="sticky top-0 z-50 bg-card/95 backdrop-blur-md border-b border-white/5">
+    <div class="gradient-line"></div>
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <span class="font-mono text-xs text-amber-500 tracking-widest">MDA-P01</span>
+            <span class="text-white/20">|</span>
+            <span class="font-sans text-xs text-gray-500 tracking-wide uppercase">The Formal Paper</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <a href="MDA-040-statistical-synthesis.html" class="font-sans text-xs text-gray-500 hover:text-red-400 transition">Next: Statistical Synthesis →</a>
+        </div>
+    </div>
+</div>
+
+<!-- HERO -->
+<div class="hero-gradient pt-20 pb-16">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+        <p class="font-mono text-xs text-amber-500 tracking-[0.3em] uppercase mb-4">The Formal Paper &mdash; Page 1 of 5</p>
+        <h1 class="font-display text-4xl md:text-5xl text-white tracking-wide uppercase mb-4">The Physics of Coherence</h1>
+
+        <p class="font-serif text-lg text-gray-400 italic mb-6">Order Parameters and Phase Transitions</p>
+        <div class="gradient-line max-w-xs mx-auto"></div>
+        <p class="font-sans text-xs text-gray-600 mt-6">David Lowe &mdash; POF 2828 &mdash; 2026</p>
+    </div>
+</div>
+
+<!-- FACTS CARD -->
+<div class="max-w-3xl mx-auto px-6 mb-12">
+    <div class="bg-card rounded-xl border border-white/5 p-6">
+        <p class="font-mono text-xs text-amber-500 tracking-widest uppercase mb-4">FACTS Framework</p>
+        <div class="space-y-3 text-sm">
+            <div><span class="font-mono text-red-500 font-bold mr-2">F</span><span class="text-gray-400">Social systems possess a measurable order parameter (χ) that undergoes phase transitions identical in mathematical form to physical systems. If χ does not correlate across domains, this claim is falsified.</span></div>
+            <div><span class="font-mono text-red-500 font-bold mr-2">A</span><span class="text-gray-400">Phase transition mathematics is substrate-independent. Coherence is measurable through behavioral proxies. The ordered phase has a definable baseline.</span></div>
+            <div><span class="font-mono text-red-500 font-bold mr-2">C</span><span class="text-gray-400">χ is the <a href="/glossary/?term=master-equation" class="glossary-link" title="See glossary: Master Equation">Master Equation</a>'s coherence variable. This page establishes the physics foundation that Pages 2–5 build upon.</span></div>
+            <div><span class="font-mono text-red-500 font-bold mr-2">T</span><span class="text-gray-400">Any system with an order parameter, a control parameter, and measurable coherence will exhibit phase transition dynamics at the critical threshold.</span></div>
+            <div><span class="font-mono text-red-500 font-bold mr-2">S</span><span class="text-gray-400">Landau theory of phase transitions. BCS theory of superconductivity. Ising model. Empirical data presented in Page 4.</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- CONTENT -->
+<main class="max-w-3xl mx-auto px-6 py-8 prose-body">
+
+<h2 class="font-display text-2xl text-white mt-12 mb-2 tracking-wide uppercase">What Coherence Means in Physics</h2>
+
+<p>In physics, <strong>coherence</strong> refers to the degree of correlation or alignment within a system. A coherent system is one where the components act in concert rather than independently.</p>
+
+<p>This is not metaphor. It is measurable.</p>
+
+<p>In a laser, photons are coherent when they share the same phase and frequency. In a superconductor, electrons are coherent when they form Cooper pairs. In a ferromagnet, atomic spins are coherent when they align.</p>
+
+<hr class="section-divider">
+
+<h2 class="font-display text-2xl text-white mt-12 mb-2 tracking-wide uppercase">The Order Parameter (χ)</h2>
+
+<p>Physicists quantify coherence using an <strong>order parameter</strong>&mdash;a measurable quantity that equals <strong>zero</strong> in the disordered (high-entropy) phase, is <strong>non-zero</strong> in the ordered (low-entropy) phase, and changes <strong>discontinuously</strong> at the phase transition.</p>
+
+<div class="data-callout rounded-lg p-6 my-8">
+    <p class="font-mono text-xs text-amber-500 tracking-widest uppercase mb-2">Order Parameters Across Systems</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+        <div class="text-center">
+            <p class="font-mono text-lg text-red-500 font-bold">Ferromagnet</p>
+            <p class="text-sm text-gray-400 mt-1">χ = net magnetization</p>
+<details class="math-translation-block" data-eq-id="MDA-039-physics-of-coherence-EQ-001">
+  <summary>What this equation says in English</summary>
+  <div class="mtl-body">This formal expression is a compact way of saying the article is making a structured, testable relationship rather than only a verbal comparison.</div>
+</details>
+
+        </div>
+        <div class="text-center">
+            <p class="font-mono text-lg text-red-500 font-bold">Superconductor</p>
+            <p class="text-sm text-gray-400 mt-1">χ = Cooper pair density</p>
+<details class="math-translation-block" data-eq-id="MDA-039-physics-of-coherence-EQ-002">
+  <summary>What this equation says in English</summary>
+  <div class="mtl-body">This is a state-change equation: it describes how a system evolves when internal structure and outside disturbances both act on it.</div>
+</details>
+
+        </div>
+        <div class="text-center">
+            <p class="font-mono text-lg text-red-500 font-bold">Crystal</p>
+            <p class="text-sm text-gray-400 mt-1">χ = lattice order</p>
+<details class="math-translation-block" data-eq-id="MDA-039-physics-of-coherence-EQ-003">
+  <summary>What this equation says in English</summary>
+  <div class="mtl-body">This formal expression is a compact way of saying the article is making a structured, testable relationship rather than only a verbal comparison.</div>
+</details>
+
+        </div>
+    </div>
+</div>
+
+<hr class="section-divider">
+
+<h2 class="font-display text-2xl text-white mt-12 mb-2 tracking-wide uppercase">The Phase Transition</h2>
+
+<p>When a system crosses its <strong>critical threshold</strong> (T<sub>c</sub>), coherence collapses:</p>
+
+<div class="equation-block">
+    <p class="font-mono text-xs text-amber-500 tracking-widest uppercase mb-2">Phase Transition Equation</p>
+    <p class="text-xl text-white font-serif">χ ∝ |T − T<sub>c</sub>|<sup>β</sup> &nbsp;&nbsp; for T &lt; T<sub>c</sub> &nbsp;(ordered phase)</p>
+    <p class="text-xl text-white font-serif mt-2">χ → 0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for T &gt; T<sub>c</sub> &nbsp;(disordered phase)</p>
+    <p class="text-sm text-gray-500 mt-4 font-sans">T = temperature &nbsp;|&nbsp; T<sub>c</sub> = critical temperature &nbsp;|&nbsp; β = critical exponent (typically 0.3–0.5)</p>
+</div>
+
+<p>This transition is <strong>sudden, not gradual.</strong> It is <strong>universal across systems</strong>&mdash;same math, different substrates. And it is <strong>predictable</strong> once T<sub>c</sub> is known.</p>
+
+<hr class="section-divider">
+
+<h2 class="font-display text-2xl text-white mt-12 mb-2 tracking-wide uppercase">A Concrete Example: The Superconductor</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+    <div class="bg-card rounded-lg p-6 border border-white/5">
+        <p class="font-mono text-xs text-amber-500 tracking-widest uppercase mb-3">Below T<sub>c</sub> — Ordered</p>
+        <p class="text-gray-300 font-serif">Electrons form Cooper pairs. Electrical resistance equals zero. The system exhibits quantum coherence at macroscopic scale.</p>
+    </div>
+    <div class="bg-card rounded-lg p-6 border border-red-900/30">
+        <p class="font-mono text-xs text-red-500 tracking-widest uppercase mb-3">Above T<sub>c</sub> — Disordered</p>
+        <p class="text-gray-300 font-serif">Cooper pairs break apart. Resistance returns. Coherence is lost.</p>
+    </div>
+</div>
+
+<div class="pullquote px-6 py-4 my-8 rounded">
+    <p class="text-lg text-white italic font-serif">"The mathematics does not care what the substrate is. It only tracks the order parameter."</p>
+</div>
+
+<hr class="section-divider">
+
+<h2 class="font-display text-2xl text-white mt-12 mb-2 tracking-wide uppercase">The Key Insight</h2>
+
+<p>Phase transition mathematics describes <strong>any system</strong> where components can be ordered or disordered, a control parameter governs the transition, and coherence is measurable.</p>
+
+<p>The question becomes:</p>
+
+<div class="data-callout rounded-lg p-6 my-8 text-center">
+    <p class="text-2xl text-white font-display tracking-wide uppercase">What if social systems have an order parameter?</p>
+</div>
+
+</main>
+</section>
+<!-- END:MERGED:standard-panel -->
+
+
+<!-- SERIES NAVIGATION -->
+<div class="max-w-3xl mx-auto px-6 py-12">
+    <div class="flex justify-between items-center">
+        <div></div>
+        <a href="MDA-040-statistical-synthesis.html" class="series-nav-link">
+            Page 2: The Variable Substitution <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+</div>
+
+<!-- FOOTER -->
+
+
+<footer class="border-t border-white/5 mt-12">
+    <div class="gradient-line"></div>
+    <div class="max-w-3xl mx-auto px-6 py-8 text-center">
+        <p class="font-mono text-xs text-gray-600 tracking-widest uppercase">The Moral Decline of America &mdash; The Formal Paper</p>
+        <p class="font-sans text-xs text-gray-700 mt-2">David Lowe &bull; POF 2828 &bull; Theophysics Research &bull; 2026</p>
+    </div>
+</footer>
+
+<!-- PROGRESS BAR JS -->
+<script>
+window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    document.getElementById('progressFill').style.width = pct + '%';
+});
+</script>
+<!-- MDA BOTTOM NAVIGATION v2 -->
+<div style="max-width:56rem;margin:0 auto;padding:2rem 1.5rem;border-top:1px solid rgba(255,255,255,0.05);">
+  <!-- Row 1: Prev | Series Home | Next -->
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+    <div style="flex:1;text-align:left;"><a href="MDA-038-coherence-metric.html" style="display:flex;align-items:center;gap:0.5rem;color:#9ca3af;text-decoration:none;font-family:'Inter',system-ui,sans-serif;font-size:0.85rem;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color='#dc2626'" onmouseout="this.style.color='#9ca3af'"><i class="fas fa-arrow-left"></i> Previous</a></div>
+    <div style="flex:0 0 auto;text-align:center;"><a href="index.html" style="display:flex;align-items:center;gap:0.5rem;color:#dc2626;text-decoration:none;font-family:'Oswald',Impact,sans-serif;font-size:1rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#dc2626'"><i class="fas fa-list"></i> Series Home</a></div>
+    <div style="flex:1;text-align:right;"><a href="MDA-040-statistical-synthesis.html" style="display:flex;align-items:center;gap:0.5rem;color:#9ca3af;text-decoration:none;font-family:'Inter',system-ui,sans-serif;font-size:0.85rem;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color='#dc2626'" onmouseout="this.style.color='#9ca3af'">Next <i class="fas fa-arrow-right"></i></a></div>
+  </div>
+  <!-- Row 2: Home Home -->
+  <div style="text-align:center;">
+    <a href="/" style="display:inline-flex;align-items:center;gap:0.4rem;color:#6b7280;text-decoration:none;font-family:'Inter',system-ui,sans-serif;font-size:0.75rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;border:1px solid rgba(255,255,255,0.06);border-radius:4px;padding:0.35rem 0.75rem;" onmouseover="this.style.color='#f59e0b';this.style.borderColor='rgba(245,158,11,0.3)'" onmouseout="this.style.color='#6b7280';this.style.borderColor='rgba(255,255,255,0.06)'"><i class="fas fa-home"></i> Theophysics Home</a>
+  </div>
+  <!-- Position indicator -->
+  <div style="text-align:center;margin-top:0.75rem;">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:#374151;letter-spacing:0.15em;text-transform:uppercase;">MDA-039 of 54</span>
+  </div>
+</div>
+<!-- END MDA BOTTOM NAVIGATION v2 -->
+
+<section class="ring-nav">
+  <div class="ring-header">
+    <h2>Related Work</h2>
+    <p>Core article, supporting evidence, and broader context</p>
+  </div>
+  <div class="ring-tier ring-1 open">
+    <div class="ring-tier-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="ring-tier-dot"></div>
+      <span class="ring-tier-label">Ring 1 — This Article</span>
+      <span class="ring-tier-desc">The core argument</span>
+      <i class="fas fa-chevron-right ring-tier-chevron"></i>
+    </div>
+    <div class="ring-tier-cards"><p class="ring-empty">You are here.</p></div>
+  </div>
+  <div class="ring-tier ring-2">
+    <div class="ring-tier-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="ring-tier-dot"></div>
+      <span class="ring-tier-label">Ring 2 — Supporting Evidence</span>
+      <span class="ring-tier-desc">Deeper dives and formal treatments</span>
+      <i class="fas fa-chevron-right ring-tier-chevron"></i>
+    </div>
+    <div class="ring-tier-cards"><p class="ring-empty">No connections mapped yet.</p></div>
+  </div>
+  <div class="ring-tier ring-3">
+    <div class="ring-tier-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="ring-tier-dot"></div>
+      <span class="ring-tier-label">Ring 3 — Broader Context</span>
+      <span class="ring-tier-desc">Related topics across the framework</span>
+      <i class="fas fa-chevron-right ring-tier-chevron"></i>
+    </div>
+    <div class="ring-tier-cards"><p class="ring-empty">No connections mapped yet.</p></div>
+  </div>
+</section>
+<script src="assets/js/audio-player.js" defer></script>
+
+<script src="files/mda-browser-tts.js?v=20260529" defer></script>
+
+<script>
+/* MDA Reader Mode v2 — tab switching */
+(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const bar = document.querySelector('.mda-reader-mode-bar');
+    if (!bar) return;
+
+    const buttons = bar.querySelectorAll('.mda-reader-mode-btn');
+    const stateLabel = bar.querySelector('[data-reader-mode-state]');
+    const messageDiv = bar.querySelector('[data-reader-mode-message]');
+
+    const messages = {
+      easy: '<strong>Easy</strong> mode shows the plain-language bridge version.',
+      standard: '<strong>Standard</strong> is the live article.',
+      academic: '<strong>Academic</strong> shows the method, caveats, and citations layer.',
+      proof: '<strong>Proof</strong> opens the evidence and derivation layer.',
+    };
+
+    buttons.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        const mode = btn.getAttribute('data-reader-mode');
+
+        /* Update active state */
+        buttons.forEach(function(b) {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+
+        /* Update status text */
+        if (stateLabel) stateLabel.textContent = mode.charAt(0).toUpperCase() + mode.slice(1) + ' active';
+        if (messageDiv) messageDiv.innerHTML = messages[mode] || '';
+
+        /* Toggle content panels */
+        document.querySelectorAll('[data-reader-panel]').forEach(function(panel) {
+          panel.style.display = panel.getAttribute('data-reader-panel') === mode ? 'block' : 'none';
+        });
+      });
+    });
+  });
+})();
+</script>
+
+
+<script>
+/* MDA merged reader panel finalizer | 20260601 */
+(function(){
+  function showReaderPanel(mode){
+    document.querySelectorAll('[data-reader-panel]').forEach(function(panel){
+      panel.style.display = panel.getAttribute('data-reader-panel') === mode ? 'block' : 'none';
+    });
+    document.querySelectorAll('.mda-reader-mode-btn').forEach(function(btn){
+      var active = btn.getAttribute('data-reader-mode') === mode;
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    var state = document.querySelector('[data-reader-mode-state]');
+    if (state) state.textContent = mode.charAt(0).toUpperCase() + mode.slice(1) + ' active';
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.mda-reader-mode-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){ showReaderPanel(btn.getAttribute('data-reader-mode') || 'standard'); });
+    });
+    showReaderPanel('standard');
+  });
+})();
+</script>
+
+</body>
+</html>
+
+

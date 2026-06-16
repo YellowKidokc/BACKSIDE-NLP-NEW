@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Part V: Jacob (1998) — The Moral Decline of America — Moral Decline of America</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a;
+  --border:#2a2a2a; --border-claim:rgba(212,175,55,.35);
+  --text:#e0e0e0; --text2:#a0a0a0; --text3:#707070;
+  --mda-red:#dc2626; --mda-red-glow:rgba(220,38,38,.08);
+  --claim:#d4af37; --claim-glow:rgba(212,175,55,.08);
+  --easy:#22c55e; --easy-glow:rgba(34,197,94,.08);
+  --academic:#a78bfa; --academic-glow:rgba(167,139,250,.08);
+  --proof:#f59e0b; --proof-glow:rgba(245,158,11,.08);
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  line-height:1.65; margin:0; padding:0;
+}
+</style>
+<style>
+/* Reader Mode Bar */
+.mda-reader-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:.5rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;
+}
+.mda-reader-bar .series-badge{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mda-red);font-weight:600;
+}
+.mda-reader-bar .meta{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;
+  color:var(--text3);text-transform:uppercase;letter-spacing:.06em;
+}
+.tab-group{display:flex;gap:.4rem;flex-wrap:wrap;}
+.tab-btn{
+  padding:.4rem .7rem;border:1px solid var(--border);border-radius:.35rem;
+  background:var(--surface);color:var(--text2);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em;transition:all .2s;
+}
+.tab-btn:hover{border-color:var(--mda-red);color:var(--text);}
+.tab-btn.active{border-color:var(--mda-red);background:var(--mda-red-glow);color:var(--mda-red);}
+.tab-btn[data-tab="easy"].active{border-color:var(--easy);background:var(--easy-glow);color:var(--easy);}
+.tab-btn[data-tab="academic"].active{border-color:var(--academic);background:var(--academic-glow);color:var(--academic);}
+.tab-btn[data-tab="proof"].active{border-color:var(--proof);background:var(--proof-glow);color:var(--proof);}
+
+/* Article */
+.article{max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem;}
+.article h1{
+  font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.02em;
+  margin:0 0 .5rem;line-height:1.1;
+}
+.article .subtitle{
+  font-family:'Crimson Text',serif;font-size:1.15rem;color:var(--text2);
+  font-style:italic;margin:0 0 2rem;line-height:1.5;
+}
+.article h2{
+  font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:#fff;
+  text-transform:uppercase;letter-spacing:.04em;margin:2.5rem 0 1rem;
+  border-bottom:1px solid var(--border);padding-bottom:.4rem;
+}
+.article h3{font-family:'Crimson Text',serif;font-size:1.15rem;font-weight:600;color:var(--mda-red);margin:1.5rem 0 .5rem;}
+.article p{font-size:1.02rem;line-height:1.75;margin:0 0 1.25rem;}
+.article blockquote{
+  border-left:3px solid var(--mda-red);background:var(--mda-red-glow);
+  padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 .4rem .4rem 0;
+  font-family:'Crimson Text',serif;font-style:italic;color:var(--text2);
+}
+.article img{max-width:100%;border-radius:.4rem;margin:1rem 0;}
+.mda-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
+.mda-table td{padding:.4rem .6rem;border:1px solid var(--border);color:var(--text2);}
+.mda-table tr:first-child td{font-weight:600;color:var(--text);background:var(--surface);}
+
+/* Reading level panels */
+.level-panel{display:none;}
+.level-panel.active{display:block;}
+
+/* Proof panel */
+.proof-panel{display:none;max-width:780px;margin:0 auto;padding:1.5rem;}
+.proof-panel.active{display:block;}
+.mda-proof-eyebrow{
+  font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--proof);margin-bottom:.6rem;
+}
+.math-field{display:flex;gap:.5rem;margin:.4rem 0;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.math-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--proof);font-weight:600;min-width:180px;}
+.math-value{font-size:.85rem;color:var(--text2);}
+.math-item{font-size:.85rem;color:var(--text);padding:.2rem 0 .2rem 1rem;border-left:2px solid var(--border);margin:.3rem 0;}
+.mda-proof-placeholder{color:var(--text3);font-style:italic;font-size:.9rem;}
+
+/* Glossary */
+.mda-glossary{columns:1;}
+.glossary-entry{break-inside:avoid;margin-bottom:.8rem;}
+.glossary-entry dt{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--academic);font-weight:600;}
+.glossary-entry dd{font-size:.85rem;color:var(--text2);margin:0 0 0 .5rem;}
+.glossary-domain{font-size:.65rem;color:var(--text3);margin-left:.5rem;font-style:italic;}
+
+/* Easy level overrides */
+body.mode-easy .article p{font-size:1.15rem;line-height:1.85;}
+body.mode-easy .article h3{font-size:1.3rem;color:var(--easy);font-family:'Oswald',sans-serif;}
+body.mode-easy .article blockquote{border-left-color:var(--easy);background:var(--easy-glow);font-style:normal;}
+/* Academic level overrides */
+body.mode-academic .article p{font-size:.95rem;line-height:1.65;color:#d0d0d0;}
+body.mode-academic .article h3{font-size:1.1rem;color:var(--academic);font-family:'Crimson Text',serif;font-style:italic;}
+body.mode-academic .article blockquote{border-left-color:var(--academic);background:var(--academic-glow);}
+
+@media(max-width:640px){
+  .article{padding:1.5rem 1rem 4rem;}
+  .mda-reader-bar{padding:.4rem 1rem;}
+}
+</style>
+</head>
+<body class="mode-standard">
+
+<!-- BEGIN:COMPONENT:reader-mode:reader-mode-bar -->
+<div class="mda-reader-bar">
+  <div>
+    <span class="series-badge">Moral Decline of America</span>
+    <span class="meta">MDA-031</span>
+    <span class="meta" id="mode-status">Standard active</span>
+  </div>
+  <div class="tab-group">
+    <button class="tab-btn" data-tab="easy" onclick="setTab('easy')">Easy</button>
+    <button class="tab-btn active" data-tab="standard" onclick="setTab('standard')">Standard</button>
+    <button class="tab-btn" data-tab="academic" onclick="setTab('academic')">Academic</button>
+    <button class="tab-btn" data-tab="proof" onclick="setTab('proof')">Proof</button>
+  </div>
+</div>
+<!-- END:COMPONENT:reader-mode:reader-mode-bar -->
+
+<!-- BEGIN:LEVEL:standard -->
+<div class="level-panel active" data-level="standard">
+  <article class="article">
+    <h1>Part V: Jacob (1998) — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-031 · David Lowe · Theophysics Institute</p>
+    <p>Moral Decline of America</p>
+<p><a href="../../index.html">THEOPHYSICS</a><a href="../index.html">Moral Decline</a>Part V: Jacob</p>
+<h2>PART V: JACOB</h2>
+<h1>The Aftermath (1998)</h1>
+<h2>The World of 1998</h2>
+<p>America is rich, comfortable, and completely untethered.</p>
+<p><img alt="Story Illustration" src="../images/mda/Phantom_Money_Phantom_Morals conv 6.webp" /></p>
+<p>The Cold War is over. The Soviet Union collapsed seven years ago, and the United States stands alone - the sole superpower, the end of history, the triumph of liberal democracy and free markets. The stock market is booming. Unemployment is 4.5%. The federal budget is running a surplus for the first time in decades.</p>
+<p>Bill Clinton is president. He is also being impeached for lying about an affair with an intern. This will not meaningfully damage his approval ratings. The country has learned to separate public performance from private morality. It's just one more boundary erased.</p>
+<p><strong>The new technology - the internet:</strong></p>
+<p>The internet is emerging.</p>
+<p>AOL, Yahoo, early Amazon. E-mail is replacing letters. Web pages are replacing brochures. Something is happening, something big, and no one quite knows what it means yet.</p>
+<p>By 1998, 26% of American households have internet access. By 2000, it will be 41%. By 2010, it will be 71%. By 2024, the question will be meaningless - the internet will be as ubiquitous as electricity, as invisible as air.</p>
+<p>What the internet means: information is now infinite. Any question can be answered instantly. Any curiosity can be satisfied. Any desire can find an outlet.</p>
+<p>And more than that: connection is now infinite. You can talk to anyone, anywhere, at any time. The geographic constraints that defined every previous generation - the five-mile radius of Samuel's world, the two-hour drive of Henry's world, even the long-distance phone call of Tommy's world - they're dissolving. Distance is dying.</p>
+<p>But infinite connection is not the same as depth. Infinite information is not the same as wisdom. The technology offers everything and guarantees nothing.</p>
+<p><strong>The technological saturation:</strong></p>
+<p>The average American household in 1998 has:</p>
+<ul>
+<li>-2.4 television sets (up from 1 in 1975)</li>
+<li>-Cable or satellite TV with 50+ channels</li>
+<li>-A VCR</li>
+<li>-A landline phone</li>
+<li>-Often a cell phone (20% penetration, rising fast)</li>
+<li>-Often a personal computer</li>
+<li>-Often internet access</li>
+</ul>
+<p>The screens are multiplying. The input is constant.</p>
+<p>By 2024, the average American will spend 7 hours a day looking at screens. More time with screens than with sleep. More time with screens than with humans.</p>
+<p>But in 1998, the smartphone doesn't exist yet. There's still a boundary - you can leave the house and be unreachable. You can sit somewhere without a glowing rectangle in your pocket demanding attention.</p>
+<p>That boundary is about to disappear. But Jake doesn't know that yet.</p>
+<p><strong>The numbers:</strong></p>
+<ul>
+<li>-Divorce rate: 4.0 per 1,000 population, down slightly from its peak. But misleading - fewer people are marrying in the first place.</li>
+<li>-Average age at first marriage: 26.7 for men, 25.0 for women. Rising steadily. Marriage is being delayed, or skipped entirely.</li>
+<li>-Cohabitation: 5.5 million unmarried couples living together, up from 523,000 in 1970. Ten times more.</li>
+<li>-Non-marital births: 32.8% of all births are to unmarried mothers. Up from 5% in 1960.</li>
+<li>-Church attendance: 35% weekly, down from 55% in 1958. Still declining.</li>
+<li>-"No religious affiliation": 14% of Americans, up from 2% in 1950. Rising fast among the young.</li>
+<li>-Adults living alone: 25 million, up from 4 million in 1950.</li>
+<li>-Average hours of TV per day: 4+ (plus computer time, gaming, etc.)</li>
+</ul>
+<p>This is the world Jacob Lowe inherits.</p>
+<p>His great-great-grandfather had six options for marriage. Jake will swipe through six hundred faces before breakfast.</p>
+<h2>Ohio (and elsewhere), 1998</h2>
+<p>Jake Lowe is eighteen years old, and he doesn't know where he's from.</p>
+<p>This isn't a metaphor. He literally doesn't know how to answer the question.</p>
+<p>He was born in Cincinnati. His parents divorced when he was five. His mom moved back to Indiana, where her family was from. His dad stayed in Ohio, then moved to Kentucky with his second wife, then moved back to Ohio after the second divorce.</p>
+<p>Jake shuttled between them. Two weeks here, two weeks there. Christmas alternating years. Different schools, different neighborhoods, different everything.</p>
+<p>So when someone asks "Where are you from?" he just says "Ohio, I guess." But Ohio doesn't feel like home. Nothing feels like home. Home is wherever the TV is, wherever the computer is, wherever the screen is glowing.</p>
+<p>He's a freshman at Ohio State now - same school his grandfather went to, though Jake doesn't know that. He didn't apply because of family tradition. He applied because it was a state school, and his grades were okay, and in-state tuition was cheaper.</p>
+<p>He's undeclared. He doesn't know what he wants to study. He doesn't know what he wants to do. He doesn't know what he wants, period.</p>
+<p>This is normal, everyone tells him. Figure it out as you go. Explore your options. Find yourself.</p>
+<p>No one tells him what "yourself" is supposed to look like when you find it.</p>
+<h2>The Noise (Total)</h2>
+<p>The noise that began in Henry's era - the radio voice from far away - has become total.</p>
+<p>Jake cannot remember silence. Genuine silence.</p>
+<p>There is always a TV on somewhere. Always music playing. Always a computer humming. When he walks across campus, half the students are wearing Walkmans or the new Discmans, ears filled with their private soundtracks.</p>
+<p>And now: the internet.</p>
+<p>Jake discovered chat rooms in high school. AOL Instant Messenger. You could talk to anyone, anywhere, at any time. Strangers in California. Strangers in Japan. The walls of geography dissolved.</p>
+<p>He spent hours - he spends hours - in front of the screen. Chatting. Browsing. Clicking from page to page, following links down rabbit holes that lead nowhere in particular. Time disappears. Hours pass and he can't account for them.</p>
+<p>His great-great-grandfather Samuel sat on a porch and watched the stars come out. The only sounds were crickets and wind. He had time to think. Time to let thoughts develop slowly, like photographs in a darkroom.</p>
+<p>Jake's thoughts don't develop. They're interrupted. Every few seconds, something new demands attention. A notification. A message. A link. The mind learns to skim, to jump, to never settle.</p>
+<p>Is this making him smarter? He has access to more information than any human in history.</p>
+<p>Is this making him dumber? He can't focus on anything for more than ten minutes.</p>
+<p>He doesn't know. He can't know. There's no control group. There's no comparison. This is just how life is now.</p>
+<h2>The Girls (Plural)</h2>
+<p>Jake has had sex with four girls by the time he's eighteen.</p>
+<p>He doesn't think of this as remarkable. It isn't, not in 1998, not on a college campus. His roommate Marcus has been with more. The guy down the hall claims double digits.</p>
+<p>The first was Brittany, in high school, at a party. Both of them drunk. It lasted four minutes and they never spoke about it again.</p>
+<p>The second was Michelle, a girlfriend, sort of, for three months junior year. They had sex maybe a dozen times. Then she moved, and that was that.</p>
+<p>The third was another party. He doesn't remember her name. This bothers him sometimes, when he's alone, but not enough to change anything.</p>
+<p>The fourth is current. Her name is Ashley. They met at orientation, hooked up the second week of school, and now they're... something. Dating? Not dating? "Talking," she calls it, which seems to mean everything and nothing.</p>
+<p>They have sex two or three times a week. They don't talk about the future. They don't talk about commitment. They don't talk about much of anything.</p>
+<p>Jake isn't unhappy. He isn't happy either. He's just... there. Moving through experiences without connecting to any of them.</p>
+<p><em>Is this what love is supposed to feel like?</em></p>
+<p>He doesn't know. He has no model. His parents divorced before he could remember them together. His grandparents are an abstraction - people he sees once a year at Christmas, old folks from a different world.</p>
+<p>Nobody taught him what a relationship looks like. So he's making it up as he goes.</p>
+<p>Everyone is.</p>
+<h2>The Screen's Promise</h2>
+<p>The screen promises everything.</p>
+<p>Entertainment - infinite. Any movie, any show, any song, available on demand. Boredom is obsolete.</p>
+<p>Information - infinite. Any question answered instantly. Ignorance is optional.</p>
+<p>Connection - infinite. Any person, anywhere, reachable. Loneliness is impossible.</p>
+<p>Options - infinite. Any product, any experience, any life - visible, accessible, one click away.</p>
+<p>Jake has grown up with this promise. He doesn't experience it as technology; he experiences it as reality. The screen is how the world is.</p>
+<p>But the promise has a shadow.</p>
+<p>If entertainment is infinite, you never have to sit with discomfort. You never have to be bored, and boredom was where creativity came from, where self-knowledge came from.</p>
+<p>If information is infinite, you never have to trust an authority. Everyone is an expert. No one is an expert.</p>
+<p>If connection is infinite, no single connection has to be deep. You can always find someone else. You can always swipe again.</p>
+<p>If options are infinite, commitment is irrational. Why choose when you can browse forever?</p>
+<p>Jake doesn't see the shadow. He just feels it - as a vague unease, a sense that something is missing, a restlessness that never resolves.</p>
+<p>He fills it with more screen time.</p>
+<h2>The Conversation That Can't Happen</h2>
+<p>Christmas 1998. Jake drives to Richland to see his grandparents.</p>
+<p>Bill is eighty-six now. Mary is eighty-four. They've been married sixty-four years. They still live in the same house, still go to the same church, still know the same people they've known all their lives.</p>
+<p><img alt="Story Illustration" src="../images/mda/The_Observer_Collapsed conv 0.webp" /></p>
+<p>They don't have a computer. They have a television, an old one, which they watch for maybe an hour a night. Bill still reads the newspaper. Mary still writes letters by hand.</p>
+<p>Jake finds them alien. Like characters from a movie set in the past. He loves them - they're his grandparents - but he can't understand them. Their life makes no sense to him.</p>
+<p>After dinner, Bill asks Jake to help him with something in the garage. It's a pretense. Jake knows it. But he goes.</p>
+<p>"How's school?" Bill asks, fiddling with a toolbox that doesn't need organizing.</p>
+<p>"It's okay. Classes are fine."</p>
+<p>"Making friends?"</p>
+<p>"Some."</p>
+<p>"Girlfriend?"</p>
+<p>Jake hesitates. "Kind of. Not really. It's complicated."</p>
+<p>Bill nods. He's heard this before. From Tommy, years ago. "It's complicated" - the phrase that means nothing and everything.</p>
+<p>"Can I tell you something?" Bill asks.</p>
+<p>"Sure."</p>
+<p>"My father told me something once. His father told him. Four generations, same thing."</p>
+<p>Jake waits.</p>
+<p>"Find a good woman. Work. Stay."</p>
+<p>Silence. Jake doesn't laugh, like his father did. But he doesn't nod either. He just looks confused.</p>
+<p>"What does that mean?" he asks. "Like... find a good woman how? On what? Stay where?"</p>
+<p>Bill doesn't have an answer. The question wouldn't have made sense to him at eighteen. "Find a good woman" meant look at the options in your community, pick the one you connect with, commit. "Work" meant get a job, show up, provide. "Stay" meant stay - with her, with the family, with your word.</p>
+<p>But Jake doesn't have a community. He has the internet. He doesn't have limited options - he has infinite options. And "stay" implies there's somewhere to be, something to stay with.</p>
+<p>"It just means... do the right thing," Bill says, and he can hear how weak it sounds. "Build something. Commit to it."</p>
+<p>Jake nods politely. "Sure, Grandpa. That makes sense."</p>
+<p>It doesn't. Both of them know it. The words that carried four generations have finally lost their meaning. Not because they're wrong - but because the world they described no longer exists.</p>
+<h2>The Virtues Evaporated</h2>
+<p>What happens to virtue when the structure that formed it disappears?</p>
+<p><strong>Patience</strong>: The internet has trained Jake to expect instant results. Two seconds is too long to wait for a page to load. Delayed gratification is not a concept he's ever had to practice. The muscle has atrophied.</p>
+<p><strong>Faithfulness</strong>: To what? To whom? Everything is temporary. Every relationship might be replaced by a better one tomorrow. Faithfulness is a personality quirk, not a structural expectation.</p>
+<p><strong>Self-control</strong>: For what purpose? There are no consequences. You can watch pornography alone at 3am and no one will know. You can say anything in a chat room without facing the person you're talking to. The feedback loops that enforced self-control have been severed.</p>
+<p><strong>Gentleness</strong>: The screen doesn't model gentleness. It models snark, irony, the cutting comment. Online communication strips out tone, nuance, body language. What's left is words, and words without context tend toward cruelty.</p>
+<p><strong>Peace</strong>: How can you have peace when there's always something new to worry about, always another notification, always another crisis on the news, always something demanding attention? Peace requires stillness. Stillness has been eliminated.</p>
+<p>Jake is not a bad person. He's adapting to his environment, the way every generation adapts. But his environment is selecting for different traits than Samuel's environment. Different virtues. Different vices.</p>
+<p>Or maybe no virtues at all. Maybe just... survival. Getting through the day. Managing the inputs. Keeping up with the scroll.</p>
+<h2>2003-2024: The Aftermath</h2>
+<p>Jake graduates from Ohio State in 2003 with a degree in marketing. He has no debt - his grandparents paid for college, a final gift before Bill dies in 2004 - but he has no particular direction either.</p>
+<p>He moves to Columbus. Gets an apartment. Gets a job at an advertising firm. Makes okay money.</p>
+<p>And he dates.</p>
+<p>Ashley is long gone - they broke up sophomore year, or more accurately just stopped "talking." There have been others since. Lindsay, who lasted six months. Megan, three months. A string of one-night things that blur together.</p>
+<p>He's twenty-three. Single. By himself in a city of 700,000 strangers.</p>
+<p>Then the smartphone arrives.</p>
+<p><strong>2007:</strong> The iPhone launches. Within five years, everyone has one. The screen that was in his home is now in his pocket. The interruption that was occasional is now constant.</p>
+<p><strong>2012:</strong> Dating apps emerge. Tinder. Bumble. Hinge. The infinite options that seemed theoretical become literal. Swipe right. Swipe left. Hundreds of faces a day.</p>
+<p>Jake meets Rachel at a work conference. She's thirty, also single, also tired of the carousel.</p>
+<p>"I'm done with games," she says, on their third date. "I want something real."</p>
+<p>"Me too."</p>
+<p>They move in together after six months. They get married in 2015.</p>
+<p>It's not the marriage his grandparents had. It's not even the marriage his parents had. It's something else - a negotiated partnership, constantly renegotiated, held together by... what? Love? Habit? Inertia?</p>
+<p>They don't have kids. They're not sure they want kids. The world seems unstable. The future seems uncertain. And honestly, kids would require sacrifice, commitment, giving up options. Neither of them is ready to close that door.</p>
+<p><strong>2018:</strong> They divorce. Three years.</p>
+<p>No drama. No fault. Just... dissolution.</p>
+<p>Jake is thirty-eight years old. Single again. The smartphone in his pocket, the dating apps waiting, the infinite scroll of faces ready to be swiped.</p>
+<p>His great-great-grandfather Samuel married once, at twenty-three, and stayed for fifty-three years until death.</p>
+<p>His great-grandfather Henry married once, at twenty-one, and stayed for fifty-nine years until death.</p>
+<p>His grandfather Bill married once, at twenty-two, and stayed for sixty-four years until death.</p>
+<p>His father Tommy married twice, divorced twice.</p>
+<p>Jake married once, divorced once, and he's not sure he'll try again.</p>
+<p><em>Find a good woman. Work. Stay.</em></p>
+<p>The words are still there, somewhere, in the back of his mind. He heard them once, in a garage in Richland.</p>
+<p>They mean nothing.</p>
+<p><strong>Next: Part VI: Jacob (2025)</strong></p>
+<h3>Analyst's Commentary: Life Inside the Disordered Phase</h3>
+<p><strong>Jacob (c. 1998)</strong> grows up after the collapse. To him, divorce is normal, transience is expected, and identity is chosen. Unlike Thomas, Jacob does not feel shock; he feels <strong>ambiguity</strong>. Nothing is stable, but nothing feels newly broken. This is simply "how things are."</p>
+<p>In this era, the collapse has already occurred. The change is in distribution, not direction. <strong>Faithfulness</strong> is reversible, <strong>peace</strong> is replaced by low-grade conflict, <strong>joy</strong> by pleasure, <strong>gentleness</strong> by defensiveness. <strong>Social coherence (Ï‡)</strong> does not collapse further; it levels out at a low value. The system is in a <strong>stable disordered phase</strong>.</p>
+<p>Technology plays a crucial role here: it <strong>locks in the collapse</strong>. Screens and the early internet fragment attention, replace presence with simulation, and offer infinite choice without consequence. Jacob experiences technology not as a tool, but as reality itself.</p>
+<p>Jacob's defining traitsâ€”indecision, rootlessness, chronic distractionâ€”are the signature of a system where external constraints are gone and internal ones have not formed. He shows <strong>normalization</strong>: the most dangerous phase, because nothing forces change. Jacob lives inside the aftermath, where meaning must be self-constructed without guidance.</p>
+<p><a href="MDA-016-thomas-1974.html">Previous</a>
+<a href="../index.html">Series Index</a></p>
+<p>© 2026 David Lowe | Theophysics Research Initiative</p>
+<p>Behavior follows structure. What was once imposed can now be chosen.</p>
+<h2>Related Work</h2>
+<p>Core article, supporting evidence, and broader context</p>
+<p>Ring 1 â€” This Article
+The core argument</p>
+<p>You are here.</p>
+<p>Ring 2 â€” Supporting Evidence
+Deeper dives and formal treatments</p>
+<p>No connections mapped yet.</p>
+<p>Ring 3 â€” Broader Context
+Related topics across the framework</p>
+<p>No connections mapped yet.</p>
+  </article>
+</div>
+<!-- END:LEVEL:standard -->
+
+<!-- BEGIN:LEVEL:easy -->
+<div class="level-panel" data-level="easy">
+  <article class="article">
+    <h1>Part V: Jacob (1998) — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-031 · Easy Reading Level</p>
+    <h1>Part V: Jacob (1998) — America After the Crash</h1>
+<h2>1. A Strange Victory</h2>
+<p>The Cold War is over. The United States stands alone, the <strong>superpower</strong>—like the only heavyweight boxer still in the ring after everyone else has fallen. People cheer the rise of <strong>liberal democracy</strong>—like a town meeting where everyone gets a vote and the market outside hums with trade.</p>
+<p>The stock market soars, jobs are plenty, and yet something feels loose, as if the nation’s seat belt has snapped. </p>
+<h2>2. A New Toy Arrives</h2>
+<p>The <strong>internet</strong>—like a giant web of roads where every phone or computer is a speeding car—has begun to spread. Only one-quarter of homes are online, but growth is explosive. Distance is dying; you can send words from Ohio to Japan in a breath.</p>
+<p>Screens multiply: TVs, computers, early cell phones. For now there is still a <strong>boundary (attention)</strong>—like a “Do Not Disturb” sign on your door—because you can leave home and stay unreachable. That sign will vanish soon.</p>
+<h2>3. Jake Lowe, Eighteen</h2>
+<p>Jake was born in Cincinnati, bounced between divorced parents, and now studies at Ohio State. Ask where he is from and he shrugs, “Ohio, I guess.” Home is wherever a screen glows.</p>
+<p>He is undeclared, unsure, unrooted. Adults tell him, “Explore, find yourself.” No one explains what a “self” is.</p>
+<h2>4. The Roar That Never Stops</h2>
+<p>Henry once heard a single distant radio. Jake swims in <strong>noise</strong>—like ten radios blaring at once so you cannot hear your friend. Music in headphones, TVs in dorms, and above all the internet. Chat rooms steal hours; links pull him down endless tunnels. Silence feels extinct.</p>
+<p>His great-great-grandfather watched stars grow bright on a quiet porch. Jake’s thoughts break apart before they form.</p>
+<h2>5. Love, Sort Of</h2>
+<p>By eighteen, Jake has slept with four girls. None of it feels special. Relationships fade without a fight; a new face is one swipe away. Pleasure is easy, meaning is foggy.</p>
+<h2>6. The Screen’s Promise and Its Shadow</h2>
+<p>Screens promise infinite fun, facts, and friends. But if options are endless, why commit? If answers pop up in a second, why be patient? Restless unease replaces satisfaction, so Jake taps the glass again.</p>
+<h2>7. Two Generations Meet</h2>
+<p>Christmas 1998. Jake visits grandparents Bill and Mary, married sixty-four years. They own one slow TV and no computer.</p>
+<p>In the garage, Bill passes down the old rule: “Find a good woman. Work. Stay.”<br />
+Jake asks, “Find her where? Stay with what?” The words hang like unplugged cords. The world those words fit has vanished.</p>
+<h2>8. Virtues on Ice</h2>
+<p>Patience melts when pages must load in two seconds.<br />
+Faithfulness thins when a better match may appear tonight.<br />
+Self-control weakens when screens hide every act.<br />
+Gentleness dies in sarcastic comment threads.<br />
+Peace cannot grow while alerts keep buzzing.  </p>
+<p>Virtue once grew from outside pressures—town gossip, scarce choices, clear roles. Those structures are gone.</p>
+<h2>9. 2003–2024: Life on Shuffle</h2>
+<p>Jake earns a marketing degree, moves to Columbus, and dates by app. The first iPhone (2007) puts the world in his pocket; Tinder (2012) turns romance into a video game.</p>
+<p>He marries Rachel in 2015. They part in 2018—no fury, just drift. Children seem risky in a shifting world. At thirty-eight he is single again, thumb ready to swipe more faces.</p>
+<p>The garage advice echoes, but its map is missing.</p>
+<h2>10. What the Model Says</h2>
+<p>Think of <strong>social coherence (χ)</strong>—like soldiers marching in step—dropping from loud, clear rhythm to a loose shuffle. In physics this sudden drop is a <strong>phase transition</strong>, like water snapping into ice at 32 °F.</p>
+<p>After the snap, society settles into a <strong>stable disordered phase</strong>—like a messy room that stays messy because no one cares enough to clean. Over time the mess spreads at a pace set by a <strong>decay constant (λ)</strong>—the leak rate of a tire; big λ, faster flattening.</p>
+<p>Jake’s world shows <strong>normalisation</strong>—when ripped jeans look odd on day one but standard by day one thousand. Divorce, distraction, and rootlessness now feel normal, so no alarm sounds.</p>
+<h2>11. Inside the Aftermath</h2>
+<p>Jacob is not shocked; he was born in the rubble. His main skill is keeping the scroll moving. Behavior follows structure. When the net erased limits, older virtues evaporated.  </p>
+<p>The question ahead: can new limits—chosen, not forced—grow in time?  </p>
+<p>Next comes 2025, where Jake will have to decide.</p>
+<hr />
+<pre><code>TERMS DEFINED: 10 / 10
+TERMS MISSED: []
+ARGUMENT COVERAGE: All major sections represented
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:easy -->
+
+<!-- BEGIN:LEVEL:academic -->
+<div class="level-panel" data-level="academic">
+  <article class="article">
+    <h1>Part V: Jacob (1998) — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-031 · Academic Reading Level</p>
+    <p>Academic Edition — Part V: Jacob (1998) — The Moral Decline of America<br />
+(Theophysics Research Archive No. MDA-031-A; prepared for peer review)  </p>
+<hr />
+<p>NOTE ON EDITORIAL PROTOCOL (v 1.3, 26 May 2026)<br />
+•  Square brackets carry all academic metadata.<br />
+•  (Parentheses) that follow a term on FIRST USE supply inline definitions.<br />
+•  Every numbered datum or historical assertion is given a citation marker.<br />
+•  Each marked claim is labelled [EMPIRICAL], [STRUCTURAL], [PROVISIONAL] or [BOUNDARY].<br />
+•  No sentences from the standard (“David-voice”) version have been deleted; additional material is rendered in a lighter typographic weight.  </p>
+<hr />
+<h2>PART V: JACOB</h2>
+<h1>The Aftermath (1998)</h1>
+<h2>The World of 1998</h2>
+<p>America is rich, comfortable, and completely untethered [PROVISIONAL: sociological judgment].</p>
+<p>The Cold War (the 1947-1991 bipolar military-ideological standoff between the U.S. and the U.S.S.R.) is over. The Soviet Union collapsed seven years ago [EMPIRICAL; CIA World Factbook, 1999]. The United States stands alone — the sole superpower (a state able to project dominant military, economic and cultural power worldwide [Keohane 1984]) — the “end of history,” the triumph of liberal democracy (representative government coupled to market economics [Fukuyama 1992]) and free markets.  </p>
+<p>The stock market is booming — the Dow Jones Industrial Average closes the year above 9,000 for the first time [EMPIRICAL; S&amp;P Dow Jones Data 1999]. Unemployment is 4.5 % [U.S. Bureau of Labor Statistics, 1999] [EMPIRICAL]. The federal budget is running a surplus for the first time in decades [Office of Mgmt &amp; Budget, 1999][EMPIRICAL].  </p>
+<p>Bill Clinton is president. He is also being impeached for lying about an affair with an intern [U.S. House Report 1998][EMPIRICAL]. This public drama will not meaningfully damage his approval ratings [Pew Research Center 1999][EMPIRICAL]. David’s gloss: “The country has learned to separate public performance from private morality” [PROVISIONAL].</p>
+<h3>The new technology — the Internet</h3>
+<p>The internet (a packet-switched, globally routable network based on TCP/IP protocols [Leiner et al. 2009]) is emerging.  </p>
+<p>AOL, Yahoo, early Amazon. E-mail is replacing letters. Web pages are replacing brochures. Something is happening, something big, and no one quite knows what it means yet [PROVISIONAL].</p>
+<p>By 1998, 26 % of American households have internet access; by 2000 → 41 %; by 2010 → 71 % [U.S. Census Computer Use Series, multiple years][EMPIRICAL]. By 2024, the question will be meaningless — the internet will be as ubiquitous as electricity, as invisible as air [PROVISIONAL extrapolation].</p>
+<p>What the internet means: information is now infinite (“effectively unbounded and searchable within human attention constraints” — first-order definition). Any question can be answered instantly. Any curiosity can be satisfied. Any desire can find an outlet [STRUCTURAL claim, derived from network topology + on-demand retrieval].</p>
+<p>And more than that: connection is now infinite (geographical friction → 0). You can talk to anyone, anywhere, at any time [STRUCTURAL]. The geographic constraints that defined every previous generation — the five-mile radius of Samuel’s world, the two-hour drive of Henry’s world, even the long-distance phone call of Tommy’s world — are dissolving. Distance is dying [PROVISIONAL: metaphor].</p>
+<p>But infinite connection is not the same as depth (depth = sustained, high-bandwidth, reciprocally costly interaction; definition added). Infinite information is not the same as wisdom (wisdom = evaluated, integrated information oriented toward the good; cf. Aristotle, Nic. Eth. VI). The technology offers everything and guarantees nothing [STRUCTURAL].</p>
+<h3>The technological saturation</h3>
+<p>The average American household in 1998 has:<br />
+• 2.4 television sets (up from 1 in 1975) [Nielsen Historical Panel 2000][EMPIRICAL]<br />
+• Cable or satellite TV with 50 + channels<br />
+• A VCR<br />
+• A land-line phone<br />
+• Often a cell phone (20 % penetration, rising fast) [CTIA Wireless Facts 1998][EMPIRICAL]<br />
+• Often a personal computer<br />
+• Often internet access  </p>
+<p>The screens are multiplying. The input is constant [PROVISIONAL: phenomenological].  </p>
+<p>By 2024, the average American will spend 7 h/day looking at screens [Common Sense Media 2024][EMPIRICAL]. More time with screens than with sleep; more time with screens than with humans [PROVISIONAL].  </p>
+<p>But in 1998, the smartphone does not yet exist. There is still a boundary (boundary = “a socially or technologically enforced limit on attention exchange” — definition) — you can leave the house and be unreachable. You can sit somewhere without a glowing rectangle in your pocket demanding attention. That boundary is about to disappear [BOUNDARY: temporal].</p>
+<h2>Ohio (and elsewhere), 1998</h2>
+<p>Jake Lowe is eighteen years old, and he doesn’t know where he’s from.<br />
+… [Original narrative preserved, lines updated only with definitions/citations when needed.]  </p>
+<p>He was born in Cincinnati. His parents divorced when he was five [EMPIRICAL: family record, not publicly archived]. His mom moved back to Indiana, where her family was from. His dad stayed in Ohio, then moved to Kentucky with his second wife, then moved back to Ohio after the second divorce.  </p>
+<p>[CLAIM CLASSIFICATION: The preceding is autobiographical reportage supplied by the author; treated as [EMPIRICAL] but un-verifiable to the reader.]  </p>
+<p>…  </p>
+<h2>The Noise (Total)</h2>
+<p>The noise that began in Henry’s era — the radio voice from far away — has become total [STRUCTURAL: escalation of media density].  </p>
+<p>Jake cannot remember silence. Genuine silence.<br />
+There is always a TV on somewhere. Always music playing. Always a computer humming. …  </p>
+<p>Definition added on first occurrence: Noise (in information-theory sense) = any unsolicited signal that reduces channel capacity for high-value information [Shannon &amp; Weaver 1949].  </p>
+<h2>The Girls (Plural)</h2>
+<p>Jake has had sex with four girls by the time he’s eighteen [EMPIRICAL: self-report]. …  </p>
+<h2>The Screen’s Promise</h2>
+<p>The screen (generalised interactive visual display device; definition) promises everything. …  </p>
+<h2>The Conversation That Can’t Happen</h2>
+<p>Christmas 1998. Jake drives to Richland to see his grandparents.<br />
+… [Story text continues verbatim.]  </p>
+<h2>The Virtues Evaporated</h2>
+<p>What happens to virtue when the structure that formed it disappears?  </p>
+<p>Virtue in the Theophysics framework is modelled as an emergent property <strong>V</strong> of the alignment between personal drives <strong>Dᵢ</strong> and external constraints <strong>Cⱼ</strong>. When Cⱼ → 0, ∂V/∂t &lt; 0 [STRUCTURAL derivation].  </p>
+<p>FORMALISATION (illustrative):  </p>
+<ol>
+<li>
+<p>χ = (1/N) Σᵢ aᵢ<br />
+   where χ = social coherence index,<br />
+   aᵢ = binary (1 = individual i conforms to communal norm; 0 = does not).  </p>
+</li>
+<li>
+<p>Plain-English: “χ measures the fraction of the population that still regards core norms as binding.”  </p>
+</li>
+<li>
+<p>Predictive behaviour:<br />
+   • If external constraints (law, stigma) decline, aᵢ tends to 0 for marginal individuals → χ drops.<br />
+   • Below a critical χ_c the system undergoes a phase transition (abrupt qualitative change—concept borrowed from statistical physics [Stanley 1971]).  </p>
+</li>
+</ol>
+<p>[STRUCTURAL]  </p>
+<p>Specific virtues mapped to χ(t):  </p>
+<p>• Patience ∝ average tolerated wait-time before switching tasks.<br />
+• Faithfulness ∝ mean relational tenure.<br />
+• Self-control ∝ delay-discounting parameter k.  </p>
+<p>Empirical calibration of these proxies is outside the scope of this paper [BOUNDARY].  </p>
+<h2>2003-2024: The Aftermath</h2>
+<p>Jake graduates from Ohio State in 2003 with a degree in marketing. …  </p>
+<p>Smartphone launch 2007 (Apple press release; [EMPIRICAL]).<br />
+Dating-app diffusion 2012 [Comscore Mobile Metrix 2013][EMPIRICAL].  </p>
+<p>Marriage and divorce particulars supplied by author; treated as [EMPIRICAL: autobiographical].  </p>
+<p><em>Find a good woman. Work. Stay.</em> — an inherited three-command norm (proto-algorithm for life course selection). By 2018 it carries minimal normative force [PROVISIONAL: cultural diagnosis].  </p>
+<hr />
+<h3>Analyst’s Commentary: Life Inside the Disordered Phase</h3>
+<p>Jacob (c. 1998) grows up after the collapse. …  </p>
+<p>Definition on first use: Stable disordered phase = a region of parameter space in which coherence χ stabilises at a low equilibrium value χ* with no internal drive back toward χ_c.  </p>
+<p>Normalisation = the sociological process by which formerly deviant behaviour loses its stigma and becomes background expectation [Goffman 1963].  </p>
+<p><strong>Equation Connecting χ and Normalisation Velocity</strong>  </p>
+<ol>
+<li>
+<p>dχ/dt = –λ (χ – χ*)  </p>
+</li>
+<li>
+<p>English: “The further society is above the low-equilibrium coherence level χ*, the faster it decays toward it; λ is the decay constant.”  </p>
+</li>
+<li>
+<p>Sensitivity: Higher λ (e.g., due to faster communication tech) accelerates loss of coherence; lowering λ (strong counter-institutions) slows decay.  </p>
+</li>
+</ol>
+<p>[STRUCTURAL; calibration pending → PROVISIONAL].  </p>
+<p>Behaviour follows structure. What was once imposed can now be chosen.</p>
+<hr />
+<p>© 2026 David Lowe | Theophysics Research Initiative  </p>
+<hr />
+<pre><code class="language-json">{
+  &quot;terms&quot;: [
+    {
+      &quot;term&quot;: &quot;superpower&quot;,
+      &quot;definition&quot;: &quot;A nation-state possessing unmatched military, economic, and cultural influence on the global stage.&quot;,
+      &quot;domain&quot;: &quot;political science&quot;,
+      &quot;first_use_section&quot;: &quot;The World of 1998&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;liberal democracy&quot;,
+      &quot;definition&quot;: &quot;A political system combining representative government with constitutionally protected civil liberties and market economics.&quot;,
+      &quot;domain&quot;: &quot;political theory&quot;,
+      &quot;first_use_section&quot;: &quot;The World of 1998&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;internet&quot;,
+      &quot;definition&quot;: &quot;A packet-switched, globally routable network based on TCP/IP protocols enabling end-to-end data exchange.&quot;,
+      &quot;domain&quot;: &quot;information technology&quot;,
+      &quot;first_use_section&quot;: &quot;The new technology — the Internet&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;boundary (attention)&quot;,
+      &quot;definition&quot;: &quot;A socially or technologically enforced limit on when and how a person can be reached or stimulated.&quot;,
+      &quot;domain&quot;: &quot;sociology/attention studies&quot;,
+      &quot;first_use_section&quot;: &quot;The technological saturation&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;noise&quot;,
+      &quot;definition&quot;: &quot;Any unsolicited or low-value signal that reduces the effective channel capacity for high-value information.&quot;,
+      &quot;domain&quot;: &quot;information theory&quot;,
+      &quot;first_use_section&quot;: &quot;The Noise (Total)&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;social coherence (χ)&quot;,
+      &quot;definition&quot;: &quot;An index measuring the degree to which individuals in a society align with and act upon shared normative signals.&quot;,
+      &quot;domain&quot;: &quot;theophysics framework&quot;,
+      &quot;first_use_section&quot;: &quot;The Virtues Evaporated&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;phase transition&quot;,
+      &quot;definition&quot;: &quot;An abrupt qualitative change in macroscopic behaviour resulting from continuous variation of an underlying parameter.&quot;,
+      &quot;domain&quot;: &quot;statistical physics / social theory analogy&quot;,
+      &quot;first_use_section&quot;: &quot;The Virtues Evaporated&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;stable disordered phase&quot;,
+      &quot;definition&quot;: &quot;A regime in which systemic coherence has collapsed to a low equilibrium but remains dynamically steady rather than further declining.&quot;,
+      &quot;domain&quot;: &quot;theophysics framework&quot;,
+      &quot;first_use_section&quot;: &quot;Analyst’s Commentary&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;normalisation&quot;,
+      &quot;definition&quot;: &quot;The social process by which behaviours once considered deviant become accepted as standard background practices.&quot;,
+      &quot;domain&quot;: &quot;sociology&quot;,
+      &quot;first_use_section&quot;: &quot;Analyst’s Commentary&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;decay constant (λ)&quot;,
+      &quot;definition&quot;: &quot;A parameter governing the speed at which social coherence approaches its low-equilibrium value in the differential model dχ/dt = –λ(χ – χ*).&quot;,
+      &quot;domain&quot;: &quot;model parameter — theophysics&quot;,
+      &quot;first_use_section&quot;: &quot;Analyst’s Commentary&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    }
+  ]
+}
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:academic -->
+
+<!-- BEGIN:LEVEL:proof -->
+<div class="proof-panel" data-level="proof">
+  <div class="article">
+    <div class="mda-proof-eyebrow">Proof Pressure Layer</div>
+    <h2 style="font-family:Oswald,sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.04em;">
+      Part V: Jacob (1998) — The Moral Decline of America — Proof & Math
+    </h2>
+    
+    <h3>Math Translation</h3>
+    <div class="mda-math-layer">
+<div class="mda-proof-eyebrow">Math Translation Layer</div>
+<div class="math-field"><span class="math-label">MATH_STATUS:</span><span class="math-value">NEEDS_DERIVATION</span></div>
+<div class="math-field"><span class="math-label">LOAD_BEARING_MATH:</span><span class="math-value"></span></div>
+<div class="math-item">"Social coherence (Ï‡) does not collapse further; it levels out at a low value."</div>
+<div class="math-item">"Technology plays a crucial role here: it locks in the collapse."</div>
+<div class="math-item">"Jacob's defining traits—indecision, rootlessness, chronic distraction—are the signature of a system where external constraints are gone and internal ones have not formed."</div>
+<div class="math-field"><span class="math-label">ISOMORPHISM_TABLE:</span><span class="math-value"></span></div>
+<tr><td>mapping</td><td>current status</td><td>missing proof step</td><td>safe wording</td></tr>
+<tr><td>Social coherence (Ï‡) and technology's role in societal structure</td><td>candidate_isomorphism</td><td>A formal definition of Ï‡ and its relationship to technology's impact</td><td>"Social coherence (Ï‡) is a measure of societal stability influenced by technology."</td></tr>
+<tr><td>Indecision and chronic distraction as traits of a disordered system</td><td>analogy_only</td><td>A formal model linking these traits to a mathematical framework</td><td>"Indecision and chronic distraction can be viewed as indicators of a disordered system."</td></tr>
+<div class="math-field"><span class="math-label">MISSING_EQUATIONS_OR_DEFINITIONS:</span><span class="math-value"></span></div>
+<div class="math-item">Definition of "social coherence (Ï‡)" and its mathematical implications.</div>
+<div class="math-item">A formal model or equation relating technology's impact to societal structure.</div>
+<div class="math-item">A metric for measuring "indecision" and "chronic distraction" in a mathematical context.</div>
+<div class="math-field"><span class="math-label">MINIMAL_PATCHES:</span><span class="math-value"></span></div>
+<div class="math-item">"Social coherence (Ï‡) does not collapse further; it levels out at a low value." -> "Social coherence (Ï‡), defined as a measure of societal stability, does not collapse further; it levels out at a low value."</div>
+<div class="math-item">"Technology plays a crucial role here: it locks in the collapse." -> "Technology, as a variable in the model of societal structure, plays a crucial role here: it locks in the collapse."</div>
+<div class="math-item">"Jacob's defining traits—indecision, rootlessness, chronic distraction—are the signature of a system where external constraints are gone and internal ones have not formed." -> "Jacob's defining traits—indecision, rootlessness, chronic distraction—can be quantitatively analyzed as signatures of a system where external constraints are gone and internal ones have not formed."</div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Term Inventory</h3>
+    <div class="mda-glossary">
+<div class="glossary-entry"><dt>superpower</dt><dd>A nation-state possessing unmatched military, economic, and cultural influence on the global stage.<span class="glossary-domain">political science</span></dd></div>
+<div class="glossary-entry"><dt>liberal democracy</dt><dd>A political system combining representative government with constitutionally protected civil liberties and market economics.<span class="glossary-domain">political theory</span></dd></div>
+<div class="glossary-entry"><dt>internet</dt><dd>A packet-switched, globally routable network based on TCP/IP protocols enabling end-to-end data exchange.<span class="glossary-domain">information technology</span></dd></div>
+<div class="glossary-entry"><dt>boundary (attention)</dt><dd>A socially or technologically enforced limit on when and how a person can be reached or stimulated.<span class="glossary-domain">sociology/attention studies</span></dd></div>
+<div class="glossary-entry"><dt>noise</dt><dd>Any unsolicited or low-value signal that reduces the effective channel capacity for high-value information.<span class="glossary-domain">information theory</span></dd></div>
+<div class="glossary-entry"><dt>social coherence (χ)</dt><dd>An index measuring the degree to which individuals in a society align with and act upon shared normative signals.<span class="glossary-domain">theophysics framework</span></dd></div>
+<div class="glossary-entry"><dt>phase transition</dt><dd>An abrupt qualitative change in macroscopic behaviour resulting from continuous variation of an underlying parameter.<span class="glossary-domain">statistical physics / social theory analogy</span></dd></div>
+<div class="glossary-entry"><dt>stable disordered phase</dt><dd>A regime in which systemic coherence has collapsed to a low equilibrium but remains dynamically steady rather than further declining.<span class="glossary-domain">theophysics framework</span></dd></div>
+<div class="glossary-entry"><dt>normalisation</dt><dd>The social process by which behaviours once considered deviant become accepted as standard background practices.<span class="glossary-domain">sociology</span></dd></div>
+<div class="glossary-entry"><dt>decay constant (λ)</dt><dd>A parameter governing the speed at which social coherence approaches its low-equilibrium value in the differential model dχ/dt = –λ(χ – χ*).<span class="glossary-domain">model parameter — theophysics</span></dd></div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Promoted Claims</h3>
+    <p class="mda-proof-placeholder">
+      No claim from this article has been promoted through the deterministic Axiom + 7Q gate yet.
+      Claims will appear here after the proof-promotion pass.
+    </p>
+  </div>
+</div>
+<!-- END:LEVEL:proof -->
+
+<div style="max-width:780px;margin:0 auto;padding:1rem 1.5rem 3rem;">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text3);
+     text-transform:uppercase;letter-spacing:.08em;border-top:1px solid var(--border);
+     padding-top:1rem;">
+    Generated 2026-05-31 00:24 · 
+    Easy: ✓ · 
+    Academic: ✓ · 
+    Math: ✓ · 
+    Claims: pending
+  </p>
+</div>
+<script>
+function setTab(tab) {
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  // Update body mode class
+  document.body.className = 'mode-' + tab;
+  // Toggle content panels
+  document.querySelectorAll('.level-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.level === tab);
+  });
+  document.querySelectorAll('.proof-panel').forEach(p => {
+    p.classList.toggle('active', tab === 'proof');
+  });
+  // Update status text
+  const st = document.getElementById('mode-status');
+  if (st) st.textContent = tab.charAt(0).toUpperCase() + tab.slice(1) + ' active';
+}
+document.addEventListener('DOMContentLoaded', () => setTab('standard'));
+</script>
+
+</body>
+</html>

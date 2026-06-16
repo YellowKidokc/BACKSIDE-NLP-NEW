@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Q7 Editable Card</title>
+<style>
+  :root{
+    --bg:#0a0b0f;--card:#0f1117;--border:#1e2233;
+    --text:#e8e6e1;--muted:#8a8d9b;--gold:#d4a853;--fail:#ef4444;
+  }
+  body{margin:0;background:var(--bg);color:var(--text);font-family:Arial, sans-serif;}
+  .wrap{max-width:1000px;margin:40px auto;padding:0 20px;}
+  .card{
+    display:grid;grid-template-columns:260px 1fr;gap:28px;
+    background:var(--card);border:1px solid var(--border);
+    border-radius:12px;padding:24px;align-items:start;
+  }
+  .left{
+    border:1px dashed rgba(255,255,255,0.06);
+    border-radius:10px;height:280px;display:flex;align-items:center;justify-content:center;
+    color:var(--muted);font-size:12px;
+  }
+  .qtag{font-size:12px;letter-spacing:2px;color:var(--fail);margin-bottom:8px;}
+  h1{margin:0 0 10px;font-size:40px;font-family:Georgia, serif;}
+  .subtitle{color:var(--muted);margin-bottom:16px;}
+  .desc{color:var(--muted);line-height:1.6;margin-bottom:16px;}
+  [contenteditable]{outline:none;border-bottom:1px dashed transparent;}
+  [contenteditable]:focus{border-color:var(--gold);}
+  textarea{
+    width:100%;background:#111;border:1px solid #333;color:#eee;
+    padding:8px;border-radius:6px;margin-top:8px;
+  }
+  .actions{margin-top:16px;display:flex;gap:10px;}
+  button{
+    background:var(--fail);border:none;color:white;padding:8px 12px;
+    border-radius:6px;cursor:pointer;
+  }
+  button.secondary{background:#222;color:#ddd;}
+  pre{
+    margin-top:20px;background:#05060a;padding:12px;border-radius:6px;
+    border:1px solid #222;color:#9be9a8;font-size:12px;overflow:auto;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="card" id="cardQ7">
+
+    <div class="left">
+      SVG / VISUAL SLOT
+    </div>
+
+    <div>
+      <div class="qtag">Q7 — DESTROY</div>
+
+      <h1 contenteditable="true" data-field="title">The Axe</h1>
+
+      <div class="subtitle" contenteditable="true" data-field="subtitle">
+        Falsification — What Kills It?
+      </div>
+
+      <div class="desc" contenteditable="true" data-field="description">
+        Five death conditions. Every object carries its own death warrant.
+      </div>
+
+      <label>Kill Conditions</label>
+      <textarea data-field="kill_conditions" rows="4"
+        placeholder="Enter one per line..."></textarea>
+
+      <div class="actions">
+        <button onclick="autoFill()">AI Fill</button>
+        <button class="secondary" onclick="logData()">Log JSON</button>
+      </div>
+
+      <pre id="output"></pre>
+
+    </div>
+  </div>
+</div>
+
+<script>
+function getData(){
+  const card = document.getElementById('cardQ7');
+  return {
+    title: card.querySelector('[data-field=title]').innerText.trim(),
+    subtitle: card.querySelector('[data-field=subtitle]').innerText.trim(),
+    description: card.querySelector('[data-field=description]').innerText.trim(),
+    kill_conditions: card.querySelector('[data-field=kill_conditions]').value
+      .split('\n').filter(x=>x.trim())
+  };
+}
+
+function logData(){
+  const data = getData();
+  document.getElementById('output').textContent =
+    JSON.stringify(data, null, 2);
+}
+
+function autoFill(){
+  const mock = {
+    title: "The Axe",
+    subtitle: "Falsification — What Kills It?",
+    description: "If any of these occur, the claim fails structurally.",
+    kill_conditions: [
+      "Contradicts itself logically",
+      "Fails empirical test",
+      "Produces no downstream predictions",
+      "Requires infinite regress",
+      "Breaks domain constraints"
+    ]
+  };
+
+  const card = document.getElementById('cardQ7');
+  card.querySelector('[data-field=title]').innerText = mock.title;
+  card.querySelector('[data-field=subtitle]').innerText = mock.subtitle;
+  card.querySelector('[data-field=description]').innerText = mock.description;
+  card.querySelector('[data-field=kill_conditions]').value =
+    mock.kill_conditions.join('\n');
+
+  logData();
+}
+</script>
+
+</body>
+</html>

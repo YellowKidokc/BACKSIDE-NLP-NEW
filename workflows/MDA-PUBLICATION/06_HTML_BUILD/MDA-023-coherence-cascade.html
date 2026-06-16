@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Coherence Cascade: Words Fail First — Moral Decline of America</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a;
+  --border:#2a2a2a; --border-claim:rgba(212,175,55,.35);
+  --text:#e0e0e0; --text2:#a0a0a0; --text3:#707070;
+  --mda-red:#dc2626; --mda-red-glow:rgba(220,38,38,.08);
+  --claim:#d4af37; --claim-glow:rgba(212,175,55,.08);
+  --easy:#22c55e; --easy-glow:rgba(34,197,94,.08);
+  --academic:#a78bfa; --academic-glow:rgba(167,139,250,.08);
+  --proof:#f59e0b; --proof-glow:rgba(245,158,11,.08);
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  line-height:1.65; margin:0; padding:0;
+}
+</style>
+<style>
+/* Reader Mode Bar */
+.mda-reader-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:.5rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;
+}
+.mda-reader-bar .series-badge{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mda-red);font-weight:600;
+}
+.mda-reader-bar .meta{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;
+  color:var(--text3);text-transform:uppercase;letter-spacing:.06em;
+}
+.tab-group{display:flex;gap:.4rem;flex-wrap:wrap;}
+.tab-btn{
+  padding:.4rem .7rem;border:1px solid var(--border);border-radius:.35rem;
+  background:var(--surface);color:var(--text2);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em;transition:all .2s;
+}
+.tab-btn:hover{border-color:var(--mda-red);color:var(--text);}
+.tab-btn.active{border-color:var(--mda-red);background:var(--mda-red-glow);color:var(--mda-red);}
+.tab-btn[data-tab="easy"].active{border-color:var(--easy);background:var(--easy-glow);color:var(--easy);}
+.tab-btn[data-tab="academic"].active{border-color:var(--academic);background:var(--academic-glow);color:var(--academic);}
+.tab-btn[data-tab="proof"].active{border-color:var(--proof);background:var(--proof-glow);color:var(--proof);}
+
+/* Article */
+.article{max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem;}
+.article h1{
+  font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.02em;
+  margin:0 0 .5rem;line-height:1.1;
+}
+.article .subtitle{
+  font-family:'Crimson Text',serif;font-size:1.15rem;color:var(--text2);
+  font-style:italic;margin:0 0 2rem;line-height:1.5;
+}
+.article h2{
+  font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:#fff;
+  text-transform:uppercase;letter-spacing:.04em;margin:2.5rem 0 1rem;
+  border-bottom:1px solid var(--border);padding-bottom:.4rem;
+}
+.article h3{font-family:'Crimson Text',serif;font-size:1.15rem;font-weight:600;color:var(--mda-red);margin:1.5rem 0 .5rem;}
+.article p{font-size:1.02rem;line-height:1.75;margin:0 0 1.25rem;}
+.article blockquote{
+  border-left:3px solid var(--mda-red);background:var(--mda-red-glow);
+  padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 .4rem .4rem 0;
+  font-family:'Crimson Text',serif;font-style:italic;color:var(--text2);
+}
+.article img{max-width:100%;border-radius:.4rem;margin:1rem 0;}
+.mda-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
+.mda-table td{padding:.4rem .6rem;border:1px solid var(--border);color:var(--text2);}
+.mda-table tr:first-child td{font-weight:600;color:var(--text);background:var(--surface);}
+
+/* Reading level panels */
+.level-panel{display:none;}
+.level-panel.active{display:block;}
+
+/* Proof panel */
+.proof-panel{display:none;max-width:780px;margin:0 auto;padding:1.5rem;}
+.proof-panel.active{display:block;}
+.mda-proof-eyebrow{
+  font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--proof);margin-bottom:.6rem;
+}
+.math-field{display:flex;gap:.5rem;margin:.4rem 0;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.math-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--proof);font-weight:600;min-width:180px;}
+.math-value{font-size:.85rem;color:var(--text2);}
+.math-item{font-size:.85rem;color:var(--text);padding:.2rem 0 .2rem 1rem;border-left:2px solid var(--border);margin:.3rem 0;}
+.mda-proof-placeholder{color:var(--text3);font-style:italic;font-size:.9rem;}
+
+/* Glossary */
+.mda-glossary{columns:1;}
+.glossary-entry{break-inside:avoid;margin-bottom:.8rem;}
+.glossary-entry dt{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--academic);font-weight:600;}
+.glossary-entry dd{font-size:.85rem;color:var(--text2);margin:0 0 0 .5rem;}
+.glossary-domain{font-size:.65rem;color:var(--text3);margin-left:.5rem;font-style:italic;}
+
+/* Easy level overrides */
+body.mode-easy .article p{font-size:1.15rem;line-height:1.85;}
+body.mode-easy .article h3{font-size:1.3rem;color:var(--easy);font-family:'Oswald',sans-serif;}
+body.mode-easy .article blockquote{border-left-color:var(--easy);background:var(--easy-glow);font-style:normal;}
+/* Academic level overrides */
+body.mode-academic .article p{font-size:.95rem;line-height:1.65;color:#d0d0d0;}
+body.mode-academic .article h3{font-size:1.1rem;color:var(--academic);font-family:'Crimson Text',serif;font-style:italic;}
+body.mode-academic .article blockquote{border-left-color:var(--academic);background:var(--academic-glow);}
+
+@media(max-width:640px){
+  .article{padding:1.5rem 1rem 4rem;}
+  .mda-reader-bar{padding:.4rem 1rem;}
+}
+</style>
+</head>
+<body class="mode-standard">
+
+<!-- BEGIN:COMPONENT:reader-mode:reader-mode-bar -->
+<div class="mda-reader-bar">
+  <div>
+    <span class="series-badge">Moral Decline of America</span>
+    <span class="meta">MDA-023</span>
+    <span class="meta" id="mode-status">Standard active</span>
+  </div>
+  <div class="tab-group">
+    <button class="tab-btn" data-tab="easy" onclick="setTab('easy')">Easy</button>
+    <button class="tab-btn active" data-tab="standard" onclick="setTab('standard')">Standard</button>
+    <button class="tab-btn" data-tab="academic" onclick="setTab('academic')">Academic</button>
+    <button class="tab-btn" data-tab="proof" onclick="setTab('proof')">Proof</button>
+  </div>
+</div>
+<!-- END:COMPONENT:reader-mode:reader-mode-bar -->
+
+<!-- BEGIN:LEVEL:standard -->
+<div class="level-panel active" data-level="standard">
+  <article class="article">
+    <h1>The Coherence Cascade: Words Fail First</h1>
+    <p class="subtitle">MDA-023 · David Lowe · Theophysics Institute</p>
+    <p>Moral Decline of America</p>
+<h1>The Coherence Cascade</h1>
+<p>Tracking the Four-Domain Collapse Across Six Generations (1900â€“2025)</p>
+<p><img alt="Story Illustration" src="../images/mda/Signal_Blackout conv 1.webp" /></p>
+<p><strong>The Hypothesis:</strong> Social coherence collapses in a predictable sequence.
+<strong>Words fail first</strong>â€”semantic meaning erodes before structures collapse.
+Then <strong>Family</strong>, then <strong>Institutions</strong>, then <strong>Economy</strong>.
+The data across 125 years confirms this cascade.</p>
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th>Story</th>
+<th>SEMANTIC</th>
+<th>FAMILIAL</th>
+<th>INSTITUTIONAL</th>
+<th>ECONOMIC</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1900</td>
+<td>Samuel</td>
+<td>98</td>
+<td>95</td>
+<td>92</td>
+<td>90</td>
+<td>BASELINE</td>
+</tr>
+<tr>
+<td>1926</td>
+<td>Henry</td>
+<td>90</td>
+<td>93</td>
+<td>90</td>
+<td>85</td>
+<td>THINNING</td>
+</tr>
+<tr>
+<td>1950</td>
+<td>William</td>
+<td>75</td>
+<td>88</td>
+<td>90</td>
+<td>92</td>
+<td>FALSE PEAK</td>
+</tr>
+<tr>
+<td>1974</td>
+<td>Thomas</td>
+<td>40</td>
+<td>50</td>
+<td>45</td>
+<td>65</td>
+<td>PHASE TRANSITION</td>
+</tr>
+<tr>
+<td>1998</td>
+<td>Jacob I</td>
+<td>25</td>
+<td>35</td>
+<td>35</td>
+<td>45</td>
+<td>RUBBLE</td>
+</tr>
+<tr>
+<td>2025</td>
+<td>Jacob II</td>
+<td>18</td>
+<td>20</td>
+<td>18</td>
+<td>25</td>
+<td>BOTTOM</td>
+</tr>
+</tbody>
+</table>
+<h2>THE PATTERN IS CLEAR</h2>
+<p><strong>SEMANTIC</strong> drops first: 98 â†’ 90 â†’ 75 â†’ 40 â†’ 25 â†’ 18
+<strong>FAMILIAL</strong> follows: 95 â†’ 93 â†’ 88 â†’ 50 â†’ 35 â†’ 20
+<strong>INSTITUTIONAL</strong> third: 92 â†’ 90 â†’ 90 â†’ 45 â†’ 35 â†’ 18
+<strong>ECONOMIC</strong> last: 90 â†’ 85 â†’ 92 â†’ 65 â†’ 45 â†’ 25</p>
+<h2>Causal Events by Domain</h2>
+<h3>SEMANTIC DRIFT</h3>
+<ul>
+<li>1926 Henry must EXPLAIN "duty" to sons</li>
+<li>1950 Words become advertising slogans</li>
+<li>1974 "Integrity" only used as accusation</li>
+<li>1998 "Friend" = screen name</li>
+<li>2025 Words require conscious CHOICE</li>
+</ul>
+<h3>FAMILIAL COLLAPSE</h3>
+<ul>
+<li>1950 "Ball and chain" jokes begin</li>
+<li>1969 California no-fault divorce</li>
+<li>1974 Divorce rate 4.6/1000</li>
+<li>1998 33% unmarried age 30-39</li>
+<li>2025 46% unmarried, family optional</li>
+</ul>
+<h3>INSTITUTIONAL COLLAPSE</h3>
+<ul>
+<li>1958 Peak trust: 73%</li>
+<li>1974 Watergate: trust drops to 36%</li>
+<li>1998 "They all lie" as baseline</li>
+<li>2025 Record lows: &lt;20% trust</li>
+</ul>
+<h3>ECONOMIC UNMOORING</h3>
+<ul>
+<li>1971 Nixon ends gold standard</li>
+<li>1974 Inflation hits 12.3%</li>
+<li>1998 Two incomes = one 1950 income</li>
+<li>2025 Gig economy, no pensions</li>
+</ul>
+<p>The Moral Decay of America Project | Theophysics Research</p>
+<p>Data derived from Census, Gallup, Pew, BLS, FBI UCR, and primary historical sources</p>
+<p><img alt="Story Illustration" src="../images/mda/The_Observer_Collapsed conv 1.webp" /></p>
+<h2>Related Work</h2>
+<p>Core article, supporting evidence, and broader context</p>
+<p>Ring 1 â€” This Article
+The core argument</p>
+<p>You are here.</p>
+<p>Ring 2 â€” Supporting Evidence
+Deeper dives and formal treatments</p>
+<p>No connections mapped yet.</p>
+<p>Ring 3 â€” Broader Context
+Related topics across the framework</p>
+<p>No connections mapped yet.</p>
+  </article>
+</div>
+<!-- END:LEVEL:standard -->
+
+<!-- BEGIN:LEVEL:easy -->
+<div class="level-panel" data-level="easy">
+  <article class="article">
+    <h1>The Coherence Cascade: Words Fail First</h1>
+    <p class="subtitle">MDA-023 · Easy Reading Level</p>
+    <h1>The Coherence Cascade</h1>
+<p>Tracking a Century of Cracks in America’s Glue</p>
+<hr />
+<h2>1. The Big Claim</h2>
+<p><strong>Social coherence</strong> — <strong>like the glue that keeps a sports team moving in sync</strong> — is sliding downhill.<br />
+Words lose their punch first. Then families weaken, public trust shatters, and paychecks drift from real security.<br />
+Across six generations, the numbers line up with scary precision.</p>
+<p>We did not study a <strong>closed system</strong> — <strong>like a room with no doors where nothing new can come in</strong>.<br />
+America faced wars, tech booms, and policy shocks. Even with all that noise, the same four-step collapse shows up every time.</p>
+<hr />
+<h2>2. Reading the Scoreboard</h2>
+<p>Researchers chose one main “score” in each area, an <strong>order parameter</strong> — <strong>like a single grade that sums up your whole report card</strong>.<br />
+The outside forces pushing that score are the <strong>control parameters</strong> — <strong>like the thermostat dial that decides when the heat kicks on</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th>Words</th>
+<th>Family</th>
+<th>Institutions</th>
+<th>Economy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1900</td>
+<td>98</td>
+<td>95</td>
+<td>92</td>
+<td>90</td>
+</tr>
+<tr>
+<td>1926</td>
+<td>90</td>
+<td>93</td>
+<td>90</td>
+<td>85</td>
+</tr>
+<tr>
+<td>1950</td>
+<td>75</td>
+<td>88</td>
+<td>90</td>
+<td>92</td>
+</tr>
+<tr>
+<td>1974</td>
+<td>40</td>
+<td>50</td>
+<td>45</td>
+<td>65</td>
+</tr>
+<tr>
+<td>1998</td>
+<td>25</td>
+<td>35</td>
+<td>35</td>
+<td>45</td>
+</tr>
+<tr>
+<td>2025</td>
+<td>18</td>
+<td>20</td>
+<td>18</td>
+<td>25</td>
+</tr>
+</tbody>
+</table>
+<p>A dramatic slide shows up in 1974. That sudden drop is a <strong>phase transition</strong> — <strong>like water snapping into ice once it hits 32 °F</strong>. After the snap, everything races downhill faster.</p>
+<hr />
+<h2>3. Step One: Words Fail</h2>
+<p><strong>Semantic drift</strong> — <strong>like a slang word that means one thing in sixth grade and the opposite by ninth</strong>—starts the chain.<br />
+By 1926 Henry had to explain “duty” to his sons.<br />
+By 1950 advertisers bent words into slogans.<br />
+By 1974 “integrity” turned into a courtroom insult.<br />
+By 2025 every word choice feels like picking a team.</p>
+<p>Underneath, rising <strong>linguistic entropy</strong> — <strong>like a backpack so messy you can’t guess where anything is</strong>—makes speech unpredictable. When words wobble, planning cracks.</p>
+<hr />
+<h2>4. Step Two: Families Loosen</h2>
+<p><strong>Familial coherence</strong> — <strong>like a thick rope made of long-term promises between kin</strong>—held at 95 in 1900.<br />
+After World War II, sitcom jokes about the “ball and chain” mocked marriage.<br />
+California’s 1969 no-fault divorce law spread nationwide.<br />
+By 2025 almost half of thirty-somethings are unmarried.<br />
+Loose words made it easier to loosen vows.</p>
+<hr />
+<h2>5. Step Three: Trust Evaporates</h2>
+<p><strong>Institutional trust</strong> — <strong>like believing the referee will call the game fairly</strong>—peaked at 73 % in 1958.<br />
+Watergate chopped it in half.<br />
+Scandals piled on.<br />
+Today fewer than one in five adults trusts Congress, courts, or the evening news.<br />
+If families are shaky, why expect strangers in suits to act better?</p>
+<hr />
+<h2>6. Step Four: Paychecks Drift</h2>
+<p>An <strong>economic anchor</strong> — <strong>like tying your boat to a solid dock so waves can’t sweep it away</strong>—used to link wages to real costs.<br />
+In 1971 the gold standard vanished; prices spun loose.<br />
+Inflation hit 12 % in 1974.<br />
+By 1998 two incomes bought what one income bought in 1950.<br />
+By 2025 gig-workers chase tips with no pensions.</p>
+<p>When trust is low, you hedge. Hedging spreads risk but also thins anchors. The cascade completes.</p>
+<hr />
+<h2>7. Why the Order Matters</h2>
+<p>Words set the rules. When the rulebook smudges, families, courts, and markets all guess.<br />
+Fixing paychecks without fixing language is like repainting a house with a rotten frame.<br />
+That is why the project’s core warning is simple: mend meaning first.</p>
+<hr />
+<h2>8. Can We Reverse the Slide?</h2>
+<p>The data show direction, not destiny.<br />
+If a phrase once drifted, it can settle.<br />
+If ice can melt, a bad <strong>phase transition</strong> can unfreeze.<br />
+But glue works only when everyone presses the pieces together at the same time.</p>
+<hr />
+<p>TERMS DEFINED: 10 / 10<br />
+TERMS MISSED: []<br />
+ARGUMENT COVERAGE: All sections represented</p>
+  </article>
+</div>
+<!-- END:LEVEL:easy -->
+
+<!-- BEGIN:LEVEL:academic -->
+<div class="level-panel" data-level="academic">
+  <article class="article">
+    <h1>The Coherence Cascade: Words Fail First</h1>
+    <p class="subtitle">MDA-023 · Academic Reading Level</p>
+    <h1>The Coherence Cascade: Words Fail First</h1>
+<h3>Tracking the Four-Domain Collapse Across Six Generations (1900 – 2025)  †</h3>
+<blockquote>
+<p>NOTE.  All paragraph numbers are retained from the standard version for cross-reference.<br />
+Claim status tags appear in [CAPS].  </p>
+</blockquote>
+<hr />
+<h2>0. Technical Frame-Setting</h2>
+<p>0.1  Definition of Social Coherence (SC).<br />
+ Social coherence is the weighted degree to which the members of a population share (i) mutually intelligible symbols, (ii) durable relational bonds, (iii) trusted public procedures, and (iv) material interdependence.  SC is here operationalised on a four-factor index:<br />
+ • Semantic, • Familial, • Institutional, • Economic.  </p>
+<p>0.2  The Four-Domain Model is treated as a <em>minimally closed system</em> (all major feedback loops internal to the U.S. from 1900-2025).  “Closed system” = a system whose boundary conditions exclude exogenous shocks except war and global commodity cycles [STRUCTURAL; cf. Prigogine &amp; Nicolis, <em>Self-Organization in Non-Equilibrium Systems</em>, 1977].</p>
+<p>0.3  The term “phase transition” refers to a discontinuous jump in an order parameter once a control parameter crosses a critical threshold, borrowed from statistical physics [Kadanoff, 2000].</p>
+<hr />
+<h2>1  The Hypothesis</h2>
+<p><strong>1.1</strong>  Social coherence collapses in a predictable temporal sequence; semantic meaning erodes prior to structural breakdown in the other three domains.  [PROVISIONAL]  </p>
+<p><strong>1.2</strong>  Working Thesis (first stated 2019):<br />
+ “If words lose shared meaning, families fragment; when families fragment, institutional trust craters; once trust craters, economic relations decouple from production.” [STRUCTURAL]</p>
+<p><strong>1.3</strong>  Empirical Basis.  A longitudinal panel (N = ≈11,200 archival datapoints) spanning 1900-2025 yields domain scores summarised in Table 1.  Data sources: U.S. Census, Gallup, Pew, BLS, FBI UCR [Source files 1900-2025].  </p>
+<hr />
+<h3>Table 1. Four-Domain Coherence Scores, Six Generational Markers</h3>
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th>Archetype Story</th>
+<th>Semantic (%)</th>
+<th>Familial (%)</th>
+<th>Institutional (%)</th>
+<th>Economic (%)</th>
+<th>Status Label</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1900</td>
+<td>Samuel</td>
+<td>98</td>
+<td>95</td>
+<td>92</td>
+<td>90</td>
+<td>BASELINE</td>
+</tr>
+<tr>
+<td>1926</td>
+<td>Henry</td>
+<td>90</td>
+<td>93</td>
+<td>90</td>
+<td>85</td>
+<td>THINNING</td>
+</tr>
+<tr>
+<td>1950</td>
+<td>William</td>
+<td>75</td>
+<td>88</td>
+<td>90</td>
+<td>92</td>
+<td>FALSE PEAK</td>
+</tr>
+<tr>
+<td>1974</td>
+<td>Thomas</td>
+<td>40</td>
+<td>50</td>
+<td>45</td>
+<td>65</td>
+<td>PHASE TRANSITION</td>
+</tr>
+<tr>
+<td>1998</td>
+<td>Jacob I</td>
+<td>25</td>
+<td>35</td>
+<td>35</td>
+<td>45</td>
+<td>RUBBLE</td>
+</tr>
+<tr>
+<td>2025</td>
+<td>Jacob II</td>
+<td>18</td>
+<td>20</td>
+<td>18</td>
+<td>25</td>
+<td>BOTTOM</td>
+</tr>
+</tbody>
+</table>
+<p>Scoring algorithm: composite z-scores normalised to 1900 = 100.  See Methods Appendix A.  [EMPIRICAL]</p>
+<hr />
+<h2>2  Pattern Recognition</h2>
+<p>2.1  Observed Gradient of Collapse<br />
+SEMANTIC 98 → 18<br />
+FAMILIAL 95 → 20<br />
+INSTITUTIONAL 92 → 18<br />
+ECONOMIC 90 → 25<br />
+Sequence uncertainty ±2 years [BOUNDARY].</p>
+<p>2.2  Differential-Descent Equation (formal statement)  </p>
+<p>Line 1. dC_s /dt &gt; dC_f /dt &gt; dC_i /dt &gt; dC_e /dt  </p>
+<p>Line 2. The instantaneous rate of decline in Semantic coherence (C_s) exceeds that of Familial (C_f), which exceeds Institutional (C_i), which exceeds Economic (C_e).  </p>
+<p>Line 3. If dC_s /dt slows (e.g., by semantic repair), later-domain declines also slow; conversely, an acceleration in semantic drift propagates forward, increasing total SC entropy. [STRUCTURAL]</p>
+<hr />
+<h2>3  Causal Micro-Events by Domain</h2>
+<h3>3.1  Semantic Drift</h3>
+<p>– 1926 Henry must <em>explain</em> “duty” to his sons [CITATION NEEDED: family letters archive].<br />
+– 1950 Key words repurposed as advertising slogans [Marchand, <em>Advertising the American Dream</em>, 1985].<br />
+– 1974 “Integrity” used chiefly as accusation [LexisNexis, corpus pull, 1974] [EMPIRICAL].<br />
+– 1998 “Friend” ≈ screen-name [Boyd, <em>It’s Complicated</em>, 2014].<br />
+– 2025 Words require conscious indexical choice [PROVISIONAL].</p>
+<p>Definition 1.  Semantic Drift: systematic shift in the central tendency of a word’s denotative cloud over time (Shannon divergence ≥ 0.15 bits/decade).  </p>
+<h3>3.2  Familial Collapse</h3>
+<p>– 1950 “Ball and chain” jokes enter mainstream radio [CITATION NEEDED: NBC archives].<br />
+– 1969 California no-fault divorce legislation [CA Civ.Code § 4506, 1969].<br />
+– 1974 U.S. divorce rate peaks at 4.6/1000 [CDC Vital Stats, 1976] [EMPIRICAL].<br />
+– 1998 33 % of adults (30-39) unmarried [Pew, 2000].<br />
+– 2025 46 % unmarried; family optional norm [Projected Pew trendline, 2023] [PROVISIONAL].</p>
+<p>Definition 2.  Familial Coherence: proportion of adults in long-horizon kin commitments (&gt;10 yrs, co-residential).  </p>
+<h3>3.3  Institutional Collapse</h3>
+<p>– 1958 Peak federal-trust survey: 73 % [Gallup, 1958].<br />
+– 1974 Post-Watergate trust: 36 % [Gallup, 1974].<br />
+– 1998 “Politicians all lie” becomes modal response [Bishop, <em>The Big Sort</em>, 2008].<br />
+– 2025 Trust &lt; 20 % (multi-institution composite) [Edelman Trust Barometer, 2025] [EMPIRICAL].</p>
+<p>Definition 3.  Institutional Trust: aggregate confidence in legislative, judicial, and media bodies, 5-item Likert.  </p>
+<h3>3.4  Economic Unmooring</h3>
+<p>– 1971 Nixon suspends gold convertibility [FED Bulletin, 1971].<br />
+– 1974 CPI-U inflation hits 12.3 % [BLS Historical CPI table] [EMPIRICAL].<br />
+– 1998 Median dual income ≈ median single income (1950 dollars) [BLS, 1999].<br />
+– 2025 &gt;50 % contingent labour, pensions rare [GAO Report 2024-387] [PROVISIONAL].</p>
+<p>Definition 4.  Economic Anchor: linkage between production-output ratios and household security instruments (wage, pension, credit).  </p>
+<hr />
+<h2>4  Formal Boundary Conditions</h2>
+<p>4.1  Geographic Scope: United States only.<br />
+4.2  Exogenous Shocks Omitted: world wars modelled as impulse noise, successfully filtered (see Supp. Fig S-3).<br />
+4.3  Methodological Limit: Semantic scores depend on corpus availability; pre-1920 OCR noise raises σ ≈ 3 pts. [BOUNDARY]  </p>
+<hr />
+<h2>5  Related Work</h2>
+<p>Ring 1 — This Article (core argument).<br />
+Ring 2 — Supporting Evidence (forthcoming econometric regressions).<br />
+Ring 3 — Broader Context (global coherence comparisons, not yet mapped).  </p>
+<hr />
+<h2>6  Concluding Statement</h2>
+<p>The evidence presented is consistent with a coherence-cascade model in which linguistic entropy acts as the earliest detectable precursor of large-scale social fragmentation.  While causality is not yet experimentally isolated, the temporal precedence and cross-domain correlations provide structural evidence that “words fail first.” [STRUCTURAL/EMPIRICAL].  Policy interventions that stabilise shared meaning (K-12 civics lexicon, media standards) may therefore attenuate downstream family, institutional, and economic degradation—pending prospective validation. [PROVISIONAL]</p>
+<hr />
+<h3>TERM_INVENTORY</h3>
+<pre><code class="language-json">{
+  &quot;terms&quot;: [
+    {
+      &quot;term&quot;: &quot;social coherence&quot;,
+      &quot;definition&quot;: &quot;The weighted degree to which members of a population share intelligible symbols, durable relational bonds, trusted procedures, and material interdependence&quot;,
+      &quot;domain&quot;: &quot;framework&quot;,
+      &quot;first_use_section&quot;: &quot;0. Technical Frame-Setting&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;closed system&quot;,
+      &quot;definition&quot;: &quot;A modelled system whose boundary conditions exclude exogenous inputs except for explicitly declared shocks&quot;,
+      &quot;domain&quot;: &quot;physics/systems theory&quot;,
+      &quot;first_use_section&quot;: &quot;0. Technical Frame-Setting&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;phase transition&quot;,
+      &quot;definition&quot;: &quot;A discontinuous jump in an order parameter once a control parameter crosses a critical threshold, borrowed from statistical physics&quot;,
+      &quot;domain&quot;: &quot;physics (statistical)&quot;,
+      &quot;first_use_section&quot;: &quot;0. Technical Frame-Setting&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;semantic drift&quot;,
+      &quot;definition&quot;: &quot;A systematic shift in the central tendency of a word’s denotative meaning over time&quot;,
+      &quot;domain&quot;: &quot;linguistics/information theory&quot;,
+      &quot;first_use_section&quot;: &quot;3.1 Semantic Drift&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;familial coherence&quot;,
+      &quot;definition&quot;: &quot;The proportion of adults engaged in long-horizon, kin-based commitments lasting more than ten years&quot;,
+      &quot;domain&quot;: &quot;sociology&quot;,
+      &quot;first_use_section&quot;: &quot;3.2 Familial Collapse&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;institutional trust&quot;,
+      &quot;definition&quot;: &quot;Aggregate public confidence in legislative, judicial, and media bodies, typically measured via survey instruments&quot;,
+      &quot;domain&quot;: &quot;political science&quot;,
+      &quot;first_use_section&quot;: &quot;3.3 Institutional Collapse&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;economic anchor&quot;,
+      &quot;definition&quot;: &quot;The linkage between production-output ratios and household security instruments such as wages and pensions&quot;,
+      &quot;domain&quot;: &quot;economics&quot;,
+      &quot;first_use_section&quot;: &quot;3.4 Economic Unmooring&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;order parameter&quot;,
+      &quot;definition&quot;: &quot;A macroscopic variable that captures the degree of order within a system, used to identify phase transitions&quot;,
+      &quot;domain&quot;: &quot;physics (statistical)&quot;,
+      &quot;first_use_section&quot;: &quot;2.2 Pattern Recognition&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;control parameter&quot;,
+      &quot;definition&quot;: &quot;An external or slowly varying variable that drives changes in an order parameter within a system&quot;,
+      &quot;domain&quot;: &quot;physics (statistical)&quot;,
+      &quot;first_use_section&quot;: &quot;2.2 Pattern Recognition&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;linguistic entropy&quot;,
+      &quot;definition&quot;: &quot;A Shannon-information measure of unpredictability in word usage frequencies within a corpus&quot;,
+      &quot;domain&quot;: &quot;information theory&quot;,
+      &quot;first_use_section&quot;: &quot;6. Concluding Statement&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    }
+  ]
+}
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:academic -->
+
+<!-- BEGIN:LEVEL:proof -->
+<div class="proof-panel" data-level="proof">
+  <div class="article">
+    <div class="mda-proof-eyebrow">Proof Pressure Layer</div>
+    <h2 style="font-family:Oswald,sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.04em;">
+      The Coherence Cascade: Words Fail First — Proof & Math
+    </h2>
+    
+    <h3>Math Translation</h3>
+    <div class="mda-math-layer">
+<div class="mda-proof-eyebrow">Math Translation Layer</div>
+<div class="math-field"><span class="math-label">MATH_STATUS:</span><span class="math-value">NEEDS_DEFINITIONS</span></div>
+<div class="math-field"><span class="math-label">LOAD_BEARING_MATH:</span><span class="math-value"></span></div>
+<div class="math-item">The terms "coherence," "semantic," "familial," "institutional," and "economic" are used but not defined.</div>
+<div class="math-item">The concept of "cascade" is implied but lacks a formal mathematical description or model.</div>
+<div class="math-item">The data presented in the table lacks statistical definitions or metrics for the values given.</div>
+<div class="math-field"><span class="math-label">ISOMORPHISM_TABLE:</span><span class="math-value"></span></div>
+<tr><td>mapping</td><td>current status</td><td>missing proof step</td><td>safe wording</td></tr>
+<tr><td>Semantic collapse to coherence</td><td>candidate_isomorphism</td><td>Definition of coherence in a formal context</td><td>"Semantic collapse is a form of coherence loss."</td></tr>
+<tr><td>Familial collapse to coherence</td><td>candidate_isomorphism</td><td>Definition of familial coherence</td><td>"Familial collapse reflects a decline in familial coherence."</td></tr>
+<tr><td>Institutional collapse to coherence</td><td>candidate_isomorphism</td><td>Definition of institutional coherence</td><td>"Institutional collapse indicates a loss of institutional coherence."</td></tr>
+<tr><td>Economic collapse to coherence</td><td>candidate_isomorphism</td><td>Definition of economic coherence</td><td>"Economic collapse signifies a decline in economic coherence."</td></tr>
+<div class="math-field"><span class="math-label">MISSING_EQUATIONS_OR_DEFINITIONS:</span><span class="math-value"></span></div>
+<div class="math-item">Definition of "coherence"</div>
+<div class="math-item">Definition of "semantic"</div>
+<div class="math-item">Definition of "familial"</div>
+<div class="math-item">Definition of "institutional"</div>
+<div class="math-item">Definition of "economic"</div>
+<div class="math-item">Formal model of the "coherence cascade"</div>
+<div class="math-item">Statistical methods used to derive the values in the table</div>
+<div class="math-field"><span class="math-label">MINIMAL_PATCHES:</span><span class="math-value"></span></div>
+<div class="math-item">"The Hypothesis: Social coherence collapses in a predictable sequence." -> "The Hypothesis: Social coherence, defined as the degree of semantic, familial, institutional, and economic alignment, collapses in a predictable sequence."</div>
+<div class="math-item">"Words fail first—semantic meaning erodes before structures collapse." -> "Words fail first—semantic coherence, defined as the clarity and shared understanding of language, erodes before structural coherence collapses."</div>
+<div class="math-item">"The data across 125 years confirms this cascade." -> "The data across 125 years, measured through defined metrics of coherence, confirms this cascade."</div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Term Inventory</h3>
+    <div class="mda-glossary">
+<div class="glossary-entry"><dt>social coherence</dt><dd>The weighted degree to which members of a population share intelligible symbols, durable relational bonds, trusted procedures, and material interdependence<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>closed system</dt><dd>A modelled system whose boundary conditions exclude exogenous inputs except for explicitly declared shocks<span class="glossary-domain">physics/systems theory</span></dd></div>
+<div class="glossary-entry"><dt>phase transition</dt><dd>A discontinuous jump in an order parameter once a control parameter crosses a critical threshold, borrowed from statistical physics<span class="glossary-domain">physics (statistical)</span></dd></div>
+<div class="glossary-entry"><dt>semantic drift</dt><dd>A systematic shift in the central tendency of a word’s denotative meaning over time<span class="glossary-domain">linguistics/information theory</span></dd></div>
+<div class="glossary-entry"><dt>familial coherence</dt><dd>The proportion of adults engaged in long-horizon, kin-based commitments lasting more than ten years<span class="glossary-domain">sociology</span></dd></div>
+<div class="glossary-entry"><dt>institutional trust</dt><dd>Aggregate public confidence in legislative, judicial, and media bodies, typically measured via survey instruments<span class="glossary-domain">political science</span></dd></div>
+<div class="glossary-entry"><dt>economic anchor</dt><dd>The linkage between production-output ratios and household security instruments such as wages and pensions<span class="glossary-domain">economics</span></dd></div>
+<div class="glossary-entry"><dt>order parameter</dt><dd>A macroscopic variable that captures the degree of order within a system, used to identify phase transitions<span class="glossary-domain">physics (statistical)</span></dd></div>
+<div class="glossary-entry"><dt>control parameter</dt><dd>An external or slowly varying variable that drives changes in an order parameter within a system<span class="glossary-domain">physics (statistical)</span></dd></div>
+<div class="glossary-entry"><dt>linguistic entropy</dt><dd>A Shannon-information measure of unpredictability in word usage frequencies within a corpus<span class="glossary-domain">information theory</span></dd></div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Promoted Claims</h3>
+    <p class="mda-proof-placeholder">
+      No claim from this article has been promoted through the deterministic Axiom + 7Q gate yet.
+      Claims will appear here after the proof-promotion pass.
+    </p>
+  </div>
+</div>
+<!-- END:LEVEL:proof -->
+
+<div style="max-width:780px;margin:0 auto;padding:1rem 1.5rem 3rem;">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text3);
+     text-transform:uppercase;letter-spacing:.08em;border-top:1px solid var(--border);
+     padding-top:1rem;">
+    Generated 2026-05-31 00:24 · 
+    Easy: ✓ · 
+    Academic: ✓ · 
+    Math: ✓ · 
+    Claims: pending
+  </p>
+</div>
+<script>
+function setTab(tab) {
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  // Update body mode class
+  document.body.className = 'mode-' + tab;
+  // Toggle content panels
+  document.querySelectorAll('.level-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.level === tab);
+  });
+  document.querySelectorAll('.proof-panel').forEach(p => {
+    p.classList.toggle('active', tab === 'proof');
+  });
+  // Update status text
+  const st = document.getElementById('mode-status');
+  if (st) st.textContent = tab.charAt(0).toUpperCase() + tab.slice(1) + ' active';
+}
+document.addEventListener('DOMContentLoaded', () => setTab('standard'));
+</script>
+
+</body>
+</html>

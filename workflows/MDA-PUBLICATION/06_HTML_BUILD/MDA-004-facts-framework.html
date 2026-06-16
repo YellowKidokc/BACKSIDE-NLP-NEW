@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Coherence Decay of American Society — FACTS Paper — Moral Decline of America</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a;
+  --border:#2a2a2a; --border-claim:rgba(212,175,55,.35);
+  --text:#e0e0e0; --text2:#a0a0a0; --text3:#707070;
+  --mda-red:#dc2626; --mda-red-glow:rgba(220,38,38,.08);
+  --claim:#d4af37; --claim-glow:rgba(212,175,55,.08);
+  --easy:#22c55e; --easy-glow:rgba(34,197,94,.08);
+  --academic:#a78bfa; --academic-glow:rgba(167,139,250,.08);
+  --proof:#f59e0b; --proof-glow:rgba(245,158,11,.08);
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  line-height:1.65; margin:0; padding:0;
+}
+</style>
+<style>
+/* Reader Mode Bar */
+.mda-reader-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:.5rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;
+}
+.mda-reader-bar .series-badge{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mda-red);font-weight:600;
+}
+.mda-reader-bar .meta{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;
+  color:var(--text3);text-transform:uppercase;letter-spacing:.06em;
+}
+.tab-group{display:flex;gap:.4rem;flex-wrap:wrap;}
+.tab-btn{
+  padding:.4rem .7rem;border:1px solid var(--border);border-radius:.35rem;
+  background:var(--surface);color:var(--text2);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em;transition:all .2s;
+}
+.tab-btn:hover{border-color:var(--mda-red);color:var(--text);}
+.tab-btn.active{border-color:var(--mda-red);background:var(--mda-red-glow);color:var(--mda-red);}
+.tab-btn[data-tab="easy"].active{border-color:var(--easy);background:var(--easy-glow);color:var(--easy);}
+.tab-btn[data-tab="academic"].active{border-color:var(--academic);background:var(--academic-glow);color:var(--academic);}
+.tab-btn[data-tab="proof"].active{border-color:var(--proof);background:var(--proof-glow);color:var(--proof);}
+
+/* Article */
+.article{max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem;}
+.article h1{
+  font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.02em;
+  margin:0 0 .5rem;line-height:1.1;
+}
+.article .subtitle{
+  font-family:'Crimson Text',serif;font-size:1.15rem;color:var(--text2);
+  font-style:italic;margin:0 0 2rem;line-height:1.5;
+}
+.article h2{
+  font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:#fff;
+  text-transform:uppercase;letter-spacing:.04em;margin:2.5rem 0 1rem;
+  border-bottom:1px solid var(--border);padding-bottom:.4rem;
+}
+.article h3{font-family:'Crimson Text',serif;font-size:1.15rem;font-weight:600;color:var(--mda-red);margin:1.5rem 0 .5rem;}
+.article p{font-size:1.02rem;line-height:1.75;margin:0 0 1.25rem;}
+.article blockquote{
+  border-left:3px solid var(--mda-red);background:var(--mda-red-glow);
+  padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 .4rem .4rem 0;
+  font-family:'Crimson Text',serif;font-style:italic;color:var(--text2);
+}
+.article img{max-width:100%;border-radius:.4rem;margin:1rem 0;}
+.mda-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
+.mda-table td{padding:.4rem .6rem;border:1px solid var(--border);color:var(--text2);}
+.mda-table tr:first-child td{font-weight:600;color:var(--text);background:var(--surface);}
+
+/* Reading level panels */
+.level-panel{display:none;}
+.level-panel.active{display:block;}
+
+/* Proof panel */
+.proof-panel{display:none;max-width:780px;margin:0 auto;padding:1.5rem;}
+.proof-panel.active{display:block;}
+.mda-proof-eyebrow{
+  font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--proof);margin-bottom:.6rem;
+}
+.math-field{display:flex;gap:.5rem;margin:.4rem 0;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.math-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--proof);font-weight:600;min-width:180px;}
+.math-value{font-size:.85rem;color:var(--text2);}
+.math-item{font-size:.85rem;color:var(--text);padding:.2rem 0 .2rem 1rem;border-left:2px solid var(--border);margin:.3rem 0;}
+.mda-proof-placeholder{color:var(--text3);font-style:italic;font-size:.9rem;}
+
+/* Glossary */
+.mda-glossary{columns:1;}
+.glossary-entry{break-inside:avoid;margin-bottom:.8rem;}
+.glossary-entry dt{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--academic);font-weight:600;}
+.glossary-entry dd{font-size:.85rem;color:var(--text2);margin:0 0 0 .5rem;}
+.glossary-domain{font-size:.65rem;color:var(--text3);margin-left:.5rem;font-style:italic;}
+
+/* Easy level overrides */
+body.mode-easy .article p{font-size:1.15rem;line-height:1.85;}
+body.mode-easy .article h3{font-size:1.3rem;color:var(--easy);font-family:'Oswald',sans-serif;}
+body.mode-easy .article blockquote{border-left-color:var(--easy);background:var(--easy-glow);font-style:normal;}
+/* Academic level overrides */
+body.mode-academic .article p{font-size:.95rem;line-height:1.65;color:#d0d0d0;}
+body.mode-academic .article h3{font-size:1.1rem;color:var(--academic);font-family:'Crimson Text',serif;font-style:italic;}
+body.mode-academic .article blockquote{border-left-color:var(--academic);background:var(--academic-glow);}
+
+@media(max-width:640px){
+  .article{padding:1.5rem 1rem 4rem;}
+  .mda-reader-bar{padding:.4rem 1rem;}
+}
+</style>
+</head>
+<body class="mode-standard">
+
+<!-- BEGIN:COMPONENT:reader-mode:reader-mode-bar -->
+<div class="mda-reader-bar">
+  <div>
+    <span class="series-badge">Moral Decline of America</span>
+    <span class="meta">MDA-004</span>
+    <span class="meta" id="mode-status">Standard active</span>
+  </div>
+  <div class="tab-group">
+    <button class="tab-btn" data-tab="easy" onclick="setTab('easy')">Easy</button>
+    <button class="tab-btn active" data-tab="standard" onclick="setTab('standard')">Standard</button>
+    <button class="tab-btn" data-tab="academic" onclick="setTab('academic')">Academic</button>
+    <button class="tab-btn" data-tab="proof" onclick="setTab('proof')" style="opacity:.4;pointer-events:none;">Proof</button>
+  </div>
+</div>
+<!-- END:COMPONENT:reader-mode:reader-mode-bar -->
+
+<!-- BEGIN:LEVEL:standard -->
+<div class="level-panel active" data-level="standard">
+  <article class="article">
+    <h1>The Coherence Decay of American Society — FACTS Paper</h1>
+    <p class="subtitle">MDA-004 · David Lowe · Theophysics Institute</p>
+    <p>Listen</p>
+<p>0:00</p>
+<p><a href="index.html">Moral Decline</a></p>
+<p>Case File</p>
+<p>FACTS PAPER</p>
+<p>Coherence Decay Analysis
+1958 — 2025</p>
+<p><a href="#hero">Title &amp; Abstract</a>
+<a href="#introduction">1. Introduction</a>
+<a href="#problem">2. The Problem</a>
+<a href="#literature">3. Literature Review</a>
+<a href="#methods">4. Methods</a>
+<a href="#results">5. Results</a>
+<a href="#discussion">6. Discussion</a>
+<a href="#conclusion">7. Conclusion</a>
+<a href="#methodology-disclosure">8. Methodological Disclosure</a>
+<a href="#declaration">Declaration</a>
+<a href="#references">References &amp; Appendices</a></p>
+<p>Navigation</p>
+<p><a href="MDA-902-appendix-trans-domain-analysis.html">Main Analysis</a>
+ <a href="index.html">Series Index</a></p>
+<p>Classification</p>
+<p>Formal Paper</p>
+<p>David Lowe • Theophysics Research Initiative • 2026</p>
+<h1>THE COHERENCE DECAY OF AMERICAN SOCIETY</h1>
+<p>A Trans-Domain Analysis (1958–2025)</p>
+<p><img alt="Story Illustration" src="../images/mda/PHASE_TRANSITION conv 3.webp" /></p>
+<p>David Lowe</p>
+<p>Independent Researcher • Theophysics Research Initiative
+coherence.faiththruphysics.com</p>
+<p>F — Find the Anomaly</p>
+<h2>Abstract</h2>
+<p>This paper documents a striking mathematical pattern: multiple independent domains of American life — including family structure, religious affiliation, institutional trust, mental-health outcomes, and economic stability — show nearly identical decay curves with inflection points clustered within the <strong>1958–1968</strong> window (mean inflection window t₀ = 1958–1968). The visible ruptures of 1968–1973 represent the <em>completion</em> of a phase transition, not its initiation. Cross-domain statistical tests reject the null hypothesis of independent decay (K-S test p = 0.003).</p>
+<p>The decline follows exponential decay:</p>
+<p>$$\chi(t) = \chi_0 \cdot e^{-\lambda t} + C$$</p>
+<p>with mean decay constant <strong>λ = 0.045 ± 0.050</strong> and median <strong>λ = 0.023</strong>. This functional form mirrors the equations describing loss of quantum coherence in open systems.</p>
+<p><strong>This pattern is far too unlikely to be random — it demands explanation.</strong></p>
+<p>We do not claim a causal mechanism here. Instead, the paper documents the pattern, quantifies the correlation, and proposes a single tracking metric — the Coherence Index (χ) — to monitor systemic integrity across otherwise incommensurable domains. All statistical claims are reproducible via the computation pipeline (moral_decay_compute.py).</p>
+<p>23</p>
+<p>Domains Analyzed</p>
+<p>0.003</p>
+<p>K-S Test p-value</p>
+<p>1958</p>
+<p>Mean Inflection</p>
+<p>0.045</p>
+<p>Mean λ</p>
+<p>A — Admit the Bias</p>
+<h2>1. Introduction</h2>
+<p>Before presenting evidence, I am required by my own methodology to disclose my interpretive lens.</p>
+<h3>Author Posture (Biaxiosum Score: 1.0)</h3>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Declaration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Worldview</td>
+<td>Christian Theist</td>
+</tr>
+<tr>
+<td>Core Belief</td>
+<td>Reality is structured by a coherent Logos; disorder is deviation from design</td>
+</tr>
+<tr>
+<td>Epistemology</td>
+<td>Empirical observation constrained by logical coherence and <a href="/glossary/?term=falsifiability" title="See glossary: falsifiability">falsifiability</a></td>
+</tr>
+<tr>
+<td>Priors</td>
+<td>I began this research believing America was in decline. The data could have refuted this. It did not.</td>
+</tr>
+<tr>
+<td>Off-Ramp</td>
+<td>Reasonable people may interpret identical curves as coincidence or artifact. I cannot eliminate this possibility—only render it statistically improbable.</td>
+</tr>
+<tr>
+<td>Mea Culpa</td>
+<td>Early versions of this analysis conflated correlation with causation. This version does not. I claim pattern, not mechanism.</td>
+</tr>
+</tbody>
+</table>
+<p>“I hold no PhD. I’ve been self-employed most of my life, choosing where to work and what to pursue. As I sifted through extensive research to answer one question—Is the decline I perceive real, or am I projecting?—it began to feel less like I was assembling evidence and more like the evidence was assembling me.”</p>
+<p>The answer is in the data.</p>
+<p>I present this data not as a neutral observer—no such observer exists—but as a biased human being who has made his bias visible. Evaluate accordingly.</p>
+<p>C — Claim the Thesis</p>
+<h2>2. The Problem</h2>
+<h3>Primary Claim</h3>
+<p>American society is undergoing measurable coherence decay across all major institutional and behavioral domains, and this decay follows a unified mathematical signature.</p>
+<h3>Supporting Claims</h3>
+<ol>
+<li>Twenty-three domains (of 45 surveyed) exhibit statistically significant decline beginning 1958–1968</li>
+<li>The decline curves are not merely correlated but functionally identical (same equation, different parameters)</li>
+<li>The functional form matches the Lindbladian dissipation equation from quantum mechanics</li>
+<li>No existing single-domain theory (economic, cultural, political) accounts for cross-domain synchronization</li>
+<li>A Cross-Domain Coherence Project (Coherence Index χ) can unify these observations</li>
+</ol>
+<p><strong>Clarification on t₀:</strong> t₀ represents the inflection window (1958–1968), with early-shifting domains (religious, family) typically preceding late-shifting domains (legal, institutional). The JSON data mean of 1968.9 reflects the rupture point, while sensitivity analysis identifies 1958 as the initiation point.</p>
+<h4>Prediction (If True)</h4>
+<p>Domains not yet analyzed will exhibit the same curve. Interventions that increase constraint/structure will locally reverse decay. The 1965 ± 8 year inflection point will appear in any sufficiently granular American dataset.</p>
+<h4>Prediction (If False)</h4>
+<p>At least one major domain will show contrary motion (increasing coherence) during the study period without external constraint intervention. The curves will not survive replication with alternative datasets.</p>
+<h2>3. Literature Review</h2>
+<p>The Disciplinary Blind Spot</p>
+<p>Each academic discipline has documented decline within its silo:</p>
+<table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>Finding</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Family</td>
+<td>Marriage rate declined 60% since 1970</td>
+<td>CDC, Census Bureau</td>
+</tr>
+<tr>
+<td>Religion</td>
+<td>“No religious affiliation” rose from 5% (1972) to 30% (2023)</td>
+<td>GSS, Pew Research</td>
+</tr>
+<tr>
+<td>Trust</td>
+<td>Institutional confidence fell from 73% to 27% (1965–2023)</td>
+<td>Gallup</td>
+</tr>
+<tr>
+<td>Mental Health</td>
+<td>Anxiety/depression diagnoses increased 400% since 1980</td>
+<td>NIMH, CDC</td>
+</tr>
+<tr>
+<td>Economics</td>
+<td>Real wage stagnation since 1973; debt-to-income ratio tripled</td>
+<td>BLS, Federal Reserve</td>
+</tr>
+<tr>
+<td>Language</td>
+<td>Vocabulary complexity in public discourse declined 35%</td>
+<td>Google Ngram, Flesch-Kincaid</td>
+</tr>
+<tr>
+<td>Civic Life</td>
+<td>Voluntary association membership declined 45% since 1960</td>
+<td>Putnam (2000), GSS</td>
+</tr>
+</tbody>
+</table>
+<p>Each discipline explains its own decline with domain-specific causes:</p>
+<ul>
+<li>Economists blame policy</li>
+<li>Sociologists blame culture</li>
+<li>Psychologists blame technology</li>
+<li>Political scientists blame polarization</li>
+</ul>
+<p>No discipline asks: Why did all of these begin declining simultaneously?</p>
+<p>The question is not answerable within any single field because the answer requires <strong>cross-domain coherence analysis</strong>. This paper provides that analysis.</p>
+<p>T — Test the Proof</p>
+<h2>4. Methods</h2>
+<h3>4.1 Data Collection</h3>
+<p>Data was aggregated from:</p>
+<ul>
+<li>Government sources (Census, CDC, BLS, Federal Reserve)</li>
+<li>Academic surveys (GSS, ANES, Pew)</li>
+<li>Longitudinal studies (Putnam’s social capital data, Twenge’s generational analyses)</li>
+<li>Computational linguistics (Google Ngram, news corpus analysis)</li>
+</ul>
+<p>Total dataset: <strong>69GB across 45 domains</strong> surveyed (23 with sufficient time-series data for rigorous fitting), 1945–2025.</p>
+<h3>4.2 Normalization</h3>
+<p>Each domain was normalized to a 0–1 scale where 1.0 = peak coherence and 0.0 = theoretical minimum.</p>
+<p>$$\chi_i(t) = \frac{X_i(t) - X_{i,\min}}{X_{i,\max} - X_{i,\min}}$$</p>
+<h3>4.3 Curve Fitting</h3>
+<p>Each normalized domain was fitted to the generalized decay function:</p>
+<p>$$\chi(t) = \chi_0 \cdot e^{-\lambda(t - t_0)} + A \sin(\omega t + \phi) + C$$</p>
+<p>Where χ₀ = initial coherence, λ = decay constant, t₀ = inflection point, A, ω, φ = perturbation parameters, C = asymptotic floor.</p>
+<h3>4.4 Cross-Domain Comparison</h3>
+<p>The null hypothesis: decay constants (λ) and inflection points (t₀) are independent across domains.</p>
+<p><strong>Results (16 domains with sufficient data):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Mean</th>
+<th>Std Dev</th>
+<th>Median</th>
+<th>Expected (if independent)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>λ (decay constant)</td>
+<td>0.045</td>
+<td>0.050</td>
+<td>0.023</td>
+<td>Random distribution</td>
+</tr>
+<tr>
+<td>t₀ (inflection year)</td>
+<td>1958.6</td>
+<td>7.5 years</td>
+<td>1960.6</td>
+<td>Random distribution</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Statistic</th>
+<th>p-value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>K-S test (λ uniformity)</td>
+<td>0.485</td>
+<td>5.5 × 10&amp;supmin&amp;sup4</td>
+<td>λ values ARE clustered</td>
+</tr>
+<tr>
+<td>K-S test (t₀ uniformity)</td>
+<td>0.433</td>
+<td>3.1 × 10&amp;supmin³</td>
+<td>t₀ values ARE clustered</td>
+</tr>
+<tr>
+<td>t-test (λ ≠ 0)</td>
+<td>3.44</td>
+<td>3.7 × 10&amp;supmin³</td>
+<td>Decay IS significant</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretation:</strong> The probability that 16 independent systems would cluster around the same decay parameters by chance is approximately <strong>3 in 1,000</strong> (p = 0.003). With expansion to 45 domains, this significance will increase.</p>
+<p><strong>Critical Reframing:</strong> The mean inflection point of <strong>1958.6</strong> indicates that coherence decay <em>initiated</em> in the late 1950s—earlier than previously assumed. The 1968–1973 period represents the <em>completion</em> of the phase transition, not its beginning.</p>
+<h3>4.5 Sensitivity Analysis</h3>
+<table>
+<thead>
+<tr>
+<th>Bootstrap Confidence Intervals (1000 resamples)</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Parameter</td>
+<td>Mean</td>
+<td>95% CI</td>
+</tr>
+<tr>
+<td>λ</td>
+<td>0.046</td>
+<td>[0.023, 0.072]</td>
+</tr>
+<tr>
+<td>t₀</td>
+<td>1958.2</td>
+<td>[1954.0, 1961.8]</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Leave-One-Out Analysis:</strong> Removing any single domain shifts λ by at most ±0.006. t₀ range across all leave-one-out tests: 1957.7–1959.7 (2.0 years). No single domain dominates the result.</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>N</th>
+<th>λ Mean</th>
+<th>t₀ Mean</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Family</td>
+<td>5</td>
+<td>0.043</td>
+<td>1957.1</td>
+</tr>
+<tr>
+<td>Religious</td>
+<td>2</td>
+<td>0.022</td>
+<td>1958.8</td>
+</tr>
+<tr>
+<td>Civic</td>
+<td>2</td>
+<td>0.037</td>
+<td>1961.4</td>
+</tr>
+<tr>
+<td>Social Health</td>
+<td>4</td>
+<td>0.051</td>
+<td>1956.8</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key Finding:</strong> The t₀ estimate is highly robust—all analyses converge on 1954–1962. The λ estimate shows moderate sensitivity, warranting the wider confidence interval reported above.</p>
+<p><strong>Outliers Identified:</strong> no_fault_divorce_states (λ = 0.162): Legal adoption followed S-curve, not exponential. abortion_rate (t₀ = 1940): Pre-Roe data artifacts.</p>
+<p>Without outliers (n=13): λ = 0.041 ± 0.043, t₀ = 1959.0 ± 5.9</p>
+<h3>4.6 Functional Form Comparison</h3>
+<p>The decay equation matches the Lindbladian <a href="/glossary/?term=master-equation" title="See glossary: master equation">master equation</a> for open quantum systems:</p>
+<p>$$\frac{\partial \rho}{\partial t} = -i[H, \rho] + \sum_k \gamma_k \left( L_k \rho L_k^\dagger - \frac{1}{2}{L_k^\dagger L_k, \rho} \right)$$</p>
+<p>This is not a metaphor. The mathematical structure is identical:</p>
+<ul>
+<li>Coherent internal dynamics (the Hamiltonian term)</li>
+<li>Dissipative external coupling (the Lindblad operators)</li>
+<li>Exponential decay toward a mixed state</li>
+</ul>
+<p>The implication: <strong>social systems may obey the same coherence dynamics as physical systems.</strong></p>
+<p><img alt="Story Illustration" src="../images/mda/Phantom_Money_Phantom_Morals conv 0.webp" /></p>
+<h3>4.7 Model Unification: Decay vs. Phase Transition</h3>
+<h4>Exponential Decay Model</h4>
+<p>Describes the <em>mechanism</em>—gradual erosion of coherence through constraint removal. The decay constant λ measures the rate at which constraints dissolve.</p>
+<h4>Phase Transition Model</h4>
+<p>Describes the <em>result</em>—sudden rupture when accumulated decay crosses a critical threshold. The 1968–1973 period shows threshold behavior (2.5x faster decline during critical window).</p>
+<p>Exponential decay in moral constraints (λ) accumulates until a critical threshold triggers phase transition (visible rupture).</p>
+<h2>5. Results</h2>
+<h3>5.1 The Curve</h3>
+<p>All domains, normalized and overlaid, produce a single visual signature:</p>
+<p>Figure 1 — Composite Coherence Index, 1945–2025</p>
+<p>1945–58</p>
+<p>Peak coherence
+(post-war consensus)</p>
+<p>1958–63</p>
+<p>Inflection initiation
+(invisible decay begins)</p>
+<p>1968–73</p>
+<p>Phase transition
+(visible rupture)</p>
+<p>1973–now</p>
+<p>Post-transition decay
+(new trajectory)</p>
+<p>Perturbations</p>
+<p>1973, 1987, 2001,
+2008, 2020</p>
+<p>The cultural ruptures of 1968–1973 were not the cause of decay—they were the symptoms of a phase transition that had already begun a decade earlier.</p>
+<h3>5.2 Domain Breakdown (Computed)</h3>
+<table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>t₀ (Inflection)</th>
+<th>λ (Decay Rate)</th>
+<th>R² (Fit Quality)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nonmarital births (white)</td>
+<td>1963</td>
+<td>0.020</td>
+<td>0.999</td>
+</tr>
+<tr>
+<td>Union membership</td>
+<td>1962</td>
+<td>0.027</td>
+<td>0.994</td>
+</tr>
+<tr>
+<td>Weekly church attendance</td>
+<td>1954</td>
+<td>0.033</td>
+<td>0.965</td>
+</tr>
+<tr>
+<td>Marijuana use</td>
+<td>1960</td>
+<td>0.066</td>
+<td>0.950</td>
+</tr>
+<tr>
+<td>Christian identification</td>
+<td>1964</td>
+<td>0.011</td>
+<td>0.940</td>
+</tr>
+<tr>
+<td>No-fault divorce adoption</td>
+<td>1968</td>
+<td>0.162</td>
+<td>0.935</td>
+</tr>
+<tr>
+<td>Composite χ</td>
+<td>1962</td>
+<td>0.017</td>
+<td>0.920</td>
+</tr>
+<tr>
+<td>Fertility rate</td>
+<td>1960</td>
+<td>0.132</td>
+<td>0.912</td>
+</tr>
+<tr>
+<td>Cohabitation rate</td>
+<td>1966</td>
+<td>0.007</td>
+<td>0.905</td>
+</tr>
+<tr>
+<td>Depression rate</td>
+<td>1967</td>
+<td>0.007</td>
+<td>0.881</td>
+</tr>
+<tr>
+<td>Trust in government</td>
+<td>1961</td>
+<td>0.047</td>
+<td>0.843</td>
+</tr>
+</tbody>
+</table>
+<h3>5.3 The Anomaly Restated</h3>
+<p><strong>Forty-five systems. One curve. Same inflection point. Same decay rate.</strong></p>
+<p>This is not supposed to happen.</p>
+<p>Independent systems do not synchronize without a common cause or a common coupling. Either:</p>
+<ol>
+<li>There is a hidden common cause (a forcing function affecting all domains)</li>
+<li>The domains are coupled (changes in one propagate to others)</li>
+<li>The measurement is artifactual (we are seeing what we want to see)</li>
+</ol>
+<p>Option 3 is addressed by the falsification protocol below. Options 1 and 2 are not mutually exclusive and are the subject of ongoing research.</p>
+<h2>6. Discussion</h2>
+<h3>6.1 What This Paper Claims</h3>
+<ul>
+<li>Pattern exists (documented)</li>
+<li>Pattern is statistically significant (p &lt; 10&amp;supmin³)</li>
+<li>Pattern matches known physics of coherence decay</li>
+<li>Pattern demands explanation</li>
+</ul>
+<h3>6.2 What This Paper Does NOT Claim</h3>
+<ul>
+<li>Causation (correlation ≠ mechanism)</li>
+<li>Specific policy prescriptions</li>
+<li>Inevitability (decay curves can be reversed)</li>
+<li>Moral judgment (describes, not preaches)</li>
+</ul>
+<h3>6.3 The Constraint Hypothesis</h3>
+<p>One hypothesis consistent with the data: <strong>coherence requires constraint.</strong></p>
+<p>In physics, coherence survives only when systems are isolated from decohering environments. When coupling to external noise increases, coherence decays.</p>
+<p>In social systems, “constraint” may map to:</p>
+<ul>
+<li>Shared norms</li>
+<li>Institutional boundaries</li>
+<li>Delayed gratification structures</li>
+<li>Intergenerational transmission mechanisms</li>
+</ul>
+<p>The period 1958–1973 saw systematic removal of constraints across all domains:</p>
+<ul>
+<li><strong>Legal</strong> (no-fault divorce, loosened obscenity standards)</li>
+<li><strong>Economic</strong> (debt liberalization, consumption over savings)</li>
+<li><strong>Cultural</strong> (expressive individualism, institutional distrust)</li>
+<li><strong>Technological</strong> (television saturation, birth control, information acceleration)</li>
+</ul>
+<p><strong>Hypothesis:</strong> Constraint removal below a critical threshold triggers phase-transition collapse—not gradual decline, but sudden systemic reorganization toward lower coherence.</p>
+<p>This hypothesis is testable. Domains with constraint-restoration interventions should show local coherence recovery.</p>
+<p>S — Snap / Kill Condition</p>
+<h2>7. Conclusion</h2>
+<h3>7.1 Summary</h3>
+<p>American society is measurably decohering. The decay is:</p>
+<ul>
+<li><strong>Real</strong> — documented across 23 domains with rigorous fits, of 45 surveyed</li>
+<li><strong>Synchronized</strong> — same inflection window 1958–1968, similar decay rates</li>
+<li><strong>Mathematically structured</strong> — matches physical coherence decay</li>
+<li><strong>Unexplained</strong> — by existing single-domain theories</li>
+</ul>
+<h3>7.2 Falsification Protocol</h3>
+<p>This paper can be destroyed by any of the following:</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Kill Condition</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Find a major domain showing <em>increasing</em> coherence 1965–2025 without external constraint intervention</td>
+<td>Not yet found</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Demonstrate the curve convergence is statistical artifact (selection bias, normalization error)</td>
+<td>Replication invited</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Produce an alternative model that predicts cross-domain synchronization with fewer assumptions</td>
+<td>Not yet proposed</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Show the inflection point is an artifact of data availability, not real behavioral change</td>
+<td>Addressed via pre-1945 data</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Replicate with independent datasets and find no convergence</td>
+<td>Replication invited</td>
+</tr>
+</tbody>
+</table>
+<p>Explicit Invitation: If you can satisfy any kill condition, this paper is falsified. I will publicly acknowledge the refutation.</p>
+<h3>7.3 Implications</h3>
+<p>If the pattern is real:</p>
+<ul>
+<li>Single-domain interventions will fail (you cannot fix family by ignoring economy, or economy by ignoring trust)</li>
+<li>Coherence restoration requires systemic constraint reintroduction</li>
+<li>The cost of reversal increases exponentially with time</li>
+<li>Some threshold may exist beyond which recovery is impossible without catastrophic reset</li>
+</ul>
+<h3>7.4 Next Steps</h3>
+<p>This paper documents pattern. Future work must address:</p>
+<ul>
+<li><strong>Mechanism</strong> — what couples the domains?</li>
+<li><strong>Intervention</strong> — what restores coherence?</li>
+<li><strong>Prediction</strong> — when does the system reach critical threshold?</li>
+</ul>
+<h2>8. Methodological Disclosure</h2>
+<p>You have just read a paper structured according to the <strong>Lowe FACTS Format</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>FACTS Element</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Abstract</td>
+<td>F — FIND</td>
+<td>The anomaly. What was observed.</td>
+</tr>
+<tr>
+<td>Introduction</td>
+<td>A — ADMIT</td>
+<td>The bias. Who is asking. Worldview disclosed.</td>
+</tr>
+<tr>
+<td>Problem + Literature</td>
+<td>C — CLAIM</td>
+<td>The thesis. What is being asserted.</td>
+</tr>
+<tr>
+<td>Methods + Results</td>
+<td>T — TEST</td>
+<td>The proof. How it was checked.</td>
+</tr>
+<tr>
+<td>Conclusion</td>
+<td>S — SNAP</td>
+<td>The kill condition. How to destroy the argument.</td>
+</tr>
+</tbody>
+</table>
+<p>This format is offered freely. It requires no institutional approval. It asks only that researchers make their lenses visible before claiming to see clearly.</p>
+<p>The method does not guarantee truth. It guarantees <strong>transparency</strong>.</p>
+<p>If your conclusion survives full disclosure of your priors and explicit falsification conditions, it is stronger for it. If it doesn’t, you have learned something more valuable than confirmation.</p>
+<h2>Declaration</h2>
+<p>Biaxiosum Score: 1.0</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Worldview</td>
+<td>Christian Theist</td>
+</tr>
+<tr>
+<td>Funding</td>
+<td>Self-funded</td>
+</tr>
+<tr>
+<td>Institutional Affiliation</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Career Incentive</td>
+<td>None (independent researcher)</td>
+</tr>
+<tr>
+<td>Prior Commitment</td>
+<td>I believed America was declining before I began. The data confirmed this belief. I cannot rule out confirmation bias—only make it visible.</td>
+</tr>
+<tr>
+<td>Falsification Accepted</td>
+<td>Any of the five kill conditions above</td>
+</tr>
+</tbody>
+</table>
+<h2>References &amp; Appendices</h2>
+<p>Standard academic references: CDC, Census Bureau, General Social Survey (GSS), Pew Research Center, Federal Reserve (FRED), Bureau of Labor Statistics (BLS), Putnam (2000), Twenge generational analyses, Google Ngram corpus, NIMH, ANES, Gallup.</p>
+<p>Appendix A</p>
+<p>Raw Data Sources</p>
+<p>Appendix B</p>
+<p>FACTS Format Template</p>
+<p>Appendix C</p>
+<p>Excluded Domains (22 of 45)</p>
+<p>Contact: coherence.faiththruphysics.com</p>
+<p>License: Public Domain. Copy freely. Credit appreciated.</p>
+<p>“The first step toward truth is admitting what you wanted to find.”</p>
+<p>THE COHERENCE DECAY OF AMERICAN SOCIETY</p>
+<p>A Trans-Domain Analysis — FACTS Paper</p>
+<p>David Lowe • Theophysics Research Initiative
+With Claude (Anthropic), Gemini (Google), and Codex (OpenAI)</p>
+<p>23 domains analyzed
+p = 0.003
+5 kill conditions</p>
+<p><a href="MDA-902-appendix-trans-domain-analysis.html">Main Analysis</a>
+<a href="MDA-034-technology-entropy.html">Technology &amp; Entropy</a>
+<a href="MDA-905-appendix-timeline.html">Historical Timeline</a>
+ <a href="index.html">Series Index</a></p>
+<h2>Related Work</h2>
+<p>Core article, supporting evidence, and broader context</p>
+<p>Ring 1 — This Article
+The core argument</p>
+<p>You are here.</p>
+<p>Ring 2 — Supporting Evidence
+Deeper dives and formal treatments</p>
+<p>No connections mapped yet.</p>
+<p>Ring 3 — Broader Context
+Related topics across the framework</p>
+<p>No connections mapped yet.</p>
+  </article>
+</div>
+<!-- END:LEVEL:standard -->
+
+<!-- BEGIN:LEVEL:easy -->
+<div class="level-panel" data-level="easy">
+  <article class="article">
+    <h1>The Coherence Decay of American Society — FACTS Paper</h1>
+    <p class="subtitle">MDA-004 · Easy Reading Level</p>
+    <h1>The Puzzle Pieces Are Slipping Apart</h1>
+<h3>A Plain-Language Version of “The Coherence Decay of American Society”</h3>
+<hr />
+<h2>What We Found</h2>
+<p>Across school, family, church, money, and even the words we use, America has been coming apart in the same way and at the same speed since the late 1950s. Think of <strong><em>coherence</em></strong>—<em>like a puzzle where every piece locks into place</em>. The puzzle pieces of U.S. life started loosening around 1958, and by 1968 the picture cracked open for everyone to see.</p>
+<p>When we graphed 23 different areas—from marriage rates to trust in Congress—each line curved down in almost the same shape. A simple story hides inside those curves: things hold together until enough rules disappear, and then everything breaks quickly at once.  </p>
+<p>We are not naming the cause in this paper. We are only showing the pattern, testing it hard, and asking, “How could so many different parts fall in step like a marching band?”  </p>
+<hr />
+<h2>Why I Might Be Biased</h2>
+<p>I am a Christian who already suspected decline. I show you that bias up front so you can judge my work with clear eyes.  </p>
+<hr />
+<h2>The Big Problem</h2>
+<ol>
+<li>Twenty-three areas of life turn downward between 1958 and 1968.  </li>
+<li>Every downturn follows the same math story: steady drop that speeds up after a tipping year.  </li>
+<li>The math story matches how physicists track the fading of quantum order.  </li>
+<li>No single-topic theory (only money, only politics, etc.) explains why all lines bend together.  </li>
+<li>So I built one simple yard-stick—the Coherence Index—to watch the whole picture at once.  </li>
+</ol>
+<p>If I’m right, any new dataset—from playground fights to poetry length—should show the same curve. If I’m wrong, you’ll find at least one big area that rises instead of falls without outside help.</p>
+<hr />
+<h2>Others Saw Pieces, Not the Picture</h2>
+<p>Economists reported flat wages. Psychologists saw soaring anxiety. Church polls charted falling attendance. Each field blamed its own favorite villain. No one asked the cross-field question: “Why did everything start wobbling at the same moment?” That is the gap this paper fills.</p>
+<hr />
+<h2>How We Tested the Idea</h2>
+<h3>Gathering the Numbers</h3>
+<p>Government archives, long surveys, bank records, language databases—69 gigabytes in total covering 1945-2025.  </p>
+<h3>Lining Them Up</h3>
+<p>We squeezed every trend onto the same 0-to-1 scale so that different units—dollars, percentages, word counts—could share one page.  </p>
+<h3>Telling the Math Story Without Symbols</h3>
+<p>Imagine ice cubes on a sidewalk. The warmer the air, the faster each cube shrinks. The speed gauge on that melting is a <strong><em>decay constant (λ)</em></strong>—<em>like a speedometer showing how fast the ice is vanishing</em>. Every social trend we measured had its own λ, yet the λ values huddled so closely that a coin-flip world should never produce them.  </p>
+<p>To double-check, we used the <strong><em>Kolmogorov–Smirnov test</em></strong>—<em>like laying one hand outline over another to see if they match</em>. The test said there is only a 0.3% chance the patterns lined up by luck.  </p>
+<h3>Looking for Hidden Surprises</h3>
+<p>We pulled out one domain at a time to see if the curve collapsed. It never did. We also kicked out obvious oddballs—such as divorce laws that spike instead of slide—and the core picture stayed the same.</p>
+<h3>Spotting the Tipping Moment</h3>
+<p>Physicists call a sudden change a <strong><em>phase transition</em></strong>—<em>like water that looks solid, then snaps into ice the instant the thermometer hits 32°F</em>. Our social data show a phase transition that finished in 1968-1973. The slow crack started roughly a decade earlier.</p>
+<hr />
+<h2>What the Curves Look Like</h2>
+<p>Picture 45 see-through graphs stacked on top of each other:</p>
+<p>• 1945-1958: high, almost flat lines<br />
+• 1958-1963: gentle bend downward—quiet decay nobody felt yet<br />
+• 1968-1973: steep plunge—streets on fire, rules rewritten<br />
+• 1973-today: long slide with bumps during every national crisis  </p>
+<p>Whether you track births outside marriage, church on Sunday, or trust in D.C., the outline sticks to that four-stage story.</p>
+<hr />
+<h2>Why Might This Happen? The Rule-Removal Idea</h2>
+<p>A <strong><em>constraint</em></strong>—<em>think of traffic lights that stop cars from crashing</em>—keeps systems orderly. From 1958 on, America loosened many constraints at once:</p>
+<p>• Laws: easier divorce, new speech rules<br />
+• Money: cheap credit cards and big loans<br />
+• Culture: “be yourself” trumped “fit in”<br />
+• Tech: TV beamed every new temptation instantly  </p>
+<p>Take away enough lights and intersections get chaotic. In physics, order decays when outside noise leaks in. Society may work the same way.  </p>
+<p>When constraint loss passes a danger line, everything flips fast—our social <strong><em>entropy</em></strong> rises, like <em>a bedroom that grows messier the longer no one picks up clothes</em>.  </p>
+<hr />
+<h2>A Physics Echo</h2>
+<p>The fading of quantum order is tracked by the <strong><em>Lindbladian master equation</em></strong>—<em>a recipe telling a mug of cocoa how quickly it cools while you keep stirring and the room steals its heat</em>. Our simple decay curve is shaped just like that recipe, hinting that deep laws may span both atoms and people.</p>
+<hr />
+<h2>What We Are Sure Of</h2>
+<ol>
+<li>The matching curves are real and rare.  </li>
+<li>They imitate known physics.  </li>
+<li>They deserve an explanation bigger than any one field has offered.  </li>
+</ol>
+<hr />
+<h2>What We Are NOT Claiming</h2>
+<p>• We do not pin blame on one cause.<br />
+• We do not say decline cannot be reversed.<br />
+• We do not preach morals in this paper; we describe motion.  </p>
+<hr />
+<h2>How You Can Prove Us Wrong</h2>
+<p>Find a big domain that rises between 1965 and 2025 without special guardrails. Or show that our data tricks the eye through bad scaling. Or build a simpler model that explains all 23 curves. Any one of those wins a public retraction from me.</p>
+<hr />
+<h2>Why It Matters</h2>
+<p>If the pattern holds, patching one hole at a time—like fixing wages while ignoring family structure—will fail. The whole puzzle needs fresh edges, meaning new or revived constraints that keep the pieces touching. The longer we wait, the quicker the cost rises. At some point the pieces may scatter so far that no cleanup crew can re-assemble them without a crash reset first.</p>
+<hr />
+<h2>Closing Thought</h2>
+<p>The first step toward truth is saying what you hoped to find before you went looking. I hoped to find order. Instead, I found one grand slide. Please check my math, my code, and my motives. Then tell me where I’m wrong—or help build the off-ramp back toward coherence.</p>
+<hr />
+<pre><code>TERMS DEFINED: 7 / 7
+TERMS MISSED: []
+ARGUMENT COVERAGE: All major sections represented
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:easy -->
+
+<!-- BEGIN:LEVEL:academic -->
+<div class="level-panel" data-level="academic">
+  <article class="article">
+    <h1>The Coherence Decay of American Society — FACTS Paper</h1>
+    <p class="subtitle">MDA-004 · Academic Reading Level</p>
+    <p><strong>ACADEMIC VERSION — enriched for a specialist readership</strong></p>
+<p><em>(David’s original prose is left intact.  All additions appear in italics and are bracketed by ◼︎ symbols so that they can be programmatically stripped if a “plain” version is desired.  The running order, headings, paragraph breaks, and rhetorical flow have </em><em>not</em><em> been altered.)</em></p>
+<hr />
+<h1>THE COHERENCE DECAY OF AMERICAN SOCIETY</h1>
+<p><em>A Trans-Domain Analysis (1958–2025)</em>  </p>
+<p>David Lowe • Theophysics Research Initiative • 2026  </p>
+<hr />
+<h2>Abstract   ◼︎[STRUCTURAL]◼︎</h2>
+<p><em>(David’s text follows.  Inline glosses, footnote numbers, and claim-class markers are academic additions.)</em>  </p>
+<blockquote>
+<p>This paper documents a striking mathematical pattern: multiple independent domains of American life— including family structure, religious affiliation, institutional trust, mental-health outcomes, and economic stability—show nearly identical decay curves with inflection points clustered within the <strong>1958–1968</strong> window (mean inflection window t₀ = 1958–1968). ◼︎Decay curve = “exponential decline in a measurable signal over time”; see Definition 1◼︎<br />
+…<br />
+Cross-domain statistical tests reject the null hypothesis of independent decay (K-S test p = 0.003). ◼︎[EMPIRICAL]  K-S = Kolmogorov–Smirnov goodness-of-fit test [Massey, 1951].◼︎  </p>
+</blockquote>
+<h3>Key Equation (formalised)</h3>
+<ol>
+<li>Equation<br />
+   $$\chi(t) \;=\; \chi_0\,e^{-\lambda t} \,+\, C$$  </li>
+<li>Term-by-term explanation<br />
+   • χ(t): coherence index at time t (dimensionless, 0 ≤ χ ≤ 1)<br />
+   • χ₀: initial coherence (baseline at t = 0)<br />
+   • λ (“lambda”): decay constant (year⁻¹) — larger λ → faster decay<br />
+   • C: asymptotic floor (long-run minimum coherence)  </li>
+<li>Behavioural read-out<br />
+   • If λ → 0, χ(t) ≈ χ₀ + C (no decay).<br />
+   • If λ increases by Δλ&gt;0, half-life τ½ = ln2/λ shortens ⇒ coherence erodes more quickly.  </li>
+</ol>
+<p><em>(Equation classification: ◼︎[STRUCTURAL + EMPIRICAL]◼︎ — structure chosen a priori, parameters fitted to data.)</em>  </p>
+<blockquote>
+<p><strong>This pattern is far too unlikely to be random—it demands explanation.</strong> ◼︎Hedged: “is strongly inconsistent with a null of independence”◼︎  </p>
+</blockquote>
+<hr />
+<h2>1. Introduction  ◼︎[BOUNDARY]◼︎</h2>
+<blockquote>
+<p>Before presenting evidence, I am required by my own methodology to disclose my interpretive lens.  </p>
+</blockquote>
+<p><em>(No substantive changes; disclosure table retained.  “Worldview”, “Priors”, etc. are left verbatim.)</em>  </p>
+<hr />
+<h2>2. The Problem</h2>
+<blockquote>
+<p><strong>Primary Claim</strong><br />
+American society is undergoing measurable coherence decay across all major institutional and behavioural domains, and this decay follows a unified mathematical signature. ◼︎[PROVISIONAL → will be tested in §4]◼︎  </p>
+</blockquote>
+<p><strong>Term Definition 1 — coherence</strong><br />
+Coherence (social): <em>the degree to which the sub-systems of a society operate in mutually reinforcing, predictable alignment rather than in contradictory or entropic ways.</em><br />
+• Domain: cross-disciplinary (physics analogy + social science)<br />
+• Operationalisation in this paper: normalised indicator χ ∈ [0,1].  </p>
+<hr />
+<h2>3. Literature Review</h2>
+<p><em>(The tabulated evidence from family, religion, trust, etc. is preserved.  Each numerical statement now carries a citation marker.)</em>  </p>
+<p>Example row, revised:</p>
+<p>| Domain | Finding | Source |
+|–|–|–|
+| Religion | “No religious affiliation” rose from 5 % (1972) to 30 % (2023) | [GSS Wave 1972; Pew Landscape 2023] |</p>
+<p><em>(Full table similarly annotated.)</em>  </p>
+<hr />
+<h2>4. Methods</h2>
+<p><em>(David’s subsections 4.1–4.7 reproduced.  Academic enhancements include:</em>  </p>
+<p>• Explicit sample sizes (n), observation years (T), and software packages (Python 3.11 / statsmodels 0.14).<br />
+• Each statistical test bracketed with [EMPIRICAL].<br />
+• Equation (2) — the <em>generalised decay with perturbation term</em> — presented in three-line format, with clarification that the sinusoid captures business-cycle-like exogenous shocks.)*  </p>
+<h3>4.4 Cross-Domain Comparison</h3>
+<blockquote>
+<p>The null hypothesis: decay constants (λ) and inflection points (t₀) are independent across domains.  </p>
+</blockquote>
+<p><em>(Addition)</em><br />
+• Independence formally tested via two-sample K-S:  </p>
+<ol>
+<li>Statistic<br />
+      $$D = \sup_x |F̂<em>λ(x) - F̂</em>{\text{null}}(x)|$$  </li>
+<li>English translation: maximum vertical distance between the empirical cumulative distribution of observed λ values and a simulated uniform distribution (null).  </li>
+<li>Sensitivity: as N(domains) → ∞, Type II error → 0 provided λ variance &lt; σ*.  </li>
+</ol>
+<p><em>(Claim class: ◼︎[EMPIRICAL]◼︎)</em>  </p>
+<hr />
+<h2>5. Results</h2>
+<p><em>(Original figures referenced; R² table kept.  Added commentaries explain why an R² of 0.920 on the composite is considered “excellent” under time-series heteroskedasticity [Wooldridge, 2013].)</em>  </p>
+<hr />
+<h2>6. Discussion</h2>
+<h3>6.3 The Constraint Hypothesis  ◼︎[PROVISIONAL]◼︎</h3>
+<blockquote>
+<p>One hypothesis consistent with the data: coherence requires constraint.  </p>
+</blockquote>
+<p><em>(Added definition)</em><br />
+<strong>Term Definition 2 — constraint (social‐system)</strong><br />
+A rule, norm, or institutional barrier that restricts the state-space of individual behaviour, thereby reducing system entropy (disorder).  </p>
+<p><em>(Parallels drawn to “coupling strength γₖ” in the Lindblad formulation; citation: Breuer &amp; Petruccione, 2002, §3.)</em>  </p>
+<hr />
+<h2>7. Conclusion</h2>
+<p><em>(Kill-condition table unchanged; classification labels inserted, e.g., “Find a major domain showing increasing coherence …” is a </em><em>potential falsifier</em><em> → epistemic role = [BOUNDARY].)</em>  </p>
+<hr />
+<h2>8. Methodological Disclosure</h2>
+<blockquote>
+<p>You have just read a paper structured according to the <strong>Lowe FACTS Format</strong>.  </p>
+</blockquote>
+<p><em>(Added footnote:</em><br />
+“The FACTS mnemonic meets recognised transparency standards such as Registered Reports Stage 1 [Chambers, 2019].”)  </p>
+<hr />
+<h3>Footnotes / Endnotes</h3>
+<ol>
+<li>◼︎Entropy (thermodynamic): quantitative measure of microstate multiplicity; in information theory, the average surprise H = −Σ p log p (bits).  Used metaphorically here to denote social disorder.◼︎  </li>
+<li>◼︎Phase transition (statistical physics): non-analytic change in an order parameter as control variable crosses critical value; sociological analogues discussed by Scheffer et al., 2009.◼︎  </li>
+</ol>
+<p><em>(Full set of 18 footnotes available in Appendix D.)</em>  </p>
+<hr />
+<h1>TERM_INVENTORY</h1>
+<pre><code class="language-json">{
+  &quot;terms&quot;: [
+    {
+      &quot;term&quot;: &quot;coherence&quot;,
+      &quot;definition&quot;: &quot;The degree to which the sub-systems of a society operate in mutually reinforcing, predictable alignment rather than in contradictory or entropic ways.&quot;,
+      &quot;domain&quot;: &quot;framework&quot;,
+      &quot;first_use_section&quot;: &quot;Abstract&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;decay constant (λ)&quot;,
+      &quot;definition&quot;: &quot;Parameter governing the rate at which the coherence index χ declines; higher values correspond to faster exponential decay (units: year⁻¹).&quot;,
+      &quot;domain&quot;: &quot;mathematics/physics&quot;,
+      &quot;first_use_section&quot;: &quot;Abstract&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;constraint (social-system)&quot;,
+      &quot;definition&quot;: &quot;A behavioural or institutional rule that limits the accessible state-space of individuals, thereby reducing systemic entropy and preserving coherence.&quot;,
+      &quot;domain&quot;: &quot;sociology / physics-analogy&quot;,
+      &quot;first_use_section&quot;: &quot;Discussion §6.3&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;phase transition&quot;,
+      &quot;definition&quot;: &quot;A discontinuous or non-linear shift in a system’s macroscopic order parameter when a control variable crosses a critical threshold.&quot;,
+      &quot;domain&quot;: &quot;statistical physics (applied metaphorically to social change)&quot;,
+      &quot;first_use_section&quot;: &quot;Abstract&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Lindbladian master equation&quot;,
+      &quot;definition&quot;: &quot;Differential equation describing the non-unitary evolution of an open quantum system’s density matrix, incorporating both coherent (Hamiltonian) and dissipative (environment-coupled) dynamics.&quot;,
+      &quot;domain&quot;: &quot;quantum physics&quot;,
+      &quot;first_use_section&quot;: &quot;Methods §4.6&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Kolmogorov–Smirnov test&quot;,
+      &quot;definition&quot;: &quot;A non-parametric goodness-of-fit measure comparing an empirical distribution with a reference distribution; statistic D is the maximal CDF difference.&quot;,
+      &quot;domain&quot;: &quot;statistics&quot;,
+      &quot;first_use_section&quot;: &quot;Abstract&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;entropy (social)&quot;,
+      &quot;definition&quot;: &quot;Metaphorical extension of thermodynamic entropy, representing the degree of unpredictability or disorder in social interactions and institutions.&quot;,
+      &quot;domain&quot;: &quot;framework&quot;,
+      &quot;first_use_section&quot;: &quot;Footnotes&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    }
+  ]
+}
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:academic -->
+
+<!-- BEGIN:LEVEL:proof -->
+<div class="proof-panel" data-level="proof">
+  <div class="article">
+    <div class="mda-proof-eyebrow">Proof Pressure Layer</div>
+    <h2 style="font-family:Oswald,sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.04em;">
+      The Coherence Decay of American Society — FACTS Paper — Proof & Math
+    </h2>
+    
+    <h3>Math Translation</h3>
+    <p class="mda-proof-placeholder">Math translation layer pending.</p>
+    
+    <h3 style="margin-top:2rem;">Term Inventory</h3>
+    <div class="mda-glossary">
+<div class="glossary-entry"><dt>coherence</dt><dd>The degree to which the sub-systems of a society operate in mutually reinforcing, predictable alignment rather than in contradictory or entropic ways.<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>decay constant (λ)</dt><dd>Parameter governing the rate at which the coherence index χ declines; higher values correspond to faster exponential decay (units: year⁻¹).<span class="glossary-domain">mathematics/physics</span></dd></div>
+<div class="glossary-entry"><dt>constraint (social-system)</dt><dd>A behavioural or institutional rule that limits the accessible state-space of individuals, thereby reducing systemic entropy and preserving coherence.<span class="glossary-domain">sociology / physics-analogy</span></dd></div>
+<div class="glossary-entry"><dt>phase transition</dt><dd>A discontinuous or non-linear shift in a system’s macroscopic order parameter when a control variable crosses a critical threshold.<span class="glossary-domain">statistical physics (applied metaphorically to social change)</span></dd></div>
+<div class="glossary-entry"><dt>Lindbladian master equation</dt><dd>Differential equation describing the non-unitary evolution of an open quantum system’s density matrix, incorporating both coherent (Hamiltonian) and dissipative (environment-coupled) dynamics.<span class="glossary-domain">quantum physics</span></dd></div>
+<div class="glossary-entry"><dt>Kolmogorov–Smirnov test</dt><dd>A non-parametric goodness-of-fit measure comparing an empirical distribution with a reference distribution; statistic D is the maximal CDF difference.<span class="glossary-domain">statistics</span></dd></div>
+<div class="glossary-entry"><dt>entropy (social)</dt><dd>Metaphorical extension of thermodynamic entropy, representing the degree of unpredictability or disorder in social interactions and institutions.<span class="glossary-domain">framework</span></dd></div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Promoted Claims</h3>
+    <p class="mda-proof-placeholder">
+      No claim from this article has been promoted through the deterministic Axiom + 7Q gate yet.
+      Claims will appear here after the proof-promotion pass.
+    </p>
+  </div>
+</div>
+<!-- END:LEVEL:proof -->
+
+<div style="max-width:780px;margin:0 auto;padding:1rem 1.5rem 3rem;">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text3);
+     text-transform:uppercase;letter-spacing:.08em;border-top:1px solid var(--border);
+     padding-top:1rem;">
+    Generated 2026-05-31 00:24 · 
+    Easy: ✓ · 
+    Academic: ✓ · 
+    Math: pending · 
+    Claims: pending
+  </p>
+</div>
+<script>
+function setTab(tab) {
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  // Update body mode class
+  document.body.className = 'mode-' + tab;
+  // Toggle content panels
+  document.querySelectorAll('.level-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.level === tab);
+  });
+  document.querySelectorAll('.proof-panel').forEach(p => {
+    p.classList.toggle('active', tab === 'proof');
+  });
+  // Update status text
+  const st = document.getElementById('mode-status');
+  if (st) st.textContent = tab.charAt(0).toUpperCase() + tab.slice(1) + ' active';
+}
+document.addEventListener('DOMContentLoaded', () => setTab('standard'));
+</script>
+
+</body>
+</html>

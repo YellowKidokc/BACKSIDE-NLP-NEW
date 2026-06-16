@@ -1,0 +1,2055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FP-005 | Enhanced Proof Explorer — 6-Layer Stack</title>
+
+<!-- BEGIN:SECTION:structure-json data-source="paper-grade.json,source-manifest.json" data-fill="direct" -->
+<script type="application/json" id="theophysics-structure">
+{
+  "schema_version": "0.1",
+  "uuid": "FP-005-SSB-DUAL-2026",
+  "title": "The Turtles and the Floor",
+  "doc_type": "foundational_paper",
+  "classification": "Story / Foundational",
+  "author": "David Lowe",
+  "word_count": 910,
+  "framework": {
+    "axioms": [],
+    "qq0_posture": "",
+    "qq1_identity": "",
+    "qq2_domain": "",
+    "qq3_claim": "",
+    "qq4_support": "",
+    "qq5_dependencies": "",
+    "qq6_consequences": "",
+    "qq7_kill_conditions": "",
+    "inheritance_check": "FAIL",
+    "decision_tree": {},
+    "swap_test": {},
+    "ckg": {},
+    "fruits": {},
+    "lean": {
+      "mode": "B",
+      "theorem": "FP_005_coupling_irreversible",
+      "status": "COMPILED",
+      "compile_time_ms": 866,
+      "lean_file": "Theophysics/FP005.lean"
+    }
+  },
+  "kill_conditions": [
+    {
+      "id": "K1",
+      "condition": "SSB reversible in infinite-volume limit",
+      "test": "QFT calculation",
+      "severity": "fatal"
+    },
+    {
+      "id": "K2",
+      "condition": "Energy non-conserved across full arc",
+      "test": "Thermodynamic audit",
+      "severity": "fatal"
+    },
+    {
+      "id": "K3",
+      "condition": "\u03c4_lock derivation \u2260 33 years",
+      "test": "Coupling constant calc",
+      "severity": "fatal"
+    },
+    {
+      "id": "K4",
+      "condition": "Coupling produces EM signature",
+      "test": "Direct detection",
+      "severity": "fatal"
+    },
+    {
+      "id": "K5",
+      "condition": "Categorical contradiction found",
+      "test": "Formal category proof",
+      "severity": "fatal"
+    },
+    {
+      "id": "K6",
+      "condition": "Historical record contradicts P1",
+      "test": "Sociological analysis",
+      "severity": "wounding"
+    },
+    {
+      "id": "K7",
+      "condition": "O_adv shown unnecessary",
+      "test": "Demonstrate C\u2080 self-heals",
+      "severity": "wounding"
+    }
+  ],
+  "status": "published",
+  "last_updated": "2026-04-26"
+}
+</script>
+<!-- END:SECTION:structure-json -->
+
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --bg: #050505;
+  --bg-panel: #0a0a0a;
+  --bg-card: #111111;
+  --bg-hover: #1a1a1a;
+  --border: #222;
+  --border-hover: #333;
+  --text: #e0e0e0;
+  --text-dim: #999;
+  --text-muted: #555;
+  --gold: #d4af37;
+  --gold-dim: rgba(212,175,55,0.1);
+  --red: #c94040;
+  --red-dim: rgba(201,64,64,0.1);
+  --blue: #3b82f6;
+  --blue-dim: rgba(59,130,246,0.1);
+  --teal: #14b8a6;
+  --teal-dim: rgba(20,184,166,0.1);
+  --violet: #8b7fc2;
+  --violet-dim: rgba(139,127,194,0.1);
+  --green: #22c55e;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Top nav */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(5,5,5,0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-main {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.nav-main .brand {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  color: var(--gold);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.nav-main .nav-links {
+  display: flex;
+  gap: 0.25rem;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+.nav-main .nav-links a {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.3rem;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.nav-main .nav-links a:hover, .nav-main .nav-links a.active {
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+
+/* Framework tabs */
+.framework-tabs {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.5rem 1.5rem;
+  overflow-x: auto;
+  background: rgba(10,10,10,0.8);
+}
+.framework-tabs .fw-tab {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 0.3rem 0.7rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  cursor: pointer;
+  background: none;
+}
+.framework-tabs .fw-tab:hover {
+  color: var(--text-dim);
+  background: var(--bg-hover);
+}
+.framework-tabs .fw-tab.active {
+  color: var(--gold);
+  border-color: rgba(212,175,55,0.3);
+  background: var(--gold-dim);
+}
+.framework-tabs .fw-tab .badge {
+  font-size: 0.6rem;
+  margin-left: 0.3rem;
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.15rem;
+}
+.framework-tabs .fw-tab .badge.green { background: rgba(34,197,94,0.2); color: var(--green); }
+.framework-tabs .fw-tab .badge.gold { background: rgba(212,175,55,0.2); color: var(--gold); }
+.framework-tabs .fw-tab .badge.blue { background: rgba(59,130,246,0.2); color: var(--blue); }
+
+/* Collapsible framework panels */
+.fw-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border);
+}
+.fw-panel.open {
+  max-height: 600px;
+  overflow-y: auto;
+}
+.fw-panel-inner {
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.fw-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.fw-panel-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  color: var(--gold);
+}
+.fw-panel-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  transition: color 0.2s;
+}
+.fw-panel-close:hover { color: var(--gold); }
+.fw-panel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+@media (max-width: 768px) {
+  .fw-panel-grid { grid-template-columns: 1fr; }
+}
+.fw-panel-section h4 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+.fw-panel-section p, .fw-panel-section li {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+.fw-panel-data {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  padding: 1rem;
+}
+.fw-panel-data .data-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.82rem;
+}
+.fw-panel-data .data-row:last-child { border-bottom: none; }
+.fw-panel-data .data-label { color: var(--text-muted); }
+.fw-panel-data .data-value { color: var(--text); font-weight: 500; }
+.fw-panel-data .data-value.green { color: var(--green); }
+.fw-panel-data .data-value.gold { color: var(--gold); }
+.fw-panel-data .data-value.red { color: var(--red); }
+.fw-panel-data .data-value.blue { color: var(--blue); }
+
+/* Layout */
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr 300px;
+  gap: 1px;
+  min-height: calc(100vh - 130px);
+}
+.sidebar {
+  background: var(--bg-panel);
+  padding: 1.25rem;
+  overflow-y: auto;
+  max-height: calc(100vh - 130px);
+}
+.sidebar h3 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border);
+}
+.q-item {
+  display: block;
+  padding: 0.5rem 0.6rem;
+  border-radius: 0.35rem;
+  text-decoration: none;
+  color: var(--text-dim);
+  transition: all 0.2s;
+  margin-bottom: 0.2rem;
+}
+.q-item:hover {
+  background: var(--bg-hover);
+  color: var(--text);
+}
+.q-item .q-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+.q-item .q-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--gold);
+  min-width: 1.25rem;
+}
+.q-item .q-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.q-item .q-desc {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  padding-left: 1.75rem;
+}
+.q-item.active {
+  background: var(--gold-dim);
+  border-left: 2px solid var(--gold);
+}
+.q-item.active .q-label { color: var(--gold); }
+.branch-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.branch-item.dead {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+.branch-item i { color: var(--red); font-size: 0.7rem; }
+.main {
+  background: var(--bg);
+  padding: 2rem;
+  overflow-y: auto;
+  max-height: calc(100vh - 130px);
+}
+.breadcrumb {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+}
+.breadcrumb a { color: var(--text-dim); text-decoration: none; }
+.breadcrumb a:hover { color: var(--gold); }
+.breadcrumb .sep { margin: 0 0.4rem; color: var(--text-muted); }
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+.badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 0.3rem;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.badge.gold { color: var(--gold); border-color: rgba(212,175,55,0.3); background: var(--gold-dim); }
+.badge.green { color: var(--green); border-color: rgba(34,197,94,0.3); background: rgba(34,197,94,0.1); }
+.badge.blue { color: var(--blue); border-color: rgba(59,130,246,0.3); background: var(--blue-dim); }
+.badge.red { color: var(--red); border-color: rgba(201,64,64,0.3); background: var(--red-dim); }
+.badge.violet { color: var(--violet); border-color: rgba(139,127,194,0.3); background: var(--violet-dim); }
+.paper-title {
+  font-family: 'Crimson Text', serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 0.4rem;
+}
+.paper-subtitle {
+  font-family: 'Crimson Text', serif;
+  font-size: 1.1rem;
+  color: var(--text-dim);
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.875rem;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+}
+.card-header i { font-size: 0.9rem; }
+.rigor-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.875rem;
+}
+.rigor-cell {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  padding: 0.875rem;
+}
+.rigor-cell .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+.rigor-cell .value {
+  font-size: 0.82rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+.kill-box {
+  background: var(--red-dim);
+  border: 1px solid rgba(201,64,64,0.3);
+  border-radius: 0.4rem;
+  padding: 1rem;
+}
+.kill-box .kill-header {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--red);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+th, td { padding: 0.6rem 0.5rem; text-align: left; border-bottom: 1px solid var(--border); }
+th {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+td { color: var(--text-dim); }
+tr:hover td { background: var(--bg-hover); }
+.facts-letter {
+  font-family: 'Cinzel', serif;
+  font-size: 1.5rem;
+  color: var(--gold);
+  line-height: 1;
+}
+.facts-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text);
+  margin-bottom: 0.35rem;
+}
+.facts-body {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.78rem;
+}
+.meta-row .meta-label { color: var(--text-muted); }
+.meta-row .meta-value {
+  color: var(--text-dim);
+  text-align: right;
+  max-width: 55%;
+}
+.meta-value.gold { color: var(--gold); }
+.tag {
+  display: inline-block;
+  font-size: 0.68rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.2rem;
+  background: var(--bg-hover);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  margin: 0.1rem;
+}
+.spine-item { margin-bottom: 0.875rem; }
+.spine-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  margin-bottom: 0.2rem;
+}
+.spine-name { color: var(--text-dim); }
+.spine-status { color: var(--text-muted); font-size: 0.72rem; }
+.spine-bar {
+  height: 3px;
+  background: var(--bg-hover);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.spine-bar .fill { height: 100%; border-radius: 2px; }
+.fill.gold { background: var(--gold); }
+.fill.green { background: var(--green); }
+.fill.blue { background: var(--blue); }
+.fill.red { background: var(--red); }
+.fill.violet { background: var(--violet); }
+.dep-graph {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.75rem;
+}
+.dep-node {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-dim);
+  text-align: center;
+}
+.dep-node.core {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+.dep-arrow { color: var(--text-muted); font-size: 0.75rem; }
+.action-btn {
+  display: block;
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  margin-bottom: 0.4rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.78rem;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.action-btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.section-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border);
+}
+.formal-box {
+  background: var(--bg-panel);
+  border-left: 3px solid var(--gold);
+  padding: 1rem 1.25rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+.api-status {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.2rem;
+  margin-left: 0.5rem;
+}
+.api-status.connected { background: rgba(34,197,94,0.15); color: var(--green); }
+.api-status.disconnected { background: var(--red-dim); color: var(--red); }
+@media (max-width: 1200px) {
+  .layout { grid-template-columns: 220px 1fr 260px; }
+}
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { max-height: none; }
+  .main { max-height: none; padding: 1rem; }
+  .rigor-grid { grid-template-columns: 1fr; }
+  .fw-panel-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   GRAPH SURFACE — launcher (top-right) + full-screen overlay
+   Reads JSON only. No backend. See CONTRACT block at end.
+   ============================================================ */
+.graph-launcher {
+  position: fixed;
+  top: 130px;
+  right: 1rem;
+  z-index: 4000;
+  width: 230px;
+  background: rgba(10,10,10,0.96);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  backdrop-filter: blur(8px);
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+}
+.graph-launcher .gl-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.7rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-card);
+}
+.graph-launcher .gl-head i.gl-icon { color: var(--gold); font-size: 0.85rem; }
+.graph-launcher .gl-head .gl-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text);
+}
+.graph-launcher .gl-head .gl-chev { margin-left: auto; color: var(--text-muted); font-size: 0.7rem; transition: transform 0.2s; }
+.graph-launcher.collapsed .gl-body { display: none; }
+.graph-launcher.collapsed .gl-chev { transform: rotate(-90deg); }
+.graph-launcher .gl-body { padding: 0.5rem; }
+.gl-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 0.6rem;
+  margin-bottom: 0.35rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  color: var(--text-dim);
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.gl-btn:last-child { margin-bottom: 0; }
+.gl-btn:hover:not(:disabled) { background: var(--bg-hover); border-color: var(--gold); color: var(--gold); }
+.gl-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.gl-btn .gl-bi { width: 1rem; text-align: center; font-size: 0.8rem; }
+.gl-btn .gl-label { flex: 1; }
+.gl-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-muted); flex: 0 0 auto; }
+.gl-dot.loaded { background: var(--green); box-shadow: 0 0 6px rgba(34,197,94,0.6); }
+.gl-dot.inline { background: var(--blue); box-shadow: 0 0 6px rgba(59,130,246,0.6); }
+.gl-dot.missing { background: var(--text-muted); }
+.gl-dot.optional { background: var(--violet); }
+.gl-dot.error { background: var(--red); box-shadow: 0 0 6px rgba(201,64,64,0.6); }
+.gl-status {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  color: var(--text-muted);
+  padding: 0.4rem 0.2rem 0.1rem;
+  border-top: 1px solid var(--border);
+  margin-top: 0.4rem;
+  line-height: 1.5;
+}
+@media (max-width: 900px) { .graph-launcher { top: auto; bottom: 1rem; right: 1rem; } }
+
+/* expand chips on existing placeholders */
+.graph-open-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  background: var(--gold-dim);
+  border: 1px solid rgba(212,175,55,0.3);
+  border-radius: 0.25rem;
+  padding: 0.2rem 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.graph-open-link:hover { background: rgba(212,175,55,0.2); }
+.dep-mini-expand {
+  float: right;
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 0.2rem;
+  padding: 0.1rem 0.4rem;
+  cursor: pointer;
+}
+.dep-mini-expand:hover { color: var(--gold); border-color: var(--gold); }
+
+/* Full-screen overlay = the graph's own page */
+.graph-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  background: var(--bg);
+  display: none;
+  flex-direction: column;
+}
+.graph-overlay.open { display: flex; }
+.go-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.7rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(10,10,10,0.95);
+  flex-wrap: wrap;
+}
+.go-header .go-brand {
+  font-family: 'Cinzel', serif;
+  font-size: 0.95rem;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+.go-tabs, .go-scope { display: flex; gap: 0.2rem; }
+.go-tab, .go-scope-btn {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  padding: 0.3rem 0.65rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.go-tab:hover, .go-scope-btn:hover { color: var(--text); background: var(--bg-hover); }
+.go-tab.active { color: var(--gold); border-color: rgba(212,175,55,0.4); background: var(--gold-dim); }
+.go-scope-btn.active { color: var(--blue); border-color: rgba(59,130,246,0.4); background: var(--blue-dim); }
+.go-scope-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.go-scope-label {
+  font-family: 'Oswald', sans-serif; font-size: 0.6rem; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--text-muted); align-self: center;
+}
+.go-search {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  color: var(--text);
+  font-size: 0.78rem;
+  padding: 0.3rem 0.6rem;
+  width: 170px;
+}
+.go-search:focus { outline: none; border-color: var(--gold); }
+.go-actions { margin-left: auto; display: flex; gap: 0.4rem; align-items: center; }
+.go-iconbtn {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 0.3rem;
+  color: var(--text-dim);
+  width: 30px; height: 30px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.go-iconbtn:hover { color: var(--gold); border-color: var(--gold); }
+.go-iconbtn.close:hover { color: var(--red); border-color: var(--red); }
+.go-body { flex: 1; display: flex; min-height: 0; position: relative; }
+#graphCanvas { flex: 1; min-width: 0; background:
+  radial-gradient(circle at 50% 40%, rgba(212,175,55,0.04), transparent 60%), var(--bg); }
+.go-details {
+  width: 300px;
+  flex: 0 0 auto;
+  border-left: 1px solid var(--border);
+  background: var(--bg-panel);
+  padding: 1.1rem;
+  overflow-y: auto;
+}
+.go-details h4 {
+  font-family: 'Oswald', sans-serif; font-size: 0.7rem; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--text-dim); margin-bottom: 0.6rem;
+}
+.go-details .gd-empty { color: var(--text-muted); font-size: 0.8rem; }
+.go-details .gd-type {
+  display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+  padding: 0.15rem 0.45rem; border-radius: 0.2rem; margin-bottom: 0.5rem;
+  background: var(--bg-hover); border: 1px solid var(--border); color: var(--gold);
+}
+.go-details .gd-title { font-family: 'Crimson Text', serif; font-size: 1.15rem; color: var(--text); margin-bottom: 0.5rem; line-height:1.3; }
+.go-details .gd-row { display:flex; justify-content:space-between; gap:0.5rem; padding:0.35rem 0; border-bottom:1px solid var(--border); font-size:0.76rem; }
+.go-details .gd-row .k { color: var(--text-muted); }
+.go-details .gd-row .v { color: var(--text-dim); text-align:right; word-break: break-word; }
+.go-details .gd-neighbors { margin-top: 0.8rem; }
+.go-details .gd-nb {
+  display:block; font-size: 0.74rem; color: var(--text-dim); padding: 0.3rem 0.45rem;
+  border-radius: 0.25rem; cursor: pointer; border:1px solid transparent;
+}
+.go-details .gd-nb:hover { background: var(--bg-hover); color: var(--gold); border-color: var(--border); }
+.go-legend {
+  position: absolute; left: 1rem; bottom: 1rem; z-index: 5;
+  background: rgba(10,10,10,0.85); border: 1px solid var(--border); border-radius: 0.4rem;
+  padding: 0.6rem 0.75rem; backdrop-filter: blur(6px);
+}
+.go-legend .lg-row { display:flex; align-items:center; gap:0.5rem; font-size:0.66rem; color: var(--text-dim); margin: 0.18rem 0; }
+.go-legend .lg-swatch { width: 10px; height: 10px; border-radius: 50%; }
+.go-empty-state {
+  position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; gap:0.8rem; color: var(--text-muted); padding: 2rem; pointer-events:none;
+}
+.go-empty-state i { font-size: 2.2rem; color: var(--text-muted); opacity:0.5; }
+.go-empty-state .es-title { font-family:'Cinzel',serif; font-size:1.1rem; color: var(--text-dim); }
+.go-empty-state code { font-family:'JetBrains Mono',monospace; font-size:0.72rem; color: var(--gold); background: var(--bg-card); padding:0.15rem 0.4rem; border-radius:0.2rem; }
+.go-count { font-family:'JetBrains Mono',monospace; font-size:0.62rem; color: var(--text-muted); align-self:center; }
+@media (max-width: 768px){ .go-details { display:none; } .go-search { width: 110px; } }
+</style>
+<!-- Cytoscape: graph renderer (CDN, same pattern as fonts/FontAwesome above) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.30.2/cytoscape.min.js"></script>
+</head>
+<body>
+
+<!-- ============================================================
+     GRAPH SURFACE markup — launcher + full-screen overlay.
+     Populated by the GraphSurface module (bottom of file).
+     ============================================================ -->
+<div class="graph-launcher" id="graphLauncher">
+  <div class="gl-head" onclick="GraphSurface.toggleLauncher()">
+    <i class="fas fa-project-diagram gl-icon"></i>
+    <span class="gl-title">Graph Views</span>
+    <i class="fas fa-chevron-down gl-chev"></i>
+  </div>
+  <div class="gl-body">
+    <button class="gl-btn" id="glKnowledge" onclick="GraphSurface.open('knowledge')">
+      <span class="gl-bi"><i class="fas fa-circle-nodes"></i></span>
+      <span class="gl-label">Knowledge Graph</span>
+      <span class="gl-dot" id="dot-knowledge"></span>
+    </button>
+    <button class="gl-btn" id="glDependencies" onclick="GraphSurface.open('dependencies')">
+      <span class="gl-bi"><i class="fas fa-sitemap"></i></span>
+      <span class="gl-label">Dependencies</span>
+      <span class="gl-dot" id="dot-dependencies"></span>
+    </button>
+    <button class="gl-btn" id="glUa" onclick="GraphSurface.open('ua')">
+      <span class="gl-bi"><i class="fas fa-cubes"></i></span>
+      <span class="gl-label">Understand&#8209;Anything</span>
+      <span class="gl-dot optional" id="dot-ua"></span>
+    </button>
+    <div class="gl-status" id="glStatus">loading sources&hellip;</div>
+  </div>
+</div>
+
+<div class="graph-overlay" id="graphOverlay" role="dialog" aria-label="Graph view">
+  <div class="go-header">
+    <span class="go-brand"><i class="fas fa-project-diagram"></i> <span id="goTitle">Knowledge Graph</span></span>
+    <div class="go-tabs">
+      <button class="go-tab" data-view="knowledge" onclick="GraphSurface.setView('knowledge')">Knowledge</button>
+      <button class="go-tab" data-view="dependencies" onclick="GraphSurface.setView('dependencies')">Dependencies</button>
+      <button class="go-tab" data-view="ua" onclick="GraphSurface.setView('ua')">Understand&#8209;Anything</button>
+    </div>
+    <span class="go-scope-label">Scope</span>
+    <div class="go-scope">
+      <button class="go-scope-btn" data-scope="paper" onclick="GraphSurface.setScope('paper')">Per&#8209;paper</button>
+      <button class="go-scope-btn" data-scope="series" onclick="GraphSurface.setScope('series')">Series</button>
+      <button class="go-scope-btn" data-scope="corpus" onclick="GraphSurface.setScope('corpus')">Whole&#8209;corpus</button>
+    </div>
+    <select class="go-search" id="goPaper" style="width:auto;max-width:230px;display:none;" onchange="GraphSurface.setPaper(this.value)"></select>
+    <div class="go-actions">
+      <input class="go-search" id="goSearch" type="text" placeholder="Search nodes&hellip;" oninput="GraphSurface.search(this.value)">
+      <span class="go-count" id="goCount"></span>
+      <button class="go-iconbtn" title="Fit to screen" onclick="GraphSurface.fit()"><i class="fas fa-expand"></i></button>
+      <button class="go-iconbtn close" title="Close (Esc)" onclick="GraphSurface.close()"><i class="fas fa-times"></i></button>
+    </div>
+  </div>
+  <div class="go-body">
+    <div id="graphCanvas"></div>
+    <div class="go-legend" id="goLegend"></div>
+    <div class="go-empty-state" id="goEmpty" style="display:none;"></div>
+    <aside class="go-details" id="goDetails">
+      <h4>Node Details</h4>
+      <div class="gd-empty">Click a node to inspect its claims, axioms, and links.</div>
+    </aside>
+  </div>
+</div>
+
+<!-- BEGIN:SECTION:top-navigation data-source="paper-grade.json,axiom-map.json,formal-target-map.json" data-fill="direct" -->
+<nav class="top-nav" data-section-id="top-navigation" data-trace-id="" data-claim-id="" data-paragraph-index="" data-sentence-index="" data-char-start="" data-char-end="">
+  <div class="nav-main">
+    <a href="index.html" class="brand"><i class="fas fa-atom"></i> THEOPHYSICS</a>
+    <div class="nav-links">
+      <a href="../index.html">Site</a>
+      <a href="classifier/index.html">Classifier</a>
+      <a href="#" class="active">Papers</a>
+      <a href="#" onclick="GraphSurface.open('knowledge');return false;">Graph</a>
+    </div>
+  </div>
+  
+  <!-- BEGIN:SECTION:framework-tabs data-source="paper-grade.json,framework-route-map.json" data-fill="repeat" -->
+<div class="framework-tabs" data-section-id="framework-tabs" data-section-id="framework-tabs" data-trace-id="" data-claim-id="" data-paragraph-index="" data-sentence-index="" data-char-start="" data-char-end="">
+    <!-- BEGIN:SLOT:framework-tab-button repeat="framework_panels" -->
+    <button class="fw-tab" data-fw="axioms" onclick="toggleFramework('axioms')">
+      <i class="fas fa-cube" style="margin-right:0.3rem;"></i>Axioms
+      <span class="badge green">3</span>
+    </button>
+    <button class="fw-tab active" data-fw="7q" onclick="toggleFramework('7q')">
+      <i class="fas fa-layer-group" style="margin-right:0.3rem;"></i>7Q Framework
+    </button>
+    <button class="fw-tab" data-fw="decision" onclick="toggleFramework('decision')">
+      <i class="fas fa-sitemap" style="margin-right:0.3rem;"></i>Decision Tree
+      <span class="badge green">PASS</span>
+    </button>
+    <button class="fw-tab" data-fw="swap" onclick="toggleFramework('swap')">
+      <i class="fas fa-exchange-alt" style="margin-right:0.3rem;"></i>Swap Test
+      <span class="badge gold">VERIFIED</span>
+    </button>
+    <button class="fw-tab" data-fw="ckg" onclick="toggleFramework('ckg')">
+      <i class="fas fa-chart-bar" style="margin-right:0.3rem;"></i>CKG
+      <span class="badge blue">6.4</span>
+    </button>
+    <button class="fw-tab" data-fw="fruits" onclick="toggleFramework('fruits')">
+      <i class="fas fa-apple-alt" style="margin-right:0.3rem;"></i>Fruits
+      <span class="badge green">+9</span>
+    </button>
+    <button class="fw-tab" data-fw="lean" onclick="toggleFramework('lean')">
+      <i class="fas fa-link" style="margin-right:0.3rem;"></i>Iron Chain
+      <span class="badge green">VERIFIED</span>
+    </button>
+    <!-- END:SLOT:framework-tab-button -->
+    <span class="api-status disconnected" id="apiStatus" style="margin-left:auto;">API: Offline</span>
+  </div>
+  
+  <!-- Framework Panels -->
+<!-- END:SECTION:framework-tabs -->
+  <!-- BEGIN:SECTION:framework-axioms data-source="axiom-map.json,rigor-report.json" data-fill="direct" -->
+<div class="fw-panel" id="panel-axioms" data-section-id="framework-axioms" data-trace-id="" data-claim-id="" data-paragraph-index="" data-sentence-index="" data-char-start="" data-char-end="">
+    <div class="fw-panel-inner">
+      <div class="fw-panel-header">
+        <span class="fw-panel-title"><i class="fas fa-cube" style="margin-right:0.5rem;"></i>Axioms — The Load-Bearing Foundation</span>
+        <button class="fw-panel-close" onclick="closeFramework('axioms')"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="fw-panel-grid">
+        <div class="fw-panel-section">
+          <h4>What This Layer Does</h4>
+          <p>Every paper rests on axioms — irreducible, non-derived, load-bearing commitments. The axiom layer traces every claim back to its primitives (P0.1 Distinction, P0.2 Substrate) through the Trinitarian Core.</p>
+          <h4 style="margin-top:1rem;">Process</h4>
+          <ul style="margin-left:1rem;">
+            <li>Extract declared axioms from paper text</li>
+            <li>Map to AxiomChain.lean IDs</li>
+            <li>Verify no circular dependencies</li>
+            <li>Flag orphaned claims (no axiom ground)</li>
+          </ul>
+        </div>
+        <div class="fw-panel-data" id="axiomPanelData">
+          <h4 style="margin-bottom:0.75rem;display:flex;justify-content:space-between;align-items:center;">This Paper's Axioms
+            <span class="graph-open-link" onclick="GraphSurface.open('dependencies')"><i class="fas fa-sitemap"></i> Open axiom graph</span></h4>
+          <div class="data-row"><span class="data-label">A1.1</span><span class="data-value">Existence</span></div>
+          <div class="data-row"><span class="data-label">A2.1</span><span class="data-value">InformationSubstrate</span></div>
+          <div class="data-row"><span class="data-label">A2.2</span><span class="data-value">SelfGrounding</span></div>
+          <div class="data-row"><span class="data-label">BC4</span><span class="data-value">ThreeObserversRequired</span></div>
+          <div class="data-row"><span class="data-label">Status</span><span class="data-value green">All grounded</span></div>
+          <div class="data-row"><span class="data-label">Orphaned claims</span><span class="data-value green">0</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- END:SECTION:framework-axioms -->
+
+  
+  <!-- BEGIN:SECTION:framework-7q data-source="paper-grade.json,7qs.json" data-fill="direct" -->
+<div class="fw-panel open" id="panel-7q" data-section-id="framework-7q" data-trace-id="" data-claim-id="" data-paragraph-index="" data-sentence-index="" data-char-start="" data-char-end="">
+    <div class="fw-panel-inner">
+      <div class="fw-panel-header">
+        <span class="fw-panel-title"><i class="fas fa-layer-group" style="margin-right:0.5rem;"></i>7Q Framework — Questions God Answers</span>
+        <button class="fw-panel-close" onclick="closeFramework('7q')"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="fw-panel-grid">
+        <div class="fw-panel-section">
+          <h4>What This Layer Does</h4>
+          <p>The 7Q framework is the classification grid. Every paper is interrogated across 8 positions (Q0–Q7). The header "Questions God Answers" is the universal quantifier — every cell inherits its terminal ground.</p>
+          <h4 style="margin-top:1rem;">Process</h4>
+          <ul style="margin-left:1rem;">
+            <li>Run Q0–Q7 extraction on paper text</li>
+            <li>Verify source pointers for every cell</li>
+            <li>Run inheritance check: does every cell floor at the header?</li>
+            <li>Flag missing bones and foreign floors</li>
+          </ul>
+        </div>
+        <div class="fw-panel-data">
+          <h4 style="margin-bottom:0.75rem;">This Paper's 7Q Grid</h4>
+          <div class="data-row"><span class="data-label">Q0 Posture</span><span class="data-value green">FILLED</span></div>
+          <div class="data-row"><span class="data-label">Q1 Identity</span><span class="data-value green">FILLED</span></div>
+          <div class="data-row"><span class="data-label">Q2 Domain</span><span class="data-value green">FILLED</span></div>
+          <div class="data-row"><span class="data-label">Q3 Claim</span><span class="data-value green">FILLED</span></div>
+          <div class="data-row"><span class="data-label">Q4 Support</span><span class="data-value green">FILLED</span></div>
+          <div class="data-row"><span class="data-label">Q5 Dependencies</span><span class="data-value green">FILLED</span></div>
+          <div class="data-row"><span class="data-label">Q6 Consequences</span><span class="data-value green">FILLED</span></div>
+          <div class="data-row"><span class="data-label">Q7 Kill Conditions</span><span class="data-value green">FILLED</span></div>
+          <div class="data-row"><span class="data-label">Inheritance</span><span class="data-value gold">PASS</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- END:SECTION:framework-7q -->
+
+  
+  <!-- BEGIN:SECTION:framework-decision data-source="decision-tree.json,paper-grade.json" data-fill="direct" -->
+<div class="fw-panel" id="panel-decision" data-section-id="framework-decision" data-trace-id="" data-claim-id="" data-paragraph-index="" data-sentence-index="" data-char-start="" data-char-end="">
+    <div class="fw-panel-inner">
+      <div class="fw-panel-header">
+        <span class="fw-panel-title"><i class="fas fa-sitemap" style="margin-right:0.5rem;"></i>Decision Tree (Q0–Q12) — Worldview Pre-Filter</span>
+        <button class="fw-panel-close" onclick="closeFramework('decision')"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="fw-panel-grid">
+        <div class="fw-panel-section">
+          <h4>What This Layer Does</h4>
+          <p>Before a paper enters classification, its underlying worldview is tested against 13 levels (Q0–Q12). Every branch is tested against 4 Death Conditions. What survives propagates. What dies stays dead, visibly documented.</p>
+          <h4 style="margin-top:1rem;">The 4 Death Conditions</h4>
+          <ul style="margin-left:1rem;">
+            <li><strong>Self-Refutation:</strong> Branch contradicts itself in the act of being stated</li>
+            <li><strong>Infinite Regress:</strong> Explanation requires the same explanation forever</li>
+            <li><strong>Empirical Contradiction:</strong> Predicts something observably false</li>
+            <li><strong>Logical Incoherence:</strong> Incompatible with prior commitments</li>
+          </ul>
+        </div>
+        <div class="fw-panel-data">
+          <h4 style="margin-bottom:0.75rem;">This Paper's Decision Tree</h4>
+          <div class="data-row"><span class="data-label">Q0–Q3</span><span class="data-value green">SURVIVED</span></div>
+          <div class="data-row"><span class="data-label">Q4 (The Great Fork)</span><span class="data-value green">SELF-GROUNDING</span></div>
+          <div class="data-row"><span class="data-label">Q5–Q8</span><span class="data-value green">SURVIVED</span></div>
+          <div class="data-row"><span class="data-label">Q9–Q11</span><span class="data-value green">SURVIVED</span></div>
+          <div class="data-row"><span class="data-label">Q12 (Uniqueness)</span><span class="data-value green">UNIQUE SURVIVOR</span></div>
+          <div class="data-row"><span class="data-label">Deaths Triggered</span><span class="data-value green">0</span></div>
+          <div class="data-row"><span class="data-label">Branches Killed</span><span class="data-value">Materialism, Chance Cosmology, Moral Relativism</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- END:SECTION:framework-decision -->
+
+  
+  <!-- BEGIN:SECTION:framework-swap data-source="swap-test.json,paper-grade.json" data-fill="direct" -->
+<div class="fw-panel" id="panel-swap" data-section-id="framework-swap" data-trace-id="" data-claim-id="" data-paragraph-index="" data-sentence-index="" data-char-start="" data-char-end="">
+    <div class="fw-panel-inner">
+      <div class="fw-panel-header">
+        <span class="fw-panel-title"><i class="fas fa-exchange-alt" style="margin-right:0.5rem;"></i>Swap Test — Isomorphism Validation</span>
+        <button class="fw-panel-close" onclick="closeFramework('swap')"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="fw-panel-grid">
+        <div class="fw-panel-section">
+          <h4>What This Layer Does</h4>
+          <p>The Swap Test validates cross-domain mappings. A genuine isomorphism must predict something new in BOTH directions. If swapping domain A and domain B breaks the prediction, the mapping is analogy — not isomorphism.</p>
+          <h4 style="margin-top:1rem;">Process</h4>
+          <ul style="margin-left:1rem;">
+            <li>Forward: Does domain A predict something in domain B not already known?</li>
+            <li>Reverse: Does domain B predict something in domain A not already known?</li>
+            <li>If both hold → ISO_VERIFIED</li>
+            <li>If either fails → downgraded to analogy</li>
+          </ul>
+        </div>
+        <div class="fw-panel-data">
+          <h4 style="margin-bottom:0.75rem;">This Paper's Swap Test</h4>
+          <div class="data-row"><span class="data-label">Domains</span><span class="data-value">Physics ↔ Theology</span></div>
+          <div class="data-row"><span class="data-label">Forward</span><span class="data-value green">HOLDS</span></div>
+          <div class="data-row"><span class="data-label">Reverse</span><span class="data-value green">HOLDS</span></div>
+          <div class="data-row"><span class="data-label">Status</span><span class="data-value green">ISO_VERIFIED</span></div>
+          <div class="data-row"><span class="data-label">Confidence</span><span class="data-value gold">Medium</span></div>
+          <div class="data-row"><span class="data-label">Falsification</span><span class="data-value">LLC mathematically ill-posed</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- END:SECTION:framework-swap -->
+
+  
+  <!-- BEGIN:SECTION:framework-ckg data-source="ckg-score.json,paper_intelligence_summary.xlsx" data-fill="direct" -->
+<div class="fw-panel" id="panel-ckg" data-section-id="framework-ckg" data-trace-id="" data-claim-id="" data-paragraph-index="" data-sentence-index="" data-char-start="" data-char-end="">
+    <div class="fw-panel-inner">
+      <div class="fw-panel-header">
+        <span class="fw-panel-title"><i class="fas fa-chart-bar" style="margin-right:0.5rem;"></i>CKG Evaluator — 5-Tier Quality Scoring</span>
+        <button class="fw-panel-close" onclick="closeFramework('ckg')"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="fw-panel-grid">
+        <div class="fw-panel-section">
+          <h4>What This Layer Does</h4>
+          <p>The CKG (Coherence Knowledge Graph) evaluator scores papers across 5 tiers: foundations, propositions, constraints, evidence, integration. Each tier maps to the 7Q grid. Combined with the Fruits Scorer, this is the quality gate.</p>
+          <h4 style="margin-top:1rem;">Tier Mapping</h4>
+          <ul style="margin-left:1rem;">
+            <li>Tier 1 (Foundations) → Q0–Q2</li>
+            <li>Tier 2 (Propositions) → Q3</li>
+            <li>Tier 3 (Constraints) → Q5</li>
+            <li>Tier 4 (Evidence) → Q4</li>
+            <li>Tier 5 (Integration) → Q6</li>
+          </ul>
+        </div>
+        <div class="fw-panel-data" data-chart-id="ckg-tier-score" data-chart-type="score-table" data-source-artifact="ckg-score.json,paper_intelligence_summary.xlsx" data-trace-required="true" data-trace-status="missing-span">
+          <h4 style="margin-bottom:0.75rem;display:flex;justify-content:space-between;align-items:center;">This Paper's CKG Score
+            <span class="graph-open-link" onclick="GraphSurface.open('knowledge')"><i class="fas fa-circle-nodes"></i> Open coherence graph</span></h4>
+          <div class="data-row"><span class="data-label">Tier 1 Foundations</span><span class="data-value">7/10</span></div>
+          <div class="data-row"><span class="data-label">Tier 2 Propositions</span><span class="data-value">8/10</span></div>
+          <div class="data-row"><span class="data-label">Tier 3 Constraints</span><span class="data-value">6/10</span></div>
+          <div class="data-row"><span class="data-label">Tier 4 Evidence</span><span class="data-value">7/10</span></div>
+          <div class="data-row"><span class="data-label">Tier 5 Integration</span><span class="data-value">4/10</span></div>
+          <div class="data-row"><span class="data-label">Raw Score</span><span class="data-value">32/50</span></div>
+          <div class="data-row"><span class="data-label">Final Score</span><span class="data-value gold">6.4/10</span></div>
+          <div class="data-row"><span class="data-label">Evaluator</span><span class="data-value">claude-auto v1.0</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- END:SECTION:framework-ckg -->
+
+  
+  <!-- BEGIN:SECTION:framework-fruits data-source="fruits-score.json,paper-grade.json" data-fill="direct" -->
+<div class="fw-panel" id="panel-fruits" data-section-id="framework-fruits" data-trace-id="" data-claim-id="" data-paragraph-index="" data-sentence-index="" data-char-start="" data-char-end="">
+    <div class="fw-panel-inner">
+      <div class="fw-panel-header">
+        <span class="fw-panel-title"><i class="fas fa-apple-alt" style="margin-right:0.5rem;"></i>Fruits Scorer — Structural Invariant Detection</span>
+        <button class="fw-panel-close" onclick="closeFramework('fruits')"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="fw-panel-grid">
+        <div class="fw-panel-section">
+          <h4>What This Layer Does</h4>
+          <p>The Fruits Scorer detects structural properties of documents — NOT keywords, NOT sentiment. It measures whether the paper is built like a sound argument or a house of cards. F4 Faithfulness, F7 Self-Control, F8 Patience, F9 Grace, F12 Gentleness.</p>
+          <h4 style="margin-top:1rem;">Score Thresholds</h4>
+          <ul style="margin-left:1rem;">
+            <li><span style="color:var(--green);">+8 to +12:</span> Coherence-stable, canonical</li>
+            <li><span style="color:var(--gold);">+3 to +7:</span> Partially stable, repairable</li>
+            <li><span style="color:var(--text-dim);">-2 to +2:</span> Incoherent / incomplete</li>
+            <li><span style="color:var(--red);">-3 to -12:</span> Entropy-amplifying, will collapse</li>
+          </ul>
+        </div>
+        <div class="fw-panel-data">
+          <h4 style="margin-bottom:0.75rem;">This Paper's Fruits Score</h4>
+          <div class="data-row"><span class="data-label">F4 Faithfulness</span><span class="data-value">+2</span></div>
+          <div class="data-row"><span class="data-label">F7 Self-Control</span><span class="data-value">+2</span></div>
+          <div class="data-row"><span class="data-label">F8 Patience</span><span class="data-value">+2</span></div>
+          <div class="data-row"><span class="data-label">F9 Grace</span><span class="data-value">+2</span></div>
+          <div class="data-row"><span class="data-label">F12 Gentleness</span><span class="data-value">+1</span></div>
+          <div class="data-row"><span class="data-label">Total</span><span class="data-value green">+9</span></div>
+          <div class="data-row"><span class="data-label">Status</span><span class="data-value green">COHERENT</span></div>
+          <div class="data-row"><span class="data-label">Verdict</span><span class="data-value green">CANONICAL</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- END:SECTION:framework-fruits -->
+
+  
+  <!-- BEGIN:SECTION:framework-lean data-source="formal-target-map.json,lean-verify.json" data-fill="direct" -->
+<div class="fw-panel" id="panel-lean" data-section-id="framework-lean" data-trace-id="" data-claim-id="" data-paragraph-index="" data-sentence-index="" data-char-start="" data-char-end="">
+    <div class="fw-panel-inner">
+      <div class="fw-panel-header">
+        <span class="fw-panel-title"><i class="fas fa-link" style="margin-right:0.5rem;"></i>Iron Chain — Lean 4 Formal Verification</span>
+        <button class="fw-panel-close" onclick="closeFramework('lean')"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="fw-panel-grid">
+        <div class="fw-panel-section">
+          <h4>What This Layer Does</h4>
+          <p>The Iron Chain is the Lean 4 formalization of the Trinitarian Floor. Two primitives (Distinction, Substrate) → Information Primacy → Order Requirement → Coherence → χ = Logos field. Every paper's Q3 formal statement gets translated to Lean and machine-verified.</p>
+          <h4 style="margin-top:1rem;">Three Modes</h4>
+          <ul style="margin-left:1rem;">
+            <li><strong>Mode A:</strong> Formal theorem emitted and proved</li>
+            <li><strong>Mode B:</strong> Structural skeleton staged for future proof</li>
+            <li><strong>Mode C:</strong> Narrative — Lean-inapplicable</li>
+          </ul>
+        </div>
+        <div class="fw-panel-data">
+          <h4 style="margin-bottom:0.75rem;">This Paper's Lean Status</h4>
+          <div class="data-row"><span class="data-label">Mode</span><span class="data-value">A (Formal)</span></div>
+          <div class="data-row"><span class="data-label">Theorem</span><span class="data-value">FP_005_coupling_irreversible</span></div>
+          <div class="data-row"><span class="data-label">Status</span><span class="data-value green">VERIFIED</span></div>
+          <div class="data-row"><span class="data-label">Axioms Used</span><span class="data-value">A1.1, A2.1, A2.2, BC4</span></div>
+          <div class="data-row"><span class="data-label">Compile Time</span><span class="data-value">0.4s</span></div>
+          <div class="data-row"><span class="data-label">Lean File</span><span class="data-value">FP_005.lean</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- END:SECTION:framework-lean -->
+</nav>
+<!-- END:SECTION:top-navigation -->
+
+<!-- BEGIN:SECTION:layout-shell data-source="paper-grade.json,claim-ledger.csv,formal-target-map.json" data-fill="direct" -->
+<div class="layout" data-section-id="layout-shell" data-trace-id="" data-claim-id="" data-paragraph-index="" data-sentence-index="" data-char-start="" data-char-end="">
+
+<!-- LEFT SIDEBAR -->
+<aside class="sidebar">
+  <h3><i class="fas fa-compass" style="margin-right:0.4rem;"></i>Navigation</h3>
+  <div style="display:flex;gap:0.5rem;margin-bottom:1rem;">
+    <span style="font-size:0.65rem;padding:0.2rem 0.5rem;background:var(--bg-hover);border-radius:0.2rem;color:var(--text-muted);">Ontological</span>
+    <span style="font-size:0.65rem;padding:0.2rem 0.5rem;background:var(--gold-dim);border-radius:0.2rem;color:var(--gold);border:1px solid rgba(212,175,55,0.2);">Paper Index</span>
+  </div>
+
+  <h3 style="margin-top:1.5rem;">Questions God Answers</h3>
+  <a href="#q0" class="q-item"><div class="q-row"><span class="q-num">Q0</span><span class="q-label">Posture</span></div><span class="q-desc">Humility before inquiry</span></a>
+  <a href="#q1" class="q-item"><div class="q-row"><span class="q-num">Q1</span><span class="q-label">Identity</span></div><span class="q-desc">What is it?</span></a>
+  <a href="#q2" class="q-item"><div class="q-row"><span class="q-num">Q2</span><span class="q-label">Domain</span></div><span class="q-desc">Where does it live?</span></a>
+  <a href="#q3" class="q-item active"><div class="q-row"><span class="q-num">Q3</span><span class="q-label">Claim</span></div><span class="q-desc">What does it say?</span></a>
+  <a href="#q4" class="q-item"><div class="q-row"><span class="q-num">Q4</span><span class="q-label">Support</span></div><span class="q-desc">What grounds it?</span></a>
+  <a href="#q5" class="q-item"><div class="q-row"><span class="q-num">Q5</span><span class="q-label">Dependencies</span></div><span class="q-desc">What does it need?</span></a>
+  <a href="#q6" class="q-item"><div class="q-row"><span class="q-num">Q6</span><span class="q-label">Consequences</span></div><span class="q-desc">What does it force?</span></a>
+  <a href="#q7" class="q-item"><div class="q-row"><span class="q-num">Q7</span><span class="q-label">Kill Conditions</span></div><span class="q-desc">What destroys it?</span></a>
+
+  <h3 style="margin-top:1.5rem;">Branches That Die</h3>
+  <div class="branch-item dead"><i class="fas fa-times"></i> Materialism</div>
+  <div class="branch-item dead"><i class="fas fa-times"></i> Closed-Universe Cosmology</div>
+  <div class="branch-item dead"><i class="fas fa-times"></i> Moral-Performance Salvation</div>
+  <div class="branch-item dead"><i class="fas fa-times"></i> Mechanistic Determinism</div>
+  <div class="branch-item dead"><i class="fas fa-times"></i> Physical-Only Resurrection</div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+  <div class="breadcrumb">
+    <a href="index.html">Master Index</a><span class="sep">→</span><a href="#">Foundational Papers</a><span class="sep">→</span><span style="color:var(--gold);">FP-005</span>
+  </div>
+
+  <div class="badges">
+    <span class="badge green"><i class="fas fa-check-circle"></i> Decision Tree: SURVIVED</span>
+    <span class="badge green"><i class="fas fa-check-double"></i> Inheritance: PASS</span>
+    <span class="badge gold"><i class="fas fa-star"></i> T-Score: 7.8/10</span>
+    <span class="badge blue"><i class="fas fa-crosshairs"></i> Q3 (Claim)</span>
+    <span class="badge violet"><i class="fas fa-link"></i> Depends: 3 Axioms, 2 Papers</span>
+    <span class="badge green"><i class="fas fa-exchange-alt"></i> Swap Test: VERIFIED</span>
+    <span class="badge green"><i class="fas fa-apple-alt"></i> Fruits: +9</span>
+    <span class="badge gold"><i class="fas fa-link"></i> Lean: VERIFIED</span>
+  </div>
+
+  <h1 class="paper-title">The Turtles and the Floor</h1>
+  <p class="paper-subtitle">Where every scientific explanation terminates, God fits perfectly</p>
+
+  <!-- BEGIN:SECTION:rigor-card data-source="paper-grade.json,claim-ledger.csv" data-fill="direct" -->
+<!-- Rigor Card -->
+  <div class="card">
+    <div class="card-header"><i class="fas fa-bolt"></i> Rigor Card</div>
+    <div class="rigor-grid" data-chart-id="rigor-card-summary" data-chart-type="metric-grid" data-source-artifact="paper-grade.json" data-trace-required="true" data-trace-status="missing-span">
+      <div class="rigor-cell">
+        <div class="label">Core Claim</div>
+        <div class="value">A composition of four known physical operations produces a transition sequence with candidate structural correspondence to the Incarnation-Crucifixion-Resurrection-Pentecost sequence</div>
+      </div>
+      <div class="rigor-cell">
+        <div class="label">Primary Theory</div>
+        <div class="value">Dual-substrate spontaneous symmetry breaking with irreversible coupling-architecture modification</div>
+      </div>
+      <div class="rigor-cell">
+        <div class="label">Evidence Tier</div>
+        <div class="value">Theoretical framework. P1 consistent with historical record. P2-4 await test/derivation. Open Problem 2 is decisive.</div>
+      </div>
+    </div>
+  </div>
+
+  
+<!-- END:SECTION:rigor-card -->
+
+<!-- BEGIN:SECTION:kill-conditions data-source="paper-grade.json,falsification-ledger.csv" data-fill="direct" -->
+<!-- Kill Conditions -->
+  <div class="card">
+    <div class="kill-box">
+      <div class="kill-header"><i class="fas fa-skull"></i> Kill Conditions</div>
+      <table data-chart-id="kill-conditions-table" data-chart-type="audit-table" data-source-artifact="paper-grade.json,falsification-ledger.csv" data-trace-required="true" data-trace-status="missing-span">
+        <tr><th>#</th><th>Condition</th><th>Test</th><th>Severity</th></tr>
+        <tr><td>K1</td><td>SSB reversible in infinite-volume limit</td><td>QFT calculation</td><td style="color:var(--red);">Fatal</td></tr>
+        <tr><td>K2</td><td>Energy non-conserved across full arc</td><td>Thermodynamic audit</td><td style="color:var(--red);">Fatal</td></tr>
+        <tr><td>K3</td><td>τ_lock derivation ≠ 33 years</td><td>Coupling constant calc</td><td style="color:var(--red);">Fatal</td></tr>
+        <tr><td>K4</td><td>Coupling produces EM signature</td><td>Direct detection</td><td style="color:var(--red);">Fatal</td></tr>
+        <tr><td>K5</td><td>Categorical contradiction found</td><td>Formal category proof</td><td style="color:var(--red);">Fatal</td></tr>
+        <tr><td>K6</td><td>Historical record contradicts P1</td><td>Sociological analysis</td><td style="color:var(--gold);">Wounding</td></tr>
+        <tr><td>K7</td><td>O_adv shown unnecessary</td><td>Demonstrate C₀ self-heals</td><td style="color:var(--gold);">Wounding</td></tr>
+      </table>
+    </div>
+  </div>
+
+  
+<!-- END:SECTION:kill-conditions -->
+
+<!-- BEGIN:SECTION:facts-analysis data-source="paper-grade.json,claim-ledger.csv" data-fill="direct" -->
+<!-- FACTS Analysis -->
+  <div class="card">
+    <div class="card-header"><i class="fas fa-flask"></i> FACTS Analysis</div>
+    <table>
+      <tr>
+        <td style="width:40px;vertical-align:top;"><span class="facts-letter">F</span></td>
+        <td>
+          <div class="facts-title">Find — The Anomaly</div>
+          <div class="facts-body">Physics has the components (SSB, phase transitions, gauge relaxation, operator recovery) but no known single system that has executed all four in sequence. Theology describes an event that physics has the pieces for but has never seen assembled. The anomaly is the missing <strong>composition</strong>, not the missing component.</div>
+        </td>
+      </tr>
+      <tr>
+        <td style="vertical-align:top;"><span class="facts-letter">A</span></td>
+        <td>
+          <div class="facts-title">Admit — Compressed Biaxiosum</div>
+          <div class="facts-body">Dual-substrate model is speculative. τ_lock is a free parameter. Categorical construction is formally incomplete. O_adv is a model extension, not derived. Paper makes no claim that physics proves theology — only that mechanism is structurally describable IF events occurred.</div>
+        </td>
+      </tr>
+      <tr>
+        <td style="vertical-align:top;"><span class="facts-letter">C</span></td>
+        <td>
+          <div class="facts-title">Claim — The Thesis</div>
+          <div class="facts-body">The only physically coherent description of the sequence, using established physics operations and preserving internal consistency, is SSB with irreversible coupling-architecture modification. Two options: coincidence or common underlying structure. No third option identified.</div>
+        </td>
+      </tr>
+      <tr>
+        <td style="vertical-align:top;"><span class="facts-letter">T</span></td>
+        <td>
+          <div class="facts-title">Test — Method & Evidence</div>
+          <div class="facts-body">
+            <strong>P1</strong> (Historical discontinuity at AD 33) — Consistent with record<br>
+            <strong>P2</strong> (Pentecost coherence) — Awaiting measurement method<br>
+            <strong>P3</strong> (τ_lock = 33yr from first principles) — Open, decisive test<br>
+            <strong>P4</strong> (EM invisibility) — Consistent with dark matter signature
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td style="vertical-align:top;"><span class="facts-letter">S</span></td>
+        <td>
+          <div class="facts-title">Snap — Falsification Thresholds</div>
+          <div class="facts-body">Single kill condition satisfied → model fails. Single prediction failure → model weakened. Multiple prediction failures → model collapses. τ_lock derivation ≠ 33 → structural problem, model fails or requires revision.</div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  
+<!-- END:SECTION:facts-analysis -->
+
+<!-- BEGIN:SECTION:7q-mapping-card data-source="paper-grade.json,7qs.json" data-fill="direct" -->
+<!-- 7Q Mapping -->
+  <div class="card">
+    <div class="card-header"><i class="fas fa-layer-group"></i> 7Q Framework Mapping</div>
+    <div style="margin-bottom:1rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);margin-bottom:0.4rem;">Q0 — Posture</div>
+      <div style="font-size:0.85rem;color:var(--text-dim);line-height:1.6;">Structural correspondence is productive; we do not assume theology, we test mechanism. We acknowledge the dual-substrate model is speculative.</div>
+    </div>
+    <div style="margin-bottom:1rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);margin-bottom:0.4rem;">Q1 — Identity</div>
+      <div style="font-size:0.85rem;color:var(--text-dim);line-height:1.6;">A 5-stage dual-substrate SSB model with irreversible coupling modification. Candidate structural correspondence (NOT proven isomorphism).</div>
+    </div>
+    <div style="margin-bottom:1rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);margin-bottom:0.4rem;">Q2 — Domain</div>
+      <div style="font-size:0.85rem;color:var(--text-dim);line-height:1.6;">QFT (SSB), condensed-matter analogy, gauge theory, historical source data. Boundary: Σ_F is functionally defined, not metaphysically asserted.</div>
+    </div>
+    <div style="margin-bottom:1rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);margin-bottom:0.4rem;">Q3 — Claim</div>
+      <div style="font-size:0.85rem;color:var(--text-dim);line-height:1.6;">The composition has no known single-phenomenon analog. Localization→Stabilization→Release→Confirmation→Redistribution maps to Incarnation→Crucifixion→Resurrection→Pentecost.</div>
+    </div>
+    <div style="margin-bottom:1rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);margin-bottom:0.4rem;">Q4 — Support</div>
+      <div style="font-size:0.85rem;color:var(--text-dim);line-height:1.6;">Standard SSB formalism, vacuum stabilization physics, energy conservation, historical constraint satisfaction.</div>
+    </div>
+    <div style="margin-bottom:1rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);margin-bottom:0.4rem;">Q5 — Dependencies</div>
+      <div style="font-size:0.85rem;color:var(--text-dim);line-height:1.6;">A1 (Gödel closure), A2 (Energy conservation), A3 (SSB irreversibility), FP-001 (Boundary Proof), FP-002 (Master Equation). Blocks OP1, OP2, OP3.</div>
+    </div>
+    <div style="margin-bottom:1rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);margin-bottom:0.4rem;">Q6 — Consequences</div>
+      <div style="font-size:0.85rem;color:var(--text-dim);line-height:1.6;">If model holds, theology is structurally describable by physics. If τ_lock derivable, massive predictive power. If categorical construction completes, proven isomorphism.</div>
+    </div>
+    <div>
+      <div style="font-family:'Oswald',sans-serif;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);margin-bottom:0.4rem;">Q7 — Kill Conditions</div>
+      <div style="font-size:0.85rem;color:var(--text-dim);line-height:1.6;">5 fatal, 2 wounding. Model is explicitly falsifiable. See Kill Conditions table above.</div>
+    </div>
+  </div>
+
+  
+<!-- END:SECTION:7q-mapping-card -->
+
+<!-- BEGIN:SECTION:formal-statement data-source="formal-target-map.json,lean-verify.json" data-fill="direct" -->
+<!-- Formal Statement -->
+  <div class="card">
+    <div class="card-header"><i class="fas fa-sigma"></i> Formal Statement</div>
+    <div class="formal-box">
+      <strong>GIVEN:</strong> Dual-substrate system (Σ_F, Σ_D) with coupling C₀; field Ψ_F in Σ_F with symmetry G; locking threshold τ_lock.<br><br>
+      <strong>IF:</strong> Ψ_F undergoes SSB localization into Σ_D; maintains coherence for t ≥ τ_lock; releases latent energy; recovers operator authority from O_adv.<br><br>
+      <strong>THEN:</strong> Coupling irreversibly modifies to C₁ (distributed, self-sustaining, universal); observable consequences appear exclusively in inter-substrate domain; sequence exhibits candidate structural correspondence to Incarnation→Crucifixion→Resurrection→Pentecost.<br><br>
+      <strong>Q.E.D. (Framework Stage)</strong>
+    </div>
+  </div>
+
+<!-- END:SECTION:formal-statement -->
+
+</main>
+
+<!-- RIGHT SIDEBAR -->
+<aside class="sidebar">
+  <h3><i class="fas fa-database" style="margin-right:0.4rem;"></i>Metadata</h3>
+  <div class="meta-row"><span class="meta-label">UUID</span><span class="meta-value" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;">FP-005-SSB-DUAL-2026</span></div>
+  <div class="meta-row"><span class="meta-label">Classification</span><span class="meta-value gold">Story / Foundational</span></div>
+  <div class="meta-row"><span class="meta-label">Author</span><span class="meta-value">David Lowe (POF 2828)</span></div>
+  <div class="meta-row"><span class="meta-label">Date</span><span class="meta-value">2026-04-26</span></div>
+  <div class="meta-row"><span class="meta-label">Companion</span><span class="meta-value gold">Kitchen Table Version →</span></div>
+
+  <h3 style="margin-top:1.25rem;">Tags</h3>
+  <div style="margin-bottom:0.5rem;">
+    <span class="tag">pillar/philosophy</span>
+    <span class="tag">pillar/theology</span>
+    <span class="tag">pillar/physics</span>
+    <span class="tag">master_equation</span>
+    <span class="tag">logos/method</span>
+    <span class="tag">structural-isomorphism</span>
+  </div>
+
+  <h3 style="margin-top:1.25rem;">Spine Mappings</h3>
+  <div class="spine-item">
+    <div class="spine-header"><span class="spine-name">Physics</span><span class="spine-status">Grounded</span></div>
+    <div class="spine-bar"><div class="fill blue" style="width:85%;"></div></div>
+  </div>
+  <div class="spine-item">
+    <div class="spine-header"><span class="spine-name">Theology</span><span class="spine-status">Canonical</span></div>
+    <div class="spine-bar"><div class="fill green" style="width:90%;"></div></div>
+  </div>
+  <div class="spine-item">
+    <div class="spine-header"><span class="spine-name">Consciousness</span><span class="spine-status">Suggested</span></div>
+    <div class="spine-bar"><div class="fill teal" style="width:45%;"></div></div>
+  </div>
+  <div class="spine-item">
+    <div class="spine-header"><span class="spine-name">Category Theory</span><span class="spine-status">Framework</span></div>
+    <div class="spine-bar"><div class="fill violet" style="width:60%;"></div></div>
+  </div>
+  <div class="spine-item">
+    <div class="spine-header"><span class="spine-name">Evidence</span><span class="spine-status">6.35σ</span></div>
+    <div class="spine-bar"><div class="fill gold" style="width:75%;"></div></div>
+  </div>
+  <div class="spine-item">
+    <div class="spine-header"><span class="spine-name">Isomorphism</span><span class="spine-status">Verified</span></div>
+    <div class="spine-bar"><div class="fill gold" style="width:70%;"></div></div>
+  </div>
+
+  <h3 style="margin-top:1.25rem;">Dependency Graph
+    <button class="dep-mini-expand" onclick="GraphSurface.open('dependencies')"><i class="fas fa-expand"></i> Expand</button></h3>
+  <div class="dep-graph" id="depGraphMini" data-chart-id="dependency-graph" data-chart-type="dependency-graph" data-source-artifact="formal-target-map.json,axiom-map.json" data-trace-required="true" data-trace-status="missing-span">
+    <div class="dep-node">A1: Gödel Closure</div>
+    <div class="dep-arrow">↓</div>
+    <div class="dep-node">A2: Energy Conservation</div>
+    <div class="dep-arrow">↓</div>
+    <div class="dep-node">A3: SSB Irreversibility</div>
+    <div class="dep-arrow">↓</div>
+    <div class="dep-node">FP-001: Boundary Proof</div>
+    <div class="dep-arrow">↓</div>
+    <div class="dep-node">FP-002: Master Equation</div>
+    <div class="dep-arrow">↓</div>
+    <div class="dep-node core">FP-005: THIS PAPER</div>
+    <div class="dep-arrow">↓</div>
+    <div class="dep-node">PRED-001 → 004</div>
+    <div class="dep-arrow">↓</div>
+    <div class="dep-node">OP1 / OP2 / OP3</div>
+  </div>
+
+  <h3 style="margin-top:1.25rem;">Quick Actions</h3>
+  <a href="#" class="action-btn"><i class="fas fa-file-pdf"></i> Export PDF</a>
+  <a href="#" class="action-btn"><i class="fas fa-chart-bar"></i> View 7Q Analysis</a>
+  <a href="#" class="action-btn"><i class="fas fa-link"></i> Copy Citation</a>
+  <a href="#" class="action-btn"><i class="fas fa-code"></i> View Raw JSON</a>
+  <a href="#" class="action-btn" style="border-color:var(--gold);color:var(--gold);"><i class="fas fa-link"></i> Download .lean</a>
+</aside>
+
+</div>
+
+<script>
+<!-- END:SECTION:layout-shell -->
+// Framework tab switching
+function toggleFramework(fw) {
+  // Close all panels
+  document.querySelectorAll('.fw-panel').forEach(p => p.classList.remove('open'));
+  document.querySelectorAll('.fw-tab').forEach(t => t.classList.remove('active'));
+  
+  // Open selected panel
+  const panel = document.getElementById('panel-' + fw);
+  const tab = document.querySelector('.fw-tab[data-fw="' + fw + '"]');
+  if (panel && tab) {
+    panel.classList.add('open');
+    tab.classList.add('active');
+  }
+}
+
+function closeFramework(fw) {
+  const panel = document.getElementById('panel-' + fw);
+  const tab = document.querySelector('.fw-tab[data-fw="' + fw + '"]');
+  if (panel && tab) {
+    panel.classList.remove('open');
+    tab.classList.remove('active');
+  }
+}
+
+// API endpoint placeholders
+const API_ENDPOINTS = {
+  decisionTree: '/api/decision-tree',
+  classify7Q: '/api/classify',
+  swapTest: '/api/swap-test',
+  ckgScore: '/api/ckg-score',
+  fruitsScore: '/api/fruits-score',
+  leanVerify: '/api/lean-verify'
+};
+
+// Example: how to wire an API call
+async function callDecisionTree(paperText) {
+  try {
+    const response = await fetch(API_ENDPOINTS.decisionTree, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ paper_text: paperText, header: 'God' })
+    });
+    return await response.json();
+  } catch (e) {
+    console.log('API not connected yet');
+    return null;
+  }
+}
+
+// Check API status (placeholder)
+function checkApiStatus() {
+  const status = document.getElementById('apiStatus');
+  // In production, ping /api/health
+  // For now, show offline until backend is wired
+  status.textContent = 'API: Offline';
+  status.className = 'api-status disconnected';
+}
+
+checkApiStatus();
+</script>
+
+<!-- ============================================================
+     GraphSurface — JSON-only graph surface (no backend/orchestrator).
+     Loads the data contract, normalizes it, renders with Cytoscape.
+
+     DATA CONTRACT — manifest-driven (treaties.knowledge_graph.v0).
+     The page reads ONE manifest, then loads exactly what its `files` block names.
+       manifest : graph-contract-latest.json  (or inline <script id="data-graph-contract">)
+         files.series_knowledge_graph -> corpus graph   {nodes:[],edges:[]}   (Whole-corpus scope)
+         files.paper_knowledge_graphs -> [{paper_id,paper_title,file}]         (Per-paper scope, lazy)
+         files.structured_export      -> latest.json  {papers:[{id,uuid_metadata{series},axiom_mappings}], axioms:[]}
+         files.seven_q_claims         -> seven-q-claims-latest.json            (optional enrichment)
+       Graph nodes: {id:"paper:5"|"claim:96"|"axiom:2"|"evidence:95"|"category:x"|"series:all",
+                     type:Paper|Claim|Axiom|Evidence|Category|Series, label, ...}
+       Graph edges: {source,target,type:PAPER_HAS_CLAIM|CLAIM_SUPPORTED_BY_EVIDENCE|..., strength?}
+     Where the JSON lives: window.GRAPH_DATA_BASE or <meta name="graph-data-base" content="...">
+       (default = same folder as this page). Each file may also be inlined as
+       <script type="application/json" id="data-file:<filename>">.
+     No manifest? Falls back to generic graph.json / graph_nodes.json / graph_edges.json + inline.
+     Node `type` is colored: paper/claim/axiom/evidence/category/series/prediction/open_problem.
+     Missing files degrade gracefully (status dot + empty state); never blocks the page.
+     ============================================================ -->
+<script>
+window.GraphSurface = (function(){
+  "use strict";
+
+  // Manifest-driven: read Treaties' graph-contract (treaties.knowledge_graph.v0),
+  // then load exactly what its `files` block points to. Inline overrides win.
+  const MANIFEST_CANDIDATES = ['graph-contract-latest.json','graph-contract.json'];
+  // Standalone fallback names, used only when no manifest is present.
+  const FALLBACK = { graph:'graph.json', graph_nodes:'graph_nodes.json', graph_edges:'graph_edges.json', ua:'understand-anything/knowledge-graph.json' };
+
+  const TYPE_COLORS = {
+    axiom:'#d4af37', paper:'#3b82f6', claim:'#14b8a6', prediction:'#8b7fc2',
+    evidence:'#22c55e', open_problem:'#c94040', op:'#c94040', kill:'#c94040',
+    operator:'#e0a458', concept:'#6b7280', node:'#6b7280', category:'#7c6f9c', series:'#e0a458', keyword:'#6b7a8c',
+    file:'#3b82f6', function:'#14b8a6', class:'#8b7fc2', module:'#d4af37', folder:'#6b7280'
+  };
+  const colorFor = t => TYPE_COLORS[String(t||'').toLowerCase()] || '#6b7280';
+
+  const state = {
+    status:{}, cy:null,
+    view:'knowledge', scope:'corpus',
+    manifest:null, papers:[], currentPaper:null,
+    corpus:null, structured:null, sevenQ:null, ua:null,
+    paperGraphCache:{},
+    paperId:null, paperTitle:null, series:null,
+    ready:false
+  };
+
+  /* ---------- loading (manifest-driven) ---------- */
+  function readInline(id){
+    const el = document.getElementById(id);
+    if(!el) return undefined;
+    try { return JSON.parse(el.textContent); } catch(e){ return undefined; }
+  }
+  async function readFile(path){
+    try {
+      const r = await fetch(path, {cache:'no-store'});
+      if(!r.ok) return {__missing:true};
+      return await r.json();
+    } catch(e){ return {__error:true}; }
+  }
+  function withSlash(b){ return (!b || b.endsWith('/')) ? (b||'') : b+'/'; }
+  // Where the contract JSON lives, relative to this page. Override with
+  // window.GRAPH_DATA_BASE or <meta name="graph-data-base" content="...">.
+  function dataBase(){
+    if(window.GRAPH_DATA_BASE!=null) return withSlash(window.GRAPH_DATA_BASE);
+    const m=document.querySelector('meta[name="graph-data-base"]');
+    return withSlash((m && m.content) || '');
+  }
+  async function fetchJSON(file){           // inline <script id="data-file:<name>"> wins, else fetch base+file
+    const inline = readInline('data-file:'+file);
+    if(inline!==undefined) return {data:inline, via:'inline'};
+    const res = await readFile(dataBase()+file);
+    if(res && (res.__missing||res.__error)) return {data:null, via: res.__missing?'missing':'error'};
+    return {data:res, via:'loaded'};
+  }
+
+  function readStructure(){
+    const s = readInline('theophysics-structure');
+    if(s){ state.paperId = s.uuid||s.paper_id||null; state.paperTitle = s.title||state.paperId; state.series = s.series||null; }
+  }
+
+  async function loadManifest(){
+    const inline = readInline('data-graph-contract');
+    if(inline!==undefined){ state.status.manifest='inline'; return inline; }
+    for(const name of MANIFEST_CANDIDATES){
+      const res = await readFile(dataBase()+name);
+      if(res && !res.__missing && !res.__error){ state.status.manifest='loaded'; return res; }
+    }
+    state.status.manifest='missing'; return null;
+  }
+
+  async function loadAll(){
+    readStructure();
+    const man = await loadManifest();
+    if(man){
+      state.manifest = man;
+      const f = man.files || {};
+      state.papers = (f.paper_knowledge_graphs||[]).map(p=>({id:p.paper_id, title:p.paper_title, file:p.file}));
+      const match = state.papers.find(p=> String(p.title||'')===String(state.paperTitle||''));
+      state.currentPaper = (match || state.papers[0] || {}).id;
+      if(state.currentPaper===undefined) state.currentPaper=null;
+      const [cg, sx, sq] = await Promise.all([
+        f.series_knowledge_graph ? fetchJSON(f.series_knowledge_graph) : {data:null,via:'missing'},
+        f.structured_export      ? fetchJSON(f.structured_export)      : {data:null,via:'missing'},
+        f.seven_q_claims         ? fetchJSON(f.seven_q_claims)         : {data:null,via:'missing'}
+      ]);
+      state.corpus=cg.data;       state.status.graph=cg.via;
+      state.structured=sx.data;   state.status.structured=sx.via;
+      state.sevenQ=sq.data;       state.status.seven_q=sq.via;
+      state.status.dependencies = state.papers.length ? 'loaded' : 'missing';
+      state.status.ua = 'optional'; // understand_anything adapter known-but-not-ingested per contract
+    } else {
+      // standalone fallback: generic guessed names + inline blocks
+      const [g,gn,ge,ua] = await Promise.all([
+        fetchJSON(FALLBACK.graph), fetchJSON(FALLBACK.graph_nodes), fetchJSON(FALLBACK.graph_edges), fetchJSON(FALLBACK.ua)
+      ]);
+      state.corpus = g.data || ((gn.data||ge.data) ? {nodes:(gn.data&&(gn.data.nodes||gn.data))||[], edges:(ge.data&&(ge.data.edges||ge.data))||[]} : null);
+      state.ua = ua.data;
+      state.status.graph = g.via!=='missing'?g.via:(gn.via!=='missing'?gn.via:'missing');
+      state.status.dependencies = state.corpus ? 'inline' : 'missing';
+      state.status.ua = ua.data ? ua.via : 'optional';
+    }
+    state.ready = true;
+    populatePlaceholders();
+    refreshLauncher();
+  }
+
+  async function paperGraph(id){
+    if(id==null) return null;
+    if(state.paperGraphCache[id]) return state.paperGraphCache[id];
+    const entry = (state.papers||[]).find(p=>String(p.id)===String(id));
+    if(!entry) return null;
+    const r = await fetchJSON(entry.file);
+    if(!r.data) return null;
+    const g = { nodes: normNodes(r.data), edges: normEdges(r.data) };
+    state.paperGraphCache[id]=g; return g;
+  }
+
+  /* ---------- normalizers ---------- */
+  function asArray(x, keys){
+    if(!x) return [];
+    if(Array.isArray(x)) return x;
+    for(const k of keys){ if(Array.isArray(x[k])) return x[k]; }
+    return [];
+  }
+  function normNodes(raw){
+    return asArray(raw,['nodes','data','items']).map(n=>{
+      if(n && n.data && (n.data.id!==undefined)) n = n.data; // cytoscape-style
+      const id = String(n.id ?? n.uuid ?? n.key ?? n.name ?? '');
+      return { id,
+        label: String(n.label ?? n.name ?? n.title ?? id),
+        type: String(n.type ?? n.group ?? n.kind ?? n.category ?? 'node').toLowerCase(),
+        paper_id: n.paper_id ?? n.paperId ?? n.paper ?? null,
+        series: n.series ?? n.collection ?? null,
+        raw: n };
+    }).filter(n=>n.id);
+  }
+  function normEdges(raw){
+    return asArray(raw,['edges','links','relationships']).map((e,i)=>{
+      if(e && e.data && (e.data.source!==undefined)) e = e.data;
+      return {
+        id: String(e.id ?? ('e'+i)),
+        source: String(e.source ?? e.from ?? e.src ?? e.s ?? ''),
+        target: String(e.target ?? e.to ?? e.tgt ?? e.t ?? ''),
+        type: String(e.type ?? e.label ?? e.rel ?? 'link').toLowerCase(),
+        raw: e };
+    }).filter(e=>e.source && e.target);
+  }
+
+  /* ---------- per-view data ---------- */
+  function corpusData(){
+    if(!state.corpus) return {nodes:[],edges:[]};
+    return { nodes: normNodes(state.corpus), edges: normEdges(state.corpus) };
+  }
+  function seriesOf(paperId){
+    if(state.structured && Array.isArray(state.structured.papers)){
+      const p=state.structured.papers.find(x=>String(x.id)===String(paperId));
+      if(p && p.uuid_metadata) return p.uuid_metadata.series || null;
+    }
+    return state.series || null;
+  }
+  function seriesPaperIds(series){
+    if(!series || !state.structured || !Array.isArray(state.structured.papers)) return null;
+    const ids = state.structured.papers
+      .filter(p=>p.uuid_metadata && String(p.uuid_metadata.series)===String(series))
+      .map(p=>'paper:'+p.id);
+    return ids.length ? new Set(ids) : null;
+  }
+  function seriesFilter(corpus){
+    const ids = seriesPaperIds(seriesOf(state.currentPaper));
+    if(!ids) return corpus;                 // unknown series → show whole corpus (documented)
+    // DIRECTED traversal (paper -> claim -> category/evidence/keyword/axiom). Following only
+    // outgoing edges keeps each paper's subtree from leaking into sibling-series papers via
+    // shared hub nodes (e.g. category:problem, a shared axiom).
+    const keep = bfs2(ids, buildAdjOut(corpus.edges), 4);
+    return filterByNodeSet(corpus.nodes, corpus.edges, keep);
+  }
+  function uaData(){
+    if(!state.ua) return {nodes:[],edges:[]};
+    return { nodes: normNodes(state.ua), edges: normEdges(state.ua) };
+  }
+  // Last-resort dependency view when no per-paper graph exists: the embedded sidebar chain.
+  function depFallback(){
+    const nodes=[], edges=[], seen=new Set();
+    const add=(id,label,type)=>{ id=String(id); if(!id||seen.has(id))return; seen.add(id); nodes.push({id,label:label||id,type:type||'node'}); };
+    const link=(a,b)=>{ if(a&&b&&String(a)!==String(b)) edges.push({id:'d'+edges.length,source:String(a),target:String(b),type:'depends_on'}); };
+    const mini=document.querySelectorAll('#depGraphMini .dep-node'); let prev=null;
+    mini.forEach((el,i)=>{
+      const label=el.textContent.trim(); const id=(label.split(':')[0]||('n'+i)).trim();
+      const t=el.classList.contains('core')?'paper':/^A\d/.test(id)?'axiom':/^FP/.test(id)?'paper':/PRED/i.test(label)?'prediction':/OP/i.test(label)?'open_problem':'concept';
+      add(id,label,t); if(prev) link(prev,id); prev=id;
+    });
+    return {nodes,edges};
+  }
+
+  /* ---------- scope filtering (knowledge view) ---------- */
+  function buildAdj(edges){
+    const adj=new Map();
+    edges.forEach(e=>{
+      if(!adj.has(e.source)) adj.set(e.source,new Set());
+      if(!adj.has(e.target)) adj.set(e.target,new Set());
+      adj.get(e.source).add(e.target); adj.get(e.target).add(e.source);
+    });
+    return adj;
+  }
+  function buildAdjOut(edges){            // directed: source -> target only
+    const adj=new Map();
+    edges.forEach(e=>{ if(!adj.has(e.source)) adj.set(e.source,new Set()); adj.get(e.source).add(e.target); });
+    return adj;
+  }
+  function bfs(start, adj, hops){
+    const keep=new Set([start]); let frontier=[start];
+    for(let h=0; h<hops; h++){
+      const next=[];
+      frontier.forEach(id=>{ (adj.get(id)||[]).forEach(nb=>{ if(!keep.has(nb)){ keep.add(nb); next.push(nb);} }); });
+      frontier=next; if(!frontier.length) break;
+    }
+    return keep;
+  }
+  function filterByNodeSet(nodes,edges,keep){
+    const N = nodes.filter(n=>keep.has(n.id));
+    const E = edges.filter(e=>keep.has(e.source)&&keep.has(e.target));
+    return {nodes:N, edges:E, dropped: edges.length - E.length};
+  }
+  function bfs2(starts, adj, hops){
+    const keep=new Set(); let frontier=[];
+    starts.forEach(s=>{ keep.add(s); frontier.push(s); });
+    for(let h=0; h<hops; h++){
+      const next=[];
+      frontier.forEach(id=>{ (adj.get(id)||[]).forEach(nb=>{ if(!keep.has(nb)){ keep.add(nb); next.push(nb); } }); });
+      frontier=next; if(!frontier.length) break;
+    }
+    return keep;
+  }
+  // Resolve the elements for the active view+scope (per-paper graphs load on demand).
+  async function currentViewData(){
+    if(state.view==='ua') return uaData();
+    if(state.view==='dependencies'){ const g=await paperGraph(state.currentPaper); return (g && g.nodes.length) ? g : depFallback(); }
+    if(state.scope==='paper'){ const g=await paperGraph(state.currentPaper); return g || {nodes:[],edges:[]}; }
+    const corpus=corpusData();
+    if(!corpus.nodes.length) return corpus;
+    if(state.scope==='series') return seriesFilter(corpus);
+    return corpus;
+  }
+
+  /* ---------- cytoscape ---------- */
+  function toCyElements(data){
+    const ids=new Set(data.nodes.map(n=>n.id));
+    const els=[];
+    data.nodes.forEach(n=> els.push({ data:{ id:n.id, label:n.label, type:n.type, color:colorFor(n.type),
+      isPaper: (String(n.id)===String(state.paperId)) ? 1:0, _raw:n.raw||n } }));
+    data.edges.filter(e=>ids.has(e.source)&&ids.has(e.target)).forEach(e=>
+      els.push({ data:{ id:e.id, source:e.source, target:e.target, type:e.type, _raw:e.raw||e } }));
+    return els;
+  }
+  const CY_STYLE = [
+    { selector:'node', style:{
+        'background-color':'data(color)', 'label':'data(label)', 'color':'#cfcfcf',
+        'font-size':'9px', 'font-family':'Inter, sans-serif', 'text-wrap':'wrap', 'text-max-width':'90px',
+        'text-valign':'bottom', 'text-margin-y':'4px', 'width':'22px', 'height':'22px',
+        'border-width':1, 'border-color':'rgba(255,255,255,0.15)' } },
+    { selector:'node[?isPaper]', style:{ 'width':'34px','height':'34px','border-width':2,'border-color':'#d4af37','font-size':'11px','color':'#e0e0e0' } },
+    { selector:'edge', style:{
+        'width':1.1, 'line-color':'rgba(255,255,255,0.18)', 'target-arrow-color':'rgba(255,255,255,0.3)',
+        'target-arrow-shape':'triangle', 'arrow-scale':0.7, 'curve-style':'bezier' } },
+    { selector:'.dim', style:{ 'opacity':0.12 } },
+    { selector:'.hi', style:{ 'border-color':'#d4af37','border-width':3,'opacity':1 } },
+    { selector:'edge.hi', style:{ 'line-color':'#d4af37','target-arrow-color':'#d4af37','width':2,'opacity':1 } }
+  ];
+  function layoutFor(view){
+    if(view==='dependencies') return { name:'breadthfirst', directed:true, padding:30, spacingFactor:1.25, animate:false };
+    return { name:'cose', padding:30, animate:false, nodeRepulsion:8000, idealEdgeLength:80, nestingFactor:0.9 };
+  }
+
+  async function render(){
+    const canvas=document.getElementById('graphCanvas');
+    if(!window.cytoscape){
+      return showEmpty('fa-plug','Graph renderer offline',
+        'Cytoscape did not load from the CDN. Reconnect, or vendor <code>cytoscape.min.js</code> next to this file.');
+    }
+    let data;
+    try { data = await currentViewData(); } catch(e){ data={nodes:[],edges:[]}; }
+    if(!data || !data.nodes.length){
+      if(state.view==='ua') return showEmpty('fa-cubes','Understand-Anything graph not attached',
+        'Optional adapter <code>understand_anything</code> is a known path but not yet ingested by the workflow.');
+      if(state.view==='dependencies') return showEmpty('fa-sitemap','No dependency data',
+        'Pick a paper that has extracted claims/axioms, or provide the structured export.');
+      if(state.scope==='paper') return showEmpty('fa-file','No graph for this paper',
+        'This paper has no extracted nodes yet. Pick another paper, or switch scope to Whole-corpus.');
+      return showEmpty('fa-circle-nodes','No knowledge graph data',
+        'No <code>graph-contract</code> manifest or corpus graph was found. Set <code>window.GRAPH_DATA_BASE</code> to the exports/json folder (or inline the data).');
+    }
+    hideEmpty();
+    if(state.cy){ state.cy.destroy(); state.cy=null; }
+    state.cy = cytoscape({ container:canvas, elements:toCyElements(data), style:CY_STYLE,
+      layout:layoutFor(state.view), wheelSensitivity:0.2, minZoom:0.08, maxZoom:3 });
+    state.cy.on('tap','node', e=> selectNode(e.target));
+    state.cy.on('tap', e=>{ if(e.target===state.cy) clearDetails(); });
+    updateCount(data, '');
+    buildLegend(data);
+  }
+
+  /* ---------- details / search / legend ---------- */
+  function selectNode(node){
+    state.cy.elements().removeClass('dim hi');
+    const nb=node.closedNeighborhood();
+    state.cy.elements().not(nb).addClass('dim');
+    nb.addClass('hi');
+    const d=node.data(), raw=d._raw||{};
+    const skip=new Set(['id','label','type','color','isPaper','_raw','source','target','paper_id','series']);
+    let rows='';
+    if(d.paper_id||raw.paper_id) rows+=row('paper', d.paper_id||raw.paper_id);
+    if(raw.series) rows+=row('series', raw.series);
+    Object.keys(raw).forEach(k=>{ if(!skip.has(k)){ const v=raw[k]; if(v!=null && typeof v!=='object') rows+=row(k, v); } });
+    const neigh=node.neighborhood('node').map(n=>({id:n.id(),label:n.data('label')}));
+    let nb_html='';
+    if(neigh.length){
+      nb_html='<div class="gd-neighbors"><h4>Connected ('+neigh.length+')</h4>'+
+        neigh.slice(0,40).map(n=>'<span class="gd-nb" onclick="GraphSurface.focus(\''+esc(n.id)+'\')">'+escHtml(n.label)+'</span>').join('')+
+        (neigh.length>40?'<div class="gd-empty">+'+(neigh.length-40)+' more</div>':'')+'</div>';
+    }
+    document.getElementById('goDetails').innerHTML =
+      '<h4>Node Details</h4>'+
+      '<span class="gd-type" style="color:'+colorFor(d.type)+'">'+escHtml(d.type)+'</span>'+
+      '<div class="gd-title">'+escHtml(d.label)+'</div>'+
+      '<div class="gd-row"><span class="k">id</span><span class="v">'+escHtml(d.id)+'</span></div>'+
+      rows + nb_html;
+  }
+  const row=(k,v)=>'<div class="gd-row"><span class="k">'+escHtml(k)+'</span><span class="v">'+escHtml(String(v))+'</span></div>';
+  function clearDetails(){
+    if(state.cy) state.cy.elements().removeClass('dim hi');
+    document.getElementById('goDetails').innerHTML='<h4>Node Details</h4><div class="gd-empty">Click a node to inspect its claims, axioms, and links.</div>';
+  }
+  function focus(id){
+    if(!state.cy) return; const n=state.cy.getElementById(id);
+    if(n && n.length){ selectNode(n); state.cy.animate({center:{eles:n}, zoom:1.3}, {duration:250}); }
+  }
+  function search(q){
+    if(!state.cy) return; q=(q||'').trim().toLowerCase();
+    state.cy.elements().removeClass('dim hi');
+    if(!q) return;
+    const match=state.cy.nodes().filter(n=> (n.data('label')||'').toLowerCase().includes(q) || (n.id()||'').toLowerCase().includes(q));
+    if(!match.length){ state.cy.nodes().addClass('dim'); return; }
+    state.cy.elements().addClass('dim'); match.removeClass('dim').addClass('hi');
+  }
+  function buildLegend(data){
+    const types=[...new Set(data.nodes.map(n=>n.type))].slice(0,8);
+    document.getElementById('goLegend').innerHTML =
+      types.map(t=>'<div class="lg-row"><span class="lg-swatch" style="background:'+colorFor(t)+'"></span>'+escHtml(t)+'</div>').join('') || '';
+  }
+  function updateCount(data, note){
+    document.getElementById('goCount').textContent =
+      data.nodes.length+' nodes · '+data.edges.length+' edges'+(note?(' · '+note):'');
+  }
+  function showEmpty(icon,title,msg){
+    if(state.cy){ state.cy.destroy(); state.cy=null; }
+    const e=document.getElementById('goEmpty');
+    e.style.display='flex';
+    e.innerHTML='<i class="fas '+icon+'"></i><div class="es-title">'+title+'</div><div style="max-width:420px">'+msg+'</div>';
+    document.getElementById('goCount').textContent='';
+    document.getElementById('goLegend').innerHTML='';
+  }
+  function hideEmpty(){ document.getElementById('goEmpty').style.display='none'; }
+  const escHtml=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const esc=s=>String(s).replace(/'/g,"\\'");
+
+  /* ---------- launcher / placeholders ---------- */
+  function dotClass(status){ return ['inline','loaded','missing','error','optional'].includes(status)?status:'missing'; }
+  function refreshLauncher(){
+    const kStatus = state.status.graph || 'missing';
+    const dStatus = state.status.dependencies || 'missing';
+    const uStatus = state.status.ua || 'optional';
+    setDot('dot-knowledge', dotClass(kStatus));
+    setDot('dot-dependencies', dotClass(dStatus));
+    setDot('dot-ua', dotClass(uStatus));
+    const sym=s=>({inline:'◐',loaded:'✓',missing:'✗',error:'!',optional:'—'}[s]||'✗');
+    document.getElementById('glStatus').innerHTML =
+      'contract '+sym(state.status.manifest||'missing')+
+      ' · graph '+sym(kStatus)+
+      ' · papers '+((state.papers&&state.papers.length)||0)+
+      ' · ua '+sym(uStatus);
+  }
+  function setDot(id,cls){ const el=document.getElementById(id); if(el) el.className='gl-dot '+cls; }
+
+  function populatePlaceholders(){
+    // This page's own panels (FP-005) stay static unless the structured export
+    // clearly describes THIS paper by uuid. Avoids overwriting it with another
+    // paper's axioms. The multi-paper explorer lives in the overlay.
+    if(!state.structured || !Array.isArray(state.structured.papers)) return;
+    const me = state.structured.papers.find(p=> p.uuid_metadata && p.uuid_metadata.uuid===state.paperId);
+    if(!me) return;
+    const box=document.getElementById('axiomPanelData');
+    const mappings = Array.isArray(me.axiom_mappings) ? me.axiom_mappings : [];
+    if(box && mappings.length){
+      let html='<h4 style="margin-bottom:0.75rem;display:flex;justify-content:space-between;align-items:center;">This Paper\'s Axioms'+
+        '<span class="graph-open-link" onclick="GraphSurface.open(\'dependencies\')"><i class="fas fa-sitemap"></i> Open axiom graph</span></h4>';
+      mappings.forEach(m=>{ const id=m.axiom_id||m.id||''; const name=m.axiom_name||m.name||m.label||'';
+        html+='<div class="data-row"><span class="data-label">'+escHtml(String(id))+'</span><span class="data-value">'+escHtml(String(name))+'</span></div>'; });
+      html+='<div class="data-row"><span class="data-label">Mapped</span><span class="data-value green">'+mappings.length+'</span></div>';
+      box.innerHTML=html;
+    }
+  }
+
+  function updateScopeAvailability(){
+    const inKnowledge = state.view==='knowledge';
+    const hasCorpus = !!state.corpus;
+    const hasPaper  = state.currentPaper!=null && state.papers && state.papers.length>0;
+    const hasSeries = hasCorpus && !!seriesPaperIds(seriesOf(state.currentPaper));
+    document.querySelectorAll('.go-scope-btn').forEach(b=>{
+      const sc=b.dataset.scope; let enabled=inKnowledge;
+      if(sc==='paper')  enabled = inKnowledge && hasPaper;
+      if(sc==='series') enabled = inKnowledge && hasSeries;
+      if(sc==='corpus') enabled = inKnowledge && hasCorpus;
+      b.disabled=!enabled;
+      b.classList.toggle('active', sc===state.scope && inKnowledge);
+    });
+  }
+
+  /* ---------- public controls ---------- */
+  function populatePaperPicker(){
+    const sel=document.getElementById('goPaper'); if(!sel) return;
+    const show = state.papers && state.papers.length>0 && state.view!=='ua';
+    sel.style.display = show ? '' : 'none';
+    if(!show) return;
+    sel.innerHTML = state.papers.map(p=>'<option value="'+escHtml(String(p.id))+'">'+escHtml('['+p.id+'] '+(p.title||p.id))+'</option>').join('');
+    if(state.currentPaper!=null) sel.value=String(state.currentPaper);
+  }
+  function syncTabs(){
+    document.querySelectorAll('.go-tab').forEach(t=> t.classList.toggle('active', t.dataset.view===state.view));
+    const titles={knowledge:'Knowledge Graph', dependencies:'Dependency Graph', ua:'Understand-Anything'};
+    document.getElementById('goTitle').textContent=titles[state.view]||'Graph';
+    populatePaperPicker();
+    updateScopeAvailability();
+  }
+  function open(view){
+    if(view) state.view=view;
+    document.getElementById('graphOverlay').classList.add('open');
+    document.body.style.overflow='hidden';
+    const go=()=>{ syncTabs(); const s=document.getElementById('goSearch'); if(s) s.value=''; render(); };
+    if(state.ready) go(); else loadAll().then(go);
+  }
+  function close(){
+    document.getElementById('graphOverlay').classList.remove('open');
+    document.body.style.overflow='';
+    if(state.cy){ state.cy.destroy(); state.cy=null; }
+  }
+  function setView(v){ state.view=v; syncTabs(); document.getElementById('goSearch').value=''; render(); }
+  function setScope(s){ state.scope=s; updateScopeAvailability(); render(); }
+  function setPaper(id){ state.currentPaper=id; render(); }
+  function fit(){ if(state.cy) state.cy.fit(undefined, 40); }
+  function toggleLauncher(){ document.getElementById('graphLauncher').classList.toggle('collapsed'); }
+
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') close(); });
+
+  // preload sources in the background so launcher dots are accurate
+  document.addEventListener('DOMContentLoaded', loadAll);
+  if(document.readyState!=='loading') loadAll();
+
+  return { open, close, setView, setScope, setPaper, fit, search, focus, toggleLauncher };
+})();
+</script>
+
+</body>
+</html>

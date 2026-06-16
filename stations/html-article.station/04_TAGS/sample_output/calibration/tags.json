@@ -1,0 +1,170 @@
+{
+  "protocol_version": "0.1.0",
+  "lane": "04_TAGS",
+  "run_id": "2026-05-22T20:00:00Z",
+  "worker": "claude-code-worker-2",
+  "paper_uuid": "MOCK-paper-uuid-calibration-pilot-preflight",
+  "page_id": "MOCK-page-id-calibration-pilot-preflight",
+  "source_file": "00_DROP/CALIBRATION_pilot-preflight-checklist.md",
+  "provenance": {
+    "mocked": true,
+    "reason": "Upstream 02_SECTION_MAP and 03_YAML_METADATA not yet produced (worker-1 round-1 owns these). Lane synthesized section map locally from raw drop headings.",
+    "section_map_source": "lane-04-local-mock"
+  },
+  "vector_recomputed": "G3M3E0S0T3K3R3Q0F0C0",
+  "vector_from_lane_02": null,
+  "address_status": "MOCKED",
+  "semantic_address": "AVIATION/PILOT_PRE_FLIGHT_CHECKLIST/F/TEAM/I/R4",
+  "semantic_hash_recomputed": "G3-Q0-K3-S0-M3-F0-T3-C0-R3-E0",
+  "dominant_chi_vars": ["chi_G","chi_M","chi_T","chi_K","chi_R"],
+  "dominant_laws": [],
+  "domain_badges": ["AVIATION","SAFETY","PROCEDURE"],
+  "page_tags": [
+    {
+      "tag_id": "tag-cal-page-domain-aviation",
+      "tag_type": "domain_badge",
+      "label": "AVIATION",
+      "block_id": null,
+      "source_quote": "This document is a final operational checklist for pilots before takeoff.",
+      "chi_vars": [],
+      "master_equation_uuid": "",
+      "meta": {"confidence": 0.98, "rule": "keyword"}
+    },
+    {
+      "tag_id": "tag-cal-page-domain-safety",
+      "tag_type": "domain_badge",
+      "label": "SAFETY",
+      "block_id": null,
+      "source_quote": "Failure to complete this checklist could lead to aircraft malfunction, communication failure, or unsafe takeoff.",
+      "chi_vars": [],
+      "master_equation_uuid": "",
+      "meta": {"confidence": 0.95, "rule": "keyword"}
+    },
+    {
+      "tag_id": "tag-cal-page-domain-procedure",
+      "tag_type": "domain_badge",
+      "label": "PROCEDURE",
+      "block_id": null,
+      "source_quote": "The checklist must be completed in order.",
+      "chi_vars": [],
+      "master_equation_uuid": "",
+      "meta": {"confidence": 0.92, "rule": "keyword"}
+    },
+    {
+      "tag_id": "tag-cal-page-workflow-calibration",
+      "tag_type": "workflow",
+      "label": "calibration-input",
+      "block_id": null,
+      "source_quote": null,
+      "chi_vars": [],
+      "master_equation_uuid": "",
+      "meta": {"confidence": 1.0, "rule": "lane-04-known-asset"}
+    }
+  ],
+  "section_tags": {
+    "sec_01_pilot-pre-flight-checklist-intro": [
+      {
+        "tag_id": "tag-cal-s01-chi-G",
+        "tag_type": "chi_var",
+        "label": "chi_G",
+        "block_id": "sec_01_pilot-pre-flight-checklist-intro",
+        "source_quote": "This document is a final operational checklist for pilots before takeoff.",
+        "chi_vars": ["chi_G"],
+        "master_equation_uuid": "",
+        "meta": {"confidence": 0.9, "rule": "authority-language: 'operational checklist', 'before takeoff'"}
+      },
+      {
+        "tag_id": "tag-cal-s01-chi-K",
+        "tag_type": "chi_var",
+        "label": "chi_K",
+        "block_id": "sec_01_pilot-pre-flight-checklist-intro",
+        "source_quote": "ensure that the aircraft, crew, instruments, fuel, communication systems, and safety controls are ready before flight.",
+        "chi_vars": ["chi_K"],
+        "master_equation_uuid": "",
+        "meta": {"confidence": 0.85, "rule": "structured-knowledge: enumerated fields"}
+      }
+    ],
+    "sec_02_checklist": [
+      {
+        "tag_id": "tag-cal-s02-chi-T",
+        "tag_type": "chi_var",
+        "label": "chi_T",
+        "block_id": "sec_02_checklist",
+        "source_quote": "The checklist must be completed in order.",
+        "chi_vars": ["chi_T"],
+        "master_equation_uuid": "",
+        "meta": {"confidence": 0.95, "rule": "temporal-sequence: 'in order'"}
+      },
+      {
+        "tag_id": "tag-cal-s02-chi-M",
+        "tag_type": "chi_var",
+        "label": "chi_M",
+        "block_id": "sec_02_checklist",
+        "source_quote": "Confirm aircraft identity and flight number. Verify fuel level. Inspect engine status.",
+        "chi_vars": ["chi_M"],
+        "master_equation_uuid": "",
+        "meta": {"confidence": 0.9, "rule": "procedural action verbs"}
+      },
+      {
+        "tag_id": "tag-cal-s02-chi-R",
+        "tag_type": "chi_var",
+        "label": "chi_R",
+        "block_id": "sec_02_checklist",
+        "source_quote": "aircraft identity, fuel, engine, navigation instruments, radio, weather, runway, crew, emergency procedures, takeoff authorization.",
+        "chi_vars": ["chi_R"],
+        "master_equation_uuid": "",
+        "meta": {"confidence": 0.9, "rule": "multi-system coordination (entity count > 3)"}
+      },
+      {
+        "tag_id": "tag-cal-s02-workflow-operational",
+        "tag_type": "workflow",
+        "label": "operational",
+        "block_id": "sec_02_checklist",
+        "source_quote": null,
+        "chi_vars": [],
+        "master_equation_uuid": "",
+        "meta": {"confidence": 0.95, "rule": "imperative + numbered procedure"}
+      }
+    ],
+    "sec_03_kill-condition": [
+      {
+        "tag_id": "tag-cal-s03-workflow-kill",
+        "tag_type": "workflow",
+        "label": "kill-condition",
+        "block_id": "sec_03_kill-condition",
+        "source_quote": "This checklist fails if pilots cannot determine whether a required safety item passed or failed.",
+        "chi_vars": [],
+        "master_equation_uuid": "",
+        "meta": {"confidence": 1.0, "rule": "explicit fail clause"}
+      },
+      {
+        "tag_id": "tag-cal-s03-chi-G",
+        "tag_type": "chi_var",
+        "label": "chi_G",
+        "block_id": "sec_03_kill-condition",
+        "source_quote": "checklist fails if pilots cannot determine whether a required safety item passed or failed.",
+        "chi_vars": ["chi_G"],
+        "master_equation_uuid": "",
+        "meta": {"confidence": 0.85, "rule": "go/no-go authority"}
+      }
+    ],
+    "sec_04_risk": [
+      {
+        "tag_id": "tag-cal-s04-chi-G",
+        "tag_type": "chi_var",
+        "label": "chi_G",
+        "block_id": "sec_04_risk",
+        "source_quote": "Failure to complete this checklist could lead to aircraft malfunction, communication failure, or unsafe takeoff.",
+        "chi_vars": ["chi_G"],
+        "master_equation_uuid": "",
+        "meta": {"confidence": 0.9, "rule": "consequence/authority phrasing"}
+      }
+    ]
+  },
+  "loopback_required": false,
+  "notes": [
+    "Calibration article — no Law_X tags expected; not a Theophysics article.",
+    "C must be 0 — checklists are coherent but synthesis is not their dominant function. Recomputed vector confirms C=0.",
+    "When 02_SECTION_MAP lands, replace mocked section_ids and re-emit. Sample is structurally aligned to expected SemanticTag schema."
+  ]
+}

@@ -1,0 +1,27 @@
+﻿model_id: roberta_large_nli
+provider: huggingface
+role: nli_secondary
+status: active
+
+runtime:
+  engine: transformers
+  repo_id: ynie/roberta-large-snli_mnli_fever_anli_R1_R2_R3-nli
+  local_assets_path: X:\\knowledge-refinery\\BACKSIDE\MODELS\_MODELS\HF_SNAPSHOTS\roberta_large_nli
+
+capabilities:
+  - nli
+  - contradiction_detection
+
+station_use:
+  - 07_7qs_reverse
+  - 09_science_checker
+
+healthcheck:
+  prompt: "Return JSON: {\"status\":\"ok\"}"
+  expected_contains: "\"status\""
+
+outputs:
+  required_format: json
+
+
+

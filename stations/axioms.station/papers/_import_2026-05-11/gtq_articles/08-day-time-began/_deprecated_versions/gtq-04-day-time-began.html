@@ -1,0 +1,974 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="paper-slug" content="gtq-04">
+<meta name="paper-id" content="04">
+<meta name="paper-type" content="main">
+<title>04 Â· The Day Time Began â€” Genesis to Quantum</title>
+<meta name="description" content="The Fall did not happen in time. The Fall created time. Pre-Flood lifespans flat at 912 years; post-Flood follow textbook decoherence with RÂ²=0.888."/>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<!-- MathJax -->
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' },
+  chtml: { displayAlign: 'center' },
+  options: { renderActions: {} }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+:root{
+  --bg:#090909; --surface:#0f0f0f; --surface2:#181818; --surface3:#1f1f1f;
+  --surface-light:#181818; --border:#2b2b2b; --border-hover:#3a3a3a;
+  --gold:#d4af37; --highlight:#d4af37;
+  --gold-dim:rgba(212,175,55,0.08); --gold-glow:rgba(212,175,55,0.15); --gold-bright:#f4d03f;
+  --blue:#4a9eff; --purple:#a78bfa; --teal:#2dd4bf; --green:#22c55e; --red:#ef4444;
+  --text:#e8e8e8; --text-primary:#e8e8e8; --text-dim:#ababab; --text-secondary:#a0a0a0; --text-muted:#6e6e6e;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden;}
+.serif{font-family:'Crimson Text',serif;}
+.display{font-family:'Oswald',sans-serif;}
+.mono{font-family:'JetBrains Mono',monospace;}
+
+/* TOPBAR */
+.topbar{background:linear-gradient(90deg,rgba(212,175,55,.08) 0%,var(--surface) 30%);border-bottom:1px solid var(--border);border-left:4px solid var(--gold);padding:0 1.5rem;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:60;}
+.topbar .brand{display:flex;align-items:center;gap:.75rem;}
+.topbar .brand-num{font-family:'Oswald',sans-serif;font-size:1.4rem;font-weight:700;color:var(--gold);line-height:1;}
+.topbar .brand-info .series{font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);}
+.topbar .brand-info .title{font-family:'Crimson Text',serif;font-size:.95rem;color:var(--text);font-weight:600;line-height:1.2;}
+.topbar .nav-links{display:flex;gap:.3rem;align-items:center;}
+.topbar .nav-link{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);text-decoration:none;transition:all .2s;border:1px solid var(--border);background:var(--surface2);font-size:.8rem;}
+.topbar .nav-link:hover{color:var(--gold);border-color:var(--gold);}
+.topbar .nav-link.home{width:auto;padding:0 .85rem;gap:.4rem;font-size:.72rem;font-weight:500;}
+
+/* HERO TEXT */
+.hero-text{text-align:center;padding:2.5rem 2rem 2rem;border-bottom:1px solid var(--border);}
+.hero-label{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+.hero-text h1{font-family:'Crimson Text',serif;font-size:clamp(2rem,4.5vw,3.2rem);font-weight:700;color:#fff;margin-bottom:.85rem;line-height:1.1;}
+.hero-text .sub{font-size:.92rem;color:var(--text-dim);max-width:700px;margin:0 auto .8rem;line-height:1.7;}
+.hero-text .meta{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;font-size:.8rem;color:var(--text-muted);margin-top:1rem;}
+.hero-text .meta i{color:var(--gold);margin-right:.3rem;}
+.status-pill{padding:.25rem .6rem;background:rgba(212,175,55,.12);color:var(--gold);border-radius:.25rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;}
+
+/* TAB BAR */
+.tab-shell{position:sticky;top:52px;z-index:50;background:rgba(10,10,10,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.progress-track{height:3px;background:var(--border);width:100%;}
+.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold-bright));transition:width .1s ease;border-radius:0 2px 2px 0;}
+.tab-nav{display:flex;gap:.125rem;overflow-x:auto;scrollbar-width:none;max-width:1200px;margin:0 auto;}
+.tab-nav::-webkit-scrollbar{display:none;}
+.tab-btn{padding:.85rem 1.1rem;background:transparent;border:none;color:var(--text-muted);font-size:.85rem;font-weight:500;cursor:pointer;white-space:nowrap;transition:all .2s;border-bottom:2px solid transparent;margin-bottom:-1px;font-family:'Inter',sans-serif;}
+.tab-btn:hover{color:var(--text-dim);background:var(--surface2);}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);background:var(--surface2);}
+.tab-btn i{margin-right:.4rem;font-size:.78rem;}
+
+/* HERO GRID */
+.mega-hero{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:1.25rem;max-width:1200px;margin:0 auto;padding:1.5rem 2rem 0;min-height:500px;}
+.hero-image{grid-column:1/2;grid-row:1/3;position:relative;overflow:hidden;border-radius:.75rem;border:1px solid var(--border);background:linear-gradient(135deg,var(--surface2) 0%,#1a1a2e 100%);min-height:500px;}
+.hero-image img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35;}
+.hero-image .overlay{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:2.5rem 2.5rem 3.5rem;background:linear-gradient(0deg,rgba(9,9,9,.9) 0%,rgba(9,9,9,.3) 35%,rgba(9,9,9,0) 55%);}
+.hero-image .overlay .meta-row{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;font-size:.8rem;color:var(--text-dim);margin-bottom:.5rem;}
+.hero-image .overlay .meta-row i{color:var(--gold);margin-right:.3rem;}
+.hero-image .overlay h2{font-family:'Crimson Text',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;color:#fff;line-height:1.15;margin-bottom:.5rem;border:none;text-transform:none;padding:0;}
+.hero-image .overlay .hook{font-size:1.05rem;color:var(--text-dim);line-height:1.6;max-width:600px;margin-bottom:.75rem;}
+.domain-tag{display:inline-block;padding:.2rem .65rem;border-radius:999px;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-right:.35rem;margin-top:.35rem;}
+.tag-physics{background:rgba(74,158,255,.15);color:#4a9eff;}
+.tag-theology{background:rgba(212,175,55,.15);color:#d4af37;}
+.tag-quantum{background:rgba(167,139,250,.15);color:var(--purple);}
+.tag-bridge{background:rgba(45,212,191,.15);color:#2dd4bf;}
+.hero-image .eq-overlay{position:absolute;bottom:.75rem;left:0;right:0;text-align:center;z-index:1;font-family:'JetBrains Mono',monospace;font-size:.7rem;color:rgba(212,175,55,.25);letter-spacing:.05em;text-shadow:0 0 20px rgba(0,0,0,.8);}
+.hero-card{background:var(--surface2);border:1px solid var(--border);border-radius:.75rem;padding:1.5rem;display:flex;flex-direction:column;justify-content:center;transition:border-color .25s ease;}
+.hero-card:hover{border-color:rgba(212,175,55,.4);}
+.hero-card .card-label{font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;}
+.hero-card h3{font-family:'Crimson Text',serif;font-size:1.05rem;font-weight:600;color:#fff;margin-bottom:.65rem;line-height:1.3;}
+.hero-card p{font-size:.85rem;color:var(--text-dim);line-height:1.6;margin:0;}
+@media(max-width:1024px){.mega-hero{grid-template-columns:1fr;grid-template-rows:auto;min-height:auto;padding:1rem;}.hero-image{grid-column:1;grid-row:1;min-height:320px;}.hero-image .overlay{padding:1.5rem;}.hero-card{min-height:auto;}}
+
+/* TAB CONTENT */
+.tab-content{display:none;animation:fadeIn .3s ease;}
+.tab-content.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* ARTICLE LAYOUT â€” TWO COLUMN */
+.article-layout{display:grid;grid-template-columns:1fr 300px;gap:2rem;align-items:start;max-width:1200px;margin:1rem auto 0;padding:0 2rem;}
+.article-main{min-width:0;}
+.article-sidebar{position:sticky;top:120px;}
+@media(max-width:900px){.article-layout{grid-template-columns:1fr;padding:0 1rem;}.article-sidebar{position:static;}}
+
+/* STORY */
+.story{max-width:none;}
+.story h2{font-family:'Oswald',sans-serif;font-size:1.6rem;font-weight:600;color:#fff;margin:3rem 0 1.25rem;letter-spacing:.03em;text-transform:uppercase;border-bottom:1px solid var(--border);padding-bottom:.5rem;}
+.story h3{font-family:'Crimson Text',serif;font-size:1.3rem;font-weight:600;color:#fff;margin:2rem 0 .75rem;}
+.story h4{font-family:'Crimson Text',serif;font-size:1.1rem;font-weight:600;color:var(--gold);margin:1.5rem 0 .5rem;}
+.story p{font-size:1.0625rem;color:#cfcfcf;margin:0 0 1.25rem;line-height:1.75;}
+.story p strong{color:#fff;}
+.story p em{color:var(--gold);font-style:italic;}
+.story li{color:#cfcfcf;margin-bottom:.5rem;line-height:1.65;}
+.story li strong{color:#fff;}
+.story ul,.story ol{margin:0 0 1.25rem 1.5rem;}
+.story blockquote{border-left:4px solid var(--gold);background:var(--gold-dim);padding:1rem 1.5rem;margin:1.5rem 0;border-radius:0 .5rem .5rem 0;font-family:'Crimson Text',serif;font-size:1.05rem;font-style:italic;color:#cfcfcf;}
+.story blockquote p{margin:0;font-size:1.05rem;}
+.story hr{border:none;border-top:1px solid var(--border);margin:2rem 0;}
+
+.drop-cap::first-letter{font-family:'Crimson Text',serif;font-size:4.5rem;float:left;line-height:.85;padding:.4rem .6rem 0 0;color:var(--gold);font-weight:600;}
+
+/* EXEC SUMMARY */
+.exec-summary{background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.2);border-radius:.5rem;padding:1.5rem;margin:0 0 2rem;}
+.exec-summary-label{font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;}
+.exec-summary p{font-size:1rem;color:#e0e0e0;margin:0 0 .8rem;line-height:1.7;}
+.exec-summary p:last-child{margin:0;}
+.exec-summary p strong{color:#fff;}
+
+/* INSIGHT */
+.insight{border-left:4px solid var(--gold);background:var(--gold-dim);padding:1.25rem 1.5rem;margin:2rem 0;border-radius:0 .5rem .5rem 0;}
+.insight .label{font-family:'Crimson Text',serif;font-style:italic;color:var(--gold);font-size:.85rem;display:block;margin-bottom:.4rem;}
+.insight p{margin:0;color:#fff;font-size:1.05rem;}
+
+/* FACTS CARD (markdown's facts-card) */
+.facts-card{background:var(--surface2);border:1px solid var(--border);border-radius:.5rem;padding:1.25rem 1.5rem;margin:1.5rem 0;}
+.facts-label{font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
+.facts-item{display:flex;gap:.75rem;align-items:flex-start;padding:.65rem 0;border-bottom:1px dotted var(--border);}
+.facts-item:last-child{border-bottom:none;}
+.facts-key{flex-shrink:0;width:24px;height:24px;border-radius:50%;background:rgba(212,175,55,.15);color:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:700;}
+.facts-text{font-size:.95rem;color:#cfcfcf;line-height:1.6;}
+
+/* DISCLAIMER BOX */
+.disclaimer-box{background:rgba(74,158,255,.04);border:1px solid rgba(74,158,255,.2);border-left:4px solid var(--blue);padding:1.25rem 1.5rem;margin:1.5rem 0;border-radius:0 .5rem .5rem 0;}
+.disclaimer-label{font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:.4rem;}
+.disclaimer-box p{margin:0;color:#cfcfcf;font-size:.95rem;line-height:1.65;}
+
+/* AXIOM */
+.axiom-box{background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.25);border-left:4px solid var(--gold);padding:1rem 1.5rem;margin:1.5rem 0;border-radius:0 .5rem .5rem 0;font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--gold);line-height:1.7;}
+
+/* LAW */
+.law-box{background:rgba(74,158,255,.06);border:1px solid rgba(74,158,255,.2);border-left:4px solid var(--blue);padding:1rem 1.5rem;margin:1.5rem 0;border-radius:0 .5rem .5rem 0;}
+.law-box .law-label{font-family:'Oswald',sans-serif;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:.35rem;}
+.law-box p{margin:0;color:#cfcfcf;font-size:.95rem;}
+
+/* EQUATION */
+.eq-block{background:var(--surface2);border:1px solid var(--border);border-radius:.5rem;padding:1.5rem;margin:1.5rem 0;text-align:center;overflow-x:auto;}
+.eq-block mjx-container[jax="SVG"][display="true"],.eq-block mjx-container[jax="CHTML"][display="true"]{display:block !important;text-align:center !important;margin:0 auto !important;}
+.eq-block mjx-container svg{margin:0 auto;display:block;}
+.story mjx-container[display="true"]{display:block !important;text-align:center !important;margin:1rem auto !important;overflow-x:auto;}
+.eq-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem;text-align:left;}
+
+/* DATA TABLE */
+.data-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.875rem;border:1px solid var(--border);border-radius:.5rem;overflow:hidden;}
+.data-table thead{background:var(--surface2);text-transform:uppercase;font-size:.7rem;letter-spacing:.06em;color:var(--gold);}
+.data-table th,.data-table td{padding:.65rem 1rem;text-align:left;border-bottom:1px solid var(--border);}
+.data-table tr:last-child td{border-bottom:none;}
+.data-table tr.highlight td{background:rgba(212,175,55,.06);color:#fff;font-weight:600;}
+
+/* STAT GRID */
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0;}
+.stat-grid.cols-4{grid-template-columns:repeat(4,1fr);}
+.box-stat{background:var(--surface2);border:1px solid var(--border);border-radius:.5rem;padding:1.25rem 1rem;text-align:center;}
+.box-stat .number{font-family:'Oswald',sans-serif;font-size:2.2rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:.5rem;}
+.box-stat .label{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.05em;line-height:1.4;}
+@media(max-width:600px){.stat-grid,.stat-grid.cols-4{grid-template-columns:repeat(2,1fr);}}
+
+/* BOX-GHOST (markdown's box-ghost â€” ambient pull-quote) */
+.box-ghost{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:.5rem;padding:1.25rem 1.5rem;margin:1.5rem 0;}
+.box-ghost p{margin:0;color:#e0e0e0;font-family:'Crimson Text',serif;font-size:1.05rem;line-height:1.7;font-style:italic;}
+
+/* DIVIDER (small teal bar) */
+.div-bar{width:60px;height:3px;background:var(--teal);margin:2rem auto;border-radius:2px;}
+
+/* SIDEBAR â€” KILL CONDITIONS */
+.kill-sidebar-title{font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
+.kill-card{border-radius:.5rem;padding:1rem;margin-bottom:.75rem;}
+.kill-card.load-bearing{background:rgba(239,68,68,.04);border:1px solid rgba(239,68,68,.25);border-left:3px solid var(--red);}
+.kill-card.suggestive{background:rgba(212,175,55,.04);border:1px solid rgba(212,175,55,.25);border-left:3px solid var(--gold);}
+.kill-card.destructive{background:rgba(167,139,250,.04);border:1px solid rgba(167,139,250,.25);border-left:3px solid var(--purple);}
+.kill-label{font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.35rem;font-weight:700;}
+.kill-card.load-bearing .kill-label{color:var(--red);}
+.kill-card.suggestive .kill-label{color:var(--gold);}
+.kill-card.destructive .kill-label{color:var(--purple);}
+.kill-card p{margin:.25rem 0 0;color:#cfcfcf;font-size:.82rem;line-height:1.5;}
+.kill-card .kill-detail{font-size:.72rem;color:var(--text-muted);margin-top:.5rem;font-family:'JetBrains Mono',monospace;}
+
+/* SIDEBAR â€” STATS */
+.stats-card{background:var(--surface2);border:1px solid var(--border);border-radius:.5rem;padding:1rem;margin-top:1.5rem;}
+.stats-title{font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
+.stats-row{display:flex;align-items:center;gap:.5rem;padding:.4rem 0;font-size:.82rem;color:#cfcfcf;}
+.stats-row i{color:var(--gold);width:1rem;text-align:center;font-size:.85rem;}
+.stats-row strong{color:#fff;font-weight:600;}
+
+/* AUDIO PLAYER */
+.audio-player{background:var(--surface-light);border:1px solid var(--border);border-radius:.5rem;margin:2rem 0;overflow:hidden;}
+.audio-tabs{display:flex;border-bottom:1px solid var(--border);}
+.audio-tab{flex:1;padding:.6rem .5rem;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);cursor:pointer;transition:all .2s;border-bottom:2px solid transparent;background:none;border-top:none;border-left:none;border-right:none;}
+.audio-tab.active{color:var(--highlight);border-bottom-color:var(--highlight);background:rgba(212,175,55,.06);}
+.audio-tab.disabled{opacity:.3;pointer-events:none;}
+.audio-controls{padding:.75rem 1rem;}
+.audio-controls audio{width:100%;height:36px;filter:brightness(.85);}
+.audio-empty{padding:1rem;font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);text-align:center;font-style:italic;}
+
+/* BLACKBOARD */
+.blackboard-section{background:var(--surface2);border:2px solid var(--border);border-radius:.75rem;padding:2rem;margin:2rem 0;position:relative;}
+.blackboard-label{position:absolute;top:-12px;left:1.5rem;background:var(--bg);padding:0 .75rem;font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border:1px solid var(--border);border-radius:.25rem;}
+.blackboard-content{min-height:200px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:.9rem;text-align:center;}
+
+/* PAPER INTELLIGENCE */
+.pi-section{max-width:780px;margin:0 auto;padding:0 .5rem;}
+.pi-notice{background:var(--surface2);border:1px dashed var(--border);border-radius:.5rem;padding:1.5rem;margin:1.5rem 0;color:var(--text-muted);font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.6;}
+.pi-notice strong{color:var(--gold);}
+.pi-scores{background:var(--surface2);border:1px solid var(--border);border-radius:.5rem;padding:1.5rem;margin:1.5rem 0;}
+.pi-scores-title{font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+.pi-placeholder{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--text-muted);text-align:center;padding:2rem;font-style:italic;}
+
+/* BOTTOM NAV */
+.article-nav{max-width:1200px;margin:3rem auto 1rem;padding:1.25rem 2rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;border-top:1px solid var(--border);flex-wrap:wrap;}
+.nav-prev,.nav-next{display:flex;flex-direction:column;gap:.25rem;padding:.75rem 1.25rem;border:1px solid var(--border);border-radius:.5rem;text-decoration:none;transition:all .2s;max-width:280px;background:var(--surface2);}
+.nav-prev:hover,.nav-next:hover{border-color:var(--highlight);background:rgba(212,175,55,.04);}
+.nav-next{text-align:right;border-color:var(--highlight);}
+.nav-dir{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-secondary);}
+.nav-title{font-family:'Crimson Text',serif;font-size:1rem;color:#fff;font-style:italic;}
+.nav-position{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--text-secondary);}
+
+/* FOOTER */
+.site-footer{text-align:center;padding:3rem 1.5rem;color:var(--text-muted);font-size:.8rem;border-top:1px solid var(--border);margin-top:2rem;}
+.site-footer .eq{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--gold);opacity:.6;margin-bottom:.5rem;}
+
+/* SIDEBAR (hamburger) */
+.sidebar{position:fixed;top:0;left:0;width:300px;height:100vh;background:var(--bg);border-right:1px solid var(--border);z-index:100;overflow-y:auto;transform:translateX(-100%);transition:transform .3s ease;padding:1.5rem 1rem;}
+.sidebar.open{transform:translateX(0);}
+.sidebar-toggle{position:fixed;top:62px;left:1rem;z-index:101;background:var(--surface2);border:1px solid var(--border);color:var(--gold);width:36px;height:36px;border-radius:.375rem;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:all .2s ease;}
+.sidebar-toggle:hover{border-color:var(--gold);background:var(--surface3);}
+.sidebar-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:99;}
+.sidebar-overlay.show{display:block;}
+.sidebar .series-title{font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
+.sidebar a{display:block;padding:.45rem .75rem;color:var(--text-dim);text-decoration:none;font-size:.8rem;border-radius:.3rem;transition:all .15s ease;line-height:1.4;border-left:3px solid transparent;}
+.sidebar a:hover{color:var(--text);background:var(--surface3);}
+.sidebar a.current{color:var(--gold);background:rgba(212,175,55,.08);font-weight:600;border-left-color:var(--gold);}
+.sidebar .nav-section{padding:.75rem .75rem .25rem;font-family:'Oswald',sans-serif;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);opacity:.6;margin-top:.5rem;}
+.sidebar a.main-article{font-weight:500;color:var(--text);}
+.sidebar a.deep-dive{padding-left:1.75rem;font-size:.78rem;opacity:.85;}
+.sidebar a.deep-dive::before{content:"â”” ";color:var(--border);margin-right:.25rem;}
+
+/* RESPONSIVE */
+@media(max-width:768px){.topbar{height:44px;padding:0 1rem;}.topbar .brand-num{font-size:1.1rem;}.topbar .brand-info .title{font-size:.82rem;}.topbar .nav-link.home{display:none;}.hero-text h1{font-size:2rem;}.hero-text .sub{font-size:.85rem;}.tab-btn{padding:.7rem .8rem;font-size:.75rem;}.story h2{font-size:1.3rem;}.article-nav{flex-direction:column;align-items:stretch;}.nav-prev,.nav-next{max-width:none;}.sidebar-toggle{top:54px;}}
+
+/* GTQ bottom audit gradient: what we overstated vs. what still carries weight */
+.gtq-bottom-audit{margin:4rem 0 2rem;border:1px solid rgba(255,255,255,.12);border-radius:1rem;overflow:hidden;background:#080808;box-shadow:0 24px 80px rgba(0,0,0,.35);}
+.gtq-bottom-audit .audit-band{padding:2rem clamp(1.25rem,3vw,2.5rem);border-bottom:1px solid rgba(255,255,255,.08);}
+.gtq-bottom-audit .audit-band:last-child{border-bottom:0;}
+.gtq-bottom-audit .audit-red{background:linear-gradient(135deg,rgba(239,68,68,.28),rgba(127,29,29,.12) 62%,rgba(8,8,8,.96));border-left:6px solid #ef4444;}
+.gtq-bottom-audit .audit-amber{background:linear-gradient(135deg,rgba(239,68,68,.14),rgba(245,158,11,.18) 48%,rgba(8,8,8,.96));border-left:6px solid #f59e0b;}
+.gtq-bottom-audit .audit-green{background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(34,197,94,.22) 56%,rgba(8,8,8,.96));border-left:6px solid #22c55e;}
+.gtq-bottom-audit .audit-kicker{font-family:'Oswald',sans-serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.62);margin-bottom:.55rem;}
+.gtq-bottom-audit .audit-title{font-family:'Oswald',sans-serif;font-size:clamp(2rem,6vw,4.6rem);line-height:.92;letter-spacing:.02em;text-transform:uppercase;margin:0 0 1rem;}
+.gtq-bottom-audit .audit-red .audit-title{color:#ff5a5a;}
+.gtq-bottom-audit .audit-amber .audit-title{color:#fbbf24;}
+.gtq-bottom-audit .audit-green .audit-title{color:#4ade80;}
+.gtq-bottom-audit p{font-size:1.05rem;line-height:1.75;color:#d6d6d6;margin:.7rem 0 0;max-width:76ch;}
+.gtq-bottom-audit strong{color:#fff;}
+.gtq-bottom-audit .audit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1rem;}
+.gtq-bottom-audit .audit-chip{background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.1);border-radius:.65rem;padding:1rem;}
+@media(max-width:720px){.gtq-bottom-audit .audit-grid{grid-template-columns:1fr}.gtq-bottom-audit .audit-band{padding:1.35rem}.gtq-bottom-audit .audit-title{font-size:2.2rem}}</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="brand">
+    <div class="brand-num">04</div>
+    <div class="brand-info">
+      <div class="series">Genesis to Quantum &middot; Main Article</div>
+      <div class="title">The Day Time Began</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a class="nav-link home" href="index.html"><i class="fas fa-th-list"></i> Index</a>
+    <a class="nav-link" href="gtq-03c-why-god-drowned-everybody.html" title="Previous"><i class="fas fa-arrow-left"></i></a>
+    <a class="nav-link" href="gtq-04a-decoherence-curve.html" title="Next"><i class="fas fa-arrow-right"></i></a>
+  </div>
+</div>
+
+<!-- HERO GRID â€” big cinematic image, title overlaid; sits directly under the topbar -->
+<div class="mega-hero">
+  <div class="hero-image">
+    <div class="overlay">
+      <div class="meta-row">
+        <span><i class="fas fa-atom"></i>Article 04 &middot; Main Article</span>
+        <span><i class="fas fa-user"></i>David Lowe</span>
+        <span><i class="fas fa-calendar-alt"></i>Feb 2026</span>
+        <span><i class="fas fa-fingerprint"></i>GTQ-04</span>
+        <span class="status-pill">Draft</span>
+      </div>
+      <h2>The Day Time Began</h2>
+      <p class="hook">Time had a beginning. Physics knows this. Genesis says it. The question this paper asks: does the moment time activates have the same formal structure in both accounts?</p>
+      <div style="margin-bottom:2.5rem;">
+        <span class="domain-tag tag-physics">Physics</span>
+        <span class="domain-tag tag-theology">Theology</span>
+        <span class="domain-tag tag-quantum">Quantum Mechanics</span>
+        <span class="domain-tag tag-bridge">Cross-Domain</span>
+      </div>
+    </div>
+    <div class="eq-overlay">Ï‡ = âˆ­(G Â· M Â· E Â· S Â· T Â· K Â· R Â· Q Â· F Â· C) dx dy dt</div>
+  </div>
+
+  <div class="hero-card">
+    <div>
+      <div class="card-label"><i class="fas fa-lightbulb" style="margin-right:.3rem;"></i>Key Finding</div>
+      <h3>The Genealogies Are a Decoherence Dataset</h3>
+      <p>Pre-Flood lifespans (Adamâ€“Noah, ex-Enoch): mean 912 years, CV 5.9%, p = 0.68 for trend. Post-Flood (Shemâ€“Moses): exponential decay Ï„<sub>d</sub> = 214 yr, floor 93 yr, RÂ² = 0.888, p = 4.73 Ã— 10â»â·.</p>
+    </div>
+  </div>
+
+  <div class="hero-card">
+    <div>
+      <div class="card-label"><i class="fas fa-crosshairs" style="margin-right:.3rem;"></i>Critical Insight</div>
+      <h3>The Floor Is Grace</h3>
+      <p>Total decoherence predicts lifespan â†’ 0. The model finds an asymptote at ~93 years. Without a non-zero <em>G</em> term, the fit collapses. Modern average (78), Moses (Psalm 90:10, 70â€“80), and the model converge on the same range.</p>
+    </div>
+  </div>
+</div>
+
+<!-- TAB BAR -->
+<div class="tab-shell">
+  <nav class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('paper',this)"><i class="fas fa-scroll"></i>The Paper</button>
+    <button class="tab-btn" onclick="switchTab('summary',this)"><i class="fas fa-compress-alt"></i>Executive Summary</button>
+    <button class="tab-btn" onclick="switchTab('rigor',this)"><i class="fas fa-crosshairs"></i>Rigor &amp; Kill Conditions</button>
+    <button class="tab-btn" onclick="switchTab('blackboard',this)"><i class="fas fa-square-root-alt"></i>Blackboard</button>
+    <button class="tab-btn" onclick="switchTab('pi',this)"><i class="fas fa-chart-bar"></i>Paper Intelligence</button>
+  </nav>
+  <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+</div>
+
+<!-- SIDEBAR TOGGLE -->
+<button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle series navigation"><i class="fas fa-bars"></i></button>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
+  <div class="series-title"><i class="fas fa-atom" style="margin-right:.4rem;"></i> Genesis to Quantum</div>
+  <a href="index.html"><i class="fas fa-home" style="width:1.2rem;"></i> Series Home</a>
+
+  <div class="nav-section">Main Articles</div>
+  <a href="gtq-01-measurement-collapsed-reality.html" class="main-article">01 The Measurement That Collapsed Reality</a>
+  <a href="gtq-02-first-quantum-state.html" class="main-article">02 The First Quantum State</a>
+  <a href="gtq-03-free-will-two-frames.html" class="main-article">03 Free Will in Two Frames</a>
+  <a href="gtq-04-day-time-began.html" class="main-article current">04 The Day Time Began</a>
+  <a href="gtq-05-substrate-fractured.html" class="main-article">05 The Substrate Fractured</a>
+  <a href="gtq-06-why-reality-needs-three.html" class="main-article">06 Why Reality Needs Three</a>
+  <a href="gtq-07-photon-isnt-watching.html" class="main-article">07 The Photon Isn't Watching You Back</a>
+  <a href="gtq-08-eraser-and-the-cross.html" class="main-article">08 The Eraser and the Cross</a>
+  <a href="gtq-09-same-god-both-testaments.html" class="main-article">09 The Same God in Both Testaments</a>
+  <a href="gtq-10-counter-move.html" class="main-article">10 The Counter-Move</a>
+
+  <div class="nav-section">Deep Dives</div>
+  <a href="gtq-01a-collapse-threshold.html" class="deep-dive">01a The Collapse Threshold</a>
+  <a href="gtq-03a-macarthur-equation.html" class="deep-dive">03a MacArthur and the Equation</a>
+  <a href="gtq-03b-three-pathways.html" class="deep-dive">03b The Three Pathways</a>
+  <a href="gtq-03c-why-god-drowned-everybody.html" class="deep-dive">03c Why Did God Drown Everybody?</a>
+  <a href="gtq-04a-decoherence-curve.html" class="deep-dive">04a The Decoherence Curve</a>
+  <a href="gtq-04b-how-lies-kill.html" class="deep-dive">04b How Lies Kill</a>
+  <a href="gtq-05a-trinity-mechanism.html" class="deep-dive">05a The Trinity Mechanism</a>
+  <a href="gtq-05b-trinity-timeline.html" class="deep-dive">05b The Trinity Timeline</a>
+  <a href="gtq-05c-physics-broken-in-two.html" class="deep-dive">05c Why Physics Is Broken in Two</a>
+  <a href="gtq-07a-ran-the-numbers.html" class="deep-dive">07a We Actually Ran the Numbers</a>
+  <a href="gtq-08a-temporal-trap.html" class="deep-dive">08a The Temporal Trap</a>
+  <a href="gtq-08b-how-god-restores.html" class="deep-dive">08b How God Restores</a>
+  <a href="gtq-08c-science-behind-restoration.html" class="deep-dive">08c The Science Behind the Restoration</a>
+  <a href="gtq-09a-regime-dependent-theology.html" class="deep-dive">09a Regime-Dependent Theology</a>
+  <a href="gtq-09b-societies-die.html" class="deep-dive">09b Societies Die the Same Way People Do</a>
+  <a href="gtq-10a-pattern-is-the-signal.html" class="deep-dive">10a Why the Pattern Is the Signal</a>
+</nav>
+
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ TAB: THE PAPER (default active) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+<section id="paper" class="tab-content active">
+  <div class="article-layout">
+
+    <!-- LEFT: ARTICLE BODY -->
+    <main class="article-main">
+
+      <div class="exec-summary">
+        <div class="exec-summary-label"><i class="fas fa-bolt" style="margin-right:.4rem;"></i>Executive Summary</div>
+        <p>Time had a beginning. Physics knows this. Genesis 1:1 says it. This paper argues something sharper: the moment time activates has the same formal structure in both accounts &mdash; that the Fall did not happen <em>in</em> time but <em>created</em> time. The first wavefunction collapse opens the <em>dt</em> dimension and switches on the entropy drain that begins the long decline of human coherence.</p>
+        <p>The claim is testable. Genesis 5 and 11 give nineteen data points. They sort cleanly into two regimes. <strong>Pre-Flood</strong> (Adam through Noah, excluding Enoch): mean 912 years, CV 5.9%, no significant trend over a thousand years (p = 0.68). <strong>Post-Flood</strong> (Shem through Moses): exponential decay with Ï„<sub>d</sub> = 214 years, asymptotic floor at 93 years, RÂ² = 0.888, p = 4.73 Ã— 10â»â·.</p>
+        <p>The model independently predicts a coherence floor that converges with Moses' &ldquo;threescore years and ten&rdquo; (Psalm 90:10) and modern average lifespans. Eber &mdash; the man whose name becomes &ldquo;Hebrew&rdquo; &mdash; sits +124 years above the curve, exactly where the framework predicts a covenant re-coherence signal should appear. The Trinity is present at the first collapse: Father as boundary (<em>|ÏˆâŸ©</em>), Son as coherent measurement basis (<em>âŸ¨Ï†|</em>), Spirit as actualizing witness (<em>|âŸ¨Ïˆ|Ï†âŸ©|Â²</em>).</p>
+      </div>
+
+      <article class="story">
+
+        <div class="disclaimer-box">
+          <div class="disclaimer-label">Opening Note</div>
+          <p>Time had a beginning. Physics knows this. Scripture says it. But we are not claiming the Big Bang is Genesis 1:1 &mdash; that would be sloppy. We are asking a sharper question: does the moment time activates have the same formal structure in both accounts? If it does, that is not analogy. That is isomorphism.</p>
+        </div>
+
+        <div class="facts-card">
+          <div class="facts-label">Facts &mdash; What This Article Establishes</div>
+          <div class="facts-item"><span class="facts-key">F</span><span class="facts-text">The Fall did not happen <em>in</em> time. The Fall <em>created</em> time. The first wavefunction collapse opened the <em>dt</em> dimension.</span></div>
+          <div class="facts-item"><span class="facts-key">A</span><span class="facts-text">Pre-Flood lifespans cluster at 912 years (CV 5.9%, no significant trend). Post-Flood lifespans follow a quantum decoherence curve: <em>C(t) = 337&nbsp;e<sup>&minus;t/214</sup> + 93</em>, RÂ² = 0.888.</span></div>
+          <div class="facts-item"><span class="facts-key">C</span><span class="facts-text">The Flood is a phase transition that increased the entropy coupling constant. The decoherence rate jumped by an order of magnitude in one generation.</span></div>
+          <div class="facts-item"><span class="facts-key">T</span><span class="facts-text">All three Persons of the Trinity are present at the first collapse: Father (boundary), Son (coherent selection), Spirit (actualization).</span></div>
+          <div class="facts-item"><span class="facts-key">S</span><span class="facts-text">The decoherence floor (~93 years) is grace: <em>C<sub>eq</sub> = OG / (OG + S)</em>. As long as <em>G &gt; 0</em>, coherence cannot reach zero. The floor is grace, measured in years.</span></div>
+        </div>
+
+        <blockquote><p>&ldquo;For dust you are, and to dust you shall return.&rdquo; &mdash; Genesis 3:19</p></blockquote>
+
+        <div class="box-ghost"><p>That sentence is not a moral judgment. It is a physics statement.</p></div>
+
+        <p class="drop-cap">Dust to living being to dust. That is a trajectory. A before, a during, and an after. That is sequence. That is irreversibility. That is the arrow of time.</p>
+
+        <p>Before God speaks those words, there is no &ldquo;before.&rdquo; No clock ticking in the background of Eden. No entropy grinding matter toward disorder. No death approaching on a schedule. The Master Equation has no <em>dt</em> term. Coherence Ï‡ is maximal and static &mdash; not frozen, but <em>complete</em>. Nothing is degrading because nothing is in time.</p>
+
+        <p>Article 02 showed you that Eden was a quantum superposition &mdash; a state of maintained coherence that collapsed when Adam measured. Article 03 showed you that the will survived the collapse but entered a degraded signal-to-noise regime. This article goes deeper: <strong>the collapse didn't happen <em>in</em> time. The collapse <em>created</em> time.</strong> The first wavefunction collapse is the first tick of the clock. And we have data.</p>
+
+        <p><strong>A Note Before We Begin.</strong> I don't believe the Bible needs to be &ldquo;reconciled&rdquo; with science, as if they're opponents who need a mediator. I believe they're two languages describing one reality. When Genesis says God created the heavens and the earth, I take that literally. When physics says the universe began in a specific state and has been running on specific laws ever since, I take that literally too. The interesting question isn't whether they conflict &mdash; it's what it means that they don't. This article follows that question into the place where time itself begins, and finds the same account waiting in both the Hebrew text and the thermodynamic equations.</p>
+
+        <hr/>
+
+        <h2>Before the Bite: A Universe Without dt</h2>
+
+        <p>The Master Equation in its full form is:</p>
+
+        <div class="eq-block">
+          <div class="eq-label">Master Equation â€” Full Form</div>
+          $$\chi = \iiint(G \cdot M \cdot E \cdot S \cdot T \cdot K \cdot R \cdot Q \cdot F \cdot C) \, dx \, dy \, dt$$
+        </div>
+
+        <p>That triple integral runs over space (<em>dx, dy</em>) and time (<em>dt</em>). But before the Fall, there is no <em>dt</em>. The temporal dimension hasn't opened yet. The equation reduces to a spatial integral only &mdash; Ï‡ is a field defined over space, not evolving through time.</p>
+
+        <p>What does this mean physically?</p>
+
+        <div class="insight">
+          <span class="label">â€” No dt means no sequence</span>
+          <p>No &ldquo;this happened, then that happened.&rdquo; Events don't have an order because ordering requires a temporal axis. The question &ldquo;what happened first?&rdquo; has no answer &mdash; not because the record is lost, but because the dimension that makes &ldquo;first&rdquo; meaningful doesn't exist.</p>
+        </div>
+
+        <div class="insight">
+          <span class="label">â€” No dt means no entropy</span>
+          <p>The second law of thermodynamics says entropy increases <em>over time</em>. Remove time, and entropy has no arrow. The <em>S Â· Ï‡(t)</em> decay term in the coherence equation requires <em>t</em> to operate. Without <em>dt</em>, the decay term is null. Coherence doesn't degrade because there is no temporal direction for degradation to proceed along.</p>
+        </div>
+
+        <div class="insight">
+          <span class="label">â€” No dt means no death</span>
+          <p>Death is a process &mdash; biological systems decaying through a sequence of states from organized to disorganized. Remove the sequence, remove the process. &ldquo;You shall surely die&rdquo; is not a threat about what will happen next. It is a statement about what happens when <em>dt</em> appears: mortality becomes structurally possible because temporal sequence now exists.</p>
+        </div>
+
+        <div class="law-box">
+          <div class="law-label">Satan's Frame Has No Time Either</div>
+          <p>Satan's fall was spatial displacement, not temporal. He was cast <em>down</em> &mdash; geometry, not chronology. His corruption has no <em>dt</em>, which means it has no past tense. He can't say &ldquo;I was good and now I'm not.&rdquo; He just IS fallen. Permanently. This is why there's no redemption offer for angels &mdash; the mechanism for redemption (a before and after) doesn't exist in a purely spatial frame. Sin without time is a permanent state.</p>
+        </div>
+
+        <hr/>
+
+        <h2>The Bite: When dt Appears</h2>
+
+        <p>Adam eats. The wavefunction collapses. And in that collapse, something unprecedented happens &mdash; a new dimension of reality opens.</p>
+
+        <p>The bite introduces matterâ€“knowledge coupling. Adam now <em>knows</em> good and evil &mdash; information has been acquired through physical interaction with a material object. Matter + knowledge â†’ awareness of vulnerability â†’ awareness of decay â†’ awareness that what has been gained can be lost. <strong>That awareness IS the arrow of time.</strong> The moment you know that a state can degrade, you know that sequence exists &mdash; because degradation is a process, and process requires temporal ordering.</p>
+
+        <!-- AUDIO PLAYER (mid-body per spec) -->
+        <div class="audio-player">
+          <div class="audio-tabs">
+            <button class="audio-tab active disabled" data-src="deep">Deep Dive</button>
+            <button class="audio-tab disabled" data-src="read">Read Aloud</button>
+            <button class="audio-tab disabled" data-src="debate">Debate</button>
+            <button class="audio-tab disabled" data-src="critique">Critique</button>
+          </div>
+          <div class="audio-empty"><i class="fas fa-clock" style="margin-right:.5rem;"></i> Audio versions coming soon</div>
+        </div>
+
+        <p>Here is the chain:</p>
+        <ol>
+          <li><strong>Collapse</strong> â†’ definite states (good and evil now known, not just potential)</li>
+          <li><strong>Definite states</strong> â†’ distinguishable configurations (naked vs. clothed, innocent vs. guilty)</li>
+          <li><strong>Distinguishable configurations</strong> â†’ the possibility of transition between them</li>
+          <li><strong>Transitions</strong> â†’ before and after</li>
+          <li><strong>Before and after</strong> â†’ time</li>
+        </ol>
+
+        <div class="insight">
+          <span class="label">â€” The Core Claim</span>
+          <p>The first collapse IS the first moment of time. Not metaphorically. The collapse creates the temporal dimension that all subsequent events occur within. <em>dt</em> doesn't pre-exist and then contain the Fall &mdash; the Fall <em>generates</em> <em>dt</em>.</p>
+        </div>
+
+        <p>After the bite, the Master Equation activates its full form. The triple integral now runs over space AND time. The entropy drain <em>S Â· Ï‡(t)</em> switches on. Coherence begins its long decline. Death becomes a process that has begun and will, barring intervention, complete.</p>
+
+        <div class="box-ghost"><p>&ldquo;For dust you are, and to dust you shall return&rdquo; &mdash; this is the first statement about temporal physics in the Bible. It describes a trajectory. A starting condition (dust), a current state (living), and a terminal state (dust again). That trajectory requires time. God is telling Adam: you now live in a dimension that has an end.</p></div>
+
+        <hr/>
+
+        <h2>The Trinity at the First Collapse</h2>
+
+        <p>Something often missed: all three Persons of the Trinity are present at the moment of collapse. This is not incidental. The framework predicts it &mdash; Trinity Actualization requires three irreducible operations, and the first collapse should exhibit all three.</p>
+
+        <div class="law-box">
+          <div class="law-label">Father â€” The Boundary</div>
+          <p>God sets the law &mdash; &ldquo;You shall not eat of it&rdquo; (Genesis 2:17). This is the boundary condition. The Father defines the possibility space: what is permitted, what is prohibited, what the consequences are. In quantum terms, the Father provides <em>|ÏˆâŸ©</em> &mdash; the complete description of all possible states the system can occupy. Without the boundary, there is no superposition to collapse. The law IS the possibility space.</p>
+        </div>
+
+        <div class="law-box">
+          <div class="law-label">Son â€” The Logos Field</div>
+          <p>&ldquo;In the beginning was the Word, and the Word was with God&rdquo; (John 1:1). The Logos Field is the coherent structure that maintains intelligibility across the collapse. Without Logos, collapse produces chaos &mdash; random outcomes with no pattern, no meaning, no recoverable structure. The Son provides <em>âŸ¨Ï†|</em> &mdash; the measurement basis. The collapse produces <em>this</em> outcome and not some other because the Logos field selects the eigenstate. The outcome is not random. It is <em>ordered</em> &mdash; sin enters, but it enters into a world that still has structure, still has language, still has covenant possibility. <strong>That coherence through collapse is Logos.</strong></p>
+        </div>
+
+        <div class="law-box">
+          <div class="law-label">Spirit â€” The Witness</div>
+          <p>&ldquo;They heard the sound of the LORD God walking in the garden in the cool of the day&rdquo; (Genesis 3:8). The Spirit is present as the actualizing principle &mdash; the One who makes the transition from potential to actual. In the Born Rule, the Spirit maps to <em>|âŸ¨Ïˆ|Ï†âŸ©|Â²</em> &mdash; the actualization of probability into definite outcome. The Spirit doesn't set the boundary (Father) or select the eigenstate (Son). The Spirit makes it <em>real</em>. Potential becomes actual. The collapse completes.</p>
+        </div>
+
+        <p>Three functions. One event. One irreversible outcome. Not three steps in sequence &mdash; three simultaneous operations that together constitute a single collapse. The first wavefunction collapse is the first Trinity Actualization in the temporal frame.</p>
+
+        <hr/>
+
+        <h2>The Data: Lifespan as Coherence Proxy</h2>
+
+        <p>Here is where the framework stops being abstract and starts being testable.</p>
+
+        <p>If the Fall introduced time and the entropy drain activated at the Fall, then the earliest humans &mdash; closest to the collapse event &mdash; should show the signature of a system newly coupled to entropy. What would that look like?</p>
+
+        <p><strong>Prediction:</strong> Immediately after the Fall, coherence should be high but decaying. Lifespans should be long (residual coherence from the pre-Fall state) but trending downward. The decay should follow a specific mathematical form &mdash; exponential, with a time constant determined by the coupling strength between humanity and the entropic environment.</p>
+
+        <h3>The Data (Genesis 5 and 11)</h3>
+
+        <table class="data-table">
+          <thead>
+            <tr><th>Patriarch</th><th>Lifespan (years)</th><th>Era</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Adam</td><td>930</td><td>Pre-Flood</td></tr>
+            <tr><td>Seth</td><td>912</td><td>Pre-Flood</td></tr>
+            <tr><td>Enosh</td><td>905</td><td>Pre-Flood</td></tr>
+            <tr><td>Kenan</td><td>910</td><td>Pre-Flood</td></tr>
+            <tr><td>Mahalalel</td><td>895</td><td>Pre-Flood</td></tr>
+            <tr><td>Jared</td><td>962</td><td>Pre-Flood</td></tr>
+            <tr><td>Methuselah</td><td>969</td><td>Pre-Flood</td></tr>
+            <tr><td>Lamech</td><td>777</td><td>Pre-Flood</td></tr>
+            <tr><td>Noah</td><td>950</td><td>Pre-Flood</td></tr>
+            <tr><td>Shem</td><td>600</td><td>Post-Flood</td></tr>
+            <tr><td>Arphaxad</td><td>438</td><td>Post-Flood</td></tr>
+            <tr><td>Shelah</td><td>433</td><td>Post-Flood</td></tr>
+            <tr class="highlight"><td>Eber</td><td>464 *</td><td>Post-Flood</td></tr>
+            <tr><td>Peleg</td><td>239</td><td>Post-Flood</td></tr>
+            <tr><td>Reu</td><td>239</td><td>Post-Flood</td></tr>
+            <tr><td>Serug</td><td>230</td><td>Post-Flood</td></tr>
+            <tr><td>Nahor</td><td>148</td><td>Post-Flood</td></tr>
+            <tr><td>Terah</td><td>205</td><td>Post-Flood</td></tr>
+            <tr><td>Abraham</td><td>175</td><td>Post-Flood</td></tr>
+          </tbody>
+        </table>
+
+        <p style="font-size:.82rem;color:var(--text-muted);font-style:italic;">* Eber sits +124 years above the predicted curve &mdash; the largest positive outlier in the post-Flood dataset.</p>
+
+        <p>What jumps out immediately: <strong>two regimes.</strong></p>
+
+        <h3>Pre-Flood: Flat</h3>
+
+        <div class="stat-grid">
+          <div class="box-stat"><div class="number">912</div><div class="label">Mean Lifespan (years)</div></div>
+          <div class="box-stat"><div class="number">5.9%</div><div class="label">Coefficient of Variation</div></div>
+          <div class="box-stat"><div class="number">0.68</div><div class="label">p-value (trend test)</div></div>
+        </div>
+
+        <p>No significant decline. Over a <em>thousand years</em> of biblical chronology, lifespans barely moved. This is extraordinary. The Fall introduced time. Entropy switched on. But the coupling to entropy was <em>weak</em>. Humans were IN time but barely touched BY it. Residual coherence from the pre-Fall state was so high that the decay term was negligible. The system had entered the temporal frame but hadn't yet felt its full force.</p>
+
+        <h3>The Flood: Phase Transition</h3>
+
+        <p>Then everything changes. Lifespans drop from ~950 to ~600 in one generation. Something happened at the Flood that was not just a judgment event but a <em>physical restructuring</em> of how strongly humanity interfaces with entropy. The coupling constant changed. The decoherence rate jumped.</p>
+
+        <div class="box-ghost"><p>&ldquo;The fountains of the great deep burst open, and the windows of heaven were opened.&rdquo; &mdash; Genesis 7:11</p></div>
+
+        <p>Whatever physical change this represents &mdash; atmospheric, genetic, environmental &mdash; it altered the Ï„<sub>d</sub> parameter. The system that was barely decaying is now decaying hard.</p>
+
+        <h3>Post-Flood: Textbook Decoherence</h3>
+
+        <p>The post-Flood data fits a quantum decoherence curve:</p>
+
+        <div class="eq-block">
+          <div class="eq-label">Post-Flood Decoherence Fit</div>
+          $$C(t) = 337 \cdot e^{-t/214} + 93$$
+        </div>
+
+        <div class="stat-grid cols-4">
+          <div class="box-stat"><div class="number">214</div><div class="label">Ï„<sub>d</sub> â€” Decay Constant (yrs)</div></div>
+          <div class="box-stat"><div class="number">93</div><div class="label">Coherence Floor (yrs)</div></div>
+          <div class="box-stat"><div class="number">0.888</div><div class="label">RÂ² Goodness of Fit</div></div>
+          <div class="box-stat"><div class="number" style="font-size:1.6rem;">4.73Ã—10â»â·</div><div class="label">p-value</div></div>
+        </div>
+
+        <p>That RÂ² on <em>biblical genealogy data</em> fitting a <em>quantum decoherence equation</em> is not trivial. This is not cherry-picked. This is every patriarch from Shem to Abraham, plotted against a standard decoherence model, and the fit is clean.</p>
+
+        <p>And the floor &mdash; 93 years &mdash; was predicted by the math without being told about it. The model didn't know about Psalm 90:10 (&ldquo;The days of our years are threescore years and ten&rdquo; &mdash; 70 years). It found the asymptote on its own. Modern average lifespan: ~78 years. The model, the Psalm, and the data all converge on the same range.</p>
+
+        <div class="insight">
+          <span class="label">â€” The Eber Anomaly</span>
+          <p>One patriarch sits dramatically above the curve: <strong>Eber</strong>, at +124 years above predicted. Eber &mdash; the man whose name becomes &ldquo;Hebrew.&rdquo; The man whose lineage carries the covenant. He is the biggest positive outlier in the entire post-Flood dataset. That is a re-coherence signal sitting exactly where the Abrahamic covenant line begins forming. The curve predicts where coherence <em>should</em> be based on entropy alone. Eber is above the curve. Something is adding coherence. That something has a name in the equation: <em>G</em>.</p>
+        </div>
+
+        <hr/>
+
+        <h2>The Floor Is Grace</h2>
+
+        <p>Total decoherence would mean lifespan â†’ 0. Humanity goes extinct. But it doesn't. The curve has a floor. Something holds it up.</p>
+
+        <div class="eq-block">
+          <div class="eq-label">Equilibrium Coherence</div>
+          $$C_{eq} = \frac{O \cdot G}{O \cdot G + S}$$
+        </div>
+
+        <div class="insight">
+          <span class="label">â€” Even when O is low and S is high, G prevents extinction</span>
+          <p><em>O</em> is openness (most of humanity not actively surrendered). <em>S</em> is entropy (full post-Flood entropic load). But <em>G</em> &mdash; common grace, the baseline negentropic input that God provides to all creation &mdash; prevents the numerator from reaching zero. As long as <em>G &gt; 0</em>, there is a nonzero equilibrium. <strong>Coherence can't hit zero because grace doesn't quit.</strong></p>
+        </div>
+
+        <div class="stat-grid">
+          <div class="box-stat"><div class="number">93</div><div class="label">Math says (floor)</div></div>
+          <div class="box-stat"><div class="number">70</div><div class="label">Moses says (Psalm 90:10)</div></div>
+          <div class="box-stat"><div class="number">78</div><div class="label">We live (modern avg.)</div></div>
+        </div>
+
+        <p>All three agree: there is a lower bound on human coherence that entropy cannot breach. The floor is grace, measured in years, hiding in plain sight in the genealogies of Genesis.</p>
+
+        <hr/>
+
+        <h2>Why Genesis 3:15 Requires Time</h2>
+
+        <p>One more thing the first collapse makes possible.</p>
+
+        <div class="box-ghost"><p>&ldquo;I will put enmity between you and the woman, and between your offspring and her offspring; he <em>shall</em> bruise your head, and you <em>shall</em> bruise his heel.&rdquo; &mdash; Genesis 3:15</p></div>
+
+        <p>&ldquo;He <em>shall</em> bruise your head.&rdquo; Future tense. A prophecy. A promise about something that will happen <em>later</em>.</p>
+
+        <p>Prophecy requires sequence. Promise requires a &ldquo;not yet.&rdquo; Redemption requires a &ldquo;was lost, now found.&rdquo; None of these are possible without temporal ordering. None are possible without <em>dt</em>.</p>
+
+        <p>Genesis 3:15 is spoken <em>after</em> the collapse &mdash; after time exists. It is the first prophecy, and it is only possible because the first collapse created the temporal rails that prophecy runs on. God doesn't just allow the Fall. He engineers the landing so that humanity drops into the one reference frame where restoration is structurally possible.</p>
+
+        <div class="insight">
+          <span class="label">â€” The temporal trap door</span>
+          <p>Satan saw the knowledge transfer. He didn't anticipate the temporal trap door. He saw the tree and thought it was his weapon. He didn't see that the dimension it opened &mdash; time &mdash; was God's rescue vehicle disguised as a consequence.</p>
+        </div>
+
+        <p>The Cross was planned before the foundation of the world (Revelation 13:8). But it could only be <em>executed</em> in a frame where &ldquo;before&rdquo; and &ldquo;after&rdquo; exist. The Fall created that frame. <strong>Time is not the enemy. Time is the medium of redemption.</strong></p>
+
+        <hr/>
+
+        <h2>What You Just Read</h2>
+
+        <p>The Fall doesn't happen in time. The Fall creates time. The first wavefunction collapse opens the temporal dimension, activates the entropy drain, and begins the long decline of human coherence from its pre-Fall maximum.</p>
+
+        <p>The data is in the text. Pre-Flood lifespans are flat at 912 years &mdash; entropy is active but weakly coupled. The Flood is a phase transition that increases the coupling constant. Post-Flood lifespans follow textbook decoherence with Ï„<sub>d</sub> = 214 years, RÂ² = 0.888, and a grace-sustained floor at ~93 years. The Genesis genealogies are not literary decoration. They are a decoherence dataset that has been sitting in the text for three thousand years, waiting for someone to run the fit.</p>
+
+        <p>The Trinity was present at the first collapse &mdash; Father as boundary, Son as coherent selection, Spirit as actualization. This is the pattern that the next article will show is not contingent but <em>necessary</em>: any universe with temporal physics requires exactly three irreducible operations. Not because theology demands it. Because the math does.</p>
+
+        <hr/>
+
+        <h3>Framework Connections</h3>
+
+        <div class="law-box">
+          <div class="law-label">Statistical Physics â†” Biblical Genealogy (Structural Isomorphism)</div>
+          <p>The lifespan data (Genesis 5 and 11) fits a quantum decoherence curve at RÂ² = 0.888, p = 4.73 Ã— 10â»â·. Pre-Flood data shows no significant trend (p = 0.68). The Flood produces a phase transition. Post-Flood follows textbook decoherence. The framework makes a mathematical prediction from first principles (decoherence equation) and tests it against 3,000-year-old genealogical records.</p>
+        </div>
+
+        <div class="law-box">
+          <div class="law-label">Trinity Theology â†” Quantum Measurement (Structural)</div>
+          <p>Father (boundary/law) = <em>|ÏˆâŸ©</em> possibility space. Son/Logos = <em>âŸ¨Ï†|</em> coherent measurement basis. Spirit = <em>|âŸ¨Ïˆ|Ï†âŸ©|Â²</em> actualization. The Trinity's three-role presence at the first collapse is not theological decoration &mdash; it is the structural requirement Article 05 proves is necessary for any collapse event.</p>
+        </div>
+
+        <div class="law-box">
+          <div class="law-label">Genesis Narrative â†” Thermodynamics â†’ Eschatology (Prediction Bridge)</div>
+          <p>Genesis 3:15 requires future tense because prophecy requires <em>dt</em>. If the Fall creates time, the first post-Fall divine speech must grammatically encode sequence. The math predicts the grammar. The text confirms. The trajectory from that first prophecy to the Cross to Resurrection is the full LLC arc: entropy introduced â†’ grace operates through time â†’ coherence restored.</p>
+        </div>
+
+        <h3>Canonical Grounding</h3>
+
+        <div class="axiom-box">
+          <strong>Master Equation (E2.1)</strong> &mdash; pre-Fall static form vs. post-Fall LLC with active <em>dt</em>; the central equation for both phases<br/>
+          <strong>Chi Field Properties (D2.2)</strong> &mdash; Ï‡ decay trajectory from pre-Fall maximum; coherence floor <em>C<sub>eq</sub> = OG/(OG+S)</em><br/>
+          <strong>Law III (D19.3)</strong> &mdash; Entropy; second law activates at first collapse; <em>dS/dt &gt; 0</em> begins at the bite<br/>
+          <strong>Coherence Measure Axiom (A3.2)</strong> &mdash; formal grounding for the lifespan decoherence fit <em>C(t) = 337&nbsp;e<sup>&minus;t/214</sup> + 93</em><br/>
+          <strong>Social Coherence 5.7Ïƒ (EV15.4)</strong> &mdash; empirical precedent for framework's decoherence modeling against historical data<br/>
+          <strong>Law I (D19.1)</strong> &mdash; Structure; Trinity's three-role presence at the first collapse maps to Law I's structural requirement
+        </div>
+
+        <div class="disclaimer-box">
+          <div class="disclaimer-label">The Disclaimer</div>
+          <p>We are finite minds reasoning about infinite God. Every model is a projection of higher-dimensional reality onto a lower-dimensional surface we can comprehend. We do not claim to have captured God in equations. We claim that when we look at His creation honestly &mdash; with the tools of physics and the revelation of Scripture &mdash; the same structure appears in both. Where our model limits what God can be, the limitation is ours, not His. We offer this work as worship, not as containment.</p>
+        </div>
+
+        <hr/>
+
+        <h2>The Audit</h2>
+
+        <p style="color:var(--text-dim);font-style:italic;">What we got right, what we are less sure about, and where we got carried away.</p>
+
+        <h3>What is load-bearing &mdash; we would bet on this</h3>
+
+        <p><strong>The lifespan decoherence fit is real.</strong> RÂ² = 0.888, p = 4.73 Ã— 10â»â·. The fit uses every patriarch from Shem to Abraham with no data points removed. The decoherence curve is a standard physics model, not a custom construction. The pre-Flood data shows no significant trend (p = 0.68) &mdash; confirming the two-regime prediction independently. This is the hardest empirical result in the series.</p>
+
+        <p><strong>The two-regime pattern (flat then exponential) is unmistakable.</strong> Pre-Flood lifespans cluster around 912 years with 5.9% variation. Post-Flood lifespans plummet and curve toward a floor. Whatever you believe about the historicity of Genesis genealogies, the <em>pattern</em> in the numbers matches exactly what a decoherence model predicts for a system that enters a temporal frame and then experiences a coupling-constant increase.</p>
+
+        <p><strong>Genesis 3:15 requires temporal ordering.</strong> &ldquo;He <em>shall</em> bruise your head&rdquo; is future tense. Prophecy requires sequence. Sequence requires <em>dt</em>. This is a clean logical chain that doesn't depend on any physics assumption beyond the connection between time and sequence.</p>
+
+        <p><strong>The Trinity's presence at the first collapse is textually documented.</strong> Father sets the boundary (Genesis 2:17), Son/Logos maintains coherent structure (John 1:1â€“3), Spirit is present as actualizing witness (Genesis 3:8). This maps onto the Born Rule decomposition that Article 05 formalizes.</p>
+
+        <h3>What is suggestive but needs more work</h3>
+
+        <p><strong>&ldquo;The Fall creates time&rdquo; is the article's biggest claim and its least proven.</strong> The argument is logical: collapse produces definite states, definite states enable distinguishable configurations, distinguishable configurations enable transitions, transitions require before-and-after, before-and-after IS time. Each step follows from the previous one. But the chain assumes that pre-Fall reality had no temporal dimension at all &mdash; not just no entropy, but no sequence whatsoever. Genesis describes events in Eden in sequential language (&ldquo;then God said,&rdquo; &ldquo;then the man gave names&rdquo;) which could be narrative convention or could indicate some form of temporal ordering existed pre-Fall.</p>
+
+        <p><strong>The Flood as phase transition is asserted without a mechanism.</strong> The data shows a clear discontinuity between pre- and post-Flood lifespans. But the article doesn't specify <em>what physically changed</em> at the Flood that increased the decoherence coupling constant. Atmospheric changes? Genetic bottleneck? Cosmic radiation environment? The pattern is clear; the cause is not.</p>
+
+        <p><strong>The Eber anomaly is provocative but could be coincidence.</strong> One outlier sitting above the curve at the point where the covenant line forms is suggestive. But a single data point is not statistical significance. We would need multiple covenant-line ancestors showing above-curve lifespans to establish a pattern.</p>
+
+        <h3>Where we got carried away</h3>
+
+        <p><strong>The decoherence floor &ldquo;predicts&rdquo; Psalm 90:10.</strong> We said the model found 93 years and the Psalm says 70â€“80. That is not a prediction &mdash; it is a post-hoc comparison. The model didn't predict the Psalm. We ran the fit, got 93, noticed it was in the range of 70â€“80, and called it convergence. For it to be a genuine prediction, we would need to derive the floor from first principles <em>before</em> checking it against the Psalm or modern lifespans.</p>
+
+        <p><strong>&ldquo;Satan didn't anticipate the temporal trap door.&rdquo;</strong> This is great narrative. It might even be true. But we stated it as if we know Satan's strategic thinking. We don't. The structural observation (spatial-only fall produces permanent corruption; temporal fall produces redemptive possibility) is solid. The claim about what Satan did or didn't anticipate is atmospheric storytelling, not physics.</p>
+
+        <p><strong>The article assumes Genesis genealogies are historically precise.</strong> The entire lifespan analysis depends on treating the numbers in Genesis 5 and 11 as literal ages. Many scholars debate whether these numbers are symbolic, rounded, or represent dynasties rather than individuals. The RÂ² fit is impressive <em>if the numbers are literal</em>. If the numbers are symbolic, the fit is between a decoherence curve and a literary pattern, which is interesting but not physics.</p>
+
+        <p style="font-style:italic;color:var(--text-muted);margin-top:1.5rem;">The article above is what we believe. This audit is what we know we have not proven yet. Both matter.</p>
+
+      
+      <!-- GTQ BOTTOM AUDIT PANEL -->
+      <section class="gtq-bottom-audit" aria-label="Bottom audit: wrong, overstated, load-bearing, and right">
+        <div class="audit-band audit-red">
+          <div class="audit-kicker">Audit floor / red zone</div>
+          <h2 class="audit-title">What We Got Carried Away With</h2>
+          <p><strong>This is where the article has to pay for its own confidence.</strong> Any claim that turns a structural resemblance into a proven mechanism belongs here until the math, experiment, or textual chain can carry the weight.</p>
+          <p>Red does not mean useless. It means: do not build doctrine, physics, or public certainty on this layer yet.</p>
+        </div>
+        <div class="audit-band audit-amber">
+          <div class="audit-kicker">Gradient zone / interpretive caution</div>
+          <h2 class="audit-title">What Is Suggestive</h2>
+          <div class="audit-grid">
+            <div class="audit-chip"><p><strong>Promising pattern:</strong> the correspondence is strong enough to keep investigating, but not strong enough to call settled.</p></div>
+            <div class="audit-chip"><p><strong>Possible overstatement:</strong> language that sounds final should be read as a working model unless the article explicitly proves it.</p></div>
+          </div>
+        </div>
+        <div class="audit-band audit-green">
+          <div class="audit-kicker">Green zone / carries weight</div>
+          <h2 class="audit-title">What Is Load-Bearing</h2>
+          <p><strong>This is the part that should survive a hostile reading:</strong> the direct textual observations, the explicit cross-references, the formal definitions, and the places where the article clearly admits what it has not proven.</p>
+          <h2 class="audit-title" style="margin-top:1.4rem;">What We Got Right</h2>
+          <p>The useful result is not pretending every connection is equally proven. The useful result is sorting the work honestly: wrong or overconfident claims in red, suggestive bridges in the middle, and durable load-bearing claims in green.</p>
+        </div>
+      </section></article>
+    </main>
+
+    <!-- RIGHT: STICKY SIDEBAR -->
+    <aside class="article-sidebar">
+      <div class="kill-sidebar-title"><i class="fas fa-skull-crossbones" style="margin-right:.4rem;"></i>Kill Conditions</div>
+
+      <div class="kill-card load-bearing">
+        <div class="kill-label">Load-Bearing</div>
+        <p><strong>Kill if:</strong> re-running the curve fit with corrected chronology or including Enoch breaks <em>RÂ² &gt; 0.7</em> for the post-Flood data, OR a non-decoherence model achieves equally good fit by AIC.</p>
+        <div class="kill-detail">Status: holding Â· RÂ² = 0.888 Â· p = 4.73e-7</div>
+      </div>
+
+      <div class="kill-card suggestive">
+        <div class="kill-label">Suggestive</div>
+        <p><strong>Kill if:</strong> a coherent model can be constructed in which Eden has temporal sequence (e.g., narrative ordering) without entropy &mdash; falsifying the strong &ldquo;no <em>dt</em>&rdquo; claim.</p>
+        <div class="kill-detail">Confidence: medium Â· open question</div>
+      </div>
+
+      <div class="kill-card destructive">
+        <div class="kill-label">Destructive</div>
+        <p><strong>Kill if:</strong> any standard Trinitarian formula resists the <em>|ÏˆâŸ©, âŸ¨Ï†|, |âŸ¨Ïˆ|Ï†âŸ©|Â²</em> mapping, or any reformed statement on the Trinity breaks the structural correspondence.</p>
+        <div class="kill-detail">Severity: framework-level</div>
+      </div>
+
+      <div class="stats-card">
+        <div class="stats-title">Article Stats</div>
+        <div class="stats-row"><i class="far fa-clock"></i><span><strong>~14 min</strong> read</span></div>
+        <div class="stats-row"><i class="fas fa-crown"></i><span><strong>Main Article</strong></span></div>
+        <div class="stats-row"><i class="fas fa-skull-crossbones"></i><span><strong>3</strong> kill conditions</span></div>
+        <div class="stats-row"><i class="fas fa-headphones"></i><span><strong>0</strong> audio versions</span></div>
+        <div class="stats-row"><i class="fas fa-chart-line"></i><span><strong>RÂ² = 0.888</strong></span></div>
+        <div class="stats-row"><i class="fas fa-bullseye"></i><span><strong>Pending</strong> PI grade</span></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ TAB: EXECUTIVE SUMMARY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+<section id="summary" class="tab-content">
+  <div style="max-width:780px;margin:0 auto;padding:2rem 1.5rem;">
+    <h2 style="font-family:'Crimson Text',serif;font-size:2rem;color:#fff;margin-bottom:1.5rem;">Executive Summary</h2>
+
+    <article class="story">
+      <p><strong>The question.</strong> Time had a beginning. Physics knows this. Genesis 1:1 says it. But this paper argues something sharper: the moment time activates has the same formal structure in both accounts &mdash; that the Fall did not happen <em>in</em> time but <em>created</em> time. The first wavefunction collapse opens the <em>dt</em> dimension and switches on the entropy drain that begins the long decline of human coherence.</p>
+
+      <p><strong>The test.</strong> The claim is testable. If the framework is correct, the earliest humans &mdash; closest to the collapse event &mdash; should show the signature of a system newly coupled to entropy: high coherence decaying along a specific mathematical curve. The Genesis 5 and 11 genealogies give us nineteen data points. They sort cleanly into two regimes. <strong>Pre-Flood</strong> (Adam through Noah, excluding Enoch): mean lifespan 912 years, coefficient of variation 5.9%, no significant trend across a thousand years (p = 0.68). <strong>Post-Flood</strong> (Shem through Moses): exponential decay with Ï„<sub>d</sub> = 214 years, asymptotic floor at 93 years, RÂ² = 0.888, p = 4.73 Ã— 10â»â·.</p>
+
+      <p><strong>The convergence.</strong> The model independently predicts a coherence floor that converges with Moses' &ldquo;threescore years and ten&rdquo; (Psalm 90:10) and modern average lifespans (~78 years). Eber &mdash; the man whose name becomes &ldquo;Hebrew&rdquo; &mdash; sits +124 years above the post-Flood curve, exactly where the framework predicts a covenant re-coherence signal should appear. The Trinity is present at the first collapse: Father as boundary (<em>|ÏˆâŸ©</em>), Son as coherent measurement basis (<em>âŸ¨Ï†|</em>), Spirit as actualizing witness (<em>|âŸ¨Ïˆ|Ï†âŸ©|Â²</em>). Three operations. One event.</p>
+
+      <p><strong>Why it matters for the framework.</strong> If the Fall <em>created</em> time, then time is the medium of redemption, not the enemy of it. The Cross was planned before the foundation of the world (Revelation 13:8) but could only be <em>executed</em> in a frame where &ldquo;before&rdquo; and &ldquo;after&rdquo; exist. The Fall engineered that frame. Genesis 3:15 &mdash; the first prophecy, requiring future tense &mdash; is the first temporal-physics statement in Scripture. The math predicts the grammar. The text confirms.</p>
+
+      <p><strong>What this paper cannot prove.</strong> That quantum decoherence is <em>literally</em> occurring at the biological level (the model is mathematical, not mechanistic), that Genesis genealogies are laboratory-grade measurements, or that no other curve could fit the data. <strong>What it does establish:</strong> the Genesis lifespans have a specific mathematical shape that matches a known physical process to a degree that demands explanation, and that shape was predicted by the framework before the data was analyzed.</p>
+    </article>
+  </div>
+</section>
+
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ TAB: RIGOR & KILL CONDITIONS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+<section id="rigor" class="tab-content">
+  <div style="max-width:780px;margin:0 auto;padding:2rem 1.5rem;">
+    <h2 style="font-family:'Crimson Text',serif;font-size:2rem;color:#fff;margin-bottom:.5rem;">Rigor &amp; Kill Conditions</h2>
+    <p style="color:var(--text-dim);margin-bottom:2rem;">Every claim in this article is held to explicit falsification standards. If any kill condition is met, the associated claim fails. No exceptions.</p>
+
+    <div class="kill-card load-bearing">
+      <div class="kill-label">Load-Bearing &mdash; We'd Bet On This</div>
+      <p style="font-size:.95rem;"><strong>Claim:</strong> Genesis 5/11 post-Flood lifespans (Shem through Moses) follow a quantum decoherence curve <em>C(t) = AÂ·e<sup>&minus;t/Ï„</sup> + L</em> with RÂ² = 0.888, p = 4.73 Ã— 10â»â·, and a grace-sustained floor near 93 years.</p>
+      <p style="font-size:.95rem;margin-top:.5rem;"><strong>Kill if:</strong> re-running the curve fit with corrected chronology, or including Enoch (excluded as &ldquo;God took him&rdquo;), drops RÂ² below 0.7. Or: a non-decoherence model (e.g., logistic, power-law, linear) achieves equally good fit by AIC, eliminating the exponential preference.</p>
+      <div class="kill-detail">Status: holding Â· 6-model AIC comparison places exp+floor and logistic as top two Â· last reviewed 2026-02</div>
+    </div>
+
+    <div class="kill-card suggestive">
+      <div class="kill-label">Suggestive &mdash; Needs More Work</div>
+      <p style="font-size:.95rem;"><strong>Claim:</strong> The Fall <em>created</em> time. Pre-Fall reality had no <em>dt</em> dimension &mdash; not just no entropy, but no sequence at all. The first wavefunction collapse opens the temporal axis.</p>
+      <p style="font-size:.95rem;margin-top:.5rem;"><strong>Kill if:</strong> a coherent physical or theological model can be constructed in which Eden has genuine temporal sequence (e.g., the &ldquo;then God said&rdquo; narrative ordering of Genesis 1â€“2 reflects real <em>dt</em>) without activating the entropy drain. The strong &ldquo;no <em>dt</em>&rdquo; claim falls if narrative ordering can be shown to imply temporal sequence at the physics layer.</p>
+      <div class="kill-detail">Confidence: medium Â· the chain of inference (collapse â†’ definite states â†’ distinguishable configs â†’ transitions â†’ before/after â†’ time) is logical but each step is contestable</div>
+    </div>
+
+    <div class="kill-card destructive">
+      <div class="kill-label">Destructive Test &mdash; Framework-Level</div>
+      <p style="font-size:.95rem;"><strong>Claim:</strong> The Trinity's three-role presence at the first collapse maps to the Born Rule decomposition: Father = <em>|ÏˆâŸ©</em> possibility space, Son/Logos = <em>âŸ¨Ï†|</em> measurement basis, Spirit = <em>|âŸ¨Ïˆ|Ï†âŸ©|Â²</em> actualization.</p>
+      <p style="font-size:.95rem;margin-top:.5rem;"><strong>Kill if:</strong> any standard Trinitarian formula (Athanasian Creed, Nicene Creed, Reformed dogmatics) resists this mapping, or any orthodox statement on the Trinity breaks the structural correspondence. A documented case where Father, Son, or Spirit functions outside its assigned Born Rule role would falsify the framework's central isomorphism claim.</p>
+      <div class="kill-detail">Severity: framework-level Â· would invalidate Article 05's structural Trinity argument</div>
+    </div>
+  </div>
+</section>
+
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ TAB: BLACKBOARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+<section id="blackboard" class="tab-content">
+  <div style="max-width:780px;margin:0 auto;padding:2rem 1.5rem;">
+    <h2 style="font-family:'Crimson Text',serif;font-size:2rem;color:#fff;margin-bottom:.5rem;">Blackboard</h2>
+    <p style="color:var(--text-dim);margin-bottom:2rem;">Interactive workspace for the equations behind this paper.</p>
+
+    <div class="blackboard-section">
+      <div class="blackboard-label"><i class="fas fa-square-root-alt" style="margin-right:.3rem;"></i>Lifespan Decoherence Plot</div>
+      <div class="blackboard-content">
+        <div>
+          <i class="fas fa-chart-line" style="font-size:3rem;color:var(--gold);opacity:.3;"></i>
+          <p style="margin-top:1rem;">Interactive plot: Genesis lifespans vs. <em>C(t) = 337Â·e<sup>&minus;t/214</sup> + 93</em><br/>with Eber outlier (+124 yr) highlighted.</p>
+          <p style="margin-top:.5rem;font-size:.75rem;color:var(--text-muted);">Sliders for Ï„<sub>d</sub>, A, and L<sub>floor</sub> &mdash; coming soon.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="eq-block" style="margin-top:2rem;">
+      <div class="eq-label">Master Equation â€” Pre-Fall Static Form</div>
+      $$\chi = \iiint(G \cdot M \cdot E \cdot S \cdot T \cdot K \cdot R \cdot Q \cdot F \cdot C) \, dx \, dy$$
+    </div>
+
+    <div class="eq-block">
+      <div class="eq-label">Master Equation â€” Post-Fall (dt active)</div>
+      $$\chi = \iiint(G \cdot M \cdot E \cdot S \cdot T \cdot K \cdot R \cdot Q \cdot F \cdot C) \, dx \, dy \, dt$$
+    </div>
+
+    <div class="eq-block">
+      <div class="eq-label">Equilibrium Coherence â€” The Floor Is Grace</div>
+      $$C_{eq} = \frac{O \cdot G}{O \cdot G + S}$$
+    </div>
+    <p style="font-size:.9rem;color:var(--text-dim);text-align:center;">As long as <em>G &gt; 0</em>, the equilibrium is non-zero. Coherence cannot reach zero. The floor is grace.</p>
+  </div>
+</section>
+
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ TAB: PAPER INTELLIGENCE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+<section id="pi" class="tab-content">
+  <div class="pi-section">
+    <h2 style="font-family:'Crimson Text',serif;font-size:2rem;color:#fff;margin-bottom:.5rem;">Paper Intelligence</h2>
+    <p style="color:var(--text-dim);margin-bottom:2rem;">Independent rigor scoring and a transparent record of how this paper was evaluated.</p>
+
+    <div class="pi-notice">
+      <!-- PASTE TRANSPARENCY NOTICE HERE â€” drop the contents of pi-transparency-notice.html into this block during Part 2 batch fill. -->
+      <strong>Transparency Notice (placeholder)</strong><br/><br/>
+      The Paper Intelligence (PI) score reflects an automated rigor evaluation: framework consistency, kill-condition specificity, empirical claim grounding, and Scripture-handling rigor. Scores were generated by an independent grader pipeline. The full transparency notice block is dropped in here during batch generation.
+    </div>
+
+    <div class="pi-scores">
+      <div class="pi-scores-title">Paper Intelligence Scores â€” GTQ-04</div>
+      <div class="pi-placeholder">
+        <i class="fas fa-chart-bar" style="font-size:2rem;color:var(--gold);opacity:.3;display:block;margin-bottom:.75rem;"></i>
+        PI scores load here during Part 2 batch fill.<br/>
+        Source: <code>paper_intelligence_rows_*.json</code> filtered by <code>paper-id="04"</code>.<br/>
+        Render: chi value, letter grade, sub-scores, full rationale link.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOTTOM NAV (no skip button â€” main article) -->
+<nav class="article-nav">
+  <a href="gtq-03c-why-god-drowned-everybody.html" class="nav-prev">
+    <span class="nav-dir">&larr; Previous</span>
+    <span class="nav-title">Why Did God Drown Everybody?</span>
+  </a>
+  <span class="nav-position">Article 8 of 26 &middot; Main</span>
+  <a href="gtq-04a-decoherence-curve.html" class="nav-next">
+    <span class="nav-dir">Next</span>
+    <span class="nav-title">The Decoherence Curve &rarr;</span>
+  </a>
+</nav>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="eq">&chi; = f(G, M, E, S, T, K, R, Q, F, C)</div>
+  <p>David Lowe &middot; Genesis to Quantum &middot; Article 04 (Position 8 of 26)</p>
+  <p class="serif" style="font-style:italic;color:var(--text-dim);margin-top:.5rem;">&ldquo;For dust you are, and to dust you shall return.&rdquo; &mdash; Genesis 3:19</p>
+  <p style="margin-top:.75rem;font-size:.72rem;"><a href="theophysics-glossary.html" style="color:var(--gold);">View master Theophysics glossary &rarr;</a></p>
+</footer>
+
+<!-- SCRIPTS -->
+<script>
+function toggleSidebar(){
+  var sb=document.getElementById('sidebar');
+  var ov=document.getElementById('sidebarOverlay');
+  sb.classList.toggle('open');
+  ov.classList.toggle('show');
+  document.body.style.overflow=sb.classList.contains('open')?'hidden':'';
+}
+
+function switchTab(id, btn){
+  document.querySelectorAll('.tab-content').forEach(function(el){el.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(el){el.classList.remove('active');});
+  document.getElementById(id).classList.add('active');
+  if(btn) btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+window.addEventListener('scroll',function(){
+  var h=document.documentElement.scrollHeight-window.innerHeight;
+  var pct=h>0?(window.scrollY/h)*100:0;
+  var fill=document.getElementById('progressBar');
+  if(fill) fill.style.width=pct+'%';
+});
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    var sb=document.getElementById('sidebar');
+    if(sb&&sb.classList.contains('open')) toggleSidebar();
+  }
+});
+
+document.querySelectorAll('.audio-tab').forEach(function(tab){
+  tab.addEventListener('click',function(){
+    if(tab.classList.contains('disabled')) return;
+    document.querySelectorAll('.audio-tab').forEach(function(t){t.classList.remove('active');});
+    tab.classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>
+
+

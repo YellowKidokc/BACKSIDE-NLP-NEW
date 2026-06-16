@@ -1,0 +1,54 @@
+# Station contract — copy from _TEMPLATE/
+# Mirrors the shape of MODELS/_TEMPLATE/model.yml so stations and models read alike.
+# new_station.py substitutes every {{PLACEHOLDER}} from CLI args.
+
+station_id: ST-SEVENQ-001
+name: 7Q Forward (classification)
+lane: sevenq
+status: draft
+order: 9
+purpose: >
+  Forward 7-Question Scientific Method — classification pass on a paper (Q0..Q7). What is this paper saying?
+
+# What this station calls. For model-wrapper stations this is the bound model.
+# For LLM stations this is the API model id (gpt-4o-mini, claude-opus-4-7, etc.).
+model:
+  primary:   gpt-4o-mini
+  fallback:  
+  provider:  openai
+
+prompt:
+  primary:   PROMPT_SYSTEM.md
+  fallback:  
+
+script:
+  runner:    scripts/03_run_prompt.bat
+
+input:
+  accepts:
+    - paper_markdown                    # e.g. markdown_article, text_pair, query_passages
+  required_files:
+    - source.md                    # primary input filename convention
+
+output:
+  produces:
+    - forward_7q.json
+    - forward_7q.md
+  required_format: json
+
+healthcheck:
+  prompt: "Return JSON: {\"status\":\"ok\"}"
+  expected_contains: "\"status\""
+
+gate:
+  pass_if:
+    - valid_json: true
+    - has_claim: true
+  fail_to: 99_ERROR
+  review_to: 03_REVIEW
+
+next:
+  pass:
+    - ST-SEVENQ-002
+  fail:
+    - ST-ERR-001

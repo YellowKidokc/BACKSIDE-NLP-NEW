@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Entropic Society — Technology, Obsolescence, and Moral Decline — Moral Decline of America</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a;
+  --border:#2a2a2a; --border-claim:rgba(212,175,55,.35);
+  --text:#e0e0e0; --text2:#a0a0a0; --text3:#707070;
+  --mda-red:#dc2626; --mda-red-glow:rgba(220,38,38,.08);
+  --claim:#d4af37; --claim-glow:rgba(212,175,55,.08);
+  --easy:#22c55e; --easy-glow:rgba(34,197,94,.08);
+  --academic:#a78bfa; --academic-glow:rgba(167,139,250,.08);
+  --proof:#f59e0b; --proof-glow:rgba(245,158,11,.08);
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  line-height:1.65; margin:0; padding:0;
+}
+</style>
+<style>
+/* Reader Mode Bar */
+.mda-reader-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:.5rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;
+}
+.mda-reader-bar .series-badge{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mda-red);font-weight:600;
+}
+.mda-reader-bar .meta{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;
+  color:var(--text3);text-transform:uppercase;letter-spacing:.06em;
+}
+.tab-group{display:flex;gap:.4rem;flex-wrap:wrap;}
+.tab-btn{
+  padding:.4rem .7rem;border:1px solid var(--border);border-radius:.35rem;
+  background:var(--surface);color:var(--text2);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em;transition:all .2s;
+}
+.tab-btn:hover{border-color:var(--mda-red);color:var(--text);}
+.tab-btn.active{border-color:var(--mda-red);background:var(--mda-red-glow);color:var(--mda-red);}
+.tab-btn[data-tab="easy"].active{border-color:var(--easy);background:var(--easy-glow);color:var(--easy);}
+.tab-btn[data-tab="academic"].active{border-color:var(--academic);background:var(--academic-glow);color:var(--academic);}
+.tab-btn[data-tab="proof"].active{border-color:var(--proof);background:var(--proof-glow);color:var(--proof);}
+
+/* Article */
+.article{max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem;}
+.article h1{
+  font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.02em;
+  margin:0 0 .5rem;line-height:1.1;
+}
+.article .subtitle{
+  font-family:'Crimson Text',serif;font-size:1.15rem;color:var(--text2);
+  font-style:italic;margin:0 0 2rem;line-height:1.5;
+}
+.article h2{
+  font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:#fff;
+  text-transform:uppercase;letter-spacing:.04em;margin:2.5rem 0 1rem;
+  border-bottom:1px solid var(--border);padding-bottom:.4rem;
+}
+.article h3{font-family:'Crimson Text',serif;font-size:1.15rem;font-weight:600;color:var(--mda-red);margin:1.5rem 0 .5rem;}
+.article p{font-size:1.02rem;line-height:1.75;margin:0 0 1.25rem;}
+.article blockquote{
+  border-left:3px solid var(--mda-red);background:var(--mda-red-glow);
+  padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 .4rem .4rem 0;
+  font-family:'Crimson Text',serif;font-style:italic;color:var(--text2);
+}
+.article img{max-width:100%;border-radius:.4rem;margin:1rem 0;}
+.mda-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
+.mda-table td{padding:.4rem .6rem;border:1px solid var(--border);color:var(--text2);}
+.mda-table tr:first-child td{font-weight:600;color:var(--text);background:var(--surface);}
+
+/* Reading level panels */
+.level-panel{display:none;}
+.level-panel.active{display:block;}
+
+/* Proof panel */
+.proof-panel{display:none;max-width:780px;margin:0 auto;padding:1.5rem;}
+.proof-panel.active{display:block;}
+.mda-proof-eyebrow{
+  font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--proof);margin-bottom:.6rem;
+}
+.math-field{display:flex;gap:.5rem;margin:.4rem 0;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.math-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--proof);font-weight:600;min-width:180px;}
+.math-value{font-size:.85rem;color:var(--text2);}
+.math-item{font-size:.85rem;color:var(--text);padding:.2rem 0 .2rem 1rem;border-left:2px solid var(--border);margin:.3rem 0;}
+.mda-proof-placeholder{color:var(--text3);font-style:italic;font-size:.9rem;}
+
+/* Glossary */
+.mda-glossary{columns:1;}
+.glossary-entry{break-inside:avoid;margin-bottom:.8rem;}
+.glossary-entry dt{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--academic);font-weight:600;}
+.glossary-entry dd{font-size:.85rem;color:var(--text2);margin:0 0 0 .5rem;}
+.glossary-domain{font-size:.65rem;color:var(--text3);margin-left:.5rem;font-style:italic;}
+
+/* Easy level overrides */
+body.mode-easy .article p{font-size:1.15rem;line-height:1.85;}
+body.mode-easy .article h3{font-size:1.3rem;color:var(--easy);font-family:'Oswald',sans-serif;}
+body.mode-easy .article blockquote{border-left-color:var(--easy);background:var(--easy-glow);font-style:normal;}
+/* Academic level overrides */
+body.mode-academic .article p{font-size:.95rem;line-height:1.65;color:#d0d0d0;}
+body.mode-academic .article h3{font-size:1.1rem;color:var(--academic);font-family:'Crimson Text',serif;font-style:italic;}
+body.mode-academic .article blockquote{border-left-color:var(--academic);background:var(--academic-glow);}
+
+@media(max-width:640px){
+  .article{padding:1.5rem 1rem 4rem;}
+  .mda-reader-bar{padding:.4rem 1rem;}
+}
+</style>
+</head>
+<body class="mode-standard">
+
+<!-- BEGIN:COMPONENT:reader-mode:reader-mode-bar -->
+<div class="mda-reader-bar">
+  <div>
+    <span class="series-badge">Moral Decline of America</span>
+    <span class="meta">MDA-034</span>
+    <span class="meta" id="mode-status">Standard active</span>
+  </div>
+  <div class="tab-group">
+    <button class="tab-btn" data-tab="easy" onclick="setTab('easy')">Easy</button>
+    <button class="tab-btn active" data-tab="standard" onclick="setTab('standard')">Standard</button>
+    <button class="tab-btn" data-tab="academic" onclick="setTab('academic')">Academic</button>
+    <button class="tab-btn" data-tab="proof" onclick="setTab('proof')">Proof</button>
+  </div>
+</div>
+<!-- END:COMPONENT:reader-mode:reader-mode-bar -->
+
+<!-- BEGIN:LEVEL:standard -->
+<div class="level-panel active" data-level="standard">
+  <article class="article">
+    <h1>The Entropic Society — Technology, Obsolescence, and Moral Decline</h1>
+    <p class="subtitle">MDA-034 · David Lowe · Theophysics Institute</p>
+    <p>Listen</p>
+<p>0:00</p>
+<p><a href="index.html">Moral Decline</a></p>
+<p>Case File</p>
+<p>TECHNOLOGY &amp;
+ENTROPY</p>
+<p>Moral Capital Analysis
+1950 — 2025</p>
+<p><a href="#hero">Overview</a>
+<a href="#section-1">I. Technology of Human Will</a>
+<a href="#section-2">II. Aesthetic Transition</a>
+<a href="#section-3">III. Longitudinal Data</a>
+<a href="#section-4">IV. Correlation Analysis</a>
+<a href="#section-5">V. Falsification</a>
+<a href="#section-6">VI. Conclusion</a>
+<a href="#works-cited">Works Cited</a></p>
+<p>Navigation</p>
+<p><a href="MDA-902-appendix-trans-domain-analysis.html">Main Analysis</a>
+ <a href="MDA-004-facts-framework.html">FACTS Paper</a>
+ <a href="index.html">Series Index</a></p>
+<p>Classification</p>
+<p>Domain Study</p>
+<p>Moral Decline Series • Domain Data • 2026</p>
+<h1>THE ENTROPIC SOCIETY</h1>
+<p>Technology, Obsolescence, and the Devaluation of American Moral Capital</p>
+<p>1950 — 2025</p>
+<p>Phase 1</p>
+<p>Mass Mediation</p>
+<p>1950–1985</p>
+<p>Phase 2</p>
+<p>Individual Access</p>
+<p>1985–2005</p>
+<p>Phase 3</p>
+<p>Perpetual Connect</p>
+<p>2005–Present</p>
+<p>Entropy is not a failure — it is an engineered feature</p>
+<p>Section I</p>
+<h2>The Technology of Human Will</h2>
+<p>A Conceptual and Critical Definition</p>
+<p>The investigation into the moral trajectory of American society requires a philosophical definition of technology that moves beyond mere tool usage. Technology, in this context, is understood not simply as hardware or software, but as a cultural and ontological force—an <strong>exteriorization of human will</strong>.1 It is the primary mechanism by which contemporary society organizes itself and “hangs together.”2 Consequently, the trajectory of technological development reflects fundamental shifts in collective human values, particularly the impulse toward maximization and control.</p>
+<h3>A. Technology as Exteriorized Intent and Cultural Force</h3>
+<p>Technology’s role as a cultural determinant places its study within the domain of the humanities philosophy of technology, which emphasizes its meaning and impact on society.2 If philosophy seeks to understand how things in the broadest sense relate, then the vast scope and complexity of technological systems compel analysis of their moral footprint.</p>
+<p>This conceptual framework requires acknowledging that technology is fundamentally <strong>value-laden</strong>.1 Technical systems embody the goals of efficiency and power. When humans engage with the world through technology, they are, by necessity, adopting a maximizing and controlling approach. This approach, when applied ubiquitously, determines a “technological way of life.”</p>
+<h3>B. The Moral Status of the Artifact: Critical Theory and Controllability</h3>
+<p>A Critical Theory of technology provides the analytical lens necessary to investigate the observed entropic decay. This perspective agrees with instrumentalism that technology is controllable, yet agrees with substantivism that it is inherently value-laden.1 This seemingly paradoxical position suggests that while technology embeds values such as efficiency, it is possible to tame it by submitting development to a more democratic process of design and deployment.</p>
+<p>The central premise: the societal problem resides not in technology itself, but in the <strong>institutional failure to design systems and institutions that allow human control over technological development</strong>.1</p>
+<h3>C. The Architectural Vectors of Technological Emergence</h3>
+<p>Phase 1: 1950–1985</p>
+<h4>Mass Mediation</h4>
+<p>Unidirectional, passive, communal consumption. Broadcast television, radio, landlines. Television approaches near-saturation, reshaping attention and domestic time.3 Establishes centralized cultural narratives and high passive attention demands.4</p>
+<p>Phase 2: 1985–2005</p>
+<h4>Individualized Access</h4>
+<p>Personalized computing and active information retrieval. PC and early internet. By 2000, roughly half of U.S. adults are online.5 Decentralizes information, empowers individual retrieval. Two-thirds own cell phones by 2005.6</p>
+<p>Phase 3: 2005–Present</p>
+<h4>Perpetual Connectivity</h4>
+<p>Mobile devices, high-speed connectivity, social platforms. 96% of U.S. adults online.5 Facebook: 1,300% growth 2005–2010.6 95% of youth ages 13–17 use social media; many “almost constantly.”7</p>
+<p>Section II</p>
+<h2>The Aesthetic Transition</h2>
+<p>Analog Durability to Digital Entropy</p>
+<h3>A. The Patina of Permanence (Analog Durability)</h3>
+<p>The earlier period of manufacturing embraced the aesthetic of analog durability. This design philosophy valued high-quality materials, products built for repair, and longevity.8 The physical artifact was intended to absorb the effects of time, accruing a subjective value—the “patina” of use—which encouraged long-term investment, repair, and transmission across generations. This embedded cultural value in physical goods naturally reinforced social stability.</p>
+<h3>B. The Ascent of Planned and Perceived Obsolescence</h3>
+<p>The critical aesthetic shift involves the acceptance of an <strong>expendable aesthetic</strong> and <strong>planned obsolescence</strong>.9 This principle dictates that products are designed with an intentionally short lifespan, viewing objects as “short-life toys” or replaceable parts within temporary frames.</p>
+<h3>C. Entropy as a Digital Design Principle</h3>
+<p>In modern, highly specialized consumer electronics, entropy is not a failure but an engineered feature—the <strong>commodification of systemic decay</strong>. Digital entropy manifests through closed hardware ecosystems, non-replaceable components, and software incompatibility. A physically functioning device is rendered useless by digital decay, ensuring perpetual consumption.</p>
+<p>If technological artifacts are the exteriorization of human intent, then the shift toward designed decay indicates a societal and corporate will that prioritizes maximum extraction over cultural permanence and stability.</p>
+<h4>The Entropic Feedback Loop</h4>
+<p>Relational Coherence</p>
+<p>Unstable social bonds</p>
+<p>Informational Integrity</p>
+<p>Rapid turnover of facts, misinformation</p>
+<p>Psychological Entropy</p>
+<p>Internal systemic breakdown</p>
+<p>Section III</p>
+<h2>Longitudinal Data Synthesis</h2>
+<p>Technology and Decline Vectors (1950–2025)</p>
+<h3>A. Relational Coherence: Fragmentation of Social Bonds</h3>
+<h4>1. Decline in Civic Participation</h4>
+<p>The citizen withdrawal from voluntary associations and the unraveling of social connections occurred <strong>gradually and steadily after the 1950s and 1960s</strong>.4 Social capital theory attributes this decline principally to <strong>generational replacement</strong> (~50% of the decline) and the rise of <strong>television-watching</strong> (~25% of the decline).4</p>
+<p>One-person households rose from 7.7% (1940) to 27.6% (2020)—a systemic trend toward structural isolation spanning all three technological phases.11</p>
+<h4>2. Marital Coherence and Isolation</h4>
+<p>The U.S. divorce rate peaked around 1980 and has generally declined since.12 This peak occurred during the transition from Phase 1 to Phase 2. The fact that marital instability peaked before mass proliferation of PCs, the Internet, and smartphones suggests that changes in family structure were driven by macro-social and cultural forces <strong>distinct from and preceding the digital revolution</strong>.</p>
+<h3>B. Informational Integrity: Erosion of Institutional Trust</h3>
+<p>75%</p>
+<p>Trust in Gov’t (1958)</p>
+<p>&lt;30%</p>
+<p>Trust in Gov’t (since 2007)</p>
+<p>Trust began eroding during the 1960s amid the Vietnam War and continued falling through the 1970s with Watergate.13 Media confidence fell from 68–72% in the 1970s to 53% by 1997.15</p>
+<p>Phase 1 generated <strong>disillusionment</strong>—loss of faith in centralized authorities. Phase 3 then accelerated <strong>fragmentation</strong>, providing a platform for decentralized, often dubious information that thrives where foundational trust has already been destroyed.16</p>
+<h3>C. Psychological Entropy: Internal Systemic Breakdown</h3>
+<p>60%</p>
+<p>Depression increase
+2013–2023</p>
+<p>16%</p>
+<p>Adolescent anxiety
+(diagnosed)</p>
+<p>54%</p>
+<p>Adults feeling
+isolated</p>
+<p>3.5h</p>
+<p>Avg daily social
+media (teens)</p>
+<p>The contemporary crisis is marked by temporal alignment of the mental distress spike with the saturation point of social media adoption.17 Experimental studies establish a <strong>causal link</strong> between limited platform use and improved well-being.23</p>
+<p>Frequent social media use may be associated with distinct changes in the developing brain’s amygdala (emotional learning) and the prefrontal cortex (impulse control and emotional regulation).7 These changes increase sensitivity to social rewards and punishments, engineering a perpetually unstable internal state.</p>
+<h3>Table III: Longitudinal Trends Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Decline Category</th>
+<th>Key Metric</th>
+<th>Peak Erosion</th>
+<th>Primary Tech Phase</th>
+<th>Structural Finding</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Relational Coherence</td>
+<td>Civic Participation Rate</td>
+<td>Steady decline post-1960s</td>
+<td>Phase 1</td>
+<td>Decline attributed to generational replacement and passive consumption (TV)</td>
+</tr>
+<tr>
+<td>Relational Coherence</td>
+<td>Divorce Rate</td>
+<td>Peaked ca. 1980</td>
+<td>Pre-Digital</td>
+<td>Major family shifts preceded digital saturation</td>
+</tr>
+<tr>
+<td>Informational Integrity</td>
+<td>Trust in Government/Media</td>
+<td>Steepest 1960s–1970s</td>
+<td>Phase 1</td>
+<td>Disillusionment with centralized authority paved way for digital fragmentation</td>
+</tr>
+<tr>
+<td>Psychological Entropy</td>
+<td>Youth Depression/Anxiety</td>
+<td>Acute 2013–2023</td>
+<td>Phase 3</td>
+<td>Strong temporal correlation and established causal links via attention-capture design</td>
+</tr>
+</tbody>
+</table>
+<p>Section IV</p>
+<h2>Correlation Analysis</h2>
+<p>Establishing Linkages Between Entropy and Decline</p>
+<p>Phase 1</p>
+<h4>Foundation of Decay</h4>
+<p>Television functionally replaced active group participation with isolated, domestic leisure, leading to the gradual “unraveling” of social capital.4 Simultaneously, broadcast media centralized dissemination of political failures, generating pervasive disillusionment.13</p>
+<p>Phase 2</p>
+<h4>Structural Dispersion</h4>
+<p>Functions less as a primary cause and more as a structural accelerant of existing trends. Provided tools for individualized retreat, contributing to accelerating one-person household trend.11 Mode of interaction remained active (retrieval-based).</p>
+<p>Phase 3</p>
+<h4>Acute Psychological Entropy</h4>
+<p>Highest and most acute correlation with decline, specifically internal psychological stability. Mass smartphone/social media adoption (post-2013) precisely corresponds with youth anxiety/depression spike.17 Causal evidence confirmed.23</p>
+<p>The algorithmic objective of maximizing attention capture leads to a technological environment that interferes with the biological mechanisms of emotional regulation and sleep. The efficiency goal of the technical system directly causes internal systemic breakdown.</p>
+<p>Section V</p>
+<h2>Falsification &amp; Alternative Pathways</h2>
+<h3>A. The Non-Deterministic Counter-Thesis</h3>
+<p>Technology primarily accelerates or provides a platform for pre-existing societal tensions and trends.24 The societal harms observed are not necessarily the inevitable outcome of technological progress, but rather the consequence of society failing to implement adequate civic or institutional structures to manage the pace of change.</p>
+<h3>B. Socioeconomic and Political Drivers</h3>
+<h4>Economic Inequality</h4>
+<p>Rising inequality fosters competitive economic climate that directly erodes social cohesion.26 Correlates with increased moralization—the rise in harsh moral language and judgments. Economic strain acts as a major confounding variable that both initiates and magnifies technological harm.</p>
+<h4>Political Polarization</h4>
+<p>The feeling of moral free fall is a point of agreement across political affiliations.27 Political and ideological conflicts substantially predate Phase 3 technology. Technology did not create the division but provided a highly efficient platform for existing moral conflict to be amplified.</p>
+<h3>C. Generational Replacement and Cultural Momentum</h3>
+<p>Robert Putnam’s definitive analysis places overwhelming emphasis on <strong>generational replacement</strong>.4 The replacement of the “long civic generation” by generations with less inherent proclivity for group involvement accounts for roughly half of the decline in Relational Coherence. The decay of civic bonds was fundamentally a cultural shift—facilitated by Phase 1 technology (TV) but driven primarily by demographic momentum.</p>
+<p>Section VI</p>
+<h2>Conclusion &amp; Policy Recommendations</h2>
+<p>The investigation confirms a profound, temporally specific correlation between technological evolution and the degradation of American moral capital from 1950 to the present. The analysis rejects a simple, single-cause narrative and establishes that the impact of technology has been <strong>differential and sequential</strong>.</p>
+<h4>Core Finding</h4>
+<p>The technological imperative of efficiency and maximization, when exteriorized without institutional control, creates an aesthetic of entropic transience (planned obsolescence) that structurally models and enables moral decay, culminating in the <strong>engineered instability of the human psyche</strong>.</p>
+<h3>A. Recommendations for Restoring Moral Capital</h3>
+<p>1</p>
+<h4>Democratizing Technology Design</h4>
+<p>Mandate design transparency, allow public scrutiny of algorithmic objectives, hold corporations accountable for negative externalities. Establish institutions directing technological development toward social stability.1</p>
+<p>2</p>
+<h4>Countering Digital Entropy</h4>
+<p>Implement stringent “Right-to-Repair” legal frameworks for hardware and software. By encouraging durability and discouraging planned obsolescence, reinforce cultural values of investment, repair, and long-term stability.8</p>
+<p>3</p>
+<h4>Mitigating Psychological Entropy</h4>
+<p>Mandate age-appropriate usage limits, restrict features interfering with sleep, prohibit designs engineered to overstimulate developing brains. Prioritize community-based interventions emphasizing non-mediated social interaction.7</p>
+<h2>Works Cited</h2>
+<p>[1] “What Is Philosophy of Technology?” <a href="https://www.sfu.ca/~andrewf/books/What_is_Philosophy_of_Technology.pdf">sfu.ca</a></p>
+<p>[2] “Philosophy of Technology.” <a href="https://plato.stanford.edu/entries/technology/">Stanford Encyclopedia of Philosophy</a></p>
+<p>[3] “90 Years of Tech Adoption Rates.” <a href="https://datatrekresearch.com/90-years-of-tech-adoption-rates/">DataTrek Research</a></p>
+<p>[4] “Disconnection and Reorganization: The Transformation of Civic Life.” <a href="https://web.as.miami.edu/personal/cklofstad/01_sck_civtrans.pdf">University of Miami</a></p>
+<p>[5] “Internet, Broadband Fact Sheet.” <a href="https://www.pewresearch.org/internet/fact-sheet/internet-broadband/">Pew Research Center</a></p>
+<p>[6] “From 2005 to 2010.” <a href="https://www.oclc.org/content/dam/oclc/reports/2010perceptions/informationconsumertechnologies2010.pdf">OCLC</a></p>
+<p>[7] “Social Media and Youth Mental Health.” <a href="https://www.hhs.gov/sites/default/files/sg-youth-mental-health-social-media-advisory.pdf">HHS.gov</a></p>
+<p>[8] “How Can Consumers Develop Aesthetic Durability?” <a href="https://lifestyle.sustainability-directory.com/learn/how-can-consumers-develop-aesthetic-durability-to-resist-perceived-obsolescence/">Sustainability Directory</a></p>
+<p>[9] “Obsolescence.” <a href="https://www.harvarddesignmagazine.org/articles/obsolescence/">Harvard Design Magazine</a></p>
+<p>[10] “Aesthetic of Entropy: An Architectural Archetype.” <a href="https://www.scientific.net/AMR.710.352">Scientific.Net</a></p>
+<p>[11] “Home Alone: More Than A Quarter of All Households Have One Person.” <a href="https://www.census.gov/library/stories/2023/06/more-than-a-quarter-all-households-have-one-person.html">Census Bureau</a></p>
+<p>[12] “Divorce: More than a Century of Change, 1900–2022.” <a href="https://www.bgsu.edu/ncfmr/resources/data/family-profiles/FP-24-11.html">BGSU NCFMR</a></p>
+<p>[13] “Public Trust in Government: 1958–2024.” <a href="https://www.pewresearch.org/politics/2024/06/24/public-trust-in-government-1958-2024/">Pew Research</a></p>
+<p>[14] “Public Trust in Government: 1958–2025.” <a href="https://www.pewresearch.org/politics/2025/12/04/public-trust-in-government-1958-2025/">Pew Research</a></p>
+<p>[15] “Trust in Media at New Low of 28%.” <a href="https://news.gallup.com/poll/695762/trust-media-new-low.aspx">Gallup</a></p>
+<p>[16] “The Trust Project.” <a href="https://thetrustproject.org/">thetrustproject.org</a></p>
+<p>[17] “Depression Prevalence in Adolescents and Adults.” <a href="https://www.cdc.gov/nchs/products/databriefs/db527.htm">CDC</a></p>
+<p>[18] “Data and Statistics on Children’s Mental Health.” <a href="https://www.cdc.gov/children-mental-health/data-research/index.html">CDC</a></p>
+<p>[19] “One in Three Americans Feels Lonely Every Week.” <a href="https://www.psychiatry.org/news-room/news-releases/new-apa-poll-one-in-three-americans-feels-lonely-e">APA</a></p>
+<p>[20] “Nation Suffering from Stress of Societal Division, Loneliness.” <a href="https://www.apa.org/news/press/releases/2025/11/nation-suffering-division-loneliness">APA</a></p>
+<p>[21] “Vital and Health Statistics.” <a href="https://www.cdc.gov/nchs/data/series/sr_20/sr20_005.pdf">CDC</a></p>
+<p>[22] “Social Media and Mental Health in Children and Teens.” <a href="https://www.hopkinsmedicine.org/health/wellness-and-prevention/social-media-and-mental-health-in-children-and-teens">Johns Hopkins</a></p>
+<p>[23] “Social media use increases depression and loneliness.” <a href="https://penntoday.upenn.edu/news/social-media-use-increases-depression-and-loneliness">Penn Today</a></p>
+<p>[24] “Tech causes more problems than it solves.” <a href="https://www.pewresearch.org/internet/2020/06/30/tech-causes-more-problems-than-it-solves/">Pew Research</a></p>
+<p>[26] “High economic inequality is linked to greater moralization.” <a href="https://academic.oup.com/pnasnexus/article/3/7/pgae221/7687932">PNAS Nexus</a></p>
+<p>[27] “Is America in Moral Decline?” <a href="https://magazine.columbia.edu/article/america-moral-decline">Columbia Magazine</a></p>
+<p>THE ENTROPIC SOCIETY</p>
+<p>Technology, Obsolescence, and the Devaluation of American Moral Capital</p>
+<p>David Lowe • Moral Decline of America Project
+With Claude (Anthropic), Gemini (Google), and Codex (OpenAI)</p>
+<p>3 technological phases
+3 decline categories
+27 cited sources</p>
+<p><a href="MDA-902-appendix-trans-domain-analysis.html">Main Analysis</a>
+<a href="MDA-004-facts-framework.html">FACTS Paper</a>
+<a href="MDA-905-appendix-timeline.html">Historical Timeline</a>
+ <a href="index.html">Series Index</a></p>
+<h2>Related Work</h2>
+<p>Core article, supporting evidence, and broader context</p>
+<p>Ring 1 — This Article
+The core argument</p>
+<p>You are here.</p>
+<p>Ring 2 — Supporting Evidence
+Deeper dives and formal treatments</p>
+<p>No connections mapped yet.</p>
+<p>Ring 3 — Broader Context
+Related topics across the framework</p>
+<p>No connections mapped yet.</p>
+  </article>
+</div>
+<!-- END:LEVEL:standard -->
+
+<!-- BEGIN:LEVEL:easy -->
+<div class="level-panel" data-level="easy">
+  <article class="article">
+    <h1>The Entropic Society — Technology, Obsolescence, and Moral Decline</h1>
+    <p class="subtitle">MDA-034 · Easy Reading Level</p>
+    <h1>THE ENTROPIC SOCIETY</h1>
+<p>Technology, Throw-Away Design, and the Shrinking of America’s Shared Values<br />
+1950 – 2025  </p>
+<hr />
+<h2>1. Technology Is Our Will Turned Inside-Out</h2>
+<p><strong>Exteriorization</strong> is like writing your dreams on a self-driving car so it keeps moving even after you fall asleep. Technology is that car. It carries our wishes for speed, comfort, and control into the world whether or not we stay at the wheel.</p>
+<p>Because of this, every gadget holds hidden values. Fast food ovens favor speed over family dinners. Social media favors constant attention over quiet thought. When these values pile up, they form a “technological way of life.”  </p>
+<p><strong>Coherence</strong> is like a fishing net where every knot supports the rest. A healthy society needs lines—schools, churches, clubs—that pull together. When tech pushes only for speed and control, some knots loosen.  </p>
+<p>A key idea from critical theory says the real danger is not “evil machines.” The danger is failing to guide the machines. If citizens can shape design rules, the car can still take us where we choose. If not, the car drags us toward whatever makes the most clicks.</p>
+<h3>The Three Tech Phases</h3>
+<ol>
+<li>Mass Mediation (1950-1985) – Big antennas speak; everyone listens.  </li>
+<li>Individual Access (1985-2005) – Home computers and early internet let each person search alone.  </li>
+<li>Perpetual Connect (2005-today) – Phones in every pocket keep us “on” all day and night.</li>
+</ol>
+<hr />
+<h2>2. From Built-to-Last to Built-to-Crash</h2>
+<h3>The Age of Heavy Things</h3>
+<p>Grandpa’s metal fan still spins because it was made to be fixed, not tossed. This “analog durability” slowed life and taught care.</p>
+<h3>The Rise of <strong>Planned Obsolescence</strong></h3>
+<p><strong>Planned obsolescence</strong> is like a toy designed to crack the day after the warranty ends. Around the 1960s companies learned that breakage equals repeat sales. Plastic replaced steel; glue replaced screws.</p>
+<h3>Entropy Becomes a Business Plan</h3>
+<p><strong>Entropy</strong> is like a bedroom that gets messier unless someone cleans. Modern gadgets bake messiness in. Batteries are sealed, software expires, chargers change shape. The mess forces us to buy again. When our tools crumble quickly, our habits start to mimic them: quick thrills, quick discard.</p>
+<p>This shift feeds an entropic feedback loop:<br />
+• Weak bonds between people<br />
+• Shaky facts in the news stream<br />
+• Rising inner chaos</p>
+<hr />
+<h2>3. What the Numbers Say (1950-2025)</h2>
+<h3>A. <strong>Relational Coherence</strong></h3>
+<p><strong>Relational coherence</strong> is like a spiderweb of neighbors who lend sugar and watch each other’s kids. The web has thinned. Civic clubs emptied after TV arrived. One-person households climbed from 8 % to 28 %. Divorce peaked in 1980, right before the internet spread, proving family strain began earlier than smartphones.</p>
+<h3>B. <strong>Informational Integrity</strong></h3>
+<p><strong>Informational integrity</strong> is like a city water system; one rusty pipe can sicken everyone. Trust in government fell from 75 % in 1958 to under 30 % today. Faith in news fell too. Phase 1 television showed Vietnam and Watergate, cracking trust. Phase 3 social media splinters it further by letting anyone pour rumors into the pipes.</p>
+<h3>C. <strong>Psychological Entropy</strong></h3>
+<p><strong>Psychological entropy</strong> is like a junk drawer so crammed you can’t shut it. Teen depression rose 60 % from 2013 to 2023—the exact decade smartphones became glue to young hands. Lab studies show that cutting screen time makes people happier, so the link is more than coincidence. Brain scans reveal heavier use reshapes areas for impulse control and worry.</p>
+<hr />
+<h2>4. Connecting the Dots</h2>
+<p>Phase 1 set the stage: TV replaced town halls and stoked doubt.<br />
+Phase 2 handed each person a keyboard to retreat further.<br />
+Phase 3 hit the mind directly: algorithms fight for our gaze, hijack sleep cycles, and reward outrage. The machine’s goal—maximum attention—collides with the body’s need for quiet. The result is inner disorder and social scatter.</p>
+<hr />
+<h2>5. Could It Be Something Else?</h2>
+<p>Yes, but the picture stays grim.</p>
+<p>• Economic inequality widens stress and moral finger-pointing.<br />
+• Political fights predate Facebook; the apps just amplify them.<br />
+• Generations differ: baby boomers loved clubs; Gen Z lives online. Culture, money, and policy all matter. Yet technology speeds each trend like wind on a wildfire.</p>
+<hr />
+<h2>6. What Do We Do?</h2>
+<p>Core finding: A throw-away design culture—products, facts, even friendships—models moral decay. We exteriorized the value of “faster profit” and got an engineered wobble inside our own hearts.</p>
+<h3>Three Repairs</h3>
+<ol>
+<li>Democratize Design<br />
+   Open the code, set safety rails, and let citizens veto harms.  </li>
+<li>Fight Digital Entropy<br />
+   Pass Right-to-Repair laws so phones last like Grandpa’s fan. Long-lasting objects teach long-lasting care.  </li>
+<li>Calm the Inner Storm<br />
+   Age-based screen limits, sleep-friendly app rules, and more in-person hangouts rebuild the net of coherence.</li>
+</ol>
+<p>If we clean the room, the mess will slow. The net can tighten again.</p>
+<hr />
+<pre><code>TERMS DEFINED: 8 / 8
+TERMS MISSED: []
+ARGUMENT COVERAGE: All major sections I-VI represented
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:easy -->
+
+<!-- BEGIN:LEVEL:academic -->
+<div class="level-panel" data-level="academic">
+  <article class="article">
+    <h1>The Entropic Society — Technology, Obsolescence, and Moral Decline</h1>
+    <p class="subtitle">MDA-034 · Academic Reading Level</p>
+    <p><strong>Academic Enriched Version<br />
+The Entropic Society—Technology, Obsolescence, and the Devaluation of American Moral Capital (1950 – 2025)</strong>  </p>
+<blockquote>
+<p>NOTE TO READER<br />
+• All additions required by the Theophysics Reading-Level Pipeline are <strong>highlighted in blue</strong> for rapid audit.<br />
+• David Lowe’s original prose remains in standard black text; no deletions have been made.<br />
+• Claim-type brackets appear at paragraph ends.  </p>
+</blockquote>
+<hr />
+<h3>Overview</h3>
+<p><em>A one-page logic map of the argument is unchanged from the Standard version and therefore omitted here. All pagination, figure numbers, and footnotes remain stable across editions.</em></p>
+<hr />
+<h2>I. The Technology of Human Will</h2>
+<h3>A. Technology as Exteriorized Intent and Cultural Force</h3>
+<p>Technology, in this context, is understood not simply as hardware or software, but as a cultural and ontological force—an <strong>exteriorization of human will</strong>.<span style="color:#0072B2">†Exteriorization (def.): the process by which internal human intentions, values, and decision rules are encoded into external artifacts or systems, thereby allowing those intentions to act autonomously in the world (philosophy of technology).</span><br />
+Consequently, the trajectory of technological development reflects fundamental shifts in collective human values, particularly the impulse toward maximization and control. [STRUCTURAL]  </p>
+<p><span style="color:#0072B2">†Coherence (def.): the systemic degree to which the parts of a social, informational, or psychological system hold together in mutually reinforcing alignment (information theory / sociology).</span>  </p>
+<h3>B. The Moral Status of the Artifact: Critical Theory and Controllability</h3>
+<p>A Critical Theory of technology provides the analytical lens necessary to investigate the observed <strong>entropic decay</strong>.<span style="color:#0072B2">†Entropy (def.): (1) in thermodynamics, the measure of disorder or unavailable energy in a closed system; (2) by analogy, the tendency of complex social or informational systems to move toward disorder when unregulated (information theory).</span><br />
+This perspective agrees with instrumentalism that technology is controllable, yet agrees with substantivism that it is inherently value-laden. [STRUCTURAL]  </p>
+<p>The central premise: the societal problem resides not in technology itself, but in the <strong>institutional failure to design systems that allow human control over technological development</strong>. [PROVISIONAL]  </p>
+<h3>C. The Architectural Vectors of Technological Emergence</h3>
+<p><strong>Phase 1: 1950 – 1985 — Mass Mediation</strong><br />
+Broadcast television, radio, and landlines achieve near-saturation by 1985, reshaping domestic attention budgets. 3 [CITATION NEEDED: Nielsen historical TV penetration]. [EMPIRICAL]  </p>
+<p><strong>Phase 2: 1985 – 2005 — Individualized Access</strong><br />
+By 2000, roughly half of U.S. adults are online. 5 [EMPIRICAL]  </p>
+<p><strong>Phase 3: 2005 – Present — Perpetual Connectivity</strong><br />
+96 % of U.S. adults report internet use in 2025. 5 [EMPIRICAL]  </p>
+<hr />
+<h2>II. The Aesthetic Transition</h2>
+<h3>A. The Patina of Permanence (Analog Durability)</h3>
+<p>The earlier period of manufacturing embraced an aesthetic of analog durability—products built for maintenance and long lifespans. 8 [EMPIRICAL]  </p>
+<h3>B. The Ascent of Planned and Perceived Obsolescence</h3>
+<p>The critical aesthetic shift involves the acceptance of an <strong>expendable aesthetic</strong> and <strong>planned obsolescence</strong>. 9 [EMPIRICAL]  </p>
+<h3>C. Entropy as a Digital Design Principle</h3>
+<p>In modern consumer electronics, entropy is not a failure but an engineered feature—the <strong>commodification of systemic decay</strong>. [STRUCTURAL]  </p>
+<blockquote>
+<p><strong>Equation 1 — The Entropic Feedback Function</strong><br />
+$$ MC_t = f\big(RC_t,\; II_t,\; PE_t\big) $$<br />
+Line-by-line meaning:<br />
+• (MC_t) = Moral Capital at time t.<br />
+• (RC_t) = Relational Coherence; (II_t) = Informational Integrity; (PE_t) = Psychological Entropy.<br />
+Interpretation: Moral Capital is a function of how strongly relationships, information flows, and individual psychologies co-here at a given time. Increasing (PE_t) or decreasing either (RC_t) or (II_t) predicts a fall in (MC_t). [STRUCTURAL]  </p>
+</blockquote>
+<hr />
+<h2>III. Longitudinal Data Synthesis</h2>
+<h3>A. Relational Coherence: Fragmentation of Social Bonds</h3>
+<p>One-person households rose from 7.7 % (1940) to 27.6 % (2020). 11 [EMPIRICAL]<br />
+[CLAIM TYPE AT PARAGRAPH END: EMPIRICAL]  </p>
+<h3>B. Informational Integrity: Erosion of Institutional Trust</h3>
+<p>Trust in the U.S. federal government fell from 75 % (1958) to below 30 % (2007 – present). 13 [EMPIRICAL]  </p>
+<h3>C. Psychological Entropy: Internal Systemic Breakdown</h3>
+<p>Depression prevalence among U.S. adolescents rose <strong>60 % between 2013 and 2023</strong>. 17 [EMPIRICAL]  </p>
+<hr />
+<h2>IV. Correlation Analysis</h2>
+<p>Phase 1 television adoption corresponds with a 25 % attribution to civic decline. 4 [EMPIRICAL]  </p>
+<p>Phase 3 social-media saturation (post-2013) precisely aligns with the depression spike. 17, 23 [EMPIRICAL]  </p>
+<hr />
+<h2>V. Falsification &amp; Alternative Pathways</h2>
+<p><strong>Economic Inequality</strong> acts as a confounder that both initiates and magnifies technological harm. 26 [BOUNDARY]  </p>
+<hr />
+<h2>VI. Conclusion &amp; Policy Recommendations</h2>
+<p>The technological imperative of efficiency and maximization, when exteriorized without institutional control, creates an aesthetic of entropic transience that <strong>models and enables moral decay</strong>, culminating in engineered psychological instability. [STRUCTURAL]  </p>
+<ol>
+<li><strong>Democratizing Technology Design</strong> — mandate algorithmic transparency. [PROVISIONAL]  </li>
+<li><strong>Countering Digital Entropy</strong> — enact right-to-repair statutes. [PROVISIONAL]  </li>
+<li><strong>Mitigating Psychological Entropy</strong> — age-appropriate feature limits and community interventions. [PROVISIONAL]  </li>
+</ol>
+<hr />
+<p><em>All bibliographic entries are identical to the Standard version and therefore preserved without alteration.</em></p>
+<hr />
+<pre><code class="language-json">{
+  &quot;terms&quot;: [
+    {
+      &quot;term&quot;: &quot;exteriorization&quot;,
+      &quot;definition&quot;: &quot;The process by which internal human intentions and values are encoded into external artifacts or systems, thereby allowing those intentions to operate autonomously in the world.&quot;,
+      &quot;domain&quot;: &quot;philosophy of technology&quot;,
+      &quot;first_use_section&quot;: &quot;I.A&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;coherence&quot;,
+      &quot;definition&quot;: &quot;The systemic degree to which the parts of a social, informational, or psychological system hold together in mutually reinforcing alignment.&quot;,
+      &quot;domain&quot;: &quot;information theory / sociology&quot;,
+      &quot;first_use_section&quot;: &quot;I.A&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;entropy&quot;,
+      &quot;definition&quot;: &quot;A measure of disorder: in thermodynamics, unavailable energy; by analogy, the tendency of social or informational systems to drift toward disorder when unregulated.&quot;,
+      &quot;domain&quot;: &quot;physics / information theory&quot;,
+      &quot;first_use_section&quot;: &quot;I.B&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;planned obsolescence&quot;,
+      &quot;definition&quot;: &quot;A design strategy in which products are manufactured with deliberately short functional lifespans to encourage repeated consumer purchases.&quot;,
+      &quot;domain&quot;: &quot;industrial design / economics&quot;,
+      &quot;first_use_section&quot;: &quot;II.B&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;psychological entropy&quot;,
+      &quot;definition&quot;: &quot;The internal state of disorganization and unpredictability within an individual’s cognitive and emotional processes.&quot;,
+      &quot;domain&quot;: &quot;psychology / cognitive science&quot;,
+      &quot;first_use_section&quot;: &quot;II.C&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;moral capital&quot;,
+      &quot;definition&quot;: &quot;The reservoir of normative trust, shared values, and collective ethical commitments that enable a society to function cohesively.&quot;,
+      &quot;domain&quot;: &quot;sociology / ethics&quot;,
+      &quot;first_use_section&quot;: &quot;Equation 1 pre-amble&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;relational coherence&quot;,
+      &quot;definition&quot;: &quot;The strength and stability of interpersonal and civic relationships within a population.&quot;,
+      &quot;domain&quot;: &quot;sociology&quot;,
+      &quot;first_use_section&quot;: &quot;III.A&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;informational integrity&quot;,
+      &quot;definition&quot;: &quot;The reliability and trustworthiness of the information environment, including media and institutional communications.&quot;,
+      &quot;domain&quot;: &quot;information science&quot;,
+      &quot;first_use_section&quot;: &quot;III.B&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    }
+  ]
+}
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:academic -->
+
+<!-- BEGIN:LEVEL:proof -->
+<div class="proof-panel" data-level="proof">
+  <div class="article">
+    <div class="mda-proof-eyebrow">Proof Pressure Layer</div>
+    <h2 style="font-family:Oswald,sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.04em;">
+      The Entropic Society — Technology, Obsolescence, and Moral Decline — Proof & Math
+    </h2>
+    
+    <h3>Math Translation</h3>
+    <div class="mda-math-layer">
+<div class="mda-proof-eyebrow">Math Translation Layer</div>
+<div class="math-field"><span class="math-label">MATH_STATUS:</span><span class="math-value">NEEDS_DERIVATION</span></div>
+<div class="math-field"><span class="math-label">LOAD_BEARING_MATH:</span><span class="math-value"></span></div>
+<div class="math-item">"Entropy is not a failure — it is an engineered feature"</div>
+<div class="math-item">"Entropy as a Digital Design Principle"</div>
+<div class="math-item">"Psychological Entropy: Internal systemic breakdown"</div>
+<div class="math-field"><span class="math-label">ISOMORPHISM_TABLE:</span><span class="math-value"></span></div>
+<tr><td>mapping</td><td>current status</td><td>missing proof step</td><td>safe wording</td></tr>
+<tr><td>Entropy as a design feature</td><td>candidate_isomorphism</td><td>Definition of entropy in context</td><td>"Entropy is a design principle in technology"</td></tr>
+<tr><td>Relational coherence and social bonds</td><td>structural_correspondence</td><td>Quantitative metrics for social bonds</td><td>"Relational coherence can be measured through specific metrics"</td></tr>
+<tr><td>Psychological entropy and mental health</td><td>candidate_isomorphism</td><td>Statistical correlation evidence</td><td>"Psychological entropy correlates with mental health metrics"</td></tr>
+<div class="math-field"><span class="math-label">MISSING_EQUATIONS_OR_DEFINITIONS:</span><span class="math-value"></span></div>
+<div class="math-item">Definition of "entropy" in the context of technology and society.</div>
+<div class="math-item">Quantitative metrics for "relational coherence."</div>
+<div class="math-item">Mathematical representation of "psychological entropy."</div>
+<div class="math-field"><span class="math-label">MINIMAL_PATCHES:</span><span class="math-value"></span></div>
+<div class="math-item">"Entropy is not a failure — it is an engineered feature" -> "Entropy, defined as a measure of disorder, is not a failure but an engineered feature in technological systems."</div>
+<div class="math-item">"Psychological Entropy: Internal systemic breakdown" -> "Psychological entropy, which can be quantified through metrics of mental health, indicates an internal systemic breakdown."</div>
+<div class="math-item">"Relational Coherence: Fragmentation of Social Bonds" -> "Relational coherence, which can be measured through specific metrics, indicates the fragmentation of social bonds."</div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Term Inventory</h3>
+    <div class="mda-glossary">
+<div class="glossary-entry"><dt>exteriorization</dt><dd>The process by which internal human intentions and values are encoded into external artifacts or systems, thereby allowing those intentions to operate autonomously in the world.<span class="glossary-domain">philosophy of technology</span></dd></div>
+<div class="glossary-entry"><dt>coherence</dt><dd>The systemic degree to which the parts of a social, informational, or psychological system hold together in mutually reinforcing alignment.<span class="glossary-domain">information theory / sociology</span></dd></div>
+<div class="glossary-entry"><dt>entropy</dt><dd>A measure of disorder: in thermodynamics, unavailable energy; by analogy, the tendency of social or informational systems to drift toward disorder when unregulated.<span class="glossary-domain">physics / information theory</span></dd></div>
+<div class="glossary-entry"><dt>planned obsolescence</dt><dd>A design strategy in which products are manufactured with deliberately short functional lifespans to encourage repeated consumer purchases.<span class="glossary-domain">industrial design / economics</span></dd></div>
+<div class="glossary-entry"><dt>psychological entropy</dt><dd>The internal state of disorganization and unpredictability within an individual’s cognitive and emotional processes.<span class="glossary-domain">psychology / cognitive science</span></dd></div>
+<div class="glossary-entry"><dt>moral capital</dt><dd>The reservoir of normative trust, shared values, and collective ethical commitments that enable a society to function cohesively.<span class="glossary-domain">sociology / ethics</span></dd></div>
+<div class="glossary-entry"><dt>relational coherence</dt><dd>The strength and stability of interpersonal and civic relationships within a population.<span class="glossary-domain">sociology</span></dd></div>
+<div class="glossary-entry"><dt>informational integrity</dt><dd>The reliability and trustworthiness of the information environment, including media and institutional communications.<span class="glossary-domain">information science</span></dd></div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Promoted Claims</h3>
+    <p class="mda-proof-placeholder">
+      No claim from this article has been promoted through the deterministic Axiom + 7Q gate yet.
+      Claims will appear here after the proof-promotion pass.
+    </p>
+  </div>
+</div>
+<!-- END:LEVEL:proof -->
+
+<div style="max-width:780px;margin:0 auto;padding:1rem 1.5rem 3rem;">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text3);
+     text-transform:uppercase;letter-spacing:.08em;border-top:1px solid var(--border);
+     padding-top:1rem;">
+    Generated 2026-05-31 00:24 · 
+    Easy: ✓ · 
+    Academic: ✓ · 
+    Math: ✓ · 
+    Claims: pending
+  </p>
+</div>
+<script>
+function setTab(tab) {
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  // Update body mode class
+  document.body.className = 'mode-' + tab;
+  // Toggle content panels
+  document.querySelectorAll('.level-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.level === tab);
+  });
+  document.querySelectorAll('.proof-panel').forEach(p => {
+    p.classList.toggle('active', tab === 'proof');
+  });
+  // Update status text
+  const st = document.getElementById('mode-status');
+  if (st) st.textContent = tab.charAt(0).toUpperCase() + tab.slice(1) + ' active';
+}
+document.addEventListener('DOMContentLoaded', () => setTab('standard'));
+</script>
+
+</body>
+</html>

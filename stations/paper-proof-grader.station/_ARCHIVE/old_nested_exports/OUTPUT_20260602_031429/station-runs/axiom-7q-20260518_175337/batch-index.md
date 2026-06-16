@@ -1,0 +1,9 @@
+# Axiom + 7Q Batch Index
+
+Generated: 2026-05-18T17:53:37
+
+## T1-7Q-CLAIM-LEDGER
+- Claims: 16
+- Average 7Q forward: 3.0/7
+- Reverse: {'FAIL_REVIEW': 5, 'WEAKENED': 10, 'SURVIVES_WITH_REPAIRS': 1}
+- Chain-node hits: {'iron_conclusion': 9, 'theorem_observer': 6, 'theorem_consciousness': 5, 'axiom_81_grace_function': 9, 'sign_conservation_theorem': 9, 'soteriological_limit': 9, 'grace_phase_transition': 8, 'meta_1': 2, 'meta_3': 3, 'final_1': 9, 'falsifiability': 2, 'iron_moral_physics': 4, 'tp_trinity_closure': 4, 'nt_ceiling_non_derivability': 5, 't3_1': 8, 'bc2': 10, 'bc4': 4, 'bc8': 6, 'closure': 6, 'primitive_information': 3, 'p0_distinguishable_states': 2, 'definition_information': 3, 'definition_good': 3, 'theorem_ten_laws': 1, 'prediction_llc_coherence': 3, 'feb14_boundary': 2, 'a1_1': 5, 'd9_1': 7, 't16_1': 2, 'final_2': 3, 'final_3': 2, 'omega': 3, 'truth_ground': 4, 'primitive_existence': 2, 'primitive_distinction': 3, 'a1_3': 1, 'model_coupling': 2, 'truth_ground_presystem': 1, 'grace_repair': 6, 'claim_no_self_transformation': 3, 'claim_external_intervention': 4, 'tp_grace_operator': 4, 'a2_1': 3, 'a5_1': 3, 'p0_existence': 1}

@@ -1,0 +1,25 @@
+model_id: paperqa2_literature_agent
+provider: tool_wrapper
+role: literature_citation_agent
+status: placeholder
+
+runtime:
+  engine: paperqa2
+  endpoint: local
+
+capabilities:
+  - literature_search
+  - citation_grounding
+  - retrieval
+
+station_use:
+  - 08_7qs_evidence
+  - 09_science_checker
+
+healthcheck:
+  prompt: "Return JSON: {\"status\":\"ok\"}"
+  expected_contains: "\"status\""
+
+outputs:
+  required_format: json
+

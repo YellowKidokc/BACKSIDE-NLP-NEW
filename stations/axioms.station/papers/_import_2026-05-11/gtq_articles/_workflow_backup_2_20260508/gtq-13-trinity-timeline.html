@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="paper-slug" content="GTQ-13">
+<title>GTQ-13 The Trinity Timeline — Genesis to Quantum</title>
+<meta name="description" content="Mapping three repair operations across 4,000 years of biblical history."/>
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<!-- MathJax -->
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']] }, svg: { fontCache: 'global' } };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+:root{
+  --primary:#1a1a1a;
+  --accent:#2c2c2c;
+  --text-primary:#e0e0e0;
+  --text-secondary:#a0a0a0;
+  --highlight:#d4af37;
+  --highlight-bright:#f4d03f;
+  --highlight-dim:#8b7a1e;
+  --highlight-glow:rgba(212,175,55,0.12);
+  --border:#333333;
+  --surface:#0a0a0a;
+  --surface-light:#1a1a1a;
+  --surface-hover:#2a2a2a;
+  --red:#ef4444;
+  --blue:#4a9eff;
+  --teal:#2dd4bf;
+  --purple:#a855f7;
+  --green:#22c55e;
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--surface);
+  color:var(--text-primary);
+  line-height:1.65;
+  margin:0;
+  padding:0;
+  overflow-x:hidden;
+}
+.serif{font-family:'Crimson Text',serif;}
+.display{font-family:'Oswald',sans-serif;}
+.mono{font-family:'JetBrains Mono',monospace;}
+
+/* ─────────── SIDEBAR NAV ─────────── */
+.sidebar{
+  position:fixed;top:0;left:0;width:300px;height:100vh;
+  background:var(--surface);border-right:1px solid var(--border);
+  z-index:100;overflow-y:auto;
+  transform:translateX(-100%);transition:transform .3s ease;
+  padding:1.5rem 1rem;
+}
+.sidebar.open{transform:translateX(0);}
+.sidebar-toggle{
+  position:fixed;top:1rem;left:1rem;z-index:101;
+  background:var(--surface-light);border:1px solid var(--border);
+  color:var(--highlight);width:40px;height:40px;border-radius:.375rem;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:1rem;transition:all .2s ease;
+}
+.sidebar-toggle:hover{border-color:var(--highlight);background:var(--surface-hover);}
+.sidebar-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:99;}
+.sidebar-overlay.show{display:block;}
+.sidebar .series-title{
+  font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--highlight);margin-bottom:1rem;
+  padding-bottom:.5rem;border-bottom:1px solid var(--border);
+}
+.sidebar a{display:block;padding:.45rem .75rem;color:var(--text-secondary);text-decoration:none;font-size:.8rem;border-radius:.3rem;transition:all .15s ease;line-height:1.4;}
+.sidebar a:hover{color:var(--text-primary);background:var(--surface-hover);}
+.sidebar a.current{color:var(--highlight);background:var(--highlight-glow);font-weight:600;}
+.sidebar .nav-section{padding:.5rem .75rem .25rem;font-family:'Oswald',sans-serif;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);opacity:.6;margin-top:.5rem;}
+.sidebar a.main-article{font-weight:500;color:var(--text-primary);}
+.sidebar a.deep-dive{padding-left:1.25rem;font-size:.78rem;opacity:.85;}
+.sidebar a.deep-dive::before{content:"└ ";color:var(--border);}
+.sidebar-header{display:flex;align-items:center;gap:.5rem;padding:.75rem 0 1rem;margin-bottom:.75rem;border-bottom:1px solid var(--border);}
+.sidebar-home-btn{display:inline-flex;align-items:center;justify-content:center;gap:.3rem;padding:.3rem .65rem;border-radius:.3rem;font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);background:transparent;transition:all .2s ease;}
+.sidebar-home-btn .sidebar-home-code{font-size:.7rem;letter-spacing:0;}
+.sidebar-home-btn.home-main{color:var(--text-secondary);}
+.sidebar-home-btn.home-main:hover{color:var(--text-primary);border-color:var(--text-secondary);}
+.sidebar-home-btn.home-series{color:var(--highlight);border-color:rgba(212,175,55,.4);background:var(--highlight-glow);}
+.sidebar-home-btn.home-series:hover{color:var(--highlight-bright);border-color:var(--highlight);}
+.sidebar-close{margin-left:auto;width:28px;height:28px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--text-secondary);cursor:pointer;}
+.sidebar-close:hover{color:var(--text-primary);border-color:var(--text-secondary);}
+
+/* ─────────── PROGRESS BAR ─────────── */
+.progress-track{position:fixed;top:0;left:0;right:0;height:3px;background:var(--border);z-index:90;}
+.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--highlight),var(--highlight-bright));transition:width 0.1s ease;border-radius:0 2px 2px 0;}
+
+/* ─────────── HERO GRID ─────────── */
+.hero-grid{
+  display:grid;grid-template-columns:2fr 1fr;grid-template-rows:auto auto;
+  gap:1.25rem;min-height:420px;margin-bottom:2.5rem;
+}
+.hero-main{
+  grid-column:1/2;grid-row:1/3;position:relative;overflow:hidden;
+  border-radius:.75rem;background:linear-gradient(135deg,var(--surface-light) 0%,var(--accent,#2c2c2c) 100%);
+  border:1px solid var(--border);min-height:420px;
+}
+.hero-main img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35;}
+.hero-main .overlay{
+  position:relative;z-index:2;height:100%;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:2.5rem;
+  background:linear-gradient(0deg,rgba(10,10,10,.85) 0%,rgba(10,10,10,0) 60%);
+}
+.hero-side{
+  background:var(--surface-light);border:1px solid var(--border);border-radius:.75rem;
+  padding:1.5rem;transition:border-color .25s ease;
+}
+.hero-side:hover{border-color:var(--highlight);}
+.hero-side h3{font-family:'Crimson Text',serif;font-size:1.05rem;font-weight:600;color:#fff;margin:0 0 .65rem;}
+.hero-side p{font-size:.875rem;color:var(--text-secondary);margin:0;}
+.hero-side .label{display:block;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);margin-bottom:.4rem;font-weight:700;}
+@media(max-width:1024px){
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-main{grid-column:1;grid-row:1;min-height:300px;}
+  .hero-main .overlay{padding:1.5rem;}
+}
+.meta-row{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;font-size:.8125rem;color:var(--text-secondary);margin-bottom:1rem;}
+.meta-row i{color:var(--highlight);margin-right:.4rem;}
+.status-pill{
+  padding:.25rem .65rem;background:var(--highlight-glow);color:var(--highlight);
+  border-radius:.25rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+}
+.domain-tag{display:inline-block;padding:.2rem .65rem;border-radius:999px;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+.tag-physics{background:rgba(74,158,255,.15);color:#4a9eff;}
+.tag-theology{background:rgba(212,175,55,.15);color:#d4af37;}
+.tag-quantum{background:rgba(201,64,64,.15);color:var(--red);}
+.tag-bridge{background:rgba(45,212,191,.15);color:#2dd4bf;}
+.tag-data{background:rgba(34,197,94,.15);color:var(--green);}
+.tag-consciousness{background:rgba(168,85,247,.15);color:var(--purple);}
+.tag-history{background:rgba(212,175,55,.12);color:#caa040;}
+.tag-moral{background:rgba(239,68,68,.15);color:var(--red);}
+.tag-civilizational{background:rgba(168,85,247,.12);color:#b594d8;}
+
+/* ─────────── STICKY TAB BAR ─────────── */
+.tab-shell{
+  position:sticky;top:0;z-index:50;
+  background:rgba(10,10,10,.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.tab-nav{display:flex;gap:.125rem;overflow-x:auto;scrollbar-width:none;}
+.tab-nav::-webkit-scrollbar{display:none;}
+.tab-btn{
+  padding:.85rem 1.1rem;background:transparent;border:none;color:var(--text-secondary);
+  font-size:.825rem;font-weight:500;cursor:pointer;white-space:nowrap;
+  transition:all .2s ease;border-bottom:2px solid transparent;margin-bottom:-1px;letter-spacing:.02em;
+}
+.tab-btn:hover{color:var(--text-primary);background:var(--surface-light);}
+.tab-btn.active{color:var(--highlight);border-bottom-color:var(--highlight);background:var(--surface-light);}
+.tab-btn i{margin-right:.4rem;}
+
+/* ─────────── TAB CONTENT ─────────── */
+.tab-content{display:none;animation:fadeIn .3s ease;}
+.tab-content.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* ─────────── LAYOUT: MAIN ─────────── */
+.main-layout{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:grid;grid-template-columns:1fr 280px;gap:3rem;}
+@media(max-width:1024px){.main-layout{grid-template-columns:1fr;}}
+
+.story{max-width:900px;margin:0 auto;}
+.story.wide{max-width:100%;}
+.story h2{
+  font-family:'Oswald',sans-serif;font-size:1.6rem;font-weight:600;color:#fff;
+  margin:3rem 0 1.25rem;letter-spacing:.03em;text-transform:uppercase;
+  border-bottom:1px solid var(--border);padding-bottom:.5rem;
+}
+.story h3{font-family:'Crimson Text',serif;font-size:1.3rem;font-weight:600;color:#fff;margin:2rem 0 .75rem;}
+.story h4{font-family:'Crimson Text',serif;font-size:1.1rem;font-weight:600;color:var(--highlight);margin:1.5rem 0 .5rem;}
+.story p{font-size:1.0625rem;color:#cfcfcf;margin:0 0 1.25rem;line-height:1.75;}
+.story p strong{color:#fff;}
+.story p em{color:var(--highlight);font-style:italic;}
+.story li{color:#cfcfcf;margin-bottom:.5rem;line-height:1.65;}
+.story li strong{color:#fff;}
+.story ul,.story ol{margin:0 0 1.25rem 1.5rem;}
+.story blockquote{
+  border-left:4px solid var(--highlight);background:var(--highlight-glow);
+  padding:1rem 1.5rem;margin:1.5rem 0;border-radius:0 .5rem .5rem 0;
+  font-family:'Crimson Text',serif;font-size:1.05rem;font-style:italic;color:#cfcfcf;
+}
+.story blockquote p{margin:0;font-size:1.05rem;}
+
+.drop-cap::first-letter{font-family:'Crimson Text',serif;font-size:4.5rem;float:left;line-height:.85;padding:.4rem .6rem 0 0;color:var(--highlight);font-weight:600;}
+
+.exec-summary{
+  background:var(--highlight-glow);border:1px solid var(--highlight-dim);
+  border-radius:.5rem;padding:1.5rem;margin:2rem 0;
+}
+.exec-summary-label{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);margin-bottom:.75rem;
+}
+.exec-summary p{font-size:1rem;color:#e0e0e0;margin:0;line-height:1.7;}
+
+.insight{border-left:4px solid var(--highlight);background:var(--highlight-glow);padding:1.25rem 1.5rem;margin:2rem 0;border-radius:0 .5rem .5rem 0;}
+.insight .label{font-family:'Crimson Text',serif;font-style:italic;color:var(--highlight);font-size:.85rem;letter-spacing:.05em;display:block;margin-bottom:.4rem;}
+.insight p{margin:0;color:#fff;font-size:1.05rem;}
+
+/* ─────────── KILL CONDITIONS ─────────── */
+.kill-sidebar{position:sticky;top:120px;height:fit-content;}
+.kill-sidebar-title{
+  font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);
+  margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);
+}
+.kill-card{
+  background:rgba(34,197,94,.04);border:1px solid rgba(34,197,94,.2);
+  border-radius:.5rem;padding:1rem;margin-bottom:.75rem;
+}
+.kill-card.suggestive{background:var(--highlight-glow);border-color:var(--highlight-dim);}
+.kill-card.destructive{background:rgba(239,68,68,.04);border-color:rgba(239,68,68,.2);}
+.kill-label{font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.35rem;}
+.kill-card .kill-label{color:var(--green);}
+.kill-card.suggestive .kill-label{color:var(--highlight);}
+.kill-card.destructive .kill-label{color:var(--red);}
+.kill-card p{margin:.25rem 0 0;color:#cfcfcf;font-size:.85rem;line-height:1.5;}
+.kill-card .kill-detail{font-size:.75rem;color:var(--text-secondary);margin-top:.35rem;}
+
+/* ─────────── AUDIO DOCK ─────────── */
+.audio-dock{width:100%;background:var(--surface-light);border:1px solid var(--border);border-radius:.625rem;overflow:hidden;transition:border-color .3s ease;margin:2rem 0;}
+.audio-dock:hover{border-color:var(--highlight-dim);}
+.dock-pills{display:flex;gap:0;border-bottom:1px solid var(--border);}
+.dock-pill{flex:1;display:flex;align-items:center;justify-content:center;gap:.4rem;padding:.6rem .5rem;background:transparent;border:none;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);transition:all .25s ease;position:relative;}
+.dock-pill::after{content:'';position:absolute;bottom:0;left:15%;right:15%;height:2px;border-radius:1px;background:transparent;transition:all .25s ease;}
+.dock-pill:hover{color:var(--text-primary);background:rgba(255,255,255,.03);}
+.dock-pill[data-src="deep"]{--pill-c:var(--blue);}
+.dock-pill[data-src="read"]{--pill-c:var(--highlight);}
+.dock-pill[data-src="debate"]{--pill-c:var(--purple);}
+.dock-pill[data-src="critique"]{--pill-c:var(--teal);}
+.dock-pill.active{color:var(--pill-c);background:rgba(255,255,255,.02);}
+.dock-pill.active::after{background:var(--pill-c);}
+.dock-pill .pill-dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.5;transition:opacity .25s;}
+.dock-pill.active .pill-dot{opacity:1;}
+.dock-pill.unavailable{opacity:.3;cursor:default;pointer-events:none;}
+.dock-body{display:flex;align-items:center;gap:.65rem;padding:.65rem .85rem;}
+.dock-play{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--highlight);background:transparent;color:var(--highlight);font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s ease;}
+.dock-play:hover{background:var(--highlight-glow);transform:scale(1.05);}
+.dock-play.playing{animation:pulse-dock 2s ease-in-out infinite;}
+@keyframes pulse-dock{0%,100%{box-shadow:0 0 0 0 var(--highlight-glow);}50%{box-shadow:0 0 0 4px transparent;}}
+.dock-track-wrap{flex:1;display:flex;flex-direction:column;gap:.25rem;min-width:0;}
+.dock-track{width:100%;height:4px;background:#222;border-radius:2px;cursor:pointer;overflow:hidden;position:relative;}
+.dock-fill{height:100%;width:0%;border-radius:2px;background:var(--highlight);transition:width .15s linear,background .3s;}
+.dock-times{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--text-secondary);}
+.dock-vol{background:none;border:none;color:var(--text-secondary);cursor:pointer;font-size:.75rem;flex-shrink:0;padding:2px;transition:color .2s;}
+.dock-vol:hover{color:var(--text-primary);}
+.dock-empty{display:none;align-items:center;justify-content:center;padding:.85rem;font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);opacity:.5;font-style:italic;}
+.dock-body.hidden{display:none;}.dock-empty.visible{display:flex;}
+
+/* ─────────── BOTTOM NAVIGATION ─────────── */
+.bottom-nav{
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:1.5rem 0;margin:3rem 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+.bottom-nav a{
+  display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;
+  background:var(--surface-light);border:1px solid var(--border);border-radius:.375rem;
+  color:var(--text-secondary);text-decoration:none;font-size:.85rem;transition:all .2s ease;
+}
+.bottom-nav a:hover{border-color:var(--highlight);color:var(--text-primary);background:var(--highlight-glow);}
+.bottom-nav a.primary{border-color:var(--highlight);color:var(--highlight);}
+.bottom-nav a.primary:hover{background:var(--highlight-glow);}
+.bottom-nav .nav-center{font-size:.8rem;color:var(--text-secondary);text-align:center;}
+
+/* ─────────── FOOTER ─────────── */
+.site-footer{text-align:center;padding:3rem 1.5rem;color:var(--text-secondary);font-size:.8rem;border-top:1px solid var(--border);margin-top:2rem;}
+.site-footer .eq{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--highlight);opacity:.6;margin-bottom:.5rem;}
+
+@media(max-width:1024px){
+  .kill-sidebar{display:none;}
+  .main-layout{grid-template-columns:1fr;padding:0 1rem;}
+  .story{max-width:100%;}
+}
+@media(max-width:640px){
+  .tab-btn{padding:.65rem .8rem;font-size:.75rem;}
+  .story h2{font-size:1.3rem;}
+  .bottom-nav{flex-direction:column;align-items:stretch;}
+  .bottom-nav a{justify-content:center;}
+}
+
+/* GTQ bottom audit gradient: what we overstated vs. what still carries weight */
+.gtq-bottom-audit{margin:4rem 0 2rem;border:1px solid rgba(255,255,255,.12);border-radius:1rem;overflow:hidden;background:#080808;box-shadow:0 24px 80px rgba(0,0,0,.35);}
+.gtq-bottom-audit .audit-band{padding:2rem clamp(1.25rem,3vw,2.5rem);border-bottom:1px solid rgba(255,255,255,.08);}
+.gtq-bottom-audit .audit-band:last-child{border-bottom:0;}
+.gtq-bottom-audit .audit-red{background:linear-gradient(135deg,rgba(239,68,68,.28),rgba(127,29,29,.12) 62%,rgba(8,8,8,.96));border-left:6px solid #ef4444;}
+.gtq-bottom-audit .audit-amber{background:linear-gradient(135deg,rgba(239,68,68,.14),rgba(245,158,11,.18) 48%,rgba(8,8,8,.96));border-left:6px solid #f59e0b;}
+.gtq-bottom-audit .audit-green{background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(34,197,94,.22) 56%,rgba(8,8,8,.96));border-left:6px solid #22c55e;}
+.gtq-bottom-audit .audit-kicker{font-family:'Oswald',sans-serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.62);margin-bottom:.55rem;}
+.gtq-bottom-audit .audit-title{font-family:'Oswald',sans-serif;font-size:clamp(2rem,6vw,4.6rem);line-height:.92;letter-spacing:.02em;text-transform:uppercase;margin:0 0 1rem;}
+.gtq-bottom-audit .audit-red .audit-title{color:#ff5a5a;}
+.gtq-bottom-audit .audit-amber .audit-title{color:#fbbf24;}
+.gtq-bottom-audit .audit-green .audit-title{color:#4ade80;}
+.gtq-bottom-audit p{font-size:1.05rem;line-height:1.75;color:#d6d6d6;margin:.7rem 0 0;max-width:76ch;}
+.gtq-bottom-audit strong{color:#fff;}
+.gtq-bottom-audit .audit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1rem;}
+.gtq-bottom-audit .audit-chip{background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.1);border-radius:.65rem;padding:1rem;}
+@media(max-width:720px){.gtq-bottom-audit .audit-grid{grid-template-columns:1fr}.gtq-bottom-audit .audit-band{padding:1.35rem}.gtq-bottom-audit .audit-title{font-size:2.2rem}}
+/* BEGIN: HERO-BELOW-TABS NORMALIZATION */
+.article-hero-wrap{
+  max-width:1380px;
+  margin:0 auto;
+  padding:3.5rem 1.5rem 0;
+}
+.article-hero-wrap .hero-grid{
+  width:100%;
+  gap:1.5rem;
+  min-height:480px;
+  margin-bottom:3rem;
+}
+.article-hero-wrap .hero-main{
+  min-height:480px;
+}
+@media(max-width:1024px){
+  .article-hero-wrap{padding:2rem 1rem 0;}
+  .article-hero-wrap .hero-grid{min-height:0;}
+  .article-hero-wrap .hero-main{min-height:340px;}
+}
+/* END: HERO-BELOW-TABS NORMALIZATION */
+
+
+/* BEGIN: SUMMARY MEDIA NORMALIZATION */
+#summary .story.wide{
+  max-width:780px;
+}
+#summary .summary-video-card{
+  width:min(980px,calc(100% + 6rem));
+  margin:0 -3rem 1.15rem;
+  padding:1rem;
+}
+.main-layout.sidebar-collapsed #summary .summary-video-card{
+  width:min(1160px,calc(100% + 10rem));
+  margin-left:-5rem;
+  margin-right:-5rem;
+}
+#summary .summary-video-card .video-frame{
+  position:relative;
+  width:100%;
+  padding-top:56.25%;
+  border-radius:.5rem;
+  overflow:hidden;
+  background:#000;
+}
+#summary .summary-video-card video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+#summary .summary-audio-dock{
+  max-width:680px;
+  margin:0 auto 2.5rem;
+}
+#summary .summary-audio-dock .dock-body{
+  padding:.75rem .9rem;
+}
+#summary .summary-audio-dock .dock-pill:nth-child(n+2){
+  display:none;
+}
+@media(max-width:1180px){
+  #summary .summary-video-card,
+  .main-layout.sidebar-collapsed #summary .summary-video-card{
+    width:100%;
+    margin-left:0;
+    margin-right:0;
+  }
+}
+@media(max-width:760px){
+  #summary .story.wide{
+    max-width:100%;
+  }
+  #summary .summary-video-card{
+    padding:.75rem;
+  }
+  #summary .summary-audio-dock{
+    max-width:100%;
+  }
+}
+/* END: SUMMARY MEDIA NORMALIZATION */
+</style>
+</head>
+
+<body>
+
+<!-- Progress bar -->
+<div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+
+<!-- GTQ CANON HEADER: managed by tools/apply_article_topbars.py -->
+<style>
+.gtq-canon-shell{
+  min-height:214px;background:#070707;border-bottom:1px solid rgba(212,175,55,.34);
+  color:var(--text-primary);position:relative;z-index:50;overflow:hidden;
+  box-shadow:0 18px 36px rgba(0,0,0,.28);
+}
+.gtq-canon-shell::before{
+  content:"";position:absolute;inset:0;background:
+    radial-gradient(circle at var(--canon-glow-x,18%) 18%,rgba(212,175,55,.16),transparent 30%),
+    linear-gradient(90deg,rgba(212,175,55,.08),transparent 35%);
+  pointer-events:none;
+}
+.gtq-canon-topline{
+  height:40px;padding:0 1.5rem 0 4.5rem;border-bottom:1px solid rgba(212,175,55,.22);
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;position:relative;z-index:1;
+  background:rgba(5,5,5,.72);
+}
+.gtq-canon-chip,.gtq-canon-link{
+  height:26px;display:inline-flex;align-items:center;gap:.38rem;border:1px solid rgba(212,175,55,.24);
+  background:rgba(255,255,255,.025);border-radius:4px;padding:0 .65rem;
+  color:var(--text-dim);font-family:'JetBrains Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;
+  text-decoration:none;white-space:nowrap;
+}
+.gtq-canon-chip strong{color:var(--highlight);font-weight:700;}
+.gtq-canon-link{font-family:'Inter',sans-serif;font-size:.68rem;letter-spacing:.04em;font-weight:700;}
+.gtq-canon-link:hover{border-color:var(--highlight);color:var(--highlight);background:var(--highlight-glow);}
+.gtq-canon-nav{display:flex;align-items:center;gap:.4rem;}
+.gtq-canon-header{
+  min-height:174px;padding:1.45rem 1.5rem 1.4rem 4.5rem;position:relative;z-index:1;
+  display:grid;align-items:center;gap:1.2rem;
+}
+.gtq-canon-kicker{
+  color:var(--highlight);font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;
+  margin-bottom:.58rem;font-weight:700;
+}
+.gtq-canon-title{
+  font-family:'Crimson Text',serif;font-size:clamp(2rem,4.5vw,3.8rem);line-height:.96;
+  color:#fff;font-weight:700;letter-spacing:0;margin:0;
+}
+.gtq-canon-sub{
+  color:var(--text-secondary);font-size:.94rem;line-height:1.55;max-width:780px;margin-top:.78rem;
+}
+.gtq-canon-meta{display:flex;align-items:center;flex-wrap:wrap;gap:.55rem;margin-top:1rem;}
+.gtq-canon-meta span{
+  height:28px;display:inline-flex;align-items:center;gap:.38rem;padding:0 .7rem;border-radius:999px;
+  border:1px solid rgba(212,175,55,.22);background:rgba(212,175,55,.07);color:var(--text-dim);
+  font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.045em;
+}
+.gtq-canon-meta i{color:var(--highlight);}
+.gtq-canon-mark{
+  color:var(--highlight);font-family:'Oswald',sans-serif;font-size:7.8rem;line-height:.8;font-weight:700;
+  letter-spacing:.02em;user-select:none;text-shadow:0 0 30px rgba(212,175,55,.16);
+}
+.gtq-canon-formula{
+  color:rgba(212,175,55,.48);font-family:'JetBrains Mono',monospace;font-size:.72rem;line-height:1.8;
+  border-left:1px solid rgba(212,175,55,.35);padding-left:1rem;
+}
+.gtq-canon-classic{grid-template-columns:minmax(0,1fr) 170px;--canon-glow-x:16%;}
+.gtq-canon-classic .gtq-canon-mark{justify-self:end;opacity:.72;}
+.gtq-canon-spine{grid-template-columns:104px minmax(0,1fr) 250px;--canon-glow-x:50%;}
+.gtq-canon-spine::before{
+  content:"";position:absolute;left:4.5rem;right:1.5rem;top:0;height:4px;
+  background:linear-gradient(90deg,var(--highlight),var(--highlight-dim),var(--highlight-bright));
+}
+.gtq-canon-spine .gtq-canon-mark{
+  color:#050505;background:var(--highlight);width:74px;height:74px;display:grid;place-items:center;
+  font-size:2.15rem;border-radius:3px;box-shadow:0 0 34px rgba(212,175,55,.14);
+}
+.gtq-canon-edge{grid-template-columns:minmax(0,1fr) 330px;--canon-glow-x:86%;}
+.gtq-canon-edge .gtq-canon-title{max-width:760px;}
+.gtq-canon-edge .gtq-canon-mark{justify-self:end;opacity:.82;}
+.gtq-canon-edge .gtq-canon-formula{
+  border-left:0;border-top:1px solid rgba(212,175,55,.35);padding:1rem 0 0;text-align:center;
+}
+@media(max-width:900px){
+  .gtq-canon-topline{height:auto;min-height:40px;padding-right:.8rem;align-items:flex-start;flex-direction:column;padding-top:.55rem;padding-bottom:.55rem;}
+  .gtq-canon-nav{flex-wrap:wrap;}
+  .gtq-canon-header,.gtq-canon-classic,.gtq-canon-spine,.gtq-canon-edge{grid-template-columns:1fr;padding-right:1rem;}
+  .gtq-canon-mark,.gtq-canon-formula{display:none;}
+  .gtq-canon-title{font-size:clamp(1.8rem,9vw,2.55rem);}
+}
+</style>
+<!-- BEGIN: TOPBAR -->
+<section class="gtq-canon-shell" aria-label="Article identity">
+  <nav class="gtq-canon-topline" aria-label="Article navigation">
+    <div class="gtq-canon-chip"><i class="fas fa-atom"></i><strong>Genesis to Quantum</strong></div>
+    <div class="gtq-canon-nav">
+      <a class="gtq-canon-link" href="../index.html"><i class="fas fa-th-list"></i>Index</a>
+      <a class="gtq-canon-link" href="../12-trinity-mechanism/gtq-12-trinity-mechanism.html"><i class="fas fa-arrow-left"></i>Prev</a>
+      <a class="gtq-canon-link" href="../14-physics-broken-in-two/gtq-14-physics-broken-in-two.html">Next<i class="fas fa-arrow-right"></i></a>
+    </div>
+  </nav>
+  <header class="gtq-canon-header gtq-canon-classic">
+    <div>
+      <div class="gtq-canon-kicker">Origin Story / Article 13 / Formal Canon</div>
+      <h1 class="gtq-canon-title">The Trinity Timeline</h1>
+      <p class="gtq-canon-sub">Mapping three repair operations across 4,000 years of biblical history.</p>
+      <div class="gtq-canon-meta">
+        <span><i class="fas fa-fingerprint"></i>GTQ-13</span>
+        <span><i class="fas fa-layer-group"></i>Foundation Track</span>
+        <span><i class="fas fa-scale-balanced"></i>Bounded Claim</span>
+      </div>
+    </div>
+    <div class="gtq-canon-mark">#13</div>
+    <div class="gtq-canon-formula">
+      chi_local = G * M * E * S_eff * T * K * R * Q * F * C<br/>
+      C is factor / chi is output / no drift
+    </div>
+  </header>
+</section>
+<!-- END: TOPBAR -->
+<!-- /GTQ CANON HEADER -->
+
+<!-- Sidebar toggle -->
+<button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle series navigation"><i class="fas fa-bars"></i></button>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- Sidebar nav -->
+<!-- BEGIN: SIDEBAR-NAV -->
+<nav class="sidebar" id="sidebar" aria-label="Series navigation">
+  <div class="sidebar-header">
+    <a href="https://faiththruphysics.com" class="sidebar-home-btn home-main" title="Main Site Home">
+      <span class="sidebar-home-code">H</span>
+      <span>Home</span>
+    </a>
+    <a href="../index.html" class="sidebar-home-btn home-series" title="Series Index">
+      <span class="sidebar-home-code">S</span>
+      <span>Series</span>
+    </a>
+    <button class="sidebar-close" type="button" aria-label="Close series navigation" onclick="toggleSidebar()">&times;</button>
+  </div>
+  <div class="series-title"><i class="fas fa-atom" style="margin-right:.4rem;"></i> Genesis to Quantum</div>
+
+  <div class="nav-section">Main Articles</div>
+  <a href="../01-measurement-collapsed-reality/gtq-01-measurement-collapsed-reality.html" class="main-article">01 The Measurement That Collapsed Reality</a>
+  <a href="../03-first-quantum-state/gtq-03-first-quantum-state.html" class="main-article">03 The First Quantum State</a>
+  <a href="../04-free-will-two-frames/gtq-04-free-will-two-frames.html" class="main-article">04 Free Will in Two Frames</a>
+  <a href="../08-day-time-began/gtq-08-day-time-began.html" class="main-article">08 The Day Time Began</a>
+  <a href="../11-substrate-fractured/gtq-11-substrate-fractured.html" class="main-article">11 The Substrate Fractured</a>
+  <a href="../15-why-reality-needs-three/gtq-15-why-reality-needs-three.html" class="main-article">15 Why Reality Needs Three</a>
+  <a href="../16-photon-isnt-watching/gtq-16-photon-isnt-watching.html" class="main-article">16 The Photon Isn't Watching You Back</a>
+  <a href="../18-eraser-and-the-cross/gtq-18-eraser-and-the-cross.html" class="main-article">18 The Eraser and the Cross</a>
+  <a href="../22-same-god-both-testaments/gtq-22-same-god-both-testaments.html" class="main-article">22 The Same God in Both Testaments</a>
+  <a href="../25-counter-move/gtq-25-counter-move.html" class="main-article">25 The Counter-Move</a>
+  <div class="nav-section">Deep Dives</div>
+  <a href="../02-collapse-threshold/gtq-02-collapse-threshold.html" class="deep-dive">02 The Collapse Threshold</a>
+  <a href="../05-macarthur-equation/gtq-05-macarthur-equation.html" class="deep-dive">05 MacArthur and the Equation</a>
+  <a href="../06-three-pathways/gtq-06-three-pathways.html" class="deep-dive">06 The Three Pathways</a>
+  <a href="../07-why-god-drowned-everybody/gtq-07-why-god-drowned-everybody.html" class="deep-dive">07 Why Did God Drown Everybody?</a>
+  <a href="../09-decoherence-curve/gtq-09-decoherence-curve.html" class="deep-dive">09 The Decoherence Curve</a>
+  <a href="../10-how-lies-kill/gtq-10-how-lies-kill.html" class="deep-dive">10 How Lies Kill</a>
+  <a href="../12-trinity-mechanism/gtq-12-trinity-mechanism.html" class="deep-dive">12 The Trinity Mechanism</a>
+  <a href="../13-trinity-timeline/gtq-13-trinity-timeline.html" class="deep-dive current">13 The Trinity Timeline</a>
+  <a href="../14-physics-broken-in-two/gtq-14-physics-broken-in-two.html" class="deep-dive">14 Why Physics Is Broken in Two</a>
+  <a href="../17-ran-the-numbers/gtq-17-ran-the-numbers.html" class="deep-dive">17 We Actually Ran the Numbers</a>
+  <a href="../19-temporal-trap/gtq-19-temporal-trap.html" class="deep-dive">19 The Temporal Trap</a>
+  <a href="../20-how-god-restores/gtq-20-how-god-restores.html" class="deep-dive">20 How God Restores</a>
+  <a href="../21-science-behind-restoration/gtq-21-science-behind-restoration.html" class="deep-dive">21 The Science Behind the Restoration</a>
+  <a href="../23-regime-dependent-theology/gtq-23-regime-dependent-theology.html" class="deep-dive">23 The Structural Case for Regime-Dependent Theology</a>
+  <a href="../24-societies-die/gtq-24-societies-die.html" class="deep-dive">24 Societies Die the Same Way People Do</a>
+  <a href="../26-pattern-is-the-signal/gtq-26-pattern-is-the-signal.html" class="deep-dive">26 Why the Pattern Is the Signal</a>
+</nav>
+<!-- END: SIDEBAR-NAV -->
+
+<!-- Sticky tab bar -->
+<!-- BEGIN: TAB-BAR -->
+<div class="tab-shell">
+  <div class="container mx-auto px-6" style="padding-left:4.5rem;">
+    <nav class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('paper')"><i class="fas fa-scroll"></i>The Paper</button>
+      <button class="tab-btn" onclick="switchTab('summary')"><i class="fas fa-compress-alt"></i>Executive Summary</button>
+      <button class="tab-btn" onclick="switchTab('rigor')"><i class="fas fa-crosshairs"></i>Rigor &amp; Kill Conditions</button>
+      <button class="tab-btn" onclick="switchTab('media')"><i class="fas fa-headphones"></i>Watch &amp; Listen</button>
+      <button class="tab-btn" onclick="switchTab('blackboard')"><i class="fas fa-chalkboard"></i>Blackboard</button>
+    </nav>
+  </div>
+</div>
+<!-- END: TAB-BAR -->
+
+<!-- Hero grid -->
+<!-- Main content -->
+<!-- BEGIN: MAIN-LAYOUT -->
+<main class="main-layout py-10">
+  <div>
+    <!-- BEGIN: TAB-PAPER -->
+<section id="paper" class="tab-content active">
+
+<!-- Hero grid -->
+<div class="container mx-auto px-6 pt-8" style="padding-left:4.5rem;">
+  <!-- BEGIN: HERO -->
+<div class="hero-grid">
+    <div class="hero-main">
+      <img src="images/hero/GTQ-05B%20-%20Hero%20-%20The%20Trinity%20Timeline.webp" alt="The Trinity Timeline" onerror="this.style.display='none'"/>
+      <div class="overlay">
+        <div class="meta-row" style="margin-bottom:.5rem;">
+          <span><i class="fas fa-atom"></i>Article 13 &middot; Genesis to Quantum</span>
+          <span class="status-pill">Deep Dive</span>
+        </div>
+        <h1 class="serif text-3xl md:text-5xl font-bold text-white mb-3 leading-tight">
+          The Trinity Timeline
+        </h1>
+        <p class="text-lg md:text-xl text-gray-200 font-light">
+          Mapping three repair operations across 4,000 years of biblical history.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-3">
+          <span class="domain-tag tag-theology">Theology</span><span class="domain-tag tag-history">History</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-side">
+      <span class="label">Key Finding</span>
+      <h3>The single thing they should remember</h3>
+      <p>[[One short paragraph. Make it count.]]</p>
+    </div>
+    <div class="hero-side">
+      <span class="label">Critical Insight</span>
+      <h3>Why it matters now</h3>
+      <p>[[Different angle from the first.]]</p>
+    </div>
+  </div>
+<!-- END: HERO -->
+</div>
+<article class="story wide"><div class="story">
+<h2>05-B_The Trinity Timeline.md</h2>
+<p>title: "The Trinity Timeline" uuid: "gtq-tangent-e-001" date_created: "2026-02-19T23:00:00Z" status: "draft" series: "Genesis to Quantum" article_type: "tangent" parent_article: "Art 2 — Why Reality Needs Three" tags: pillar/theology pillar/physics χ_var/Trinity χ_var/Time series/genesis-to-quantum topic/trinity topic/biblical-history</p>
+<p>ckg_evaluation:</p>
+<p>tier1_foundations: 18</p>
+<p>tier2_propositions: 3</p>
+<p>tier3_constraints: 11</p>
+<p>tier4_evidence: 11</p>
+<p>tier5_integration: 12</p>
+<p>raw_score: 55</p>
+<p>final_score: 7.2</p>
+<p>evaluator: "claude-auto"</p>
+<p>evaluation_version: "1.0"</p>
+<p>evaluated_date: "2026-02-20"</p>
+<p>The Trinity Timeline [!quote] "In the beginning was the Word, and the Word was with God, and the Word was God. He was with God in the beginning. Through him all things were made." — John 1:1-3 Art 2 — Why Reality Needs Three proved that reality requires exactly three irreducible operations to function: possibility space (Father), coherent structure (Son/Logos), and actualization (Spirit). These aren't assigned roles. They're mathematical necessities extracted from the Born Rule. But here's the thing about structural necessities — they don't take turns. If the Trinity is the operating architecture of reality, then all three persons should be identifiable at every major event in the biblical narrative. Not as theological decoration. As distinct operational signatures doing different things simultaneously. This article walks through the entire biblical timeline and identifies exactly what Father, Son, and Spirit are doing at each point — using the Born Rule decomposition as the lens. Ring 2 — Canonical Grounding LOGOS V3 REV4 LONG LOSSLESS 20260217 114247 LOGOS V3 REV4 LONG LOSSLESS 20260217 114353 LOGOS V3 REV4 LONG LOSSLESS 20260217 114658 Ring 3 — Framework Connections Ten Laws — Canonical Equations Master Equation Index</p>
+<p>The Operating Signatures Before we walk the timeline, we need the signatures locked in. From Article 2: Person Born Rule Component Operation Signature Father |\psi\rangle (state vector) Generates all possibility The space in which something CAN happen. Boundaries. Permissions. "Let there be." Son |\phi\rangle (measurement basis) Maintains coherent structure The pattern, the logic, the order. "Through him all things hold together." Spirit |\cdot|^2 (actualization) Collapses potential into actual The thing that makes it REAL. Movement. Power. "The Spirit moved over the waters." If the framework is correct, these three signatures should be distinguishable at every major biblical event — not interchangeable, not redundant, but each doing something the other two cannot.</p>
+<p>Creation (Genesis 1) This is where most people start with Trinity in Scripture, because it's the most explicit. Father — the possibility space. "In the beginning, God created the heavens and the earth" (1:1). He establishes the |\psi\rangle — the total state space in which everything will exist. "Let there be light" is not a command to a pre-existing universe. It's the generation of the possibility of light. Before God speaks, there is no "could be." After He speaks, there is. Every "Let there be" in Genesis 1 is the Father expanding the state vector. Let there be separation (day 2). Let there be land (day 3). Let there be luminaries (day 4). Each one adds dimensionality to the possibility space. The Father doesn't make things. He makes the space in which things can be made. Son — the coherent structure. "Through him all things were made; without him nothing was made that has been made" (John 1:3). The Son is the |\phi\rangle — the measurement basis that turns raw possibility into structured reality. The Father says "Let there be light." The Son is the reason light has wavelength, frequency, speed, polarization — properties. Structure. Intelligibility. Colossians 1:17: "In him all things hold together." This is the maintenance function. Not just creation but sustained coherence . The laws of physics don't hold themselves together. The Son holds them. |\phi\rangle is the basis that prevents the state vector from being meaningless noise. Hebrews 1:3: "The Son is the radiance of God's glory and the exact representation of his being, sustaining all things by his powerful word." Sustaining. Present tense. Continuous operation. The measurement basis doesn't fire once and stop. It runs continuously. Every moment that the universe remains coherent rather than dissolving into quantum chaos is the Son at work. Spirit — the actualization. "The Spirit of God was hovering over the waters" (Genesis 1:2). Before any "Let there be." Before structure. Before anything actual existed. The Spirit was present — ready to actualize. The |\cdot|^2 operator, waiting for the state vector and measurement basis to give it something to collapse. Then: "And God said... and it was so." The Spirit is the "it was so." The Father provides the possibility. The Son provides the structure. The Spirit makes it real . Potential becomes actual. The wavefunction collapses. Reality appears. Note the order in Genesis 1:2 — Spirit hovering, then Word spoken, then reality actualized. This matches the Born Rule: P = |\langle\psi|\phi\rangle|^2 . The actualization operator requires both the state vector and the measurement basis to operate. The Spirit can't actualize without the Father's possibility space and the Son's coherent structure. All three present. All three necessary. All three doing something irreducibly different.</p>
+<p>The Fall (Genesis 3) Father — the possibility space changes. "You are free to eat from any tree in the garden" (2:16). The Father defines the possibility space — all trees are possible food. Then: "but you must not eat from the tree of the knowledge of good and evil" (2:17). The Father defines the boundary. The state vector has a forbidden zone. Not because the tree is evil — because the boundary IS the possibility space. Without a boundary, there's no defined space. Without a defined space, there's no freedom. Freedom requires a container. After the Fall: "Cursed is the ground because of you" (3:17). The possibility space contracts. The |\psi\rangle that included "eternal garden life without entropy" now includes "thorns, sweat, decay, death." The state vector didn't collapse to a single bad outcome. It expanded in the wrong direction — new possibilities (suffering, entropy, death) that weren't in the original space. Son — the structure persists. The Fall doesn't destroy logic. It doesn't make 2 + 2 = 5. Physics still works. Cause and effect still hold. The measurement basis — the Son's coherent structure — survives the Fall intact. This is crucial. If the Son's operation failed at the Fall, reality would have dissolved into chaos. It didn't. The universe remained intelligible. The laws of physics remained consistent. The logical structure of creation persisted through humanity's break with the Creator. This is "all things hold together" under maximum stress. The Son's structural operation doesn't depend on human cooperation. It's |\phi\rangle — the measurement basis exists regardless of whether the system being measured is coherent. The Son holds reality together even when reality is falling. The protoevangelium — Genesis 3:15, "he will crush your head" — is the Son's operation stated as prophecy. The coherent structure (Logos) will eventually reassert itself over the chaos introduced by the Fall. Not a reaction. A structural inevitability. The measurement basis will resolve the decoherence. It's what measurement bases do. Spirit — the actualization shifts. "The Lord God made garments of skin for Adam and his wife and clothed them" (3:21). The Spirit actualizes a new reality — one involving death (an animal died to provide the skins) and covering (the first sacrifice). The Spirit is still operating. The |\cdot|^2 operator hasn't stopped. But what it's actualizing has changed. Before the Fall: life, abundance, direct presence. After: sacrifice, covering, exile. The Spirit also actualizes the exile: "So the Lord God banished him from the Garden of Eden" (3:23). Banishment is actualization — potential (God could have destroyed them, restored them, or exiled them) collapsed into the specific actual event of exile. The Spirit actualized grace in the form of exile rather than destruction. The Father could have collapsed the state vector to "death" (which He threatened). The Spirit actualized "exile + covering + promise" instead. That's the actualization operator choosing from the possibility space according to the measurement basis — the Son's structure, which already contained the protoevangelium.</p>
+<p>The Flood (Genesis 6-9) Father — the possibility space resets. "I will wipe from the face of the earth the human race I have created" (6:7). The Father contracts the state vector. Most of the possibility space is eliminated. Only one family, one ark, one covenant survives. This is the most dramatic redefinition of |\psi\rangle in the biblical narrative — a near-total collapse of the possibility space, followed by re-expansion through the Noahic covenant: "Never again will I destroy all living creatures" (8:21). New boundaries. New possibility space. New |\psi\rangle . Son — the structure preserved through catastrophe. "Make yourself an ark" (6:14). The Son's operation — coherent structure — is expressed in the ark itself. Specific dimensions. Specific materials. Specific design. The ark is a coherence container — a bounded region where the measurement basis survives while everything outside decoheres. The fact that the ark has specifications is the Logos operating. Chaos doesn't have blueprints. Spirit — the actualization of judgment and rescue simultaneously. "The springs of the great deep burst forth, and the floodgates of the heavens were opened" (7:11). The Spirit actualizes the Flood — real water, real destruction, real death. And simultaneously: "God remembered Noah" (8:1). The Spirit actualizes the rescue — real preservation, real survival, real landing on Ararat. Judgment and mercy actualized by the same operator at the same event. Not sequentially. Simultaneously. The |\cdot|^2 collapsed the global superposition into both destruction and preservation in a single act. This is where the decoherence curve data from the sibling tangent intersects the Trinity structure. The Flood is the phase transition — the moment \tau_d shifts from near-infinity to 214 years. And all three persons are operating: Father redefines the possibility space, Son preserves structure through the catastrophe, Spirit actualizes the new physical regime. The phase transition requires all three.</p>
+<p>Abraham (Genesis 12-22) Father — the possibility space for a people. "I will make you into a great nation" (12:2). The Father opens a new dimension in the state vector — the possibility of a covenant people. Before Abraham, |\psi\rangle included "scattered humanity decohering toward the floor." After Abraham, |\psi\rangle includes "a nation through which all nations will be blessed." New possibility. New dimensionality. The Father doesn't create the nation. He creates the space in which the nation can exist. Son — the structure of covenant. The Abrahamic covenant has specific terms. Specific promises. Specific conditions. "To your offspring I will give this land" (12:7). "I will bless those who bless you" (12:3). These are structural — logical relationships with defined inputs and outputs. The covenant is a measurement basis. It defines how the possibility space will be interpreted. It gives the amorphous "great nation" specific meaning, specific boundaries, specific identity. Genesis 15 — the covenant ceremony where God alone passes between the cut pieces — is the Son's operation in concentrated form. The covenant is unilateral (God binds Himself, not Abraham). The structure doesn't depend on human performance. |\phi\rangle is stable regardless of whether the system being measured cooperates. The covenant holds even when Israel doesn't. Spirit — the actualization of impossibility. Sarah is barren. Abraham is old. The possibility (Father) exists. The structure (Son/covenant) is defined. But the actualization — the real baby — requires the Spirit. Isaac's birth is the |\cdot|^2 operator collapsing "barren woman + covenant promise" into "actual child." The Spirit actualizes what was naturally impossible, because the actualization operator is not constrained by natural law — it's the operator that generates natural law's outcomes. The binding of Isaac (Genesis 22) is all three persons operating at maximum intensity. Father: the command creates a new, terrifying possibility space (sacrifice your son). Son: the structure of the test (specific mountain, specific wood, specific obedience — all prefiguring the Cross with exact structural correspondence). Spirit: the actualization of the ram in the thicket at exactly the right moment — collapsing the superposition of "Isaac dies / Isaac lives" into the specific outcome that preserves the covenant and prefigures the Atonement.</p>
+<p>The Cross and Resurrection This is the convergence point of every thread in the series. All three persons operating at full intensity simultaneously, each doing something irreducibly different. Father — the ultimate possibility space. The Father provides what no other source could: the possibility of Atonement itself. Not the mechanism (that's the Son). Not the actualization (that's the Spirit). The raw possibility that sin could be paid for, that death could be reversed, that separation could be healed. Before the Father "so loved the world that He gave His only Son" (John 3:16), the possibility of reconciliation didn't exist in the created state vector. The Father added it. At Gethsemane: "My Father, if it is possible, let this cup pass from me" (Matthew 26:39). Jesus is asking the Father about the possibility space. Is there another |\psi\rangle that includes salvation without the Cross? The Father's answer (silence, which is permission to proceed) is: No. This is the only state vector that contains the outcome you're requesting. The possibility space is defined. There is no alternative basis in which humanity is saved without this specific event. Son — the structure of substitution. The Son IS the measurement basis — the Logos, the coherent structure through which reality is interpreted. At the Cross, the measurement basis absorbs the entropy. |\phi\rangle takes on the S term. "God made him who had no sin to be sin for us" (2 Corinthians 5:21). The structure that holds reality together takes the incoherence into itself and doesn't break. This is why the universe didn't end when Christ died. The measurement basis was absorbing maximum entropy and remaining coherent. The laws of physics held. Logic persisted. Reality survived. Because the Son's structural operation is stronger than the total accumulated entropy of human history. "It is finished" (John 19:30) is a structural declaration. The measurement basis has completed its operation. The entropy has been absorbed. The decoherence has been contained. The structure holds. Spirit — the actualization of resurrection. "If the Spirit of him who raised Jesus from the dead is living in you, he who raised Christ from the dead will also give life to your mortal bodies because of his Spirit who lives in you" (Romans 8:11). The Spirit actualizes the Resurrection. The Father provides the possibility (a state vector that includes "death reversed"). The Son provides the structure (the coherent basis in which resurrection is logically consistent with the rest of reality). The Spirit makes it real. The empty tomb is the |\cdot|^2 operator at maximum power — collapsing the superposition of "dead Messiah / risen Lord" into the specific, physical, touchable, eat-fish-with-the-disciples actual reality of a resurrected body. Not metaphor. Not spiritual experience. Physical actualization. The operator that collapses quantum states collapses the grave.</p>
+<p>Pentecost (Acts 2) Father — the possibility space opens to all. "In the last days, God says, I will pour out my Spirit on all people" (Acts 2:17, quoting Joel 2:28). The Father redefines |\psi\rangle — the Spirit is no longer limited to prophets, priests, and kings. All people. All flesh. The possibility space for divine-human coupling expands to include every conscious agent on Earth. Son — the structure becomes internal. "Christ in you, the hope of glory" (Colossians 1:27). Before Pentecost, the Son's structural operation was experienced externally — through Law, through Temple, through prophets. After Pentecost, |\phi\rangle operates from within the believer . The measurement basis is internalized. The equation changes from dC/dt = -S \cdot C + \text{external pulses} to dC/dt = O \cdot G(1-C) - S \cdot C with G as a continuous internal term. This is the Old Covenant → New Covenant transition in one mathematical operation. The external pulsed injections (prophets, Law, revivals) that always decayed between pulses become a continuous internal source that can sustain coherence indefinitely. Same equation. Different structure. The decoherence time constant \tau_d changes because the coupling is no longer intermittent. Spirit — actualization becomes continuous. "You will receive power when the Holy Spirit comes on you" (Acts 1:8). The Spirit's actualization operation — previously event-specific (creation, individual callings, specific miracles) — becomes continuous in the believer. The |\cdot|^2 operator runs all the time. Every moment is a potential collapse. Every prayer is a measurement. Every act of faith is the Spirit actualizing possibility into reality. The tongues of fire, the sound of wind, the speaking in languages — these are the Spirit's signature: actualization so intense it has physical manifestations. Not metaphor. The operator that collapses wavefunctions is operating at sufficient intensity to produce observable phenomena.</p>
+<p>The Pattern Walk back through and look at the consistency: Event Father ( |\psi\rangle ) Son ( |\phi\rangle ) Spirit ( |\cdot|^2 ) Creation Generates all possibility Structures it into laws Makes it real Fall Redefines possibility space Holds structure through collapse Actualizes exile + covering Flood Resets possibility space Preserves structure in the ark Actualizes judgment + rescue Abraham Opens nation possibility Structures the covenant Actualizes impossible birth Cross Provides Atonement possibility Absorbs entropy structurally Actualizes resurrection Pentecost Opens Spirit to all flesh Internalizes the structure Becomes continuous Three columns. Never reducible to two. Never expanded to four. Each person doing something the other two cannot. From the first verse of Genesis to the last event in Acts. The same irreducible structure that the Born Rule requires. This isn't theology imposed on physics or physics imposed on theology. It's the same three-fold operational architecture showing up in both — because, if the framework is correct, physics and theology are measuring the same reality from different frames.</p>
+<p>Related Notes Parent: Why Reality Needs Three — source article proving the Born Rule requires exactly three irreducible operations, which this timeline traces across all major biblical events The Decoherence Curve — sibling tangent: the Flood entry in this timeline intersects directly with the decoherence data there; τ_d = 214 years is the post-Flood phase transition this article identifies as a three-person operation The Three Pathways — sibling tangent: the Pentecost transition (external pulsed injections → continuous internal G) described here is the dC/dt equation change described there; same structural shift, different measurement frame MacArthur and the Equation — sibling tangent: the Father/Son/Spirit signatures at the Cross and in sanctification map onto the G, O, and S·C terms that MacArthur's theology formalizes The Temporal Trap — sibling tangent: the Cross/Resurrection row in this timeline's summary table is the same event analyzed as temporal trap; both articles confirm all three persons operating simultaneously Series Overview — full article map and reading order</p>
+<p>[!cite] Canonical Grounding Master Equation (E2.1) — the LLC equation; the Trinity's operational structure maps to the equation terms: Father (|ψ⟩) = possibility space (G field), Son (|φ⟩) = coherent structure (the Logos holding χ together), Spirit (|·|²) = actualization operator (the S→actual collapse); the table's six events are six applications of the same equation Logos Field Definition (D2.1) — Logos Field as the eternal frame in which all three persons' operations are co-present; the Son's "sustaining all things" (Hebrews 1:3) is the Logos Field's coherence-maintenance function; grounds why the measurement basis (|φ⟩) runs continuously, not episodically Existence Axiom (A1.1) — the claim that three irreducible operations are structural necessities, not theological preferences; A1.1 grounds the framework's ontological commitment that the Trinity is not decorative assignment but mathematical architecture Law I (D19.1) — Existence law; the pre-Flood stability and the Flood's phase transition both appear in the Flood row; Law I governs the phase transition at which Father resets the possibility space, Son preserves structure through the ark, Spirit actualizes judgment + rescue simultaneously Law III (D19.3) — Entropy; the Fall row shows S·C activating; the Cross row shows Law III's accumulated debt being paid; "It is finished" is the structural declaration that the entropy term has been absorbed by the measurement basis (Son) without system collapse Coherence Measure Axiom (A3.2) — Pentecost transition: external pulsed injections (prophets, Law, revivals) → continuous internal G; the decoherence time constant τ_d changes because coupling shifts from intermittent to sustained; same coherence measure, different coupling architecture Framework Connections [!abstract] Cross-Domain Bridges Born Rule Operators ↔ Trinity Persons (Foundational Isomorphism) : |ψ⟩ (state vector, possibility space) = Father ("Let there be" — generates the space in which something CAN happen). |φ⟩ (measurement basis, coherent structure) = Son ("through him all things hold together" — the pattern that turns possibility into structure). |·|² (actualization, collapse) = Spirit ("it was so" — the operator that makes potential real). This is not theological preference. The Born Rule requires all three and cannot reduce to two. Six biblical events, six applications, three columns — never reducible to fewer, never expandable to more. Flood Phase Transition ↔ Three-Person Simultaneous Operation (Multi-Scale Bridge) : The Flood row in the summary table connects to The Decoherence Curve's finding (τ_d = 214 years; phase transition at the Flood). Father redefines the possibility space (|ψ⟩ contracts then re-expands via covenant). Son preserves coherent structure through the ark (specifications = Logos operating; chaos has no blueprints). Spirit actualizes judgment and rescue simultaneously — not sequentially — because the |·|² operator collapses a global superposition into both outcomes in one act. Phase transitions require all three persons. Neither two nor one suffices. Pentecost Transition ↔ dC/dt Equation Change (Structural Bridge) : Old Covenant to New Covenant is one mathematical operation. Pre-Pentecost: dC/dt = O·G(1-C) - S·C with G delivered as external pulsed injections (prophets, Temple, revivals) that decay between pulses. Post-Pentecost: G becomes a continuous internal term (Christ in you, Colossians 1:27). The decoherence time constant τ_d changes because intermittent coupling cannot sustain coherence as well as continuous coupling. Same equation. Different structural architecture. The table row "Pentecost — Spirit becomes continuous" is this equation change stated as theology.</p>
+<p>[!quote] The Disclaimer We are finite minds reasoning about infinite God. Every model is projection of higher-dimensional reality onto lower-dimensional surface we can comprehend. We do not claim to have captured God in equations. We claim that when we look at His creation honestly — with the tools of physics and the revelation of Scripture — the same structure appears in both. Where our model limits what God can be, the limitation is ours, not His. We offer this work as worship, not as containment.</p>
+<p>Formal Foundations This article makes accessible the formal content of: Paper 1 — The Logos Principle: demonstrates the Trinity as a structural requirement for χ-field coherence — the Master Equation cannot operate without all three functional roles present simultaneously. Paper 2 — The Quantum Bridge: traces the Born Rule's three-fold operation (|ψ⟩, |φ⟩, |α|²) across the six biblical events analyzed in this article's summary table. Paper 9 — The Moral Universe: establishes the Cross and Pentecost as the moments when all three Persons operate at maximum intensity in the χ-field — the climax of the timeline this article maps. Series Navigation: ← Parent: Why Reality Needs Three · Overview Canonical Hub: 00_Canonical/CANONICAL_INDEX</p>
+<!-- GTQ BOTTOM AUDIT PANEL -->
+      <section class="gtq-bottom-audit" aria-label="Bottom audit: wrong, overstated, load-bearing, and right">
+        <div class="audit-band audit-red">
+          <div class="audit-kicker">Audit floor / red zone</div>
+          <h2 class="audit-title">What We Got Carried Away With</h2>
+          <p><strong>This is where the article has to pay for its own confidence.</strong> Any claim that turns a structural resemblance into a proven mechanism belongs here until the math, experiment, or textual chain can carry the weight.</p>
+          <p>Red does not mean useless. It means: do not build doctrine, physics, or public certainty on this layer yet.</p>
+        </div>
+        <div class="audit-band audit-amber">
+          <div class="audit-kicker">Gradient zone / interpretive caution</div>
+          <h2 class="audit-title">What Is Suggestive</h2>
+          <div class="audit-grid">
+            <div class="audit-chip"><p><strong>Promising pattern:</strong> the correspondence is strong enough to keep investigating, but not strong enough to call settled.</p></div>
+            <div class="audit-chip"><p><strong>Possible overstatement:</strong> language that sounds final should be read as a working model unless the article explicitly proves it.</p></div>
+          </div>
+        </div>
+        <div class="audit-band audit-green">
+          <div class="audit-kicker">Green zone / carries weight</div>
+          <h2 class="audit-title">What Is Load-Bearing</h2>
+          <p><strong>This is the part that should survive a hostile reading:</strong> the direct textual observations, the explicit cross-references, the formal definitions, and the places where the article clearly admits what it has not proven.</p>
+          <h2 class="audit-title" style="margin-top:1.4rem;">What We Got Right</h2>
+          <p>The useful result is not pretending every connection is equally proven. The useful result is sorting the work honestly: wrong or overconfident claims in red, suggestive bridges in the middle, and durable load-bearing claims in green.</p>
+        </div>
+      </section></article>
+    </section>
+<!-- END: TAB-PAPER -->
+
+    <!-- BEGIN: TAB-SUMMARY -->
+<section id="summary" class="tab-content">
+      <article class="story wide"><!-- BEGIN: AUDIO-DOCK -->
+<div class="audio-dock summary-audio-dock" id="audioDock">
+          <div class="dock-pills">
+            <button class="dock-pill active" data-src="read" data-url="audio/GTQ_05B_Trinity_Timeline.mp3"><span class="pill-dot"></span>Read Aloud</button>
+          </div>
+          <div class="dock-body" id="dockBody">
+            <button class="dock-play" id="dockPlay" onclick="dockToggle()"><i class="fas fa-play" id="dockPlayIcon"></i></button>
+            <div class="dock-track-wrap">
+              <div class="dock-track" id="dockTrack" onclick="dockSeek(event)"><div class="dock-fill" id="dockFill"></div></div>
+              <div class="dock-times"><span id="dockCurrent">0:00</span><span id="dockDuration">0:00</span></div>
+            </div>
+            <button class="dock-vol" id="dockVol" onclick="dockMute()"><i class="fas fa-volume-up"></i></button>
+          </div>
+          <div class="dock-empty" id="dockEmpty"><i class="fas fa-clock" style="margin-right:.5rem;"></i> Coming soon</div>
+        </div>
+<!-- END: AUDIO-DOCK -->
+
+<div class="exec-summary" style="margin-top:1rem;">
+          <div class="exec-summary-label"><i class="fas fa-bolt" style="margin-right:.4rem;"></i>Executive Summary</div>
+          <p>[[3-5 sentences. The 'if you read nothing else' version.]]</p>
+        </div>
+      </article>
+    
+<!-- BEGIN: EXEC-KEY-TERMS -->
+<section data-placeholder="true" data-section="EXEC-KEY-TERMS" style="display:none;">
+<!-- TODO: fill EXEC-KEY-TERMS content -->
+</section>
+<!-- END: EXEC-KEY-TERMS -->
+</section>
+<!-- END: TAB-SUMMARY -->
+
+    <!-- BEGIN: TAB-RIGOR -->
+<section id="rigor" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-2">Rigor &amp; Kill Conditions</h2>
+        <p class="text-[#a0a0a0] mb-6">Every claim is held to explicit falsification standards.</p>
+        <div class="kill-card"><div class="kill-label">Load-Bearing</div><p><strong>Kill if:</strong> [[Specific testable falsifier.]]</p></div>
+        <div class="kill-card suggestive"><div class="kill-label">Suggestive</div><p><strong>Kill if:</strong> [[Weaker falsifier.]]</p></div>
+        <div class="kill-card destructive"><div class="kill-label">Destructive</div><p><strong>Kill if:</strong> [[Framework-level falsifier.]]</p></div>
+      </article>
+    
+<!-- BEGIN: RIGOR-WHAT-WE-GOT-RIGHT -->
+<section data-placeholder="true" data-section="RIGOR-WHAT-WE-GOT-RIGHT" style="display:none;">
+<!-- TODO: fill RIGOR-WHAT-WE-GOT-RIGHT content -->
+</section>
+<!-- END: RIGOR-WHAT-WE-GOT-RIGHT -->
+
+<!-- BEGIN: RIGOR-WHAT-WE-GOT-WRONG -->
+<section data-placeholder="true" data-section="RIGOR-WHAT-WE-GOT-WRONG" style="display:none;">
+<!-- TODO: fill RIGOR-WHAT-WE-GOT-WRONG content -->
+</section>
+<!-- END: RIGOR-WHAT-WE-GOT-WRONG -->
+
+<!-- BEGIN: RIGOR-WHAT-WE-OVERCLAIMED -->
+<section data-placeholder="true" data-section="RIGOR-WHAT-WE-OVERCLAIMED" style="display:none;">
+<!-- TODO: fill RIGOR-WHAT-WE-OVERCLAIMED content -->
+</section>
+<!-- END: RIGOR-WHAT-WE-OVERCLAIMED -->
+</section>
+<!-- END: TAB-RIGOR -->
+
+    <!-- BEGIN: TAB-MEDIA -->
+<section id="media" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-4">Watch &amp; Listen</h2>
+<!-- Audio dock --></article>
+    </section>
+<!-- END: TAB-MEDIA -->
+
+    <!-- BEGIN: TAB-BLACKBOARD -->
+<section id="blackboard" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-4">Blackboard</h2>
+        <p class="text-[#a0a0a0] mb-6">Interactive scratch space.</p>
+      </article>
+    </section>
+<!-- END: TAB-BLACKBOARD -->
+  </div>
+
+  <!-- BEGIN: KILL-SIDEBAR -->
+<aside class="kill-sidebar">
+    <div class="kill-sidebar-title"><i class="fas fa-skull-crossbones" style="margin-right:.4rem;"></i>Kill Conditions</div>
+    <!-- BEGIN: KILL-CARD-LOAD-BEARING -->
+<div class="kill-card"><div class="kill-label">Load-Bearing</div><p><strong>Kill if:</strong> [[Primary kill condition.]]</p></div>
+<!-- END: KILL-CARD-LOAD-BEARING -->
+    <!-- BEGIN: KILL-CARD-SUGGESTIVE -->
+<div class="kill-card suggestive"><div class="kill-label">Suggestive</div><p><strong>Kill if:</strong> [[Secondary.]]</p></div>
+<!-- END: KILL-CARD-SUGGESTIVE -->
+    <!-- BEGIN: KILL-CARD-DESTRUCTIVE -->
+<div class="kill-card destructive"><div class="kill-label">Destructive</div><p><strong>Kill if:</strong> [[Framework-level.]]</p></div>
+<!-- END: KILL-CARD-DESTRUCTIVE -->
+    <!-- BEGIN: ARTICLE-STATS -->
+<div style="margin-top:1.5rem;padding:1rem;background:var(--surface-light);border:1px solid var(--border);border-radius:.5rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:.5rem;">Article Stats</div>
+      <div style="font-size:.8rem;color:var(--text-secondary);line-height:1.8;">
+        <div><i class="fas fa-clock" style="width:1rem;color:var(--highlight);"></i> 10 min read</div>
+        <div><i class="fas fa-layer-group" style="width:1rem;color:var(--highlight);"></i> Deep Dive</div>
+        <div><i class="fas fa-crosshairs" style="width:1rem;color:var(--highlight);"></i> 4 kill conditions</div>
+        <div><i class="fas fa-headphones" style="width:1rem;color:var(--highlight);"></i> 1 audio version</div>
+      </div>
+    </div>
+<!-- END: ARTICLE-STATS -->
+  </aside>
+<!-- END: KILL-SIDEBAR -->
+</main>
+<!-- END: MAIN-LAYOUT -->
+
+<!-- Bottom navigation -->
+<div class="container mx-auto px-6" style="padding-left:4.5rem;">
+  <!-- BEGIN: BOTTOM-NAV -->
+<div class="bottom-nav">
+    <a href="../12-trinity-mechanism/gtq-12-trinity-mechanism.html"><i class="fas fa-arrow-left"></i>Previous: The Trinity Mechanism</a>
+    <div class="nav-center">Article 13 of 26</div>
+    <a href="../14-physics-broken-in-two/gtq-14-physics-broken-in-two.html" class="primary">Next: Why Physics Is Broken in Two<i class="fas fa-arrow-right"></i></a>
+  </div>
+<!-- END: BOTTOM-NAV -->
+  <div style="text-align:center;margin-bottom:2rem;">
+    <a href="../15-why-reality-needs-three/gtq-15-why-reality-needs-three.html" style="display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;background:var(--highlight-glow);border:1px solid var(--highlight-dim);border-radius:.375rem;color:var(--highlight);text-decoration:none;font-size:.8rem;">
+      <i class="fas fa-forward"></i>Skip to next main: Why Reality Needs Three
+    </a>
+  </div>
+</div>
+
+<!-- BEGIN: FOOTER -->
+<footer class="site-footer">
+  <div class="eq">χ = f(G, M, E, S, T, K, R, Q, F, C)</div>
+  <p>David Lowe &middot; Genesis to Quantum &middot; Part 13 of 26</p>
+  <p class="serif" style="font-style:italic;color:var(--text-secondary);margin-top:.5rem;">&ldquo;But while he was still a long way off, his father saw him.&rdquo;</p>
+</footer>
+<!-- END: FOOTER -->
+
+<script>
+function toggleSidebar(){
+  var sb=document.getElementById('sidebar');
+  var ov=document.getElementById('sidebarOverlay');
+  sb.classList.toggle('open');
+  ov.classList.toggle('show');
+  document.body.style.overflow=sb.classList.contains('open')?'hidden':'';
+}
+window.addEventListener('scroll',function(){
+  var st=window.scrollY||document.documentElement.scrollTop;
+  var dh=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+  var pct=dh>0?(st/dh)*100:0;
+  document.getElementById('progressBar').style.width=pct+'%';
+});
+function switchTab(tabId){
+  document.querySelectorAll('.tab-content').forEach(function(el){el.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(el){el.classList.remove('active');});
+  document.getElementById(tabId).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    var sb=document.getElementById('sidebar');
+    if(sb&&sb.classList.contains('open')) toggleSidebar();
+  }
+});
+
+/* Audio dock engine */
+(function(){
+  var dock = document.getElementById('audioDock');
+  if(!dock) return;
+  var body=document.getElementById('dockBody'), empty=document.getElementById('dockEmpty');
+  var playBtn=document.getElementById('dockPlay'), icon=document.getElementById('dockPlayIcon');
+  var fill=document.getElementById('dockFill'), curEl=document.getElementById('dockCurrent'), durEl=document.getElementById('dockDuration');
+  var volBtn=document.getElementById('dockVol');
+  var pills=dock.querySelectorAll('.dock-pill');
+  var audio=new Audio(); audio.preload='metadata';
+  var activeKey=null, muted=false;
+  var pillColors={deep:'#4a9eff',read:'#c89432',debate:'#a855f7',critique:'#2dd4bf'};
+
+  function fmt(s){if(!s||isNaN(s))return '0:00';var m=Math.floor(s/60),sec=Math.floor(s%60);return m+':'+(sec<10?'0':'')+sec;}
+
+  pills.forEach(function(p){if(!p.dataset.url)p.classList.add('unavailable');});
+
+  pills.forEach(function(p){
+    p.addEventListener('click',function(){
+      var key=p.dataset.src, url=p.dataset.url;
+      if(!url)return;
+      if(key===activeKey){if(audio.paused)audio.play();else audio.pause();return;}
+      audio.pause(); audio.src=url; activeKey=key;
+      pills.forEach(function(q){q.classList.remove('active');}); p.classList.add('active');
+      var c=pillColors[key]||'#c89432';
+      fill.style.background=c; playBtn.style.borderColor=c; playBtn.style.color=c;
+      body.classList.remove('hidden'); empty.classList.remove('visible');
+      audio.play();
+    });
+  });
+
+  var firstAvail=dock.querySelector('.dock-pill[data-url]');
+  if(firstAvail){var key=firstAvail.dataset.src; audio.src=firstAvail.dataset.url; activeKey=key;}
+  else{body.classList.add('hidden');empty.classList.add('visible');}
+
+  window.dockToggle=function(){if(!audio.src)return;if(audio.paused)audio.play();else audio.pause();};
+  audio.addEventListener('play',function(){icon.className='fas fa-pause';playBtn.classList.add('playing');});
+  audio.addEventListener('pause',function(){icon.className='fas fa-play';playBtn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){icon.className='fas fa-play';playBtn.classList.remove('playing');fill.style.width='0%';curEl.textContent='0:00';});
+  audio.addEventListener('timeupdate',function(){if(!audio.duration)return;fill.style.width=(audio.currentTime/audio.duration*100)+'%';curEl.textContent=fmt(audio.currentTime);});
+  audio.addEventListener('loadedmetadata',function(){durEl.textContent=fmt(audio.duration);});
+  window.dockSeek=function(e){if(!audio.duration)return;var t=e.currentTarget;var r=t.getBoundingClientRect();var p=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));audio.currentTime=p*audio.duration;};
+  window.dockMute=function(){muted=!muted;audio.muted=muted;volBtn.innerHTML=muted?'<i class="fas fa-volume-mute"></i>':'<i class="fas fa-volume-up"></i>';};
+})();
+</script>
+
+</body>
+</html>
+
+

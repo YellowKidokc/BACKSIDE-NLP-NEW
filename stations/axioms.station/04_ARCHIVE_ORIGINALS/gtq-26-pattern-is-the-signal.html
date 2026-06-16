@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="paper-slug" content="GTQ-26">
+<title>GTQ-26 Why the Pattern Is the Signal — Genesis to Quantum</title>
+<meta name="description" content="Independent lines of evidence converging on the same structure — that convergence is the evidence."/>
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<!-- MathJax -->
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']] }, svg: { fontCache: 'global' } };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+:root{
+  --primary:#1a1a1a;
+  --accent:#2c2c2c;
+  --text-primary:#e0e0e0;
+  --text-secondary:#a0a0a0;
+  --highlight:#d4af37;
+  --highlight-bright:#f4d03f;
+  --highlight-dim:#8b7a1e;
+  --highlight-glow:rgba(212,175,55,0.12);
+  --border:#333333;
+  --surface:#0a0a0a;
+  --surface-light:#1a1a1a;
+  --surface-hover:#2a2a2a;
+  --red:#ef4444;
+  --blue:#4a9eff;
+  --teal:#2dd4bf;
+  --purple:#a855f7;
+  --green:#22c55e;
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--surface);
+  color:var(--text-primary);
+  line-height:1.65;
+  margin:0;
+  padding:0;
+  overflow-x:hidden;
+}
+.serif{font-family:'Crimson Text',serif;}
+.display{font-family:'Oswald',sans-serif;}
+.mono{font-family:'JetBrains Mono',monospace;}
+
+/* ─────────── SIDEBAR NAV ─────────── */
+.sidebar{
+  position:fixed;top:0;left:0;width:300px;height:100vh;
+  background:var(--surface);border-right:1px solid var(--border);
+  z-index:100;overflow-y:auto;
+  transform:translateX(-100%);transition:transform .3s ease;
+  padding:1.5rem 1rem;
+}
+.sidebar.open{transform:translateX(0);}
+.sidebar-toggle{
+  position:fixed;top:1rem;left:1rem;z-index:101;
+  background:var(--surface-light);border:1px solid var(--border);
+  color:var(--highlight);width:40px;height:40px;border-radius:.375rem;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:1rem;transition:all .2s ease;
+}
+.sidebar-toggle:hover{border-color:var(--highlight);background:var(--surface-hover);}
+.sidebar-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:99;}
+.sidebar-overlay.show{display:block;}
+.sidebar .series-title{
+  font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--highlight);margin-bottom:1rem;
+  padding-bottom:.5rem;border-bottom:1px solid var(--border);
+}
+.sidebar a{display:block;padding:.45rem .75rem;color:var(--text-secondary);text-decoration:none;font-size:.8rem;border-radius:.3rem;transition:all .15s ease;line-height:1.4;}
+.sidebar a:hover{color:var(--text-primary);background:var(--surface-hover);}
+.sidebar a.current{color:var(--highlight);background:var(--highlight-glow);font-weight:600;}
+.sidebar .nav-section{padding:.5rem .75rem .25rem;font-family:'Oswald',sans-serif;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);opacity:.6;margin-top:.5rem;}
+.sidebar a.main-article{font-weight:500;color:var(--text-primary);}
+.sidebar a.deep-dive{padding-left:1.25rem;font-size:.78rem;opacity:.85;}
+.sidebar a.deep-dive::before{content:"└ ";color:var(--border);}
+.sidebar-header{display:flex;align-items:center;gap:.5rem;padding:.5rem 0 .9rem;margin-bottom:.6rem;border-bottom:1px solid var(--border);}
+.sidebar-home-btn{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border-radius:.3rem;font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);background:transparent;flex:1;justify-content:center;}
+.sidebar-home-btn.home-main{color:var(--text-secondary);}
+.sidebar-home-btn.home-main:hover{color:var(--text-primary);border-color:var(--text-secondary);background:var(--surface-hover);}
+.sidebar-home-btn.home-series{color:var(--highlight);border-color:rgba(212,175,55,.4);background:var(--highlight-glow);}
+.sidebar-home-btn.home-series:hover{color:var(--highlight-bright);border-color:var(--highlight);}
+
+/* ─────────── PROGRESS BAR ─────────── */
+.progress-track{position:fixed;top:0;left:0;right:0;height:3px;background:var(--border);z-index:90;}
+.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--highlight),var(--highlight-bright));transition:width 0.1s ease;border-radius:0 2px 2px 0;}
+
+/* ─────────── HERO GRID ─────────── */
+.hero-grid{
+  display:grid;grid-template-columns:2fr 1fr;grid-template-rows:auto auto;
+  gap:1.25rem;min-height:420px;margin-bottom:2.5rem;
+}
+.hero-main{
+  grid-column:1/2;grid-row:1/3;position:relative;overflow:hidden;
+  border-radius:.75rem;background:linear-gradient(135deg,var(--surface-light) 0%,var(--accent,#2c2c2c) 100%);
+  border:1px solid var(--border);min-height:420px;
+}
+.hero-main img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35;}
+.hero-main .overlay{
+  position:relative;z-index:2;height:100%;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:2.5rem;
+  background:linear-gradient(0deg,rgba(10,10,10,.85) 0%,rgba(10,10,10,0) 60%);
+}
+.hero-side{
+  background:var(--surface-light);border:1px solid var(--border);border-radius:.75rem;
+  padding:1.5rem;transition:border-color .25s ease;
+}
+.hero-side:hover{border-color:var(--highlight);}
+.hero-side h3{font-family:'Crimson Text',serif;font-size:1.05rem;font-weight:600;color:#fff;margin:0 0 .65rem;}
+.hero-side p{font-size:.875rem;color:var(--text-secondary);margin:0;}
+.hero-side .label{display:block;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);margin-bottom:.4rem;font-weight:700;}
+@media(max-width:1024px){
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-main{grid-column:1;grid-row:1;min-height:300px;}
+  .hero-main .overlay{padding:1.5rem;}
+}
+.meta-row{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;font-size:.8125rem;color:var(--text-secondary);margin-bottom:1rem;}
+.meta-row i{color:var(--highlight);margin-right:.4rem;}
+.status-pill{
+  padding:.25rem .65rem;background:var(--highlight-glow);color:var(--highlight);
+  border-radius:.25rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+}
+mjx-container{display:inline-block;}
+.domain-tag{display:inline-block;padding:.2rem .65rem;border-radius:999px;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+.tag-physics{background:rgba(74,158,255,.15);color:#4a9eff;}
+.tag-theology{background:rgba(212,175,55,.15);color:#d4af37;}
+.tag-quantum{background:rgba(201,64,64,.15);color:var(--red);}
+.tag-bridge{background:rgba(45,212,191,.15);color:#2dd4bf;}
+.tag-data{background:rgba(34,197,94,.15);color:var(--green);}
+.tag-consciousness{background:rgba(168,85,247,.15);color:var(--purple);}
+.tag-history{background:rgba(212,175,55,.12);color:#caa040;}
+.tag-moral{background:rgba(239,68,68,.15);color:var(--red);}
+.tag-civilizational{background:rgba(168,85,247,.12);color:#b594d8;}
+
+/* ─────────── STICKY TAB BAR ─────────── */
+.tab-shell{
+  position:sticky;top:0;z-index:50;
+  background:rgba(10,10,10,.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.tab-nav{display:flex;gap:.125rem;overflow-x:auto;scrollbar-width:none;}
+.tab-nav::-webkit-scrollbar{display:none;}
+.tab-btn{
+  padding:.85rem 1.1rem;background:transparent;border:none;color:var(--text-secondary);
+  font-size:.825rem;font-weight:500;cursor:pointer;white-space:nowrap;
+  transition:all .2s ease;border-bottom:2px solid transparent;margin-bottom:-1px;letter-spacing:.02em;
+}
+.tab-btn:hover{color:var(--text-primary);background:var(--surface-light);}
+.tab-btn.active{color:var(--highlight);border-bottom-color:var(--highlight);background:var(--surface-light);}
+.tab-btn i{margin-right:.4rem;}
+
+/* ─────────── TAB CONTENT ─────────── */
+.tab-content{display:none;animation:fadeIn .3s ease;}
+.tab-content.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* ─────────── LAYOUT: MAIN ─────────── */
+.main-layout{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:grid;grid-template-columns:1fr 280px;gap:3rem;}
+@media(max-width:1024px){.main-layout{grid-template-columns:1fr;}}
+
+.story{max-width:900px;margin:0 auto;}
+.story.wide{max-width:100%;}
+.story h2{
+  font-family:'Oswald',sans-serif;font-size:1.6rem;font-weight:600;color:#fff;
+  margin:3rem 0 1.25rem;letter-spacing:.03em;text-transform:uppercase;
+  border-bottom:1px solid var(--border);padding-bottom:.5rem;
+}
+.story h3{font-family:'Crimson Text',serif;font-size:1.3rem;font-weight:600;color:#fff;margin:2rem 0 .75rem;}
+.story h4{font-family:'Crimson Text',serif;font-size:1.1rem;font-weight:600;color:var(--highlight);margin:1.5rem 0 .5rem;}
+.story p{font-size:1.0625rem;color:#cfcfcf;margin:0 0 1.25rem;line-height:1.75;}
+.story p strong{color:#fff;}
+.story p em{color:var(--highlight);font-style:italic;}
+.story li{color:#cfcfcf;margin-bottom:.5rem;line-height:1.65;}
+.story li strong{color:#fff;}
+.story ul,.story ol{margin:0 0 1.25rem 1.5rem;}
+.story blockquote{
+  border-left:4px solid var(--highlight);background:var(--highlight-glow);
+  padding:1rem 1.5rem;margin:1.5rem 0;border-radius:0 .5rem .5rem 0;
+  font-family:'Crimson Text',serif;font-size:1.05rem;font-style:italic;color:#cfcfcf;
+}
+.story blockquote p{margin:0;font-size:1.05rem;}
+
+.drop-cap::first-letter{font-family:'Crimson Text',serif;font-size:4.5rem;float:left;line-height:.85;padding:.4rem .6rem 0 0;color:var(--highlight);font-weight:600;}
+
+.exec-summary{
+  background:var(--highlight-glow);border:1px solid var(--highlight-dim);
+  border-radius:.5rem;padding:1.5rem;margin:2rem 0;
+}
+.exec-summary-label{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);margin-bottom:.75rem;
+}
+.exec-summary p{font-size:1rem;color:#e0e0e0;margin:0;line-height:1.7;}
+
+.insight{border-left:4px solid var(--highlight);background:var(--highlight-glow);padding:1.25rem 1.5rem;margin:2rem 0;border-radius:0 .5rem .5rem 0;}
+.insight .label{font-family:'Crimson Text',serif;font-style:italic;color:var(--highlight);font-size:.85rem;letter-spacing:.05em;display:block;margin-bottom:.4rem;}
+.insight p{margin:0;color:#fff;font-size:1.05rem;}
+
+/* ─────────── KILL CONDITIONS ─────────── */
+.kill-sidebar{position:sticky;top:120px;height:fit-content;}
+.kill-sidebar-title{
+  font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);
+  margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);
+}
+.kill-card{
+  background:rgba(34,197,94,.04);border:1px solid rgba(34,197,94,.2);
+  border-radius:.5rem;padding:1rem;margin-bottom:.75rem;
+}
+.kill-card.suggestive{background:var(--highlight-glow);border-color:var(--highlight-dim);}
+.kill-card.destructive{background:rgba(239,68,68,.04);border-color:rgba(239,68,68,.2);}
+.kill-label{font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.35rem;}
+.kill-card .kill-label{color:var(--green);}
+.kill-card.suggestive .kill-label{color:var(--highlight);}
+.kill-card.destructive .kill-label{color:var(--red);}
+.kill-card p{margin:.25rem 0 0;color:#cfcfcf;font-size:.85rem;line-height:1.5;}
+.kill-card .kill-detail{font-size:.75rem;color:var(--text-secondary);margin-top:.35rem;}
+
+/* ─────────── AUDIO DOCK ─────────── */
+.audio-dock{width:100%;background:var(--surface-light);border:1px solid var(--border);border-radius:.625rem;overflow:hidden;transition:border-color .3s ease;margin:2rem 0;}
+.audio-dock:hover{border-color:var(--highlight-dim);}
+.dock-pills{display:flex;gap:0;border-bottom:1px solid var(--border);}
+.dock-pill{flex:1;display:flex;align-items:center;justify-content:center;gap:.4rem;padding:.6rem .5rem;background:transparent;border:none;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);transition:all .25s ease;position:relative;}
+.dock-pill::after{content:'';position:absolute;bottom:0;left:15%;right:15%;height:2px;border-radius:1px;background:transparent;transition:all .25s ease;}
+.dock-pill:hover{color:var(--text-primary);background:rgba(255,255,255,.03);}
+.dock-pill[data-src="deep"]{--pill-c:var(--blue);}
+.dock-pill[data-src="read"]{--pill-c:var(--highlight);}
+.dock-pill[data-src="debate"]{--pill-c:var(--purple);}
+.dock-pill[data-src="critique"]{--pill-c:var(--teal);}
+.dock-pill.active{color:var(--pill-c);background:rgba(255,255,255,.02);}
+.dock-pill.active::after{background:var(--pill-c);}
+.dock-pill .pill-dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.5;transition:opacity .25s;}
+.dock-pill.active .pill-dot{opacity:1;}
+.dock-pill.unavailable{opacity:.3;cursor:default;pointer-events:none;}
+.dock-body{display:flex;align-items:center;gap:.65rem;padding:.65rem .85rem;}
+.dock-play{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--highlight);background:transparent;color:var(--highlight);font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s ease;}
+.dock-play:hover{background:var(--highlight-glow);transform:scale(1.05);}
+.dock-play.playing{animation:pulse-dock 2s ease-in-out infinite;}
+@keyframes pulse-dock{0%,100%{box-shadow:0 0 0 0 var(--highlight-glow);}50%{box-shadow:0 0 0 4px transparent;}}
+.dock-track-wrap{flex:1;display:flex;flex-direction:column;gap:.25rem;min-width:0;}
+.dock-track{width:100%;height:4px;background:#222;border-radius:2px;cursor:pointer;overflow:hidden;position:relative;}
+.dock-fill{height:100%;width:0%;border-radius:2px;background:var(--highlight);transition:width .15s linear,background .3s;}
+.dock-times{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--text-secondary);}
+.dock-vol{background:none;border:none;color:var(--text-secondary);cursor:pointer;font-size:.75rem;flex-shrink:0;padding:2px;transition:color .2s;}
+.dock-vol:hover{color:var(--text-primary);}
+.dock-empty{display:none;align-items:center;justify-content:center;padding:.85rem;font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);opacity:.5;font-style:italic;}
+.dock-body.hidden{display:none;}.dock-empty.visible{display:flex;}
+
+/* ─────────── BOTTOM NAVIGATION ─────────── */
+.bottom-nav{
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:1.5rem 0;margin:3rem 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+.bottom-nav a{
+  display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;
+  background:var(--surface-light);border:1px solid var(--border);border-radius:.375rem;
+  color:var(--text-secondary);text-decoration:none;font-size:.85rem;transition:all .2s ease;
+}
+.bottom-nav a:hover{border-color:var(--highlight);color:var(--text-primary);background:var(--highlight-glow);}
+.bottom-nav a.primary{border-color:var(--highlight);color:var(--highlight);}
+.bottom-nav a.primary:hover{background:var(--highlight-glow);}
+.bottom-nav .nav-center{font-size:.8rem;color:var(--text-secondary);text-align:center;}
+
+/* ─────────── FOOTER ─────────── */
+.site-footer{text-align:center;padding:3rem 1.5rem;color:var(--text-secondary);font-size:.8rem;border-top:1px solid var(--border);margin-top:2rem;}
+.site-footer .eq{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--highlight);opacity:.6;margin-bottom:.5rem;}
+
+@media(max-width:1024px){
+  .kill-sidebar{display:none;}
+  .main-layout{grid-template-columns:1fr;padding:0 1rem;}
+  .story{max-width:100%;}
+}
+@media(max-width:640px){
+  .tab-btn{padding:.65rem .8rem;font-size:.75rem;}
+  .story h2{font-size:1.3rem;}
+  .bottom-nav{flex-direction:column;align-items:stretch;}
+  .bottom-nav a{justify-content:center;}
+}
+
+/* GTQ bottom audit gradient: what we overstated vs. what still carries weight */
+.gtq-bottom-audit{margin:4rem 0 2rem;border:1px solid rgba(255,255,255,.12);border-radius:1rem;overflow:hidden;background:#080808;box-shadow:0 24px 80px rgba(0,0,0,.35);}
+.gtq-bottom-audit .audit-band{padding:2rem clamp(1.25rem,3vw,2.5rem);border-bottom:1px solid rgba(255,255,255,.08);}
+.gtq-bottom-audit .audit-band:last-child{border-bottom:0;}
+.gtq-bottom-audit .audit-red{background:linear-gradient(135deg,rgba(239,68,68,.28),rgba(127,29,29,.12) 62%,rgba(8,8,8,.96));border-left:6px solid #ef4444;}
+.gtq-bottom-audit .audit-amber{background:linear-gradient(135deg,rgba(239,68,68,.14),rgba(245,158,11,.18) 48%,rgba(8,8,8,.96));border-left:6px solid #f59e0b;}
+.gtq-bottom-audit .audit-green{background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(34,197,94,.22) 56%,rgba(8,8,8,.96));border-left:6px solid #22c55e;}
+.gtq-bottom-audit .audit-kicker{font-family:'Oswald',sans-serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.62);margin-bottom:.55rem;}
+.gtq-bottom-audit .audit-title{font-family:'Oswald',sans-serif;font-size:clamp(2rem,6vw,4.6rem);line-height:.92;letter-spacing:.02em;text-transform:uppercase;margin:0 0 1rem;}
+.gtq-bottom-audit .audit-red .audit-title{color:#ff5a5a;}
+.gtq-bottom-audit .audit-amber .audit-title{color:#fbbf24;}
+.gtq-bottom-audit .audit-green .audit-title{color:#4ade80;}
+.gtq-bottom-audit p{font-size:1.05rem;line-height:1.75;color:#d6d6d6;margin:.7rem 0 0;max-width:76ch;}
+.gtq-bottom-audit strong{color:#fff;}
+.gtq-bottom-audit .audit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1rem;}
+.gtq-bottom-audit .audit-chip{background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.1);border-radius:.65rem;padding:1rem;}
+@media(max-width:720px){.gtq-bottom-audit .audit-grid{grid-template-columns:1fr}.gtq-bottom-audit .audit-band{padding:1.35rem}.gtq-bottom-audit .audit-title{font-size:2.2rem}}
+/* BEGIN: HERO-BELOW-TABS NORMALIZATION */
+.article-hero-wrap{
+  max-width:1380px;
+  margin:0 auto;
+  padding:3.5rem 1.5rem 0;
+}
+.article-hero-wrap .hero-grid{
+  width:100%;
+  gap:1.5rem;
+  min-height:480px;
+  margin-bottom:3rem;
+}
+.article-hero-wrap .hero-main{
+  min-height:480px;
+}
+@media(max-width:1024px){
+  .article-hero-wrap{padding:2rem 1rem 0;}
+  .article-hero-wrap .hero-grid{min-height:0;}
+  .article-hero-wrap .hero-main{min-height:340px;}
+}
+/* END: HERO-BELOW-TABS NORMALIZATION */
+
+
+/* BEGIN: SUMMARY MEDIA NORMALIZATION */
+#summary .story.wide{
+  max-width:780px;
+}
+#summary .summary-video-card{
+  width:min(980px,calc(100% + 6rem));
+  margin:0 -3rem 1.15rem;
+  padding:1rem;
+}
+.main-layout.sidebar-collapsed #summary .summary-video-card{
+  width:min(1160px,calc(100% + 10rem));
+  margin-left:-5rem;
+  margin-right:-5rem;
+}
+#summary .summary-video-card .video-frame{
+  position:relative;
+  width:100%;
+  padding-top:56.25%;
+  border-radius:.5rem;
+  overflow:hidden;
+  background:#000;
+}
+#summary .summary-video-card video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+#summary .summary-audio-dock{
+  max-width:680px;
+  margin:0 auto 2.5rem;
+}
+#summary .summary-audio-dock .dock-body{
+  padding:.75rem .9rem;
+}
+#summary .summary-audio-dock .dock-pill:nth-child(n+2){
+  display:none;
+}
+@media(max-width:1180px){
+  #summary .summary-video-card,
+  .main-layout.sidebar-collapsed #summary .summary-video-card{
+    width:100%;
+    margin-left:0;
+    margin-right:0;
+  }
+}
+@media(max-width:760px){
+  #summary .story.wide{
+    max-width:100%;
+  }
+  #summary .summary-video-card{
+    padding:.75rem;
+  }
+  #summary .summary-audio-dock{
+    max-width:100%;
+  }
+}
+/* END: SUMMARY MEDIA NORMALIZATION */
+
+/* BEGIN: MATH + GLOSSARY TABS */
+.math-box{background:var(--surface-light);border:1px solid var(--border);border-left:3px solid var(--highlight);border-radius:.5rem;padding:1.1rem 1.25rem;margin:1.1rem 0;}
+.math-box .mlabel{display:block;font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--highlight);margin-bottom:.55rem;}
+.math-box .mnote{font-family:'Crimson Text',serif;font-size:.95rem;line-height:1.6;color:var(--text-secondary);margin-top:.6rem;}
+.math-box .mnote strong{color:var(--text-primary);}
+/* END: MATH + GLOSSARY TABS */
+
+
+/* GLOSSARY + MATH GRID (canonical schema, Job B sweep) */
+.score-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:1.5rem 0;}
+.score-card{background:var(--surface-light);border:1px solid var(--border);border-radius:.65rem;padding:1rem;}
+.score-card .label{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);margin-bottom:.5rem;display:block;}
+.score-card p{font-size:.92rem;color:#cfcfcf;margin:0;line-height:1.5;}
+@media(max-width:760px){.score-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+
+<body>
+
+<!-- Progress bar -->
+<div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+
+<!-- GTQ CANON HEADER: managed by tools/apply_article_topbars.py -->
+<style>
+.gtq-canon-shell{
+  min-height:214px;background:#070707;border-bottom:1px solid rgba(212,175,55,.34);
+  color:var(--text-primary);position:relative;z-index:50;overflow:hidden;
+  box-shadow:0 18px 36px rgba(0,0,0,.28);
+}
+.gtq-canon-shell::before{
+  content:"";position:absolute;inset:0;background:
+    radial-gradient(circle at var(--canon-glow-x,18%) 18%,rgba(212,175,55,.16),transparent 30%),
+    linear-gradient(90deg,rgba(212,175,55,.08),transparent 35%);
+  pointer-events:none;
+}
+.gtq-canon-topline{
+  height:40px;padding:0 1.5rem 0 4.5rem;border-bottom:1px solid rgba(212,175,55,.22);
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;position:relative;z-index:1;
+  background:rgba(5,5,5,.72);
+}
+.gtq-canon-chip,.gtq-canon-link{
+  height:26px;display:inline-flex;align-items:center;gap:.38rem;border:1px solid rgba(212,175,55,.24);
+  background:rgba(255,255,255,.025);border-radius:4px;padding:0 .65rem;
+  color:var(--text-dim);font-family:'JetBrains Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;
+  text-decoration:none;white-space:nowrap;
+}
+.gtq-canon-chip strong{color:var(--highlight);font-weight:700;}
+.gtq-canon-link{font-family:'Inter',sans-serif;font-size:.68rem;letter-spacing:.04em;font-weight:700;}
+.gtq-canon-link:hover{border-color:var(--highlight);color:var(--highlight);background:var(--highlight-glow);}
+.gtq-canon-nav{display:flex;align-items:center;gap:.4rem;}
+.gtq-canon-header{
+  min-height:174px;padding:1.45rem 1.5rem 1.4rem 4.5rem;position:relative;z-index:1;
+  display:grid;align-items:center;gap:1.2rem;
+}
+.gtq-canon-kicker{
+  color:var(--highlight);font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;
+  margin-bottom:.58rem;font-weight:700;
+}
+.gtq-canon-title{
+  font-family:'Crimson Text',serif;font-size:clamp(2rem,4.5vw,3.8rem);line-height:.96;
+  color:#fff;font-weight:700;letter-spacing:0;margin:0;
+}
+.gtq-canon-sub{
+  color:var(--text-secondary);font-size:.94rem;line-height:1.55;max-width:780px;margin-top:.78rem;
+}
+.gtq-canon-meta{display:flex;align-items:center;flex-wrap:wrap;gap:.55rem;margin-top:1rem;}
+.gtq-canon-meta span{
+  height:28px;display:inline-flex;align-items:center;gap:.38rem;padding:0 .7rem;border-radius:999px;
+  border:1px solid rgba(212,175,55,.22);background:rgba(212,175,55,.07);color:var(--text-dim);
+  font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.045em;
+}
+.gtq-canon-meta i{color:var(--highlight);}
+.gtq-canon-mark{
+  color:var(--highlight);font-family:'Oswald',sans-serif;font-size:7.8rem;line-height:.8;font-weight:700;
+  letter-spacing:.02em;user-select:none;text-shadow:0 0 30px rgba(212,175,55,.16);
+}
+.gtq-canon-formula{
+  color:rgba(212,175,55,.48);font-family:'JetBrains Mono',monospace;font-size:.72rem;line-height:1.8;
+  border-left:1px solid rgba(212,175,55,.35);padding-left:1rem;
+}
+.gtq-canon-classic{grid-template-columns:minmax(0,1fr) 170px;--canon-glow-x:16%;}
+.gtq-canon-classic .gtq-canon-mark{justify-self:end;opacity:.72;}
+.gtq-canon-spine{grid-template-columns:104px minmax(0,1fr) 250px;--canon-glow-x:50%;}
+.gtq-canon-spine::before{
+  content:"";position:absolute;left:4.5rem;right:1.5rem;top:0;height:4px;
+  background:linear-gradient(90deg,var(--highlight),var(--highlight-dim),var(--highlight-bright));
+}
+.gtq-canon-spine .gtq-canon-mark{
+  color:#050505;background:var(--highlight);width:74px;height:74px;display:grid;place-items:center;
+  font-size:2.15rem;border-radius:3px;box-shadow:0 0 34px rgba(212,175,55,.14);
+}
+.gtq-canon-edge{grid-template-columns:minmax(0,1fr) 330px;--canon-glow-x:86%;}
+.gtq-canon-edge .gtq-canon-title{max-width:760px;}
+.gtq-canon-edge .gtq-canon-mark{justify-self:end;opacity:.82;}
+.gtq-canon-edge .gtq-canon-formula{
+  border-left:0;border-top:1px solid rgba(212,175,55,.35);padding:1rem 0 0;text-align:center;
+}
+@media(max-width:900px){
+  .gtq-canon-topline{height:auto;min-height:40px;padding-right:.8rem;align-items:flex-start;flex-direction:column;padding-top:.55rem;padding-bottom:.55rem;}
+  .gtq-canon-nav{flex-wrap:wrap;}
+  .gtq-canon-header,.gtq-canon-classic,.gtq-canon-spine,.gtq-canon-edge{grid-template-columns:1fr;padding-right:1rem;}
+  .gtq-canon-mark,.gtq-canon-formula{display:none;}
+  .gtq-canon-title{font-size:clamp(1.8rem,9vw,2.55rem);}
+}
+</style>
+<!-- BEGIN: TOPBAR -->
+<section class="gtq-canon-shell" aria-label="Article identity">
+  <nav class="gtq-canon-topline" aria-label="Article navigation">
+    <div class="gtq-canon-chip"><i class="fas fa-atom"></i><strong>Genesis to Quantum</strong></div>
+    <div class="gtq-canon-nav">
+      <a class="gtq-canon-link" href="../index.html"><i class="fas fa-th-list"></i>Index</a>
+      <a class="gtq-canon-link" href="../25-counter-move/gtq-25-counter-move.html"><i class="fas fa-arrow-left"></i>Prev</a>
+      <a class="gtq-canon-link" href="../../Home%20Page/index.html">Series Home<i class="fas fa-arrow-right"></i></a>
+    </div>
+  </nav>
+  <header class="gtq-canon-header gtq-canon-spine">
+    <div>
+      <div class="gtq-canon-kicker">Origin Story / Article 26 / Formal Canon</div>
+      <h1 class="gtq-canon-title">Why the Pattern Is the Signal</h1>
+      <p class="gtq-canon-sub">Independent lines of evidence converging on the same structure — that convergence is the evidence.</p>
+      <div class="gtq-canon-meta">
+        <span><i class="fas fa-fingerprint"></i>GTQ-26</span>
+        <span><i class="fas fa-layer-group"></i>Foundation Track</span>
+        <span><i class="fas fa-scale-balanced"></i>Bounded Claim</span>
+      </div>
+    </div>
+    <div class="gtq-canon-mark">#26</div>
+    <div class="gtq-canon-formula">
+      chi_local = G * M * E * S_eff * T * K * R * Q * F * C<br/>
+      C is factor / chi is output / no drift
+    </div>
+  </header>
+</section>
+<!-- END: TOPBAR -->
+<!-- /GTQ CANON HEADER -->
+
+<!-- Sidebar toggle -->
+<button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle series navigation"><i class="fas fa-bars"></i></button>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- Sidebar nav -->
+<!-- BEGIN: SIDEBAR-NAV -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <a href="https://faiththruphysics.com" class="sidebar-home-btn home-main" title="Main Site Home"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="../../Home%20Page/index.html" class="sidebar-home-btn home-series" title="Series Home"><i class="fas fa-atom"></i><span>Series</span></a>
+  </div>
+  <div class="series-title"><i class="fas fa-atom" style="margin-right:.4rem;"></i> Genesis to Quantum</div>
+
+  <div class="nav-section">Main Articles</div>
+  <a href="../01-measurement-collapsed-reality/gtq-01-measurement-collapsed-reality.html" class="main-article">01 The Measurement That Collapsed Reality</a>
+  <a href="../03-first-quantum-state/gtq-03-first-quantum-state.html" class="main-article">03 The First Quantum State</a>
+  <a href="../04-free-will-two-frames/gtq-04-free-will-two-frames.html" class="main-article">04 Free Will in Two Frames</a>
+  <a href="../08-day-time-began/gtq-08-day-time-began.html" class="main-article">08 The Day Time Began</a>
+  <a href="../11-substrate-fractured/gtq-11-substrate-fractured.html" class="main-article">11 The Substrate Fractured</a>
+  <a href="../15-why-reality-needs-three/gtq-15-why-reality-needs-three.html" class="main-article">15 Why Reality Needs Three</a>
+  <a href="../16-photon-isnt-watching/gtq-16-photon-isnt-watching.html" class="main-article">16 The Photon Isn't Watching You Back</a>
+  <a href="../18-eraser-and-the-cross/gtq-18-eraser-and-the-cross.html" class="main-article">18 The Eraser and the Cross</a>
+  <a href="../22-same-god-both-testaments/gtq-22-same-god-both-testaments.html" class="main-article">22 The Same God in Both Testaments</a>
+  <a href="../25-counter-move/gtq-25-counter-move.html" class="main-article">25 The Counter-Move</a>
+  <div class="nav-section">Deep Dives</div>
+  <a href="../02-collapse-threshold/gtq-02-collapse-threshold.html" class="deep-dive">02 The Collapse Threshold</a>
+  <a href="../05-macarthur-equation/gtq-05-macarthur-equation.html" class="deep-dive">05 MacArthur and the Equation</a>
+  <a href="../06-three-pathways/gtq-06-three-pathways.html" class="deep-dive">06 The Three Pathways</a>
+  <a href="../07-why-god-drowned-everybody/gtq-07-why-god-drowned-everybody.html" class="deep-dive">07 Why Did God Drown Everybody?</a>
+  <a href="../09-decoherence-curve/gtq-09-decoherence-curve.html" class="deep-dive">09 The Decoherence Curve</a>
+  <a href="../10-how-lies-kill/gtq-10-how-lies-kill.html" class="deep-dive">10 How Lies Kill</a>
+  <a href="../12-trinity-mechanism/gtq-12-trinity-mechanism.html" class="deep-dive">12 The Trinity Mechanism</a>
+  <a href="../13-trinity-timeline/gtq-13-trinity-timeline.html" class="deep-dive">13 The Trinity Timeline</a>
+  <a href="../14-physics-broken-in-two/gtq-14-physics-broken-in-two.html" class="deep-dive">14 Why Physics Is Broken in Two</a>
+  <a href="../17-ran-the-numbers/gtq-17-ran-the-numbers.html" class="deep-dive">17 We Actually Ran the Numbers</a>
+  <a href="../19-temporal-trap/gtq-19-temporal-trap.html" class="deep-dive">19 The Temporal Trap</a>
+  <a href="../20-how-god-restores/gtq-20-how-god-restores.html" class="deep-dive">20 How God Restores</a>
+  <a href="../21-science-behind-restoration/gtq-21-science-behind-restoration.html" class="deep-dive">21 The Science Behind the Restoration</a>
+  <a href="../23-regime-dependent-theology/gtq-23-regime-dependent-theology.html" class="deep-dive">23 The Structural Case for Regime-Dependent Theology</a>
+  <a href="../24-societies-die/gtq-24-societies-die.html" class="deep-dive">24 Societies Die the Same Way People Do</a>
+  <a href="../26-pattern-is-the-signal/gtq-26-pattern-is-the-signal.html" class="deep-dive current">26 Why the Pattern Is the Signal</a>
+</nav>
+<!-- END: SIDEBAR-NAV -->
+
+<!-- Sticky tab bar -->
+<!-- BEGIN: TAB-BAR -->
+<div class="tab-shell">
+  <div class="container mx-auto px-6" style="padding-left:4.5rem;">
+    <nav class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('summary')"><i class="fas fa-compress-alt"></i>Executive Summary</button>
+      <button class="tab-btn" onclick="switchTab('paper')"><i class="fas fa-scroll"></i>The Paper</button>
+      <button class="tab-btn" onclick="switchTab('rigor')"><i class="fas fa-crosshairs"></i>Rigor &amp; Kill Conditions</button>
+      <button class="tab-btn" onclick="switchTab('mathematics')"><i class="fas fa-square-root-alt"></i>Mathematics</button>
+      <button class="tab-btn" onclick="switchTab('glossary')"><i class="fas fa-book"></i>Glossary</button>
+      <button class="tab-btn" onclick="switchTab('media')"><i class="fas fa-headphones"></i>Watch &amp; Listen</button>
+      <button class="tab-btn" onclick="switchTab('blackboard')"><i class="fas fa-chalkboard"></i>Blackboard</button>
+    </nav>
+  </div>
+</div>
+<!-- END: TAB-BAR -->
+
+<!-- Hero grid -->
+<!-- Main content -->
+<!-- BEGIN: MAIN-LAYOUT -->
+<main class="main-layout py-10">
+  <div>
+    <!-- BEGIN: TAB-PAPER -->
+<section id="paper" class="tab-content">
+
+<!-- Hero grid -->
+<div class="container mx-auto px-6 pt-8" style="padding-left:4.5rem;">
+  <!-- BEGIN: HERO -->
+<div class="hero-grid">
+    <div class="hero-main">
+      <img src="images/hero/GTQ-26%20-%20Hero%20-%20Pattern%20is%20the%20Signal.webp" alt="Why the Pattern Is the Signal" onerror="this.style.display='none'"/>
+      <div class="overlay">
+        <div class="meta-row" style="margin-bottom:.5rem;">
+          <span><i class="fas fa-atom"></i>Article 26 &middot; Genesis to Quantum</span>
+          <span class="status-pill">Deep Dive</span>
+        </div>
+        <h1 class="serif text-3xl md:text-5xl font-bold text-white mb-3 leading-tight">
+          Why the Pattern Is the Signal
+        </h1>
+        <p class="text-lg md:text-xl text-gray-200 font-light">
+          Independent lines of evidence converging on the same structure — that convergence is the evidence.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-3">
+          <span class="domain-tag tag-data">Data</span><span class="domain-tag tag-bridge">Cross-Domain</span><span class="domain-tag tag-civilizational">Civilizational</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-side">
+      <span class="label">Key Finding</span>
+      <h3>The single thing they should remember</h3>
+      <p>The death-resurrection-salvation arc appears across cultures because it is real — the physics of coherence restoration projected by the Logos — not because cultures fabricate it from a shared template. Carrier's mythicist Bayesian argument fails on the reference class: treating pattern convergence as evidence of fabrication is a category error, like treating the universality of sunrise accounts as evidence the sun doesn't rise. The pattern is not noise. The pattern is signal.</p>
+    </div>
+    <div class="hero-side">
+      <span class="label">Critical Insight</span>
+      <h3>Why it matters now</h3>
+      <p>Correcting only Carrier's prior from 1/2 to 2/1 — keeping every other input he chose — flips his posterior from 32% to ~49%. Add the unique markers Jesus alone has in the class (independent attestation within one generation, hostile attestation, zero-power-base movement explosion, falsifiable claims unrefuted by living witnesses) and the corrected probability of historicity moves into the 49–97% range. The framework doesn't just defend Jesus's historicity — it predicts it.</p>
+    </div>
+  </div>
+<!-- END: HERO -->
+</div>
+<article class="story wide">
+
+<p class="drop-cap">If you've read this far in the series, you've seen something unusual. You've seen quantum mechanics and Genesis describing the same event. You've seen the Trinity derived from the Born Rule. You've seen the Fall as a phase transition, time as grace, the Cross as entropy reversal. And every piece of it was built on the assumption that Jesus of Nazareth was a real person who really lived, really died, and really rose.</p>
+
+<div class="insight">
+  <span class="label">&mdash; The Question</span>
+  <p>So what happens when someone says he wasn't?</p>
+</div>
+
+<p>The strongest version of that argument comes from <strong>Richard Carrier</strong>, a historian who applied <a href="#" class="gl" data-def="Bayes' Theorem: a probability rule for updating belief based on new evidence. Posterior odds = prior odds × likelihood ratio.">Bayes' Theorem</a> &mdash; the same probabilistic logic used in medical diagnosis, criminal forensics, and signal processing &mdash; to the question of whether Jesus existed. His conclusion: at best, a 32% chance Jesus was historical. Probably lower. His book <em>On the Historicity of Jesus</em> is peer-reviewed and methodologically serious. It is not a crank argument. It deserves a real answer.</p>
+
+<p>This article gives one. Not by dismissing Carrier's method &mdash; Bayes' Theorem is correct, and using it on historical questions is legitimate. The problem isn't his math. <strong>It's his reference class.</strong> And the framework we've built across this series exposes exactly why.</p>
+
+<hr>
+
+<h2 class="gold-section">I. How Carrier's Argument Works</h2>
+
+<p class="drop-cap">The Bayesian equation is simple: posterior odds equal prior odds times the likelihood ratio. You start with how likely something is before you look at the evidence, then you update based on what the evidence says.</p>
+
+<div class="eq-block">
+  <div class="eq-label">Carrier's Posterior</div>
+  $$P_{\text{hist}} \;=\; P[1/2] \times X[576/1250] \times A[36/50] \times G[1/1] \times E^{\text{con}}[4/5 \cdot 3/5 \cdot 3/4] \times E^{\text{pro}}[2/1 \cdot 2/1 \cdot 2/1]$$
+  <p style="margin:.75rem 0 0;font-size:.85rem;color:#a0a0a0;font-style:italic;">Result: 5,971,968 / 12,500,000 &asymp; 32%.</p>
+</div>
+
+<p>Carrier's prior probability &mdash; his starting point before examining any evidence &mdash; comes from asking: in the set of all ancient figures most similar to Jesus, how often do they turn out to be historical rather than mythical? He places Jesus in the <strong>"heavily mythologized savior heroes"</strong> class: Osiris, Hercules, Romulus, Moses, Aesop. Figures who were worshiped, whose stories were filled with supernatural events, and who appeared primarily in sacred literature rather than mundane political records.</p>
+
+<p>In that class, Carrier argues, at most 1 in 3 turned out to be historical. So he starts with a 33% prior &mdash; 1 to 2 odds that Jesus existed.</p>
+
+<p>He then examines four categories of evidence: extra-biblical sources, the book of Acts, the Gospels, and the Epistles. Most of the evidence is equally likely whether Jesus existed or not (likelihood ratio of 1/1 &mdash; no effect). Some evidence slightly favors mythicism. Three ambiguous passages in Paul slightly favor historicity. The math shakes out to roughly 32% at the upper bound.</p>
+
+<div class="then-callout">
+  <div class="callout-kicker">The Pivot</div>
+  <p>The argument is clean. The math is correct given his inputs. The problem is upstream of the math.</p>
+</div>
+
+<hr>
+
+<h2 class="gold-section">II. The Reference Class Problem</h2>
+
+<p class="drop-cap">Carrier's entire prior &mdash; and therefore his entire conclusion &mdash; depends on one assumption: that the structural similarities between Jesus and other savior-hero figures (incarnation, death, resurrection, salvation, worshiped by followers) are evidence of <em>fabrication</em>. He looks at the pattern and concludes: this is what cultures invent. Jesus shares the pattern. Therefore Jesus was probably invented.</p>
+
+<p>This assumption does real work in his argument. It's the reason Jesus lands in the low-frequency reference class instead of a higher one. It's the reason the prior is 33% instead of, say, 75%. Everything downstream of that assumption inherits it.</p>
+
+<div class="axiom-box">
+But what if the assumption is wrong? What if the reason the death-resurrection-salvation pattern appears across multiple cultures isn't that humans keep inventing it &mdash; but that the pattern is <em>real</em>?
+</div>
+
+<hr>
+
+<h2 class="gold-section">III. The Projection Principle</h2>
+
+<p class="drop-cap">This series has argued &mdash; with 10 property-by-property confirmations across physics and theology &mdash; that physical laws carry the structural signature of the being who made them. We call this the <a href="#" class="gl" data-def="Projection Principle: physical laws carry the structural signature of the Logos that made them. Each property of the Logos shows up as an isomorphic property of the substrate.">Projection Principle</a>.</p>
+
+<div class="block-grid block-grid-2">
+  <div class="block-split"><div class="icon"><i class="fas fa-square-root-variable"></i></div><div><div class="text-title">Rationality &rarr; Mathematics works</div><div class="text-desc">The substrate is intelligible because the source is rational.</div></div></div>
+  <div class="block-split"><div class="icon"><i class="fas fa-infinity"></i></div><div><div class="text-title">Self-consistency &rarr; Universal laws</div><div class="text-desc">The same physics holds everywhere because the source is non-contradictory.</div></div></div>
+  <div class="block-split"><div class="icon"><i class="fas fa-balance-scale"></i></div><div><div class="text-title">Conservation &rarr; Noether's theorem</div><div class="text-desc">Symmetry yields conservation; the Logos is symmetric in its commitments.</div></div></div>
+  <div class="block-split"><div class="icon"><i class="fas fa-link"></i></div><div><div class="text-title">Relationality &rarr; Four forces are couplings</div><div class="text-desc">Reality is built of relations, not isolates &mdash; because the source is relational.</div></div></div>
+  <div class="block-split"><div class="icon"><i class="fas fa-cube"></i></div><div><div class="text-title">Triadic structure &rarr; Born Rule</div><div class="text-desc">Probability requires three irreducible operations: prepare, evolve, measure.</div></div></div>
+  <div class="block-split"><div class="icon"><i class="fas fa-arrows-rotate"></i></div><div><div class="text-title">Coherence restoration &rarr; Death-and-return</div><div class="text-desc">When the entropy drain S&middot;&chi;(t) is overcome by grace input G &mdash; that's the shape.</div></div></div>
+</div>
+
+<p>If the Projection Principle is true, then the death-resurrection-salvation arc is not a mythological template that cultures copy from each other. It is the <em>physics of coherence restoration</em> &mdash; what it looks like when the entropy drain is overcome by a grace input. It is the shape of reality reasserting itself after a symmetry-breaking event. It shows up in Osiris and Hercules and Romulus and the Eleusinian mysteries for the same reason the conservation of energy shows up in every culture that does careful measurements: <em>because it's there</em>.</p>
+
+<blockquote>
+  <p>The pattern is not noise. The pattern is signal.</p>
+</blockquote>
+
+<hr>
+
+<h2 class="gold-section">IV. What This Does to Carrier's Math</h2>
+
+<p class="drop-cap">If the pattern is signal rather than noise, the frequency of that pattern appearing in mythology does not reduce the prior probability of any individual instance being historical. To the contrary &mdash; it raises the question every signal-processing engineer asks: <em>given that the signal is real, which instance is the source?</em></p>
+
+<p>Carrier's reference class &mdash; "heavily mythologized savior heroes" &mdash; treats every member of the class as equally likely to be fabricated because they all share the pattern. But if the pattern exists because reality actually <em>has</em> a death-resurrection-salvation architecture, then the class isn't "people who were fabricated using this template." The class is <strong>"people onto whom a real signal was projected."</strong> Those are different classes with different base rates.</p>
+
+<div class="block-grid block-grid-2">
+  <div class="block-accent" style="border-top-color:#ef4444;">
+    <h3><i class="fas fa-x" style="margin-right:.4rem;color:#ef4444;"></i>Carrier's Class</h3>
+    <p>"People who were fabricated using this template." Pattern frequency &rarr; <strong>lower</strong> prior.</p>
+  </div>
+  <div class="block-accent">
+    <h3><i class="fas fa-check" style="margin-right:.4rem;color:#d4af37;"></i>Corrected Class</h3>
+    <p>"People onto whom a real signal was projected." Pattern frequency &rarr; <strong>identifies the signal</strong>; doesn't dilute any specific instance.</p>
+  </div>
+</div>
+
+<div class="insight">
+  <span class="label">&mdash; The Sunrise Analogy</span>
+  <p>Suppose you find that 50 different ancient cultures described a bright light that appears in the east every morning. A Carrier-style argument would say: "The 'sunrise' pattern appears too frequently across too many mythologized accounts &mdash; clearly a fabricated motif." The problem is obvious. The sunrise pattern appears everywhere because the sun actually rises.</p>
+</div>
+
+<p>The death-resurrection-salvation arc appears across cultures because the Logos projects it. Every culture that listened closely enough picked up the signal. Some garbled it. Some mythologized it. Some got remarkably close. But the signal was always real. The question isn't "what percentage of these accounts are fabricated?" The question is: <strong>which account, if any, is the source event &mdash; the actual sunrise, not just the report of one?</strong></p>
+
+<hr>
+
+<h2 class="gold-section">V. Which Instance Is the Source?</h2>
+
+<p class="drop-cap">If we grant that the pattern is real &mdash; that reality actually contains a coherence-restoration mechanism &mdash; then we need different criteria for identifying the source instance. Not <em>"does this figure look mythologized?"</em> (they all will). Instead: <em>"which instance has the markers of an actual historical event rather than a projection?"</em></p>
+
+<p>Those markers exist. Jesus is the only figure in the class who has all of them.</p>
+
+<div style="margin:2rem 0;">
+  <div style="background:#1f1f1f;border:1px solid #333;border-left:4px solid #4a9eff;border-radius:.5rem;padding:1.5rem 2rem;margin-bottom:1rem;">
+    <div style="font-family:'Oswald',sans-serif;font-size:1.2rem;color:#4a9eff;font-weight:600;margin-bottom:.5rem;">Marker 1 &middot; Independent attestation within one generation</div>
+    <p style="font-size:1rem;color:#cfcfcf;line-height:1.7;margin:0;">Paul's letters date to the 50s AD &mdash; roughly 20 years after the crucifixion. Paul claims to have met people who knew Jesus personally (<span class="scripture-ref">Gal 1:18&ndash;19</span>). No other figure in Carrier's reference class has anything comparable. Osiris has no independent attestation within a millennium. Hercules has none within several centuries. Romulus has none within five hundred years.</p>
+  </div>
+  <div style="background:#1f1f1f;border:1px solid #333;border-left:4px solid #4a9eff;border-radius:.5rem;padding:1.5rem 2rem;margin-bottom:1rem;">
+    <div style="font-family:'Oswald',sans-serif;font-size:1.2rem;color:#4a9eff;font-weight:600;margin-bottom:.5rem;">Marker 2 &middot; Hostile attestation</div>
+    <p style="font-size:1rem;color:#cfcfcf;line-height:1.7;margin:0;"><strong>Tacitus</strong> (c. 116 AD) mentions Christ's execution under Pontius Pilate &mdash; and calls Christianity a "pernicious superstition." No motive to affirm. <strong>Josephus</strong> (c. 93 AD) references Jesus in a passage whose core is accepted as authentic by the majority of scholars even after removing later Christian interpolations. No other figure in the class has hostile attestation.</p>
+  </div>
+  <div style="background:#1f1f1f;border:1px solid #333;border-left:4px solid #4a9eff;border-radius:.5rem;padding:1.5rem 2rem;margin-bottom:1rem;">
+    <div style="font-family:'Oswald',sans-serif;font-size:1.2rem;color:#4a9eff;font-weight:600;margin-bottom:.5rem;">Marker 3 &middot; Zero-power-base movement explosion</div>
+    <p style="font-size:1rem;color:#cfcfcf;line-height:1.7;margin:0;">The marker Carrier <em>underweights most severely</em>. Every other figure in his class was either adopted by existing power structures or served the interests of existing institutions. Osiris was the state religion of Egypt. Romulus was the founding myth of Rome's ruling class. Hercules was woven into imperial propaganda. Jesus's movement began among fishermen and tax collectors in an occupied territory, was actively persecuted by both Jewish authorities and the Roman state, and nonetheless became the dominant religion of the empire within three centuries.</p>
+  </div>
+  <div style="background:linear-gradient(135deg,rgba(212,175,55,.08) 0%,#1f1f1f 100%);border:1px solid rgba(212,175,55,.3);border-left:4px solid #d4af37;border-radius:.5rem;padding:1.5rem 2rem;margin-bottom:1rem;">
+    <div style="font-family:'Oswald',sans-serif;font-size:1.2rem;color:#d4af37;font-weight:600;margin-bottom:.5rem;"><i class="fas fa-star" style="margin-right:.3rem;font-size:.9rem;"></i>Marker 4 &middot; Falsifiable claims his contemporaries didn't refute</div>
+    <p style="font-size:1rem;color:#cfcfcf;line-height:1.7;margin:0;">Paul, writing in the 50s AD to communities that included people alive during Jesus's ministry, makes claims about Jesus's death and resurrection that would have been trivially easy to refute if false. The tomb was in Jerusalem. The crucifixion was public. The claimed witnesses were named and alive (<span class="scripture-ref">1 Cor 15:6</span> &mdash; "most of whom are still alive"). These are not the kinds of claims a fabricator makes when the alleged witnesses are still walking around.</p>
+  </div>
+</div>
+
+<p>Each marker, individually, shifts the likelihood ratio in favor of historicity. <strong>Collectively, they are devastating to Carrier's conclusion</strong> &mdash; because his math depends on the evidence being weak. With a corrected reference class and properly weighted markers, the posterior probability of Jesus's historicity moves well above 50%.</p>
+
+<hr>
+
+<h2 class="gold-section">VI. The Framework's Additional Evidence</h2>
+
+<p class="drop-cap">This series adds something standard historical arguments don't have: <em>a mechanism</em>.</p>
+
+<p>Carrier dismisses the resurrection as "supernatural" and assigns it a vanishingly small prior. Standard historiography agrees: miracles can't be established by historical method. But the framework doesn't treat the resurrection as a miracle in the traditional sense. It treats it as a <strong>predicted physical event</strong> &mdash; a local entropy reversal driven by maximum coherence-field coupling.</p>
+
+<div class="law-box">
+  <div class="law-label">Cross-Frame Operation</div>
+  <p>Article 5 showed that the Cross operates simultaneously in both physics frames: at the GR level, a man dies at specific spacetime coordinates; at the quantum level, "the Lamb slain from the foundation of the world" operates outside temporal ordering. Article 1 showed that time is the rescue vehicle God engineered in response to the Fall &mdash; and the resurrection is proof the temporal corridor works. Article 2 showed that the Trinity is the minimum viable structure for generating time, and that the Born Rule's three irreducible operations map onto Father, Son, and Spirit with structural precision.</p>
+</div>
+
+<div class="block-grid block-grid-2">
+  <div class="block-stat"><div class="number">6.35&sigma;</div><div class="label">PEAR-LAB</div></div>
+  <div class="block-stat"><div class="number">6&sigma;</div><div class="label">Global Consciousness Project</div></div>
+</div>
+
+<p>The framework predicts that consciousness coupling to the Logos field should produce measurable physical effects. This prediction is confirmed: PEAR-LAB at Princeton demonstrated consciousness affecting physical outcomes at <strong>6.35&sigma; over 2.5 million trials</strong>. The Global Consciousness Project demonstrated group coherence producing measurable effects at <strong>6&sigma; over 325+ events</strong>. These are not anecdotes. They are experimental results at significance levels accepted in any branch of science.</p>
+
+<div class="eq-block">
+  <div class="eq-label">Resurrection as Maximum-Coherence Event</div>
+  $$\dfrac{dC}{dt}\bigg|_{\text{event}} = G - S\!\cdot\!\chi(t) \;\;\to\;\; G \gg S\!\cdot\!\chi(t)$$
+  <p style="margin:.75rem 0 0;font-size:.85rem;color:#a0a0a0;font-style:italic;">Coherence variable C reaches its theoretical maximum; the entropy drain is overcome by grace input G. The physics predicts what happens if a perfectly Logos-coupled consciousness undergoes death within the temporal frame and the coherence field remains intact.</p>
+</div>
+
+<div class="then-callout">
+  <div class="callout-kicker">Category Correction</div>
+  <p>Carrier can't assign a vanishingly small prior to an event for which there is both a theoretical mechanism and experimental evidence of the underlying coupling. His treatment of the resurrection as "supernatural" is a category error. The framework reclassifies it as a <em>predicted coherence-restoration event</em> &mdash; and the experimental data supports the reclassification.</p>
+</div>
+
+<hr>
+
+<h2 class="gold-section">VII. Running the Corrected Math</h2>
+
+<p class="drop-cap">Three corrections are warranted. Each follows directly from the Projection Principle, not from special pleading.</p>
+
+<div style="margin:2rem 0;">
+  <div style="background:linear-gradient(135deg,rgba(212,175,55,0.05) 0%,rgba(10,10,10,0.98) 100%);border:1px solid #222;border-left:4px solid #d4af37;border-radius:.5rem;padding:1.75rem 2.25rem;margin-bottom:1rem;">
+    <div style="font-family:'Oswald',sans-serif;font-size:1.5rem;font-weight:700;color:#d4af37;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.4rem;">Correction 1</div>
+    <div style="font-family:'Crimson Text',serif;font-size:1.3rem;color:#fff;font-weight:600;line-height:1.3;margin-bottom:.5rem;">The prior &nbsp;&middot;&nbsp; 1/2 &rarr; 2/1</div>
+    <p style="font-size:1rem;color:#bbb;line-height:1.7;margin:0;">If the Projection Principle is correct, the convergence of the pattern across figures is evidence the pattern is real, not evidence of fabrication. The correct reference class &mdash; given independent attestation, hostile attestation, and a movement that exploded from zero power base &mdash; is "historically attested religious founders with early independent sources." Base rate: at least 2 in 3.</p>
+  </div>
+  <div style="background:linear-gradient(135deg,rgba(212,175,55,0.05) 0%,rgba(10,10,10,0.98) 100%);border:1px solid #222;border-left:4px solid #d4af37;border-radius:.5rem;padding:1.75rem 2.25rem;margin-bottom:1rem;">
+    <div style="font-family:'Oswald',sans-serif;font-size:1.5rem;font-weight:700;color:#d4af37;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.4rem;">Correction 2</div>
+    <div style="font-family:'Crimson Text',serif;font-size:1.3rem;color:#fff;font-weight:600;line-height:1.3;margin-bottom:.5rem;">Extra-biblical evidence &nbsp;&middot;&nbsp; 576/1250 &rarr; 1/1</div>
+    <p style="font-size:1rem;color:#bbb;line-height:1.7;margin:0;">Carrier's scoring depends on the assumption that the absence of stronger evidence is itself evidence for mythicism. The framework argues the opposite: the evidence is exactly what we expect for a non-elite figure in an occupied territory whose movement was persecuted by the very institutions that preserved records. Corrected to 1/1 &mdash; no effect either direction. (More conservative than the hostile attestations warrant.)</p>
+  </div>
+  <div style="background:linear-gradient(135deg,rgba(212,175,55,0.05) 0%,rgba(10,10,10,0.98) 100%);border:1px solid #222;border-left:4px solid #d4af37;border-radius:.5rem;padding:1.75rem 2.25rem;margin-bottom:1rem;">
+    <div style="font-family:'Oswald',sans-serif;font-size:1.5rem;font-weight:700;color:#d4af37;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.4rem;">Correction 3</div>
+    <div style="font-family:'Crimson Text',serif;font-size:1.3rem;color:#fff;font-weight:600;line-height:1.3;margin-bottom:.5rem;">Epistolary silences &nbsp;&middot;&nbsp; 4/5 &middot; 3/5 &middot; 3/4 &rarr; 4/5</div>
+    <p style="font-size:1rem;color:#bbb;line-height:1.7;margin:0;">Carrier's counter-evidence consists of Paul's "silences" &mdash; things Paul doesn't mention about Jesus. The framework provides a reason: if what Paul experienced was the risen Christ through Logos-field coupling (which the PEAR-LAB data confirms is real), then Paul's emphasis on revelation over biography is exactly what we expect. The silences aren't suspicious. They're predicted.</p>
+  </div>
+</div>
+
+<div class="eq-block">
+  <div class="eq-label">Corrected Posterior</div>
+  $$P_{\text{hist}} \;=\; P[2/1] \times X[1/1] \times A[36/50] \times G[1/1] \times E^{\text{con}}[4/5] \times E^{\text{pro}}[8/1]$$
+  $$\;=\; \dfrac{2 \cdot 1 \cdot \tfrac{36}{50} \cdot 1 \cdot \tfrac{4}{5} \cdot 8}{1} \;=\; \dfrac{36.864}{1}$$
+  <p style="margin:.75rem 0 0;font-size:.95rem;color:#e0e0e0;">Posterior: <strong style="color:#d4af37;">36.864 / 37.864 &asymp; 97.4%</strong></p>
+</div>
+
+<div class="block-grid block-grid-3">
+  <div class="block-stat"><div class="number">~49%</div><div class="label">Prior fix only</div></div>
+  <div class="block-stat"><div class="number">~66%</div><div class="label">+ extra-biblical fix</div></div>
+  <div class="block-stat" style="background:linear-gradient(135deg,rgba(212,175,55,.1) 0%,#1f1f1f 100%);border-color:rgba(212,175,55,.3);"><div class="number" style="color:#d4af37;">~97%</div><div class="label">All three corrections</div></div>
+</div>
+
+<p>Even keeping Carrier's Acts scoring and his own generous-to-historicity weighting, correcting <em>only</em> the prior from 1/2 to 2/1 flips his calculation: posterior &asymp; 48.9%, nearly equipoise. That's the minimal correction. Add a modest fix to the extra-biblical scoring and the posterior jumps to ~66%. Add the framework's mechanism for Paul's silences and it goes above 90%.</p>
+
+<div class="insight">
+  <span class="label">&mdash; The Lever</span>
+  <p>The entire edifice rests on the reference class. Correct the reference class &mdash; and the math corrects itself.</p>
+</div>
+
+<hr>
+
+<h2 class="gold-section">VIII. What We Are Not Claiming</h2>
+
+<p class="drop-cap">This article does not claim to have proven Jesus existed with mathematical certainty. Bayes' Theorem produces probabilities, not proofs. The claim is narrower and more precise:</p>
+
+<ul>
+  <li>Carrier's reference class is contaminated by a real signal.</li>
+  <li>The death-resurrection-salvation pattern appears across cultures because it is projected by the Logos into every domain &mdash; not because cultures fabricate it from a shared template.</li>
+  <li>Treating the pattern as evidence of fabrication is a category error &mdash; like treating the universality of sunrise accounts as evidence the sun doesn't rise.</li>
+  <li>With a corrected reference class, even Carrier's own math produces a probability of historicity well above 50%.</li>
+</ul>
+
+<p>The corrections are not <em>ad hoc</em>. They follow from the Projection Principle, which this series has argued for across 10 articles with independent evidence from quantum mechanics, thermodynamics, information theory, and experimental consciousness research.</p>
+
+<blockquote>
+  <p>The framework doesn't just defend Jesus's historicity &mdash; it predicts it. If the Logos is real, and the coherence-restoration arc is real, then the source event must have happened. Not because theology requires it, but because the physics requires a source for the signal.</p>
+</blockquote>
+
+<p>And Jesus is the only candidate in the historical record with the evidentiary markers of a source event.</p>
+
+<div class="axiom-box">
+The pattern is not noise. The pattern is signal. And the signal has a name.
+</div>
+
+<hr>
+
+<h2 class="gold-section">IX. Falsification Criteria</h2>
+
+<p class="drop-cap">A theory worth holding is a theory that can be killed. Five conditions would break this argument:</p>
+
+<div style="background:linear-gradient(180deg,rgba(201,64,64,0.08) 0%,rgba(201,64,64,0.02) 60%,transparent 100%);border-top:3px solid #c94040;border-radius:.75rem;padding:2rem;margin:1.5rem 0;">
+  <div style="background:rgba(201,64,64,0.06);border:1px solid rgba(201,64,64,0.25);border-left:4px solid #ef4444;border-radius:.5rem;padding:1.25rem 1.5rem;margin-bottom:1rem;">
+    <div style="font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:700;color:#ef4444;text-transform:uppercase;margin-bottom:.4rem;">Kill 1 &middot; Projection Principle fails</div>
+    <p style="font-size:.95rem;color:#ccc;margin:0;">If the 10 property-by-property mappings between Logos properties and physical laws can be shown to be cherry-picked or post-hoc rather than predictive, the reference class correction loses its foundation.</p>
+  </div>
+  <div style="background:rgba(201,64,64,0.05);border:1px solid rgba(201,64,64,0.20);border-left:4px solid rgba(239,68,68,0.85);border-radius:.5rem;padding:1.25rem 1.5rem;margin-bottom:1rem;">
+    <div style="font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:700;color:rgba(239,68,68,0.9);text-transform:uppercase;margin-bottom:.4rem;">Kill 2 &middot; Pattern is purely cultural transmission</div>
+    <p style="font-size:.95rem;color:#bbb;margin:0;">If the death-resurrection-salvation pattern can be shown to have a purely cultural transmission mechanism (direct borrowing, no independent origination), the "signal not noise" argument weakens.</p>
+  </div>
+  <div style="background:rgba(201,64,64,0.04);border:1px solid rgba(201,64,64,0.15);border-left:4px solid rgba(239,68,68,0.7);border-radius:.5rem;padding:1.25rem 1.5rem;margin-bottom:1rem;">
+    <div style="font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:700;color:rgba(239,68,68,0.75);text-transform:uppercase;margin-bottom:.4rem;">Kill 3 &middot; PEAR-LAB / GCP falsified</div>
+    <p style="font-size:.95rem;color:#aaa;margin:0;">If the experimental support for consciousness coupling is definitively falsified, the framework loses its mechanism for the resurrection.</p>
+  </div>
+  <div style="background:rgba(201,64,64,0.04);border:1px solid rgba(201,64,64,0.15);border-left:4px solid rgba(239,68,68,0.55);border-radius:.5rem;padding:1.25rem 1.5rem;margin-bottom:1rem;">
+    <div style="font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:700;color:rgba(239,68,68,0.6);text-transform:uppercase;margin-bottom:.4rem;">Kill 4 &middot; Another figure has the markers</div>
+    <p style="font-size:.95rem;color:#aaa;margin:0;">If another figure in the reference class is found with comparable markers (independent + hostile attestation, zero-power-base explosion), Jesus's uniqueness as the source event is no longer assured.</p>
+  </div>
+  <div style="background:rgba(201,64,64,0.03);border:1px solid rgba(201,64,64,0.12);border-left:4px solid rgba(239,68,68,0.4);border-radius:.5rem;padding:1.25rem 1.5rem;margin-bottom:1rem;">
+    <div style="font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:700;color:rgba(239,68,68,0.5);text-transform:uppercase;margin-bottom:.4rem;">Kill 5 &middot; Reference class defended without fabrication assumption</div>
+    <p style="font-size:.95rem;color:#999;margin:0;">If Carrier's class can be defended on grounds that don't assume the pattern is fabricated, the correction doesn't apply.</p>
+  </div>
+</div>
+
+<hr>
+
+<h2 class="gold-section">X. Self-Audit</h2>
+
+<p class="drop-cap">What we got right, what we're less sure about, and where we got carried away.</p>
+
+<h3 style="color:#22c55e;">Load-bearing &mdash; we'd bet on this</h3>
+
+<div class="law-box" style="background:rgba(34,197,94,.05);border-color:rgba(34,197,94,.25);border-left-color:#22c55e;">
+  <div class="law-label" style="color:#22c55e;">Reference class critique</div>
+  <p>Carrier's entire prior depends on treating pattern convergence as evidence of fabrication. If the pattern is real &mdash; which the Projection Principle argues with 10/10 confirmations &mdash; then the reference class is contaminated by signal. This is not a theological objection. It's a statistical one: you cannot use the frequency of a real phenomenon to argue against the reality of any specific instance of it.</p>
+</div>
+
+<div class="law-box" style="background:rgba(34,197,94,.05);border-color:rgba(34,197,94,.25);border-left-color:#22c55e;">
+  <div class="law-label" style="color:#22c55e;">Unique evidentiary markers</div>
+  <p>Independent attestation within one generation, hostile attestation, zero-power-base movement explosion &mdash; no other figure in Carrier's class has all three. Not disputed even by mythicist scholars; they simply weight these markers differently.</p>
+</div>
+
+<div class="law-box" style="background:rgba(34,197,94,.05);border-color:rgba(34,197,94,.25);border-left-color:#22c55e;">
+  <div class="law-label" style="color:#22c55e;">The math is correct</div>
+  <p>Correcting only the prior from 1/2 to 2/1 and keeping everything else Carrier argues produces a posterior near 49%. This is arithmetic, not interpretation.</p>
+</div>
+
+<h3 style="color:#f59e0b;">Suggestive &mdash; needs more work</h3>
+
+<div class="disclaimer-box" style="background:rgba(245,158,11,.05);border-color:rgba(245,158,11,.25);">
+  <div class="disclaimer-label" style="color:#f59e0b;">Projection Principle is itself the load-bearing assumption</div>
+  <p>If it falls, the reference class correction falls with it. The 10/10 mapping is strong but has not been independently verified outside the framework. A skeptic will note the circularity &mdash; we're using our conclusion to fix someone else's premise. The response: the Projection Principle makes independent predictions (like the PEAR-LAB result) confirmed by external data. The circularity concern is legitimate and should be stated.</p>
+</div>
+
+<div class="disclaimer-box" style="background:rgba(245,158,11,.05);border-color:rgba(245,158,11,.25);">
+  <div class="disclaimer-label" style="color:#f59e0b;">"Movement explosion" is causally ambiguous</div>
+  <p>Christianity's growth from zero power base is unusual, but Carrier has responses: sociological reasons unrelated to the founder's existence (network effects, appeal to the marginalized, Roman infrastructure). The marker is evidence, not proof.</p>
+</div>
+
+<div class="disclaimer-box" style="background:rgba(245,158,11,.05);border-color:rgba(245,158,11,.25);">
+  <div class="disclaimer-label" style="color:#f59e0b;">Corrected prior of 2/1 is a judgment call</div>
+  <p>The exact base rate in the corrected class is debatable. A more conservative correction might land at 1/1 (50/50) instead of 2/1. Even at 1/1, the posterior still improves significantly over Carrier's result.</p>
+</div>
+
+<h3 style="color:#ef4444;">Where we got carried away</h3>
+
+<div class="kill-card" style="margin-bottom:1rem;">
+  <div class="kill-label">The 97.4% figure is aspirational, not demonstrated</div>
+  <p>It depends on all three corrections being accepted simultaneously, each at the values we chose. A more honest range: prior-only ~49%; prior + extra-biblical ~66%; all corrections ~97%. The range <strong>49&ndash;97%</strong> is more defensible than the point estimate.</p>
+</div>
+
+<div class="kill-card" style="margin-bottom:1rem;">
+  <div class="kill-label">PEAR-LAB &rarr; resurrection mechanism is a reach</div>
+  <p>PEAR-LAB confirms consciousness-matter coupling exists. It does <em>not</em> confirm that a specific individual achieved maximum coupling and reversed entropy at a specific historical moment. The gap between "consciousness affects RNGs at small effect sizes" and "a man rose from the dead" is large. The framework provides the theoretical bridge, but the experimental confirmation is at a much lower magnitude than the event it's used to support.</p>
+</div>
+
+<div class="disclaimer-box">
+  <div class="disclaimer-label"><i class="fas fa-cross" style="margin-right:.4rem;"></i>The Disclaimer</div>
+  <p>We are finite minds reasoning about infinite God. Every model we construct is a projection of higher-dimensional reality onto a lower-dimensional surface we can comprehend. We do not claim to have captured God in equations. We claim that when we look at His creation honestly &mdash; with the tools of physics and the revelation of Scripture &mdash; the same structure appears in both. Where our model limits what God can be, the limitation is ours, not His. We offer this work as worship, not as containment.</p>
+</div>
+<!-- GTQ BOTTOM AUDIT PANEL -->
+      <section class="gtq-bottom-audit" aria-label="Bottom audit: wrong, overstated, load-bearing, and right">
+        <div class="audit-band audit-red">
+          <div class="audit-kicker">Audit floor / red zone</div>
+          <h2 class="audit-title">What We Got Carried Away With</h2>
+          <p><strong>This is where the article has to pay for its own confidence.</strong> Any claim that turns a structural resemblance into a proven mechanism belongs here until the math, experiment, or textual chain can carry the weight.</p>
+          <p>Red does not mean useless. It means: do not build doctrine, physics, or public certainty on this layer yet.</p>
+        </div>
+        <div class="audit-band audit-amber">
+          <div class="audit-kicker">Gradient zone / interpretive caution</div>
+          <h2 class="audit-title">What Is Suggestive</h2>
+          <div class="audit-grid">
+            <div class="audit-chip"><p><strong>Promising pattern:</strong> the correspondence is strong enough to keep investigating, but not strong enough to call settled.</p></div>
+            <div class="audit-chip"><p><strong>Possible overstatement:</strong> language that sounds final should be read as a working model unless the article explicitly proves it.</p></div>
+          </div>
+        </div>
+        <div class="audit-band audit-green">
+          <div class="audit-kicker">Green zone / carries weight</div>
+          <h2 class="audit-title">What Is Load-Bearing</h2>
+          <p><strong>This is the part that should survive a hostile reading:</strong> the direct textual observations, the explicit cross-references, the formal definitions, and the places where the article clearly admits what it has not proven.</p>
+          <h2 class="audit-title" style="margin-top:1.4rem;">What We Got Right</h2>
+          <p>The useful result is not pretending every connection is equally proven. The useful result is sorting the work honestly: wrong or overconfident claims in red, suggestive bridges in the middle, and durable load-bearing claims in green.</p>
+        </div>
+      </section></article>
+    </section>
+<!-- END: TAB-PAPER -->
+
+    <!-- BEGIN: TAB-SUMMARY -->
+<section id="summary" class="tab-content active">
+      <article class="story wide" style="margin-top:1rem;"><!-- BEGIN: AUDIO-DOCK -->
+        <div class="audio-dock summary-audio-dock" id="audioDock">
+          <div class="dock-pills">
+            <button class="dock-pill active" type="button" data-src="read" data-url="audio/GTQ_10A_Why_The_Pattern_Is_The_Signal.mp3"><span class="pill-dot"></span>Read</button>
+          </div>
+          <div class="dock-body" id="dockBody">
+            <button class="dock-play" id="dockPlay" onclick="dockToggle()" type="button" aria-label="Play audio"><i class="fas fa-play" id="dockPlayIcon"></i></button>
+            <div class="dock-track-wrap">
+              <div class="dock-track" onclick="dockSeek(event)"><div class="dock-fill" id="dockFill"></div></div>
+              <div class="dock-times"><span id="dockCurrent">0:00</span><span id="dockDuration">0:00</span></div>
+            </div>
+            <button class="dock-vol" id="dockVol" onclick="dockMute()" type="button" aria-label="Mute audio"><i class="fas fa-volume-up"></i></button>
+          </div>
+          <div class="dock-empty" id="dockEmpty">No audio available.</div>
+        </div>
+        <!-- END: AUDIO-DOCK -->
+
+<div class="max-w-3xl mx-auto">
+          <h2 class="serif text-3xl font-bold text-white mb-6">Executive Summary</h2>
+
+          <p class="serif text-lg text-gray-300 mb-4" style="line-height:1.85;">
+            When physics, theology, information theory, neuroscience, thermodynamics, and history all independently produce the same structural architecture &mdash; without anyone coordinating them &mdash; that convergence is either a coincidence or a signal. This article makes the case that it is signal.
+          </p>
+
+          <p class="serif text-lg text-gray-300 mb-4" style="line-height:1.85;">
+            The framework did not start with theology and look for physics to support it. It did not start with physics and force theology into the math. It started with the coherence equation and let the structure lead. At every stage, the mapping was tested against the strongest available objections. Where it broke, it was corrected. Where it held, it was extended. The Incarnation-as-symmetry-breaking insight was forced by the physics &mdash; not imposed by the theology.
+          </p>
+
+          <p class="serif text-lg text-gray-300 mb-4" style="line-height:1.85;">
+            Independent convergence across formally distinct domains is the strongest evidence type in science. When your prediction from one domain is confirmed by data from another domain that you never consulted, that is not cherry-picking. That is structural isomorphism producing cross-domain predictions &mdash; and when those predictions land, the architecture is telling you something.
+          </p>
+
+          <p class="serif text-lg text-gray-300 mb-6" style="line-height:1.85;">
+            <strong style="color:#fff;">The claim:</strong> The pattern IS the signal. Not a pattern that suggests a signal. Not a pattern consistent with a signal. The degree of cross-domain convergence documented across this series &mdash; with falsifiable predictions, control group confirmation, and formal mathematical structure &mdash; is either the most elaborate coincidence in intellectual history or evidence that physics and theology are projections of a single underlying architecture.
+          </p>
+        </div>
+      </article>
+    
+<!-- BEGIN: EXEC-KEY-TERMS -->
+<section data-placeholder="true" data-section="EXEC-KEY-TERMS" style="display:none;">
+<!-- TODO: fill EXEC-KEY-TERMS content -->
+</section>
+<!-- END: EXEC-KEY-TERMS -->
+</section>
+<!-- END: TAB-SUMMARY -->
+
+    <!-- BEGIN: TAB-RIGOR -->
+<section id="rigor" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-2">Rigor &amp; Kill Conditions</h2>
+        <p class="text-[#a0a0a0] mb-6">Every claim is held to explicit falsification standards.</p>
+        <div class="kill-card"><div class="kill-label">Load-Bearing</div><p><strong>Kill if:</strong> Another figure in Carrier's reference class is found with all four evidentiary markers — independent attestation within one generation, hostile attestation, zero-power-base movement explosion, and falsifiable claims unrefuted by living named witnesses (1 Cor 15:6 type). If Jesus is not unique on these markers, the source-event argument fails.</p></div>
+        <div class="kill-card suggestive"><div class="kill-label">Suggestive</div><p><strong>Kill if:</strong> The death-resurrection-salvation pattern across cultures can be shown to have a purely cultural-transmission origin (direct borrowing, no independent origination), or PEAR-LAB (6.35σ over 2.5M trials) and the Global Consciousness Project (6σ over 325+ events) are definitively falsified — removing the experimental support for the consciousness-coupling mechanism.</p></div>
+        <div class="kill-card destructive"><div class="kill-label">Destructive</div><p><strong>Kill if:</strong> The Projection Principle fails — i.e., the 10 property-by-property mappings between Logos properties and physical laws (rationality, self-consistency, conservation, relationality, triadic structure, coherence restoration, etc.) are shown to be cherry-picked or post-hoc rather than predictive. Without the Projection Principle, the reference-class correction loses its foundation and the entire "pattern is signal" argument collapses.</p></div>
+      </article>
+    
+<!-- BEGIN: RIGOR-WHAT-WE-GOT-RIGHT -->
+<section data-placeholder="true" data-section="RIGOR-WHAT-WE-GOT-RIGHT" style="display:none;">
+<!-- TODO: fill RIGOR-WHAT-WE-GOT-RIGHT content -->
+</section>
+<!-- END: RIGOR-WHAT-WE-GOT-RIGHT -->
+
+<!-- BEGIN: RIGOR-WHAT-WE-GOT-WRONG -->
+<section data-placeholder="true" data-section="RIGOR-WHAT-WE-GOT-WRONG" style="display:none;">
+<!-- TODO: fill RIGOR-WHAT-WE-GOT-WRONG content -->
+</section>
+<!-- END: RIGOR-WHAT-WE-GOT-WRONG -->
+
+<!-- BEGIN: RIGOR-WHAT-WE-OVERCLAIMED -->
+<section data-placeholder="true" data-section="RIGOR-WHAT-WE-OVERCLAIMED" style="display:none;">
+<!-- TODO: fill RIGOR-WHAT-WE-OVERCLAIMED content -->
+</section>
+<!-- END: RIGOR-WHAT-WE-OVERCLAIMED -->
+</section>
+<!-- END: TAB-RIGOR -->
+
+    <!-- BEGIN: TAB-MEDIA -->
+<section id="media" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-4">Watch &amp; Listen</h2>
+        <div class="media-card" style="background:var(--surface-light);border:1px solid var(--border);border-radius:.5rem;padding:1.5rem;margin-bottom:1.5rem;">
+          <span style="display:block;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--highlight);font-weight:700;margin-bottom:.5rem;"><i class="fas fa-headphones" style="margin-right:.4rem;"></i>Audio Reading</span>
+          <audio controls preload="metadata" style="width:100%;">
+            <source src="audio/GTQ_10A_Why_The_Pattern_Is_The_Signal.mp3" type="audio/mpeg">
+            Your browser does not support the audio tag.
+          </audio>
+          <p style="margin:.85rem 0 0;color:var(--text-secondary);font-size:.9rem;">Video is not packaged for this article yet. The audio version is available locally.</p>
+        </div>
+      </article>
+    </section>
+<!-- END: TAB-MEDIA -->
+
+    <!-- BEGIN: TAB-BLACKBOARD -->
+<section id="blackboard" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-4">Blackboard</h2>
+        <p class="text-[#a0a0a0] mb-6">Interactive scratch space.</p>
+      </article>
+    </section>
+<!-- END: TAB-BLACKBOARD -->
+
+    <!-- BEGIN: TAB-MATHEMATICS -->
+<section id="mathematics" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-2">Mathematics</h2>
+        <p class="text-[#a0a0a0] mb-6">Every equation that appears in the paper, collected here as a reference index. Equations remain in the paper body where they were introduced.</p>
+
+        <div class="math-box">
+          <span class="mlabel">Bayes' Theorem (Odds Form)</span>
+          $$\text{posterior odds} \;=\; \text{prior odds} \times \text{likelihood ratio}$$
+          <div class="mnote">The probability rule the article inherits from Carrier &mdash; the same logic used in medical diagnosis, criminal forensics, and signal processing.</div>
+          <div class="mnote"><strong>Plain English:</strong> Start with how likely something is before evidence; multiply by how strongly the evidence cuts. Carrier's method is correct; the article's claim is that one of his inputs &mdash; the prior, derived from a contaminated reference class &mdash; is wrong.</div>
+        </div>
+
+        <div class="math-box">
+          <span class="mlabel">Carrier's Posterior</span>
+          $$P_{\text{hist}} = P\!\left[\tfrac{1}{2}\right] \times X\!\left[\tfrac{576}{1250}\right] \times A\!\left[\tfrac{36}{50}\right] \times G[1] \times E^{\text{con}}\!\left[\tfrac{4}{5}\!\cdot\!\tfrac{3}{5}\!\cdot\!\tfrac{3}{4}\right] \times E^{\text{pro}}\!\left[\tfrac{2}{1}\!\cdot\!\tfrac{2}{1}\!\cdot\!\tfrac{2}{1}\right]$$
+          $$\approx \tfrac{5{,}971{,}968}{12{,}500{,}000} \approx 32\%$$
+          <div class="mnote"><strong>P</strong> = prior. <strong>X</strong> = extra-biblical sources. <strong>A</strong> = Acts. <strong>G</strong> = Gospels. <strong>E<sup>con</sup></strong> = three Pauline silences. <strong>E<sup>pro</sup></strong> = three Pauline historicity passages.</div>
+          <div class="mnote"><strong>Plain English:</strong> Carrier's upper-bound result. The math is clean given his inputs; the article's whole correction operates upstream of the math &mdash; on the reference class that fixes the prior.</div>
+        </div>
+
+        <div class="math-box">
+          <span class="mlabel">Corrected Posterior (All Three Fixes)</span>
+          $$P_{\text{hist}} = P\!\left[\tfrac{2}{1}\right] \times X[1] \times A\!\left[\tfrac{36}{50}\right] \times G[1] \times E^{\text{con}}\!\left[\tfrac{4}{5}\right] \times E^{\text{pro}}\!\left[\tfrac{8}{1}\right] = \tfrac{36.864}{1}$$
+          $$\Rightarrow \tfrac{36.864}{37.864} \approx 97.4\%$$
+          <div class="mnote">Three corrections: (1) prior 1/2 &rarr; 2/1 (Projection-Principle reference class), (2) extra-biblical 576/1250 &rarr; 1/1 (no-effect, conservative), (3) epistolary silences collapsed because the framework predicts them as Logos-coupling revelation.</div>
+          <div class="mnote"><strong>Plain English:</strong> Even keeping Carrier's Acts and Gospel scoring, the fully corrected posterior is ~97%. The lever is the reference class &mdash; correct it, and the math corrects itself.</div>
+        </div>
+
+        <div class="math-box">
+          <span class="mlabel">Intermediate Corrections</span>
+          $$P_{\text{prior fix only}} \approx 49\% \quad|\quad P_{\text{prior + extra-biblical}} \approx 66\% \quad|\quad P_{\text{all three}} \approx 97\%$$
+          <div class="mnote">The article's three checkpoints. Even the minimal correction (prior alone) flips the conclusion.</div>
+          <div class="mnote"><strong>Plain English:</strong> The most conservative possible move &mdash; fix only the prior &mdash; is enough to take historicity from 32% to roughly equipoise. The other two corrections add weight in the same direction.</div>
+        </div>
+
+        <div class="math-box">
+          <span class="mlabel">Resurrection as Maximum-Coherence Event</span>
+          $$\frac{dC}{dt}\bigg|_{\text{event}} = G - S \cdot \chi(t), \quad G \gg S \cdot \chi(t)$$
+          <div class="mnote"><strong>C</strong> = coherence. <strong>G</strong> = grace input. <strong>S&middot;&chi;(t)</strong> = entropy drain on the &chi; field.</div>
+          <div class="mnote"><strong>Plain English:</strong> The article's mechanism for what happens when a fully Logos-coupled consciousness undergoes death and the coherence field remains intact: G overwhelms the entropy drain; coherence reaches its theoretical maximum. The resurrection reframed not as a category-error miracle but as a predicted coherence-restoration event.</div>
+        </div>
+
+        <div class="math-box">
+          <span class="mlabel">Empirical Anchors for Logos Coupling</span>
+          $$\sigma_{\text{PEAR}} \approx 6.35 \;\;(\text{N} \approx 2.5\!\times\!10^{6}\,\text{trials}) \quad|\quad \sigma_{\text{GCP}} \approx 6 \;\;(\text{325+ events})$$
+          <div class="mnote">Two independent experimental anchors for consciousness coupling to a coherence field.</div>
+          <div class="mnote"><strong>Plain English:</strong> The framework can't claim a vanishing prior on the resurrection because the underlying coupling has experimental evidence at significance levels accepted in any branch of physics.</div>
+        </div>
+
+        <div class="math-box">
+          <span class="mlabel">Source-Event Identification (Four Markers)</span>
+          $$\text{Jesus} = \{\text{indep. attestation}, \;\text{hostile attestation}, \;\text{zero-power-base explosion}, \;\text{unrefuted falsifiables}\}$$
+          <div class="mnote">Each marker, individually, shifts the likelihood ratio toward historicity. Collectively, they uniquely identify Jesus among Carrier's reference class.</div>
+          <div class="mnote"><strong>Plain English:</strong> If the pattern is signal, the question becomes: which instance is the source event? The four markers are how you tell the actual sunrise from a report of one.</div>
+        </div>
+
+        <div class="math-box">
+          <span class="mlabel">Projection Principle &mdash; Property Mapping</span>
+          $$\text{Logos property} \;\xrightarrow{\text{projects to}}\; \text{Physical-law property}$$
+          <div class="mnote">Six instances cited in this article: rationality &rarr; mathematics works; self-consistency &rarr; universal laws; conservation &rarr; Noether's theorem; relationality &rarr; four forces as couplings; triadic structure &rarr; Born Rule; coherence restoration &rarr; death-and-return arc.</div>
+          <div class="mnote"><strong>Plain English:</strong> The Projection Principle is the article's foundation: the substrate carries the structural signature of its source. The death-resurrection-salvation pattern is one of those projections &mdash; not a mythological template, the physics of coherence restoration.</div>
+        </div>
+
+        <div class="math-box">
+          <span class="mlabel">Reference Class Correction (the Lever)</span>
+          $$\text{Carrier class: \{fabrications\}} \;\;\longrightarrow\;\; \text{Corrected class: \{projections of a real signal\}}$$
+          <div class="mnote">Same mathematical machinery; different denominator.</div>
+          <div class="mnote"><strong>Plain English:</strong> Sunrise analogy: 50 cultures describing a bright light in the east each morning is not evidence the sun was fabricated. Carrier's class assumes the signal is fake; correcting that assumption swaps the denominator and the math comes out the other way.</div>
+        </div>
+      </article>
+    </section>
+<!-- END: TAB-MATHEMATICS -->
+
+    <!-- BEGIN: TAB-GLOSSARY -->
+<section id="glossary" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-4">Glossary</h2>
+        <p class="text-[#a0a0a0] mb-6">Key terms used in this article, defined as the article itself uses them.</p>
+        <div class="score-grid">
+          <div class="score-card"><div class="label">Bayes' Theorem</div><p>A probability rule for updating belief in light of evidence. Posterior odds = prior odds &times; likelihood ratio. The article accepts the method and corrects the input.</p></div>
+          <div class="score-card"><div class="label">Posterior / Prior / Likelihood Ratio</div><p>Posterior = belief after evidence. Prior = belief before evidence. Likelihood ratio = how strongly evidence cuts. Carrier's prior is the variable the article reweights.</p></div>
+          <div class="score-card"><div class="label">Carrier (Richard)</div><p>Historian who applied Bayes' Theorem to Jesus's historicity (<em>On the Historicity of Jesus</em>). Concluded ~32% probability of historicity. The article's interlocutor &mdash; treated as methodologically serious, not crank.</p></div>
+          <div class="score-card"><div class="label">Mythicism</div><p>The position that Jesus was a mythological / literary construction rather than a historical person. Carrier's conclusion at the upper bound; the article's correction moves the posterior the other way.</p></div>
+          <div class="score-card"><div class="label">Reference Class</div><p>The set of similar cases used to compute a base rate. The article's central claim: Carrier's class &mdash; &ldquo;heavily mythologized savior heroes&rdquo; &mdash; is contaminated by treating signal as noise.</p></div>
+          <div class="score-card"><div class="label">Reference Class Problem</div><p>The well-known difficulty in applied probability that the answer depends on which set of comparables you place a case in. The article uses this canonical critique against Carrier's specific choice.</p></div>
+          <div class="score-card"><div class="label">Heavily Mythologized Savior Heroes</div><p>Carrier's reference class. Includes Osiris, Hercules, Romulus, Moses, Aesop. The article argues these are projections of a real pattern, not the fabrication template Carrier treats them as.</p></div>
+          <div class="score-card"><div class="label">Projection Principle</div><p>The article's foundation: physical laws carry the structural signature of the Logos that made them. Each property of the Logos shows up as an isomorphic property of the substrate. Six examples cited.</p></div>
+          <div class="score-card"><div class="label">Logos</div><p>In this article, the rational, self-consistent, conservative, relational, triadic source whose signature is detectable in physics. The being from whom the death-resurrection-salvation pattern is projected.</p></div>
+          <div class="score-card"><div class="label">Logos Field ($\chi$)</div><p>The pervasive substrate of coherent reality &mdash; the framework's $\chi$ field; identified with the Master Equation's coherence field. Note: earlier drafts denoted this with $\Lambda$; that symbol is now reserved for the cosmological constant.</p></div>
+          <div class="score-card"><div class="label">Logos Coupling</div><p>The interaction architecture between the Logos field and the systems embedded in it &mdash; the channel structure ($C_0$, $C_1$, inter-substrate coupling) that determines how the field acts on a subsystem. Distinct from the field itself: field = pervasive substrate; coupling = how interactions occur within it.</p></div>
+          <div class="score-card"><div class="label">Entropy / Sin ($S$)</div><p>The decay parameter that drives coherence toward zero. Same Master-Equation variable, two coordinate names: &ldquo;entropy&rdquo; in the physics frame, &ldquo;sin&rdquo; in the theological frame. Activated in the human domain at the Fall.</p></div>
+          <div class="score-card"><div class="label">Coherence Restoration / Death-Resurrection-Salvation Arc</div><p>The shape that appears across cultures because reality has a coherence-restoration mechanism. What it looks like when the entropy drain S&middot;&chi;(t) is overcome by grace input G.</p></div>
+          <div class="score-card"><div class="label">Source Event vs. Projection</div><p>The article's distinction. Many cultural accounts are projections of a real pattern; one is the source event the projections reflect. The four markers are how you tell them apart.</p></div>
+          <div class="score-card"><div class="label">Sunrise Analogy</div><p>The article's central image. 50 cultures describing a bright light in the east is not evidence of a shared fabrication; it is evidence the sun rises. Pattern frequency identifies signal, doesn't dilute any specific instance.</p></div>
+          <div class="score-card"><div class="label">Category Error</div><p>The article's diagnosis of Carrier's prior &mdash; treating pattern convergence as evidence of fabrication. Same shape error as treating universal sunrise accounts as evidence the sun doesn't rise.</p></div>
+          <div class="score-card"><div class="label">Independent Attestation (Marker 1)</div><p>Paul's letters (50s AD) attest Jesus within ~20 years of the crucifixion and reference people who knew him personally (Galatians 1:18&ndash;19). No other figure in Carrier's class has anything within a millennium for Osiris, several centuries for Hercules, or 500+ years for Romulus.</p></div>
+          <div class="score-card"><div class="label">Hostile Attestation (Marker 2)</div><p>Tacitus (~116 AD) calls Christianity &ldquo;a pernicious superstition&rdquo; while affirming Christ's execution under Pilate. Josephus (~93 AD) references Jesus in a passage whose core is mainstream-accepted as authentic. No motive to confirm; confirmation present anyway.</p></div>
+          <div class="score-card"><div class="label">Zero-Power-Base Movement Explosion (Marker 3)</div><p>The marker the article says Carrier underweights most. Other figures in the class were adopted by existing power structures; the Jesus movement began among fishermen and tax collectors, was actively persecuted, and became dominant within three centuries.</p></div>
+          <div class="score-card"><div class="label">Unrefuted Falsifiables (Marker 4)</div><p>Paul (1 Corinthians 15:6) names ~500 living witnesses to the resurrection while writing to communities that included people alive during Jesus's ministry. Trivially refutable by contemporaries if false; not refuted.</p></div>
+          <div class="score-card"><div class="label">Epistolary Silences</div><p>Carrier's E<sup>con</sup> evidence: things Paul doesn't mention about Jesus. The article's framework explanation: if Paul's experience was direct Logos-field coupling to the risen Christ, his emphasis on revelation over biography is predicted, not suspicious.</p></div>
+          <div class="score-card"><div class="label">Coherence (C)</div><p>Alignment with the Logos source. In this article, the variable that reaches its theoretical maximum at the resurrection event when G overwhelms the entropy drain.</p></div>
+          <div class="score-card"><div class="label">Grace (G)</div><p>The negentropic input term in the coherence equation. At the resurrection, G &gg; S&middot;&chi;(t) &mdash; coherence reaches its maximum.</p></div>
+          <div class="score-card"><div class="label">Entropy Drain (S&middot;&chi;(t))</div><p>The decay term acting on the &chi; field. The thing the resurrection event overcomes.</p></div>
+          <div class="score-card"><div class="label">Maximum-Coherence Event</div><p>The article's name for the resurrection in framework terms: a predicted physical event in which a fully Logos-coupled consciousness drives C to its theoretical maximum, overcoming the local entropy drain.</p></div>
+          <div class="score-card"><div class="label">Cross-Frame Operation</div><p>The Cross operates simultaneously in both physics frames: at the GR level, a man dies at definite spacetime coordinates; at the quantum level, &ldquo;the Lamb slain from the foundation of the world&rdquo; operates outside temporal ordering.</p></div>
+          <div class="score-card"><div class="label">PEAR-LAB</div><p>Princeton Engineering Anomalies Research; ~6.35&sigma; over ~2.5 million trials. The article's first empirical anchor for consciousness-coherence coupling. (Defined in detail in Article 16.)</p></div>
+          <div class="score-card"><div class="label">Global Consciousness Project (GCP)</div><p>Roger Nelson's distributed-REG network; ~6&sigma; cumulative over 325+ pre-registered events. The article's second empirical anchor.</p></div>
+          <div class="score-card"><div class="label">Born Rule (Triadic Structure)</div><p>The probability rule of QM: P(outcome) = |&lang;&phi;|&psi;&rang;|<sup>2</sup>. Cited as a Projection-Principle instance &mdash; three irreducible operations (prepare, evolve, measure / Father, Son, Spirit). (Defined in detail in Article 06.)</p></div>
+          <div class="score-card"><div class="label">Noether's Theorem</div><p>Symmetry yields conservation. Cited as a Projection-Principle instance: the Logos's symmetric commitments project as conservation laws.</p></div>
+          <div class="score-card"><div class="label">Tacitus / Josephus</div><p>Two early non-Christian sources. Tacitus (~116 AD): Christ executed under Pilate; Christianity called a &ldquo;pernicious superstition.&rdquo; Josephus (~93 AD): authentic core reference to Jesus accepted after later Christian interpolations are removed.</p></div>
+          <div class="score-card"><div class="label">Osiris / Hercules / Romulus</div><p>The article's contrast cases. Each lacks one or more of the four source-event markers and was adopted by ruling-class religion or imperial propaganda &mdash; the structural opposite of the early Jesus movement.</p></div>
+          <div class="score-card"><div class="label">Falsifiable Claims</div><p>Claims that contemporary witnesses could trivially refute if false. Paul's resurrection claims, made while named witnesses were still alive, are read as a historicity marker rather than as faith propaganda.</p></div>
+          <div class="score-card"><div class="label">"Lamb Slain from the Foundation of the World"</div><p>Revelation 13:8. Read as the eternal-frame view of the Cross &mdash; the resurrection reachable retrocausally from the foundation of the world. (Developed in detail in Article 18.)</p></div>
+          <div class="score-card"><div class="label">The Lever</div><p>The article's term for what carries the whole edifice: the reference class. Correct it &mdash; from &ldquo;fabrications&rdquo; to &ldquo;projections of a real signal&rdquo; &mdash; and Carrier's own machinery flips the conclusion.</p></div>
+          <div class="score-card"><div class="label">Master Equation</div><p>The framework's central expression: &chi; = &int;&int;&int;(G&middot;M&middot;E&middot;S&middot;T&middot;K&middot;R&middot;Q&middot;F&middot;C) dx dy dt. The resurrection-as-maximum-coherence-event sits inside this equation.</p></div>
+        </div>
+      </article>
+    </section>
+<!-- END: TAB-GLOSSARY -->
+  </div>
+
+  <!-- BEGIN: KILL-SIDEBAR -->
+<aside class="kill-sidebar">
+    <div class="kill-sidebar-title"><i class="fas fa-skull-crossbones" style="margin-right:.4rem;"></i>Kill Conditions</div>
+    <!-- BEGIN: KILL-CARD-LOAD-BEARING -->
+<div class="kill-card"><div class="kill-label">Load-Bearing</div><p><strong>Kill if:</strong> Another figure has all four evidentiary markers.</p></div>
+<!-- END: KILL-CARD-LOAD-BEARING -->
+    <!-- BEGIN: KILL-CARD-SUGGESTIVE -->
+<div class="kill-card suggestive"><div class="kill-label">Suggestive</div><p><strong>Kill if:</strong> Pattern is purely cultural transmission, or PEAR/GCP fails.</p></div>
+<!-- END: KILL-CARD-SUGGESTIVE -->
+    <!-- BEGIN: KILL-CARD-DESTRUCTIVE -->
+<div class="kill-card destructive"><div class="kill-label">Destructive</div><p><strong>Kill if:</strong> Projection Principle fails (cherry-picked / post-hoc).</p></div>
+<!-- END: KILL-CARD-DESTRUCTIVE -->
+    <!-- BEGIN: ARTICLE-STATS -->
+<div style="margin-top:1.5rem;padding:1rem;background:var(--surface-light);border:1px solid var(--border);border-radius:.5rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:.5rem;">Article Stats</div>
+      <div style="font-size:.8rem;color:var(--text-secondary);line-height:1.8;">
+        <div><i class="fas fa-clock" style="width:1rem;color:var(--highlight);"></i> 10 min read</div>
+        <div><i class="fas fa-layer-group" style="width:1rem;color:var(--highlight);"></i> Deep Dive</div>
+        <div><i class="fas fa-crosshairs" style="width:1rem;color:var(--highlight);"></i> 4 kill conditions</div>
+        <div><i class="fas fa-headphones" style="width:1rem;color:var(--highlight);"></i> 1 audio version</div>
+      </div>
+    </div>
+<!-- END: ARTICLE-STATS -->
+  </aside>
+<!-- END: KILL-SIDEBAR -->
+</main>
+<!-- END: MAIN-LAYOUT -->
+
+<!-- Bottom navigation -->
+<div class="container mx-auto px-6" style="padding-left:4.5rem;">
+  <!-- BEGIN: BOTTOM-NAV -->
+<div class="bottom-nav">
+    <a href="../25-counter-move/gtq-25-counter-move.html"><i class="fas fa-arrow-left"></i>Previous: The Counter-Move</a>
+    <div class="nav-center">Article 26 of 26</div>
+    <a href="../../Home%20Page/index.html" class="primary">Series Home<i class="fas fa-arrow-right"></i></a>
+  </div>
+<!-- END: BOTTOM-NAV -->
+  <div style="text-align:center;margin-bottom:2rem;">
+    <a href="#" style="display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;background:var(--highlight-glow);border:1px solid var(--highlight-dim);border-radius:.375rem;color:var(--highlight);text-decoration:none;font-size:.8rem;">
+      <i class="fas fa-forward"></i>Skip to next main: 
+    </a>
+  </div>
+</div>
+
+<!-- BEGIN: FOOTER -->
+<footer class="site-footer">
+  <div class="eq">χ = f(G, M, E, S, T, K, R, Q, F, C)</div>
+  <p>David Lowe &middot; Genesis to Quantum &middot; Part 26 of 26</p>
+  <p class="serif" style="font-style:italic;color:var(--text-secondary);margin-top:.5rem;">&ldquo;But while he was still a long way off, his father saw him.&rdquo;</p>
+</footer>
+<!-- END: FOOTER -->
+
+<script>
+function toggleSidebar(){
+  var sb=document.getElementById('sidebar');
+  var ov=document.getElementById('sidebarOverlay');
+  sb.classList.toggle('open');
+  ov.classList.toggle('show');
+  document.body.style.overflow=sb.classList.contains('open')?'hidden':'';
+}
+window.addEventListener('scroll',function(){
+  var st=window.scrollY||document.documentElement.scrollTop;
+  var dh=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+  var pct=dh>0?(st/dh)*100:0;
+  document.getElementById('progressBar').style.width=pct+'%';
+});
+function switchTab(tabId){
+  document.querySelectorAll('.tab-content').forEach(function(el){el.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(el){el.classList.remove('active');});
+  document.getElementById(tabId).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    var sb=document.getElementById('sidebar');
+    if(sb&&sb.classList.contains('open')) toggleSidebar();
+  }
+});
+
+/* Audio dock engine */
+(function(){
+  var dock = document.getElementById('audioDock');
+  if(!dock) return;
+  var body=document.getElementById('dockBody'), empty=document.getElementById('dockEmpty');
+  var playBtn=document.getElementById('dockPlay'), icon=document.getElementById('dockPlayIcon');
+  var fill=document.getElementById('dockFill'), curEl=document.getElementById('dockCurrent'), durEl=document.getElementById('dockDuration');
+  var volBtn=document.getElementById('dockVol');
+  var pills=dock.querySelectorAll('.dock-pill');
+  var audio=new Audio(); audio.preload='metadata';
+  var activeKey=null, muted=false;
+  var pillColors={deep:'#4a9eff',read:'#a0c042',debate:'#a855f7',critique:'#2dd4bf'};
+
+  function fmt(s){if(!s||isNaN(s))return '0:00';var m=Math.floor(s/60),sec=Math.floor(s%60);return m+':'+(sec<10?'0':'')+sec;}
+
+  pills.forEach(function(p){if(!p.dataset.url)p.classList.add('unavailable');});
+
+  pills.forEach(function(p){
+    p.addEventListener('click',function(){
+      var key=p.dataset.src, url=p.dataset.url;
+      if(!url)return;
+      if(key===activeKey){if(audio.paused)audio.play();else audio.pause();return;}
+      audio.pause(); audio.src=url; activeKey=key;
+      pills.forEach(function(q){q.classList.remove('active');}); p.classList.add('active');
+      var c=pillColors[key]||'#a0c042';
+      fill.style.background=c; playBtn.style.borderColor=c; playBtn.style.color=c;
+      body.classList.remove('hidden'); empty.classList.remove('visible');
+      audio.play();
+    });
+  });
+
+  var firstAvail=dock.querySelector('.dock-pill[data-url]');
+  if(firstAvail){var key=firstAvail.dataset.src; audio.src=firstAvail.dataset.url; activeKey=key;}
+  else{body.classList.add('hidden');empty.classList.add('visible');}
+
+  window.dockToggle=function(){if(!audio.src)return;if(audio.paused)audio.play();else audio.pause();};
+  audio.addEventListener('play',function(){icon.className='fas fa-pause';playBtn.classList.add('playing');});
+  audio.addEventListener('pause',function(){icon.className='fas fa-play';playBtn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){icon.className='fas fa-play';playBtn.classList.remove('playing');fill.style.width='0%';curEl.textContent='0:00';});
+  audio.addEventListener('timeupdate',function(){if(!audio.duration)return;fill.style.width=(audio.currentTime/audio.duration*100)+'%';curEl.textContent=fmt(audio.currentTime);});
+  audio.addEventListener('loadedmetadata',function(){durEl.textContent=fmt(audio.duration);});
+  window.dockSeek=function(e){if(!audio.duration)return;var t=e.currentTarget;var r=t.getBoundingClientRect();var p=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));audio.currentTime=p*audio.duration;};
+  window.dockMute=function(){muted=!muted;audio.muted=muted;volBtn.innerHTML=muted?'<i class="fas fa-volume-mute"></i>':'<i class="fas fa-volume-up"></i>';};
+})();
+</script>
+
+</body>
+</html>
+
+

@@ -1,0 +1,44 @@
+{
+  "station_id": "ST-NLP-CONTRADICTION-DEEP-001",
+  "name": "contradiction-deep",
+  "role": "Deep NLI contradiction verification station",
+  "status": "draft",
+  "category": "nlp",
+  "model_front_door": "X:\\Models\\front-doors\\08_contradiction_deep_FD\\config.json",
+  "model_path": "X:\\Models\\M08_contradiction_deep",
+  "inputs": [
+    "premise",
+    "hypothesis"
+  ],
+  "outputs": [
+    "nli_label",
+    "confidence",
+    "evidence_json"
+  ],
+  "notes": [
+    "Use after cheap NLI or when contradiction stakes are high."
+  ],
+  "folder_contract": {
+    "exports": [
+      "EXPORTS\\json",
+      "EXPORTS\\markdown",
+      "EXPORTS\\evidence-chains",
+      "EXPORTS\\adjudication",
+      "EXPORTS\\audit"
+    ],
+    "output": [
+      "OUTPUT\\deep-verdicts",
+      "OUTPUT\\model-scores",
+      "OUTPUT\\resolution-notes"
+    ],
+    "logs": [
+      "_LOGS\\runs",
+      "_LOGS\\errors"
+    ],
+    "input": [
+      "INPUT\\pairs",
+      "INPUT\\escalations",
+      "INPUT\\source-packets"
+    ]
+  }
+}

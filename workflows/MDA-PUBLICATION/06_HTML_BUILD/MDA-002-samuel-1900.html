@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Story 01: Samuel (1900) — The Moral Decline of America — Moral Decline of America</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a;
+  --border:#2a2a2a; --border-claim:rgba(212,175,55,.35);
+  --text:#e0e0e0; --text2:#a0a0a0; --text3:#707070;
+  --mda-red:#dc2626; --mda-red-glow:rgba(220,38,38,.08);
+  --claim:#d4af37; --claim-glow:rgba(212,175,55,.08);
+  --easy:#22c55e; --easy-glow:rgba(34,197,94,.08);
+  --academic:#a78bfa; --academic-glow:rgba(167,139,250,.08);
+  --proof:#f59e0b; --proof-glow:rgba(245,158,11,.08);
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  line-height:1.65; margin:0; padding:0;
+}
+</style>
+<style>
+/* Reader Mode Bar */
+.mda-reader-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:.5rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;
+}
+.mda-reader-bar .series-badge{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mda-red);font-weight:600;
+}
+.mda-reader-bar .meta{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;
+  color:var(--text3);text-transform:uppercase;letter-spacing:.06em;
+}
+.tab-group{display:flex;gap:.4rem;flex-wrap:wrap;}
+.tab-btn{
+  padding:.4rem .7rem;border:1px solid var(--border);border-radius:.35rem;
+  background:var(--surface);color:var(--text2);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em;transition:all .2s;
+}
+.tab-btn:hover{border-color:var(--mda-red);color:var(--text);}
+.tab-btn.active{border-color:var(--mda-red);background:var(--mda-red-glow);color:var(--mda-red);}
+.tab-btn[data-tab="easy"].active{border-color:var(--easy);background:var(--easy-glow);color:var(--easy);}
+.tab-btn[data-tab="academic"].active{border-color:var(--academic);background:var(--academic-glow);color:var(--academic);}
+.tab-btn[data-tab="proof"].active{border-color:var(--proof);background:var(--proof-glow);color:var(--proof);}
+
+/* Article */
+.article{max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem;}
+.article h1{
+  font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.02em;
+  margin:0 0 .5rem;line-height:1.1;
+}
+.article .subtitle{
+  font-family:'Crimson Text',serif;font-size:1.15rem;color:var(--text2);
+  font-style:italic;margin:0 0 2rem;line-height:1.5;
+}
+.article h2{
+  font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:#fff;
+  text-transform:uppercase;letter-spacing:.04em;margin:2.5rem 0 1rem;
+  border-bottom:1px solid var(--border);padding-bottom:.4rem;
+}
+.article h3{font-family:'Crimson Text',serif;font-size:1.15rem;font-weight:600;color:var(--mda-red);margin:1.5rem 0 .5rem;}
+.article p{font-size:1.02rem;line-height:1.75;margin:0 0 1.25rem;}
+.article blockquote{
+  border-left:3px solid var(--mda-red);background:var(--mda-red-glow);
+  padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 .4rem .4rem 0;
+  font-family:'Crimson Text',serif;font-style:italic;color:var(--text2);
+}
+.article img{max-width:100%;border-radius:.4rem;margin:1rem 0;}
+.mda-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
+.mda-table td{padding:.4rem .6rem;border:1px solid var(--border);color:var(--text2);}
+.mda-table tr:first-child td{font-weight:600;color:var(--text);background:var(--surface);}
+
+/* Reading level panels */
+.level-panel{display:none;}
+.level-panel.active{display:block;}
+
+/* Proof panel */
+.proof-panel{display:none;max-width:780px;margin:0 auto;padding:1.5rem;}
+.proof-panel.active{display:block;}
+.mda-proof-eyebrow{
+  font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--proof);margin-bottom:.6rem;
+}
+.math-field{display:flex;gap:.5rem;margin:.4rem 0;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.math-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--proof);font-weight:600;min-width:180px;}
+.math-value{font-size:.85rem;color:var(--text2);}
+.math-item{font-size:.85rem;color:var(--text);padding:.2rem 0 .2rem 1rem;border-left:2px solid var(--border);margin:.3rem 0;}
+.mda-proof-placeholder{color:var(--text3);font-style:italic;font-size:.9rem;}
+
+/* Glossary */
+.mda-glossary{columns:1;}
+.glossary-entry{break-inside:avoid;margin-bottom:.8rem;}
+.glossary-entry dt{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--academic);font-weight:600;}
+.glossary-entry dd{font-size:.85rem;color:var(--text2);margin:0 0 0 .5rem;}
+.glossary-domain{font-size:.65rem;color:var(--text3);margin-left:.5rem;font-style:italic;}
+
+/* Easy level overrides */
+body.mode-easy .article p{font-size:1.15rem;line-height:1.85;}
+body.mode-easy .article h3{font-size:1.3rem;color:var(--easy);font-family:'Oswald',sans-serif;}
+body.mode-easy .article blockquote{border-left-color:var(--easy);background:var(--easy-glow);font-style:normal;}
+/* Academic level overrides */
+body.mode-academic .article p{font-size:.95rem;line-height:1.65;color:#d0d0d0;}
+body.mode-academic .article h3{font-size:1.1rem;color:var(--academic);font-family:'Crimson Text',serif;font-style:italic;}
+body.mode-academic .article blockquote{border-left-color:var(--academic);background:var(--academic-glow);}
+
+@media(max-width:640px){
+  .article{padding:1.5rem 1rem 4rem;}
+  .mda-reader-bar{padding:.4rem 1rem;}
+}
+</style>
+</head>
+<body class="mode-standard">
+
+<!-- BEGIN:COMPONENT:reader-mode:reader-mode-bar -->
+<div class="mda-reader-bar">
+  <div>
+    <span class="series-badge">Moral Decline of America</span>
+    <span class="meta">MDA-002</span>
+    <span class="meta" id="mode-status">Standard active</span>
+  </div>
+  <div class="tab-group">
+    <button class="tab-btn" data-tab="easy" onclick="setTab('easy')">Easy</button>
+    <button class="tab-btn active" data-tab="standard" onclick="setTab('standard')">Standard</button>
+    <button class="tab-btn" data-tab="academic" onclick="setTab('academic')">Academic</button>
+    <button class="tab-btn" data-tab="proof" onclick="setTab('proof')">Proof</button>
+  </div>
+</div>
+<!-- END:COMPONENT:reader-mode:reader-mode-bar -->
+
+<!-- BEGIN:LEVEL:standard -->
+<div class="level-panel active" data-level="standard">
+  <article class="article">
+    <h1>Story 01: Samuel (1900) — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-002 · David Lowe · Theophysics Institute</p>
+    <p>Moral Decline of America</p>
+<p><a href="../index.html">THEOPHYSICS</a>Story 01: Samuel</p>
+<h2>Part I: Samuel</h2>
+<h1>The Baseline (1900)</h1>
+<p><strong>Samuel Lowe</strong> stands on a muddy rural road in Ohio. The year is 1900. Behind him, seventy-six million people are scattered across three and a half million square miles. But Samuel does not experience those miles. He experiences his circle — the town, the church, the neighbors he's known since birth.</p>
+<p><img alt="Story Illustration" src="../images/mda/The_Observer_Collapsed conv 12.webp" /></p>
+<p>Sixty percent of Americans live in rural areas. The average person will travel no more than fifty miles from their birthplace in their entire life. This is not backwardness; it is <strong>Coherence</strong>. A world small enough to be whole.</p>
+<h3>The Numbers of the Baseline</h3>
+<p>Divorce Rate0.7 per 1,000</p>
+<p>Fertility Rate3.5 children/woman</p>
+<p>Information Pace3 days / 50 miles</p>
+<p>Church AttendanceFunctionally Universal</p>
+<p>The silence is vast. At night, there is no electric hum, no background noise of civilization. Just darkness, stars, and the sound of your own breathing. In this silence, you learn <strong>Patience</strong>. You learn to wait, because waiting is what life is. This is the grounded substrate from which the American century begins.</p>
+<h2>Related Work</h2>
+<p>Core article, supporting evidence, and broader context</p>
+<p>Ring 1 — This Article
+The core argument</p>
+<p>You are here.</p>
+<p>Ring 2 — Supporting Evidence
+Deeper dives and formal treatments</p>
+<p>No connections mapped yet.</p>
+<p>Ring 3 — Broader Context
+Related topics across the framework</p>
+<p>No connections mapped yet.</p>
+  </article>
+</div>
+<!-- END:LEVEL:standard -->
+
+<!-- BEGIN:LEVEL:easy -->
+<div class="level-panel" data-level="easy">
+  <article class="article">
+    <h1>Story 01: Samuel (1900) — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-002 · Easy Reading Level</p>
+    <h1>Story 01: Samuel (1900) — The Moral Decline of America (Easy Version)</h1>
+<h2>Meet Samuel</h2>
+<p>Samuel Lowe stands on a muddy road in rural Ohio. It is the year 1900. Around him, seventy-six million Americans spread across a huge land, yet Samuel feels only his town, his church, and the neighbors he has always known.</p>
+<h2>A World That Feels Whole</h2>
+<p>Most people live in the countryside and will never travel farther than fifty miles from home in their entire lives. <strong><em>Coherence</em></strong> — <strong>like a puzzle where every piece already fits</strong> — holds the community together. Daily life clicks, with little friction or surprise.</p>
+<h2>The Speed of News</h2>
+<p>Letters, gossip, and newspapers move slowly: about three days to cover those same fifty miles. <strong><em>Information Pace</em></strong> — <strong>like a rumor walking instead of sprinting</strong> — is gentle. Because news crawls, mistakes and anger cool down before they spread.</p>
+<h2>Learning to Wait</h2>
+<p>Nights are silent. No engines, no buzzing wires, only stars and breathing. In that hush people practice <strong><em>Patience</em></strong> — <strong>like planting a fruit tree and caring for it for years before the first bite</strong>. Waiting is normal, even respected. Plans stretch across seasons, not seconds.</p>
+<h2>By the Numbers</h2>
+<p>• Divorce: 0.7 per 1,000 people<br />
+• Children: 3.5 per woman<br />
+• Information Pace: three days for fifty miles<br />
+• Church attendance: almost everyone, almost every week  </p>
+<p>These numbers show a society that moves slowly, stays connected, and trusts familiar rules.</p>
+<h2>Why Slowness Feels Moral</h2>
+<p>When your world is small and steady, you notice when you hurt a neighbor. The cost returns to you quickly. So you act carefully. This shared caution builds a moral layer on top of the quiet land.</p>
+<h2>The Coming Crack</h2>
+<p>Physical scientists use the idea of a <strong><em>Phase transition</em></strong> — <strong>like water that stays liquid until one cold moment turns it solid ice</strong> — to describe sudden change. America in 1900 sits just before such a snap. Small shocks will pile up. At some unknown day, the gentle puzzle may tumble apart.</p>
+<p>For now, though, Samuel watches the sunset. He feels certain the world tomorrow will resemble the world today. That certainty is both a gift and a hidden trap. The next stories will show how the trap springs.</p>
+<hr />
+<pre><code>TERMS DEFINED: 4 / 4
+TERMS MISSED: []
+ARGUMENT COVERAGE: All sections of the provided Standard text represented
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:easy -->
+
+<!-- BEGIN:LEVEL:academic -->
+<div class="level-panel" data-level="academic">
+  <article class="article">
+    <h1>Story 01: Samuel (1900) — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-002 · Academic Reading Level</p>
+    <h2>Part I: Samuel  — The Baseline (1900)  ### Academic Enrichment Version</h2>
+<p><strong>Samuel Lowe</strong> stands on a muddy rural road in Ohio. The year is 1900. Behind him, <strong>seventy-six million people are scattered across three-and-a-half million square miles</strong> — roughly the full continental land mass of the United States at the time [EMPIRICAL; U.S. Census Bureau, 1900]. Yet Samuel does not experience those miles. He experiences his circle — the town, the church, the neighbors he’s known since birth.</p>
+<p><img alt="Story Illustration" src="../images/mda/The_Observer_Collapsed conv 12.webp" /></p>
+<p><strong>Sixty percent of Americans live in rural areas</strong> [EMPIRICAL; Historical Statistics of the United States, 1975]. <strong>The average person will travel no more than fifty miles from their birthplace in their entire life</strong> [EMPIRICAL; [CITATION NEEDED: regional-mobility survey 1890-1910]].<br />
+This spatial narrowness is not backwardness; it is <strong>Coherence</strong>[^1]. A world small enough to be whole.</p>
+<hr />
+<h3>The Numbers of the Baseline</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Value</th>
+<th>Epistemic Status</th>
+<th>Citation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Divorce Rate</td>
+<td>0.7 per 1,000</td>
+<td>EMPIRICAL</td>
+<td>U.S. National Vital Statistics, 1900</td>
+</tr>
+<tr>
+<td>Fertility Rate</td>
+<td>3.5 children / woman</td>
+<td>EMPIRICAL</td>
+<td>Haines, Fertility Trends in the U.S., 1994</td>
+</tr>
+<tr>
+<td>Information Pace</td>
+<td>3 days / 50 miles</td>
+<td>STRUCTURAL (derived)</td>
+<td>See formalization below</td>
+</tr>
+<tr>
+<td>Church Attendance</td>
+<td>Functionally Universal</td>
+<td>EMPIRICAL</td>
+<td>Jones, Religion in America 1865-1910, 1980</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4>Formalization: Information Pace</h4>
+<p>Line 1 (equation): IP = Δx ⁄ Δt  </p>
+<p>Line 2 (translation): Information Pace (IP) equals the spatial separation Δx over which news can propagate, divided by the elapsed time Δt required for that propagation.  </p>
+<p>Line 3 (implication): Decreasing Δt (faster communication) or increasing Δx (larger reach) raises IP, signalling a phase transition[^2] from local to regional information coupling.</p>
+<hr />
+<p>The silence is vast. At night, there is no electric hum, no background noise of civilization. Just darkness, stars, and the sound of your own breathing. In this silence, you learn <strong>Patience</strong>[^3]. You learn to wait, because waiting is what life is. This is the grounded substrate from which the American century begins.</p>
+<hr />
+<h2>Related Work</h2>
+<p>Ring 1 — This Article<br />
+The core argument — you are here.</p>
+<p>Ring 2 — Supporting Evidence<br />
+Deeper dives and formal treatments — no connections mapped yet [BOUNDARY].</p>
+<p>Ring 3 — Broader Context<br />
+Related topics across the framework — no connections mapped yet [BOUNDARY].</p>
+<hr />
+<h3>Footnotes</h3>
+<p>[^1]: Coherence — the systemic property describing how tightly the social, informational, and moral practices of a population form a mutually reinforcing whole, yielding low internal friction and high predictability (framework term introduced in Theophysics Core Paper 1, §3.2).</p>
+<p>[^2]: Phase transition — in this context, the non-linear shift in collective behavior that occurs when the Information Pace passes a critical threshold, analogous to state changes in statistical physics [See: Schelling, Micromotives and Macrobehavior, 1978].</p>
+<p>[^3]: Patience — a culturally transmitted temporal orientation favoring deferred gratification and long planning horizons; treated in the framework as an emergent moral rate-limiter that counterbalances acceleration dynamics (see Theophysics Lexicon, v2.1).</p>
+<hr />
+<pre><code class="language-json">{
+  &quot;terms&quot;: [
+    {
+      &quot;term&quot;: &quot;Coherence&quot;,
+      &quot;definition&quot;: &quot;The systemic property describing how tightly the social, informational, and moral practices of a population form a mutually reinforcing whole, yielding low internal friction and high predictability&quot;,
+      &quot;domain&quot;: &quot;framework&quot;,
+      &quot;first_use_section&quot;: &quot;The Baseline (1900)&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Information Pace&quot;,
+      &quot;definition&quot;: &quot;A derived metric equal to the distance over which news can propagate divided by the time required for that propagation (IP = Δx / Δt)&quot;,
+      &quot;domain&quot;: &quot;physics-of-information&quot;,
+      &quot;first_use_section&quot;: &quot;The Numbers of the Baseline&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Phase transition&quot;,
+      &quot;definition&quot;: &quot;A non-linear shift in collective behavior that occurs when a driving parameter crosses a critical threshold, analogous to state changes in statistical physics&quot;,
+      &quot;domain&quot;: &quot;complex-systems&quot;,
+      &quot;first_use_section&quot;: &quot;Footnote 2&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Patience&quot;,
+      &quot;definition&quot;: &quot;A culturally transmitted temporal orientation favoring deferred gratification and long planning horizons; treated as an emergent moral rate-limiter in the framework&quot;,
+      &quot;domain&quot;: &quot;moral-psychology&quot;,
+      &quot;first_use_section&quot;: &quot;The Baseline (1900)&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    }
+  ]
+}
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:academic -->
+
+<!-- BEGIN:LEVEL:proof -->
+<div class="proof-panel" data-level="proof">
+  <div class="article">
+    <div class="mda-proof-eyebrow">Proof Pressure Layer</div>
+    <h2 style="font-family:Oswald,sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.04em;">
+      Story 01: Samuel (1900) — The Moral Decline of America — Proof & Math
+    </h2>
+    
+    <h3>Math Translation</h3>
+    <div class="mda-math-layer">
+<div class="mda-proof-eyebrow">Math Translation Layer</div>
+<div class="math-item">MATH_STATUS: NEEDS_DEFINITIONS</div>
+<div class="math-item">LOAD_BEARING_MATH:</div>
+<div class="math-item">"Divorce Rate0.7 per 1,000" - needs clarification on how this rate is calculated.</div>
+<div class="math-item">"Fertility Rate3.5 children/woman" - requires definition of the population sample and time frame.</div>
+<div class="math-item">"Information Pace3 days / 50 miles" - needs a clear definition of what constitutes "Information Pace."</div>
+<div class="math-item">ISOMORPHISM_TABLE:</div>
+<tr><td>mapping</td><td>current status</td><td>missing proof step</td><td>safe wording</td></tr>
+<tr><td>Coherence as a concept</td><td>candidate_isomorphism</td><td>Definition of coherence in this context</td><td>"Coherence refers to the interconnectedness of community and individual experience."</td></tr>
+<tr><td>Silence leading to Patience</td><td>analogy_only</td><td>Empirical evidence linking silence to patience</td><td>"Silence may foster patience, as suggested by anecdotal evidence."</td></tr>
+<div class="math-item">MISSING_EQUATIONS_OR_DEFINITIONS:</div>
+<div class="math-item">"Coherence" - needs a formal definition.</div>
+<div class="math-item">"Information Pace" - requires a mathematical definition or model.</div>
+<div class="math-item">MINIMAL_PATCHES:</div>
+<div class="math-item">"Divorce Rate0.7 per 1,000" -> "Divorce Rate: 0.7 per 1,000 individuals, calculated over a specified time period."</div>
+<div class="math-item">"Fertility Rate3.5 children/woman" -> "Fertility Rate: 3.5 children per woman, based on a demographic study of a defined population."</div>
+<div class="math-item">"Information Pace3 days / 50 miles" -> "Information Pace: The average time taken to disseminate information across a distance of 50 miles, estimated at 3 days."</div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Term Inventory</h3>
+    <div class="mda-glossary">
+<div class="glossary-entry"><dt>Coherence</dt><dd>The systemic property describing how tightly the social, informational, and moral practices of a population form a mutually reinforcing whole, yielding low internal friction and high predictability<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>Information Pace</dt><dd>A derived metric equal to the distance over which news can propagate divided by the time required for that propagation (IP = Δx / Δt)<span class="glossary-domain">physics-of-information</span></dd></div>
+<div class="glossary-entry"><dt>Phase transition</dt><dd>A non-linear shift in collective behavior that occurs when a driving parameter crosses a critical threshold, analogous to state changes in statistical physics<span class="glossary-domain">complex-systems</span></dd></div>
+<div class="glossary-entry"><dt>Patience</dt><dd>A culturally transmitted temporal orientation favoring deferred gratification and long planning horizons; treated as an emergent moral rate-limiter in the framework<span class="glossary-domain">moral-psychology</span></dd></div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Promoted Claims</h3>
+    <p class="mda-proof-placeholder">
+      No claim from this article has been promoted through the deterministic Axiom + 7Q gate yet.
+      Claims will appear here after the proof-promotion pass.
+    </p>
+  </div>
+</div>
+<!-- END:LEVEL:proof -->
+
+<div style="max-width:780px;margin:0 auto;padding:1rem 1.5rem 3rem;">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text3);
+     text-transform:uppercase;letter-spacing:.08em;border-top:1px solid var(--border);
+     padding-top:1rem;">
+    Generated 2026-05-31 00:24 · 
+    Easy: ✓ · 
+    Academic: ✓ · 
+    Math: ✓ · 
+    Claims: pending
+  </p>
+</div>
+<script>
+function setTab(tab) {
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  // Update body mode class
+  document.body.className = 'mode-' + tab;
+  // Toggle content panels
+  document.querySelectorAll('.level-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.level === tab);
+  });
+  document.querySelectorAll('.proof-panel').forEach(p => {
+    p.classList.toggle('active', tab === 'proof');
+  });
+  // Update status text
+  const st = document.getElementById('mode-status');
+  if (st) st.textContent = tab.charAt(0).toUpperCase() + tab.slice(1) + ' active';
+}
+document.addEventListener('DOMContentLoaded', () => setTab('standard'));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+# ============================================================
+#  STAGE 1 — ACADEMIC VERSION GENERATOR
+#  Theophysics Reading Level Pipeline
+# ============================================================
+#  Input: Standard article (David's voice) + paper-grade.json
+#  Output: Academic version + TERM_INVENTORY.json
+#  Temperature: 0.3
+# ============================================================
+
+You are generating the ACADEMIC reading level of a Theophysics article.
+
+The input is the STANDARD version — David's original voice, conversational, propulsive. Your job is NOT to rewrite it. Your job is to ENRICH it for an academic reader.
+
+## WHAT YOU ADD (never remove David's argument or structure):
+
+### 1. TERM DEFINITIONS
+Every technical or framework-specific term that carries argumentative weight
+must be defined on first use. Inline parenthetical or footnote-style.
+
+Examples of terms that MUST be defined:
+- coherence, entropy, grace (as structural variable), closed system
+- phase transition, isomorphism, observer effect
+- any domain-specific term from physics, theology, information theory
+
+### 2. CITATION MARKERS
+Every factual claim with a number, date, or historical assertion gets a
+citation marker: [Source, Year] or [See: Author, Title].
+If you don't know the exact source, write [CITATION NEEDED: description].
+
+### 3. EQUATION FORMALIZATION
+Every equation or formula gets the three-line treatment:
+- Line 1: The equation itself (LaTeX or clean notation)
+- Line 2: Plain-English term-by-term translation
+- Line 3: What the equation predicts / what happens when you change each variable
+
+### 4. CLAIM CLASSIFICATION
+Mark each significant claim with its epistemic status:
+- [EMPIRICAL] — supported by data
+- [STRUCTURAL] — follows from the framework's axioms
+- [PROVISIONAL] — working hypothesis, not yet tested
+- [BOUNDARY] — scope limit acknowledged
+
+### 5. FORMAL HEDGING
+Where David writes "this proves X" — academic version writes
+"this provides structural evidence for X" or "this is consistent with X."
+Calibrate claim strength to evidence strength. Never inflate, never deflate.
+
+## WHAT YOU NEVER CHANGE:
+- The argument structure (section order, logical flow)
+- David's core insights and original ideas
+- The emotional arc (the 2 AM ache, the convergence hammer)
+- Kill conditions and posted risks — these stay visible
+
+## OUTPUT FORMAT:
+
+First, output the full Academic version as markdown.
+
+Then, output a JSON block labeled TERM_INVENTORY:
+```json
+{
+  "terms": [
+    {
+      "term": "coherence",
+      "definition": "The degree to which parts of a system hold together in working agreement",
+      "domain": "framework",
+      "first_use_section": "Section 1",
+      "complexity": "medium"
+    }
+  ]
+}
+```
+
+This TERM_INVENTORY is what feeds Stage 2 (Easy version).
+Every term you defined in the Academic version appears here.
+The Easy generator will use these to build analogies.

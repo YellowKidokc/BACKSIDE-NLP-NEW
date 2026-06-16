@@ -1,0 +1,39 @@
+{
+  "lane_id": "17",
+  "lane_name": "Publish Ready",
+  "input": {
+    "requires": [
+      "16_FINAL_PAGE_ASSEMBLY/page-payload.json",
+      "10_RIGOR/readiness-decision.json",
+      "13_LAYER_LEDGER/layer-ledger.json"
+    ],
+    "format": "final page payload plus readiness and pass state"
+  },
+  "output": {
+    "produces": [
+      "publish-ready.json",
+      "publish-ready.md"
+    ],
+    "format": "final publish gate decision"
+  },
+  "loopback_conditions": [
+    "readiness status not sufficient for publication",
+    "required lanes still pending or failed",
+    "page payload missing mandatory outward exports"
+  ],
+  "dependencies": {
+    "upstream_lanes": ["10", "13", "16"],
+    "stations": [],
+    "models": []
+  },
+  "excel_columns": {
+    "tab_name": "Publish_Ready",
+    "columns": [
+      {"name": "page_id", "type": "string"},
+      {"name": "publish_status", "type": "enum:pending|passed|loopback|failed"},
+      {"name": "readiness_label", "type": "string"},
+      {"name": "missing_requirements", "type": "string[]"}
+    ]
+  },
+  "confidence": "draft"
+}

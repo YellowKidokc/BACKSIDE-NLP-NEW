@@ -1,0 +1,27 @@
+# Expanded GTQ Review Index
+
+- GTQ_01_Why_Time_Is_Grace: 62/100 - Useful draft, needs reviewer hardening | `GTQ_01_Why_Time_Is_Grace.expanded-review.md` | `GTQ_01_Why_Time_Is_Grace.expanded-review.html`
+- GTQ_01A_Collapse_Threshold: 62/100 - Useful draft, needs reviewer hardening | `GTQ_01A_Collapse_Threshold.expanded-review.md` | `GTQ_01A_Collapse_Threshold.expanded-review.html`
+- GTQ_02_The_First_Quantum_State: 50/100 - High-risk draft, needs structural repair | `GTQ_02_The_First_Quantum_State.expanded-review.md` | `GTQ_02_The_First_Quantum_State.expanded-review.html`
+- GTQ_03_Free_Will_In_Two_Frames: 70/100 - Promising with repair targets | `GTQ_03_Free_Will_In_Two_Frames.expanded-review.md` | `GTQ_03_Free_Will_In_Two_Frames.expanded-review.html`
+- GTQ_03A_MacArthur_And_The_Equation: 48/100 - High-risk draft, needs structural repair | `GTQ_03A_MacArthur_And_The_Equation.expanded-review.md` | `GTQ_03A_MacArthur_And_The_Equation.expanded-review.html`
+- GTQ_03B_The_Three_Pathways: 66/100 - Useful draft, needs reviewer hardening | `GTQ_03B_The_Three_Pathways.expanded-review.md` | `GTQ_03B_The_Three_Pathways.expanded-review.html`
+- GTQ_03C_Why_God_Drowned_Everybody: 50/100 - High-risk draft, needs structural repair | `GTQ_03C_Why_God_Drowned_Everybody.expanded-review.md` | `GTQ_03C_Why_God_Drowned_Everybody.expanded-review.html`
+- GTQ_04_The_Day_Time_Began: 65/100 - Useful draft, needs reviewer hardening | `GTQ_04_The_Day_Time_Began.expanded-review.md` | `GTQ_04_The_Day_Time_Began.expanded-review.html`
+- GTQ_04A_The_Decoherence_Curve: 74/100 - Promising with repair targets | `GTQ_04A_The_Decoherence_Curve.expanded-review.md` | `GTQ_04A_The_Decoherence_Curve.expanded-review.html`
+- GTQ_04B_How_Lies_Kill: 61/100 - Useful draft, needs reviewer hardening | `GTQ_04B_How_Lies_Kill.expanded-review.md` | `GTQ_04B_How_Lies_Kill.expanded-review.html`
+- GTQ_05_The_Substrate_Fractured: 57/100 - Useful draft, needs reviewer hardening | `GTQ_05_The_Substrate_Fractured.expanded-review.md` | `GTQ_05_The_Substrate_Fractured.expanded-review.html`
+- GTQ_05A_Trinity_Mechanism: 53/100 - High-risk draft, needs structural repair | `GTQ_05A_Trinity_Mechanism.expanded-review.md` | `GTQ_05A_Trinity_Mechanism.expanded-review.html`
+- GTQ_05B_Trinity_Timeline: 55/100 - Useful draft, needs reviewer hardening | `GTQ_05B_Trinity_Timeline.expanded-review.md` | `GTQ_05B_Trinity_Timeline.expanded-review.html`
+- GTQ_05C_Why_Physics_Is_Broken_In_Two: 58/100 - Useful draft, needs reviewer hardening | `GTQ_05C_Why_Physics_Is_Broken_In_Two.expanded-review.md` | `GTQ_05C_Why_Physics_Is_Broken_In_Two.expanded-review.html`
+- GTQ_06_The_Photon_Isnt_Watching: 51/100 - High-risk draft, needs structural repair | `GTQ_06_The_Photon_Isnt_Watching.expanded-review.md` | `GTQ_06_The_Photon_Isnt_Watching.expanded-review.html`
+- GTQ_07A_Empirical_Testing_Master_Equation: 82/100 - Promising with repair targets | `GTQ_07A_Empirical_Testing_Master_Equation.expanded-review.md` | `GTQ_07A_Empirical_Testing_Master_Equation.expanded-review.html`
+- GTQ_08_God_Doesnt_Need_A_Clock: 45/100 - High-risk draft, needs structural repair | `GTQ_08_God_Doesnt_Need_A_Clock.expanded-review.md` | `GTQ_08_God_Doesnt_Need_A_Clock.expanded-review.html`
+- GTQ_08A_The_Temporal_Trap: 54/100 - High-risk draft, needs structural repair | `GTQ_08A_The_Temporal_Trap.expanded-review.md` | `GTQ_08A_The_Temporal_Trap.expanded-review.html`
+- GTQ_08B_How_God_Restores: 50/100 - High-risk draft, needs structural repair | `GTQ_08B_How_God_Restores.expanded-review.md` | `GTQ_08B_How_God_Restores.expanded-review.html`
+- GTQ_08C_Science_Behind_Restoration: 53/100 - High-risk draft, needs structural repair | `GTQ_08C_Science_Behind_Restoration.expanded-review.md` | `GTQ_08C_Science_Behind_Restoration.expanded-review.html`
+- GTQ_09_Same_God_Both_Testaments: 52/100 - High-risk draft, needs structural repair | `GTQ_09_Same_God_Both_Testaments.expanded-review.md` | `GTQ_09_Same_God_Both_Testaments.expanded-review.html`
+- GTQ_09A_Regime_Dependent_Theology: 51/100 - High-risk draft, needs structural repair | `GTQ_09A_Regime_Dependent_Theology.expanded-review.md` | `GTQ_09A_Regime_Dependent_Theology.expanded-review.html`
+- GTQ_09B_Isomorphism_Civilizational_Decay: 60/100 - Useful draft, needs reviewer hardening | `GTQ_09B_Isomorphism_Civilizational_Decay.expanded-review.md` | `GTQ_09B_Isomorphism_Civilizational_Decay.expanded-review.html`
+- GTQ_10_The_Counter_Move: 54/100 - High-risk draft, needs structural repair | `GTQ_10_The_Counter_Move.expanded-review.md` | `GTQ_10_The_Counter_Move.expanded-review.html`
+- GTQ_10A_Why_The_Pattern_Is_The_Signal: 56/100 - Useful draft, needs reviewer hardening | `GTQ_10A_Why_The_Pattern_Is_The_Signal.expanded-review.md` | `GTQ_10A_Why_The_Pattern_Is_The_Signal.expanded-review.html`

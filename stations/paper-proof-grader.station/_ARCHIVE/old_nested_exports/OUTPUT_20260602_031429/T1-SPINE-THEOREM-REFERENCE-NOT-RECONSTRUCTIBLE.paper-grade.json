@@ -1,0 +1,423 @@
+{
+  "paper_id": "T1-SPINE-THEOREM-REFERENCE-NOT-RECONSTRUCTIBLE",
+  "source_file": "\\\\dlowenas\\brain\\paper-proof-grader\\DROP_PAPERS_HERE\\T1-SPINE-THEOREM-REFERENCE-NOT-RECONSTRUCTIBLE.md",
+  "generated_at": "2026-05-18T17:52:18",
+  "metrics": {
+    "word_count": 650,
+    "section_count": 34,
+    "equation_count": 5,
+    "claim_candidate_count": 12,
+    "top_terms": "reference, corrupted, error, cannot, text, bridge, theorem, system, uncorrupted, consequence, from, corruption, state, errorclass, lean"
+  },
+  "sections": [
+    {
+      "title": "T1 Spine Theorem — Reference Not Reconstructible From Corruption",
+      "text": "Run context: 2026-05-18\nPurpose: restate T1 as the real load-bearing theorem rather than a tautology, and show how downstream OT diagnostic claims follow as consequences."
+    },
+    {
+      "title": "Core Statement",
+      "text": "The trivial version is:\n> Error requires a reference.\nThat is mostly semantic."
+    },
+    {
+      "title": "The real theorem is:",
+      "text": "> A corrupted system cannot reconstruct its own uncorrupted reference state using only resources available within the corruption."
+    },
+    {
+      "title": "Formal Shape",
+      "text": "Let the state space be partitioned:\n```text\nState = ReferenceClass ∪ ErrorClass\nReferenceClass ∩ ErrorClass = ∅\n```"
+    },
+    {
+      "title": "Let self-generated operations be closed over the corrupted/error class:",
+      "text": "```text\nSelfGenerated(Op) :=\n∀ x, x ∈ ErrorClass -> Op(x) ∈ ErrorClass\n```\nThen no finite composition of self-generated operations produces a reference state from an error state:\n```text\nx ∈ ErrorClass\nOps = [Op1, Op2, ..., Opn]\n∀ Op in Ops, SelfGenerated(Op)\n--------------------------------\n(Opn ∘ ... ∘ Op2 ∘ Op1)(x) ∈ ErrorClass\n```"
+    },
+    {
+      "title": "Therefore:",
+      "text": "```text\nnot ((Opn ∘ ... ∘ Op1)(x) ∈ ReferenceClass)\n```"
+    },
+    {
+      "title": "Plain Meaning",
+      "text": "You cannot build the standard from the failures.\nA corrupted system can rearrange corrupted material, but it cannot recover the uncorrupted reference using only corrupted resources.\nIt can move furniture inside the damaged house. It cannot recover the original blueprint if the blueprint is not accessible from inside the damaged system."
+    },
+    {
+      "title": "Why This Matters",
+      "text": "If true, this one theorem gives the direction of the whole OT diagnostic chain."
+    },
+    {
+      "title": "Consequence 1 — Truth Before Error",
+      "text": "If the standard cannot be built from corrupted states, the standard must be prior to and independent of the corruption."
+    },
+    {
+      "title": "Bridge:",
+      "text": "> truth before error"
+    },
+    {
+      "title": "Consequence 2 — Corruption Is Parasitic",
+      "text": "Corruption does not create the reference. It degrades, distorts, or departs from it."
+    },
+    {
+      "title": "Bridge:",
+      "text": "> evil is derivative, not co-fundamental"
+    },
+    {
+      "title": "Consequence 3 — Self-Repair Impossibility",
+      "text": "If corrupted operations remain inside the corrupted class, then self-generated repair cannot restore the uncorrupted reference."
+    },
+    {
+      "title": "Bridge:",
+      "text": "> sign invariance / self-repair impossibility"
+    },
+    {
+      "title": "Consequence 4 — External Grace Required",
+      "text": "If self-generated operations cannot reconstruct the reference, restoration requires an operation not generated from the corrupted class."
+    },
+    {
+      "title": "Bridge:",
+      "text": "> external grace required"
+    },
+    {
+      "title": "Consequence 5 — Clean Signal Requirement",
+      "text": "The external operation must carry or access the uncorrupted reference.\nIf the external operation is itself corrupted, it only imports more corruption."
+    },
+    {
+      "title": "Bridge:",
+      "text": "> another broken system cannot be final savior"
+    },
+    {
+      "title": "Consequence 6 — Internal Validity / Incarnation Direction",
+      "text": "If the uncorrupted reference is to restore a corrupted system without replacing it, it must operate inside the system in a compatible form."
+    },
+    {
+      "title": "Bridge:",
+      "text": "> incarnation direction / mediator logic\nThis is not yet a theorem proving incarnation, but it narrows the required operator class."
+    },
+    {
+      "title": "Consequence 7 — Death-Boundary Stress Test",
+      "text": "If corruption attacks coherence, the strongest possible attack is death / total system termination.\nIf the reference survives that attack, the reference is verified as not finally corruptible by the system."
+    },
+    {
+      "title": "Bridge:",
+      "text": "> resurrection as verification signal\nThis belongs primarily to the NT fulfillment chain."
+    },
+    {
+      "title": "Consequence 8 — Distribution / Pentecost Direction",
+      "text": "If the uncorrupted reference can be coupled into corrupted subsystems, restoration requires a distribution or internalization mechanism."
+    },
+    {
+      "title": "Bridge:",
+      "text": "> Pentecost / Spirit as distributed internal correction\nThis belongs primarily to the NT fulfillment chain."
+    },
+    {
+      "title": "What T1 Does Not Prove",
+      "text": "T1 does not prove product form."
+    },
+    {
+      "title": "Product form says:",
+      "text": "```text\none required zero collapses integrated coherence\n```"
+    },
+    {
+      "title": "T1 says:",
+      "text": "```text\ncorrupted systems cannot self-reconstruct the uncorrupted reference\n```\nThose are related, but distinct.\nT1 gives the direction of restoration.\nProduct form gives the severity of coherence collapse.\nThe chain needs both."
+    },
+    {
+      "title": "Lean 4 Transfer Target",
+      "text": "T1 should be formalized as a closure theorem:\n```text\nclass ErrorClosed (Op : State -> State) : Prop :=\n∀ x, Error x -> Error (Op x)\ntheorem finite_composition_error_closed :\n∀ ops x,\nError x ->\nAll ErrorClosed ops ->\nError (compose ops x)\n```"
+    },
+    {
+      "title": "Then add:",
+      "text": "```text\naxiom disjoint_reference_error :\n∀ x, Error x -> ¬ Reference x\n```"
+    },
+    {
+      "title": "Corollary:",
+      "text": "```text\nError x ->\nAll ErrorClosed ops ->\n¬ Reference (compose ops x)\n```"
+    },
+    {
+      "title": "Downstream Corollaries",
+      "text": "Likely corollaries or dependent modules:\n- `SignInvariance.lean`\n- `OpennessGrace.lean`\n- `ExternalGrace.lean`\n- `SolutionProfile.lean`"
+    },
+    {
+      "title": "Review Warnings",
+      "text": "Do not overstate:\n> T1 proves Christianity.\nIt does not."
+    },
+    {
+      "title": "Say:",
+      "text": "> T1 proves that, under the closure definitions, corrupted systems cannot self-generate access to the uncorrupted reference.\nThen bridge carefully."
+    },
+    {
+      "title": "Status",
+      "text": "> `SPINE THEOREM CANDIDATE / HIGH PRIORITY FOR LEAN`"
+    }
+  ],
+  "equations": [
+    "State = ReferenceClass ∪ ErrorClass",
+    "ReferenceClass ∩ ErrorClass = ∅",
+    "SelfGenerated(Op) :=",
+    "Ops = [Op1, Op2, ..., Opn]",
+    "class ErrorClosed (Op : State -> State) : Prop :="
+  ],
+  "claims": [
+    {
+      "paper_id": "T1-SPINE-THEOREM-REFERENCE-NOT-RECONSTRUCTIBLE",
+      "section": "T1 Spine Theorem — Reference Not Reconstructible From Corruption",
+      "one_sentence_claim": "Run context: 2026-05-18 Purpose: restate T1 as the real load-bearing theorem rather than a tautology, and show how downstream OT diagnostic claims follow as consequences.",
+      "claim_maturity_level": 7,
+      "claim_maturity_label": "Public Proof Claim",
+      "facts_snapshot": "No hard factual terms detected by deterministic pass.",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "No explicit evidence marker in sentence.",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Public Proof Claim, not a final proof.",
+      "nearby_equation": "",
+      "Q1_identity": "implicit",
+      "Q2_scope": "broad",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "missing",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "missing",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "T1-SPINE-THEOREM-REFERENCE-NOT-RECONSTRUCTIBLE",
+      "section": "Core Statement",
+      "one_sentence_claim": "The trivial version is: > Error requires a reference.",
+      "claim_maturity_level": 1,
+      "claim_maturity_label": "Metaphor",
+      "facts_snapshot": "No hard factual terms detected by deterministic pass.",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "reference",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Metaphor, not a final proof.",
+      "nearby_equation": "",
+      "Q1_identity": "clear",
+      "Q2_scope": "broad",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "present",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "missing",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "T1-SPINE-THEOREM-REFERENCE-NOT-RECONSTRUCTIBLE",
+      "section": "Why This Matters",
+      "one_sentence_claim": "If true, this one theorem gives the direction of the whole OT diagnostic chain.",
+      "claim_maturity_level": 7,
+      "claim_maturity_label": "Public Proof Claim",
+      "facts_snapshot": "No hard factual terms detected by deterministic pass.",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "No explicit evidence marker in sentence.",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Public Proof Claim, not a final proof.",
+      "nearby_equation": "",
+      "Q1_identity": "implicit",
+      "Q2_scope": "bounded",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "missing",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "missing",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "T1-SPINE-THEOREM-REFERENCE-NOT-RECONSTRUCTIBLE",
+      "section": "Consequence 3 — Self-Repair Impossibility",
+      "one_sentence_claim": "If corrupted operations remain inside the corrupted class, then self-generated repair cannot restore the uncorrupted reference.",
+      "claim_maturity_level": 1,
+      "claim_maturity_label": "Metaphor",
+      "facts_snapshot": "No hard factual terms detected by deterministic pass.",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "reference",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Metaphor, not a final proof.",
+      "nearby_equation": "",
+      "Q1_identity": "implicit",
+      "Q2_scope": "bounded",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "present",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "missing",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "T1-SPINE-THEOREM-REFERENCE-NOT-RECONSTRUCTIBLE",
+      "section": "Consequence 4 — External Grace Required",
+      "one_sentence_claim": "If self-generated operations cannot reconstruct the reference, restoration requires an operation not generated from the corrupted class.",
+      "claim_maturity_level": 1,
+      "claim_maturity_label": "Metaphor",
+      "facts_snapshot": "No hard factual terms detected by deterministic pass.",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "reference",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Metaphor, not a final proof.",
+      "nearby_equation": "",
+      "Q1_identity": "implicit",
+      "Q2_scope": "bounded",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "present",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "missing",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "T1-SPINE-THEOREM-REFERENCE-NOT-RECONSTRUCTIBLE",
+      "section": "Bridge:",
+      "one_sentence_claim": "> incarnation direction / mediator logic This is not yet a theorem proving incarnation, but it narrows the required operator class.",
+      "claim_maturity_level": 7,
+      "claim_maturity_label": "Public Proof Claim",
+      "facts_snapshot": "Detected terms: operator",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "No explicit evidence marker in sentence.",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Public Proof Claim, not a final proof.",
+      "nearby_equation": "",
+      "Q1_identity": "clear",
+      "Q2_scope": "broad",
+      "Q3_mechanism": "present",
+      "Q4_evidence": "missing",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "missing",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "T1-SPINE-THEOREM-REFERENCE-NOT-RECONSTRUCTIBLE",
+      "section": "Consequence 8 — Distribution / Pentecost Direction",
+      "one_sentence_claim": "If the uncorrupted reference can be coupled into corrupted subsystems, restoration requires a distribution or internalization mechanism.",
+      "claim_maturity_level": 1,
+      "claim_maturity_label": "Metaphor",
+      "facts_snapshot": "No hard factual terms detected by deterministic pass.",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "reference",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Metaphor, not a final proof.",
+      "nearby_equation": "",
+      "Q1_identity": "implicit",
+      "Q2_scope": "bounded",
+      "Q3_mechanism": "present",
+      "Q4_evidence": "present",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "missing",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "T1-SPINE-THEOREM-REFERENCE-NOT-RECONSTRUCTIBLE",
+      "section": "Lean 4 Transfer Target",
+      "one_sentence_claim": "T1 should be formalized as a closure theorem: ```text class ErrorClosed (Op : State -> State) : Prop := ∀ x, Error x -> Error (Op x) theorem finite_composition_error_closed : ∀ ops x, Error x -> All ErrorClosed ops -> Error (compose ops x) ```",
+      "claim_maturity_level": 7,
+      "claim_maturity_label": "Public Proof Claim",
+      "facts_snapshot": "No hard factual terms detected by deterministic pass.",
+      "forward_test": "If the claim is true, the stated relationship should preserve its variables, direction, and scope.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "No explicit evidence marker in sentence.",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Public Proof Claim, not a final proof.",
+      "nearby_equation": "class ErrorClosed (Op : State -> State) ",
+      "Q1_identity": "implicit",
+      "Q2_scope": "broad",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "missing",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "missing",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "T1-SPINE-THEOREM-REFERENCE-NOT-RECONSTRUCTIBLE",
+      "section": "Then add:",
+      "one_sentence_claim": "```text axiom disjoint_reference_error : ∀ x, Error x -> ¬ Reference x ```",
+      "claim_maturity_level": 1,
+      "claim_maturity_label": "Metaphor",
+      "facts_snapshot": "Detected terms: axiom",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "reference",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Metaphor, not a final proof.",
+      "nearby_equation": "",
+      "Q1_identity": "implicit",
+      "Q2_scope": "broad",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "present",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "missing",
+      "Q7_listener_risk": "normal"
+    },
+    {
+      "paper_id": "T1-SPINE-THEOREM-REFERENCE-NOT-RECONSTRUCTIBLE",
+      "section": "Review Warnings",
+      "one_sentence_claim": "Do not overstate: > T1 proves Christianity.",
+      "claim_maturity_level": 7,
+      "claim_maturity_label": "Public Proof Claim",
+      "facts_snapshot": "No hard factual terms detected by deterministic pass.",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "No explicit evidence marker in sentence.",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Boundary needed: currently reads stronger than Public Proof Claim.",
+      "nearby_equation": "",
+      "Q1_identity": "implicit",
+      "Q2_scope": "broad",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "missing",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "missing",
+      "Q7_listener_risk": "high"
+    },
+    {
+      "paper_id": "T1-SPINE-THEOREM-REFERENCE-NOT-RECONSTRUCTIBLE",
+      "section": "Say:",
+      "one_sentence_claim": "> T1 proves that, under the closure definitions, corrupted systems cannot self-generate access to the uncorrupted reference.",
+      "claim_maturity_level": 7,
+      "claim_maturity_label": "Public Proof Claim",
+      "facts_snapshot": "No hard factual terms detected by deterministic pass.",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "reference",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Boundary needed: currently reads stronger than Public Proof Claim.",
+      "nearby_equation": "",
+      "Q1_identity": "implicit",
+      "Q2_scope": "bounded",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "present",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "missing",
+      "Q7_listener_risk": "high"
+    },
+    {
+      "paper_id": "T1-SPINE-THEOREM-REFERENCE-NOT-RECONSTRUCTIBLE",
+      "section": "Status",
+      "one_sentence_claim": "> `SPINE THEOREM CANDIDATE / HIGH PRIORITY FOR LEAN`",
+      "claim_maturity_level": 7,
+      "claim_maturity_label": "Public Proof Claim",
+      "facts_snapshot": "No hard factual terms detected by deterministic pass.",
+      "forward_test": "If the claim is true, the described pattern should appear where the paper says it should appear.",
+      "reverse_test": "If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.",
+      "evidence_bar": "No explicit evidence marker in sentence.",
+      "kill_conditions": "Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?",
+      "not_claimed": "Does not by itself claim that physics proves theology.",
+      "proof_boundary": "Current boundary: deterministic pass classifies this as Public Proof Claim, not a final proof.",
+      "nearby_equation": "",
+      "Q1_identity": "implicit",
+      "Q2_scope": "broad",
+      "Q3_mechanism": "missing",
+      "Q4_evidence": "missing",
+      "Q5_falsifiability": "missing",
+      "Q6_boundary": "missing",
+      "Q7_listener_risk": "normal"
+    }
+  ]
+}

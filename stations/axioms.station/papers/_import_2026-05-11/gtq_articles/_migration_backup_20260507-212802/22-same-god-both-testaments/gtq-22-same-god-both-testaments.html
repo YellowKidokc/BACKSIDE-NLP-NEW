@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="paper-slug" content="GTQ-22">
+<title>GTQ-22 The Same God in Both Testaments — Genesis to Quantum</title>
+<meta name="description" content="Resolving the angry-God / loving-God paradox through regime-dependent behavior."/>
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<!-- MathJax -->
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']] }, svg: { fontCache: 'global' } };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+:root{
+  --primary:#1a1a1a;
+  --accent:#2c2c2c;
+  --text-primary:#e0e0e0;
+  --text-secondary:#a0a0a0;
+  --highlight:#d4af37;
+  --highlight-bright:#f4d03f;
+  --highlight-dim:#8b7a1e;
+  --highlight-glow:rgba(212,175,55,0.12);
+  --border:#333333;
+  --surface:#0a0a0a;
+  --surface-light:#1a1a1a;
+  --surface-hover:#2a2a2a;
+  --red:#ef4444;
+  --blue:#4a9eff;
+  --teal:#2dd4bf;
+  --purple:#a855f7;
+  --green:#22c55e;
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--surface);
+  color:var(--text-primary);
+  line-height:1.65;
+  margin:0;
+  padding:0;
+  overflow-x:hidden;
+}
+.serif{font-family:'Crimson Text',serif;}
+.display{font-family:'Oswald',sans-serif;}
+.mono{font-family:'JetBrains Mono',monospace;}
+
+/* ─────────── SIDEBAR NAV ─────────── */
+.sidebar{
+  position:fixed;top:0;left:0;width:300px;height:100vh;
+  background:var(--surface);border-right:1px solid var(--border);
+  z-index:100;overflow-y:auto;
+  transform:translateX(-100%);transition:transform .3s ease;
+  padding:1.5rem 1rem;
+}
+.sidebar.open{transform:translateX(0);}
+.sidebar-toggle{
+  position:fixed;top:1rem;left:1rem;z-index:101;
+  background:var(--surface-light);border:1px solid var(--border);
+  color:var(--highlight);width:40px;height:40px;border-radius:.375rem;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:1rem;transition:all .2s ease;
+}
+.sidebar-toggle:hover{border-color:var(--highlight);background:var(--surface-hover);}
+.sidebar-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:99;}
+.sidebar-overlay.show{display:block;}
+.sidebar .series-title{
+  font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--highlight);margin-bottom:1rem;
+  padding-bottom:.5rem;border-bottom:1px solid var(--border);
+}
+.sidebar a{display:block;padding:.45rem .75rem;color:var(--text-secondary);text-decoration:none;font-size:.8rem;border-radius:.3rem;transition:all .15s ease;line-height:1.4;}
+.sidebar a:hover{color:var(--text-primary);background:var(--surface-hover);}
+.sidebar a.current{color:var(--highlight);background:var(--highlight-glow);font-weight:600;}
+.sidebar .nav-section{padding:.5rem .75rem .25rem;font-family:'Oswald',sans-serif;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);opacity:.6;margin-top:.5rem;}
+.sidebar a.main-article{font-weight:500;color:var(--text-primary);}
+.sidebar a.deep-dive{padding-left:1.25rem;font-size:.78rem;opacity:.85;}
+.sidebar a.deep-dive::before{content:"└ ";color:var(--border);}
+
+/* ─────────── PROGRESS BAR ─────────── */
+.progress-track{position:fixed;top:0;left:0;right:0;height:3px;background:var(--border);z-index:90;}
+.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--highlight),var(--highlight-bright));transition:width 0.1s ease;border-radius:0 2px 2px 0;}
+
+/* ─────────── HERO GRID ─────────── */
+.hero-grid{
+  display:grid;grid-template-columns:2fr 1fr;grid-template-rows:auto auto;
+  gap:1.25rem;min-height:420px;margin-bottom:2.5rem;
+}
+.hero-main{
+  grid-column:1/2;grid-row:1/3;position:relative;overflow:hidden;
+  border-radius:.75rem;background:linear-gradient(135deg,var(--surface-light) 0%,var(--accent,#2c2c2c) 100%);
+  border:1px solid var(--border);min-height:420px;
+}
+.hero-main img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35;}
+.hero-main .overlay{
+  position:relative;z-index:2;height:100%;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:2.5rem;
+  background:linear-gradient(0deg,rgba(10,10,10,.85) 0%,rgba(10,10,10,0) 60%);
+}
+.hero-side{
+  background:var(--surface-light);border:1px solid var(--border);border-radius:.75rem;
+  padding:1.5rem;transition:border-color .25s ease;
+}
+.hero-side:hover{border-color:var(--highlight);}
+.hero-side h3{font-family:'Crimson Text',serif;font-size:1.05rem;font-weight:600;color:#fff;margin:0 0 .65rem;}
+.hero-side p{font-size:.875rem;color:var(--text-secondary);margin:0;}
+.hero-side .label{display:block;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);margin-bottom:.4rem;font-weight:700;}
+@media(max-width:1024px){
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-main{grid-column:1;grid-row:1;min-height:300px;}
+  .hero-main .overlay{padding:1.5rem;}
+}
+.meta-row{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;font-size:.8125rem;color:var(--text-secondary);margin-bottom:1rem;}
+.meta-row i{color:var(--highlight);margin-right:.4rem;}
+.status-pill{
+  padding:.25rem .65rem;background:var(--highlight-glow);color:var(--highlight);
+  border-radius:.25rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+}
+.domain-tag{display:inline-block;padding:.2rem .65rem;border-radius:999px;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+.tag-physics{background:rgba(74,158,255,.15);color:#4a9eff;}
+.tag-theology{background:rgba(212,175,55,.15);color:#d4af37;}
+.tag-quantum{background:rgba(201,64,64,.15);color:var(--red);}
+.tag-bridge{background:rgba(45,212,191,.15);color:#2dd4bf;}
+.tag-data{background:rgba(34,197,94,.15);color:var(--green);}
+.tag-consciousness{background:rgba(168,85,247,.15);color:var(--purple);}
+.tag-history{background:rgba(212,175,55,.12);color:#caa040;}
+.tag-moral{background:rgba(239,68,68,.15);color:var(--red);}
+.tag-civilizational{background:rgba(168,85,247,.12);color:#b594d8;}
+
+/* ─────────── STICKY TAB BAR ─────────── */
+.tab-shell{
+  position:sticky;top:0;z-index:50;
+  background:rgba(10,10,10,.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.tab-nav{display:flex;gap:.125rem;overflow-x:auto;scrollbar-width:none;}
+.tab-nav::-webkit-scrollbar{display:none;}
+.tab-btn{
+  padding:.85rem 1.1rem;background:transparent;border:none;color:var(--text-secondary);
+  font-size:.825rem;font-weight:500;cursor:pointer;white-space:nowrap;
+  transition:all .2s ease;border-bottom:2px solid transparent;margin-bottom:-1px;letter-spacing:.02em;
+}
+.tab-btn:hover{color:var(--text-primary);background:var(--surface-light);}
+.tab-btn.active{color:var(--highlight);border-bottom-color:var(--highlight);background:var(--surface-light);}
+.tab-btn i{margin-right:.4rem;}
+
+/* ─────────── TAB CONTENT ─────────── */
+.tab-content{display:none;animation:fadeIn .3s ease;}
+.tab-content.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* ─────────── LAYOUT: MAIN ─────────── */
+.main-layout{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:grid;grid-template-columns:1fr 280px;gap:3rem;}
+@media(max-width:1024px){.main-layout{grid-template-columns:1fr;}}
+
+.story{max-width:900px;margin:0 auto;}
+.story.wide{max-width:100%;}
+.story h2{
+  font-family:'Oswald',sans-serif;font-size:1.6rem;font-weight:600;color:#fff;
+  margin:3rem 0 1.25rem;letter-spacing:.03em;text-transform:uppercase;
+  border-bottom:1px solid var(--border);padding-bottom:.5rem;
+}
+.story h3{font-family:'Crimson Text',serif;font-size:1.3rem;font-weight:600;color:#fff;margin:2rem 0 .75rem;}
+.story h4{font-family:'Crimson Text',serif;font-size:1.1rem;font-weight:600;color:var(--highlight);margin:1.5rem 0 .5rem;}
+.story p{font-size:1.0625rem;color:#cfcfcf;margin:0 0 1.25rem;line-height:1.75;}
+.story p strong{color:#fff;}
+.story p em{color:var(--highlight);font-style:italic;}
+.story li{color:#cfcfcf;margin-bottom:.5rem;line-height:1.65;}
+.story li strong{color:#fff;}
+.story ul,.story ol{margin:0 0 1.25rem 1.5rem;}
+.story blockquote{
+  border-left:4px solid var(--highlight);background:var(--highlight-glow);
+  padding:1rem 1.5rem;margin:1.5rem 0;border-radius:0 .5rem .5rem 0;
+  font-family:'Crimson Text',serif;font-size:1.05rem;font-style:italic;color:#cfcfcf;
+}
+.story blockquote p{margin:0;font-size:1.05rem;}
+
+.drop-cap::first-letter{font-family:'Crimson Text',serif;font-size:4.5rem;float:left;line-height:.85;padding:.4rem .6rem 0 0;color:var(--highlight);font-weight:600;}
+
+.exec-summary{
+  background:var(--highlight-glow);border:1px solid var(--highlight-dim);
+  border-radius:.5rem;padding:1.5rem;margin:2rem 0;
+}
+.exec-summary-label{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);margin-bottom:.75rem;
+}
+.exec-summary p{font-size:1rem;color:#e0e0e0;margin:0;line-height:1.7;}
+
+.insight{border-left:4px solid var(--highlight);background:var(--highlight-glow);padding:1.25rem 1.5rem;margin:2rem 0;border-radius:0 .5rem .5rem 0;}
+.insight .label{font-family:'Crimson Text',serif;font-style:italic;color:var(--highlight);font-size:.85rem;letter-spacing:.05em;display:block;margin-bottom:.4rem;}
+.insight p{margin:0;color:#fff;font-size:1.05rem;}
+
+/* ─────────── KILL CONDITIONS ─────────── */
+.kill-sidebar{position:sticky;top:120px;height:fit-content;}
+.kill-sidebar-title{
+  font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);
+  margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);
+}
+.kill-card{
+  background:rgba(34,197,94,.04);border:1px solid rgba(34,197,94,.2);
+  border-radius:.5rem;padding:1rem;margin-bottom:.75rem;
+}
+.kill-card.suggestive{background:var(--highlight-glow);border-color:var(--highlight-dim);}
+.kill-card.destructive{background:rgba(239,68,68,.04);border-color:rgba(239,68,68,.2);}
+.kill-label{font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.35rem;}
+.kill-card .kill-label{color:var(--green);}
+.kill-card.suggestive .kill-label{color:var(--highlight);}
+.kill-card.destructive .kill-label{color:var(--red);}
+.kill-card p{margin:.25rem 0 0;color:#cfcfcf;font-size:.85rem;line-height:1.5;}
+.kill-card .kill-detail{font-size:.75rem;color:var(--text-secondary);margin-top:.35rem;}
+
+/* ─────────── AUDIO DOCK ─────────── */
+.audio-dock{width:100%;background:var(--surface-light);border:1px solid var(--border);border-radius:.625rem;overflow:hidden;transition:border-color .3s ease;margin:2rem 0;}
+.audio-dock:hover{border-color:var(--highlight-dim);}
+.dock-pills{display:flex;gap:0;border-bottom:1px solid var(--border);}
+.dock-pill{flex:1;display:flex;align-items:center;justify-content:center;gap:.4rem;padding:.6rem .5rem;background:transparent;border:none;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);transition:all .25s ease;position:relative;}
+.dock-pill::after{content:'';position:absolute;bottom:0;left:15%;right:15%;height:2px;border-radius:1px;background:transparent;transition:all .25s ease;}
+.dock-pill:hover{color:var(--text-primary);background:rgba(255,255,255,.03);}
+.dock-pill[data-src="deep"]{--pill-c:var(--blue);}
+.dock-pill[data-src="read"]{--pill-c:var(--highlight);}
+.dock-pill[data-src="debate"]{--pill-c:var(--purple);}
+.dock-pill[data-src="critique"]{--pill-c:var(--teal);}
+.dock-pill.active{color:var(--pill-c);background:rgba(255,255,255,.02);}
+.dock-pill.active::after{background:var(--pill-c);}
+.dock-pill .pill-dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.5;transition:opacity .25s;}
+.dock-pill.active .pill-dot{opacity:1;}
+.dock-pill.unavailable{opacity:.3;cursor:default;pointer-events:none;}
+.dock-body{display:flex;align-items:center;gap:.65rem;padding:.65rem .85rem;}
+.dock-play{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--highlight);background:transparent;color:var(--highlight);font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s ease;}
+.dock-play:hover{background:var(--highlight-glow);transform:scale(1.05);}
+.dock-play.playing{animation:pulse-dock 2s ease-in-out infinite;}
+@keyframes pulse-dock{0%,100%{box-shadow:0 0 0 0 var(--highlight-glow);}50%{box-shadow:0 0 0 4px transparent;}}
+.dock-track-wrap{flex:1;display:flex;flex-direction:column;gap:.25rem;min-width:0;}
+.dock-track{width:100%;height:4px;background:#222;border-radius:2px;cursor:pointer;overflow:hidden;position:relative;}
+.dock-fill{height:100%;width:0%;border-radius:2px;background:var(--highlight);transition:width .15s linear,background .3s;}
+.dock-times{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--text-secondary);}
+.dock-vol{background:none;border:none;color:var(--text-secondary);cursor:pointer;font-size:.75rem;flex-shrink:0;padding:2px;transition:color .2s;}
+.dock-vol:hover{color:var(--text-primary);}
+.dock-empty{display:none;align-items:center;justify-content:center;padding:.85rem;font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);opacity:.5;font-style:italic;}
+.dock-body.hidden{display:none;}.dock-empty.visible{display:flex;}
+
+/* ─────────── BOTTOM NAVIGATION ─────────── */
+.bottom-nav{
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:1.5rem 0;margin:3rem 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+.bottom-nav a{
+  display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;
+  background:var(--surface-light);border:1px solid var(--border);border-radius:.375rem;
+  color:var(--text-secondary);text-decoration:none;font-size:.85rem;transition:all .2s ease;
+}
+.bottom-nav a:hover{border-color:var(--highlight);color:var(--text-primary);background:var(--highlight-glow);}
+.bottom-nav a.primary{border-color:var(--highlight);color:var(--highlight);}
+.bottom-nav a.primary:hover{background:var(--highlight-glow);}
+.bottom-nav .nav-center{font-size:.8rem;color:var(--text-secondary);text-align:center;}
+
+/* ─────────── FOOTER ─────────── */
+.site-footer{text-align:center;padding:3rem 1.5rem;color:var(--text-secondary);font-size:.8rem;border-top:1px solid var(--border);margin-top:2rem;}
+.site-footer .eq{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--highlight);opacity:.6;margin-bottom:.5rem;}
+
+@media(max-width:1024px){
+  .kill-sidebar{display:none;}
+  .main-layout{grid-template-columns:1fr;padding:0 1rem;}
+  .story{max-width:100%;}
+}
+@media(max-width:640px){
+  .tab-btn{padding:.65rem .8rem;font-size:.75rem;}
+  .story h2{font-size:1.3rem;}
+  .bottom-nav{flex-direction:column;align-items:stretch;}
+  .bottom-nav a{justify-content:center;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Progress bar -->
+<div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+
+<!-- GTQ CANON HEADER: managed by tools/apply_article_topbars.py -->
+<style>
+.gtq-canon-shell{
+  min-height:214px;background:#070707;border-bottom:1px solid rgba(212,175,55,.34);
+  color:var(--text-primary);position:relative;z-index:50;overflow:hidden;
+  box-shadow:0 18px 36px rgba(0,0,0,.28);
+}
+.gtq-canon-shell::before{
+  content:"";position:absolute;inset:0;background:
+    radial-gradient(circle at var(--canon-glow-x,18%) 18%,rgba(212,175,55,.16),transparent 30%),
+    linear-gradient(90deg,rgba(212,175,55,.08),transparent 35%);
+  pointer-events:none;
+}
+.gtq-canon-topline{
+  height:40px;padding:0 1.5rem 0 4.5rem;border-bottom:1px solid rgba(212,175,55,.22);
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;position:relative;z-index:1;
+  background:rgba(5,5,5,.72);
+}
+.gtq-canon-chip,.gtq-canon-link{
+  height:26px;display:inline-flex;align-items:center;gap:.38rem;border:1px solid rgba(212,175,55,.24);
+  background:rgba(255,255,255,.025);border-radius:4px;padding:0 .65rem;
+  color:var(--text-dim);font-family:'JetBrains Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;
+  text-decoration:none;white-space:nowrap;
+}
+.gtq-canon-chip strong{color:var(--highlight);font-weight:700;}
+.gtq-canon-link{font-family:'Inter',sans-serif;font-size:.68rem;letter-spacing:.04em;font-weight:700;}
+.gtq-canon-link:hover{border-color:var(--highlight);color:var(--highlight);background:var(--highlight-glow);}
+.gtq-canon-nav{display:flex;align-items:center;gap:.4rem;}
+.gtq-canon-header{
+  min-height:174px;padding:1.45rem 1.5rem 1.4rem 4.5rem;position:relative;z-index:1;
+  display:grid;align-items:center;gap:1.2rem;
+}
+.gtq-canon-kicker{
+  color:var(--highlight);font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;
+  margin-bottom:.58rem;font-weight:700;
+}
+.gtq-canon-title{
+  font-family:'Crimson Text',serif;font-size:clamp(2rem,4.5vw,3.8rem);line-height:.96;
+  color:#fff;font-weight:700;letter-spacing:0;margin:0;
+}
+.gtq-canon-sub{
+  color:var(--text-secondary);font-size:.94rem;line-height:1.55;max-width:780px;margin-top:.78rem;
+}
+.gtq-canon-meta{display:flex;align-items:center;flex-wrap:wrap;gap:.55rem;margin-top:1rem;}
+.gtq-canon-meta span{
+  height:28px;display:inline-flex;align-items:center;gap:.38rem;padding:0 .7rem;border-radius:999px;
+  border:1px solid rgba(212,175,55,.22);background:rgba(212,175,55,.07);color:var(--text-dim);
+  font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.045em;
+}
+.gtq-canon-meta i{color:var(--highlight);}
+.gtq-canon-mark{
+  color:var(--highlight);font-family:'Oswald',sans-serif;font-size:7.8rem;line-height:.8;font-weight:700;
+  letter-spacing:.02em;user-select:none;text-shadow:0 0 30px rgba(212,175,55,.16);
+}
+.gtq-canon-formula{
+  color:rgba(212,175,55,.48);font-family:'JetBrains Mono',monospace;font-size:.72rem;line-height:1.8;
+  border-left:1px solid rgba(212,175,55,.35);padding-left:1rem;
+}
+.gtq-canon-classic{grid-template-columns:minmax(0,1fr) 170px;--canon-glow-x:16%;}
+.gtq-canon-classic .gtq-canon-mark{justify-self:end;opacity:.72;}
+.gtq-canon-spine{grid-template-columns:104px minmax(0,1fr) 250px;--canon-glow-x:50%;}
+.gtq-canon-spine::before{
+  content:"";position:absolute;left:4.5rem;right:1.5rem;top:0;height:4px;
+  background:linear-gradient(90deg,var(--highlight),var(--highlight-dim),var(--highlight-bright));
+}
+.gtq-canon-spine .gtq-canon-mark{
+  color:#050505;background:var(--highlight);width:74px;height:74px;display:grid;place-items:center;
+  font-size:2.15rem;border-radius:3px;box-shadow:0 0 34px rgba(212,175,55,.14);
+}
+.gtq-canon-edge{grid-template-columns:minmax(0,1fr) 330px;--canon-glow-x:86%;}
+.gtq-canon-edge .gtq-canon-title{max-width:760px;}
+.gtq-canon-edge .gtq-canon-mark{justify-self:end;opacity:.82;}
+.gtq-canon-edge .gtq-canon-formula{
+  border-left:0;border-top:1px solid rgba(212,175,55,.35);padding:1rem 0 0;text-align:right;
+}
+@media(max-width:900px){
+  .gtq-canon-topline{height:auto;min-height:40px;padding-right:.8rem;align-items:flex-start;flex-direction:column;padding-top:.55rem;padding-bottom:.55rem;}
+  .gtq-canon-nav{flex-wrap:wrap;}
+  .gtq-canon-header,.gtq-canon-classic,.gtq-canon-spine,.gtq-canon-edge{grid-template-columns:1fr;padding-right:1rem;}
+  .gtq-canon-mark,.gtq-canon-formula{display:none;}
+  .gtq-canon-title{font-size:clamp(1.8rem,9vw,2.55rem);}
+}
+</style>
+<section class="gtq-canon-shell" aria-label="Article identity">
+  <nav class="gtq-canon-topline" aria-label="Article navigation">
+    <div class="gtq-canon-chip"><i class="fas fa-atom"></i><strong>Genesis to Quantum</strong></div>
+    <div class="gtq-canon-nav">
+      <a class="gtq-canon-link" href="../index.html"><i class="fas fa-th-list"></i>Index</a>
+      <a class="gtq-canon-link" href="../21-science-behind-restoration/gtq-21-science-behind-restoration.html"><i class="fas fa-arrow-left"></i>Prev</a>
+      <a class="gtq-canon-link" href="../25-counter-move/gtq-25-counter-move.html">Next<i class="fas fa-arrow-right"></i></a>
+    </div>
+  </nav>
+  <header class="gtq-canon-header gtq-canon-classic">
+    <div>
+      <div class="gtq-canon-kicker">Origin Story / Article 22 / Formal Canon</div>
+      <h1 class="gtq-canon-title">The Same God in Both Testaments</h1>
+      <p class="gtq-canon-sub">Resolving the angry-God / loving-God paradox through regime-dependent behavior.</p>
+      <div class="gtq-canon-meta">
+        <span><i class="fas fa-fingerprint"></i>GTQ-22</span>
+        <span><i class="fas fa-layer-group"></i>Foundation Track</span>
+        <span><i class="fas fa-scale-balanced"></i>Bounded Claim</span>
+      </div>
+    </div>
+    <div class="gtq-canon-mark">#22</div>
+    <div class="gtq-canon-formula">
+      chi_local = G * M * E * S_eff * T * K * R * Q * F * C<br/>
+      C is factor / chi is output / no drift
+    </div>
+  </header>
+</section>
+<!-- /GTQ CANON HEADER -->
+
+<!-- Sidebar toggle -->
+<button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle series navigation"><i class="fas fa-bars"></i></button>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- Sidebar nav -->
+<nav class="sidebar" id="sidebar">
+  <div class="series-title"><i class="fas fa-atom" style="margin-right:.4rem;"></i> Genesis to Quantum</div>
+  <a href="../../index.html"><i class="fas fa-home" style="width:1.2rem;"></i> Series Home</a>
+
+  <div class="nav-section">Main Articles</div>
+  <a href="../01-measurement-collapsed-reality/gtq-01-measurement-collapsed-reality.html" class="main-article">01 The Measurement That Collapsed Reality</a>
+  <a href="../03-first-quantum-state/gtq-03-first-quantum-state.html" class="main-article">03 The First Quantum State</a>
+  <a href="../04-free-will-two-frames/gtq-04-free-will-two-frames.html" class="main-article">04 Free Will in Two Frames</a>
+  <a href="../08-day-time-began/gtq-08-day-time-began.html" class="main-article">08 The Day Time Began</a>
+  <a href="../11-substrate-fractured/gtq-11-substrate-fractured.html" class="main-article">11 The Substrate Fractured</a>
+  <a href="../15-why-reality-needs-three/gtq-15-why-reality-needs-three.html" class="main-article">15 Why Reality Needs Three</a>
+  <a href="../16-photon-isnt-watching/gtq-16-photon-isnt-watching.html" class="main-article">16 The Photon Isn't Watching You Back</a>
+  <a href="../18-eraser-and-the-cross/gtq-18-eraser-and-the-cross.html" class="main-article">18 The Eraser and the Cross</a>
+  <a href="../22-same-god-both-testaments/gtq-22-same-god-both-testaments.html" class="main-article current">22 The Same God in Both Testaments</a>
+  <a href="../25-counter-move/gtq-25-counter-move.html" class="main-article">25 The Counter-Move</a>
+  <div class="nav-section">Deep Dives</div>
+  <a href="../02-collapse-threshold/gtq-02-collapse-threshold.html" class="deep-dive">02 The Collapse Threshold</a>
+  <a href="../05-macarthur-equation/gtq-05-macarthur-equation.html" class="deep-dive">05 MacArthur and the Equation</a>
+  <a href="../06-three-pathways/gtq-06-three-pathways.html" class="deep-dive">06 The Three Pathways</a>
+  <a href="../07-why-god-drowned-everybody/gtq-07-why-god-drowned-everybody.html" class="deep-dive">07 Why Did God Drown Everybody?</a>
+  <a href="../09-decoherence-curve/gtq-09-decoherence-curve.html" class="deep-dive">09 The Decoherence Curve</a>
+  <a href="../10-how-lies-kill/gtq-10-how-lies-kill.html" class="deep-dive">10 How Lies Kill</a>
+  <a href="../12-trinity-mechanism/gtq-12-trinity-mechanism.html" class="deep-dive">12 The Trinity Mechanism</a>
+  <a href="../13-trinity-timeline/gtq-13-trinity-timeline.html" class="deep-dive">13 The Trinity Timeline</a>
+  <a href="../14-physics-broken-in-two/gtq-14-physics-broken-in-two.html" class="deep-dive">14 Why Physics Is Broken in Two</a>
+  <a href="../17-ran-the-numbers/gtq-17-ran-the-numbers.html" class="deep-dive">17 We Actually Ran the Numbers</a>
+  <a href="../19-temporal-trap/gtq-19-temporal-trap.html" class="deep-dive">19 The Temporal Trap</a>
+  <a href="../20-how-god-restores/gtq-20-how-god-restores.html" class="deep-dive">20 How God Restores</a>
+  <a href="../21-science-behind-restoration/gtq-21-science-behind-restoration.html" class="deep-dive">21 The Science Behind the Restoration</a>
+  <a href="../23-regime-dependent-theology/gtq-23-regime-dependent-theology.html" class="deep-dive">23 The Structural Case for Regime-Dependent Theology</a>
+  <a href="../24-societies-die/gtq-24-societies-die.html" class="deep-dive">24 Societies Die the Same Way People Do</a>
+  <a href="../26-pattern-is-the-signal/gtq-26-pattern-is-the-signal.html" class="deep-dive">26 Why the Pattern Is the Signal</a>
+</nav>
+
+<!-- Hero grid -->
+<div class="container mx-auto px-6 pt-8" style="padding-left:4.5rem;">
+  <div class="hero-grid">
+    <div class="hero-main">
+      <img src="images/hero/hero.jpg" alt="The Same God in Both Testaments" onerror="this.style.display='none'"/>
+      <div class="overlay">
+        <div class="meta-row" style="margin-bottom:.5rem;">
+          <span><i class="fas fa-atom"></i>Article 22 &middot; Genesis to Quantum</span>
+          <span class="status-pill">Main Article</span>
+        </div>
+        <h1 class="serif text-3xl md:text-5xl font-bold text-white mb-3 leading-tight">
+          The Same God in Both Testaments
+        </h1>
+        <p class="text-lg md:text-xl text-gray-200 font-light">
+          Resolving the angry-God / loving-God paradox through regime-dependent behavior.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-3">
+          <span class="domain-tag tag-theology">Theology</span><span class="domain-tag tag-bridge">Cross-Domain</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-side">
+      <span class="label">Key Finding</span>
+      <h3>The single thing they should remember</h3>
+      <p>[[One short paragraph. Make it count.]]</p>
+    </div>
+    <div class="hero-side">
+      <span class="label">Critical Insight</span>
+      <h3>Why it matters now</h3>
+      <p>[[Different angle from the first.]]</p>
+    </div>
+  </div>
+</div>
+
+<!-- Sticky tab bar -->
+<div class="tab-shell">
+  <div class="container mx-auto px-6" style="padding-left:4.5rem;">
+    <nav class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('paper')"><i class="fas fa-scroll"></i>The Paper</button>
+      <button class="tab-btn" onclick="switchTab('summary')"><i class="fas fa-compress-alt"></i>Executive Summary</button>
+      <button class="tab-btn" onclick="switchTab('rigor')"><i class="fas fa-crosshairs"></i>Rigor &amp; Kill Conditions</button>
+      <button class="tab-btn" onclick="switchTab('media')"><i class="fas fa-headphones"></i>Watch &amp; Listen</button>
+      <button class="tab-btn" onclick="switchTab('blackboard')"><i class="fas fa-chalkboard"></i>Blackboard</button>
+    </nav>
+  </div>
+</div>
+
+<!-- Main content -->
+<main class="main-layout py-10">
+  <div>
+    <section id="paper" class="tab-content active">
+      <article class="story wide">
+
+      <!-- ═══ A NOTE BEFORE WE BEGIN ═══ -->
+      <p class="drop-cap">This is the article I have been most afraid to write. Not because the answer is unclear &mdash; the answer has been sitting in plain view for sixteen centuries. I have been afraid because the question is one of the most painful in Christianity, and most of the answers people give to it have made the pain worse. I am not going to tell you the hard passages are not hard. They are hard. I am going to do something else first. I am going to take you to 1400 BC and make you stand in the dirt for a few minutes, because every honest answer to the OT/NT problem has to start there. Every dishonest one starts in 2026 and reasons backward.</p>
+
+      <hr>
+
+      <!-- ═══ PART ONE: THE DIRT ═══ -->
+      <div class="part-header">
+        <div class="part-num">Part One</div>
+        <h2>The Dirt</h2>
+        <p>1400 BC &mdash; The Southern Levant</p>
+      </div>
+
+      <div class="box-hero">
+        <div class="hero-overline"><i class="fas fa-hourglass-half" style="margin-right:.3rem;"></i> Bronze Age Immersion</div>
+        <h3>It is late afternoon in the southern Levant.</h3>
+        <p>The air smells like woodsmoke and sun-baked mud and, faintly, the metallic tang of blood from the morning's animal slaughter. You are standing on a footpath outside a walled village. There is no police station. There are no courts. There is no hospital. There is no hospital because there are no doctors, and there are no doctors because there is no germ theory and no antibiotics and no anesthesia and the closest thing to a medical professional in your village is the woman who knows which herbs to chew and which to spit out.</p>
+      </div>
+
+      <p>You are not from here. You came from the future. You are wearing the Western armchair you carried with you, and from inside that armchair you have always wondered why the God of the Old Testament was so harsh. You are about to find out that you were asking the wrong question.</p>
+
+      <p>Walk with me.</p>
+
+      <p>The man beside you has two wives. This is not a lifestyle choice. His first wife has borne three children and buried two of them before their second year. The third child, a boy, survived but walks with a limp from a fever that nearly killed him at four. The man's second wife is not a romantic addition &mdash; she is an economic unit. Two wives means twice the labor in the fields, twice the chance of a surviving heir, and a margin of redundancy against the 48.8% probability that any child born in this village will die before the age of fifteen. You think polygamy is a moral failure. In 1400 BC it is an actuarial calculation.</p>
+
+      <p>The village you are walking through has no central authority. The nearest thing to a government is the elder at the gate, and his jurisdiction ends at the wall. Beyond the wall, you are in clan territory. If a man from one clan kills a man from another, the dead man's brother is now the <em>goel ha-dam</em>, the Blood Redeemer, and he is <em>obligated</em> to kill the killer. Not as an option. As a duty. If the killer cannot be found, any male from his clan will do. This is not barbarism. This is the only justice system available in a world without courts, without police, without prisons, without any mechanism for impartial adjudication.</p>
+
+      <p>The woman who just passed you on the path &mdash; the one carrying the water jar on her head &mdash; has buried four of her six children. Her surviving son is eleven and already learning to use a sling. Her surviving daughter is nine and already spoken for. The marriage was arranged when the daughter was six, because a girl who is not betrothed by age ten in this world is a girl whose family has not secured an alliance, and a family without alliances is a family that is one bad harvest from extinction.</p>
+
+      <p>Do you hear the drums in the next valley? That is not a festival. That is a religious ceremony at the local <em>bamah</em> &mdash; the high place &mdash; where the Canaanite priests serve the Ba'als. The drums are not decorative. They serve a specific function that Plutarch will describe a millennium later when Phoenician colonists carry this same religion to Carthage: the drums drown out the screams of the children being placed on the bronze arms of the idol and rolled into the fire pit beneath. The drums exist so the parents will not hear their children scream and change their minds.</p>
+
+      <p>This is the world the Mosaic Law was written for. This is the world God entered when He gave the commandments at Sinai. Not a world of philosophy seminars and ethics committees and peer-reviewed journals. A world of blood feuds and infant mortality and parasitic disease and child sacrifice and a life expectancy at birth of twenty-five to thirty years.</p>
+
+      <p><strong>The question is not why the God of the Old Testament was so harsh. The question is how anyone built a house of mercy in that world at all.</strong></p>
+
+      <p>That is the right question. The Western armchair was asking the wrong one.</p>
+
+      <hr>
+
+      <!-- ═══ PART TWO: THE TWO VERSES ═══ -->
+      <h2>Part Two: The Two Verses You Were Brought Up On</h2>
+
+      <p>Now we can talk.</p>
+
+      <div class="box-ghost">
+        <div class="ghost-label">Scripture</div>
+        <p>"For I the Lord do not change." &mdash; Malachi 3:6</p>
+      </div>
+
+      <div class="box-ghost">
+        <div class="ghost-label">Scripture</div>
+        <p>"Jesus Christ is the same yesterday and today and forever." &mdash; Hebrews 13:8</p>
+      </div>
+
+      <p>The Old Testament writer says God does not change. The New Testament writer says Jesus does not change. Both writers know what is in their Bible. Both have read the conquest of Canaan and the Sermon on the Mount. Both state, without hedging, that the Person behind both is the same Person.</p>
+
+      <p>For most of Christian history, that claim has been an act of faith more than an act of reason. The honest believer reads Numbers 31 and then reads John 8 and feels something break. Not their faith &mdash; their ability to <em>explain</em> their faith to anyone who asks the obvious question. How do you reconcile "kill every male" with "love your enemies"? How do you reconcile the flood with "God so loved the world"? How do you reconcile commanded stoning with the woman caught in adultery?</p>
+
+      <p>You could not have answered those questions before you took the walk in Part One. You would have started reaching for the same four answers everyone reaches for, and all four of them would have made the problem worse. Now that you have stood in the dirt, the four answers will look different.</p>
+
+      <hr>
+
+      <!-- ═══ THE FOUR ANSWERS THAT DON'T WORK ═══ -->
+      <h2>The Four Answers That Don't Work</h2>
+
+      <p>When someone asks the OT/NT question seriously, they tend to get one of four answers. Each one captures something true. None of them holds the whole thing.</p>
+
+      <h4>Answer 1: The Atheist's &mdash; God Is Not Good</h4>
+      <p>The actions in the Old Testament are immoral by any standard you care to apply, therefore the God who commanded them is either evil, flawed, or fictional. This is the cleanest answer logically. It is also internally consistent and refreshingly honest about the difficulty of the text.</p>
+      <p>But it has a fatal problem, and the problem is not a Bible verse &mdash; it is the moral standard the critic is using. To call the conquest of Canaan immoral, you need a moral framework. Where did that framework come from? If there is no God, there is no ground for the moral intuition you are using to reject God. The cupcake test makes this concrete: show a four-year-old two cupcakes, give her one, give her sister three, and watch what happens. She does not need to be taught fairness. She arrives with it. The invariant moral sense is real, it is universal, and it is <em>prior</em> to any cultural transmission. If atheism is true, that sense is an evolutionary accident with no binding force. But the critic is treating it as binding when she uses it to judge God. You cannot borrow the standard from the system you are trying to refute.</p>
+
+      <h4>Answer 2: Reinterpretation &mdash; We're Misreading the Text</h4>
+      <p>The hard passages do not actually mean what they look like they mean. Context, translation, ancient Near Eastern rhetoric, hyperbole conventions &mdash; apply enough of these and the conquest of Canaan becomes mostly metaphorical. This answer captures something real. Context <em>does</em> matter. But the move has a hidden cost: once you have established the interpretive permission to dismiss plain text, you have also established the principle by which someone else can dispose of the parts <em>you</em> like. If the conquest of Canaan can be hyperbole, why cannot the resurrection?</p>
+
+      <h4>Answer 3: Sovereignty &mdash; God Operates on a Different Scale</h4>
+      <p>What looks wrong to us may not be wrong at His level. He is the potter, we are the clay, and the clay does not get to question the potter. This has serious weight behind it. The scale difference is real. But pushed to the limit, this answer becomes a blank check. If "good" means "whatever God does," then the word "good" has no content. The sentence "God is good" reduces to "God is whatever God is," which is true of every entity in the universe and tells you nothing.</p>
+
+      <h4>Answer 4: Progressive Revelation &mdash; God Entered a Violent World and Started Moving It</h4>
+      <p>The trajectory <em>is</em> there. The arrow consistently points toward more humane, more inclusive, more merciful &mdash; and it never reverses. But the answer leaves a question hanging: why so slow? Why fifteen centuries? And worse &mdash; why does the slow pace make God look like He is <em>learning</em> as He goes, like an iterative designer figuring out what works?</p>
+
+      <p>Four answers. Four genuine partial truths. None of them holds all the weight.</p>
+
+      <hr>
+
+      <!-- ═══ WHAT ALL FOUR ARE TRYING TO SOLVE ═══ -->
+      <h2>What All Four Answers Are Really Trying To Solve</h2>
+
+      <p>Step back and look at what every one of those answers is trying to do. They are all trying to resolve the same underlying tension:</p>
+
+      <div class="insight">
+        <span class="label">&mdash; The Core Tension</span>
+        <p>How can the same Person be perfectly just AND perfectly merciful AND preserve human freedom &mdash; at the same time, in the same world, without any of the three collapsing into the other two?</p>
+      </div>
+
+      <p>Each answer resolves the tension by sacrificing something. The atheist drops the source. The reinterpreter softens the justice term. The sovereigntist makes God's actions unintelligible. The progressive revelationist smears the gap across time. None of them holds all three constraints simultaneously.</p>
+
+      <p>But what if you did not have to sacrifice any of them? What if all three could hold at once, in the same equation, in the same Person, without contradiction?</p>
+
+      <hr>
+
+      <!-- ═══ ONE EQUATION, THREE TERMS ═══ -->
+      <h2>One Equation, Three Terms, No Contradiction</h2>
+
+      <p>Earlier in this series we wrote down the equation that governs how a soul moves into or away from coherence with God. It came up first in Article 03, where it dissolved the Calvinist-Arminian fight. It came up again in Article 04, where the lifespan data in Genesis turned out to fit it at $R^2 = 0.888$. Here it is again:</p>
+
+      <div class="eq-block">
+        <div class="eq-label">Coherence Equation</div>
+        $\frac{dC}{dt} = O \cdot G(1-C) - S \cdot C$
+      </div>
+
+      <p>$C$ is coherence &mdash; your alignment with God, ranging from total alignment at 1 to total decoherence at 0. The right-hand side has three terms doing three different things. $O$ is your openness, the human variable, the willingness to receive. $G$ is grace, the divine input, the negentropic energy that flows from God into the system. $S$ is entropy, the decay term, the cost of living in a fallen universe where coherence has to be actively maintained.</p>
+
+      <p>Now look at what those three terms <em>are</em> in moral language.</p>
+
+      <!-- Styled comparison table for justice/mercy/free-will -->
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Equation Term</th>
+            <th>Moral Meaning</th>
+            <th>What It Does</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>$S \cdot C$</strong></td>
+            <td><strong>Justice</strong></td>
+            <td>Structural fact that coherence loss has consequences. Sin damages the coherence state the way friction degrades a moving part. The "wrath of God" language in the prophets describes this term operating in real time.</td>
+          </tr>
+          <tr>
+            <td><strong>$G$</strong></td>
+            <td><strong>Mercy</strong></td>
+            <td>Negentropic input that <em>must</em> be present for the equation to go anywhere except down. Without $G$, the equation reduces to $dC/dt = -S \cdot C$, pure exponential decay. The system dies. Grace was never withdrawn &mdash; not once, not in the flood, not in the conquest, not in the exile.</td>
+          </tr>
+          <tr>
+            <td><strong>$O$</strong></td>
+            <td><strong>Free Will</strong></td>
+            <td>The human variable. The growth term is <em>multiplicative</em>: $O \times G \times (1-C)$. Both $O$ and $G$ must be nonzero for growth to occur. God provides $G$. The person provides $O$. Neither alone is sufficient. Love that cannot be refused is not love.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Three terms. Three constraints. Held simultaneously. No contradiction.</p>
+
+      <hr>
+
+      <!-- ═══ SLAVERY, STONING, CONQUEST ═══ -->
+      <h2>Slavery, Stoning, Conquest</h2>
+
+      <p>The fastest way to test whether a framework is real is to walk it through the hardest cases. Not the easy cases. The cases that have made thoughtful people walk away from the faith.</p>
+
+      <!-- SPLIT BOX: Slavery -->
+      <div class="box-split">
+        <div class="icon"><i class="fas fa-link"></i></div>
+        <div class="split-content">
+          <h4>Slavery</h4>
+          <p>The Old Testament regulates slavery. It does not abolish it. For most modern readers this is the moral failure that closes the book &mdash; if God is good, He says no to slavery on day one.</p>
+        </div>
+      </div>
+
+      <p>But you know now, from Part One, what slavery actually was in the world the Mosaic Law was speaking into. There were no banks. There was no credit. If your harvest failed &mdash; and harvest failure happened <em>constantly</em>, multi-decade droughts visible in the tree-ring record, locust years, raiding years &mdash; your only options were to sell yourself or your children into a wealthier household, or to watch your family starve. The Nuzi tablets document people <em>voluntarily</em> entering servitude with terms like "as long as the master lives, the servant shall serve him and the master shall give him food and clothing."</p>
+
+      <p>The framework's answer: the regulation <em>is</em> the mercy term, operating under the constraint that the free will term cannot be set to zero. Abolishing slavery instantly requires overriding the free will of every person currently engaged in it. God refuses to do that, because the moment He does it for slavery He has established the principle that He will do it for any sufficiently bad behavior, and free will has been revoked from the species.</p>
+
+      <p>So God does what He always does: <strong>He sets a floor.</strong> Mandatory release in the seventh year. The released servant sent off "furnished liberally" from the master's flock. Compare this to Hammurabi's code, where a runaway slave incurred the <em>death penalty</em> for whoever harbored them. The Mosaic Law forbids returning an escaped slave to his master at all (Deuteronomy 23:15&ndash;16). Israel was made a <em>destination</em> for runaways. No parallel anywhere in the region.</p>
+
+      <p>The injury provisions are sharper still. Under Hammurabi, if a master damaged a slave's eye, the master paid a fine &mdash; to himself, essentially. Under the Mosaic Law, if a master knocked out a slave's <em>tooth</em>, the slave went <em>free</em> (Exodus 21:26&ndash;27). A tooth. The legal protection was set so low that any meaningful physical abuse would trigger automatic emancipation.</p>
+
+      <!-- SPLIT BOX: Stoning -->
+      <div class="box-split">
+        <div class="icon"><i class="fas fa-gavel"></i></div>
+        <div class="split-content">
+          <h4>Stoning</h4>
+          <p>The Mosaic law prescribes death for certain offenses. To a modern reader this looks barbaric. Why would a merciful God prescribe execution for adultery?</p>
+        </div>
+      </div>
+
+      <p>The answer: the prescription and the execution are two different things, and the law was deliberately designed so that the second almost never followed the first. Capital cases required two or three witnesses, no exceptions. Circumstantial evidence was inadmissible. False testimony in a capital case carried the same penalty as the crime. The Mishnah says a Sanhedrin that executed even one person in seventy years was called a "bloody court." The stoning provisions functioned as boundary markers, not quotas.</p>
+
+      <p>And the historical context matters. The world <em>before</em> "an eye for an eye" was a world of escalating blood feuds. <em>Lex talionis</em> is the first de-escalation law in recorded human history. It is not a permission to take an eye. It is a <em>limit</em> on how much you are allowed to take.</p>
+
+      <p>There is one more thing the Mosaic code did that nobody else in the region did. It introduced <strong>Cities of Refuge</strong> &mdash; six cities where someone who had killed accidentally could flee and be safe until a trial could establish whether the killing was murder or manslaughter. A trial. To distinguish <em>intent</em>. The concept now called <em>mens rea</em> that sits at the foundation of every modern Western legal system. Introduced 3,400 years ago, in a world where the alternative was the Blood Redeemer arriving at your door and not asking questions.</p>
+
+      <!-- SPLIT BOX: Conquest -->
+      <div class="box-split">
+        <div class="icon"><i class="fas fa-shield-alt"></i></div>
+        <div class="split-content">
+          <h4>Conquest</h4>
+          <p>The hardest one. God commands Israel to take the land of Canaan and destroy the population. Numbers, Joshua, Deuteronomy &mdash; the language is unambiguous and brutal.</p>
+        </div>
+      </div>
+
+      <p>Start with the historical fact you now know from Part One: the Canaanite religion, archaeologically attested across multiple sites, included child sacrifice as a regular practice. The Phoenician colonists who carried Canaanite religion to Carthage left twenty thousand urns in their tophets, and the urns contain cremated infant remains.</p>
+
+      <p>Now run the constraints. Justice ($S \cdot C$) says this practice has consequences &mdash; four hundred years of compounding consequences. Mercy ($G$) says God waited those four hundred years &mdash; Genesis 15:16 explicitly says the conquest would wait until "the iniquity of the Amorites is complete." Free will ($O$) says they chose. They chose for four hundred years.</p>
+
+      <p>And then there is a fourth consideration: the protection of the signal chain. Israel was the bearer of the covenant lineage that would eventually produce the Messiah. If the signal becomes corrupted, the cure never arrives. The conquest was not God's preferred option. The conquest was the option that remained after four hundred years of mercy had failed and the signal chain was at risk.</p>
+
+      <p>I want to be careful here, because this is the passage where the framework's honesty matters most. I am not saying the conquest was easy, or clean, or without victims who themselves had not chosen child sacrifice. I am saying the action God took was the action that held all three constraints under conditions where the alternative was the loss of the entire signal chain for the entire species. The math does not make the suffering smaller. It makes the suffering <em>legible</em>. And legibility is the difference between a God you can wrestle with and a God you can only flee from.</p>
+
+      <!-- SPLIT BOX: Women -->
+      <div class="box-split">
+        <div class="icon"><i class="fas fa-venus"></i></div>
+        <div class="split-content">
+          <h4>Women</h4>
+          <p>The Old Testament treats women in ways that would horrify any modern reader. They appear as property in inheritance lists. They are sometimes captured as war brides.</p>
+        </div>
+      </div>
+
+      <p>Under the Mosaic law, women had legal protections that exceeded every surrounding culture by a wide margin. The case of Zelophehad's daughters in Numbers 27 establishes the principle that women can inherit &mdash; a precedent that did not exist anywhere else in the ancient Near East. Divorce protections that kept abandoned women from destitution. Rape laws that punished the perpetrator rather than the victim. The floor was set above the surrounding norm and then raised. By the time you reach Paul writing "in Christ there is neither male nor female," the floor has risen high enough that the distinction has no theological justification left.</p>
+
+      <hr>
+
+      <!-- ═══ WHY SO SLOW ═══ -->
+      <h2>Why So Slow</h2>
+
+      <p>The progressive revelation answer was right that there is a trajectory. It just could not explain the <em>pace</em>. The pace is the place where the equation does its hardest work, because the pace is set by what the receivers can survive.</p>
+
+      <p>You felt this in Part One. The pace was set by the world. The world was a world of fifty percent infant mortality and parasitic disease and collapsed states and child sacrifice as a survival ritual. You cannot drop the Sermon on the Mount into that world and have it land. The vocabulary does not exist. The conceptual scaffolding has not been built. "Love your enemies" requires a stable definition of <em>enemy</em> and <em>love</em> and <em>self</em>, and in 1400 BC the <em>self</em> is barely individuated from the clan and <em>love</em> is the protection extended to your own bloodline and <em>enemy</em> is everyone else and the entire moral horizon ends at the next valley.</p>
+
+      <div class="insight">
+        <span class="label">&mdash; The Pace Principle</span>
+        <p>Love is calculus. The species had not learned to count yet. The pace of progressive revelation is not God being slow. It is the lesson plan a competent teacher uses when the student starts at zero.</p>
+      </div>
+
+      <p>The Old Testament spends fifteen centuries answering the question "what is God <em>not</em>." He is not Baal. He is not Molech. He is not capricious. He is not appeased by ritual without justice. He does not require child sacrifice. He is not many. He is not local. He is not arbitrary. He is not for sale. That question has to be answered before the question "what is God" can even be asked productively.</p>
+
+      <p>When Jesus arrives and summarizes the entire law in two commandments &mdash; love God, love neighbor &mdash; He is not introducing a new idea. He is delivering the <em>graduation speech</em> for a curriculum that took fifteen centuries. The two commandments are not the opening lecture. They are the conclusion of an enormous educational project.</p>
+
+      <hr>
+
+      <!-- ═══ THE CONVERGENCE POINT ═══ -->
+      <h2>The Convergence Point</h2>
+
+      <p>There is one event in all of history where the three constraints are visible simultaneously, in a single act, with no possibility of confusion about which one is operating. The event is the Cross.</p>
+
+      <p><strong>Justice is there.</strong> Someone has to pay for the accumulated decoherence of the species. The cost is not symbolic. The $S \cdot C$ term gets balanced to zero by an external input that absorbs the entire accumulated load. Justice is not waived. Justice is <em>paid</em>.</p>
+
+      <p><strong>Mercy is there.</strong> The Person who pays is the Person who was offended. The grace term is not separate from the justice term in this event &mdash; they are the same act, performed by the same Person, simultaneously. God absorbs the cost of His own justice rather than charge it to the offenders.</p>
+
+      <p><strong>Free will is there.</strong> The Cross does not impose itself on anyone. The door opens from inside. You have to receive what has been done for you, and the receiving is real, and the refusing is real, and neither one is coerced.</p>
+
+      <p>All three terms. One event. No contradiction. Same God who appeared to be three different things in three different phases of the curriculum, now visible as one Person performing all three operations at once, in the same place, in the same hour.</p>
+
+      <hr>
+
+      <!-- ═══ SAME PATIENT, SAME DOCTOR ═══ -->
+      <h2>Same Patient, Same Doctor, Different Phase</h2>
+
+      <p>The Old Testament and the New Testament are not two religions stitched together. They are the diagnostic phase and the treatment phase of one continuous course of care.</p>
+
+      <p>In the <strong>diagnostic phase</strong>, the doctor's job is to tell the patient the truth about what is wrong. This is the phase where the language is hard. "Your liver is failing." "The cancer has metastasized." The Old Testament is God in diagnostic mode. The $S \cdot C$ term is loud in the narrative because $S$ is what has to be named before it can be addressed.</p>
+
+      <p>In the <strong>treatment phase</strong>, the doctor's job is to administer the cure. The language changes. "Take this." "Rest here." "Trust the procedure." The $G$ term comes forward in the narrative because $G$ is what the diagnosed patient needs to actually receive. The New Testament is God in treatment mode. Same patient, same doctor, same disease, same equation. Different phase.</p>
+
+      <p>A patient who has not been told they have cancer cannot meaningfully accept chemotherapy. The diagnosis has to land before the treatment can be received. Sixteen centuries of prophets, fifteen centuries of law, hundreds of years of exile and return &mdash; that is the diagnostic phase finishing its work. When John the Baptist appears in the wilderness and says "repent," the patient is finally ready to hear the doctor. Three years later the cure goes on the table.</p>
+
+      <hr>
+
+      <!-- ═══ THE ONE-SENTENCE VERSION ═══ -->
+      <h2>The One-Sentence Version</h2>
+
+      <div class="axiom-box">
+        Every hard Old Testament passage is the logical consequence of a God who refuses to drop justice, refuses to withhold mercy, and refuses to override freedom &mdash; all at the same time, for fifteen centuries, while parenting a species that could not yet understand the word <em>love</em>.
+      </div>
+
+      <p>That sentence is the entire article. Everything above is commentary on it. If the framework is right, the OT/NT problem is not a contradiction that requires faith to ignore. It is a single equation operating across two phases of one curriculum, taught by one Person, aimed at one outcome. The Person did not change. The vocabulary did. The students finally caught up.</p>
+
+      <hr>
+
+      <!-- ═══ WHAT YOU JUST READ ═══ -->
+      <h2>What You Just Read</h2>
+
+      <p>The Old Testament and the New Testament have one author. We have shown why with one equation: $dC/dt = O \cdot G(1-C) - S \cdot C$. The same three terms &mdash; justice, mercy, free will &mdash; that hold the framework together at the level of physics turn out to be the same three terms that hold theology together at the level of moral history.</p>
+
+      <p>The hard passages are still hard. I do not think any framework, including this one, makes the conquest of Canaan emotionally easy. But the framework does something the four standard answers cannot do: it makes the hard passages <em>intelligible</em>. It shows you why the action God took was the action that held all three constraints under conditions where every alternative violated at least one of them.</p>
+
+      <p>When you stood in the dirt in Part One, you stopped asking why God was so mean. You started asking how anyone built a house of mercy in that world at all. The framework's answer is that He held three constraints simultaneously for fifteen centuries, never relaxing any of them, while He raised a species from "infant sacrifice as crisis cult" to "love your enemies" &mdash; and He did it on the only timescale that did not break the receivers.</p>
+
+      <hr>
+
+      <!-- ═══ SOURCES ═══ -->
+      <h2>Sources and Historical Anchors</h2>
+
+      <ul>
+        <li><strong>Bioarchaeology of mortality:</strong> Population studies from Tel Azekah, Gezer, and other Levantine excavations. Infant mortality 27&ndash;30%, child mortality before age 15 at 48.8&ndash;50%, life expectancy at birth 25&ndash;30 years, maternal mortality risk approximately 1 in 8 pregnancies.</li>
+        <li><strong>Disease burden:</strong> Meta-analysis of skeletal remains and mummies. Schistosomiasis up to 65%, falciparum malaria 22%, visceral leishmaniasis 10%.</li>
+        <li><strong>Infant jar burials:</strong> Documented across Levantine domestic sites, infants buried in storage jars beneath house floors.</li>
+        <li><strong>Amarna Letters:</strong> EA 286, 288, 299, 148, and others &mdash; frantic dispatches from Canaanite city-state rulers to the Egyptian Pharaoh begging for military intervention against the Habiru. Fourteenth century BC.</li>
+        <li><strong>Late Bronze Age Collapse:</strong> Tree-ring data confirming multi-decade Mediterranean drought, Dead Sea dropping more than 50 meters, palace economy failure across the region.</li>
+        <li><strong>Tophet archaeology:</strong> Carthage and other Phoenician colonies. 20,000+ urns with cremated infant remains. Plutarch's description of the bronze statue with sloped hands.</li>
+        <li><strong>The drum etymology:</strong> Hebrew <em>toph</em> (drum) &rarr; <em>tophet</em> (the site of ritual fire).</li>
+        <li><strong>Hammurabi vs Mosaic comparison:</strong> Code of Hammurabi's three-tiered class structure vs the Mosaic Law's universal application.</li>
+        <li><strong>Cities of Refuge:</strong> Numbers 35, Deuteronomy 19, Joshua 20. Introduction of <em>mens rea</em> into legal proceedings 3,400 years before the modern era.</li>
+        <li><strong>Slavery as economic survival:</strong> Nuzi tablets documenting voluntary self-sale. Mosaic provisions: mandatory seventh-year release, freedom for injury including a single tooth, prohibition on returning runaway slaves, universal Sabbath rest.</li>
+        <li><strong>Zelophehad's daughters:</strong> Numbers 27 &mdash; first recorded establishment of female inheritance rights in the ancient Near East.</li>
+      </ul>
+
+      <hr>
+
+      <!-- ═══ THE AUDIT ═══ -->
+      <h2>The Honest Audit</h2>
+
+      <p><em>What we got right, what we are less sure about, and where we got carried away.</em></p>
+
+      <h3>What is load-bearing &mdash; we would bet on this</h3>
+
+      <p><strong>The Bronze Age conditions were real, and the numbers are real.</strong> Infant mortality near 50%, parasitic disease burden across most of the population, collapsed central authority, child sacrifice as a documented archaeological practice, blood feud as the default justice system. None of these are exaggerated.</p>
+
+      <p><strong>The three-constraint structure is real.</strong> Justice, mercy, and free will are not three competing values that have to be traded off. They are three terms in one equation that have to all be present for the equation to function.</p>
+
+      <p><strong>The pace argument is sound.</strong> Love really is calculus. The educational requirement for "love your neighbor as yourself" really does presuppose stable definitions of love, neighbor, and self that take centuries to construct.</p>
+
+      <p><strong>The Mosaic legal innovations are unprecedented.</strong> Cities of Refuge and the introduction of <em>mens rea</em>. Universal Sabbath rest including slaves and foreigners. The freedom-for-injury slave provision. Prohibition on returning runaway slaves. Female inheritance rights via Zelophehad's daughters. These are documented legal innovations with no parallel in surrounding ancient Near Eastern codes.</p>
+
+      <p><strong>The diagnostic/treatment phase distinction is structurally clean.</strong> A doctor in diagnostic mode uses different language than a doctor in treatment mode without being a different doctor.</p>
+
+      <p><strong>The Cross as convergence point is observationally correct.</strong> Justice paid, mercy delivered, free will preserved &mdash; all three at the same moment, in the same act, by the same Person.</p>
+
+      <h3>What is suggestive but needs more work</h3>
+
+      <p><strong>The conquest of Canaan section is the article's hardest move and its most contestable.</strong> I made the case that the four-hundred-year delay, the documented child sacrifice practices, and the protection of the covenant signal chain together justify the action. I believe this is correct. A reader who is unconvinced is not being unreasonable. This is the hardest passage in the framework and it deserves the longest sit.</p>
+
+      <p><strong>The Canaanite child sacrifice claim is real but its scope is debated.</strong> The Phoenician tophets and the cremation patterns are well-attested. But some scholars argue the practice was less universal than the prophetic denunciations suggest. A careful treatment would acknowledge this is contested ground at the margins.</p>
+
+      <p><strong>"Love your neighbor" as graduation, not orientation, is a strong hermeneutic claim.</strong> Some readers in traditions that emphasize the Sermon on the Mount as the entry point will hear this as a downgrade. It is not &mdash; it is a claim about <em>how</em> the teaching becomes intelligible, not about its importance.</p>
+
+      <h3>Where we got carried away</h3>
+
+      <p><strong>Part One reads like a documentary.</strong> The historical conditions described are real and footnoted. But the narrative voice &mdash; the man with you, the woman who buried four of six, the specific village &mdash; is a composite reconstruction. The form is dramatization even though the content is documented.</p>
+
+      <p><strong>"The math says so."</strong> The math does not say the OT and NT have one author. The math shows that a specific equation with three terms can hold three constraints simultaneously. The inference requires several additional steps, including the identification of justice with $S \cdot C$, mercy with $G$, and free will with $O$. Those identifications are defensible but they are not derivations.</p>
+
+      <p><strong>"Intelligibility is the difference between a God you can wrestle with and a God you have to walk away from."</strong> This is a strong line. But plenty of saints have wrestled with God without having an intelligibility framework available. The framework is one tool among several, not a replacement for the others.</p>
+
+      <p><em>The article above is what we believe. This audit is what we know we have not proven yet. Both matter.</em></p>
+
+      <div class="disclaimer-box">
+        <div class="disclaimer-label"><i class="fas fa-cross" style="margin-right:.4rem;"></i>The Disclaimer</div>
+        <p>We are finite minds reasoning about infinite God. Every model is a projection of higher-dimensional reality onto a lower-dimensional surface we can comprehend. We do not claim to have captured God in equations. We claim that when we look at His creation honestly &mdash; with the tools of physics and the revelation of Scripture &mdash; the same structure appears in both. Where our model limits what God can be, the limitation is ours, not His. We offer this work as worship, not as containment.</p>
+      </div>
+
+      <div class="axiom-box">
+        Framework Reference: Theophysics Master Equation &chi; = &iiint;(G&middot;M&middot;E&middot;S&middot;T&middot;K&middot;R&middot;Q&middot;F&middot;C) dx dy dt<br>
+        Paper ID: GTQ-009 &mdash; The Same God in Both Testaments<br>
+        Series: Genesis to Quantum, Article 09 of 10<br>
+        Status: DRAFT &mdash; three-constraint model applied to OT/NT problem; historical anchoring via Bronze Age bioarchaeology
+      </div>
+
+      <hr>
+
+      <!-- ═══ TANGENT 09-A: Regime-Dependent Theology ═══ -->
+      <div class="tangent-card">
+        <div class="tangent-label"><i class="fas fa-code-branch" style="margin-right:.4rem;"></i>Tangent 09-A</div>
+        <h3>Regime-Dependent Theology</h3>
+        <button class="tangent-toggle" onclick="toggleTangent(this)">
+          <i class="fas fa-chevron-right"></i> Expand Tangent Article
+        </button>
+        <div class="tangent-body">
+
+          <h2>The Ancient Paradox</h2>
+
+          <p>The oldest unresolved tension in Christianity is not the Trinity. It is this: why does God appear to behave differently in the Old Testament versus the New Testament? Marcion tried to resolve it in the 2nd century by saying they were literally different gods. The church rejected that as heresy but never fully resolved the structural question underneath it.</p>
+
+          <blockquote><p>Every pastor who has ever been asked "why is God so angry in the Old Testament" gives some version of "He's the same God, just... different dispensation." Which is a non-answer dressed as theology.</p></blockquote>
+
+          <p><strong>CLAIM:</strong> The apparent difference between OT God and NT God is entirely explained by the presence or absence of the Holy Spirit distribution mechanism, which changes what the adversary can do, which changes what God must do in response.</p>
+
+          <hr>
+
+          <h2>Layer 1: Old Testament Adversarial Access &mdash; Direct Coupling</h2>
+
+          <p>Look at every adversarial encounter in the Old Testament. Not the theology about them. The <em>structural pattern</em> of how they work.</p>
+
+          <p><strong>Genesis 3</strong> &mdash; the serpent speaks directly to Eve. No intermediary. Direct coupling: spiritual entity to human consciousness, face to face. <strong>Job 1&ndash;2</strong> &mdash; Satan appears in God's court. Has direct access to the divine council. Proposes a direct experiment on a human soul. <strong>Genesis 6</strong> &mdash; the "sons of God" take human wives. Direct physical-spiritual coupling. <strong>1 Samuel 16:14</strong> &mdash; "an evil spirit from the LORD troubled Saul." Direct. No institutional intermediary. <strong>1 Chronicles 21:1</strong> &mdash; "Satan stood up against Israel, and provoked David." Direct provocation. <strong>Zechariah 3:1</strong> &mdash; "Satan standing at his right hand to resist him." Physical proximity language.</p>
+
+          <p><strong>The pattern is consistent across a thousand years of OT narrative: adversarial access is DIRECT. Spiritual to human. No intermediary required. No institutional machinery needed.</strong></p>
+
+          <hr>
+
+          <h2>Layer 2: Old Testament Divine Intervention &mdash; External, Catastrophic, Targeted</h2>
+
+          <p>If the adversary has direct access, God's countermeasures must match. And they do. Every major divine intervention in the OT has the same structural signature: external force applied catastrophically at crisis points.</p>
+
+          <p><strong>The Flood</strong> &mdash; total system reset. When direct adversarial coupling has corrupted the entire network, the only recovery mechanism is catastrophic: wipe the nodes, preserve the seed (Noah), restart. <strong>Sodom and Gomorrah</strong> &mdash; localized destruction. When a local network is fully corrupted and there is no internal recovery mechanism. <strong>The Exodus</strong> &mdash; massive external intervention. Plagues, sea-parting, pillar of fire. God does not reform Egypt's institutions from within. He acts from outside the system with overwhelming force. <strong>The Exile</strong> &mdash; catastrophic displacement. God sends Babylon. External force. System destruction. Rebuild from scratch.</p>
+
+          <p><strong>The pattern: God intervenes externally and catastrophically because there is no internal correction mechanism. The Holy Spirit has not been distributed. Human nodes have no built-in defense against direct adversarial coupling.</strong></p>
+
+          <blockquote><p>A surgeon who amputates a gangrenous limb is not more violent than one who prescribes antibiotics. The amputation is required when antibiotics do not exist yet. The Holy Spirit IS the antibiotic. Before Pentecost, amputation was the only option.</p></blockquote>
+
+          <hr>
+
+          <h2>Layer 3: New Testament Shift &mdash; The Architecture Changes</h2>
+
+          <p>Now watch what happens at Pentecost. Acts 2. The Holy Spirit distributes to <em>all believers</em>. Not to one prophet at a time. To everyone. Permanently. And IMMEDIATELY the adversarial encounter pattern changes.</p>
+
+          <p><strong>Ephesians 6:12</strong> &mdash; "For we wrestle not against flesh and blood, but against principalities, against powers, against the rulers of the darkness of this world." This is <em>structural</em> language. Not "Satan appeared before me." Paul is not describing a face-to-face adversary. He is describing an adversary that now works <em>through structures</em>.</p>
+
+          <p><strong>Ephesians 6:13&ndash;17</strong> &mdash; the armor of God. Defensive equipment. Shield, helmet, breastplate. Protection <em>against indirect attack</em>. You do not need armor against someone whispering in your ear. You need armor against projectiles &mdash; attacks that come through intermediary mechanisms.</p>
+
+          <p><strong>1 Peter 5:8</strong> &mdash; "your adversary the devil, as a roaring lion, walketh about, seeking whom he may devour." <em>Seeking.</em> Not devouring at will. The "whom he MAY" is the constraint. The Holy Spirit has created a permission structure that did not exist before.</p>
+
+          <p><strong>The structural signature is unmistakable: post-Pentecost adversarial activity shifts from direct personal encounter to structural, institutional, systemic operation. And God's intervention shifts correspondingly from external catastrophe to internal continuous correction.</strong></p>
+
+          <hr>
+
+          <h2>Layer 4: The Statistical Evidence</h2>
+
+          <p><strong>Measurable 1: Frequency of direct adversarial encounters.</strong> Count every direct spiritual-entity-to-human encounter in the OT versus the NT. The OT is dense with them. The NT has them clustered in the Gospels (transition period) and then they drop dramatically in Acts and the Epistles.</p>
+
+          <p><strong>Measurable 2: Divine intervention modality.</strong> Categorize every divine intervention by type: external-catastrophic versus internal-corrective. The distribution should show a clear phase transition at the Gospels/Acts boundary. Pre-transition: floods, fire, plagues, exile, conquest. Post-transition: visions, conviction, guidance, spiritual gifts, community formation.</p>
+
+          <p><strong>Measurable 3: Language shift from personal to structural.</strong> OT adversarial language is dominated by personal encounter verbs: appeared, stood, spoke, tempted, provoked. NT post-Pentecost language is dominated by structural nouns: principalities, powers, rulers, dominions, thrones, world-system.</p>
+
+          <p><strong>Measurable 4: Community resilience patterns.</strong> OT communities collapse catastrophically and repeatedly. The cycle of Judges is a system without internal self-correction &mdash; a damped oscillator with no restoring force except external intervention. Post-Pentecost communities face persecution and <em>grow</em>. That is the signature of a system with internal self-correction.</p>
+
+          <hr>
+
+          <h2>Layer 5: The Paradox, Named Precisely</h2>
+
+          <p>Post-Pentecost, humanity exists in three states:</p>
+
+          <p><strong>$\sigma = +1$</strong> &mdash; Coupled to Holy Spirit. Protection layer active. Adversary forced into structural/indirect attack mode. Internal self-correction operative.</p>
+
+          <p><strong>$\sigma = -1$</strong> &mdash; Actively coupled to adversarial field. No protection layer, and more: <em>inverted</em> coupling. Voluntary alignment with extraction architecture.</p>
+
+          <p><strong>$\sigma = 0$</strong> &mdash; Uncoupled. Babies, the unreached, those below the age of accountability. Also &mdash; possibly everyone pre-Pentecost.</p>
+
+          <p>The paradox deepens: "the law written on their hearts" (Romans 2:15, Jeremiah 31:33). Is that a pre-Pentecost phenomenon? If so, that is not $\sigma = 0$ exactly &mdash; it is something like $\sigma = \epsilon$, an infinitesimal coupling that provides moral awareness but not protection against direct adversarial access. Enough to be accountable but not enough to resist.</p>
+
+          <p>That might be the structural content of the Fall. Not that humans lost all connection to the coherence field, but that they lost the <em>protection layer</em>. The conscience remains but the shield is gone. The Holy Spirit at Pentecost does not create something totally new &mdash; it <em>restores</em> what was lost at the Fall. Eden was the normal state. The OT was the <em>damaged</em> state. And Pentecost was the <em>restoration</em>.</p>
+
+          <div class="disclaimer-box" style="border-color:rgba(168,85,247,.2);">
+            <div class="disclaimer-label" style="color:var(--purple);"><i class="fas fa-cross" style="margin-right:.4rem;"></i>The Disclaimer</div>
+            <p>We are finite minds reasoning about infinite God. Every model is a projection of higher-dimensional reality onto a lower-dimensional surface we can comprehend. We do not claim to have captured God in equations. We claim that when we look at His creation honestly &mdash; with the tools of physics and the revelation of Scripture &mdash; the same structure appears in both. Where our model limits what God can be, the limitation is ours, not His. We offer this work as worship, not as containment.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ═══ TANGENT 09-B: Isomorphism of Civilizational Decay ═══ -->
+      <div class="tangent-card">
+        <div class="tangent-label"><i class="fas fa-code-branch" style="margin-right:.4rem;"></i>Tangent 09-B</div>
+        <h3>Isomorphism of Civilizational Decay</h3>
+        <button class="tangent-toggle" onclick="toggleTangent(this)">
+          <i class="fas fa-chevron-right"></i> Expand Tangent Article
+        </button>
+        <div class="tangent-body">
+
+          <h2>The Structural Thesis</h2>
+
+          <p>The structural foundations of human civilization are rarely as novel as the aesthetic of their era suggests. While the transition from the Late Bronze Age to the digital epoch is characterized by immense technological advancement, a rigorous comparative analysis of spiritual and societal "architecture" suggests a profound isomorphism between the Canaanite system of the second millennium BC and the modern Western post-enlightenment framework. The transition from bronze statues to digital interfaces does not represent a change in the fundamental human drive toward transactional divinity, but rather a more efficient industrialization of that drive.</p>
+
+          <hr>
+
+          <h2>The Environment of 1400 BC</h2>
+
+          <p>Bioarchaeological evidence from sites such as Amarna (Akhetaten) provides a window into a population under constant physiological stress. The absence of germ theory and antibiotics resulted in mortality rates that shaped every religious and social impulse. Infant mortality was the primary driver of the Canaanite religious psyche &mdash; nearly fifty percent of all children did not survive to the age of fifteen.</p>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Tablet ID</th>
+                <th>Origin</th>
+                <th>Content Summary</th>
+                <th>Primary Concern</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>EA 286</td><td>Jerusalem (Abdi-Heba)</td><td>"The king has no lands! The Habiru have plundered all."</td><td>Lack of military security</td></tr>
+              <tr><td>EA 287</td><td>Jerusalem (Abdi-Heba)</td><td>"The deed of Milkili... they have given the land to the Habiru."</td><td>Internal betrayal and subversion</td></tr>
+              <tr><td>EA 288</td><td>Jerusalem (Abdi-Heba)</td><td>"I am situated like a ship in the midst of the sea."</td><td>Isolation and imminent collapse</td></tr>
+              <tr><td>EA 299</td><td>Gezer (Yapahu)</td><td>"The Habiru are stronger than we... lest they destroy us."</td><td>Existential threat from outsiders</td></tr>
+              <tr><td>EA 307</td><td>Unknown Ruler</td><td>"The Habiru men are strong against us."</td><td>Persistent military pressure</td></tr>
+            </tbody>
+          </table>
+
+          <hr>
+
+          <h2>The Coherence Equation Applied</h2>
+
+          <p>The movement of a soul or a society toward or away from alignment can be represented as:</p>
+
+          <div class="eq-block">
+            <div class="eq-label">Coherence Equation &mdash; Civilizational Application</div>
+            $\frac{dC}{dt} = O \cdot G(1-C) - S \cdot C$
+          </div>
+
+          <p>The $S \cdot C$ term represents structural justice. When the Old Testament describes the "wrath" of God falling on Canaan, it is describing the $S \cdot C$ term operating at industrial scale. After four centuries of accumulated decoherence &mdash; ritual child-killing, systemic deception, and the normalization of the blood feud &mdash; the society reached a state where the entropy of its own choices became terminal.</p>
+
+          <p>Statistical analysis of the lifespan data in the early chapters of the biblical narrative fits an exponential decay curve with $R^2 = 0.888$, suggesting that the narrative describes a consistent process of biological and spiritual entropy.</p>
+
+          <hr>
+
+          <h2>Category 1: The Architecture of Sacrifice &mdash; Molech to the Modern Clinic</h2>
+
+          <p>Excavations at Carthage have uncovered tophets containing upwards of 20,000 urns with cremated infant remains. The term "Tophet" is derived from the Hebrew word <em>toph</em>, meaning "drum" &mdash; used to drown out the cries of the children.</p>
+
+          <p>In the modern context, the sacrifice of children has shifted from ritual for agricultural survival to a mechanism for economic convenience and individual autonomy. Globally, abortion accounts for approximately 73.3 million procedures per year. The "drums" of the modern era are digital and ideological &mdash; clinical language that serves to desensitize the individual to the biological reality of the act.</p>
+
+          <p>The sacrifice extends into modern parenting: over 6 million children in the United States are currently prescribed ADHD medications; screen-parenting replaces the parental bond with digital consumption; the statistically documented absence of present fathers functions as structural abandonment.</p>
+
+          <hr>
+
+          <h2>Category 2: Sacred Sexuality vs. Commoditized Consumption</h2>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Ancient Temple Prostitution</th>
+                <th>Modern Pornography / OnlyFans</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Transaction</strong></td><td>Currency for ritual sexual access</td><td>Subscription for digital sexual access</td></tr>
+              <tr><td><strong>Context</strong></td><td>Religious / Ritualistic</td><td>Entertainment / Economic</td></tr>
+              <tr><td><strong>Spiritual Goal</strong></td><td>Communion with a deity / Fertility</td><td>"Self-actualization" / Dopamine regulation</td></tr>
+              <tr><td><strong>Architecture</strong></td><td>Physical temple</td><td>Digital platform</td></tr>
+              <tr><td><strong>Status of Actor</strong></td><td>Sacred slave / Vessel</td><td>Content creator / Independent "idol"</td></tr>
+              <tr><td><strong>Industry Value</strong></td><td>Community-funded</td><td>$97B&ndash;$150B annually</td></tr>
+            </tbody>
+          </table>
+
+          <hr>
+
+          <h2>Category 3: Pharmakeia and the Chemical Priesthood</h2>
+
+          <p>The Greek word for sorcery in the New Testament is <em>pharmakeia</em>, which literally refers to the use of drugs and potions to alter consciousness. The modern pharmaceutical dependence mirrors this architecture: over 500,000 opioid deaths in the U.S. since 1999, 1 in 8 Americans on antidepressants, and the resurgence of psychedelics as "spiritual practice" &mdash; the literal return to the pharmacological rituals of the ancient Near East.</p>
+
+          <hr>
+
+          <h2>Category 4: Divination, Sorcery, and the Power Fantasy</h2>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Ancient Divination</th>
+                <th>Modern Parallel</th>
+                <th>Underlying Mechanism</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Astrology (Zodiac)</strong></td><td>Astrology / Horoscope Apps</td><td>Seeking external scripts to bypass moral agency</td></tr>
+              <tr><td><strong>Tarot / Lot Casting</strong></td><td>Tarot / Manifestation</td><td>Seeking to control reality via ritualized focus</td></tr>
+              <tr><td><strong>Sorcery (Spells)</strong></td><td>"Law of Attraction"</td><td>Believing internal states dictate external outcomes</td></tr>
+              <tr><td><strong>Bloodline Magic</strong></td><td>Superhero / Potter tropes</td><td>Power as inherent trait vs. earned virtue</td></tr>
+            </tbody>
+          </table>
+
+          <hr>
+
+          <h2>Category 5: Idolatry and the Sovereignty of the Self</h2>
+
+          <p>The ultimate shift in the architecture of idolatry is the move from the external bronze statue to the internal self. The phrase "my truth" functions as a declaration that the self is the final arbiter of reality &mdash; a god that tells you what you want to hear. Social media platforms function as modern "high places." The "influencer" is a literal idol-maker as a career path.</p>
+
+          <hr>
+
+          <h2>Category 6: Blood Feuds and Digital Retribution</h2>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Legal Concept</th>
+                <th>Mosaic / Biblical Infrastructure</th>
+                <th>Modern Western Reality (Digital)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Justice Type</strong></td><td>Proportional (Lex Talionis)</td><td>Escalatory (Cancel Culture)</td></tr>
+              <tr><td><strong>Asylum</strong></td><td>Cities of Refuge (Arei Miklat)</td><td>None; "the internet never forgets"</td></tr>
+              <tr><td><strong>Intent</strong></td><td>Distinction between accidental and premeditated</td><td>Intent is irrelevant to the impact</td></tr>
+              <tr><td><strong>Role of Elders</strong></td><td>Inquiry and diligent trial</td><td>Mob rule / Algorithmic "piling on"</td></tr>
+              <tr><td><strong>Sanctuary</strong></td><td>The Altar / The Levitical City</td><td>De-platforming / Total exile</td></tr>
+            </tbody>
+          </table>
+
+          <hr>
+
+          <h2>Category 7: Molech Economics and Debt Slavery</h2>
+
+          <p>The god Molech was synonymous with the sacrifice of the future (the child) for the sake of the present (the harvest). Modern economics has adopted this exact structural pattern through permanent intergenerational debt. The U.S. national debt exceeding $34 trillion is a literal structure of intergenerational wealth extraction &mdash; a complete inversion of the Mosaic Law, which mandated a debt release every seven years (the Shemitah).</p>
+
+          <hr>
+
+          <h2>Synthesis</h2>
+
+          <p>The isomorphism between the Canaanite world and the modern West is not a series of coincidences; it is a complete structural alignment. We are running the same spiritual architecture at an industrial scale. The mathematical reality of the coherence equation suggests that a system cannot optimize for $S$ (entropy) indefinitely. The Old Testament's judgment on Canaan was the mechanical conclusion of 400 years of accumulated decoherence. The equation does not care that we replaced bronze statues with clinic waiting rooms; it only cares that the output of the system is the sacrifice of the future for the sake of a counterfeit present.</p>
+
+          <div class="disclaimer-box" style="border-color:rgba(168,85,247,.2);">
+            <div class="disclaimer-label" style="color:var(--purple);"><i class="fas fa-cross" style="margin-right:.4rem;"></i>The Disclaimer</div>
+            <p>We are finite minds reasoning about infinite God. Every model is a projection of higher-dimensional reality onto a lower-dimensional surface we can comprehend. We do not claim to have captured God in equations. We claim that when we look at His creation honestly &mdash; with the tools of physics and the revelation of Scripture &mdash; the same structure appears in both. Where our model limits what God can be, the limitation is ours, not His. We offer this work as worship, not as containment.</p>
+          </div>
+
+        </div>
+      </div>
+
+    </article>
+    </section>
+
+    <section id="summary" class="tab-content">
+      <article class="story wide">
+        <div class="exec-summary" style="margin-top:1rem;">
+          <div class="exec-summary-label"><i class="fas fa-bolt" style="margin-right:.4rem;"></i>Executive Summary</div>
+          <p>[[3-5 sentences. The 'if you read nothing else' version.]]</p>
+        </div>
+      </article>
+    </section>
+
+    <section id="rigor" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-2">Rigor &amp; Kill Conditions</h2>
+        <p class="text-[#a0a0a0] mb-6">Every claim is held to explicit falsification standards.</p>
+        <div class="kill-card"><div class="kill-label">Load-Bearing</div><p><strong>Kill if:</strong> [[Specific testable falsifier.]]</p></div>
+        <div class="kill-card suggestive"><div class="kill-label">Suggestive</div><p><strong>Kill if:</strong> [[Weaker falsifier.]]</p></div>
+        <div class="kill-card destructive"><div class="kill-label">Destructive</div><p><strong>Kill if:</strong> [[Framework-level falsifier.]]</p></div>
+      </article>
+    </section>
+
+    <section id="media" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-4">Watch &amp; Listen</h2>
+        <div style="background:var(--surface-light);border:1px solid var(--border);border-radius:.5rem;padding:1.5rem;margin-bottom:1.5rem;">
+          <video controls style="width:100%;border-radius:.375rem;background:#000;" preload="metadata">
+            <source src="video/GTQ_09_Same_God_Both_Testaments.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </article>
+    </section>
+
+    <section id="blackboard" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-4">Blackboard</h2>
+        <p class="text-[#a0a0a0] mb-6">Interactive scratch space.</p>
+      </article>
+    </section>
+  </div>
+
+  <aside class="kill-sidebar">
+    <div class="kill-sidebar-title"><i class="fas fa-skull-crossbones" style="margin-right:.4rem;"></i>Kill Conditions</div>
+    <div class="kill-card"><div class="kill-label">Load-Bearing</div><p><strong>Kill if:</strong> [[Primary kill condition.]]</p></div>
+    <div class="kill-card suggestive"><div class="kill-label">Suggestive</div><p><strong>Kill if:</strong> [[Secondary.]]</p></div>
+    <div class="kill-card destructive"><div class="kill-label">Destructive</div><p><strong>Kill if:</strong> [[Framework-level.]]</p></div>
+    <div style="margin-top:1.5rem;padding:1rem;background:var(--surface-light);border:1px solid var(--border);border-radius:.5rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:.5rem;">Article Stats</div>
+      <div style="font-size:.8rem;color:var(--text-secondary);line-height:1.8;">
+        <div><i class="fas fa-clock" style="width:1rem;color:var(--highlight);"></i> 10 min read</div>
+        <div><i class="fas fa-layer-group" style="width:1rem;color:var(--highlight);"></i> Main Article</div>
+        <div><i class="fas fa-crosshairs" style="width:1rem;color:var(--highlight);"></i> 4 kill conditions</div>
+        <div><i class="fas fa-headphones" style="width:1rem;color:var(--highlight);"></i> 0 audio versions</div>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<!-- Bottom navigation -->
+<div class="container mx-auto px-6" style="padding-left:4.5rem;">
+  <div class="bottom-nav">
+    <a href="../21-science-behind-restoration/gtq-21-science-behind-restoration.html"><i class="fas fa-arrow-left"></i>Previous: The Science Behind the Restoration</a>
+    <div class="nav-center">Article 22 of 26</div>
+    <a href="../23-regime-dependent-theology/gtq-23-regime-dependent-theology.html" class="primary">Next: The Structural Case for Regime-Dependent Theology<i class="fas fa-arrow-right"></i></a>
+  </div>
+  <div style="text-align:center;margin-bottom:2rem;">
+    <a href="../25-counter-move/gtq-25-counter-move.html" style="display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;background:var(--highlight-glow);border:1px solid var(--highlight-dim);border-radius:.375rem;color:var(--highlight);text-decoration:none;font-size:.8rem;">
+      <i class="fas fa-forward"></i>Skip to next main: The Counter-Move
+    </a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="eq">χ = f(G, M, E, S, T, K, R, Q, F, C)</div>
+  <p>David Lowe &middot; Genesis to Quantum &middot; Part 22 of 26</p>
+  <p class="serif" style="font-style:italic;color:var(--text-secondary);margin-top:.5rem;">&ldquo;But while he was still a long way off, his father saw him.&rdquo;</p>
+</footer>
+
+<script>
+function toggleSidebar(){
+  var sb=document.getElementById('sidebar');
+  var ov=document.getElementById('sidebarOverlay');
+  sb.classList.toggle('open');
+  ov.classList.toggle('show');
+  document.body.style.overflow=sb.classList.contains('open')?'hidden':'';
+}
+window.addEventListener('scroll',function(){
+  var st=window.scrollY||document.documentElement.scrollTop;
+  var dh=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+  var pct=dh>0?(st/dh)*100:0;
+  document.getElementById('progressBar').style.width=pct+'%';
+});
+function switchTab(tabId){
+  document.querySelectorAll('.tab-content').forEach(function(el){el.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(el){el.classList.remove('active');});
+  document.getElementById(tabId).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    var sb=document.getElementById('sidebar');
+    if(sb&&sb.classList.contains('open')) toggleSidebar();
+  }
+});
+
+/* Audio dock engine */
+(function(){
+  var dock = document.getElementById('audioDock');
+  if(!dock) return;
+  var body=document.getElementById('dockBody'), empty=document.getElementById('dockEmpty');
+  var playBtn=document.getElementById('dockPlay'), icon=document.getElementById('dockPlayIcon');
+  var fill=document.getElementById('dockFill'), curEl=document.getElementById('dockCurrent'), durEl=document.getElementById('dockDuration');
+  var volBtn=document.getElementById('dockVol');
+  var pills=dock.querySelectorAll('.dock-pill');
+  var audio=new Audio(); audio.preload='metadata';
+  var activeKey=null, muted=false;
+  var pillColors={deep:'#4a9eff',read:'#d4af37',debate:'#a855f7',critique:'#2dd4bf'};
+
+  function fmt(s){if(!s||isNaN(s))return '0:00';var m=Math.floor(s/60),sec=Math.floor(s%60);return m+':'+(sec<10?'0':'')+sec;}
+
+  pills.forEach(function(p){if(!p.dataset.url)p.classList.add('unavailable');});
+
+  pills.forEach(function(p){
+    p.addEventListener('click',function(){
+      var key=p.dataset.src, url=p.dataset.url;
+      if(!url)return;
+      if(key===activeKey){if(audio.paused)audio.play();else audio.pause();return;}
+      audio.pause(); audio.src=url; activeKey=key;
+      pills.forEach(function(q){q.classList.remove('active');}); p.classList.add('active');
+      var c=pillColors[key]||'#d4af37';
+      fill.style.background=c; playBtn.style.borderColor=c; playBtn.style.color=c;
+      body.classList.remove('hidden'); empty.classList.remove('visible');
+      audio.play();
+    });
+  });
+
+  var firstAvail=dock.querySelector('.dock-pill[data-url]');
+  if(firstAvail){var key=firstAvail.dataset.src; audio.src=firstAvail.dataset.url; activeKey=key;}
+  else{body.classList.add('hidden');empty.classList.add('visible');}
+
+  window.dockToggle=function(){if(!audio.src)return;if(audio.paused)audio.play();else audio.pause();};
+  audio.addEventListener('play',function(){icon.className='fas fa-pause';playBtn.classList.add('playing');});
+  audio.addEventListener('pause',function(){icon.className='fas fa-play';playBtn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){icon.className='fas fa-play';playBtn.classList.remove('playing');fill.style.width='0%';curEl.textContent='0:00';});
+  audio.addEventListener('timeupdate',function(){if(!audio.duration)return;fill.style.width=(audio.currentTime/audio.duration*100)+'%';curEl.textContent=fmt(audio.currentTime);});
+  audio.addEventListener('loadedmetadata',function(){durEl.textContent=fmt(audio.duration);});
+  window.dockSeek=function(e){if(!audio.duration)return;var t=e.currentTarget;var r=t.getBoundingClientRect();var p=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));audio.currentTime=p*audio.duration;};
+  window.dockMute=function(){muted=!muted;audio.muted=muted;volBtn.innerHTML=muted?'<i class="fas fa-volume-mute"></i>':'<i class="fas fa-volume-up"></i>';};
+})();
+</script>
+
+</body>
+</html>

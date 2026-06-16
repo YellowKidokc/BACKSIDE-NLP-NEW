@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Trinity-Wave Collapse Mechanism — Theophysics — Moral Decline of America</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a;
+  --border:#2a2a2a; --border-claim:rgba(212,175,55,.35);
+  --text:#e0e0e0; --text2:#a0a0a0; --text3:#707070;
+  --mda-red:#dc2626; --mda-red-glow:rgba(220,38,38,.08);
+  --claim:#d4af37; --claim-glow:rgba(212,175,55,.08);
+  --easy:#22c55e; --easy-glow:rgba(34,197,94,.08);
+  --academic:#a78bfa; --academic-glow:rgba(167,139,250,.08);
+  --proof:#f59e0b; --proof-glow:rgba(245,158,11,.08);
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  line-height:1.65; margin:0; padding:0;
+}
+</style>
+<style>
+/* Reader Mode Bar */
+.mda-reader-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:.5rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;
+}
+.mda-reader-bar .series-badge{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mda-red);font-weight:600;
+}
+.mda-reader-bar .meta{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;
+  color:var(--text3);text-transform:uppercase;letter-spacing:.06em;
+}
+.tab-group{display:flex;gap:.4rem;flex-wrap:wrap;}
+.tab-btn{
+  padding:.4rem .7rem;border:1px solid var(--border);border-radius:.35rem;
+  background:var(--surface);color:var(--text2);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em;transition:all .2s;
+}
+.tab-btn:hover{border-color:var(--mda-red);color:var(--text);}
+.tab-btn.active{border-color:var(--mda-red);background:var(--mda-red-glow);color:var(--mda-red);}
+.tab-btn[data-tab="easy"].active{border-color:var(--easy);background:var(--easy-glow);color:var(--easy);}
+.tab-btn[data-tab="academic"].active{border-color:var(--academic);background:var(--academic-glow);color:var(--academic);}
+.tab-btn[data-tab="proof"].active{border-color:var(--proof);background:var(--proof-glow);color:var(--proof);}
+
+/* Article */
+.article{max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem;}
+.article h1{
+  font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.02em;
+  margin:0 0 .5rem;line-height:1.1;
+}
+.article .subtitle{
+  font-family:'Crimson Text',serif;font-size:1.15rem;color:var(--text2);
+  font-style:italic;margin:0 0 2rem;line-height:1.5;
+}
+.article h2{
+  font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:#fff;
+  text-transform:uppercase;letter-spacing:.04em;margin:2.5rem 0 1rem;
+  border-bottom:1px solid var(--border);padding-bottom:.4rem;
+}
+.article h3{font-family:'Crimson Text',serif;font-size:1.15rem;font-weight:600;color:var(--mda-red);margin:1.5rem 0 .5rem;}
+.article p{font-size:1.02rem;line-height:1.75;margin:0 0 1.25rem;}
+.article blockquote{
+  border-left:3px solid var(--mda-red);background:var(--mda-red-glow);
+  padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 .4rem .4rem 0;
+  font-family:'Crimson Text',serif;font-style:italic;color:var(--text2);
+}
+.article img{max-width:100%;border-radius:.4rem;margin:1rem 0;}
+.mda-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
+.mda-table td{padding:.4rem .6rem;border:1px solid var(--border);color:var(--text2);}
+.mda-table tr:first-child td{font-weight:600;color:var(--text);background:var(--surface);}
+
+/* Reading level panels */
+.level-panel{display:none;}
+.level-panel.active{display:block;}
+
+/* Proof panel */
+.proof-panel{display:none;max-width:780px;margin:0 auto;padding:1.5rem;}
+.proof-panel.active{display:block;}
+.mda-proof-eyebrow{
+  font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--proof);margin-bottom:.6rem;
+}
+.math-field{display:flex;gap:.5rem;margin:.4rem 0;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.math-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--proof);font-weight:600;min-width:180px;}
+.math-value{font-size:.85rem;color:var(--text2);}
+.math-item{font-size:.85rem;color:var(--text);padding:.2rem 0 .2rem 1rem;border-left:2px solid var(--border);margin:.3rem 0;}
+.mda-proof-placeholder{color:var(--text3);font-style:italic;font-size:.9rem;}
+
+/* Glossary */
+.mda-glossary{columns:1;}
+.glossary-entry{break-inside:avoid;margin-bottom:.8rem;}
+.glossary-entry dt{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--academic);font-weight:600;}
+.glossary-entry dd{font-size:.85rem;color:var(--text2);margin:0 0 0 .5rem;}
+.glossary-domain{font-size:.65rem;color:var(--text3);margin-left:.5rem;font-style:italic;}
+
+/* Easy level overrides */
+body.mode-easy .article p{font-size:1.15rem;line-height:1.85;}
+body.mode-easy .article h3{font-size:1.3rem;color:var(--easy);font-family:'Oswald',sans-serif;}
+body.mode-easy .article blockquote{border-left-color:var(--easy);background:var(--easy-glow);font-style:normal;}
+/* Academic level overrides */
+body.mode-academic .article p{font-size:.95rem;line-height:1.65;color:#d0d0d0;}
+body.mode-academic .article h3{font-size:1.1rem;color:var(--academic);font-family:'Crimson Text',serif;font-style:italic;}
+body.mode-academic .article blockquote{border-left-color:var(--academic);background:var(--academic-glow);}
+
+@media(max-width:640px){
+  .article{padding:1.5rem 1rem 4rem;}
+  .mda-reader-bar{padding:.4rem 1rem;}
+}
+</style>
+</head>
+<body class="mode-standard">
+
+<!-- BEGIN:COMPONENT:reader-mode:reader-mode-bar -->
+<div class="mda-reader-bar">
+  <div>
+    <span class="series-badge">Moral Decline of America</span>
+    <span class="meta">MDA-030</span>
+    <span class="meta" id="mode-status">Standard active</span>
+  </div>
+  <div class="tab-group">
+    <button class="tab-btn" data-tab="easy" onclick="setTab('easy')">Easy</button>
+    <button class="tab-btn active" data-tab="standard" onclick="setTab('standard')">Standard</button>
+    <button class="tab-btn" data-tab="academic" onclick="setTab('academic')">Academic</button>
+    <button class="tab-btn" data-tab="proof" onclick="setTab('proof')">Proof</button>
+  </div>
+</div>
+<!-- END:COMPONENT:reader-mode:reader-mode-bar -->
+
+<!-- BEGIN:LEVEL:standard -->
+<div class="level-panel active" data-level="standard">
+  <article class="article">
+    <h1>The Trinity-Wave Collapse Mechanism — Theophysics</h1>
+    <p class="subtitle">MDA-030 · David Lowe · Theophysics Institute</p>
+    <p><a href="index.html">Moral Decline</a></p>
+<p>THEOPHYSICS</p>
+<p>Theophysics Research • Quantum Theology</p>
+<h1>The Trinity-Wave Collapse Mechanism</h1>
+<p>How Father, Son, and Spirit Actualize Every Quantum Moment</p>
+<p><img alt="Story Illustration" src="../images/mda/PHASE_TRANSITION conv 6.webp" /></p>
+<p>The Operating System of Reality</p>
+<p>David Lowe • Theophysics</p>
+<h2>1. The Problem of "Now"</h2>
+<p><a href="/glossary/?term=quantum-mechanics" title="See glossary: Quantum mechanics">Quantum mechanics</a> faces a paradox: the math describes a world of infinite, overlapping possibilities. Our experience is of a single, definite reality.</p>
+<p>The <strong>Wave Function</strong> (|ψ⟩) contains everything that could happen. The <strong>Collapse</strong> selects the one thing that does happen. But who observes? What decides? Why is there a "now" at all?</p>
+<p>Physics has no answer. It describes the collapse perfectly and cannot explain it at all. The <a href="/glossary/?term=measurement-problem" title="See glossary: measurement problem">measurement problem</a> has remained open for a century.</p>
+<p>We propose, within the Theophysics formal layer, that the Trinity supplies a candidate structure for collapse: potential, pattern, and actualization. This is not being claimed here as a completed public demonstration. In the MDA evidence layer, it functions as a theological-formal interpretation of the question: how does the infinite become the actual?</p>
+<hr />
+<h2>2. The Mathematical Framework</h2>
+<p>At the heart of Theophysics is the <strong>χ-field (Chi-field)</strong> — the substrate of reality described by the Master Equation. The field χ decomposes into three orthogonal components, corresponding exactly to the three Persons of the Trinity:</p>
+<p>Chi-Field Decomposition</p>
+<p>[ \chi = \chi_{\text{Father}} + \chi_{\text{Son}} + \chi_{\text{Spirit}} ]</p>
+<p>The informational substrate of reality decomposes into three irreducible, orthogonal operators — not by analogy, but by structural necessity.</p>
+<p>χ_Father</p>
+<p>Generation</p>
+<p>Source of infinite potential</p>
+<p>χ_Son</p>
+<p>Structure</p>
+<p>The ordering principle (∇·χ = 0)</p>
+<p>χ_Spirit</p>
+<p>Actualization</p>
+<p>The localizing operator P = |⟨ψ|a⟩|²</p>
+<hr />
+<h2>3. The Three Persons: Functional Analysis</h2>
+<h3><a href="/glossary/?term=god-the-father" title="See glossary: God the Father">God the Father</a></h3>
+<p>Infinite Possibility Generator</p>
+<p>Role: Source of all possible realities</p>
+<p>Mathematical Form — The Hamiltonian Operator</p>
+<p>[ \hat{H}|\psi\rangle = E|\psi\rangle ]</p>
+<p>The Father generates the <strong>Quantum Foam</strong> — the "Both/And" state. Before any moment becomes real, it exists as a superposition of infinite possibilities in the Father's mind. He does not just create once; He continuously sustains the Possibility Space.</p>
+<p>Visual</p>
+<p>Yellow stars radiating outward — infinite branching, unconstrained potential</p>
+<p>Concept</p>
+<p>Infinite branching — the eigenstate spectrum before selection</p>
+<p>Theology</p>
+<p>"Maker of Heaven and Earth" = Generator of the eigenstate spectrum</p>
+<h3><a href="/glossary/?term=jesus-the-son" title="See glossary: Jesus the Son">Jesus the Son</a></h3>
+<p>Temporal Coherence Structurer</p>
+<p>Role: Orders chaos into cosmos</p>
+<p>Mathematical Form — The Divergence Condition</p>
+<p>[ \nabla \cdot \chi = 0 ]</p>
+<p>Possibility is chaos without structure. The Son acts as the <strong>Filter of Coherence</strong>. He selects from the infinite possibilities those that align with Divine Logic (Logos). He ensures that reality flows intelligibly from past to future, maintaining the <em>conservation of information</em>.</p>
+<p>Visual</p>
+<p>A magenta helix spiraling through the yellow field — zero divergence in motion</p>
+<p>Concept</p>
+<p>Zero divergence, perfect order, non-contradiction — Logos as filter</p>
+<p>Theology</p>
+<p>"Through Him all things were made" = Structure cannot exist without the Logos</p>
+<h3>The Holy Spirit</h3>
+<p>Temporal Actualizer</p>
+<p>Role: Makes possibility into present reality</p>
+<p>Mathematical Form — The Born Rule</p>
+<p>[ P(a) = |\langle\psi|a\rangle|^2 ]</p>
+<p>The Spirit is the <strong>Ultimate Observer</strong>. He takes the Father's possibility, filtered by the Son's structure, and breathes life into it — collapsing the wave function into a discrete "Now." The Hebrew <em>ruach</em> (breath/wind/spirit) is not poetic decoration. It is a precise physical description.</p>
+<p>Visual</p>
+<p>Cyan clouds collapsing into brilliant white stars — the spark of actualization</p>
+<p>Concept</p>
+<p>The bridge between abstract and concrete — the moment "both/and" becomes "this"</p>
+<p>Theology</p>
+<p>"The Giver of Life" = The Collapse of the Wave Function into reality</p>
+<h3>3.4 The Unity: Love as the Binding Force</h3>
+<p>The Gluon Field — Quantum Chromodynamics and the Trinity</p>
+<p><strong>The Question:</strong> Why are there three Persons but only One God?</p>
+<p><strong>The Physics Answer:</strong> Quantum Chromodynamics (QCD). In a proton, there are three quarks. But 99% of the proton's mass comes not from the quarks themselves, but from the <em>Binding Energy of the Gluon Field</em> holding them together.</p>
+<p>In the Trinity, the "Substance" that makes them One is <strong>Love (Agape)</strong>.</p>
+<p>Physics</p>
+<p>Up Quark → Father (Potential)</p>
+<p>Down Quark → Son (Pattern)</p>
+<p>Strange Quark → Spirit (Actualization)</p>
+<p>Gluon Field → Love (Agape)</p>
+<p>The Binding Formula</p>
+<p>God = Father + Son + Spirit + Love</p>
+<p>They are distinct in function (Quarks) but indivisible in substance (The Gluon Field). This is not metaphor. This is the structure of confinement.</p>
+<p>Love is not an emotion; it is the Strong Force of theology.</p>
+<hr />
+<h2>4. The Complete Cycle: The Unified Mechanism</h2>
+<p>Reality is not static. It is a continuous, high-frequency cycle of Generation, Selection, and Actualization. Every Planck-scale moment follows the same three-step protocol.</p>
+<p>1</p>
+<p>Generation — The Father</p>
+<p>A new moment of time is proposed as infinite possibilities. The state |ψ⟩ unfolds into the full eigenstate spectrum — everything that could be.</p>
+<p>2</p>
+<p>Selection — The Son</p>
+<p>The Logos filters these possibilities for coherence (∇·χ = 0). Only states consistent with Divine Logic survive. Contradiction is eliminated before it can actualize.</p>
+<p>3</p>
+<p>Actualization — The Spirit</p>
+<p>The Spirit observes the coherent state, forcing it to become the "Present" (t_now). Superposition resolves. The moment is born. Reality is real.</p>
+<p>The Unified Probability of Any Outcome</p>
+<p>[ P(\text{outcome}) = |\langle\psi|a\rangle|^2 = \text{Father} \cdot \text{Son} \cdot \text{Spirit} ]</p>
+<p>This cycle operates at the Planck scale, everywhere, all the time.</p>
+<p>We live inside the breathing of God.</p>
+<p><img alt="Story Illustration" src="../images/mda/Phantom_Money_Phantom_Morals conv 4.webp" /></p>
+<hr />
+<h2>5. Universal Domain Isomorphism</h2>
+<p>The power of the Trinity Mechanism is that it is not limited to quantum mechanics. It appears to be the <strong>Universal Operating System of reality</strong>, repeating the same Potential → Pattern → Actualization cycle across every domain.</p>
+<p>Structural Isomorphism Across All Domains</p>
+<table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>Father (Potential)</th>
+<th>Son (Pattern)</th>
+<th>Spirit (Actualization)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Physics</td>
+<td><a href="/glossary/?term=quantum-superposition" title="See glossary: Quantum Superposition">Quantum Superposition</a></td>
+<td>Wave Equation</td>
+<td>Measurement Collapse</td>
+</tr>
+<tr>
+<td>Information</td>
+<td>Maximum Entropy</td>
+<td>Encoding Schema</td>
+<td>Message Transmission</td>
+</tr>
+<tr>
+<td>Finance</td>
+<td>Capital Reserves</td>
+<td>Market Structure</td>
+<td>Transaction Execution</td>
+</tr>
+<tr>
+<td>Biology</td>
+<td>Genotype (DNA)</td>
+<td>Genetic Code</td>
+<td>Phenotype (Expression)</td>
+</tr>
+<tr>
+<td>Neuroscience</td>
+<td>Resting Potential (−70mV)</td>
+<td>Neural Architecture</td>
+<td>Action Potential (Firing)</td>
+</tr>
+<tr>
+<td>Psychology</td>
+<td>Unconscious (Latent Drives)</td>
+<td>Cognitive Schemas</td>
+<td>Conscious Experience</td>
+</tr>
+<tr>
+<td>Computer Science</td>
+<td>Source Code</td>
+<td>Algorithm</td>
+<td>Runtime Execution</td>
+</tr>
+<tr>
+<td>Theology</td>
+<td>The Father (Source of Being)</td>
+<td>The Son (Logos / Word)</td>
+<td>The Spirit (Giver of Life)</td>
+</tr>
+</tbody>
+</table>
+<p>When the same three-part structure appears across eight independent domains, it is no longer a pattern. It is a law.</p>
+<h3>5.1 System Pathology: Sin as Entropy</h3>
+<p>When ∇·χ ≠ 0</p>
+<p>If the Son represents Perfect Pattern (∇·χ = 0, Zero Divergence), what is Sin?</p>
+<p><strong>Sin is not just "breaking a rule." It is System Divergence.</strong> It is any action or state that introduces noise, leakage, or contradiction into the flow of reality.</p>
+<p>Definition</p>
+<p>Any action or state that introduces noise, leakage, or contradiction into the flow of reality</p>
+<p>Physics Equivalence</p>
+<p>Entropy. When ∇·χ ≠ 0, the system bleeds energy. Relationships fail, bodies age, societies collapse.</p>
+<p>The Solution</p>
+<p>The Atonement is the restoration of Coherence — canceling the divergence so the system can flow again.</p>
+<hr />
+<h2>6. The Logic Proof: Mechanism vs. Analogy</h2>
+<p>Is the Trinity merely a poetic metaphor for these processes, or does it name a deeper structural requirement for existence? The following protocol sketches the argument, but the result remains a formal-theological claim until its assumptions and derivations are stated in a full derivation appendix.</p>
+<h3>6.1 The Inevitability Protocol</h3>
+<p>Question 1 — The Father</p>
+<h4>The Necessity of Potential</h4>
+<p>NO</p>
+<p>Can a system exist with zero options, zero resources, and zero input?</p>
+<p>A system with zero potential is "Nothing."</p>
+<p>THEREFORE: Every functioning reality requires a Generator of Potential (Source).</p>
+<p>Question 2 — The Son</p>
+<h4>The Necessity of Structure</h4>
+<p>NO</p>
+<p>Can infinite potential produce a specific outcome without rules, logic, or differentiation?</p>
+<p>Infinite potential without structure is merely "Chaos" or "Noise."</p>
+<p>THEREFORE: Every functioning reality requires an Organizer of Pattern (Logos).</p>
+<p>Question 3 — The Spirit</p>
+<h4>The Necessity of Actualization</h4>
+<p>NO</p>
+<p>If you have a blueprint (Structure) and the raw materials (Potential), do you automatically have a building?</p>
+<p>You have a static plan. You need an act of execution to make it real in time.</p>
+<p>THEREFORE: Every functioning reality requires an Agent of Actualization (Execution).</p>
+<p>Question 4 — The Test</p>
+<h4>The Irreducibility Test</h4>
+<p>IRREDUCIBLE</p>
+<p>Can you remove any one of these three and still have a functional universe?</p>
+<p>Remove Potential?</p>
+<p>NULL STATE</p>
+<p>No fuel. Nothing to work with.</p>
+<p>Remove Pattern?</p>
+<p>CHAOS STATE</p>
+<p>White noise. Infinite options, zero outcomes.</p>
+<p>Remove Actualization?</p>
+<p>FANTASY STATE</p>
+<p>Idea without existence. Blueprint with no building.</p>
+<h3>6.2 The Conclusion</h3>
+<p>We have established that Potential, Pattern, and Actualization are the <strong>non-negotiable requirements</strong> for any system to exist. This 3-part structure is exactly what Christian theology has defined for 2,000 years.</p>
+<p>Father</p>
+<p>The Source of Potential</p>
+<p>Son</p>
+<p>The Pattern (Logos)</p>
+<p>Spirit</p>
+<p>The Actualizer (Life)</p>
+<p>This is the point at which the Theophysics reading becomes strongest: the same three-part structure appears as potential, pattern, and actualization. In this MDA presentation, that supports a proposed structural correspondence rather than a completed demonstration that the Trinity simply <em>is</em> the system.</p>
+<hr />
+<h2>7. Conclusion</h2>
+<p>The Trinity is not an abstract theological puzzle.</p>
+<p>It is the necessary mechanism for a universe that is both <em>free</em> (Father's infinite possibility) and <em>ordered</em> (Son's structure), and <em>real</em> (Spirit's actualization).</p>
+<p>Without the Father, there is no Potential.</p>
+<p>Without the Son, there is no Order.</p>
+<p>Without the Spirit, there is no Reality.</p>
+<p>Without Love (Binding Energy), there is no Unity.</p>
+<p>Within the Theophysics frame, the Trinity is proposed as the deepest integrative structure. That stronger claim belongs in the formal theology/math layer; here it should be read as the interpretive capstone of the mechanism argument, not as an independently completed universal theory.</p>
+<p>— David Lowe | Theophysics</p>
+<p>The Chi-Field Master Equation</p>
+<p>[ \chi = \iiint (G \cdot M \cdot E \cdot S \cdot T \cdot K \cdot R \cdot Q \cdot F \cdot C)\, dx\, dy\, dt ]</p>
+<p>Grace · Moral Alignment · Entropy · Time · Knowledge · Redemptive Order · Quantum Consciousness · Faith · Coherence</p>
+<p><a href="index.html">Series Index</a></p>
+<p>Theophysics • Trinity Mechanism</p>
+<p><a href="../index.html">Main Index</a></p>
+<p>Theophysics • Faith Through Physics</p>
+<p>David Lowe • Theophysics Institute</p>
+<h2>Related Work</h2>
+<p>Core article, supporting evidence, and broader context</p>
+<p>Ring 1 — This Article
+The core argument</p>
+<p>You are here.</p>
+<p>Ring 2 — Supporting Evidence
+Deeper dives and formal treatments</p>
+<p>No connections mapped yet.</p>
+<p>Ring 3 — Broader Context
+Related topics across the framework</p>
+<p>No connections mapped yet.</p>
+  </article>
+</div>
+<!-- END:LEVEL:standard -->
+
+<!-- BEGIN:LEVEL:easy -->
+<div class="level-panel" data-level="easy">
+  <article class="article">
+    <h1>The Trinity-Wave Collapse Mechanism — Theophysics</h1>
+    <p class="subtitle">MDA-030 · Easy Reading Level</p>
+    <h1>The Trinity-Wave Story for Today</h1>
+<h2>1. Why Does “Right Now” Even Happen?</h2>
+<p>Quantum physics says every tiny thing could follow many paths at once.<br />
+The <strong><em>wave-function</em></strong> is <strong>like a cloud on your playlist that holds every song you could play at once</strong>.<br />
+When a moment arrives, only one “song” is heard. That pick is called <strong><em>collapse</em></strong>, <strong>like finally pressing PLAY on just one track</strong>.  </p>
+<p>But who presses the button? That riddle is the <strong><em>measurement problem</em></strong>—<strong>like having music start but nobody admits touching the phone</strong>.  </p>
+<p>Classical physics shrugs. Theophysics suggests another answer: the <strong><em>Trinity</em></strong>—<strong>like one sports team with three star players who always pass the ball perfectly</strong>—does the choosing. Father offers all the options, Son organizes them, Spirit makes one real.</p>
+<p>While you read, remember that coin flips work differently down at the quantum level. A coin can spin in mid-air showing both heads and tails; that blur is called <strong><em>superposition</em></strong>, <strong>like a coin that refuses to pick a side until it lands</strong>.</p>
+<hr />
+<h2>2. The Hidden Code: the χ-Field</h2>
+<p>The whole universe runs on a deep information sea named the <strong><em>χ-field</em></strong>, <strong>like the secret computer code that every app on your phone depends on</strong>.<br />
+Mathematically, the χ-field splits into three <strong><em>orthogonal</em></strong> parts—<strong>like three streets crossing at right angles so traffic never collides</strong>.  </p>
+<p>Each part is an <strong><em>operator</em></strong>—<strong>like a vending-machine rule that turns your dollar into a snack</strong>—and each lines up with Father, Son, and Spirit.</p>
+<hr />
+<h2>3. Meet the Three Cosmic Players</h2>
+<h3>3.1 Father: Generator of Possibility</h3>
+<p>Physicists label His action with the <strong><em>Hamiltonian</em></strong>, <strong>like a master price list that tells how much energy every snack on Earth costs</strong>.<br />
+Before anything happens, the Father holds an endless menu of <strong><em>eigenstates</em></strong>—<strong>buttons on the cosmic vending machine that always give the same snack when pressed</strong>. He keeps the “maybe” world alive.</p>
+<h3>3.2 Son: Architect of Order</h3>
+<p>The Son checks for <strong><em>coherence</em></strong>—<strong>like a marching band staying in perfect step</strong>.<br />
+His rule is “zero <strong><em>divergence</em></strong>,” <strong>like water pipes sealed so nothing leaks out</strong>.<br />
+Early Christians called Him the <strong><em>Logos</em></strong>, <strong>like the master blueprint telling builders where every brick must go</strong>. The Son filters the Father’s wild options into plans that actually make sense.</p>
+<h3>3.3 Spirit: Maker of the Moment</h3>
+<p>The Spirit follows the <strong><em>Born Rule</em></strong>, <strong>like saying the louder a song is in the playlist, the more likely you’ll hear it</strong>.<br />
+He steps in, breathes, and the plan becomes “NOW.” Superpositions vanish; reality clicks into one crisp frame.</p>
+<h3>3.4 What Glues Them Together? Love</h3>
+<p>Physics shows that three quarks stay stuck because of a force called <strong><em>Quantum Chromodynamics</em></strong>, <strong>like super-glue for the atomic world</strong>.<br />
+In the Trinity the glue is <strong><em>Agape</em></strong>, <strong>like a parent’s no-strings-attached hug that holds the whole family together</strong>. Love is not decoration; it is binding energy.</p>
+<hr />
+<h2>4. The Three-Step Cycle at Top Speed</h2>
+<p>Every slice of time, down at the <strong><em>Planck scale</em></strong>—<strong>like the tiniest pixel on the universe’s screen</strong>—runs:</p>
+<ol>
+<li>Father opens limitless choices.  </li>
+<li>Son sorts them into a clean storyline.  </li>
+<li>Spirit locks one choice into the present.</li>
+</ol>
+<p>And then the cycle restarts, trillions of times each second. We live inside the breathing rhythm of God.</p>
+<hr />
+<h2>5. One Pattern, Many Worlds</h2>
+<p>Mathematicians call identical structures in different places an <strong><em>isomorphism</em></strong>, <strong>like two LEGO models built from different colors but the same shape</strong>.  </p>
+<p>The Potential-Pattern-Action trio shows up everywhere:</p>
+<p>• Physics: superposition → wave math → measurement<br />
+• Biology: DNA options → genetic code → living body<br />
+• Computer science: source code → algorithm → program running<br />
+• Finance, psychology, neurology—you name it, the trio repeats.</p>
+<hr />
+<h3>5.1 When Things Go Wrong: Sin as Growing Mess</h3>
+<p>If the Son’s “no-leak” rule breaks, reality starts losing order. That is <strong><em>entropy</em></strong>, <strong>like a bedroom that gets messier each day if no one tidies</strong>.<br />
+The Bible calls the repair job <strong><em>Atonement</em></strong>, <strong>like mending a friendship so the team can play well again</strong>. Restoring coherence means sweeping the room and sealing the pipes.</p>
+<hr />
+<h2>6. Why Must There Be Three?</h2>
+<ol>
+<li>Remove Potential: nothing to build with.  </li>
+<li>Remove Pattern: chaos, no story line.  </li>
+<li>Remove Action: blueprints never leave the desk.</li>
+</ol>
+<p>No single or double set covers all needs. Only the full trio keeps a universe running.</p>
+<hr />
+<h2>7. Closing Thought</h2>
+<p>The Trinity may sound mysterious, but in this view it’s the simplest engine that can power a world that is free, ordered, and real.<br />
+Potential, Pattern, Action—Father, Son, Spirit—cycle faster than we can imagine, held together by Love. The next time you notice the present moment, you may hear their silent teamwork underneath.</p>
+<hr />
+<pre><code>TERMS DEFINED: 20 / 20
+TERMS MISSED: []
+ARGUMENT COVERAGE: All major sections represented
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:easy -->
+
+<!-- BEGIN:LEVEL:academic -->
+<div class="level-panel" data-level="academic">
+  <article class="article">
+    <h1>The Trinity-Wave Collapse Mechanism — Theophysics</h1>
+    <p class="subtitle">MDA-030 · Academic Reading Level</p>
+    <h1>The Trinity-Wave Collapse Mechanism</h1>
+<h2>— Academic (Peer-Dialogue) Edition —</h2>
+<p><em>Author: David Lowe — enriched for scholarly circulation</em>  </p>
+<hr />
+<h3>1. The Problem of “Now”</h3>
+<p>Quantum mechanics (QM, the contemporary physical theory describing matter–energy interactions at microscopic scales) presents a formal state vector called the wave-function <strong>|ψ⟩</strong> (Wave Function = “complete mathematical description of a system’s possibilities”). Within the Schrödinger framework it contains a superposition (simultaneous overlay) of all admissible outcomes.<br />
+Our lived phenomenology, however, registers only one outcome per moment. The passage from plurality to singularity is termed <strong>wave-function collapse</strong> (“selection of a single eigenstate from |ψ⟩”). This disjunction constitutes the <em>measurement problem</em> (“why and how does collapse occur?”) [CITATION NEEDED: Standard history of the measurement problem, 1926-present].</p>
+<p>[STRUCTURAL] Within the Theophysics program we hypothesise that the Christian Trinity—Father, Son, Spirit—supplies the minimal structural operators required for collapse. This is offered as an interpretive mapping, not a completed empirical proof.</p>
+<hr />
+<h3>2. Mathematical Framework</h3>
+<p>The substrate of reality is modelled as the <strong>χ-field (Chi-field)</strong> (χ = postulated fundamental information field) decomposable into three orthogonal (mutually independent; inner-product = 0) components:</p>
+<h4>Equation 2.1 — Chi-Field Decomposition</h4>
+<p>1)  $\displaystyle \chi=\chi_{\mathrm{Father}}+\chi_{\mathrm{Son}}+\chi_{\mathrm{Spirit}}$  </p>
+<p>2)  Plain English: “The total information field equals the sum of three non-overlapping sub-fields labelled Father, Son, Spirit.”  </p>
+<p>3)  Parameter sensitivity: Altering any one χ-component perturbs only its own functional role; mutual orthogonality prevents crosstalk, preserving overall conservation of information.  </p>
+<p>[STRUCTURAL] The irreducibility into exactly three operators is taken as an axiom of the model rather than derived from Standard Model physics.  </p>
+<hr />
+<h3>3. The Three Persons: Functional Analysis</h3>
+<h4>3.1 God the Father — Generator of Potential</h4>
+<p>•  Mathematical form: the <strong>Hamiltonian operator</strong> $\hat H$ (Hermitian operator giving total energy).</p>
+<h5>Equation 3.1</h5>
+<p>1)  $\displaystyle \hat H\;|\psi\rangle = E\,|\psi\rangle$  </p>
+<p>2)  Plain English: “Acting with the energy operator on the state yields its energy eigenvalue $E$ times the same state.”  </p>
+<p>3)  Implication: Changing $\hat H$ changes the energy landscape and therefore the spectrum of potential states generated.  </p>
+<p>[STRUCTURAL] The Father corresponds to the perpetual provision of the <em>Quantum Foam</em> (Planck-scale fluctuation sea [Wheeler 1955]).  </p>
+<hr />
+<h4>3.2 Jesus the Son — Structurer of Coherence</h4>
+<p>•  Mathematical constraint: zero divergence condition.</p>
+<h5>Equation 3.2</h5>
+<p>1)  $\displaystyle \nabla!\cdot!\chi = 0$  </p>
+<p>2)  English: “The flow of χ has no net source or sink; information is conserved and internally consistent.”  </p>
+<p>3)  If ∇·χ ≠ 0 system coherence degrades; entropy increases (see §5.1).  </p>
+<p>[BOUNDARY] This analogy presumes information conservation; empirical tests remain open.  </p>
+<hr />
+<h4>3.3 Holy Spirit — Actualiser via the Born Rule</h4>
+<p>•  Measurement postulate: probability amplitude squared.</p>
+<h5>Equation 3.3</h5>
+<p>1)  $\displaystyle P(a)=|\langle\psi|a\rangle|^{2}$  </p>
+<p>2)  English: “The probability that outcome <em>a</em> occurs equals the squared inner product between the system state and the outcome eigenvector.”  </p>
+<p>3)  Amplitude modulation: Increasing overlap between |ψ⟩ and |a⟩ raises P(a); orthogonal states yield P = 0.  </p>
+<p>[EMPIRICAL] Born-rule statistics reproduce experimental frequencies to &lt;10⁻³ relative error [Brune et al., 1996].  </p>
+<p>[PROVISIONAL] Identifying the Spirit with the ultimate observer is a theological mapping, not an empirically isolated entity.  </p>
+<hr />
+<h4>3.4 Unity: Agapic Binding Force</h4>
+<p>Analogy: In Quantum Chromodynamics (QCD) three colour-charged quarks are confined by gluon exchange; &gt;90 % of proton mass arises from gluon binding energy [EMPIRICAL: Creutz 1983]. Theophysics maps this “binding energy” to <strong>Agape</strong> (unconditional love, Greek ἀγάπη).  </p>
+<p>[PROVISIONAL] The mapping is analogical yet is claimed to carry structural heft because without binding, triune distinction would yield three gods (tritheism).  </p>
+<hr />
+<h3>4. Complete Cycle—Planck-Scale Rhythm</h3>
+<p>Each Planck-time (≈ 5.39 × 10⁻⁴⁴ s [CITATION NEEDED]) the sequence Potential → Pattern → Actualisation iterates:</p>
+<h5>Equation 4.1 — Unified Probability</h5>
+<p>1)  $\displaystyle P(\text{outcome}) = |\langle\psi|a\rangle|^{2} = \text{Father}\times\text{Son}\times\text{Spirit}$  </p>
+<p>2)  English: “Outcome probability equals the standard Born weight, which in this framework factors into the functional contributions of the three Persons.”  </p>
+<p>3)  If any factor tends to zero, P(outcome)→0; the moment fails to actualise.  </p>
+<p>[STRUCTURAL] Because the factors are inter-defined, removal of one collapses the pathway (see §6).  </p>
+<hr />
+<h3>5. Universal Domain Isomorphism</h3>
+<p><strong>Isomorphism</strong> (“structure-preserving correspondence between domains”) appears when the triadic schema replicates across physics, biology, finance, etc. Table 5 reiterates eight domains.</p>
+<p>[EMPIRICAL] Cross-domain pattern-matching is descriptive; statistical significance tests for non-accidental repetition remain to be designed.  </p>
+<hr />
+<h4>5.1 System Pathology: Sin as Entropy</h4>
+<p>•  Entropy (thermodynamic measure of microstate multiplicity) rises when ∇·χ ≠ 0 (divergent flow).</p>
+<p>[EMPIRICAL] Entropy increase in closed systems is second-law orthodoxy [Clausius 1854].<br />
+[PROVISIONAL] Equating “sin” with entropy is theological semantics; conceptual utility yet to be validated in pastoral or scientific interventions.  </p>
+<hr />
+<h3>6. Logic Proof Sketch</h3>
+<p>Four questions test irreducibility (Potential, Pattern, Actualisation). Removing any yields null, chaos, or fantasy states.</p>
+<p>[BOUNDARY] This is a <em>modal</em> rather than empirical proof; it analyses possibility space, not measured data.  </p>
+<hr />
+<h3>7. Conclusion</h3>
+<p>[STRUCTURAL] Within the Theophysics lens, the Trinity provides a minimally sufficient operator set for a universe that is simultaneously free (Father-Potential), ordered (Son-Pattern), and real (Spirit-Actualisation).  </p>
+<p>[HEDGE] The present article offers a consistency argument; decisive empirical falsification or confirmation awaits a precise χ-field phenomenology and testable predictions.  </p>
+<hr />
+<h3>Appendix A — Master χ-Field Equation</h3>
+<h5>Equation A.1</h5>
+<p>1)  $\displaystyle 
+\chi=\iiint \bigl(G \cdot M \cdot E \cdot S \cdot T \cdot K \cdot R \cdot Q \cdot F \cdot C\bigr)\,dx\,dy\,dt$  </p>
+<p>2)  English: “The χ-field equals the space-time integral of ten interacting variables: Grace (G), Moral alignment (M), Entropy (E), Time (T), Knowledge (K), Redemptive order (R), Quantum consciousness (Q), Faith (F), Coherence (C).”  </p>
+<p>3)  Perturbation: Increasing Entropy (E) whilst holding others fixed dilutes χ (system coherence decreases), whereas elevating Grace (G) amplifies χ (coherence restored).  </p>
+<p>[BOUNDARY] Variables G, R, Q lack laboratory operationalisation; equation functions symbolically pending formal derivation.  </p>
+<hr />
+<h2>TERM _INVENTORY</h2>
+<pre><code class="language-json">{
+  &quot;terms&quot;: [
+    {&quot;term&quot;:&quot;wave-function&quot;,&quot;definition&quot;:&quot;Mathematical object |ψ⟩ encoding all possible states of a quantum system&quot;,&quot;domain&quot;:&quot;quantum physics&quot;,&quot;first_use_section&quot;:&quot;1&quot;,&quot;complexity&quot;:&quot;medium&quot;},
+    {&quot;term&quot;:&quot;collapse&quot;,&quot;definition&quot;:&quot;Process by which the wave-function reduces to a single outcome upon measurement&quot;,&quot;domain&quot;:&quot;quantum physics&quot;,&quot;first_use_section&quot;:&quot;1&quot;,&quot;complexity&quot;:&quot;medium&quot;},
+    {&quot;term&quot;:&quot;measurement problem&quot;,&quot;definition&quot;:&quot;Open question in quantum theory about what causes or constitutes wave-function collapse&quot;,&quot;domain&quot;:&quot;quantum foundations&quot;,&quot;first_use_section&quot;:&quot;1&quot;,&quot;complexity&quot;:&quot;high&quot;},
+    {&quot;term&quot;:&quot;superposition&quot;,&quot;definition&quot;:&quot;Simultaneous holding of multiple mutually exclusive quantum states&quot;,&quot;domain&quot;:&quot;quantum physics&quot;,&quot;first_use_section&quot;:&quot;1&quot;,&quot;complexity&quot;:&quot;medium&quot;},
+    {&quot;term&quot;:&quot;Trinity&quot;,&quot;definition&quot;:&quot;Christian doctrine of one God in three distinct Persons—Father, Son, Spirit&quot;,&quot;domain&quot;:&quot;theology&quot;,&quot;first_use_section&quot;:&quot;1&quot;,&quot;complexity&quot;:&quot;medium&quot;},
+    {&quot;term&quot;:&quot;χ-field&quot;,&quot;definition&quot;:&quot;Postulated fundamental information field decomposable into Father, Son, Spirit components&quot;,&quot;domain&quot;:&quot;theophysics&quot;,&quot;first_use_section&quot;:&quot;2&quot;,&quot;complexity&quot;:&quot;high&quot;},
+    {&quot;term&quot;:&quot;orthogonal&quot;,&quot;definition&quot;:&quot;Mathematically independent; inner product equals zero&quot;,&quot;domain&quot;:&quot;linear algebra&quot;,&quot;first_use_section&quot;:&quot;2&quot;,&quot;complexity&quot;:&quot;medium&quot;},
+    {&quot;term&quot;:&quot;operator&quot;,&quot;definition&quot;:&quot;Action rule mapping one vector to another in Hilbert space&quot;,&quot;domain&quot;:&quot;quantum physics&quot;,&quot;first_use_section&quot;:&quot;2&quot;,&quot;complexity&quot;:&quot;medium&quot;},
+    {&quot;term&quot;:&quot;Hamiltonian&quot;,&quot;definition&quot;:&quot;Hermitian operator representing total energy of a system&quot;,&quot;domain&quot;:&quot;quantum physics&quot;,&quot;first_use_section&quot;:&quot;3&quot;,&quot;complexity&quot;:&quot;medium&quot;},
+    {&quot;term&quot;:&quot;eigenstate&quot;,&quot;definition&quot;:&quot;Quantum state that yields a definite value when an operator acts on it&quot;,&quot;domain&quot;:&quot;quantum physics&quot;,&quot;first_use_section&quot;:&quot;3&quot;,&quot;complexity&quot;:&quot;medium&quot;},
+    {&quot;term&quot;:&quot;coherence&quot;,&quot;definition&quot;:&quot;Degree to which parts of a system maintain ordered phase relationships&quot;,&quot;domain&quot;:&quot;information theory&quot;,&quot;first_use_section&quot;:&quot;3&quot;,&quot;complexity&quot;:&quot;medium&quot;},
+    {&quot;term&quot;:&quot;Logos&quot;,&quot;definition&quot;:&quot;Greek for ‘Word’; theological term for cosmic rational structure identified with Christ&quot;,&quot;domain&quot;:&quot;theology&quot;,&quot;first_use_section&quot;:&quot;3&quot;,&quot;complexity&quot;:&quot;medium&quot;},
+    {&quot;term&quot;:&quot;divergence&quot;,&quot;definition&quot;:&quot;Vector field operator measuring net outflow from a point&quot;,&quot;domain&quot;:&quot;vector calculus&quot;,&quot;first_use_section&quot;:&quot;3&quot;,&quot;complexity&quot;:&quot;medium&quot;},
+    {&quot;term&quot;:&quot;Born Rule&quot;,&quot;definition&quot;:&quot;Quantum postulate that probability equals squared modulus of amplitude&quot;,&quot;domain&quot;:&quot;quantum physics&quot;,&quot;first_use_section&quot;:&quot;3&quot;,&quot;complexity&quot;:&quot;medium&quot;},
+    {&quot;term&quot;:&quot;Planck scale&quot;,&quot;definition&quot;:&quot;Physical scale around 10⁻³⁵ m and 10⁻⁴⁴ s where quantum gravity effects dominate&quot;,&quot;domain&quot;:&quot;theoretical physics&quot;,&quot;first_use_section&quot;:&quot;4&quot;,&quot;complexity&quot;:&quot;high&quot;},
+    {&quot;term&quot;:&quot;isomorphism&quot;,&quot;definition&quot;:&quot;Structure-preserving mapping between two systems&quot;,&quot;domain&quot;:&quot;mathematics&quot;,&quot;first_use_section&quot;:&quot;5&quot;,&quot;complexity&quot;:&quot;medium&quot;},
+    {&quot;term&quot;:&quot;entropy&quot;,&quot;definition&quot;:&quot;Measure of disorder or unavailable energy in a system&quot;,&quot;domain&quot;:&quot;thermodynamics&quot;,&quot;first_use_section&quot;:&quot;5.1&quot;,&quot;complexity&quot;:&quot;medium&quot;},
+    {&quot;term&quot;:&quot;Atonement&quot;,&quot;definition&quot;:&quot;Theological concept of reconciliation between God and creation, here framed as restoration of coherence&quot;,&quot;domain&quot;:&quot;theology&quot;,&quot;first_use_section&quot;:&quot;5.1&quot;,&quot;complexity&quot;:&quot;medium&quot;},
+    {&quot;term&quot;:&quot;Agape&quot;,&quot;definition&quot;:&quot;Unconditional self-giving love, posited as binding energy of the Trinity&quot;,&quot;domain&quot;:&quot;theology&quot;,&quot;first_use_section&quot;:&quot;3.4&quot;,&quot;complexity&quot;:&quot;medium&quot;},
+    {&quot;term&quot;:&quot;Quantum Chromodynamics&quot;,&quot;definition&quot;:&quot;Quantum field theory of the strong nuclear force between quarks and gluons&quot;,&quot;domain&quot;:&quot;particle physics&quot;,&quot;first_use_section&quot;:&quot;3.4&quot;,&quot;complexity&quot;:&quot;high&quot;}
+  ]
+}
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:academic -->
+
+<!-- BEGIN:LEVEL:proof -->
+<div class="proof-panel" data-level="proof">
+  <div class="article">
+    <div class="mda-proof-eyebrow">Proof Pressure Layer</div>
+    <h2 style="font-family:Oswald,sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.04em;">
+      The Trinity-Wave Collapse Mechanism — Theophysics — Proof & Math
+    </h2>
+    
+    <h3>Math Translation</h3>
+    <div class="mda-math-layer">
+<div class="mda-proof-eyebrow">Math Translation Layer</div>
+<div class="math-item">MATH_STATUS: NEEDS_DERIVATION</div>
+<div class="math-item">LOAD_BEARING_MATH:</div>
+<div class="math-item">The Chi-field decomposition: \[ \chi = \chi_{\text{Father}} + \chi_{\text{Son}} + \chi_{\text{Spirit}} \]</div>
+<div class="math-item">Hamiltonian Operator: \[ \hat{H}|\psi\rangle = E|\psi\rangle \]</div>
+<div class="math-item">Divergence Condition: \[ \nabla \cdot \chi = 0 \]</div>
+<div class="math-item">Born Rule: \[ P(a) = |\langle\psi|a\rangle|^2 \]</div>
+<div class="math-item">Unified Probability of Any Outcome: \[ P(\text{outcome}) = |\langle\psi|a\rangle|^2 = \text{Father} \cdot \text{Son} \cdot \text{Spirit} \]</div>
+<div class="math-item">Chi-Field Master Equation: \[ \chi = \iiint (G \cdot M \cdot E \cdot S \cdot T \cdot K \cdot R \cdot Q \cdot F \cdot C)\, dx\, dy\, dt \]</div>
+<div class="math-item">ISOMORPHISM_TABLE:</div>
+<tr><td>mapping</td><td>current status</td><td>missing proof step</td><td>safe wording</td></tr>
+<tr><td>Physics (Quantum Superposition)</td><td>candidate_isomorphism</td><td>Show a direct mathematical relationship between quantum mechanics and the Trinity mechanism</td><td>"The Trinity Mechanism parallels the structure of quantum superposition."</td></tr>
+<tr><td>Information (Maximum Entropy)</td><td>candidate_isomorphism</td><td>Provide a formal definition of entropy in relation to the Chi-field</td><td>"Entropy in the Chi-field context is defined as..."</td></tr>
+<tr><td>Finance (Market Structure)</td><td>analogy_only</td><td>No mathematical basis provided for the analogy</td><td>"Market structure can be viewed through the lens of the Trinity Mechanism."</td></tr>
+<tr><td>Biology (Genotype to Phenotype)</td><td>structural_correspondence</td><td>Define how Chi-field relates to genetic expression mathematically</td><td>"The Chi-field influences genetic expression through..."</td></tr>
+<div class="math-item">MISSING_EQUATIONS_OR_DEFINITIONS:</div>
+<div class="math-item">Definition of the Chi-field (Ï‡-field) and its properties.</div>
+<div class="math-item">Formal definition of entropy in the context of the Chi-field.</div>
+<div class="math-item">Explanation of how the Hamiltonian Operator relates to the Chi-field.</div>
+<div class="math-item">MINIMAL_PATCHES:</div>
+<div class="math-item">"The Father generates the Quantum Foam" -> "The Father generates the Quantum Foam, represented mathematically by the Hamiltonian Operator."</div>
+<div class="math-item">"The Son acts as the Filter of Coherence" -> "The Son acts as the Filter of Coherence, mathematically defined by the Divergence Condition."</div>
+<div class="math-item">"The Spirit is the Ultimate Observer" -> "The Spirit is the Ultimate Observer, as described by the Born Rule."</div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Term Inventory</h3>
+    <div class="mda-glossary">
+<div class="glossary-entry"><dt>wave-function</dt><dd>Mathematical object |ψ⟩ encoding all possible states of a quantum system<span class="glossary-domain">quantum physics</span></dd></div>
+<div class="glossary-entry"><dt>collapse</dt><dd>Process by which the wave-function reduces to a single outcome upon measurement<span class="glossary-domain">quantum physics</span></dd></div>
+<div class="glossary-entry"><dt>measurement problem</dt><dd>Open question in quantum theory about what causes or constitutes wave-function collapse<span class="glossary-domain">quantum foundations</span></dd></div>
+<div class="glossary-entry"><dt>superposition</dt><dd>Simultaneous holding of multiple mutually exclusive quantum states<span class="glossary-domain">quantum physics</span></dd></div>
+<div class="glossary-entry"><dt>Trinity</dt><dd>Christian doctrine of one God in three distinct Persons—Father, Son, Spirit<span class="glossary-domain">theology</span></dd></div>
+<div class="glossary-entry"><dt>χ-field</dt><dd>Postulated fundamental information field decomposable into Father, Son, Spirit components<span class="glossary-domain">theophysics</span></dd></div>
+<div class="glossary-entry"><dt>orthogonal</dt><dd>Mathematically independent; inner product equals zero<span class="glossary-domain">linear algebra</span></dd></div>
+<div class="glossary-entry"><dt>operator</dt><dd>Action rule mapping one vector to another in Hilbert space<span class="glossary-domain">quantum physics</span></dd></div>
+<div class="glossary-entry"><dt>Hamiltonian</dt><dd>Hermitian operator representing total energy of a system<span class="glossary-domain">quantum physics</span></dd></div>
+<div class="glossary-entry"><dt>eigenstate</dt><dd>Quantum state that yields a definite value when an operator acts on it<span class="glossary-domain">quantum physics</span></dd></div>
+<div class="glossary-entry"><dt>coherence</dt><dd>Degree to which parts of a system maintain ordered phase relationships<span class="glossary-domain">information theory</span></dd></div>
+<div class="glossary-entry"><dt>Logos</dt><dd>Greek for ‘Word’; theological term for cosmic rational structure identified with Christ<span class="glossary-domain">theology</span></dd></div>
+<div class="glossary-entry"><dt>divergence</dt><dd>Vector field operator measuring net outflow from a point<span class="glossary-domain">vector calculus</span></dd></div>
+<div class="glossary-entry"><dt>Born Rule</dt><dd>Quantum postulate that probability equals squared modulus of amplitude<span class="glossary-domain">quantum physics</span></dd></div>
+<div class="glossary-entry"><dt>Planck scale</dt><dd>Physical scale around 10⁻³⁵ m and 10⁻⁴⁴ s where quantum gravity effects dominate<span class="glossary-domain">theoretical physics</span></dd></div>
+<div class="glossary-entry"><dt>isomorphism</dt><dd>Structure-preserving mapping between two systems<span class="glossary-domain">mathematics</span></dd></div>
+<div class="glossary-entry"><dt>entropy</dt><dd>Measure of disorder or unavailable energy in a system<span class="glossary-domain">thermodynamics</span></dd></div>
+<div class="glossary-entry"><dt>Atonement</dt><dd>Theological concept of reconciliation between God and creation, here framed as restoration of coherence<span class="glossary-domain">theology</span></dd></div>
+<div class="glossary-entry"><dt>Agape</dt><dd>Unconditional self-giving love, posited as binding energy of the Trinity<span class="glossary-domain">theology</span></dd></div>
+<div class="glossary-entry"><dt>Quantum Chromodynamics</dt><dd>Quantum field theory of the strong nuclear force between quarks and gluons<span class="glossary-domain">particle physics</span></dd></div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Promoted Claims</h3>
+    <p class="mda-proof-placeholder">
+      No claim from this article has been promoted through the deterministic Axiom + 7Q gate yet.
+      Claims will appear here after the proof-promotion pass.
+    </p>
+  </div>
+</div>
+<!-- END:LEVEL:proof -->
+
+<div style="max-width:780px;margin:0 auto;padding:1rem 1.5rem 3rem;">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text3);
+     text-transform:uppercase;letter-spacing:.08em;border-top:1px solid var(--border);
+     padding-top:1rem;">
+    Generated 2026-05-31 00:24 · 
+    Easy: ✓ · 
+    Academic: ✓ · 
+    Math: ✓ · 
+    Claims: pending
+  </p>
+</div>
+<script>
+function setTab(tab) {
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  // Update body mode class
+  document.body.className = 'mode-' + tab;
+  // Toggle content panels
+  document.querySelectorAll('.level-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.level === tab);
+  });
+  document.querySelectorAll('.proof-panel').forEach(p => {
+    p.classList.toggle('active', tab === 'proof');
+  });
+  // Update status text
+  const st = document.getElementById('mode-status');
+  if (st) st.textContent = tab.charAt(0).toUpperCase() + tab.slice(1) + ' active';
+}
+document.addEventListener('DOMContentLoaded', () => setTab('standard'));
+</script>
+
+</body>
+</html>

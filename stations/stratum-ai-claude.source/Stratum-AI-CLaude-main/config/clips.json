@@ -1,0 +1,42 @@
+[
+  {
+    "id": "51f7567a-2181-4fd3-bbce-f5370b44a3c3",
+    "text": "file:///C:/Users/lowes/Downloads/Stratum-AI-CLaude-main",
+    "created_at": "2026-06-11T06:35:53",
+    "pinned": false,
+    "tags": [],
+    "hotkey": ""
+  },
+  {
+    "id": "950404e4-7782-437e-bc14-d1479f27a845",
+    "text": "Lowesfencing@gmail.com",
+    "created_at": "2026-06-11T06:34:28",
+    "pinned": false,
+    "tags": [],
+    "hotkey": ""
+  },
+  {
+    "id": "89affc6e-66ef-4286-9b53-5301cf5dc4c8",
+    "text": "Lowesfencing@gmail.com",
+    "created_at": "2026-06-11T02:36:28",
+    "pinned": false,
+    "tags": [],
+    "hotkey": ""
+  },
+  {
+    "id": "36c81e5b-98ee-4bac-8029-0fcc59614e91",
+    "text": "# CODEX BUILD \u2014 FORGE Watcher (Python File Tracking Service)\n## POF 2828 | June 11, 2026\n\n---\n\n## WHAT THIS IS\n\nA lightweight Python background service that starts on Windows login and silently tracks every file create, move, rename, and delete across watched folders. One process, minimal memory, no popups, no UI. Writes events to a single log file that feeds into BIL and eventually Postgres.\n\nThis replaces a Directory Opus script (SmartFolderCore.js) that had two problems: it only ran when DOpus was open, and it spawned a process every time you opened a folder (50-60 at once). This version runs once, watches everything, writes quietly.\n\n## WHAT TO BUILD\n\n### Core: `forge_watcher.py`\n\n```python\n# Uses watchdog library for filesystem monitoring\n# Single process, runs in background\n# Watches configured folders recursively\n# Logs every event to a JSONL file\n# Optional: posts events to BIL at localhost:8420\n\nimport time\nfrom watchdog.observers import Observer\nfrom watchdog.events import FileSystemEventHandler\n\nclass ForgeHandler(FileSystemEventHandler):\n    def on_created(self, event): log_event(\"create\", event)\n    def on_deleted(self, event): log_event(\"delete\", event) \n    def on_moved(self, event): log_event(\"move\", event, dest=event.dest_path)\n    def on_modified(self, event): pass  # too noisy, skip\n\ndef log_event(action, event, dest=None):\n    # Write to JSONL log file:\n    # {\"timestamp\": \"...\", \"action\": \"create|delete|move|rename\", \n    #  \"path\": \"...\", \"dest\": \"...\", \"is_dir\": bool, \"size\": int}\n    # \n    # Optionally POST to BIL: localhost:8420/bil/signal\n    # Signal weight: file_created=0.3, file_moved=0.5, file_deleted=0.7\n    pass\n```\n\n### Watch targets (from config):\n```ini\n[watcher]\nenabled = true\nlog_file = C:\\Users\\lowes\\Documents\\forge_watcher.jsonl\n\n[watch_paths]\nvault = E:\\_Theophysics_v5\ndev = D:\\\ngithub = D:\\GitHub\nnas_brain = X:\\Backside\ndownloads = C:\\Users\\lowes\\Downloads\n\n[ignore]\npatterns = *.tmp, ~$*, .git, __pycache__, node_modules, .obsidian, .smart-env, .stversions, .stfolder, Thumbs.db, desktop.ini\n```\n\n### Event format (one JSON line per event):\n```json\n{\"ts\":\"2026-06-11T01:30:45\",\"action\":\"move\",\"src\":\"D:\\\\New Folder\\\\005.docx\",\"dest\":\"D:\\\\GitHub\\\\MDA\\\\005.docx\",\"is_dir\":false,\"size\":45231}\n{\"ts\":\"2026-06-11T01:30:46\",\"action\":\"create\",\"src\":\"D:\\\\GitHub\\\\MDA\\\\index.md\",\"is_dir\":false,\"size\":1203}\n{\"ts\":\"2026-06-11T01:31:02\",\"action\":\"delete\",\"src\":\"D:\\\\temp\\\\junk.txt\",\"is_dir\":false,\"size\":0}\n```\n\n### Startup: `install_watcher.py`\n\nCreates a Windows Startup shortcut (same pattern as FORGE Hub autostart):\n```\n%APPDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\FORGE Watcher.lnk\n\u2192 pythonw.exe forge_watcher.py  (pythonw = no console window)\n```\n\nAlso creates `uninstall_watcher.py` to remove it.\n\n### Query tool: `watcher_query.py`\n\nSimple CLI to search the log:\n```bash\npython watcher_query.py --action move --path \"Logos\" --last 24h\npython watcher_query.py --action delete --last 7d\npython watcher_query.py --path \"D:\\LOGOS_V5\" --all\npython watcher_query.py --stats  # counts by action type, busiest folders\n```\n\nThis is how David finds where a file went. \"Where did Logos V5 go?\" \u2192 `watcher_query.py --path Logos_V5 --all` \u2192 shows every create/move/delete with timestamps.\n\n### BIL integration (optional, off by default):\n\n```ini\n[bil]\nenabled = false\nserver = http://localhost:8420\npost_events = true\nsignal_weights = {\"create\": 0.3, \"move\": 0.5, \"delete\": 0.7, \"rename\": 0.6}\n```\n\nWhen enabled, every file event also posts to BIL so the preference engine learns which folders are active, which files get moved repeatedly (unstable classification), and which areas David works in most.\n\n## FILE STRUCTURE\n\n```\nforge-watcher/\n\u251c\u2500\u2500 forge_watcher.py          # Main watcher service\n\u251c\u2500\u2500 watcher_query.py          # CLI query tool\n\u251c\u2500\u2500 install_watcher.py        # Create startup shortcut\n\u251c\u2500\u2500 uninstall_watcher.py      # Remove startup shortcut\n\u251c\u2500\u2500 config.ini                # Watch paths, ignore patterns, BIL settings\n\u251c\u2500\u2500 requirements.txt          # watchdog\n\u2514\u2500\u2500 README.md\n```\n\n## CRITICAL RULES\n\n- ONE process. One observer with multiple folder watchers. Not one process per folder.\n- NO UI. No popups. No console window (pythonw). Silent background service.\n- NO per-file metadata files. No sidecar files. No NTFS ADS. One JSONL log file for everything.\n- NO modification events. Too noisy. Only create, delete, move/rename.\n- IGNORE patterns must filter out .obsidian, .git, __pycache__, node_modules, temp files, sync artifacts.\n- Log file rotation: when forge_watcher.jsonl exceeds 50MB, rotate to forge_watcher.1.jsonl (keep last 3).\n- Memory target: under 30MB RSS. Watchdog with polling fallback if ReadDirectoryChangesW fails on network drives.\n- The query tool reads the JSONL file directly. No database required. Grep-fast.\n- Config changes require service restart (kill pythonw, re-run). No live reload needed.\n- For network drives (X:, H:): use polling observer with 5-second interval instead of OS notifications (NAS doesn't support ReadDirectoryChangesW reliably).\n\n## DEPENDENCIES\n\n```\nwatchdog>=3.0\n```\n\nThat's it. One dependency. Everything else is stdlib.\n\n## WHAT SUCCESS LOOKS LIKE\n\nDavid starts his computer. FORGE Watcher starts silently. He works all day \u2014 moves files, creates documents, reorganizes folders. At the end of the day (or three days later when he can't find something), he runs:\n\n```\npython watcher_query.py --path \"Logos\" --last 7d\n```\n\nAnd sees every touch point for anything named Logos across all watched drives, with timestamps and destinations. No asking an AI. No searching 60 folders. One command, one answer.",
+    "created_at": "2026-06-11T02:30:53",
+    "pinned": false,
+    "tags": [],
+    "hotkey": ""
+  },
+  {
+    "id": "27e52529-8bf8-4b02-8205-e7e90accf2b6",
+    "text": "============================================\n  FORGE Hub - Debug Mode\n============================================\n\n[1] Checking Python version...\nPython 3.14.5\n\n[2] Checking installed packages...\n  PySide6: 6.11.1\n  keyboard: OK\n  pywin32: OK\n  requests: OK\n\n[3] Checking config files...\n  settings.ini: OK\n  commands.json: OK\n  workflows.json: OK\n\n[4] Compile check...\n  app.py: OK\n  bil_client.py: OK\n  pipeline_runner.py: OK\n  tray.py: OK\n  web_server.py: OK\n\n[5] Testing BIL server connection...\n  BIL: offline (not critical)\n\n============================================\n  Debug complete.\n============================================\nPress any key to continue . . .",
+    "created_at": "2026-06-11T01:24:35",
+    "pinned": false,
+    "tags": [],
+    "hotkey": ""
+  }
+]

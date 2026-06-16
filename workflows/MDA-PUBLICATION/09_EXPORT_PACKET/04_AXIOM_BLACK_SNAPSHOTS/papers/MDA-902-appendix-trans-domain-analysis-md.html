@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MDA-902-appendix-trans-domain-analysis.md | Axiom Snapshot</title>
+  <style>
+    :root {
+      --bg: #050608;
+      --panel: #0d1117;
+      --panel2: #111821;
+      --ink: #e8edf2;
+      --muted: #8d9baa;
+      --line: #25313f;
+      --gold: #d7b56d;
+      --cyan: #78c7d6;
+      --green: #80c783;
+      --red: #d77b7b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: ui-sans-serif, system-ui, Segoe UI, Arial, sans-serif;
+      line-height: 1.45;
+    }
+    a { color: inherit; }
+    .hero {
+      padding: 48px clamp(20px, 5vw, 72px) 28px;
+      border-bottom: 1px solid var(--line);
+      background: #070a0f;
+    }
+    .hero.compact { padding-top: 28px; }
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    h1 { margin: 0; font-size: clamp(30px, 5vw, 64px); line-height: 1.02; letter-spacing: 0; }
+    h2 { margin: 0 0 14px; font-size: 16px; color: var(--gold); }
+    .hero p { max-width: 900px; color: var(--muted); font-size: 17px; }
+    .hero-actions a, .back {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      text-decoration: none;
+      border-radius: 6px;
+    }
+    .dashboard {
+      padding: 26px clamp(16px, 4vw, 46px) 60px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 14px;
+    }
+    .paper-card, section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .paper-card.high { border-color: rgba(128,199,131,.55); }
+    .paper-card.mid { border-color: rgba(120,199,214,.45); }
+    .paper-card.low { border-color: rgba(215,123,123,.45); }
+    .paper-title {
+      display: block;
+      color: var(--ink);
+      font-weight: 800;
+      text-decoration: none;
+      font-size: 16px;
+      overflow-wrap: anywhere;
+    }
+    .paper-sub { color: var(--muted); font-size: 13px; margin: 4px 0 12px; }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin: 10px 0;
+    }
+    .metric-grid.big { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .metric-grid div {
+      background: var(--panel2);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px;
+      min-width: 0;
+    }
+    .metric-grid span { display: block; color: var(--muted); font-size: 11px; }
+    .metric-grid strong { display: block; margin-top: 2px; font-size: 13px; overflow-wrap: anywhere; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+    .chips span {
+      border: 1px solid #33465a;
+      background: #121b25;
+      color: #cdd7e1;
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 12px;
+    }
+    .chips.large span { font-size: 13px; padding: 6px 10px; }
+    .risk, .quote { color: #bac6d2; font-size: 13px; margin-bottom: 0; }
+    .paper-layout {
+      padding: 24px clamp(16px, 4vw, 46px) 60px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 16px;
+    }
+    .wide { grid-column: 1 / -1; }
+    .bar { margin: 13px 0; }
+    .bar-top { display: flex; justify-content: space-between; color: var(--muted); font-size: 13px; gap: 12px; }
+    .bar-top strong { color: var(--ink); }
+    .rail { height: 7px; background: #1a2330; border-radius: 999px; overflow: hidden; margin-top: 6px; }
+    .rail span { display: block; height: 100%; background: linear-gradient(90deg, var(--cyan), var(--gold)); }
+    pre {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      background: #070b10;
+      border: 1px solid #1c2633;
+      border-radius: 6px;
+      padding: 12px;
+      color: #bac6d2;
+      max-height: 520px;
+      overflow: auto;
+    }
+  </style>
+</head>
+<body>
+
+        <header class="hero compact">
+          <a class="back" href="../index.html">Back to all snapshots</a>
+          <p class="eyebrow">Axiom Black Snapshot</p>
+          <h1>MDA-902-appendix-trans-domain-analysis.md</h1>
+          <p>Appendix: Trans-Domain Analysis | Moral Decline of America</p>
+          <div class="hero-actions"><a href="../../deploy_ready_full_pipeline_20260530/paper_intelligence/snapshots/P-f237b8383edd_snapshot.json">Open source JSON</a></div>
+        </header>
+        <main class="paper-layout">
+          <section>
+            <h2>Core Metrics</h2>
+            
+    <div class="bar">
+      <div class="bar-top"><span>Truth</span><strong>0.5283</strong></div>
+      <div class="rail"><span style="width:52.8%"></span></div>
+    </div>
+    
+            
+    <div class="bar">
+      <div class="bar-top"><span>Coherence</span><strong>0.775</strong></div>
+      <div class="rail"><span style="width:77.5%"></span></div>
+    </div>
+    
+            
+    <div class="bar">
+      <div class="bar-top"><span>Chi</span><strong>4.6</strong></div>
+      <div class="rail"><span style="width:46.0%"></span></div>
+    </div>
+    
+            
+    <div class="bar">
+      <div class="bar-top"><span>Evidence density</span><strong>0.483</strong></div>
+      <div class="rail"><span style="width:48.3%"></span></div>
+    </div>
+    
+          </section>
+          <section>
+            <h2>Claim Surface</h2>
+            <div class="metric-grid big">
+              <div><span>Claims</span><strong>111</strong></div>
+              <div><span>Anchored</span><strong>5</strong></div>
+              <div><span>Unsupported</span><strong>38</strong></div>
+              <div><span>Overstated</span><strong>3</strong></div>
+            </div>
+          </section>
+          <section class="wide">
+            <h2>Keywords</h2>
+            <div class="chips large"><span>semantic</span><span>familial institutional economic</span><span>familial</span><span>semantic familial</span><span>semantic familial institutional</span><span>yrs</span><span>domains</span><span>familial institutional</span><span>institutional economic</span><span>vocabulary</span></div>
+          </section>
+          <section>
+            <h2>Risk Sentences</h2>
+            <p class="quote">Data could have refuted this.</p>
+            <p class="quote">The last generation where every subsystem is still roughly aligned.</p>
+          </section>
+          <section>
+            <h2>Supported Sentences</h2>
+            <p class="quote">THE MORAL DECLINE OF AMERICA
+“The only variable the math can&#x27;t predict is whether anyone will choose to be β.”
+David Lowe • The Moral Decline of America Project
+With Claude (Anthropic), Gemini (Google), and Codex (OpenAI)
+Series Index:
+Part 1: The Lowe Family • Part 2: The Coherence Factor • Part 3: The Great Decoupling
+Part 4: The Constitutional Overlay • Part 5: The Math • Part 6: The Restoration Protocol
+23 domains analyzed
+p = 0.003
+4 civilizations tested
+4 kill conditions
+330% Amish divergence
+← Back to Genesis to Quantum
+Related Work
+Core article, supporting evidence, and broader context
+Ring 1 ï¿½ This Article
+The core argument
+You are here.</p>
+            <p class="quote">DATA SOURCES
+• Census Bureau (family, demographics)
+• Gallup (trust, religion, polling)
+• FBI Uniform Crime Reports (safety)
+• College Board (SAT, education)
+• Federal Reserve (FRED — economic)
+• Google Ngram (linguistic/semantic)
+• CDC (health, mortality, substance)
+• GSS / ANES (social attitudes)
+• Denominational records (religious)
+CURVE FITTING
+?(t) = ?0 · e−λ(t−t0) + A sin(ωt + φ) + C
+• Mean λ = 0.045 ± 0.050
+• Median λ = 0.023
+• Mean R² &gt; 0.90
+• K-S test: p = 0.003
+• Inflection point: 1968.9
+• 23 domains with sufficient time-series data
+• 45 domains scanned total
+Kill Conditions
+K1
+RECOVERY WITHOUT β
+If any society recovers from ?</p>
+          </section>
+          <section>
+            <h2>Formal Snapshot Counts</h2>
+            <div class="metric-grid big">
+              <div><span>Inventory</span><strong>0</strong></div>
+              <div><span>Evidence Map</span><strong>0</strong></div>
+              <div><span>Equations</span><strong>0</strong></div>
+              <div><span>Kill Conditions</span><strong>0</strong></div>
+            </div>
+          </section>
+          <section>
+            <h2>Theophysics</h2>
+            <pre>null</pre>
+          </section>
+          <section class="wide">
+            <h2>Pipeline Trace</h2>
+            <pre>{
+  &quot;L2_absolute_claim_count&quot;: 18,
+  &quot;L2_absolute_density_per1k&quot;: 4.67,
+  &quot;L2_academic_grade&quot;: &quot;D (Light)&quot;,
+  &quot;L2_academic_rubric_grade&quot;: &quot;C (Developing)&quot;,
+  &quot;L2_academic_rubric_total&quot;: 14.31,
+  &quot;L2_academic_signal_count&quot;: 8,
+  &quot;L2_academic_signal_density&quot;: 2.07,
+  &quot;L2_author_year_citation_count&quot;: 0,
+  &quot;L2_citation_count&quot;: 0,
+  &quot;L2_citation_density_per1k&quot;: 0.0,
+  &quot;L2_claim_candidate_1&quot;: &quot;= 0.75 Largest peacetime expansion of federal power.&quot;,
+  &quot;L2_claim_candidate_2&quot;: &quot;Federal Register: 14,479 pages (1960) \u2192 87,012 (1980).&quot;,
+  &quot;L2_claim_candidate_3&quot;: &quot;A2 Linear Decay The \u03b4 term implies constant-rate decay.&quot;,
+  &quot;L2_claim_density_per1k&quot;: 0.26,
+  &quot;L2_claim_marker_count&quot;: 1,
+  &quot;L2_counterargument_count&quot;: 1,
+  &quot;L2_definition_marker_count&quot;: 0,
+  &quot;L2_doi_references&quot;: 0,
+  &quot;L2_equation_count&quot;: 39,
+  &quot;L2_equation_density_per1k&quot;: 10.11,
+  &quot;L2_evidence_candidate_1&quot;: &quot;Proof Pressure Layer Vetted Claims for MDA-902-appendix-trans-domain-analysis Claim 1 | SURVIVES | 7QS 5/6 If a competing model explains the same data with equal or greater predictive accuracy, fewer parameters, and a different causal mecha&quot;,
+  &quot;L2_evidence_candidate_2&quot;: &quot;DATA SOURCES \u2022 Census Bureau (family, demographics) \u2022 Gallup (trust, religion, polling) \u2022 FBI Uniform Crime Reports (safety) \u2022 College Board (SAT, education) \u2022 Federal Reserve (FRED \u2014 economic) \u2022 Google Ngram (linguistic/semantic) \u2022 CDC (he&quot;,
+  &quot;L2_evidence_density_per1k&quot;: 8.82,
+  &quot;L2_evidence_marker_count&quot;: 34,
+  &quot;L2_evidence_to_claim_ratio&quot;: 34.0,
+  &quot;L2_external_theories&quot;: &quot;entropy, epistemology&quot;,
+  &quot;L2_external_theory_count&quot;: 2,
+  &quot;L2_falsifiability_density_per1k&quot;: 1.04,
+  &quot;L2_falsifiability_marker_count&quot;: 4,
+  &quot;L2_footnote_count&quot;: 0,
+  &quot;L2_has_abstract&quot;: false,
+  &quot;L2_has_conclusion&quot;: false,
+  &quot;L2_has_discussion&quot;: true,
+  &quot;L2_has_introduction&quot;: false,
+  &quot;L2_has_methodology&quot;: true,
+  &quot;L2_has_references_section&quot;: false,
+  &quot;L2_has_results&quot;: true,
+  &quot;L2_heading_count&quot;: 1,
+  &quot;L2_hedge_count&quot;: 3,
+  &quot;L2_hedge_density_per1k&quot;: 0.78,
+  &quot;L2_hedge_to_absolute_ratio&quot;: 0.17,
+  &quot;L2_limitation_count&quot;: 10,
+  &quot;L2_novelty_marker_count&quot;: 4,
+  &quot;L2_numeric_citation_count&quot;: 0,
+  &quot;L2_quantitative_marker_count&quot;: 363,
+  &quot;L2_reference_entry_count&quot;: 0,
+  &quot;L2_rubric_claim_points&quot;: 2.17,
+  &quot;L2_rubric_falsifiability_points&quot;: 5.0,
+  &quot;L2_rubric_grounding_points&quot;: 0.0,
+  &quot;L2_rubric_quantitative_points&quot;: 5.0,
+  &quot;L2_rubric_structure_points&quot;: 2.14,
+  &quot;L2_structure_score&quot;: &quot;3/7&quot;,
+  &quot;L2_title_detected&quot;: &quot;Appendix: Trans-Domain Analysis | Moral Decline of America&quot;,
+  &quot;L2_url_references&quot;: 0,
+  &quot;L3_chi_score&quot;: 4.6,
+  &quot;L3_chi_status&quot;: &quot;MODERATE&quot;,
+  &quot;L3_ckg_raw&quot;: 67.0,
+  &quot;L3_ckg_tier&quot;: &quot;B \u2014 Strong&quot;,
+  &quot;L3_cross_domain_bridges&quot;: 1,
+  &quot;L3_dominant_fruit&quot;: &quot;peace&quot;,
+  &quot;L3_fruits_composite&quot;: 1.35,
+  &quot;L3_fruits_detail&quot;: &quot;peace:9, goodness:6, patience:3, kindness:2, faithfulness:2&quot;,
+  &quot;L3_knowledge_score&quot;: 1.19,
+  &quot;L3_me_C_christ_coherence&quot;: 2.25,
+  &quot;L3_me_E_entropy_engagement&quot;: 1.47,
+  &quot;L3_me_F_faith_coupling&quot;: 2.42,
+  &quot;L3_me_G_gravity_belonging&quot;: 0.52,
+  &quot;L3_me_K_knowledge_logos&quot;: 0.78,
+  &quot;L3_me_M_mass_meaning&quot;: 1.99,
+  &quot;L3_me_Q_quantum_observer&quot;: 1.56,
+  &quot;L3_me_R_relationship&quot;: 1.38,
+  &quot;L3_me_S_spacetime_structure&quot;: 1.82,
+  &quot;L3_me_T_time_eternity&quot;: 4.06,
+  &quot;L3_me_avg_score&quot;: 1.82,
+  &quot;L3_me_dominant_variable&quot;: &quot;T_time_eternity&quot;,
+  &quot;L3_scripture_refs&quot;: 2,
+  &quot;L3_wisdom_score&quot;: 0.34,
+  &quot;L3_wk_ratio&quot;: 0.283,
+  &quot;L3_wk_status&quot;: &quot;KNOWLEDGE-DOMINANT&quot;,
+  &quot;L6_absolute_pressure&quot;: 0.0075,
+  &quot;L6_anchored_claims&quot;: 5,
+  &quot;L6_anti_faithfulness&quot;: 0.0,
+  &quot;L6_anti_fruit_pressure&quot;: 0.004,
+  &quot;L6_anti_gentleness&quot;: 0.0,
+  &quot;L6_anti_goodness&quot;: 0.0,
+  &quot;L6_anti_joy&quot;: 0.0,
+  &quot;L6_anti_kindness&quot;: 0.0,
+  &quot;L6_anti_love&quot;: 0.0,
+  &quot;L6_anti_patience&quot;: 0.0,
+  &quot;L6_anti_peace&quot;: 0.0358,
+  &quot;L6_anti_self_control&quot;: 0.0,
+  &quot;L6_attr_authority_usurpation_counter_pressure&quot;: 0.0,
+  &quot;L6_attr_authority_usurpation_kind&quot;: &quot;threat&quot;,
+  &quot;L6_attr_authority_usurpation_neg_hits&quot;: 0.0,
+  &quot;L6_attr_authority_usurpation_net_score&quot;: 0.0,
+  &quot;L6_attr_authority_usurpation_pos_hits&quot;: 0.0,
+  &quot;L6_attr_authority_usurpation_strength&quot;: 0.0,
+  &quot;L6_attr_charismatic_manipulation_counter_pressure&quot;: 0.0,
+  &quot;L6_attr_charismatic_manipulation_kind&quot;: &quot;threat&quot;,
+  &quot;L6_attr_charismatic_manipulation_neg_hits&quot;: 0.0,
+  &quot;L6_attr_charismatic_manipulation_net_score&quot;: 0.0,
+  &quot;L6_attr_charismatic_manipulation_pos_hits&quot;: 0.0,
+  &quot;L6_attr_charismatic_manipulation_strength&quot;: 0.0,
+  &quot;L6_attr_deception_mastery_counter_pressure&quot;: 0.0,
+  &quot;L6_attr_deception_mastery_kind&quot;: &quot;threat&quot;,
+  &quot;L6_attr_deception_mastery_neg_hits&quot;: 0.0,
+  &quot;L6_attr_deception_mastery_net_score&quot;: 0.0,
+  &quot;L6_attr_deception_mastery_pos_hits&quot;: 0.0,
+  &quot;L6_attr_deception_mastery_strength&quot;: 0.0,
+  &quot;L6_attr_global_solution_complex_counter_pressure&quot;: 0.0,
+  &quot;L6_attr_global_solution_complex_kind&quot;: &quot;threat&quot;,
+  &quot;L6_attr_global_solution_complex_neg_hits&quot;: 0.0,
+  &quot;L6_attr_global_solution_complex_net_score&quot;: 0.0,
+  &quot;L6_attr_global_solution_complex_pos_hits&quot;: 0.0,
+  &quot;L6_attr_global_solution_complex_strength&quot;: 0.0,
+  &quot;L6_attr_humility_index_counter_pressure&quot;: 0.0,
+  &quot;L6_attr_humility_index_kind&quot;: &quot;protective&quot;,
+  &quot;L6_attr_humility_index_neg_hits&quot;: 0.0,
+  &quot;L6_attr_humility_index_net_score&quot;: 0.0,
+  &quot;L6_attr_humility_index_pos_hits&quot;: 0.0,
+  &quot;L6_attr_humility_index_strength&quot;: 0.0,
+  &quot;L6_attr_moral_courage_counter_pressure&quot;: 0.0,
+  &quot;L6_attr_moral_courage_kind&quot;: &quot;protective&quot;,
+  &quot;L6_attr_moral_courage_neg_hits&quot;: 0.0,
+  &quot;L6_attr_moral_courage_net_score&quot;: 0.0,
+  &quot;L6_attr_moral_courage_pos_hits&quot;: 0.0,
+  &quot;L6_attr_moral_courage_strength&quot;: 0.0,
+  &quot;L6_attr_spiritual_coherence_counter_pressure&quot;: 0.0,
+  &quot;L6_attr_spiritual_coherence_kind&quot;: &quot;protective&quot;,
+  &quot;L6_attr_spiritual_coherence_neg_hits&quot;: 0.0,
+  &quot;L6_attr_spiritual_coherence_net_score&quot;: 0.0,
+  &quot;L6_attr_spiritual_coherence_pos_hits&quot;: 0.0,
+  &quot;L6_attr_spiritual_coherence_strength&quot;: 0.0,
+  &quot;L6_attr_spiritual_discernment_counter_pressure&quot;: 0.0,
+  &quot;L6_attr_spiritual_discernment_kind&quot;: &quot;protective&quot;,
+  &quot;L6_attr_spiritual_discernment_neg_hits&quot;: 0.0,
+  &quot;L6_attr_spiritual_discernment_net_score&quot;: 0.0,
+  &quot;L6_attr_spiritual_discernment_pos_hits&quot;: 0.0,
+  &quot;L6_attr_spiritual_discernment_strength&quot;: 0.0,
+  &quot;L6_balance_score&quot;: 0.0,
+  &quot;L6_character_posture&quot;: &quot;mixed spiritual posture&quot;,
+  &quot;L6_claim_count&quot;: 111,
+  &quot;L6_coherence_score&quot;: 0.775,
+  &quot;L6_combined_score&quot;: 0.6319,
+  &quot;L6_contradiction_flags&quot;: 0,
+  &quot;L6_contradictory_claims&quot;: 0,
+  &quot;L6_discipline_score&quot;: 0.0478,
+  &quot;L6_evidence_density&quot;: 0.483,
+  &quot;L6_falsifiability_density&quot;: 0.0217,
+  &quot;L6_falsifiable_claims&quot;: 4,
+  &quot;L6_fruit_faithfulness&quot;: 0.0,
+  &quot;L6_fruit_gentleness&quot;: 0.0,
+  &quot;L6_fruit_goodness&quot;: 0.1433,
+  &quot;L6_fruit_integrity_score&quot;: 0.2952,
+  &quot;L6_fruit_joy&quot;: 0.0,
+  &quot;L6_fruit_kindness&quot;: 0.0717,
+  &quot;L6_fruit_love&quot;: 0.0358,
+  &quot;L6_fruit_patience&quot;: 0.1075,
+  &quot;L6_fruit_peace&quot;: 0.0358,
+  &quot;L6_fruit_self_control&quot;: 0.0358,
+  &quot;L6_hedge_density&quot;: 0.0093,
+  &quot;L6_integrity_profiles&quot;: &quot;coherent but cold; forceful and disciplined; technically strong, morally vacant; narrow but rigorous; publication-ready but adversarially incomplete&quot;,
+ </pre>
+          </section>
+        </main>
+        
+</body>
+</html>

@@ -1,0 +1,60 @@
+# Station contract — copy from _TEMPLATE/
+# Mirrors the shape of MODELS/_TEMPLATE/model.yml so stations and models read alike.
+# new_station.py substitutes every {{PLACEHOLDER}} from CLI args.
+
+station_id: ST-CLAIM-001
+name: Claim Extractor
+lane: claim
+status: draft
+order: 14
+purpose: >
+  Read source.md and trace-ledger.json, extract durable claims, assumptions,
+  equations, hypotheses, and evidence statements only when anchored to trace IDs.
+  Assign claim IDs. Dedup against existing claim store.
+
+# What this station calls. For model-wrapper stations this is the bound model.
+# For LLM stations this is the API model id (gpt-4o-mini, claude-opus-4-7, etc.).
+model:
+  primary:   gpt-4o-mini
+  fallback:  
+  provider:  openai
+
+prompt:
+  primary:   PROMPT_SYSTEM.md
+  fallback:  
+
+script:
+  runner:    scripts/03_run_prompt.bat
+
+input:
+  accepts:
+    - markdown_article                    # e.g. markdown_article, text_pair, query_passages
+    - trace_ledger
+  required_files:
+    - source.md                    # primary input filename convention
+    - trace-ledger.json
+
+output:
+  produces:
+    - claims.json
+    - claims.md
+  required_format: json
+
+healthcheck:
+  prompt: "Return JSON: {\"status\":\"ok\"}"
+  expected_contains: "\"status\""
+
+gate:
+  pass_if:
+    - valid_json: true
+    - claims_non_empty: true
+    - no_blank_trace_status: true
+    - anchored_claims_have_trace_id: true
+  fail_to: 99_ERROR
+  review_to: 03_REVIEW
+
+next:
+  pass:
+    - ST-SUM-001
+  fail:
+    - ST-ERR-001

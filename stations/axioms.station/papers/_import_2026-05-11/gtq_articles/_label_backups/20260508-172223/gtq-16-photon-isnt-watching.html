@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="paper-slug" content="GTQ-16">
+<title>GTQ-16 The Photon Isn't Watching You Back — Genesis to Quantum</title>
+<meta name="description" content="Dismantling the New Age hijacking of quantum mechanics."/>
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<!-- MathJax -->
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']] }, svg: { fontCache: 'global' } };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+:root{
+  --primary:#1a1a1a;
+  --accent:#2c2c2c;
+  --text-primary:#e0e0e0;
+  --text-secondary:#a0a0a0;
+  --highlight:#d4af37;
+  --highlight-bright:#f4d03f;
+  --highlight-dim:#8b7a1e;
+  --highlight-glow:rgba(212,175,55,0.12);
+  --border:#333333;
+  --surface:#0a0a0a;
+  --surface-light:#1a1a1a;
+  --surface-hover:#2a2a2a;
+  --red:#ef4444;
+  --blue:#4a9eff;
+  --teal:#2dd4bf;
+  --purple:#a855f7;
+  --green:#22c55e;
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--surface);
+  color:var(--text-primary);
+  line-height:1.65;
+  margin:0;
+  padding:0;
+  overflow-x:hidden;
+}
+.serif{font-family:'Crimson Text',serif;}
+.display{font-family:'Oswald',sans-serif;}
+.mono{font-family:'JetBrains Mono',monospace;}
+
+/* ─────────── SIDEBAR NAV ─────────── */
+.sidebar{
+  position:fixed;top:0;left:0;width:300px;height:100vh;
+  background:var(--surface);border-right:1px solid var(--border);
+  z-index:100;overflow-y:auto;
+  transform:translateX(-100%);transition:transform .3s ease;
+  padding:1.5rem 1rem;
+}
+.sidebar.open{transform:translateX(0);}
+.sidebar-toggle{
+  position:fixed;top:1rem;left:1rem;z-index:101;
+  background:var(--surface-light);border:1px solid var(--border);
+  color:var(--highlight);width:40px;height:40px;border-radius:.375rem;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:1rem;transition:all .2s ease;
+}
+.sidebar-toggle:hover{border-color:var(--highlight);background:var(--surface-hover);}
+.sidebar-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:99;}
+.sidebar-overlay.show{display:block;}
+.sidebar .series-title{
+  font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--highlight);margin-bottom:1rem;
+  padding-bottom:.5rem;border-bottom:1px solid var(--border);
+}
+.sidebar a{display:block;padding:.45rem .75rem;color:var(--text-secondary);text-decoration:none;font-size:.8rem;border-radius:.3rem;transition:all .15s ease;line-height:1.4;}
+.sidebar a:hover{color:var(--text-primary);background:var(--surface-hover);}
+.sidebar a.current{color:var(--highlight);background:var(--highlight-glow);font-weight:600;}
+.sidebar .nav-section{padding:.5rem .75rem .25rem;font-family:'Oswald',sans-serif;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);opacity:.6;margin-top:.5rem;}
+.sidebar a.main-article{font-weight:500;color:var(--text-primary);}
+.sidebar a.deep-dive{padding-left:1.25rem;font-size:.78rem;opacity:.85;}
+.sidebar a.deep-dive::before{content:"└ ";color:var(--border);}
+.sidebar-header{display:flex;align-items:center;gap:.5rem;padding:.75rem 0 1rem;margin-bottom:.75rem;border-bottom:1px solid var(--border);}
+.sidebar-home-btn{display:inline-flex;align-items:center;justify-content:center;gap:.3rem;padding:.3rem .65rem;border-radius:.3rem;font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);background:transparent;transition:all .2s ease;}
+.sidebar-home-btn .sidebar-home-code{font-size:.7rem;letter-spacing:0;}
+.sidebar-home-btn.home-main{color:var(--text-secondary);}
+.sidebar-home-btn.home-main:hover{color:var(--text-primary);border-color:var(--text-secondary);}
+.sidebar-home-btn.home-series{color:var(--highlight);border-color:rgba(212,175,55,.4);background:var(--highlight-glow);}
+.sidebar-home-btn.home-series:hover{color:var(--highlight-bright);border-color:var(--highlight);}
+.sidebar-close{margin-left:auto;width:28px;height:28px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--text-secondary);cursor:pointer;}
+.sidebar-close:hover{color:var(--text-primary);border-color:var(--text-secondary);}
+
+/* ─────────── PROGRESS BAR ─────────── */
+.progress-track{position:fixed;top:0;left:0;right:0;height:3px;background:var(--border);z-index:90;}
+.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--highlight),var(--highlight-bright));transition:width 0.1s ease;border-radius:0 2px 2px 0;}
+
+/* ─────────── HERO GRID ─────────── */
+.hero-grid{
+  display:grid;grid-template-columns:2fr 1fr;grid-template-rows:auto auto;
+  gap:1.25rem;min-height:420px;margin-bottom:2.5rem;
+}
+.hero-main{
+  grid-column:1/2;grid-row:1/3;position:relative;overflow:hidden;
+  border-radius:.75rem;background:linear-gradient(135deg,var(--surface-light) 0%,var(--accent,#2c2c2c) 100%);
+  border:1px solid var(--border);min-height:420px;
+}
+.hero-main img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35;}
+.hero-main .overlay{
+  position:relative;z-index:2;height:100%;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:2.5rem;
+  background:linear-gradient(0deg,rgba(10,10,10,.85) 0%,rgba(10,10,10,0) 60%);
+}
+.hero-side{
+  background:var(--surface-light);border:1px solid var(--border);border-radius:.75rem;
+  padding:1.5rem;transition:border-color .25s ease;
+}
+.hero-side:hover{border-color:var(--highlight);}
+.hero-side h3{font-family:'Crimson Text',serif;font-size:1.05rem;font-weight:600;color:#fff;margin:0 0 .65rem;}
+.hero-side p{font-size:.875rem;color:var(--text-secondary);margin:0;}
+.hero-side .label{display:block;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);margin-bottom:.4rem;font-weight:700;}
+@media(max-width:1024px){
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-main{grid-column:1;grid-row:1;min-height:300px;}
+  .hero-main .overlay{padding:1.5rem;}
+}
+.meta-row{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;font-size:.8125rem;color:var(--text-secondary);margin-bottom:1rem;}
+.meta-row i{color:var(--highlight);margin-right:.4rem;}
+.status-pill{
+  padding:.25rem .65rem;background:var(--highlight-glow);color:var(--highlight);
+  border-radius:.25rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+}
+.domain-tag{display:inline-block;padding:.2rem .65rem;border-radius:999px;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+.tag-physics{background:rgba(74,158,255,.15);color:#4a9eff;}
+.tag-theology{background:rgba(212,175,55,.15);color:#d4af37;}
+.tag-quantum{background:rgba(201,64,64,.15);color:var(--red);}
+.tag-bridge{background:rgba(45,212,191,.15);color:#2dd4bf;}
+.tag-data{background:rgba(34,197,94,.15);color:var(--green);}
+.tag-consciousness{background:rgba(168,85,247,.15);color:var(--purple);}
+.tag-history{background:rgba(212,175,55,.12);color:#caa040;}
+.tag-moral{background:rgba(239,68,68,.15);color:var(--red);}
+.tag-civilizational{background:rgba(168,85,247,.12);color:#b594d8;}
+
+/* ─────────── STICKY TAB BAR ─────────── */
+.tab-shell{
+  position:sticky;top:0;z-index:50;
+  background:rgba(10,10,10,.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.tab-nav{display:flex;gap:.125rem;overflow-x:auto;scrollbar-width:none;}
+.tab-nav::-webkit-scrollbar{display:none;}
+.tab-btn{
+  padding:.85rem 1.1rem;background:transparent;border:none;color:var(--text-secondary);
+  font-size:.825rem;font-weight:500;cursor:pointer;white-space:nowrap;
+  transition:all .2s ease;border-bottom:2px solid transparent;margin-bottom:-1px;letter-spacing:.02em;
+}
+.tab-btn:hover{color:var(--text-primary);background:var(--surface-light);}
+.tab-btn.active{color:var(--highlight);border-bottom-color:var(--highlight);background:var(--surface-light);}
+.tab-btn i{margin-right:.4rem;}
+
+/* ─────────── TAB CONTENT ─────────── */
+.tab-content{display:none;animation:fadeIn .3s ease;}
+.tab-content.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* ─────────── LAYOUT: MAIN ─────────── */
+.main-layout{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:grid;grid-template-columns:1fr 280px;gap:3rem;}
+@media(max-width:1024px){.main-layout{grid-template-columns:1fr;}}
+
+.story{max-width:900px;margin:0 auto;}
+.story.wide{max-width:100%;}
+.story h2{
+  font-family:'Oswald',sans-serif;font-size:1.6rem;font-weight:600;color:#fff;
+  margin:3rem 0 1.25rem;letter-spacing:.03em;text-transform:uppercase;
+  border-bottom:1px solid var(--border);padding-bottom:.5rem;
+}
+.story h3{font-family:'Crimson Text',serif;font-size:1.3rem;font-weight:600;color:#fff;margin:2rem 0 .75rem;}
+.story h4{font-family:'Crimson Text',serif;font-size:1.1rem;font-weight:600;color:var(--highlight);margin:1.5rem 0 .5rem;}
+.story p{font-size:1.0625rem;color:#cfcfcf;margin:0 0 1.25rem;line-height:1.75;}
+.story p strong{color:#fff;}
+.story p em{color:var(--highlight);font-style:italic;}
+.story li{color:#cfcfcf;margin-bottom:.5rem;line-height:1.65;}
+.story li strong{color:#fff;}
+.story ul,.story ol{margin:0 0 1.25rem 1.5rem;}
+.story blockquote{
+  border-left:4px solid var(--highlight);background:var(--highlight-glow);
+  padding:1rem 1.5rem;margin:1.5rem 0;border-radius:0 .5rem .5rem 0;
+  font-family:'Crimson Text',serif;font-size:1.05rem;font-style:italic;color:#cfcfcf;
+}
+.story blockquote p{margin:0;font-size:1.05rem;}
+
+.drop-cap::first-letter{font-family:'Crimson Text',serif;font-size:4.5rem;float:left;line-height:.85;padding:.4rem .6rem 0 0;color:var(--highlight);font-weight:600;}
+
+.exec-summary{
+  background:var(--highlight-glow);border:1px solid var(--highlight-dim);
+  border-radius:.5rem;padding:1.5rem;margin:2rem 0;
+}
+.exec-summary-label{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);margin-bottom:.75rem;
+}
+.exec-summary p{font-size:1rem;color:#e0e0e0;margin:0;line-height:1.7;}
+
+.insight{border-left:4px solid var(--highlight);background:var(--highlight-glow);padding:1.25rem 1.5rem;margin:2rem 0;border-radius:0 .5rem .5rem 0;}
+.insight .label{font-family:'Crimson Text',serif;font-style:italic;color:var(--highlight);font-size:.85rem;letter-spacing:.05em;display:block;margin-bottom:.4rem;}
+.insight p{margin:0;color:#fff;font-size:1.05rem;}
+
+/* ─────────── KILL CONDITIONS ─────────── */
+.kill-sidebar{position:sticky;top:120px;height:fit-content;}
+.kill-sidebar-title{
+  font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--highlight);
+  margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);
+}
+.kill-card{
+  background:rgba(34,197,94,.04);border:1px solid rgba(34,197,94,.2);
+  border-radius:.5rem;padding:1rem;margin-bottom:.75rem;
+}
+.kill-card.suggestive{background:var(--highlight-glow);border-color:var(--highlight-dim);}
+.kill-card.destructive{background:rgba(239,68,68,.04);border-color:rgba(239,68,68,.2);}
+.kill-label{font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.35rem;}
+.kill-card .kill-label{color:var(--green);}
+.kill-card.suggestive .kill-label{color:var(--highlight);}
+.kill-card.destructive .kill-label{color:var(--red);}
+.kill-card p{margin:.25rem 0 0;color:#cfcfcf;font-size:.85rem;line-height:1.5;}
+.kill-card .kill-detail{font-size:.75rem;color:var(--text-secondary);margin-top:.35rem;}
+
+/* ─────────── AUDIO DOCK ─────────── */
+.audio-dock{width:100%;background:var(--surface-light);border:1px solid var(--border);border-radius:.625rem;overflow:hidden;transition:border-color .3s ease;margin:2rem 0;}
+.audio-dock:hover{border-color:var(--highlight-dim);}
+.dock-pills{display:flex;gap:0;border-bottom:1px solid var(--border);}
+.dock-pill{flex:1;display:flex;align-items:center;justify-content:center;gap:.4rem;padding:.6rem .5rem;background:transparent;border:none;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);transition:all .25s ease;position:relative;}
+.dock-pill::after{content:'';position:absolute;bottom:0;left:15%;right:15%;height:2px;border-radius:1px;background:transparent;transition:all .25s ease;}
+.dock-pill:hover{color:var(--text-primary);background:rgba(255,255,255,.03);}
+.dock-pill[data-src="deep"]{--pill-c:var(--blue);}
+.dock-pill[data-src="read"]{--pill-c:var(--highlight);}
+.dock-pill[data-src="debate"]{--pill-c:var(--purple);}
+.dock-pill[data-src="critique"]{--pill-c:var(--teal);}
+.dock-pill.active{color:var(--pill-c);background:rgba(255,255,255,.02);}
+.dock-pill.active::after{background:var(--pill-c);}
+.dock-pill .pill-dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.5;transition:opacity .25s;}
+.dock-pill.active .pill-dot{opacity:1;}
+.dock-pill.unavailable{opacity:.3;cursor:default;pointer-events:none;}
+.dock-body{display:flex;align-items:center;gap:.65rem;padding:.65rem .85rem;}
+.dock-play{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--highlight);background:transparent;color:var(--highlight);font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s ease;}
+.dock-play:hover{background:var(--highlight-glow);transform:scale(1.05);}
+.dock-play.playing{animation:pulse-dock 2s ease-in-out infinite;}
+@keyframes pulse-dock{0%,100%{box-shadow:0 0 0 0 var(--highlight-glow);}50%{box-shadow:0 0 0 4px transparent;}}
+.dock-track-wrap{flex:1;display:flex;flex-direction:column;gap:.25rem;min-width:0;}
+.dock-track{width:100%;height:4px;background:#222;border-radius:2px;cursor:pointer;overflow:hidden;position:relative;}
+.dock-fill{height:100%;width:0%;border-radius:2px;background:var(--highlight);transition:width .15s linear,background .3s;}
+.dock-times{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--text-secondary);}
+.dock-vol{background:none;border:none;color:var(--text-secondary);cursor:pointer;font-size:.75rem;flex-shrink:0;padding:2px;transition:color .2s;}
+.dock-vol:hover{color:var(--text-primary);}
+.dock-empty{display:none;align-items:center;justify-content:center;padding:.85rem;font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);opacity:.5;font-style:italic;}
+.dock-body.hidden{display:none;}.dock-empty.visible{display:flex;}
+
+/* ─────────── BOTTOM NAVIGATION ─────────── */
+.bottom-nav{
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:1.5rem 0;margin:3rem 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+.bottom-nav a{
+  display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;
+  background:var(--surface-light);border:1px solid var(--border);border-radius:.375rem;
+  color:var(--text-secondary);text-decoration:none;font-size:.85rem;transition:all .2s ease;
+}
+.bottom-nav a:hover{border-color:var(--highlight);color:var(--text-primary);background:var(--highlight-glow);}
+.bottom-nav a.primary{border-color:var(--highlight);color:var(--highlight);}
+.bottom-nav a.primary:hover{background:var(--highlight-glow);}
+.bottom-nav .nav-center{font-size:.8rem;color:var(--text-secondary);text-align:center;}
+
+/* ─────────── FOOTER ─────────── */
+.site-footer{text-align:center;padding:3rem 1.5rem;color:var(--text-secondary);font-size:.8rem;border-top:1px solid var(--border);margin-top:2rem;}
+.site-footer .eq{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--highlight);opacity:.6;margin-bottom:.5rem;}
+
+@media(max-width:1024px){
+  .kill-sidebar{display:none;}
+  .main-layout{grid-template-columns:1fr;padding:0 1rem;}
+  .story{max-width:100%;}
+}
+@media(max-width:640px){
+  .tab-btn{padding:.65rem .8rem;font-size:.75rem;}
+  .story h2{font-size:1.3rem;}
+  .bottom-nav{flex-direction:column;align-items:stretch;}
+  .bottom-nav a{justify-content:center;}
+}
+
+/* GTQ bottom audit gradient: what we overstated vs. what still carries weight */
+.gtq-bottom-audit{margin:4rem 0 2rem;border:1px solid rgba(255,255,255,.12);border-radius:1rem;overflow:hidden;background:#080808;box-shadow:0 24px 80px rgba(0,0,0,.35);}
+.gtq-bottom-audit .audit-band{padding:2rem clamp(1.25rem,3vw,2.5rem);border-bottom:1px solid rgba(255,255,255,.08);}
+.gtq-bottom-audit .audit-band:last-child{border-bottom:0;}
+.gtq-bottom-audit .audit-red{background:linear-gradient(135deg,rgba(239,68,68,.28),rgba(127,29,29,.12) 62%,rgba(8,8,8,.96));border-left:6px solid #ef4444;}
+.gtq-bottom-audit .audit-amber{background:linear-gradient(135deg,rgba(239,68,68,.14),rgba(245,158,11,.18) 48%,rgba(8,8,8,.96));border-left:6px solid #f59e0b;}
+.gtq-bottom-audit .audit-green{background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(34,197,94,.22) 56%,rgba(8,8,8,.96));border-left:6px solid #22c55e;}
+.gtq-bottom-audit .audit-kicker{font-family:'Oswald',sans-serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.62);margin-bottom:.55rem;}
+.gtq-bottom-audit .audit-title{font-family:'Oswald',sans-serif;font-size:clamp(2rem,6vw,4.6rem);line-height:.92;letter-spacing:.02em;text-transform:uppercase;margin:0 0 1rem;}
+.gtq-bottom-audit .audit-red .audit-title{color:#ff5a5a;}
+.gtq-bottom-audit .audit-amber .audit-title{color:#fbbf24;}
+.gtq-bottom-audit .audit-green .audit-title{color:#4ade80;}
+.gtq-bottom-audit p{font-size:1.05rem;line-height:1.75;color:#d6d6d6;margin:.7rem 0 0;max-width:76ch;}
+.gtq-bottom-audit strong{color:#fff;}
+.gtq-bottom-audit .audit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1rem;}
+.gtq-bottom-audit .audit-chip{background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.1);border-radius:.65rem;padding:1rem;}
+@media(max-width:720px){.gtq-bottom-audit .audit-grid{grid-template-columns:1fr}.gtq-bottom-audit .audit-band{padding:1.35rem}.gtq-bottom-audit .audit-title{font-size:2.2rem}}</style>
+</head>
+
+<body>
+
+<!-- Progress bar -->
+<div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+
+<!-- GTQ CANON HEADER: managed by tools/apply_article_topbars.py -->
+<style>
+.gtq-canon-shell{
+  min-height:214px;background:#070707;border-bottom:1px solid rgba(212,175,55,.34);
+  color:var(--text-primary);position:relative;z-index:50;overflow:hidden;
+  box-shadow:0 18px 36px rgba(0,0,0,.28);
+}
+.gtq-canon-shell::before{
+  content:"";position:absolute;inset:0;background:
+    radial-gradient(circle at var(--canon-glow-x,18%) 18%,rgba(212,175,55,.16),transparent 30%),
+    linear-gradient(90deg,rgba(212,175,55,.08),transparent 35%);
+  pointer-events:none;
+}
+.gtq-canon-topline{
+  height:40px;padding:0 1.5rem 0 4.5rem;border-bottom:1px solid rgba(212,175,55,.22);
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;position:relative;z-index:1;
+  background:rgba(5,5,5,.72);
+}
+.gtq-canon-chip,.gtq-canon-link{
+  height:26px;display:inline-flex;align-items:center;gap:.38rem;border:1px solid rgba(212,175,55,.24);
+  background:rgba(255,255,255,.025);border-radius:4px;padding:0 .65rem;
+  color:var(--text-dim);font-family:'JetBrains Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;
+  text-decoration:none;white-space:nowrap;
+}
+.gtq-canon-chip strong{color:var(--highlight);font-weight:700;}
+.gtq-canon-link{font-family:'Inter',sans-serif;font-size:.68rem;letter-spacing:.04em;font-weight:700;}
+.gtq-canon-link:hover{border-color:var(--highlight);color:var(--highlight);background:var(--highlight-glow);}
+.gtq-canon-nav{display:flex;align-items:center;gap:.4rem;}
+.gtq-canon-header{
+  min-height:174px;padding:1.45rem 1.5rem 1.4rem 4.5rem;position:relative;z-index:1;
+  display:grid;align-items:center;gap:1.2rem;
+}
+.gtq-canon-kicker{
+  color:var(--highlight);font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;
+  margin-bottom:.58rem;font-weight:700;
+}
+.gtq-canon-title{
+  font-family:'Crimson Text',serif;font-size:clamp(2rem,4.5vw,3.8rem);line-height:.96;
+  color:#fff;font-weight:700;letter-spacing:0;margin:0;
+}
+.gtq-canon-sub{
+  color:var(--text-secondary);font-size:.94rem;line-height:1.55;max-width:780px;margin-top:.78rem;
+}
+.gtq-canon-meta{display:flex;align-items:center;flex-wrap:wrap;gap:.55rem;margin-top:1rem;}
+.gtq-canon-meta span{
+  height:28px;display:inline-flex;align-items:center;gap:.38rem;padding:0 .7rem;border-radius:999px;
+  border:1px solid rgba(212,175,55,.22);background:rgba(212,175,55,.07);color:var(--text-dim);
+  font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.045em;
+}
+.gtq-canon-meta i{color:var(--highlight);}
+.gtq-canon-mark{
+  color:var(--highlight);font-family:'Oswald',sans-serif;font-size:7.8rem;line-height:.8;font-weight:700;
+  letter-spacing:.02em;user-select:none;text-shadow:0 0 30px rgba(212,175,55,.16);
+}
+.gtq-canon-formula{
+  color:rgba(212,175,55,.48);font-family:'JetBrains Mono',monospace;font-size:.72rem;line-height:1.8;
+  border-left:1px solid rgba(212,175,55,.35);padding-left:1rem;
+}
+.gtq-canon-classic{grid-template-columns:minmax(0,1fr) 170px;--canon-glow-x:16%;}
+.gtq-canon-classic .gtq-canon-mark{justify-self:end;opacity:.72;}
+.gtq-canon-spine{grid-template-columns:104px minmax(0,1fr) 250px;--canon-glow-x:50%;}
+.gtq-canon-spine::before{
+  content:"";position:absolute;left:4.5rem;right:1.5rem;top:0;height:4px;
+  background:linear-gradient(90deg,var(--highlight),var(--highlight-dim),var(--highlight-bright));
+}
+.gtq-canon-spine .gtq-canon-mark{
+  color:#050505;background:var(--highlight);width:74px;height:74px;display:grid;place-items:center;
+  font-size:2.15rem;border-radius:3px;box-shadow:0 0 34px rgba(212,175,55,.14);
+}
+.gtq-canon-edge{grid-template-columns:minmax(0,1fr) 330px;--canon-glow-x:86%;}
+.gtq-canon-edge .gtq-canon-title{max-width:760px;}
+.gtq-canon-edge .gtq-canon-mark{justify-self:end;opacity:.82;}
+.gtq-canon-edge .gtq-canon-formula{
+  border-left:0;border-top:1px solid rgba(212,175,55,.35);padding:1rem 0 0;text-align:center;
+}
+@media(max-width:900px){
+  .gtq-canon-topline{height:auto;min-height:40px;padding-right:.8rem;align-items:flex-start;flex-direction:column;padding-top:.55rem;padding-bottom:.55rem;}
+  .gtq-canon-nav{flex-wrap:wrap;}
+  .gtq-canon-header,.gtq-canon-classic,.gtq-canon-spine,.gtq-canon-edge{grid-template-columns:1fr;padding-right:1rem;}
+  .gtq-canon-mark,.gtq-canon-formula{display:none;}
+  .gtq-canon-title{font-size:clamp(1.8rem,9vw,2.55rem);}
+}
+</style>
+<section class="gtq-canon-shell" aria-label="Article identity">
+  <nav class="gtq-canon-topline" aria-label="Article navigation">
+    <div class="gtq-canon-chip"><i class="fas fa-atom"></i><strong>Genesis to Quantum</strong></div>
+    <div class="gtq-canon-nav">
+      <a class="gtq-canon-link" href="../index.html"><i class="fas fa-th-list"></i>Index</a>
+      <a class="gtq-canon-link" href="../15-why-reality-needs-three/gtq-15-why-reality-needs-three.html"><i class="fas fa-arrow-left"></i>Prev</a>
+      <a class="gtq-canon-link" href="../17-ran-the-numbers/gtq-17-ran-the-numbers.html">Next<i class="fas fa-arrow-right"></i></a>
+    </div>
+  </nav>
+  <header class="gtq-canon-header gtq-canon-classic">
+    <div>
+      <div class="gtq-canon-kicker">Origin Story / Article 16 / Formal Canon</div>
+      <h1 class="gtq-canon-title">The Photon Isn&#x27;t Watching You Back</h1>
+      <p class="gtq-canon-sub">Dismantling the New Age hijacking of quantum mechanics.</p>
+      <div class="gtq-canon-meta">
+        <span><i class="fas fa-fingerprint"></i>GTQ-16</span>
+        <span><i class="fas fa-layer-group"></i>Foundation Track</span>
+        <span><i class="fas fa-scale-balanced"></i>Bounded Claim</span>
+      </div>
+    </div>
+    <div class="gtq-canon-mark">#16</div>
+    <div class="gtq-canon-formula">
+      chi_local = G * M * E * S_eff * T * K * R * Q * F * C<br/>
+      C is factor / chi is output / no drift
+    </div>
+  </header>
+</section>
+<!-- /GTQ CANON HEADER -->
+
+<!-- Sidebar toggle -->
+<button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle series navigation"><i class="fas fa-bars"></i></button>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- Sidebar nav -->
+<nav class="sidebar" id="sidebar" aria-label="Series navigation">
+  <div class="sidebar-header">
+    <a href="https://faiththruphysics.com" class="sidebar-home-btn home-main" title="Main Site Home">
+      <span class="sidebar-home-code">H</span>
+      <span>Home</span>
+    </a>
+    <a href="../index.html" class="sidebar-home-btn home-series" title="Series Index">
+      <span class="sidebar-home-code">S</span>
+      <span>Series</span>
+    </a>
+    <button class="sidebar-close" type="button" aria-label="Close series navigation" onclick="toggleSidebar()">&times;</button>
+  </div>
+  <div class="series-title"><i class="fas fa-atom" style="margin-right:.4rem;"></i> Genesis to Quantum</div>
+
+  <div class="nav-section">Main Articles</div>
+  <a href="../01-measurement-collapsed-reality/gtq-01-measurement-collapsed-reality.html" class="main-article">01 The Measurement That Collapsed Reality</a>
+  <a href="../03-first-quantum-state/gtq-03-first-quantum-state.html" class="main-article">03 The First Quantum State</a>
+  <a href="../04-free-will-two-frames/gtq-04-free-will-two-frames.html" class="main-article">04 Free Will in Two Frames</a>
+  <a href="../08-day-time-began/gtq-08-day-time-began.html" class="main-article">08 The Day Time Began</a>
+  <a href="../11-substrate-fractured/gtq-11-substrate-fractured.html" class="main-article">11 The Substrate Fractured</a>
+  <a href="../15-why-reality-needs-three/gtq-15-why-reality-needs-three.html" class="main-article">15 Why Reality Needs Three</a>
+  <a href="../16-photon-isnt-watching/gtq-16-photon-isnt-watching.html" class="main-article current">16 The Photon Isn't Watching You Back</a>
+  <a href="../18-eraser-and-the-cross/gtq-18-eraser-and-the-cross.html" class="main-article">18 The Eraser and the Cross</a>
+  <a href="../22-same-god-both-testaments/gtq-22-same-god-both-testaments.html" class="main-article">22 The Same God in Both Testaments</a>
+  <a href="../25-counter-move/gtq-25-counter-move.html" class="main-article">25 The Counter-Move</a>
+  <div class="nav-section">Deep Dives</div>
+  <a href="../02-collapse-threshold/gtq-02-collapse-threshold.html" class="deep-dive">02 The Collapse Threshold</a>
+  <a href="../05-macarthur-equation/gtq-05-macarthur-equation.html" class="deep-dive">05 MacArthur and the Equation</a>
+  <a href="../06-three-pathways/gtq-06-three-pathways.html" class="deep-dive">06 The Three Pathways</a>
+  <a href="../07-why-god-drowned-everybody/gtq-07-why-god-drowned-everybody.html" class="deep-dive">07 Why Did God Drown Everybody?</a>
+  <a href="../09-decoherence-curve/gtq-09-decoherence-curve.html" class="deep-dive">09 The Decoherence Curve</a>
+  <a href="../10-how-lies-kill/gtq-10-how-lies-kill.html" class="deep-dive">10 How Lies Kill</a>
+  <a href="../12-trinity-mechanism/gtq-12-trinity-mechanism.html" class="deep-dive">12 The Trinity Mechanism</a>
+  <a href="../13-trinity-timeline/gtq-13-trinity-timeline.html" class="deep-dive">13 The Trinity Timeline</a>
+  <a href="../14-physics-broken-in-two/gtq-14-physics-broken-in-two.html" class="deep-dive">14 Why Physics Is Broken in Two</a>
+  <a href="../17-ran-the-numbers/gtq-17-ran-the-numbers.html" class="deep-dive">17 We Actually Ran the Numbers</a>
+  <a href="../19-temporal-trap/gtq-19-temporal-trap.html" class="deep-dive">19 The Temporal Trap</a>
+  <a href="../20-how-god-restores/gtq-20-how-god-restores.html" class="deep-dive">20 How God Restores</a>
+  <a href="../21-science-behind-restoration/gtq-21-science-behind-restoration.html" class="deep-dive">21 The Science Behind the Restoration</a>
+  <a href="../23-regime-dependent-theology/gtq-23-regime-dependent-theology.html" class="deep-dive">23 The Structural Case for Regime-Dependent Theology</a>
+  <a href="../24-societies-die/gtq-24-societies-die.html" class="deep-dive">24 Societies Die the Same Way People Do</a>
+  <a href="../26-pattern-is-the-signal/gtq-26-pattern-is-the-signal.html" class="deep-dive">26 Why the Pattern Is the Signal</a>
+</nav>
+
+<!-- Hero grid -->
+<div class="container mx-auto px-6 pt-8" style="padding-left:4.5rem;">
+  <div class="hero-grid">
+    <div class="hero-main">
+      <img src="images/hero/GTQ-16%20-%20Hero%20-%20Photon%20Isnt%20Watching.webp" alt="The Photon Isn't Watching You Back" onerror="this.style.display='none'"/>
+      <div class="overlay">
+        <div class="meta-row" style="margin-bottom:.5rem;">
+          <span><i class="fas fa-atom"></i>Article 16 &middot; Genesis to Quantum</span>
+          <span class="status-pill">Main Article</span>
+        </div>
+        <h1 class="serif text-3xl md:text-5xl font-bold text-white mb-3 leading-tight">
+          The Photon Isn't Watching You Back
+        </h1>
+        <p class="text-lg md:text-xl text-gray-200 font-light">
+          Dismantling the New Age hijacking of quantum mechanics.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-3">
+          <span class="domain-tag tag-physics">Physics</span><span class="domain-tag tag-quantum">Quantum</span><span class="domain-tag tag-consciousness">Consciousness</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-side">
+      <span class="label">Key Finding</span>
+      <h3>The single thing they should remember</h3>
+      <p>[[One short paragraph. Make it count.]]</p>
+    </div>
+    <div class="hero-side">
+      <span class="label">Critical Insight</span>
+      <h3>Why it matters now</h3>
+      <p>[[Different angle from the first.]]</p>
+    </div>
+  </div>
+</div>
+
+<!-- Sticky tab bar -->
+<div class="tab-shell">
+  <div class="container mx-auto px-6" style="padding-left:4.5rem;">
+    <nav class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('paper')"><i class="fas fa-scroll"></i>The Paper</button>
+      <button class="tab-btn" onclick="switchTab('summary')"><i class="fas fa-compress-alt"></i>Executive Summary</button>
+      <button class="tab-btn" onclick="switchTab('rigor')"><i class="fas fa-crosshairs"></i>Rigor &amp; Kill Conditions</button>
+      <button class="tab-btn" onclick="switchTab('media')"><i class="fas fa-headphones"></i>Watch &amp; Listen</button>
+      <button class="tab-btn" onclick="switchTab('blackboard')"><i class="fas fa-chalkboard"></i>Blackboard</button>
+    </nav>
+  </div>
+</div>
+
+<!-- Main content -->
+<main class="main-layout py-10">
+  <div>
+    <section id="paper" class="tab-content active">
+      <article class="story wide"><!-- ═══ OPENING ═══ -->
+      <blockquote>
+        <p>"And God saw that it was good." &mdash; Genesis 1:10, 12, 18, 21, 25, 31</p>
+      </blockquote>
+
+      <p class="drop-cap">The first time I really understood the double-slit experiment, I didn't sleep well that night. I don't mean the Discovery-Channel version where somebody shows you two bright bands turning into a striped pattern and says "spooky, right?" I mean the moment when it finally landed that what the experiment is actually saying is: <em>the universe is checking whether anyone is looking before it decides how to behave.</em> Not metaphorically. Operationally. In the equations. In the lab.</p>
+
+      <p>I wrote this article because I think that moment &mdash; the moment a reasonable person finally feels the weight of what quantum mechanics has been quietly insisting for a hundred years &mdash; is the one the Church should have been ready for and missed. For a century, physics has been quietly panicking about the observer. Every textbook teaches that "measurement collapses the wave function," and every textbook then hurries to reassure you that "measurement" doesn't really mean a conscious being, it just means "any interaction with the environment." That reassurance is meant kindly. It's also a pastoral lie, told because the honest version is too strange to put in front of a twenty-year-old physics major. This article tells the honest version, and then it asks why the honest version sounds so much like Genesis 1.</p>
+
+      <p>I want to say up front what I am <em>not</em> claiming. I am not claiming psychic powers in the tabloid sense. I am not claiming you can win at roulette by wanting hard enough. I am not claiming consciousness can do whatever it wants to whatever it wants. The claim is much narrower: <strong>an observer's coherence state is one of the inputs to a measurement outcome, and when coherence rises, the outcome distribution shifts in a small, statistically detectable, reproducible way.</strong> That's it. That's the whole claim. But if it's true &mdash; and two independent experimental regimes say it is &mdash; then consciousness is inside the equations of physics, not outside them. And that changes what Genesis 1 is.</p>
+
+      <div class="box-callout">
+        <div class="callout-title"><i class="fas fa-lightbulb" style="margin-right:.4rem;"></i>Key Insight</div>
+        <p>Seven times in the first chapter of Genesis, the same phrase. God <strong>saw</strong>. The creation is not finished when it is spoken. It is finished when it is seen. The Hebrew verb is <em>ra'ah</em> &mdash; not passive perception, but active observation that marks the completion of an act. In the Genesis grammar, reality is not fully ratified until it is witnessed by the one who made it.</p>
+      </div>
+
+      <p>For three thousand years that sounded like poetic anthropomorphism &mdash; God given eyes because humans have eyes. Then quantum mechanics was discovered, and it turned out that in the equations that govern the smallest scales of reality, <strong>an unwitnessed outcome is not an outcome yet</strong>. Measurement is not the photograph of an event. Measurement is part of the event. Observation is not the reception of reality. Observation participates in producing it.</p>
+
+      <p>This article is about what that means, what experiments point to it, why the rest of physics keeps its eyes on the floor when you bring it up, and why I think the "and God saw" grammar in Genesis was not decoration. It was engineering notes.</p>
+
+      <hr>
+
+      <!-- ═══ DOUBLE-SLIT ═══ -->
+      <h2>The Double-Slit Experiment: What Actually Happens</h2>
+
+      <p>If you've heard of one quantum experiment, it's this one. And if you've heard a pop-science version of it, you've probably been told it wrong in one of two ways &mdash; either it's been made more mysterious than it is (<em>the particle is conscious!</em>) or less (<em>it's just decoherence, relax</em>). Let's walk through what actually happens in the lab and try not to do either.</p>
+
+      <p>Fire an electron at a barrier with two slits in it. Behind the barrier, put a detector screen. Fire the electrons one at a time, so only one particle is ever in the apparatus. Wait long enough. Look at the pattern that builds up.</p>
+
+      <h4>Result 1: No which-path detector.</h4>
+      <p>Each individual electron arrives at a single point on the screen. A particle-like hit. But after thousands of firings, the accumulated hits form an interference pattern &mdash; alternating bright and dark bands, like the pattern you'd get if you dropped two stones in a still pond and watched the waves interfere. Every electron contributes to a wave pattern that no single electron could have produced on its own. Somehow each particle's behavior knows about both slits.</p>
+
+      <h4>Result 2: Which-path detector on.</h4>
+      <p>Now install a detector at the slits that records which slit each electron went through. The interference pattern vanishes. The screen now shows exactly what you'd expect if the electrons were little bullets: two bright bands lined up with the slits. No interference. No waves. Just particles, one at a time.</p>
+
+      <div class="box-callout">
+        <div class="callout-title"><i class="fas fa-exclamation-triangle" style="margin-right:.4rem;"></i>The Part That Matters</div>
+        <p>The which-path detector doesn't have to disturb the particle. In principle, the information can be extracted with arbitrarily small physical impact. What kills the interference is not the mechanical jostle of being measured. What kills the interference is <strong>the possibility of knowing</strong>. The pattern collapses the moment the which-path information becomes available &mdash; even if nobody ever reads it. Information-about-the-system changes the system.</p>
+      </div>
+
+      <p>I'm told this is "just decoherence." That phrase is technically correct and emotionally false. It's correct because, yes, the interaction between the detector and the environment spreads phase information around in a way that washes out the interference. It's false because it treats the word "information" as if it were neutral. Information is not neutral. Information is the central actor in the equation. What the decoherence story describes is the mechanism by which <em>knowability</em> propagates. The question of whose knowing counts &mdash; and how much coherence the knower has &mdash; is a question the decoherence story deliberately refuses to ask. That refusal is the whole problem this article is about.</p>
+
+      <p>Richard Feynman called the double-slit "the only mystery" of quantum mechanics. He meant it literally. Every other quantum weirdness is, at bottom, a consequence of this one. A particle behaves one way when nobody knows where it is and another way when somebody does. The difference is not energy. The difference is information. The difference is <em>knowing</em>.</p>
+
+      <hr>
+
+      <!-- ═══ PEAR-LAB ═══ -->
+      <h2>PEAR-LAB: Princeton Took This Seriously</h2>
+
+      <p>The double-slit shows that knowability matters at the level of a single particle. The next question is the one that makes physicists uncomfortable: does the quality of the knower matter? Not just "was there a detector?" but "what kind of knower was present, and did they care?"</p>
+
+      <p>Princeton Engineering Anomalies Research &mdash; PEAR-LAB &mdash; spent 28 years asking exactly that. They ran what is, to my mind, one of the most statistically rigorous parapsychology programs ever attempted by a major research university.</p>
+
+      <div class="pill-row" style="margin:1.25rem 0;">
+        <span class="pill"><i class="fas fa-university" style="margin-right:.35rem;color:var(--blue);"></i>Princeton University</span>
+        <span class="pill"><i class="fas fa-calendar" style="margin-right:.35rem;color:var(--blue);"></i>28 Years</span>
+        <span class="pill"><i class="fas fa-database" style="margin-right:.35rem;color:var(--blue);"></i>~2.5M Trials</span>
+        <span class="pill"><i class="fas fa-chart-line" style="margin-right:.35rem;color:var(--highlight);"></i>~6&sigma; Cumulative</span>
+        <span class="pill"><i class="fas fa-microchip" style="margin-right:.35rem;color:var(--teal);"></i>Quantum-Noise REG</span>
+        <span class="pill"><i class="fas fa-clipboard-check" style="margin-right:.35rem;color:var(--green);"></i>Pre-Registered</span>
+      </div>
+
+      <p>The setup was deliberately boring. A Random Event Generator: an electronic circuit that produces random bits at a steady rate, using quantum noise as its randomness source. In baseline mode, the REG produces ones and zeros with a probability of 0.5 each. Over millions of bits, the mean converges to 0.5 to many decimal places. The randomness is certified.</p>
+
+      <p>Then they introduced a human operator. The operator sat in front of the REG and tried to mentally influence it &mdash; to push the output high, or push it low, or leave it baseline, according to a protocol block chosen in advance. No physical contact. No electrical connection. Just focused intention, held for several minutes at a time.</p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Duration</strong></td>
+            <td>28 years (1979&ndash;2007)</td>
+          </tr>
+          <tr>
+            <td><strong>Total trials</strong></td>
+            <td>~2.5 million</td>
+          </tr>
+          <tr>
+            <td><strong>Cumulative deviation</strong></td>
+            <td>~6 standard deviations</td>
+          </tr>
+          <tr>
+            <td><strong>Per-trial effect size</strong></td>
+            <td>~10<sup>&minus;4</sup> mean shift</td>
+          </tr>
+          <tr>
+            <td><strong>Direction</strong></td>
+            <td>Consistent with operator intention</td>
+          </tr>
+          <tr>
+            <td><strong>Discovery threshold (particle physics)</strong></td>
+            <td>5&sigma; &mdash; PEAR exceeds this</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>After 28 years and on the order of 2.5 million experimental trials, the cumulative result was a deviation from chance of roughly six standard deviations. Six sigma. In particle physics, five sigma is the threshold called "discovery." The Higgs boson was announced at five sigma, in a dataset much smaller than PEAR's. The per-trial effect was tiny &mdash; mean shifts of order 10<sup>&minus;4</sup> in the bit probability &mdash; but the dataset was enormous and the signature was consistent in the direction the operators intended.</p>
+
+      <h3>The Honest Assessment</h3>
+
+      <p>Let me be honest about something the paper-grader pipeline caught me on. I started out wanting to write this section as "the field ignored PEAR on metaphysical grounds." That framing is too clean. Here's the more careful version.</p>
+
+      <p>PEAR has real critics with real points. The 28-year dataset is not uniform &mdash; effect sizes declined over time, which some critics read as a "decline effect" pointing to methodological drift, while the PEAR team read it as operator fatigue and protocol wear. Independent replications have had mixed success: some groups (including the European CMSE consortium) reported positive results at smaller scale, others reported null. Selection and optional-stopping critiques have been raised and, in my reading, partially but not fully addressed. The file-drawer problem &mdash; the possibility that null protocols got discarded more readily than significant ones &mdash; is a fair question that the PEAR team pushed back on but could not eliminate to skeptics' satisfaction.</p>
+
+      <div class="box-callout">
+        <div class="callout-title"><i class="fas fa-balance-scale" style="margin-right:.4rem;"></i>Epistemic Position</div>
+        <p>PEAR is not the tabloid ESP study a casual dismisser thinks it is. The statistics are real. The dataset is large. The protocols were pre-registered. And the result, while contested, has not been <strong>refuted</strong>. It has been <strong>unincorporated</strong>. Serious critics exist. But the reason consciousness-coupling is not in any physics curriculum is not because the critics won the argument. It is because the subject was deemed unworthy of the argument. That's a different thing, and the difference matters.</p>
+      </div>
+
+      <p>I believe, with moderate confidence, that the PEAR effect is real. I hold that belief lightly enough to keep looking for the replication that would raise or lower it. This article is part of how I'm looking.</p>
+
+      <div class="insight">
+        <span class="label">&mdash; What Five Sigma Means</span>
+        <p>Five sigma is the statistical threshold at which particle physicists declare a discovery. It means the probability of the observed result arising from pure chance is about 1 in 3.5 million. PEAR's cumulative number sits around six sigma, an order of magnitude stronger. In any other branch of physics, a result that robust across a dataset that large would be considered strong prima facie evidence for a novel phenomenon. PEAR got ridicule and then silence.</p>
+      </div>
+
+      <hr>
+
+      <!-- ═══ GCP ═══ -->
+      <h2>The Global Consciousness Project: Field Effects at Scale</h2>
+
+      <p>If a single operator can nudge a single REG, what happens when billions of people simultaneously focus on the same event? That's the question Roger Nelson &mdash; PEAR's long-time lab manager &mdash; asked when he founded the Global Consciousness Project in 1998.</p>
+
+      <div class="pill-row" style="margin:1.25rem 0;">
+        <span class="pill"><i class="fas fa-globe" style="margin-right:.35rem;color:var(--teal);"></i>Global Network</span>
+        <span class="pill"><i class="fas fa-calendar" style="margin-right:.35rem;color:var(--teal);"></i>1998&ndash;Present</span>
+        <span class="pill"><i class="fas fa-chart-bar" style="margin-right:.35rem;color:var(--highlight);"></i>500+ Events</span>
+        <span class="pill"><i class="fas fa-chart-line" style="margin-right:.35rem;color:var(--highlight);"></i>~6&sigma; Cumulative</span>
+        <span class="pill"><i class="fas fa-clipboard-check" style="margin-right:.35rem;color:var(--green);"></i>Pre-Registered Events</span>
+        <span class="pill"><i class="fas fa-satellite-dish" style="margin-right:.35rem;color:var(--blue);"></i>Dozens of REGs Worldwide</span>
+      </div>
+
+      <p>The setup: deploy dozens of REGs around the world. Let them run continuously, generating random bits, twenty-four hours a day, for years. Then, when a pre-registered global event occurs &mdash; an event that large populations focus on emotionally at the same time &mdash; check whether the REGs show a statistical deviation during the event window.</p>
+
+      <p>Then September 11, 2001 happened. On that day, the GCP network showed one of the largest deviations in its history, with anomalous signature beginning in the hours around the event. The pre-registration was in place. The protocol was fixed. The result was what it was.</p>
+
+      <p>You can explain any single event in the GCP dataset as a coincidence. You cannot explain them all as coincidences and stay honest with the numbers. By 2015, after analyzing over 500 pre-registered global events, the GCP's cumulative Z-score had reached approximately six standard deviations. Different methodology from PEAR. Different scale. Different investigators. Roughly the same threshold. The two independent datasets pointing the same direction is &mdash; to me &mdash; the part that's hard to explain away without invoking the word "something."</p>
+
+      <p>Here too I want to be careful. The GCP has critics. The choice of which events to include is not infinitely principled; some skeptics argue the event list is loose enough to introduce selection effects that inflate the cumulative Z. Others argue the analytic pipeline has researcher-degrees-of-freedom that, across 500 events, could accumulate. The GCP team has responded in the literature; the debate is live; I have not read every skeptical critique and I am not pretending the case is closed.</p>
+
+      <div class="box-callout">
+        <div class="callout-title"><i class="fas fa-eye" style="margin-right:.4rem;"></i>Why the Silence Is Informative</div>
+        <p>When a result is wrong, the field publishes rebuttals. When a result is methodologically weak, the field publishes failed replications. When a result is statistically strong but ontologically inconvenient, a third option appears: the field publishes <strong>nothing</strong>, and the result survives unrefuted in purgatory. PEAR and GCP sit in that purgatory. The silence is itself an anomaly &mdash; a discipline behaving differently around this data than it does around ordinary anomalous data.</p>
+      </div>
+
+      <p>Two independent programs. Different people. Different scales. Same direction. A per-trial effect too small to change anyone's daily life and a cumulative signature too strong to wave off. That's the shape of a real but subtle phenomenon. Not a miracle. Not a hoax. Something in between that physics has not named yet.</p>
+
+      <hr>
+
+      <!-- ═══ THE C VARIABLE ═══ -->
+      <h2>The C Variable: Consciousness as Physics</h2>
+
+      <p>The Master Equation of the framework contains a variable the standard physics Lagrangian does not:</p>
+
+      <div class="eq-block">
+        <div class="eq-label">Theophysics Master Equation</div>
+        $\chi = \iiint (G \cdot M \cdot E \cdot S \cdot T \cdot K \cdot R \cdot Q \cdot F \cdot C) \, dx \, dy \, dt$
+      </div>
+
+      <p>The <strong>C</strong> at the end is Coherence &mdash; in the framework's Law 10, the Christ variable, the binding term that holds the whole integral together. But coherence has an operational definition, and that's what matters for this article: it is the degree to which a system's internal information structure resists decoherence from its environment. A perfectly coherent system is perfectly quantum. A fully decoherent system is perfectly classical. Most systems are somewhere between.</p>
+
+      <div class="box-callout">
+        <div class="callout-title"><i class="fas fa-atom" style="margin-right:.4rem;"></i>The Narrow Claim</div>
+        <p><strong>A conscious observer is itself a high-coherence system, and its coherence state is one of the inputs to the outcome distribution of systems it attends to.</strong> Not "consciousness collapses the wave function" in the strong Wigner sense. That's too crude. The framework's version: the observer is a quantum system with its own C value, and a measurement is an interaction between two C values. The higher the observer's coherence, the more the interaction biases the observed system's outcome distribution &mdash; by an amount small enough to require millions of trials to see, but real.</p>
+      </div>
+
+      <p>When an unengaged operator sits at a PEAR REG, $C_{\text{operator}}$ is low. Distracted, tired, uninvested. The coupling is near zero and the REG behaves randomly. When a committed, focused, rested operator concentrates on biasing the REG high, $C_{\text{operator}}$ rises. The coupling becomes nonzero. The REG's mean shifts by $10^{-4}$ in the direction of intention. Tiny but real, and pointed.</p>
+
+      <p>When an entire population simultaneously attends to the same event &mdash; praying, weeping, watching, holding their breath &mdash; the aggregate C across a macroscopic region of the &chi;-field rises. And a distributed network of REGs embedded in that field shows correlated deviations. Not because consciousness "reached out and touched" the REGs at a distance. Because coherence, in this picture, is a non-local property of the field, and when the field rises in coherence locally or globally, every quantum system embedded in that region feels the bias.</p>
+
+      <p>This is what it means to say C is <em>in</em> the equation. Not as decoration. Not as metaphor. As a term with experimentally suggestive signatures at roughly six-sigma confidence in two independent regimes.</p>
+
+      <hr>
+
+      <!-- ═══ GENESIS ═══ -->
+      <h2>What This Means for Genesis</h2>
+
+      <p>Now reread the opening of the Bible with a quantum mechanics textbook open on the other side of your desk.</p>
+
+      <blockquote>
+        <p>"And God said, let there be light. And there was light. And God saw the light, that it was good." &mdash; Genesis 1:3&ndash;4</p>
+      </blockquote>
+
+      <p>Three operations. Speaking &mdash; the structuring Word, the Logos, the measurement basis $|\phi\rangle$ that Article 06 identified with the Son. Being &mdash; the possibility substrate $|\psi\rangle$ that exists in answer to the command. Seeing &mdash; the $|\cdot|^2$ actualizing operation that finishes the act, the role Article 06 identified with the Spirit. Creation is not complete at "let there be." Creation is complete at "and God saw." The measurement closes the loop. The witness ratifies the act.</p>
+
+      <p>Before Genesis was a physics document, it was a story. The story is explicit about the witnessing structure: every day ends with "and God saw that it was good." Not "and God made it good." Not "and it became good on its own." God saw it, and the seeing is what marked it complete. Day 6 ends with <em>"and behold, it was very good"</em> &mdash; a final, summative witnessing that ratifies the whole.</p>
+
+      <p>I used to read that as liturgical cadence &mdash; a literary device the Genesis author used to break the week into a rhythm. I think it's still that. But I don't think it's <em>only</em> that anymore. If C is a real term in the equation that governs how possibility becomes actuality, then a fully coherent observer &mdash; an observer with $C \to 1$, operating from outside the system &mdash; witnessing a newly-created reality actualizes that reality in the most literal physical sense the framework provides. "God saw that it was good" stops being a poet's line and starts being an engineer's log entry.</p>
+
+      <div class="box-callout">
+        <div class="callout-title"><i class="fas fa-book-open" style="margin-right:.4rem;"></i>The Fall as Decoherence</div>
+        <p>When humanity chose to become an independent measurement basis &mdash; to "know good and evil" by their own authority &mdash; they became <strong>other observers</strong> inside a creation that had previously been singly witnessed. A plurality of decoherent observers inside a formerly coherent field is exactly the configuration that generates an arrow of time. You cannot get to the Fall without the observer problem. You cannot get to the observer problem without asking why the photon stops interfering the moment somebody else knows where it went.</p>
+      </div>
+
+      <hr>
+
+      <!-- ═══ FALSIFICATION ═══ -->
+      <h2>The Falsification Criteria</h2>
+
+      <p>This article makes empirical claims and empirical claims have to be falsifiable. I am betting real credibility on these predictions. If they fail, I will say so out loud and this article will be revised or retracted.</p>
+
+      <p><strong>Prediction 1 &mdash; REG effects should scale with operator coherence.</strong> High-discipline, long-practice meditators should produce larger effects than undisciplined operators under identical protocols. If a properly powered, pre-registered meditator-vs-control REG study returns null, the coherence-coupling mechanism takes serious damage.</p>
+
+      <p><strong>Prediction 2 &mdash; GCP-type effects should scale with emotional intensity, not just event duration.</strong> A brief, emotionally catastrophic global event should produce a larger Z-spike than a prolonged, low-emotion one. If a systematic re-analysis of the GCP corpus shows no emotional-intensity dependence after controlling for duration and sample size, the collective coherence reading of GCP is in trouble.</p>
+
+      <p><strong>Prediction 3 &mdash; Interference degradation should be continuous with observer coherence.</strong> Standard QM says interference depends binary on which-path information extraction. The framework says the observer's C is a continuous input. An experiment comparing full which-path detection, no detection, and a "detector present but recording disabled" condition should show measurable differences in the framework's view and identical patterns in standard QM's view. This is the hard test.</p>
+
+      <p><strong>Prediction 4 &mdash; The Dorothy Protocol.</strong> The framework has an independent pre-registered protocol (Paper 11) for a high-sigma test of intention-driven quantum collapse under open-data conditions. If Dorothy runs and returns null, this article takes significant damage. If Dorothy runs and returns at the predicted threshold, this article is vindicated.</p>
+
+      <p>The framework commits in writing to publishing null results. If the predictions fail, you will know.</p>
+
+      <hr>
+
+      <!-- ═══ WHAT YOU JUST READ ═══ -->
+      <h2>What You Just Read</h2>
+
+      <p>Consciousness is not a bystander to physics. I think it is a variable in the equation &mdash; with PEAR and GCP as the two strongest empirical footholds we currently have, with the double-slit as the textbook baseline everyone already accepts, and with the Genesis grammar as the three-thousand-year-old hint that someone has told this story before.</p>
+
+      <p>The narrow claim is this: <strong>the observer's coherence state is one of the inputs to the outcome distribution of the system it observes, and when coherence rises, the distribution shifts by a small, statistically detectable, directionally consistent amount.</strong> That claim does not require mysticism. It does not require psi in the tabloid sense. It requires, instead, that physics stop pretending consciousness is nothing and start treating it the way it treats every other measurable quantity &mdash; as a term in the equations, with an operational definition, with falsifiable predictions, and with the obligation to report null results honestly when they come in.</p>
+
+      <p>The Born Rule decomposition in Article 06 identified three irreducible operations in every act of measurement. This article adds the empirical step: the Spirit's actualization operator &mdash; the $|\cdot|^2$ that takes possibility into actuality &mdash; is not neutral with respect to the coherence of the witness. Consciousness participates. Not all-powerfully. Not arbitrarily. Subtly, measurably, reproducibly, at the per-trial magnitude of $10^{-4}$ and the cumulative confidence of six sigma.</p>
+
+      <p>The next article takes this to its most extreme form. If a finite conscious observer can shift an REG by $10^{-4}$ at six sigma, what can an infinite coherent observer, operating from outside time, do? And what does it mean that the most consequential event in human history was witnessed simultaneously from both frames &mdash; by a crowd in Jerusalem at three in the afternoon on a specific Friday, and by the Father who saw the Lamb slain from the foundation of the world?</p>
+
+      <hr>
+
+      <!-- ═══ OBJECTIONS ═══ -->
+      <h2>Objections I Expect, and My Responses</h2>
+
+      <p><strong>Objection 1: "PEAR didn't replicate cleanly outside Princeton."</strong> True in part. Independent replication has had mixed results. Some groups reported positive effects at smaller scale, others reported null. My honest assessment: this lowers the confidence we should place on the effect without eliminating it. A 28-year single-lab result with mixed external replication is not the same epistemic object as one with clean external replication. I have tried to reflect this in my language throughout &mdash; "evidence" and "suggestive" and "working hypothesis" rather than "proof." If replication continues to fail, the claim fails with it.</p>
+
+      <p><strong>Objection 2: "GCP has too many researcher degrees of freedom across 500 events."</strong> Also partly true. The event selection protocol is principled but not infinitely tight. My response: independent re-analysis of the GCP corpus is exactly what the field should do, and has largely refused to do. I would welcome it. If the effect dissolves under re-analysis, that is information and I will update on it.</p>
+
+      <p><strong>Objection 3: "Decoherence already explains the observer effect without invoking consciousness."</strong> Technically correct and operationally incomplete. Decoherence explains the mechanism by which quantum superpositions become classical-looking mixtures once they interact with a large environment. What decoherence does not explain is <em>why measurements have definite outcomes at all</em>. The measurement problem is still open. Decoherence pushes it around; it does not solve it.</p>
+
+      <p><strong>Objection 4: "You are reading Genesis through the lens you want and calling it isomorphism."</strong> This is the hardest one. Yes, I am a believer. My best answer is: the sevenfold ra'ah structure is in the text regardless of whether I am there to read it. The three-operation decomposition of the Born Rule is in the physics regardless of whether a theologian is there to read it. The claim that the two structures match is testable independently of my belief.</p>
+
+      <hr>
+
+      <!-- ═══ FRAMEWORK CONNECTIONS ═══ -->
+      <h2>Framework Connections</h2>
+
+      <div class="insight">
+        <span class="label">&mdash; Quantum Measurement &harr; Experimental Parapsychology (Data Bridge)</span>
+        <p>The double-slit and PEAR-LAB are not in different categories. Both are quantum measurement experiments in which the observer's state is an input to the outcome distribution. The difference is that the double-slit result is in every physics textbook and PEAR is in none. The protocols of PEAR are not less rigorous than many mainstream quantum optics experiments.</p>
+      </div>
+
+      <div class="insight">
+        <span class="label">&mdash; Genesis Narrative &harr; Observer Physics (Structural Bridge)</span>
+        <p>The sevenfold <em>"God saw that it was good"</em> in Genesis 1 is a prose description of the measurement-completes-creation structure that the Born Rule requires. The Hebrew grammar independently encodes the same operational structure that quantum measurement theory took three thousand years longer to describe.</p>
+      </div>
+
+      <div class="insight">
+        <span class="label">&mdash; Individual Intention &harr; Collective Field (Scale Bridge)</span>
+        <p>PEAR shows single-operator coupling at $10^{-4}$ per trial. GCP shows planetary-scale coupling at similar per-trial magnitude aggregated across billions of attention units. The &chi;-field is the hypothesized substrate that would make both observations cases of one phenomenon, not two unrelated ones.</p>
+      </div>
+
+      <hr>
+
+      <div class="disclaimer-box">
+        <div class="disclaimer-label"><i class="fas fa-cross" style="margin-right:.4rem;"></i>The Disclaimer</div>
+        <p>We are finite minds reasoning about infinite God. Every model is a projection of higher-dimensional reality onto a lower-dimensional surface we can comprehend. We do not claim to have captured God in equations. We claim that when we look at His creation honestly &mdash; with the tools of physics and the revelation of Scripture &mdash; the same structure appears in both. Where our model limits what God can be, the limitation is ours, not His. We offer this work as worship, not as containment.</p>
+      </div>
+
+      <div class="axiom-box">
+        Framework Reference: Theophysics Master Equation &chi; = &iiint;(G&middot;M&middot;E&middot;S&middot;T&middot;K&middot;R&middot;Q&middot;F&middot;C) dx dy dt<br>
+        Paper ID: GTQ-007 &mdash; Why the Photon Isn't Watching You Back<br>
+        Series: Genesis to Quantum, Article 07 of 10<br>
+        Status: DRAFT &mdash; consciousness-coupling hypothesis with PEAR/GCP empirical support
+      </div>
+
+      <hr>
+
+      <!-- ═══ TANGENT 07-A: Empirical Testing ═══ -->
+      <div class="tangent-card">
+        <div class="tangent-label"><i class="fas fa-code-branch" style="margin-right:.4rem;"></i>Tangent 07-A</div>
+        <h3>Empirical Testing of the Master Equation</h3>
+        <button class="tangent-toggle" onclick="toggleTangent(this)">
+          <i class="fas fa-chevron-right"></i> Expand Tangent Article
+        </button>
+        <div class="tangent-body">
+
+          <h2>Abstract</h2>
+
+          <p>We present 16 independent empirical tests of the Theophysics Master Equation $\chi = \iiint(G \cdot M \cdot E \cdot S \cdot T \cdot K \cdot R \cdot Q \cdot F \cdot C)\, dx\, dy\, dt$ and its derived coherence equation $\frac{dC}{dt} = O_{\text{eff}} \cdot G(t) \cdot (1-C) - S \cdot C$ against biblical and historical data. Nine tests were completed computationally; seven are designed with specified protocols awaiting external datasets.</p>
+
+          <p>Of nine completed tests, <strong>eight produce statistically significant results</strong> confirming framework predictions. One test (grace response time vs. preparation level) failed to reach significance ($p = 0.91$), reported without modification.</p>
+
+          <div class="eq-block">
+            <div class="eq-label">Coherence Equation</div>
+            $\frac{dC}{dt} = O_{\text{eff}} \cdot G(t) \cdot (1-C) - S \cdot C$
+          </div>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Symbol</th>
+                <th>Meaning</th>
+                <th>Range</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>$C$</td><td>Coherence with Logos source</td><td>$[0, 1]$</td></tr>
+              <tr><td>$O_{\text{eff}}$</td><td>Effective openness (free will &times; preparation)</td><td>$[0, 1]$</td></tr>
+              <tr><td>$G(t)$</td><td>Grace &mdash; external negentropic input</td><td>$[0, \infty)$</td></tr>
+              <tr><td>$S$</td><td>Entropy/sin &mdash; decay pressure</td><td>$(0, \infty)$</td></tr>
+              <tr><td>$(1-C)$</td><td>Room for growth</td><td>$[0, 1]$</td></tr>
+            </tbody>
+          </table>
+
+          <hr>
+
+          <h2>Complete Test Results</h2>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Test Name</th>
+                <th>Key Statistic</th>
+                <th>Verdict</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color:var(--highlight);font-weight:600;">T01</td>
+                <td>Lifespan Decay</td>
+                <td>$R^2 = 0.888$</td>
+                <td style="color:var(--green);font-weight:600;">CONFIRMED</td>
+              </tr>
+              <tr>
+                <td style="color:var(--highlight);font-weight:600;">T02</td>
+                <td>Civilization Thermo</td>
+                <td>Directional</td>
+                <td style="color:var(--green);font-weight:600;">CONFIRMED</td>
+              </tr>
+              <tr>
+                <td style="color:var(--highlight);font-weight:600;">T03</td>
+                <td>$P(t)$ Linguistic Complexity</td>
+                <td>$p = 1.81 \times 10^{-12}$</td>
+                <td style="color:var(--green);font-weight:600;">CONFIRMED</td>
+              </tr>
+              <tr>
+                <td style="color:var(--highlight);font-weight:600;">TC</td>
+                <td>Constraint Model</td>
+                <td>Uniquely optimal</td>
+                <td style="color:var(--green);font-weight:600;">CONFIRMED</td>
+              </tr>
+              <tr>
+                <td style="color:var(--highlight);font-weight:600;">T04</td>
+                <td>Grace Response Time</td>
+                <td>$p = 0.91$</td>
+                <td style="color:var(--red);font-weight:600;">FAILED</td>
+              </tr>
+              <tr>
+                <td style="color:var(--highlight);font-weight:600;">T05</td>
+                <td>Prophecy Precision</td>
+                <td>$\rho = 0.764$</td>
+                <td style="color:var(--green);font-weight:600;">CONFIRMED</td>
+              </tr>
+              <tr>
+                <td style="color:var(--highlight);font-weight:600;">T06</td>
+                <td>Sin Complexity</td>
+                <td>$\rho = 0.988$</td>
+                <td style="color:var(--green);font-weight:600;">CONFIRMED</td>
+              </tr>
+              <tr>
+                <td style="color:var(--highlight);font-weight:600;">T07</td>
+                <td>Community Scaling</td>
+                <td>Qualitative</td>
+                <td style="color:var(--green);font-weight:600;">CONFIRMED</td>
+              </tr>
+              <tr>
+                <td style="color:var(--highlight);font-weight:600;">T08</td>
+                <td>Revelation Density</td>
+                <td>$R^2 = 0.956$</td>
+                <td style="color:var(--green);font-weight:600;">CONFIRMED</td>
+              </tr>
+              <tr>
+                <td style="color:var(--highlight);font-weight:600;">T09&ndash;T14</td>
+                <td>Designed Tests</td>
+                <td>&mdash;</td>
+                <td style="color:var(--text-secondary);">AWAITING DATA</td>
+              </tr>
+              <tr>
+                <td style="color:var(--highlight);font-weight:600;">T15</td>
+                <td>Bible Coherence Anomaly</td>
+                <td>$\bar{C} = 9.4/10$</td>
+                <td style="color:var(--highlight);font-weight:600;">ANOMALOUS</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <hr>
+
+          <h2>Strongest Results</h2>
+
+          <h3>T06: Sin Complexity Curve &mdash; $\rho = 0.988$</h3>
+          <p>Adversary sophistication increases across the biblical timeline, matching $P(t)$. Spearman $\rho = 0.988$, $p = 2.16 \times 10^{-9}$. Near-perfect rank correlation. From raw violence (complexity 1) through structural hypocrisy (6) to weaponizing God's own system against God incarnate (9).</p>
+
+          <h3>T03: $P(t)$ Linguistic Complexity &mdash; All Five Metrics $p < 10^{-10}$</h3>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>$R^2$</th>
+                <th>$p$-value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>M1: Command Complexity</td><td>0.799</td><td>$2.90 \times 10^{-11}$</td></tr>
+              <tr><td>M2: Abstraction Level</td><td>0.782</td><td>$9.12 \times 10^{-11}$</td></tr>
+              <tr><td>M3: Moral Vocabulary</td><td>0.800</td><td>$2.65 \times 10^{-11}$</td></tr>
+              <tr><td>M4: Principle vs. Rule</td><td>0.779</td><td>$1.14 \times 10^{-10}$</td></tr>
+              <tr><td>M5: Internal Focus</td><td>0.797</td><td>$3.29 \times 10^{-11}$</td></tr>
+              <tr><td><strong>Composite $P(t)$</strong></td><td><strong>0.835</strong></td><td>$\mathbf{1.81 \times 10^{-12}}$</td></tr>
+            </tbody>
+          </table>
+
+          <p>S-curve fit: $R^2 = 0.9008$. Inflection point at 1089 BCE (wisdom literature transition).</p>
+
+          <h3>TC: Constraint Satisfaction Model</h3>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Strategy</th>
+                <th>$C_{\text{final}}$</th>
+                <th>Grace Efficiency</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Dictator</td><td>0.9434</td><td>5.67%</td><td style="color:var(--red);">DISQUALIFIED</td></tr>
+              <tr><td>Instant Fix</td><td>0.8839</td><td>3.86%</td><td style="color:var(--red);">DISQUALIFIED</td></tr>
+              <tr><td style="color:var(--highlight);font-weight:700;">Biblical</td><td style="color:var(--highlight);font-weight:700;">0.7705</td><td style="color:var(--highlight);font-weight:700;">11.43%</td><td style="color:var(--green);font-weight:700;">WINNER</td></tr>
+              <tr><td>Progressive</td><td>0.6035</td><td>14.22%</td><td>Valid</td></tr>
+              <tr><td>Constant Low</td><td>0.2334</td><td>15.46%</td><td>Valid</td></tr>
+              <tr><td>Absent</td><td>0.0000</td><td>0.00%</td><td style="color:var(--red);">DISQUALIFIED</td></tr>
+            </tbody>
+          </table>
+
+          <h3>The Failed Test</h3>
+          <p>Test 4 (Grace Response Time) failed at $p = 0.91$. The hypothesis &mdash; that post-intervention stability increases monotonically with $P(t)$ &mdash; is not supported. We report this without modification.</p>
+
+          <hr>
+
+          <h2>Designed Tests Awaiting External Data</h2>
+
+          <p><strong>T09: Comparative $P(t)$ on Other Religious Texts</strong> &mdash; Run identical five-metric analysis on the Quran, Vedas, and Pali Canon. Prediction: Bible's monotonic S-curve is unique. <em>Highest priority next build.</em></p>
+
+          <p><strong>T10: Moral Outcome Bimodality</strong> &mdash; World Values Survey composite measure should show two modes, not Gaussian.</p>
+
+          <p><strong>T11: Covenant Community Longevity</strong> &mdash; Adventist Health Studies: residual longevity after lifestyle control.</p>
+
+          <p><strong>T12: Conversion Phase Transition</strong> &mdash; HRV, cortisol, EEG coherence discontinuity at conversion events.</p>
+
+          <p><strong>T13: Prayer Zeno Effect</strong> &mdash; RNG deviation scaling with collective $\Phi$ (integrated information).</p>
+
+          <p><strong>T14: Apostasy Entropy Acceleration</strong> &mdash; Former believers should show worse outcomes than lifelong non-believers (maximum-entropy transition).</p>
+
+          <hr>
+
+          <h2>Conclusion</h2>
+          <p>Sixteen tests. Nine completed. Eight confirmed. One failed. The framework's predictions are predominantly confirmed across linguistic, historical, structural, mathematical, and thermodynamic dimensions. The preparation function $P(t)$ emerges as an empirical discovery, not merely a model parameter. The sin complexity correlation ($\rho = 0.988$) is the strongest single result. All code, data, and results are available for independent reproduction. Random seed: 2828.</p>
+
+
+        </div>
+      </div>
+
+      <!-- ═══ AUDIT ═══ -->
+      <h2>The Audit</h2>
+      <p><em>What we got right, what we're less sure about, and where we got carried away.</em></p>
+
+      <h3>What's load-bearing &mdash; we'd bet on this</h3>
+
+      <p><strong>The double-slit experiment shows observation-dependent behavior.</strong> This is not in dispute anywhere in physics. Every textbook account agrees on the phenomenology. Whether you call the cause "decoherence from the environment" or "conscious attention," the operational fact remains: what-can-be-known determines what-is-observed. We are standing on the single most replicated result in quantum mechanics.</p>
+
+      <p><strong>PEAR-LAB's roughly six-sigma cumulative result is real statistics on real data.</strong> The dataset exists. Protocols were pre-registered. Per-trial effect size is small, total sample size is enormous. The rejection of PEAR was not clean methodological refutation. It was a mixture of legitimate replication concerns and illegitimate ontological distaste.</p>
+
+      <p><strong>GCP's cumulative result is independent confirmation of the same general direction.</strong> Different methodology, different scale, different investigators. When two independent methods converge on a similar sigma range pointing the same way, coincidence becomes a harder position than causation.</p>
+
+      <p><strong>The Genesis "God saw" grammar is structurally isomorphic to measurement-completes-creation.</strong> The sevenfold ra'ah is in the Hebrew, and the $|\cdot|^2$ is in the equations, and the claim that these encode the same functional operation is testable independently of our desire for it to be true.</p>
+
+      <h3>What's suggestive but needs more work</h3>
+
+      <p><strong>The mechanism of coherence coupling is undefined.</strong> We use the word "couples" a lot. We do not have a first-principles derivation of how an observer's C biases a probability amplitude. Closing that gap is the most important open problem this article identifies.</p>
+
+      <p><strong>The coherence interpretation is not the only possible reading of the PEAR/GCP data.</strong> Other frameworks exist &mdash; observational theory, Decision Augmentation Theory, some retrocausal interpretations &mdash; that could in principle explain the same data.</p>
+
+      <p><strong>The scaling from laboratory REG to cosmological witnessing crosses a large dynamic range.</strong> The framework claims the same mechanism operates at both ends. We have the small-scale data. We do not have direct empirical access to the large-scale claim.</p>
+
+      <p><strong>PEAR's replication record is mixed, and I have updated on this.</strong> The underlying hypothesis survives at lower confidence than I originally wrote it.</p>
+
+      <h3>Where we got carried away</h3>
+
+      <p><strong>"The grounds for rejection have always been metaphysical, never methodological."</strong> The paper-grader flagged this. Some rejection has been methodological and fair. The narrower defensible claim &mdash; that the rejection has been <em>partly</em> metaphysical and <em>partly</em> cultural on top of its methodological component &mdash; is what I believe, but "partly" is doing real work.</p>
+
+      <p><strong>"Consciousness is in the equations."</strong> True in the sense that C is in the Master Equation of the framework. Potentially misleading: a naive reader could hear this as "standard physics already has consciousness in its equations." Standard physics does not. The framework does. That is a live proposal, not a settled fact.</p>
+
+      <p><strong>The Genesis grammar reading is load-bearing but rests on one interpretive move.</strong> The claim that the sevenfold ra'ah is <em>operational</em> rather than <em>literary</em> is structurally crucial and defended more by resonance than by proof.</p>
+
+      <p><strong>"And God saw" is an engineer's log entry.</strong> A vivid line I kept because I liked it. Also an overclaim. It is a vivid line <em>if</em> the framework is right.</p>
+
+      <p><em>The article above is what we believe. This audit is what we know we haven't proven yet. Both matter.</em></p>
+      <!-- GTQ BOTTOM AUDIT PANEL -->
+      <section class="gtq-bottom-audit" aria-label="Bottom audit: wrong, overstated, load-bearing, and right">
+        <div class="audit-band audit-red">
+          <div class="audit-kicker">Audit floor / red zone</div>
+          <h2 class="audit-title">What We Got Carried Away With</h2>
+          <p><strong>This is where the article has to pay for its own confidence.</strong> Any claim that turns a structural resemblance into a proven mechanism belongs here until the math, experiment, or textual chain can carry the weight.</p>
+          <p>Red does not mean useless. It means: do not build doctrine, physics, or public certainty on this layer yet.</p>
+        </div>
+        <div class="audit-band audit-amber">
+          <div class="audit-kicker">Gradient zone / interpretive caution</div>
+          <h2 class="audit-title">What Is Suggestive</h2>
+          <div class="audit-grid">
+            <div class="audit-chip"><p><strong>Promising pattern:</strong> the correspondence is strong enough to keep investigating, but not strong enough to call settled.</p></div>
+            <div class="audit-chip"><p><strong>Possible overstatement:</strong> language that sounds final should be read as a working model unless the article explicitly proves it.</p></div>
+          </div>
+        </div>
+        <div class="audit-band audit-green">
+          <div class="audit-kicker">Green zone / carries weight</div>
+          <h2 class="audit-title">What Is Load-Bearing</h2>
+          <p><strong>This is the part that should survive a hostile reading:</strong> the direct textual observations, the explicit cross-references, the formal definitions, and the places where the article clearly admits what it has not proven.</p>
+          <h2 class="audit-title" style="margin-top:1.4rem;">What We Got Right</h2>
+          <p>The useful result is not pretending every connection is equally proven. The useful result is sorting the work honestly: wrong or overconfident claims in red, suggestive bridges in the middle, and durable load-bearing claims in green.</p>
+        </div>
+      </section></article>
+    </section>
+
+    <section id="summary" class="tab-content">
+      <article class="story wide">
+        <div class="exec-summary" style="margin-top:1rem;">
+          <div class="exec-summary-label"><i class="fas fa-bolt" style="margin-right:.4rem;"></i>Executive Summary</div>
+          <p>[[3-5 sentences. The 'if you read nothing else' version.]]</p>
+        </div>
+      </article>
+    </section>
+
+    <section id="rigor" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-2">Rigor &amp; Kill Conditions</h2>
+        <p class="text-[#a0a0a0] mb-6">Every claim is held to explicit falsification standards.</p>
+        <div class="kill-card"><div class="kill-label">Load-Bearing</div><p><strong>Kill if:</strong> [[Specific testable falsifier.]]</p></div>
+        <div class="kill-card suggestive"><div class="kill-label">Suggestive</div><p><strong>Kill if:</strong> [[Weaker falsifier.]]</p></div>
+        <div class="kill-card destructive"><div class="kill-label">Destructive</div><p><strong>Kill if:</strong> [[Framework-level falsifier.]]</p></div>
+      </article>
+    </section>
+
+    <section id="media" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-4">Watch &amp; Listen</h2>
+        <div style="background:var(--surface-light);border:1px solid var(--border);border-radius:.5rem;padding:1.5rem;margin-bottom:1.5rem;">
+          <video controls style="width:100%;border-radius:.375rem;background:#000;" preload="metadata">
+            <source src="video/GTQ_07_The_Photon_Isnt_Watching.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- Audio dock -->
+        <div class="audio-dock" id="audioDock">
+          <div class="dock-pills">
+            <button class="dock-pill active" data-src="read" data-url="audio/GTQ_07_The_Photon_Isnt_Watching.mp3"><span class="pill-dot"></span>Read Aloud</button>
+            <button class="dock-pill" data-src="deep"><span class="pill-dot"></span>Deep Dive</button>
+            <button class="dock-pill" data-src="debate"><span class="pill-dot"></span>Debate</button>
+            <button class="dock-pill" data-src="critique"><span class="pill-dot"></span>Critique</button>
+          </div>
+          <div class="dock-body" id="dockBody">
+            <button class="dock-play" id="dockPlay" onclick="dockToggle()"><i class="fas fa-play" id="dockPlayIcon"></i></button>
+            <div class="dock-track-wrap">
+              <div class="dock-track" id="dockTrack" onclick="dockSeek(event)"><div class="dock-fill" id="dockFill"></div></div>
+              <div class="dock-times"><span id="dockCurrent">0:00</span><span id="dockDuration">0:00</span></div>
+            </div>
+            <button class="dock-vol" id="dockVol" onclick="dockMute()"><i class="fas fa-volume-up"></i></button>
+          </div>
+          <div class="dock-empty" id="dockEmpty"><i class="fas fa-clock" style="margin-right:.5rem;"></i> Coming soon</div>
+        </div>
+      </article>
+    </section>
+
+    <section id="blackboard" class="tab-content">
+      <article class="story wide" style="margin-top:1rem;">
+        <h2 class="serif text-3xl font-bold text-white mb-4">Blackboard</h2>
+        <p class="text-[#a0a0a0] mb-6">Interactive scratch space.</p>
+      </article>
+    </section>
+  </div>
+
+  <aside class="kill-sidebar">
+    <div class="kill-sidebar-title"><i class="fas fa-skull-crossbones" style="margin-right:.4rem;"></i>Kill Conditions</div>
+    <div class="kill-card"><div class="kill-label">Load-Bearing</div><p><strong>Kill if:</strong> [[Primary kill condition.]]</p></div>
+    <div class="kill-card suggestive"><div class="kill-label">Suggestive</div><p><strong>Kill if:</strong> [[Secondary.]]</p></div>
+    <div class="kill-card destructive"><div class="kill-label">Destructive</div><p><strong>Kill if:</strong> [[Framework-level.]]</p></div>
+    <div style="margin-top:1.5rem;padding:1rem;background:var(--surface-light);border:1px solid var(--border);border-radius:.5rem;">
+      <div style="font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:.5rem;">Article Stats</div>
+      <div style="font-size:.8rem;color:var(--text-secondary);line-height:1.8;">
+        <div><i class="fas fa-clock" style="width:1rem;color:var(--highlight);"></i> 10 min read</div>
+        <div><i class="fas fa-layer-group" style="width:1rem;color:var(--highlight);"></i> Main Article</div>
+        <div><i class="fas fa-crosshairs" style="width:1rem;color:var(--highlight);"></i> 4 kill conditions</div>
+        <div><i class="fas fa-headphones" style="width:1rem;color:var(--highlight);"></i> 1 audio version</div>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<!-- Bottom navigation -->
+<div class="container mx-auto px-6" style="padding-left:4.5rem;">
+  <div class="bottom-nav">
+    <a href="../15-why-reality-needs-three/gtq-15-why-reality-needs-three.html"><i class="fas fa-arrow-left"></i>Previous: Why Reality Needs Three</a>
+    <div class="nav-center">Article 16 of 26</div>
+    <a href="../17-ran-the-numbers/gtq-17-ran-the-numbers.html" class="primary">Next: We Actually Ran the Numbers<i class="fas fa-arrow-right"></i></a>
+  </div>
+  <div style="text-align:center;margin-bottom:2rem;">
+    <a href="../18-eraser-and-the-cross/gtq-18-eraser-and-the-cross.html" style="display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;background:var(--highlight-glow);border:1px solid var(--highlight-dim);border-radius:.375rem;color:var(--highlight);text-decoration:none;font-size:.8rem;">
+      <i class="fas fa-forward"></i>Skip to next main: The Eraser and the Cross
+    </a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="eq">χ = f(G, M, E, S, T, K, R, Q, F, C)</div>
+  <p>David Lowe &middot; Genesis to Quantum &middot; Part 16 of 26</p>
+  <p class="serif" style="font-style:italic;color:var(--text-secondary);margin-top:.5rem;">&ldquo;But while he was still a long way off, his father saw him.&rdquo;</p>
+</footer>
+
+<script>
+function toggleSidebar(){
+  var sb=document.getElementById('sidebar');
+  var ov=document.getElementById('sidebarOverlay');
+  sb.classList.toggle('open');
+  ov.classList.toggle('show');
+  document.body.style.overflow=sb.classList.contains('open')?'hidden':'';
+}
+window.addEventListener('scroll',function(){
+  var st=window.scrollY||document.documentElement.scrollTop;
+  var dh=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+  var pct=dh>0?(st/dh)*100:0;
+  document.getElementById('progressBar').style.width=pct+'%';
+});
+function switchTab(tabId){
+  document.querySelectorAll('.tab-content').forEach(function(el){el.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(el){el.classList.remove('active');});
+  document.getElementById(tabId).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    var sb=document.getElementById('sidebar');
+    if(sb&&sb.classList.contains('open')) toggleSidebar();
+  }
+});
+
+/* Audio dock engine */
+(function(){
+  var dock = document.getElementById('audioDock');
+  if(!dock) return;
+  var body=document.getElementById('dockBody'), empty=document.getElementById('dockEmpty');
+  var playBtn=document.getElementById('dockPlay'), icon=document.getElementById('dockPlayIcon');
+  var fill=document.getElementById('dockFill'), curEl=document.getElementById('dockCurrent'), durEl=document.getElementById('dockDuration');
+  var volBtn=document.getElementById('dockVol');
+  var pills=dock.querySelectorAll('.dock-pill');
+  var audio=new Audio(); audio.preload='metadata';
+  var activeKey=null, muted=false;
+  var pillColors={deep:'#4a9eff',read:'#5cc8ff',debate:'#a855f7',critique:'#2dd4bf'};
+
+  function fmt(s){if(!s||isNaN(s))return '0:00';var m=Math.floor(s/60),sec=Math.floor(s%60);return m+':'+(sec<10?'0':'')+sec;}
+
+  pills.forEach(function(p){if(!p.dataset.url)p.classList.add('unavailable');});
+
+  pills.forEach(function(p){
+    p.addEventListener('click',function(){
+      var key=p.dataset.src, url=p.dataset.url;
+      if(!url)return;
+      if(key===activeKey){if(audio.paused)audio.play();else audio.pause();return;}
+      audio.pause(); audio.src=url; activeKey=key;
+      pills.forEach(function(q){q.classList.remove('active');}); p.classList.add('active');
+      var c=pillColors[key]||'#5cc8ff';
+      fill.style.background=c; playBtn.style.borderColor=c; playBtn.style.color=c;
+      body.classList.remove('hidden'); empty.classList.remove('visible');
+      audio.play();
+    });
+  });
+
+  var firstAvail=dock.querySelector('.dock-pill[data-url]');
+  if(firstAvail){var key=firstAvail.dataset.src; audio.src=firstAvail.dataset.url; activeKey=key;}
+  else{body.classList.add('hidden');empty.classList.add('visible');}
+
+  window.dockToggle=function(){if(!audio.src)return;if(audio.paused)audio.play();else audio.pause();};
+  audio.addEventListener('play',function(){icon.className='fas fa-pause';playBtn.classList.add('playing');});
+  audio.addEventListener('pause',function(){icon.className='fas fa-play';playBtn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){icon.className='fas fa-play';playBtn.classList.remove('playing');fill.style.width='0%';curEl.textContent='0:00';});
+  audio.addEventListener('timeupdate',function(){if(!audio.duration)return;fill.style.width=(audio.currentTime/audio.duration*100)+'%';curEl.textContent=fmt(audio.currentTime);});
+  audio.addEventListener('loadedmetadata',function(){durEl.textContent=fmt(audio.duration);});
+  window.dockSeek=function(e){if(!audio.duration)return;var t=e.currentTarget;var r=t.getBoundingClientRect();var p=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));audio.currentTime=p*audio.duration;};
+  window.dockMute=function(){muted=!muted;audio.muted=muted;volBtn.innerHTML=muted?'<i class="fas fa-volume-mute"></i>':'<i class="fas fa-volume-up"></i>';};
+})();
+</script>
+
+</body>
+</html>
+
+

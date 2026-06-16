@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Is America in Moral Decline? The Physics of Cultural Decoherence — Moral Decline of America</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a;
+  --border:#2a2a2a; --border-claim:rgba(212,175,55,.35);
+  --text:#e0e0e0; --text2:#a0a0a0; --text3:#707070;
+  --mda-red:#dc2626; --mda-red-glow:rgba(220,38,38,.08);
+  --claim:#d4af37; --claim-glow:rgba(212,175,55,.08);
+  --easy:#22c55e; --easy-glow:rgba(34,197,94,.08);
+  --academic:#a78bfa; --academic-glow:rgba(167,139,250,.08);
+  --proof:#f59e0b; --proof-glow:rgba(245,158,11,.08);
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  line-height:1.65; margin:0; padding:0;
+}
+</style>
+<style>
+/* Reader Mode Bar */
+.mda-reader-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:.5rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;
+}
+.mda-reader-bar .series-badge{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mda-red);font-weight:600;
+}
+.mda-reader-bar .meta{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;
+  color:var(--text3);text-transform:uppercase;letter-spacing:.06em;
+}
+.tab-group{display:flex;gap:.4rem;flex-wrap:wrap;}
+.tab-btn{
+  padding:.4rem .7rem;border:1px solid var(--border);border-radius:.35rem;
+  background:var(--surface);color:var(--text2);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em;transition:all .2s;
+}
+.tab-btn:hover{border-color:var(--mda-red);color:var(--text);}
+.tab-btn.active{border-color:var(--mda-red);background:var(--mda-red-glow);color:var(--mda-red);}
+.tab-btn[data-tab="easy"].active{border-color:var(--easy);background:var(--easy-glow);color:var(--easy);}
+.tab-btn[data-tab="academic"].active{border-color:var(--academic);background:var(--academic-glow);color:var(--academic);}
+.tab-btn[data-tab="proof"].active{border-color:var(--proof);background:var(--proof-glow);color:var(--proof);}
+
+/* Article */
+.article{max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem;}
+.article h1{
+  font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.02em;
+  margin:0 0 .5rem;line-height:1.1;
+}
+.article .subtitle{
+  font-family:'Crimson Text',serif;font-size:1.15rem;color:var(--text2);
+  font-style:italic;margin:0 0 2rem;line-height:1.5;
+}
+.article h2{
+  font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:#fff;
+  text-transform:uppercase;letter-spacing:.04em;margin:2.5rem 0 1rem;
+  border-bottom:1px solid var(--border);padding-bottom:.4rem;
+}
+.article h3{font-family:'Crimson Text',serif;font-size:1.15rem;font-weight:600;color:var(--mda-red);margin:1.5rem 0 .5rem;}
+.article p{font-size:1.02rem;line-height:1.75;margin:0 0 1.25rem;}
+.article blockquote{
+  border-left:3px solid var(--mda-red);background:var(--mda-red-glow);
+  padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 .4rem .4rem 0;
+  font-family:'Crimson Text',serif;font-style:italic;color:var(--text2);
+}
+.article img{max-width:100%;border-radius:.4rem;margin:1rem 0;}
+.mda-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
+.mda-table td{padding:.4rem .6rem;border:1px solid var(--border);color:var(--text2);}
+.mda-table tr:first-child td{font-weight:600;color:var(--text);background:var(--surface);}
+
+/* Reading level panels */
+.level-panel{display:none;}
+.level-panel.active{display:block;}
+
+/* Proof panel */
+.proof-panel{display:none;max-width:780px;margin:0 auto;padding:1.5rem;}
+.proof-panel.active{display:block;}
+.mda-proof-eyebrow{
+  font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--proof);margin-bottom:.6rem;
+}
+.math-field{display:flex;gap:.5rem;margin:.4rem 0;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.math-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--proof);font-weight:600;min-width:180px;}
+.math-value{font-size:.85rem;color:var(--text2);}
+.math-item{font-size:.85rem;color:var(--text);padding:.2rem 0 .2rem 1rem;border-left:2px solid var(--border);margin:.3rem 0;}
+.mda-proof-placeholder{color:var(--text3);font-style:italic;font-size:.9rem;}
+
+/* Glossary */
+.mda-glossary{columns:1;}
+.glossary-entry{break-inside:avoid;margin-bottom:.8rem;}
+.glossary-entry dt{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--academic);font-weight:600;}
+.glossary-entry dd{font-size:.85rem;color:var(--text2);margin:0 0 0 .5rem;}
+.glossary-domain{font-size:.65rem;color:var(--text3);margin-left:.5rem;font-style:italic;}
+
+/* Easy level overrides */
+body.mode-easy .article p{font-size:1.15rem;line-height:1.85;}
+body.mode-easy .article h3{font-size:1.3rem;color:var(--easy);font-family:'Oswald',sans-serif;}
+body.mode-easy .article blockquote{border-left-color:var(--easy);background:var(--easy-glow);font-style:normal;}
+/* Academic level overrides */
+body.mode-academic .article p{font-size:.95rem;line-height:1.65;color:#d0d0d0;}
+body.mode-academic .article h3{font-size:1.1rem;color:var(--academic);font-family:'Crimson Text',serif;font-style:italic;}
+body.mode-academic .article blockquote{border-left-color:var(--academic);background:var(--academic-glow);}
+
+@media(max-width:640px){
+  .article{padding:1.5rem 1rem 4rem;}
+  .mda-reader-bar{padding:.4rem 1rem;}
+}
+</style>
+</head>
+<body class="mode-standard">
+
+<!-- BEGIN:COMPONENT:reader-mode:reader-mode-bar -->
+<div class="mda-reader-bar">
+  <div>
+    <span class="series-badge">Moral Decline of America</span>
+    <span class="meta">MDA-903</span>
+    <span class="meta" id="mode-status">Standard active</span>
+  </div>
+  <div class="tab-group">
+    <button class="tab-btn" data-tab="easy" onclick="setTab('easy')">Easy</button>
+    <button class="tab-btn active" data-tab="standard" onclick="setTab('standard')">Standard</button>
+    <button class="tab-btn" data-tab="academic" onclick="setTab('academic')">Academic</button>
+    <button class="tab-btn" data-tab="proof" onclick="setTab('proof')">Proof</button>
+  </div>
+</div>
+<!-- END:COMPONENT:reader-mode:reader-mode-bar -->
+
+<!-- BEGIN:LEVEL:standard -->
+<div class="level-panel active" data-level="standard">
+  <article class="article">
+    <h1>Is America in Moral Decline? The Physics of Cultural Decoherence</h1>
+    <p class="subtitle">MDA-903 · David Lowe · Theophysics Institute</p>
+    <p><a href="../index.html">Main Index</a>
+MDA-00</p>
+<p>The Moral Decline of America Â· 13-Part Investigation</p>
+<h1>Is America in Moral Decline? The Physics of Cultural Decoherence</h1>
+<p>83% of Americans say moral values are getting worse. But "worse" is vague.
+This series asks a sharper question: Is American society <em>decohering</em> â€”
+losing internal alignment across multiple domains at once? And if so, can we measure it?</p>
+<p>83%
+say values are declining (Gallup 2023)</p>
+<p>5
+domains of collapse</p>
+<p>125
+years of data</p>
+<hr />
+<p>The debate over America's moral decline follows a predictable script. Conservatives point to family breakdown,
+crime rates, and religious disaffiliation. Progressives counter that expanded rights, reduced prejudice,
+and falling violence prove moral progress. Both sides talk past each other because neither has a falsifiable framework.</p>
+<p>This series takes a different approach. Instead of arguing about whether America is "better" or "worse,"
+we examine a structural question: Is American society maintaining coherence â€” the internal alignment that
+allows a system to function as a unified whole?</p>
+<p>Decoherence isn't decline. It's the loss of the ability to hold together at all.</p>
+<hr />
+<p>Definition</p>
+<h2>What Is Cultural Decoherence?</h2>
+<p>In physics, decoherence describes how a quantum system loses its internal alignment when exposed to
+environmental noise. The system doesn't disappear â€” it fragments into disconnected pieces that can no
+longer coordinate.</p>
+<p>Applied to culture, decoherence means the loss of shared meaning, coordinated behavior, and institutional
+signal â€” not through a single cause, but through cascading system failure across multiple domains.</p>
+<p>This framework identifies five domains where decoherence can be measured: semantic (language), cognitive
+(reasoning), spiritual (identity), institutional (trust transmission), and economic (value-reality coupling).
+When all five decohere simultaneously, society doesn't just decline â€” it loses the capacity for collective action.</p>
+<hr />
+<p>The Five Domains</p>
+<h2>Where Decoherence Shows Up</h2>
+<p>01 Â· Semantic</p>
+<p>Words Stop Meaning Stable Things</p>
+<p>Google Ngram data shows vocabulary compression. "Marriage," "justice," and "freedom" lose stable referents. Without shared definitions, coordination becomes impossible.</p>
+<p>02 Â· Cognitive</p>
+<p>The Mind Loses Carrying Capacity</p>
+<p>SAT scores adjusted for demographics show 50-year decline. Attention spans fragment. The ability to hold complex truth collapses into soundbite processing.</p>
+<p>03 Â· Spiritual</p>
+<p>The Soul Loses Shape</p>
+<p>Identity fragments into performance. Religious disaffiliation accelerates. Without stable self-concept, moral consistency becomes impossible.</p>
+<p>04 Â· Institutional</p>
+<p>The Signal Goes Dark</p>
+<p>Trust in every major institution â€” government, media, church, medicine â€” drops below coordination threshold. Information channels become noise generators.</p>
+<p>05 Â· Economic</p>
+<p>Money Detaches from Reality</p>
+<p>Currency decouples from productivity. Debt becomes a fiction everyone maintains. Price signals stop carrying information about actual value.</p>
+<hr />
+<p>The Investigation</p>
+<h2>13 Chapters Â· One Framework</h2>
+<p>Series Navigation</p>
+<p><a href="MDA-900-appendix-original-introduction.html">01
+The FACTS Framework for Falsifiable Cultural Analysis</a>
+<a href="MDA-021-anatomy-of-phase-transition.html">02
+Anatomy of a Phase Transition: When Systems Flip</a>
+<a href="MDA-024-semantic-collapse.html">03
+Words Fail First: Semantic Collapse</a>
+<a href="MDA-025-cognitive-decline.html">04
+Cognitive Decline: The Mind Loses Carrying Capacity</a>
+<a href="MDA-026-spiritual-collapse.html">05
+The Soul Loses Shape: Identity Without Anchor</a>
+<a href="MDA-027-signal-went-dark.html">06
+The Signal Went Dark: Institutional Collapse</a>
+<a href="MDA-028-phantom-money.html">07
+Phantom Money: Economic Decoherence</a>
+<a href="MDA-029-observer-collapsed.html">08
+The Observer Collapsed: When the Watcher Breaks</a>
+<a href="MDA-044-amish-proof.html">09
+The Amish Proof: A Living Control Group</a>
+<a href="MDA-032-why-bad-is-easier.html">10
+Why the Bad Is Easier: The Entropy Asymmetry</a>
+<a href="MDA-056-way-back.html">11
+The Way Back: Recoherence Protocol</a>
+<a href="MDA-038-coherence-metric.html">12
+The Coherence Metric: How to Measure It</a>
+<a href="MDA-041-statistical-spine.html">13
+Predictive Framework: What Happens Next</a></p>
+<hr />
+<p>Boundaries</p>
+<h2>What This Series Is Not</h2>
+<p><strong>Not nostalgia.</strong> The 1950s had Jim Crow, polio, and nuclear terror.
+No decade gets romanticized here.</p>
+<p><strong>Not political.</strong> Decoherence doesn't care about party. Both Left and Right
+accelerate collapse when they destroy shared meaning to win short-term arguments.</p>
+<p><strong>Not despair.</strong> The framework includes recovery protocols. The Amish prove
+coherence can be preserved. The question is whether we want to do what they did.</p>
+<p><strong>Not opinion.</strong> Every major claim in this series has a kill condition â€”
+a way it could be proven wrong. If the data doesn't support it, the claim dies.</p>
+<hr />
+<p>Frequently Asked</p>
+<h2>Questions About the Framework</h2>
+<p>Is America actually in moral decline?</p>
+<p>Gallup data shows 83% of Americans believe moral values are declining. But "decline" is imprecise.
+This series argues something more specific: American society is decohering â€” losing internal structural
+alignment across multiple domains simultaneously. Whether that's "decline" depends on your framework.</p>
+<p>What is cultural decoherence?</p>
+<p>Decoherence is borrowed from physics: it describes how quantum systems lose internal alignment when
+exposed to environmental noise. Applied to culture, it means the loss of shared meaning, coordinated
+behavior, and institutional signal â€” not through a single cause, but through cascading system failure.</p>
+<p>How is this different from typical decline arguments?</p>
+<p>Most decline arguments are unfalsifiable opinion. This framework identifies specific domains
+(semantic, cognitive, spiritual, institutional, economic), provides measurable indicators for each,
+and includes explicit kill conditions â€” ways the theory could be proven wrong.</p>
+<p>What evidence supports the decoherence thesis?</p>
+<p>Cross-domain data: vocabulary decline (Google Ngram), SAT score drops, institutional trust collapse
+(Gallup, Pew), family structure changes (Census), and economic detachment metrics. Each domain is
+examined with independent evidence in its own chapter.</p>
+<p>Is there a way back?</p>
+<p>Yes. The Amish serve as a living control group â€” a community that rejected the decoherence drivers
+and maintained structural coherence. Chapter 09 examines what they preserved, and Chapter 11 outlines
+the recovery path.</p>
+<hr />
+<p><a href="MDA-900-appendix-original-introduction.html">Begin Chapter 01</a></p>
+<p>DL</p>
+<p>David Lowe</p>
+<p>Theophysics Research Â· Mapping the deep structure between physics, theology, and civilizational coherence.
+15+ months, 1,300+ research papers, experimental correlations at 6Ïƒ.</p>
+  </article>
+</div>
+<!-- END:LEVEL:standard -->
+
+<!-- BEGIN:LEVEL:easy -->
+<div class="level-panel" data-level="easy">
+  <article class="article">
+    <h1>Is America in Moral Decline? The Physics of Cultural Decoherence</h1>
+    <p class="subtitle">MDA-903 · Easy Reading Level</p>
+    <h1>Is America Coming Apart?</h1>
+<h3>The Physics Idea That Turns “Moral Decline” Into a Measurable Question</h3>
+<hr />
+<p>83 percent of Americans say our values are getting worse. The big fight is over why. Some blame new freedoms, others blame old prejudices. They yell past each other because they lack a testable plan.</p>
+<p>This series asks a sharper question: Is the nation <strong>losing <em>coherence</em></strong> — <strong>like a jigsaw puzzle whose pieces still exist but no longer lock together</strong>? When the pieces stop locking, nothing big can be built, no matter who is in charge.</p>
+<hr />
+<h2>What “Cultural Decoherence” Means</h2>
+<p>In physics, a tiny system stays organized only if outside forces leave it alone. Shake the table and it scatters. That scatter is called <strong>“<em>decoherence</em></strong> — <strong>like a puzzle that crumbles when the table gets bumped by loud music”</strong>. The bump is the <strong>“<em>environmental noise</em></strong> — <strong>like a drummer practicing next door and vibrating your puzzle board”</strong>.</p>
+<p>Culture can scatter too. Language, thinking, identity, trust, and money can all stop lining up at the same time. When that happens we get a <strong>“<em>cascading system failure</em></strong> — <strong>like a row of dominoes where one tilt knocks down every other row in the room”</strong>. The point is not that people vanish. It is that the pieces can’t work together.</p>
+<hr />
+<h2>The Five Places We See the Scatter</h2>
+<ol>
+<li>
+<p><strong>Words Shrink</strong><br />
+   Google data shows big ideas like “justice” lose their shared meaning. Without clear words, we soon can’t agree on anything complex.</p>
+</li>
+<li>
+<p><strong>Minds Overload</strong><br />
+   SAT scores slide even after adjusting for who takes the test. Phones chop our focus into ten-second bites. Holding a deep thought feels heavier each year.</p>
+</li>
+<li>
+<p><strong>Souls Drift</strong><br />
+   Faith drops. Online life turns identity into a costume you change daily. A moving target can’t steer a life for long.</p>
+</li>
+<li>
+<p><strong>Institutions Go Silent</strong><br />
+   Trust in government, media, schools, and medicine dives under 30 percent. When every news source sounds crooked, even true alarms get ignored.</p>
+</li>
+<li>
+<p><strong>Dollars Detach</strong><br />
+   Debt balloons faster than real work. Prices feel fake to both rich and poor. If money no longer mirrors value, markets turn into guessing games.</p>
+</li>
+</ol>
+<p>When all five wobble together, society can’t plan, can’t build, and can’t heal. That, not simple “decline,” is the crisis.</p>
+<hr />
+<h2>The Map: 13 Short Chapters</h2>
+<ol>
+<li>A testable model for culture  </li>
+<li><strong>“<em>Phase transition</em></strong>” — <strong>like water that turns to ice when you cool it just one more degree</strong>  </li>
+<li>How words break first  </li>
+<li>Why thought capacity shrinks  </li>
+<li>The shape of a drifting soul  </li>
+<li>Trust collapse  </li>
+<li>Phantom money  </li>
+<li>What happens when the observer breaks  </li>
+<li>The Amish control group that stayed coherent  </li>
+<li><strong>“<em>Entropy asymmetry</em></strong>” — <strong>like a bedroom that messes itself in hours but needs a whole afternoon to tidy up</strong>  </li>
+<li>A path back to joint order  </li>
+<li>Measuring coherence in real time  </li>
+<li>What the numbers predict next  </li>
+</ol>
+<p>Each claim comes with a <strong>“<em>kill condition</em></strong> — <strong>like a scoreboard that says, ‘If the number hits zero, our idea loses’</strong>. That makes the whole model <strong>“<em>falsifiable</em></strong> — <strong>like saying, ‘This coin will land heads; if it lands tails, I’m wrong’</strong>. If the data break the rule, the rule dies.</p>
+<hr />
+<h2>What the Series Is NOT</h2>
+<p>• Not nostalgia. The past had its own nightmares.<br />
+• Not partisan. Both sides smash shared meaning when it helps them win a news cycle.<br />
+• Not despair. The Amish show recovery is possible.<br />
+• Not guesswork. Every domain hangs on public data anyone can check.</p>
+<hr />
+<h2>Quick Answers</h2>
+<p>Q: So, is America in moral decline?<br />
+A: The numbers show we are sliding into decoherence — the loss of shared alignment that lets a nation act as one body.</p>
+<p>Q: How is this different from talk-show rants?<br />
+A: It measures five domains, sets kill conditions, and points to data you can open yourself.</p>
+<p>Q: Any hope?<br />
+A: Yes. Chapter 11 lists steps that have already worked in living communities.</p>
+<p>Ready? Chapter 1 explains the testable model and how we will try to break it.</p>
+<hr />
+<pre><code>TERMS DEFINED: 8 / 8
+TERMS MISSED: []
+ARGUMENT COVERAGE: All Standard sections represented
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:easy -->
+
+<!-- BEGIN:LEVEL:academic -->
+<div class="level-panel" data-level="academic">
+  <article class="article">
+    <h1>Is America in Moral Decline? The Physics of Cultural Decoherence</h1>
+    <p class="subtitle">MDA-903 · Academic Reading Level</p>
+    <h1>Academic Enrichment Draft</h1>
+<p><em>(Theophysics Reading Level: Academic / Research)</em></p>
+<hr />
+<h2>Title</h2>
+<p><strong>Is America in Moral Decline? The Physics of Cultural Decoherence</strong></p>
+<hr />
+<h3>Opening Statistics</h3>
+<blockquote>
+<p>83 % of Americans say moral values are getting worse. [Gallup, 2023] [EMPIRICAL]<br />
+5 domains of collapse are proposed in this framework. [STRUCTURAL]<br />
+125 years of data have been collated for cross-domain trend analysis. [CITATION NEEDED: scope of data set, 1899-2024]</p>
+</blockquote>
+<hr />
+<h3>Framing the Debate</h3>
+<p>The public conversation around “moral decline” usually polarizes. Conservatives highlight family breakdown, crime, and religious disaffiliation, whereas progressives emphasize expanded civil rights and reduced prejudice. Both clusters of argument frequently operate without a falsifiable (i.e., testable by evidence) theoretical frame.<br />
+The present series therefore pivots to a structural question:  </p>
+<p><strong>Is American society maintaining coherence</strong>—defined here as <em>the degree to which sub-systems remain internally aligned so the larger system can function as a unified whole</em> (coherence) [STRUCTURAL]—or is it undergoing <strong>cultural decoherence</strong>—<em>the progressive loss of that internal alignment across multiple domains simultaneously</em> (decoherence) [STRUCTURAL]?</p>
+<p>Decoherence, in this sense, is not mere decline; it is the loss of a system’s capacity to hold together at all. [BOUNDARY]</p>
+<hr />
+<h2>1. Conceptual Foundations</h2>
+<h3>1.1 What Is Cultural Decoherence?</h3>
+<p>In quantum physics, <em>decoherence</em> describes how a quantum system (a set of states that can exhibit quantum superposition) loses phase alignment when exposed to <strong>environmental noise</strong>—random perturbations from its surroundings that are not internally compensated. [Zurek, 2003] [EMPIRICAL]</p>
+<p>Applied analogically to culture, decoherence means the erosion of shared meaning, coordinated behaviour, and reliable institutional signalling through <strong>cascading system failure</strong> (inter-domain feedback loops in which the weakening of one domain accelerates the weakening of the others). [STRUCTURAL]</p>
+<p>Five measurable domains are proposed (see §2). When all five decohere in parallel, the macroscopic outcome is not merely moral <em>decline</em> but the system-level inability to execute collective action. [PROVISIONAL]</p>
+<hr />
+<h2>2. The Five Domains of Decoherence</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Domain</th>
+<th>Diagnostic Signal</th>
+<th>Key Indicator (illustrative)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01</td>
+<td>Semantic – stability of shared language</td>
+<td>Vocabulary compression</td>
+<td>Google N-gram frequency drift [Michel et al., 2011] [EMPIRICAL]</td>
+</tr>
+<tr>
+<td>02</td>
+<td>Cognitive – individual processing bandwidth</td>
+<td>Long-run SAT trends (demographically adjusted)</td>
+<td>College Board longitudinal data [EMPIRICAL]</td>
+</tr>
+<tr>
+<td>03</td>
+<td>Spiritual – identity coherence</td>
+<td>Religious affiliation rates</td>
+<td>Pew Research, 2021 [EMPIRICAL]</td>
+</tr>
+<tr>
+<td>04</td>
+<td>Institutional – trust transmission</td>
+<td>General Social Survey trust index</td>
+<td>GSS 1972-2022 [EMPIRICAL]</td>
+</tr>
+<tr>
+<td>05</td>
+<td>Economic – value / reality coupling</td>
+<td>Debt-to-productivity ratio</td>
+<td>U.S. BEA + Federal Reserve data [EMPIRICAL]</td>
+</tr>
+</tbody>
+</table>
+<p>Each domain is examined in depth in its own chapter; summarized correlations are reserved for §12 (The Coherence Metric). [STRUCTURAL]</p>
+<hr />
+<h2>3. Series Roadmap</h2>
+<p>1 The FACTS Framework for Falsifiable Cultural Analysis<br />
+2 Anatomy of a Phase Transition: When Systems Flip<br />
+3 Words Fail First: Semantic Collapse<br />
+4 Cognitive Decline: The Mind Loses Carrying Capacity<br />
+5 The Soul Loses Shape: Identity Without Anchor<br />
+6 The Signal Went Dark: Institutional Collapse<br />
+7 Phantom Money: Economic Decoherence<br />
+8 The Observer Collapsed: When the Watcher Breaks<br />
+9 The Amish Proof: A Living Control Group<br />
+10 Why the Bad Is Easier: The Entropy Asymmetry<br />
+11 The Way Back: Recoherence Protocol<br />
+12 The Coherence Metric: How to Measure It<br />
+13 Predictive Framework: What Happens Next  </p>
+<p>Kill conditions—explicit criteria by which any chapter’s claim can be falsified—are published at the end of each chapter. [BOUNDARY]</p>
+<hr />
+<h2>4. Boundary Conditions (Scope Notes)</h2>
+<p>• <strong>Not nostalgia.</strong> The 1950s also contained Jim Crow, polio, and nuclear terror [CITATION NEEDED]. This framework therefore rejects romanticization. [BOUNDARY]</p>
+<p>• <strong>Not partisan.</strong> Decoherence is treated as orthogonal to U.S. party politics; both Left and Right can accelerate collapse when short-term rhetorical wins override shared meaning. [STRUCTURAL]</p>
+<p>• <strong>Not despair.</strong> Empirical counter-examples (e.g., the Amish; see Chapter 09) demonstrate that high coherence can be preserved under certain constraints. [EMPIRICAL]</p>
+<p>• <strong>Not opinion.</strong> Every material assertion is paired with a kill condition. If incoming data meet the kill threshold, the claim is retired. [BOUNDARY]</p>
+<hr />
+<h2>5. Frequently Asked Questions (Academic Framing)</h2>
+<p>Q: <em>Is America in moral decline?</em><br />
+A: Survey data (Gallup, 2023) report that 83 % of respondents <em>perceive</em> decline. However, the present work refines the question to structural decoherence, which is a more specific systemic construct. [EMPIRICAL ➔ STRUCTURAL]</p>
+<p>Q: <em>What differentiates this framework from prior “decline” literature?</em><br />
+A: Prior debates are often non-falsifiable. Here we supply domain-specific metrics, cross-domain correlation tests, and articulated kill conditions, aligning the discourse with Popperian demarcation criteria. [STRUCTURAL]</p>
+<p>Q: <em>Is recovery possible?</em><br />
+A: Yes. Chapter 11 outlines a <em>recoherence protocol</em> that is consistent with observed high-coherence enclaves (e.g., Amish communities). Outcome efficacy remains a working hypothesis until field-tested. [PROVISIONAL]</p>
+<hr />
+<h2>6. Preview of Formal Metrics (placeholder)</h2>
+<p>A full mathematical formalization appears in Chapter 12. For orientation, the composite Coherence Metric (C_m) is expressed as:</p>
+<p>(1) (C_m = \frac{1}{N}\sum_{i=1}^{N} w_i\,d_i)</p>
+<p>Line-by-line:<br />
+• (N) = number of domains (here, 5).<br />
+• (d_i) = normalized coherence score in domain (i) (0 to 1).<br />
+• (w_i) = weighting factor for domain (i).<br />
+Prediction / Sensitivity: Increasing any (d_i) (holding others constant) raises overall coherence proportionally to its weight (w_i). Weight sensitivity tests appear in §12. [STRUCTURAL]</p>
+<hr />
+<h2>7. Concluding Orientation</h2>
+<p>This introduction sets the scene for a 13-chapter investigation that attempts to move the “moral decline” conversation from rhetorical heat to empirical light. Readers are invited to audit every data set, replicate each metric, and where warranted, pull the kill switch.</p>
+<blockquote>
+<p>“Frameworks are only as good as their ability to die with dignity when wrong.” — D. Lowe, Field Notes, 2025 [CITATION NEEDED]</p>
+</blockquote>
+<hr />
+<p><em>Prepared for peer review. All provisional claims marked accordingly.<br />
+Compiled: 25 May 2026.</em></p>
+<hr />
+<pre><code class="language-json">{
+  &quot;terms&quot;: [
+    {
+      &quot;term&quot;: &quot;coherence&quot;,
+      &quot;definition&quot;: &quot;The degree to which parts of a system remain internally aligned so that the system can function as a unified whole.&quot;,
+      &quot;domain&quot;: &quot;framework&quot;,
+      &quot;first_use_section&quot;: &quot;Framing the Debate&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;decoherence&quot;,
+      &quot;definition&quot;: &quot;The progressive loss of internal alignment across multiple sub-systems, leading to fragmentation and loss of coordinated function.&quot;,
+      &quot;domain&quot;: &quot;physics/analogical&quot;,
+      &quot;first_use_section&quot;: &quot;Conceptual Foundations&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;environmental noise&quot;,
+      &quot;definition&quot;: &quot;Uncontrolled external perturbations that disrupt the phase alignment of a system’s internal states.&quot;,
+      &quot;domain&quot;: &quot;physics&quot;,
+      &quot;first_use_section&quot;: &quot;Conceptual Foundations&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;cascading system failure&quot;,
+      &quot;definition&quot;: &quot;A feedback process in which the breakdown of one domain accelerates failures in connected domains.&quot;,
+      &quot;domain&quot;: &quot;systems theory&quot;,
+      &quot;first_use_section&quot;: &quot;Conceptual Foundations&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;kill condition&quot;,
+      &quot;definition&quot;: &quot;A pre-specified empirical criterion that, if met, falsifies a given hypothesis within the framework.&quot;,
+      &quot;domain&quot;: &quot;philosophy of science&quot;,
+      &quot;first_use_section&quot;: &quot;Boundary Conditions&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;phase transition&quot;,
+      &quot;definition&quot;: &quot;A systemic tipping point at which small parameter changes lead to qualitatively different macroscopic states.&quot;,
+      &quot;domain&quot;: &quot;physics&quot;,
+      &quot;first_use_section&quot;: &quot;Series Roadmap&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;entropy (asymmetry)&quot;,
+      &quot;definition&quot;: &quot;In this context, the tendency for disorder to increase more readily than order, making destructive processes easier than constructive ones.&quot;,
+      &quot;domain&quot;: &quot;thermodynamics/information theory&quot;,
+      &quot;first_use_section&quot;: &quot;Series Roadmap&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;falsifiable&quot;,
+      &quot;definition&quot;: &quot;Capable of being tested by empirical observation in such a way that the proposition could, in principle, be proven false.&quot;,
+      &quot;domain&quot;: &quot;philosophy of science&quot;,
+      &quot;first_use_section&quot;: &quot;Framing the Debate&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    }
+  ]
+}
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:academic -->
+
+<!-- BEGIN:LEVEL:proof -->
+<div class="proof-panel" data-level="proof">
+  <div class="article">
+    <div class="mda-proof-eyebrow">Proof Pressure Layer</div>
+    <h2 style="font-family:Oswald,sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.04em;">
+      Is America in Moral Decline? The Physics of Cultural Decoherence — Proof & Math
+    </h2>
+    
+    <h3>Math Translation</h3>
+    <div class="mda-math-layer">
+<div class="mda-proof-eyebrow">Math Translation Layer</div>
+<div class="math-field"><span class="math-label">MATH_STATUS:</span><span class="math-value">NEEDS_DERIVATION</span></div>
+<div class="math-field"><span class="math-label">LOAD_BEARING_MATH:</span><span class="math-value"></span></div>
+<div class="math-item">"Decoherence describes how a quantum system loses its internal alignment when exposed to environmental noise."</div>
+<div class="math-item">"This framework identifies five domains where decoherence can be measured: semantic (language), cognitive (reasoning), spiritual (identity), institutional (trust transmission), and economic (value-reality coupling)."</div>
+<div class="math-item">"When all five decohere simultaneously, society doesn't just decline — it loses the capacity for collective action."</div>
+<div class="math-field"><span class="math-label">ISOMORPHISM_TABLE:</span><span class="math-value"></span></div>
+<tr><td>mapping</td><td>current status</td><td>missing proof step</td><td>safe wording</td></tr>
+<tr><td>Cultural decoherence ↔ Quantum decoherence</td><td>candidate_isomorphism</td><td>A formal mathematical model linking the two concepts</td><td>"Cultural decoherence is conceptually similar to quantum decoherence, but a formal model is needed to establish a rigorous connection."</td></tr>
+<div class="math-field"><span class="math-label">MISSING_EQUATIONS_OR_DEFINITIONS:</span><span class="math-value"></span></div>
+<div class="math-item">Definition of "coherence" in a mathematical or formal context.</div>
+<div class="math-item">Metrics for measuring "decoherence" across the five identified domains.</div>
+<div class="math-item">A formal equation or model that quantifies the relationship between the five domains and overall societal coherence.</div>
+<div class="math-field"><span class="math-label">MINIMAL_PATCHES:</span><span class="math-value"></span></div>
+<div class="math-item">"Decoherence means the loss of shared meaning, coordinated behavior, and institutional signal" -> "Decoherence means the loss of shared meaning, coordinated behavior, and institutional signal, which could be quantitatively assessed through defined metrics."</div>
+<div class="math-item">"This series asks a sharper question: Is American society decohering" -> "This series asks a sharper question: Is American society decohering, and how can we quantitatively measure this decoherence across the identified domains?"</div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Term Inventory</h3>
+    <div class="mda-glossary">
+<div class="glossary-entry"><dt>coherence</dt><dd>The degree to which parts of a system remain internally aligned so that the system can function as a unified whole.<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>decoherence</dt><dd>The progressive loss of internal alignment across multiple sub-systems, leading to fragmentation and loss of coordinated function.<span class="glossary-domain">physics/analogical</span></dd></div>
+<div class="glossary-entry"><dt>environmental noise</dt><dd>Uncontrolled external perturbations that disrupt the phase alignment of a system’s internal states.<span class="glossary-domain">physics</span></dd></div>
+<div class="glossary-entry"><dt>cascading system failure</dt><dd>A feedback process in which the breakdown of one domain accelerates failures in connected domains.<span class="glossary-domain">systems theory</span></dd></div>
+<div class="glossary-entry"><dt>kill condition</dt><dd>A pre-specified empirical criterion that, if met, falsifies a given hypothesis within the framework.<span class="glossary-domain">philosophy of science</span></dd></div>
+<div class="glossary-entry"><dt>phase transition</dt><dd>A systemic tipping point at which small parameter changes lead to qualitatively different macroscopic states.<span class="glossary-domain">physics</span></dd></div>
+<div class="glossary-entry"><dt>entropy (asymmetry)</dt><dd>In this context, the tendency for disorder to increase more readily than order, making destructive processes easier than constructive ones.<span class="glossary-domain">thermodynamics/information theory</span></dd></div>
+<div class="glossary-entry"><dt>falsifiable</dt><dd>Capable of being tested by empirical observation in such a way that the proposition could, in principle, be proven false.<span class="glossary-domain">philosophy of science</span></dd></div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Promoted Claims</h3>
+    <p class="mda-proof-placeholder">
+      No claim from this article has been promoted through the deterministic Axiom + 7Q gate yet.
+      Claims will appear here after the proof-promotion pass.
+    </p>
+  </div>
+</div>
+<!-- END:LEVEL:proof -->
+
+<div style="max-width:780px;margin:0 auto;padding:1rem 1.5rem 3rem;">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text3);
+     text-transform:uppercase;letter-spacing:.08em;border-top:1px solid var(--border);
+     padding-top:1rem;">
+    Generated 2026-05-31 00:24 · 
+    Easy: ✓ · 
+    Academic: ✓ · 
+    Math: ✓ · 
+    Claims: pending
+  </p>
+</div>
+<script>
+function setTab(tab) {
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  // Update body mode class
+  document.body.className = 'mode-' + tab;
+  // Toggle content panels
+  document.querySelectorAll('.level-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.level === tab);
+  });
+  document.querySelectorAll('.proof-panel').forEach(p => {
+    p.classList.toggle('active', tab === 'proof');
+  });
+  // Update status text
+  const st = document.getElementById('mode-status');
+  if (st) st.textContent = tab.charAt(0).toUpperCase() + tab.slice(1) + ' active';
+}
+document.addEventListener('DOMContentLoaded', () => setTab('standard'));
+</script>
+
+</body>
+</html>

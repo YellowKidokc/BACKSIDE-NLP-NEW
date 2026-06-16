@@ -1,0 +1,169 @@
+<!--
+  Reading Layer Shell
+  Purpose: Multi-layer article scaffold for Easy / Standard / Math / Academic / Claims.
+  Standard content is active by default. Missing layers degrade by disabling their buttons.
+-->
+<style>
+  .reader-layer-bar {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .45rem;
+    align-items: center;
+    padding: .65rem 1rem;
+    background: rgba(7, 7, 9, .88);
+    border-bottom: 1px solid rgba(212, 175, 55, .18);
+    backdrop-filter: blur(12px);
+  }
+  .reader-layer-label {
+    color: #a0a0a0;
+    font: 700 .72rem/1.2 var(--mono-font, "JetBrains Mono", monospace);
+    letter-spacing: .08em;
+  }
+  .reader-layer-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    border: 1px solid rgba(212, 175, 55, .22);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .035);
+    color: var(--text-secondary, #a8abb4);
+    cursor: pointer;
+    font: 700 .74rem/1 var(--mono-font, "JetBrains Mono", monospace);
+    letter-spacing: .06em;
+    padding: .48rem .72rem;
+  }
+  .reader-layer-btn::before {
+    content: "";
+    width: .45rem;
+    height: .45rem;
+    border-radius: 999px;
+    background: #555;
+  }
+  .reader-layer-btn.active {
+    border-color: rgba(212, 175, 55, .7);
+    color: var(--gold, #d4af37);
+    background: rgba(212, 175, 55, .1);
+  }
+  .reader-layer-btn.active::before {
+    background: var(--gold, #d4af37);
+    box-shadow: 0 0 12px rgba(212, 175, 55, .85);
+  }
+  .reader-layer-btn[disabled] {
+    cursor: not-allowed;
+    opacity: .42;
+  }
+  [data-level="easy"],
+  [data-level="academic"],
+  [data-level="math"],
+  [data-level="claims"] {
+    display: none;
+  }
+  .equation-showpiece {
+    margin: 1.25rem 0;
+    padding: 1rem;
+    border: 1px solid rgba(212, 175, 55, .22);
+    border-radius: .55rem;
+    background: rgba(255, 255, 255, .035);
+  }
+  .equation-main {
+    color: var(--gold, #d4af37);
+    font: 700 1.05rem/1.5 var(--mono-font, "JetBrains Mono", monospace);
+    overflow-x: auto;
+    text-align: center;
+  }
+  .math-expand {
+    margin-top: .85rem;
+    display: grid;
+    gap: .65rem;
+    color: var(--text, #e8e8e8);
+  }
+  .equation-terms {
+    display: grid;
+    gap: .25rem;
+  }
+  .claim-card {
+    margin: .9rem 0 1.25rem;
+    padding: .95rem 1rem;
+    border: 1px solid rgba(74, 158, 255, .28);
+    border-left: 3px solid var(--blue, #4a9eff);
+    border-radius: .5rem;
+    background: rgba(74, 158, 255, .07);
+  }
+  .claim-header,
+  .claim-7q {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    align-items: center;
+  }
+  .claim-maturity,
+  .claim-id,
+  .claim-7q span {
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 999px;
+    padding: .25rem .5rem;
+    font: 700 .68rem/1 var(--mono-font, "JetBrains Mono", monospace);
+  }
+  .claim-sentence,
+  .claim-kill,
+  .claim-verification {
+    margin-top: .65rem;
+  }
+</style>
+
+<nav class="reader-layer-bar" aria-label="Reading layer controls">
+  <span class="reader-layer-label">LEVEL:</span>
+  <button class="reader-layer-btn" data-layer-button="easy" type="button">EASY</button>
+  <button class="reader-layer-btn active" data-layer-button="standard" type="button">STANDARD</button>
+  <button class="reader-layer-btn" data-layer-button="math" type="button">MATH</button>
+  <button class="reader-layer-btn" data-layer-button="academic" type="button">ACADEMIC</button>
+  <button class="reader-layer-btn" data-layer-button="claims" type="button">CLAIMS <span data-claim-count></span></button>
+</nav>
+
+<!-- SLOT:ARTICLE_BODY -->
+
+<script>
+  (function () {
+    const swapLevels = new Set(["easy", "standard", "academic"]);
+    const additiveLevels = new Set(["math", "claims"]);
+
+    function hasLayer(level) {
+      if (level === "standard") return true;
+      return document.querySelector(`[data-level="${level}"]`) !== null;
+    }
+
+    function setLevel(level) {
+      const isSwap = swapLevels.has(level);
+      document.querySelectorAll("[data-level]").forEach((el) => {
+        const itemLevel = el.dataset.level;
+        if (swapLevels.has(itemLevel)) {
+          el.style.display = isSwap ? (itemLevel === level ? "" : "none") : (itemLevel === "standard" ? "" : "none");
+        }
+        if (additiveLevels.has(itemLevel)) {
+          el.style.display = itemLevel === level ? "" : "none";
+        }
+      });
+      document.querySelectorAll("[data-layer-button]").forEach((button) => {
+        button.classList.toggle("active", button.dataset.layerButton === level);
+      });
+    }
+
+    const claimCount = document.querySelectorAll('.claim-card[data-level="claims"]').length;
+    document.querySelectorAll("[data-claim-count]").forEach((el) => {
+      el.textContent = claimCount ? String(claimCount) : "";
+    });
+
+    document.querySelectorAll("[data-layer-button]").forEach((button) => {
+      const level = button.dataset.layerButton;
+      if (!hasLayer(level)) button.disabled = true;
+      button.addEventListener("click", () => {
+        if (!button.disabled) setLevel(level);
+      });
+    });
+
+    setLevel("standard");
+  })();
+</script>

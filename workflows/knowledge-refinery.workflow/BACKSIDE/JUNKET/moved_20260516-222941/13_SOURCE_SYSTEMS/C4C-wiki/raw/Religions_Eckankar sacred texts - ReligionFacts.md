@@ -1,0 +1,1 @@
+The Shariyat-Ki-Sugmad, "Way of the Eternal," written by Paul Twitchell, is the sacred text of Eckankar. Other important Eckankar texts are books by the current leader, Harold Klemp.

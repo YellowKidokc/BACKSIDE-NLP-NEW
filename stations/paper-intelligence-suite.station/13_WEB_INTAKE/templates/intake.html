@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Theophysics — Paper Intake</title>
+<style>
+  :root {
+    --bg:        #0b0b0d;
+    --surface:   #15151a;
+    --surface-2: #1c1c22;
+    --border:    #2a2a32;
+    --text:      #e8e8e8;
+    --muted:     #9a9aa3;
+    --gold:      #d4af37;
+    --gold-soft: #b08a25;
+    --danger:    #ef4444;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: radial-gradient(1200px 600px at 20% -10%, #1b1b22 0%, var(--bg) 60%);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 48px 16px 96px;
+  }
+  .card {
+    width: min(820px, 100%);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px 36px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+  }
+  h1 {
+    margin: 0 0 4px;
+    font-size: 1.6rem;
+    letter-spacing: 0.3px;
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .subtitle {
+    margin: 0 0 28px;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  label {
+    display: block;
+    margin: 18px 0 6px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+  }
+  input[type="text"], select, textarea {
+    width: 100%;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-size: 0.95rem;
+    font-family: inherit;
+  }
+  textarea { min-height: 220px; resize: vertical; line-height: 1.5; }
+  input[type="text"]:focus, select:focus, textarea:focus, input[type="file"]:focus {
+    outline: 2px solid var(--gold-soft);
+    outline-offset: 2px;
+  }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 640px) { .row { grid-template-columns: 1fr; } }
+
+  .file-zone {
+    background: var(--surface-2);
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  .file-zone input { color: var(--text); }
+  .or {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.8rem;
+    margin: 14px 0;
+    letter-spacing: 2px;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 28px;
+  }
+  button {
+    background: var(--gold);
+    color: #0b0b0d;
+    border: 0;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: transform 0.1s, background 0.15s;
+  }
+  button:hover { background: #e8c14a; }
+  button:active { transform: translateY(1px); }
+  .hint { color: var(--muted); font-size: 0.8rem; margin-top: 6px; }
+
+  .pill {
+    display: inline-block;
+    padding: 2px 10px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+  }
+</style>
+</head>
+<body>
+  <form class="card" action="/submit" method="post" enctype="multipart/form-data">
+    <span class="pill">PAPER INTELLIGENCE · INTAKE</span>
+    <h1>Submit a paper for analysis</h1>
+    <p class="subtitle">
+      The 12-layer pipeline will score it across linguistic depth, evidence,
+      coherence, fruits/anti-fruits, and theophysics structure. Reports are
+      single-file HTML.
+    </p>
+
+    <div class="row">
+      <div>
+        <label for="author">Author Name</label>
+        <input type="text" id="author" name="author" required maxlength="120" placeholder="Jane Doe">
+      </div>
+      <div>
+        <label for="domain">Domain</label>
+        <select id="domain" name="domain" required>
+          {% for d in domains %}
+            <option value="{{ d }}">{{ d }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <label for="title">Paper Title</label>
+    <input type="text" id="title" name="title" required maxlength="240" placeholder="Title of the paper">
+
+    <label for="paper_text">Paper Content</label>
+    <textarea id="paper_text" name="paper_text"
+      placeholder="Paste the full paper here (Markdown welcome)…"></textarea>
+    <div class="hint">Markdown, plain text, or LaTeX-ish source all work.</div>
+
+    <div class="or">— or —</div>
+
+    <div class="file-zone">
+      <label for="paper_file" style="margin: 0 0 8px; color: var(--text); text-transform: none; letter-spacing: 0;">
+        Upload a file (.md, .txt, or .pdf)
+      </label>
+      <input type="file" id="paper_file" name="paper_file" accept=".md,.txt,.pdf,text/plain,text/markdown,application/pdf">
+      <div class="hint">If both are provided, the uploaded file wins.</div>
+    </div>
+
+    <div class="actions">
+      <button type="submit">Run analysis →</button>
+    </div>
+  </form>
+
+  <script>
+    // Client-side: require either textarea or file
+    document.querySelector("form").addEventListener("submit", function (e) {
+      const text = document.getElementById("paper_text").value.trim();
+      const file = document.getElementById("paper_file").files[0];
+      if (!text && !file) {
+        e.preventDefault();
+        alert("Paste paper content or upload a file before submitting.");
+      }
+    });
+  </script>
+</body>
+</html>

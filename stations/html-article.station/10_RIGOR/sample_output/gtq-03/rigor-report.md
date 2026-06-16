@@ -1,0 +1,102 @@
+# Rigor Report - Article 03: Free Will in Two Frames — Genesis to Quantum
+
+- page_id: `c3cb7838-99aa-5845-b3c8-1f4274b057b0`
+- semantic_address: `THEOPHYSICS/ARTICLE_03_FREE_WILL_IN_TWO_FRAMES_GENESIS_TO_QUANTUM/D/PUBLIC/P/R2 :: G3M3E3S0T3K3R3Q0F3C3 :: E3Q0-C3S0-G3F3-K3R3-M3T3`
+- upstream_mode: `existing_upstream`
+- rigor_status: `passed`
+- readiness: `ready_for_downstream_with_mocked_upstream`
+- fap_available: `False`
+
+## Readiness Notes
+- Page packet and section pass markers were generated from source-only fallback because upstream lane artifacts were absent.
+- 7Q station is available but was not run from this packet; DeBERTa station path was not found in the current station tree.
+- Downstream workers can append real claims, contradictions, vectors, and graph edges onto this ledger without changing row identity.
+
+## Section Markers
+- `1b0ba8c7-2cfa-5a0f-9b74-bf742ecd1993` Intro :: RIGOR=passed
+- `16156ee9-cee0-5868-bfb5-f90730ade6fa` The Equation :: RIGOR=passed
+- `d6bdf772-b9ac-5a93-84af-989c3214816f` The Calvinist–Arminian Dissolution :: RIGOR=passed
+- `e211636f-12e4-527b-81c0-ec079edd0cde` The Surrender Parameter :: RIGOR=passed
+- `ad3169bb-410b-5acf-8f63-a494e8055c70` Free Will Before and After the Fall :: RIGOR=passed
+- `47ced633-db74-5007-b0ac-e0cdb8c3b9a8` Pre-Fall Will :: RIGOR=passed
+- `41ce7120-8fa3-51bc-ab6c-b70aa1461ee4` Post-Fall Will :: RIGOR=passed
+- `70311b2a-22dd-5034-b777-59f5771c1d2d` Three Pathways :: RIGOR=passed
+- `eac847c8-cfc4-5c39-8be6-2f44270a19dc` Autonomy :: RIGOR=passed
+- `3a027ee4-d247-5744-804b-36c4997569be` Performance :: RIGOR=passed
+- `396e853b-fd3b-5400-9d81-4d316052ff79` Surrender :: RIGOR=passed
+- `937417d5-927a-513c-a58b-52e1548530dc` What the Equation Predicts :: RIGOR=passed
+- `e0e0a1be-e085-530f-beea-b0030fb0ffd0` What You Just Read :: RIGOR=passed
+- `67669493-ce71-58b7-8cce-df0206a37787` The Audit :: RIGOR=passed
+- `7b405bc6-1730-5fbb-889a-db3838bfabdc` What Is Load-Bearing :: RIGOR=passed
+- `ac397aa0-1054-5de2-9bcb-b25436740095` What Is Suggestive (Needs More Work) :: RIGOR=passed
+- `1df08281-3283-59c6-829a-0dd343e7cae5` Where We Got Carried Away :: RIGOR=passed
+- `6d0507fb-051b-5897-be2e-5ad885e9a974` MacArthur and the Equation :: RIGOR=passed
+- `7e036de6-a79d-5040-9874-0d5cf96d1107` The Fight That Won't End :: RIGOR=passed
+- `e8364383-91ff-57b1-b935-c09ea82f7df0` MacArthur's Position, Stated Plainly :: RIGOR=passed
+- `f0e78d5b-b1de-5179-808d-1268f62878bc` The Other Side, Stated Fairly :: RIGOR=passed
+- `3637a108-b9f7-5dda-908b-194b6500afab` Why Neither Side Can Win :: RIGOR=passed
+- `b8004dd1-77f4-5185-972f-e84356fca089` The Resolution, Before the Math :: RIGOR=passed
+- `715f3ad6-f232-5c03-8daf-864e64a68b07` The Equation :: RIGOR=passed
+- `68184ba5-6e8c-5844-88c5-dc0dd1fdf2ec` MacArthur's Specific Claims, Mapped :: RIGOR=passed
+- `9b79dcc8-6b40-59d4-a92e-5677f521a8ea` The Double Predestination Question :: RIGOR=passed
+- `d77e7e85-b2c8-5110-9537-89e47df624c3` What Augustine Already Knew :: RIGOR=passed
+- `257e4e0e-f7c7-5223-9639-dd29926118a7` The Hard Question MacArthur Doesn't Answer :: RIGOR=passed
+- `226e59cd-7331-5b75-aeca-c564436a2fcc` What This Means :: RIGOR=passed
+- `b40da755-a139-5f0f-94e6-c06a72d94775` The Three Pathways :: RIGOR=passed
+- `20d986bb-588e-5914-9c7c-a91c278e3cd4` Path 1: Autonomy ($s = -1$) :: RIGOR=passed
+- `b4cac511-77b8-59a9-9316-177ee104867a` The Posture :: RIGOR=passed
+- `3d11eaa4-6b98-570c-865a-33c71afec7b3` The Neuroscience :: RIGOR=passed
+- `1b85db05-263e-54dd-b02d-b297d05a8ca2` The Equation Dynamics :: RIGOR=passed
+- `a99ea1ba-5208-5ae1-a9db-8be2159731ab` The Phenomenology :: RIGOR=passed
+- `a4472622-5a57-5912-8390-2bac786fe54c` Path 2: Performance ($s \approx 0$) :: RIGOR=passed
+- `f5467c24-89c0-5c1e-8bef-e6e35ffa7d8f` The Posture :: RIGOR=passed
+- `9458d37d-72df-53f0-a4e5-1ebbc570e2fc` The Neuroscience :: RIGOR=passed
+- `1de0ec92-84c8-58d2-bcf0-4e2a6077b66d` The Equation Dynamics :: RIGOR=passed
+- `b1da1aed-a771-556d-9bcc-2c211cc45818` The Phenomenology :: RIGOR=passed
+- `440ad8c9-db46-5b9c-acc1-7aec4209980b` Path 3: Surrender ($s = +1$) :: RIGOR=passed
+- `e05323eb-4f33-5ad3-bfdf-44ad9aadb148` The Posture :: RIGOR=passed
+- `8b189a2d-c5ba-5414-afca-1047b6a316ee` The Neuroscience :: RIGOR=passed
+- `39dd989b-afe7-5385-867e-4a0768688aee` The Equation Dynamics :: RIGOR=passed
+- `1d481983-7bb1-5a9c-8fac-6890632c03cf` The Transition Architecture :: RIGOR=passed
+- `73c5d566-bc63-5a74-bb96-a79a8b55d8dd` The Daily Practice :: RIGOR=passed
+- `0eebea8b-7824-59cc-9e38-c9f666b54e35` Why It Matters :: RIGOR=passed
+- `431c3031-5189-5eda-a6a9-1ee1cd5c2b6e` Executive Summary :: RIGOR=passed
+- `0aa807ad-b835-56ec-8412-3e080b14246c` Key Findings :: RIGOR=passed
+- `cf65ff0e-cc55-54f4-8301-bfc08012f114` The Four Falsifiable Predictions :: RIGOR=passed
+- `b9a915c6-0ce9-51a5-8f97-91d934115102` Open Problem :: RIGOR=passed
+- `7ed61bff-1ea4-50d0-9e2a-ce80b4bbb44c` Formal Foundation :: RIGOR=passed
+- `3624810c-7fcd-5be0-bca4-fb97e525516b` Rigor & Kill Conditions :: RIGOR=passed
+- `b1c7aa8d-1fbd-5cbc-a789-428590502398` Kill Conditions :: RIGOR=passed
+- `a4b9078a-6e5f-5efe-99c9-25ac824859d6` Confidence Tiers :: RIGOR=passed
+- `666d717a-73cc-5ace-b2a9-ee46de57ada3` Falsification Table :: RIGOR=passed
+- `c482e157-675b-5501-a361-df4837ba96f6` Watch & Listen :: RIGOR=passed
+- `bafad521-8937-51a1-9cb9-4711ff7e83b8` Free Will in Two Frames :: RIGOR=passed
+- `7de4903c-cc66-51ad-9a87-2979310fc7a8` Calculus of Calvinism and Arminianism :: RIGOR=passed
+- `bc288de0-2d1a-5d1c-837e-4219590a463d` The Mathematical Equation for Human Salvation :: RIGOR=passed
+- `0e019b0e-2d41-5eb9-a015-37635125010d` The Violent God Paradox :: RIGOR=passed
+- `04be28cf-bd5c-5c96-8c2a-0dd893b81d18` MacArthur and the Equation :: RIGOR=passed
+- `ee6c01e8-2318-5289-9740-3b975b5b7635` The Fight That Won’t End :: RIGOR=passed
+- `62606a54-f65f-5255-93d8-4c5e85fbcb97` MacArthur’s Position, Stated Plainly :: RIGOR=passed
+- `11db34ae-40df-5bc7-9b1f-f9a416720909` The Other Side, Stated Fairly :: RIGOR=passed
+- `eb495f61-3ef3-5383-8259-7a081e6e7c2f` Why Neither Side Can Win :: RIGOR=passed
+- `a15052ca-9257-5b9a-8e45-0cd3421b4bea` The Resolution, Before the Math :: RIGOR=passed
+- `38cf0409-3b8e-55c9-925d-bc2bb4ad200b` The Equation :: RIGOR=passed
+- `cfcc05f1-6cc8-528d-9440-9e2b4c5c32a4` MacArthur’s Specific Claims, Mapped :: RIGOR=passed
+- `0eec95a8-8160-5a09-b5fb-6b80447c0a0c` The Double Predestination Question :: RIGOR=passed
+- `e3f4c6dc-5772-5d77-ae1b-04926b69b9e0` What Augustine Already Knew :: RIGOR=passed
+- `08650f46-8c77-5627-a739-75d43d5f18b1` What This Means :: RIGOR=passed
+- `8c20cd6f-aae7-525a-9542-2ef9baf5ac5d` The Three Pathways :: RIGOR=passed
+- `c7820a0b-1da8-5325-a983-3cd645d8732b` Path 1: Autonomy (s = −1) :: RIGOR=passed
+- `54a3e27c-b412-538c-9ffa-9350fd956304` Path 2: Performance (s ≈ 0) :: RIGOR=passed
+- `48adc3c8-4c16-58b5-883e-af6dd2feef66` Path 3: Surrender (s = +1) :: RIGOR=passed
+- `1a4c6d16-6bba-5f7b-a7d8-bbefccbc3485` The Transition Architecture :: RIGOR=passed
+- `c8ad59d3-1d7c-5997-b610-a2c5fadc9521` The Daily Practice :: RIGOR=passed
+- `fc5c3189-c3e8-523e-b29c-85a409d01308` Why Did God Drown Everybody? :: RIGOR=passed
+- `f057e669-3c4f-57da-86fa-1f75acd3267e` The Surgeon Without Antibiotics :: RIGOR=passed
+- `2900a847-93d8-5575-b58b-d6260db4c361` The Missing Protection Layer :: RIGOR=passed
+- `b29dd11e-de42-51cd-8a7b-b6079d048352` The Pattern in Scripture :: RIGOR=passed
+- `fded1714-110d-5df3-aab2-c7aa2c445c7e` Pentecost Changes Everything :: RIGOR=passed
+- `70bcbe50-efc6-59d0-99ab-3a437dae2098` The Structural Answer :: RIGOR=passed
+- `5cee5446-dbcd-5291-b8cb-5a1545a7f3d6` The Truth Bomb :: RIGOR=passed
+- `7c07280a-72c9-5887-8eb6-7b96fc799725` Share This Paper :: RIGOR=passed
+- `416e700d-109f-5954-9f00-bc5f82aa04d1` The Honest Assessment :: RIGOR=passed

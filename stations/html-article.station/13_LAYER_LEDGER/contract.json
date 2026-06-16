@@ -1,0 +1,75 @@
+{
+  "lane_id": "13",
+  "lane_name": "Layer Ledger",
+  "input": {
+    "requires": [
+      "page_id and paper_uuid from source or upstream packet",
+      "section ids from 02_SECTION_MAP if present, else worker-5 fallback section ids",
+      "10_RIGOR/readiness-decision.json"
+    ],
+    "format": "Machine-readable page/section pass markers with explicit lane status and notes."
+  },
+  "output": {
+    "produces": [
+      "layer-ledger.json",
+      "section-pass-matrix.csv"
+    ],
+    "format": "JSON is canonical; CSV is the review/export mirror for workbook alignment."
+  },
+  "loopback_conditions": [
+    "section ids change between reruns without an intentional new artifact identity",
+    "ledger status disagrees with workbook append payloads",
+    "a downstream lane claims passed while no machine-readable packet exists"
+  ],
+  "dependencies": {
+    "upstream_lanes": [
+      "02_SECTION_MAP",
+      "05_CLAIMS",
+      "06_CONTRADICTIONS",
+      "07_MATH_TRANSLATION",
+      "10_RIGOR"
+    ],
+    "stations": [
+      "workbook + layer ledger integration"
+    ],
+    "models": []
+  },
+  "excel_columns": {
+    "tab_name": "Layer_Ledger",
+    "columns": [
+      {
+        "name": "paper_uuid",
+        "type": "string"
+      },
+      {
+        "name": "page_id",
+        "type": "string"
+      },
+      {
+        "name": "section_id",
+        "type": "string"
+      },
+      {
+        "name": "lane_name",
+        "type": "string"
+      },
+      {
+        "name": "status",
+        "type": "enum:passed|loopback|failed|pending"
+      },
+      {
+        "name": "timestamp_utc",
+        "type": "string"
+      },
+      {
+        "name": "worker",
+        "type": "string"
+      },
+      {
+        "name": "notes",
+        "type": "string"
+      }
+    ]
+  },
+  "confidence": "tested"
+}

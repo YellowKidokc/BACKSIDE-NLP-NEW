@@ -1,0 +1,24 @@
+﻿---
+type: source-annotation
+title: "Christian Sacred Texts - ReligionFacts"
+source: "ReligionFacts.com"
+domain: "13-Comparative-Religion"
+url: "https://religionfacts.com/"
+reliability: medium
+tags:
+  - religionfacts
+  - world-religions
+  - comparative-religion
+imported: 2026-05-08
+---
+The primary sacred text of [Christianity](https://religionfacts.com/christianity) is the **Bible** (from Latin _biblia_, "books"), which consists of the Old Testament and New Testament. Catholic and Orthodox Christians also include the Apocrypha.
+
+The Christian Bible has two main parts: the [**Old Testament**](https://religionfacts.com/old-testament), which is almost identical to the [Jewish Bible](https://religionfacts.com/tanakh); and the [**New Testament**](https://religionfacts.com/new-testament), a collection of Christian writings that includes biographies of Jesus Christ and the apostles, letters to new churches, and an apocalyptic work.
+
+The names given to these two parts of the Bible are significant. The word **testament** means "covenant," so the notion of old and new testaments reflects the Christian perspective that the Church is the successor to Israel as God's chosen people.\[#1922\] The Old Testament is viewed as foundational, authoritative, and relevant, and is read and cherished by Christians. But it is also regarded as having been superseded and fulfilled by the New Testament (covenant) God has made with the Church.
+
+[Catholic](https://religionfacts.com/roman-catholicism) and [Orthodox](https://religionfacts.com/eastern-orthodoxy) Bibles also include the [**Apocrypha**](https://religionfacts.com/apocrypha), while most [Protestant](https://religionfacts.com/protestantism) Bibles do not. The Apocrypha (from Greek, "hidden books") is a group of 13 Jewish books written between the Old Testament and the New Testament. Following the pattern of the Greek version of the Old Testament (the [Septuagint](https://religionfacts.com/septuagint), the Apocrypha was included in all Christian Bibles until the Reformation. The reformers rejected the Apocrypha because it was sometimes used as a basis for certain Catholic doctrines and because the Jews have never included it in their biblical canon.
+
+Other early Christian texts were also considered for inclusion in the New Testament, such as the _[Didache](https://religionfacts.com/didache)_. Also known as the _Doctrine of the Twelve Apostles_, the Didache is a first-century text that exhorts its readers to choose the "Way of Life" over the "Way of Death."
+
+Another important set of early Christian writings, which has been rejected by mainstream Christians since almost the beginning, is the **Gnostic scriptures**. Gnosticism was an early form of Christianity that early church fathers and church councils determined to be heretical. Sacred texts of the Gnostic Christians include sayings of Jesus, mystical teachings, apocalyptic works, and accounts of the apostles. Some of them may date to as early as the New Testament writings.

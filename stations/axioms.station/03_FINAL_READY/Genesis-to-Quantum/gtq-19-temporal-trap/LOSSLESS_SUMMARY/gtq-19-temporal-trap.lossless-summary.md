@@ -1,0 +1,1392 @@
+# Lossless Summary: gtq-19-temporal-trap
+
+## Source
+
+- Source file: `\\dlowenas\brain\axioms\00_INBOX_DROP_PAPERS_HERE\gtq-19-temporal-trap.html`
+- Generated at: `2026-05-11T18:08:41`
+
+## Metrics
+
+- word_count: 4755
+- section_count: 49
+- equation_count: 41
+- claim_candidate_count: 54
+- top_terms: temporal, that, cross, time, frame, from, fall, this, spatial, satan, every, event, what, mechanism, eternal
+
+## Sections
+
+### Document Start
+
+﻿
+
+### GTQ-19 The Temporal Trap â€” Genesis to Quantum
+
+Origin Story / Article 19 / Formal Canon
+
+### The Temporal Trap
+
+A category error that mistook spatial displacement for temporal immunity.
+
+### GTQ-19
+
+Foundation Track
+
+### Bounded Claim
+
+#19 chi_local = G * M * E * S_eff * T * K * R * Q * F * C
+
+### C is factor / chi is output / no drift
+
+Article 19 · Genesis to Quantum
+
+### Deep Dive
+
+The Temporal Trap A category error that mistook spatial displacement for temporal immunity.
+
+### Physics Theology
+
+Key Finding
+
+### Satan executed the Cross
+
+The crucifixion was orchestrated by the very forces it would destroy — not failed by them. Paul says (1 Cor 2:7–8) the rulers of this age would not have crucified the Lord of glory had they known . The information that would have stopped them was temporally inaccessible.
+
+### Critical Insight
+
+Time is the rescue vehicle Satan's fall was spatial — a permanent state with no before/after. Humanity's fall created time, which created the corridor through which a retrocausal event (the Resurrection) could reach back and rewrite the meaning of every preceding moment. "None of the rulers of this age understood it, for if they had, they would not have crucified the Lord of glory." Read that slowly. Paul is making a staggering claim. The crucifixion of Jesus — the central event that every demon in hell should have wanted to prevent — was orchestrated by the very forces it would destroy . Satan didn't fail to stop the Cross. Satan executed the Cross. And Paul says he did it because he didn't understand what he was doing. This isn't a theological curiosity. It's a structural revelation about how God operates in time — and it only makes sense once you understand that time itself is not neutral ground . Time is a dimension with properties. It was created at a specific moment ( Article 1 ). It has a direction (the entropy arrow). And the being who triggered its creation — the adversary, through the Fall — has never fully understood the dimension he helped bring into existence. — What This Article Traces From Satan's spatial fall to his temporal miscalculation, through the hidden design of the Cross, to the mechanism by which a future event can retroactively determine the meaning of every event that preceded it. I. Two Kinds of Fall The framework identifies a structural difference between Satan's fall and humanity's fall that most theology overlooks. Satan's Fall — SPATIAL Cast out — from a place to a different place. "I saw Satan fall like lightning from heaven" (Luke 10:18). "You were cast to the ground" (Ezekiel 28:17). The language is consistently positional. Heaven to earth. Presence to exile. Up to down. Humanity's Fall — TEMPORAL The Fall didn't just happen in time — it created time. The first wavefunction collapse introduced $dt$, the entropy arrow, sequence, dec
+
+### Why no redemption for angels
+
+It's not that God is unwilling. It's that the mechanism doesn't exist. Redemption requires before and after. Before: broken. After: restored. That sequence requires dt . Angels don't have dt in the same way. Their fall is a fixed point, not a trajectory. Humanity's fall, by contrast, created the very dimension in which redemption becomes possible. Temporal beings have something spatially-fallen beings don't: a past that can be returned to and a future that hasn't happened yet. Property Satan's Fall (Spatial) Humanity's Fall (Temporal) Type Displacement (here → there) State change (eternal → temporal)
+
+### Duration Permanent state Unfolding process
+
+Past No "before" accessible "Before the Fall" exists as reference Future No "not yet" available Prophecy, promise, hope possible Redemption mechanism None — no temporal axis for recovery Time creates the corridor for return II. Satan's Advantage — and His Blindness Satan understands spatial dynamics superbly. He knows territory. He knows hierarchy. He knows the geography of heaven and earth. Every strategy he employs has spatial characteristics — temptation as territory gained, possession as occupation of a body, strongholds as positions to defend. But he entered the temporal frame as a foreigner. Think about what it means to be a being who has always existed in an eternal frame (no dt ) suddenly operating in a dimension where sequence matters, where consequences unfold over time, where the order of events changes their meaning. Satan has been operating in time since the Fall, so he's had practice. But his native frame is spatial, not temporal. His intuitions are spatial. His strategies are spatial. When he encounters temporal phenomena — especially retroactive temporal phenomena — he miscalculates.
+
+### The evidence is Biblical and consistent:
+
+Eden Strategy "You will not surely die" The serpent wagered that the sequence (eat → die) was a bluff. Genesis 3:4. He understood temporal sequence enough to exploit it — not deeply enough to see all its implications. Architecture of Temptation "Eat now, consequences later" The fundamental architecture exploits the gap between action and result that only exists in a temporal frame . The temporal gap is Satan's operating environment. Calvary Miscalculation "Jesus + death = my victory" Linear sequence. Cause and effect. The Son dies, the plan fails. He entered Judas (Luke 22:3), put betrayal into his heart (John 13:2), wanted the crucifixion to happen.
+
+### The Trojan Horse
+
+He could not see the retrocausal structure. He could not see that the Cross, from the eternal frame, was the mechanism of his own defeat — that the death he orchestrated was the payment that freed every prisoner he held. He was like a general who captures an enemy fortress, not realizing the fortress is a Trojan horse. III. The Hidden Wisdom Paul calls it "God's secret wisdom, a wisdom that has been hidden" ( 1 Cor 2:7 ). Hidden from whom? From "the rulers of this age" — the principalities and powers. Not from humans. From spiritual beings who operate primarily in the spatial frame.
+
+### The Hiding Mechanism
+
+The plan was hidden in time . Concealed not behind a wall or under a mountain (spatial hiding — the kind angels would immediately detect) but inside a temporal sequence whose meaning only becomes apparent at a point in the sequence that hadn't arrived yet. The Cross was hidden in plain sight — but its meaning was hidden in the future. This is the delayed-choice quantum eraser at cosmic scale. The "idler photon" — the Resurrection — hadn't reached its detector yet. The "signal photon" — the Cross — had already hit the screen. And the meaning of the signal event (death or victory?) was retroactively determined by the idler event (empty tomb). The Resurrection reached backward through time and changed the Cross from defeat to triumph. Satan couldn't see this because the eraser hadn't fired yet. He was reading raw data from the signal screen — death, blood, finished — without the sorting key that would reveal the interference pattern beneath. "Had they known it, they would NOT have crucified the Lord of glory." The information that would have prevented the crucifixion was temporally inaccessible at the moment of decision. IV. The Atonement Theories — Unified Christian theology has produced multiple theories of atonement, each capturing a real facet. The framework doesn't choose between them — it shows they're four projections of a single event onto different measurement bases.
+
+### Theory Mechanism Equation Term
+
+Penal Substitution Debt absorption $S \cdot C$ term paid by infinite $G$ Christus Victor Enemy defeat Temporal trap — Satan executes own destruction Moral Influence Heart transformation Extreme $G$ display increases human $O$ Recapitulation Life re-lived correctly Perfect $s = +1$ template demonstrated
+
+### Penal Substitution
+
+Christ bore the penalty for sin. The $S$ term — accumulated entropy, the debt of decay — was paid by a being with infinite $G$ who could absorb it without being destroyed. The transactional mechanism.
+
+### Christus Victor
+
+Christ defeated the powers. The Cross was the weapon that destroyed the enemy's hold. Satan executed the plan that freed every captive he was holding. The strategic mechanism — the temporal trap.
+
+### Moral Influence
+
+Christ's sacrifice transforms the human heart. Grace so extreme it reaches into death itself increases human coupling by revealing the magnitude of divine love. The relational mechanism.
+
+### Recapitulation
+
+Christ re-lived the human story and got it right. Where Adam failed (full coupling, chose autonomy), Christ succeeded (full coupling, maintained alignment through death). The $s = +1$ template. The Cross does all four simultaneously because it operates from the eternal frame, where all four aspects are co-present . They are not competing theories. They are different measurement frames viewing the same event. V. Time as Rescue Vehicle Here is the complete chain, stated plainly. Seven steps from eternity to your nervous system. Step 1 · Eternal Frame God exists in the eternal frame. No dt . All moments co-present. The Lamb is slain "from the foundation of the world" ( Rev 13:8 ) — not because God looked forward in time and saw it would be needed, but because in the eternal frame there is no "before" and "after." The Cross exists as a structural feature of reality, not as a response to an event. Step 2 · Spatial Fall Satan falls spatially. Cast out. Permanent state. No temporal axis. No mechanism for recovery. No trajectory. Just position: separated. Step 3 · Time Created The Fall creates time. Humanity enters dt . This looks like catastrophe from within the temporal frame — entropy activates, decay begins, death enters. But from the eternal frame, the creation of time is the creation of the corridor through which redemption will travel. Step 4 · Linear Misreading Satan operates in time but reads it linearly. He uses temporal gaps as weapons (temptation, despair, accusation — all require sequence to function). He sees the Cross and reads it as defeat because he reads sequences as linear: death follows, therefore death wins. Step 5 · The Incarnation The Cross occurs at a specific temporal coordinate. God enters the temporal frame He designed through the Fall. The incarnation is the Creator entering the dimension His creation generated. A specific Friday, a specific hour, under a specific governor. Fully embedded in dt . Step 6 · The Eraser Fires The Resurrection retroac
+
+### Despair Distorts the temporal horizon
+
+"This suffering will never end." It contracts the perceived future to zero. If there's no temporal axis, there's no future to contract.
+
+### Accusation Drags the past into the present
+
+"Remember what you did?" It requires a "before" that can be weaponized in the "now." Without sequence, there is no "before" to remember.
+
+### Addiction Entropic momentum
+
+The $S \cdot C$ term accelerating over time, creating behavioral inertia that feels irreversible. Without temporal accumulation, there's no momentum to build. Delayed Obedience "Later" assumes "later" exists "I'll get serious about God later." The serpent's best evidence God lied was the temporal delay between eating and dying. Every delay strategy is a temporal strategy.
+
+### False Teaching Temporalizing an eternal event
+
+Reframes the Cross as only a past event — something Jesus did 2,000 years ago that is now over. If the Cross is just history, it has no present power. The adversary's theological strategy is to temporalize an eternal event. The Three Pathways — Empirical Confirmation The Three Pathways maps every one of these strategies to specific neurochemistry: dopamine tolerance (addiction), cortisol spikes (despair), PFC suppression (temptation's erosion of impulse control). The brain scans confirm what the equation predicts. All of them. Every one. Temporal structure. Remove time, they all collapse. VII. What This Means for You If you're reading this and you're caught in a temporal trap — if temptation is using the gap between action and consequence, if despair is contracting your future, if accusation is weaponizing your past, if addiction has built entropic momentum that feels unstoppable — the Cross reaches you now . Not because someone is bringing you good advice from 2,000 years ago. Because the event itself is operating from the eternal frame, projected into this exact moment by the Spirit who is not bound by your timeline. The Spirit's Actualization $$|\psi_{\text{Cross}}\rangle \xrightarrow{\;|\cdot|^2\;} P_{\text{now}}(t) = 1 \quad \forall\, t$$ ψ Cross = the Cross-state in the eternal frame. |·| 2 = the Spirit's actualization operator. P now (t) = its present-tense reality at any temporal coordinate. Plain English: "It is finished" was spoken at a specific moment. But the Spirit's projection of that finished work runs outside the temporal frame. The Cross is as present in your current moment as it was on Golgotha. Not metaphorically. Structurally. The delayed-choice quantum eraser proves that future events can determine past behavior. The Cross, operating from the eternal frame, determines the meaning of every moment it touches — past, present, and future . — The Adversary's Frame vs. the Cross's Frame The adversary wants you reading linearly. Past failure → present 
+
+### Canonical Grounding
+
+Logos Field Definition (D2.1). Law VII Time/Consequence (D19.7). Law III Entropy (D19.3). Sign Conservation Axiom (A8.2). Law I Existence (D19.1). The full axiom map is in the GitHub tab.
+
+### The Disclaimer
+
+We are finite minds reasoning about infinite God. Every model is projection of higher-dimensional reality onto lower-dimensional surface we can comprehend. We do not claim to have captured God in equations. We claim that when we look at His creation honestly — with the tools of physics and the revelation of Scripture — the same structure appears in both. Where our model limits what God can be, the limitation is ours, not His. We offer this work as worship, not as containment. ← Parent: Article 18 — The Eraser and the Cross ·
+
+### Series Overview
+
+Audit floor / red zone
+
+### What We Got Carried Away With
+
+This is where the article has to pay for its own confidence. Any claim that turns a structural resemblance into a proven mechanism belongs here until the math, experiment, or textual chain can carry the weight. Red does not mean useless. It means: do not build doctrine, physics, or public certainty on this layer yet.
+
+### Gradient zone / interpretive caution
+
+What Is Suggestive Promising pattern: the correspondence is strong enough to keep investigating, but not strong enough to call settled. Possible overstatement: language that sounds final should be read as a working model unless the article explicitly proves it.
+
+### Green zone / carries weight
+
+What Is Load-Bearing This is the part that should survive a hostile reading: the direct textual observations, the explicit cross-references, the formal definitions, and the places where the article clearly admits what it has not proven.
+
+### What We Got Right
+
+The useful result is not pretending every connection is equally proven. The useful result is sorting the work honestly: wrong or overconfident claims in red, suggestive bridges in the middle, and durable load-bearing claims in green.
+
+### Watch
+
+Your browser does not support the video tag. 0:00 0:00 No audio available.
+
+### Executive Summary
+
+Paul claims (1 Cor 2:7–8) that the rulers of this age would not have crucified the Lord of glory had they known what they were doing — meaning Satan executed the Cross because he could not see what it was. The framework explains why: Satan's fall was spatial (a permanent positional state, no dt ), while humanity's fall was temporal (it created the time-dimension itself). Satan operates in time as a foreigner; he reads it linearly. The Cross is a delayed-choice quantum eraser at cosmic scale — the Resurrection (idler) reaches backward and rewrites the Cross (signal) from defeat to victory. Every strategy of evil (temptation, despair, accusation, addiction) requires the temporal axis; remove dt and they all collapse. The four atonement theories (penal substitution, Christus Victor, moral influence, recapitulation) are four projections of one event from the eternal frame.
+
+### Explain It Simple
+
+The Plain-English Version Paul says Satan helped get Jesus killed because he didn't realize the killing was the plan. The Cross looked like Satan winning. From inside time, watching the sequence go forward, that's exactly how it looked. But the Resurrection — coming a few days later — reached backward through time and changed the meaning of the Cross from "they killed him" to "he paid for everyone." Satan didn't see it coming because he doesn't read time backward. He thought he was winning a fight. He was actually walking into a trap that was sprung from the future.
+
+### The Picture
+
+Imagine an enemy general who captures what looks like an empty fortress. He celebrates. Then the doors close, soldiers pour out from inside the walls, and the trap snaps shut. He thought he was the attacker. He was actually the target. That's Calvary. The Cross is the empty fortress. Satan sees it as victory because he's reading the sequence linearly: Jesus dies, the plan ends. But the Resurrection is the soldiers inside the walls, hidden in the future, waiting to spring. When it fires, it doesn't just save Jesus — it retroactively turns the entire crucifixion sequence into the mechanism of Satan's defeat. Satan executed his own destruction because he couldn't see backward through time the way God can.
+
+### Why It Matters
+
+Every weapon Satan uses against you needs time to work. Temptation needs the gap between "do it now" and "deal with it later." Despair needs you to imagine a future where things never get better. Accusation needs a past it can drag into your present. Addiction needs months and years of momentum. Remove time, and every one of these strategies collapses. The Cross removes time. Not the everyday clock-time you live in — that keeps running. But the meaning-making time, the sequence-where-your-past-defines-your-future. The Resurrection is a future event already in the past. The Spirit is an eternal-frame operation projecting the Cross into your nervous system right now . You don't have to wait for things to get better. The eraser already fired. Rigor & Kill Conditions The article makes structural and exegetical claims, not predictive ones in the strict scientific sense. Falsification operates at the level of textual fidelity, isomorphism, and theological coherence. Load-Bearing — Kill if 1 Cor 2:7–8 cannot bear the weight placed on it — i.e., if "rulers of this age" is shown by sound exegesis to refer exclusively to human political authorities (Pilate, Caiaphas) and not to spiritual principalities. The temporal-trap reading depends on the latter being included in Paul's referent. Suggestive — Kill if The delayed-choice quantum eraser is shown to be either (a) explainable by purely classical mechanisms with no retrocausal information flow, or (b) experimentally non-replicated under tighter conditions. The Cross-as-eraser claim is structural isomorphism, not derivation, but a collapse of the physical analogue weakens the rhetorical bridge. Destructive — Kill if The spatial/temporal asymmetry between angelic and human falls is shown to be exegetically baseless — i.e., if Scripture is read as treating both as fundamentally identical kinds of fall, with the angelic case simply lacking a redemption decree on God's part rather than lacking the structural mechanism. The framewor
+
+### What the article does NOT claim
+
+It does not claim Satan is omniscient-minus-temporal-perception. It does not claim the delayed-choice quantum eraser experiment proves the Cross-Resurrection mechanism. It does not claim humans should be able to perceive the eternal frame directly. The strong claim is structural isomorphism between two domains where retrocausal-meaning is operative; the weak claim is that this isomorphism organizes diverse atonement theology into a unified picture.
+
+### Mathematics
+
+Every equation that appears in the paper, collected here as a reference index. The Spirit's Actualization Operator $$|\psi_{\text{Cross}}\rangle \xrightarrow{\;|\cdot|^2\;} P_{\text{now}}(t) = 1 \quad \forall\, t$$ ψ Cross = the Cross-state in the eternal frame. |·| 2 = the actualization operator (the Born-rule analogue applied across temporal coordinates). Plain English: The Spirit projects the finished work of the Cross into every moment of time. "It is finished" is not a past tense statement; it is an eternal-frame statement projected into the temporal frame at every t . Master Equation (Coherence Field) $$\chi = \iiint (G \cdot M \cdot E \cdot S \cdot T \cdot K \cdot R \cdot Q \cdot F \cdot C) \, dx \, dy \, dt$$ χ = total coherence. The ten Super-Factors integrated across space and time. T is the temporal axis — the variable Satan exploits and God turns into a rescue corridor. Plain English: The framework's equation for total system state. The Cross is the event that maximizes χ by absorbing the entropic S·C term across all dt . Sign Conservation (A8.2) $$\sum_{\text{all events}} \text{sign}(\chi) = 0$$ Plain English: Negentropic events must balance entropic events across the system. The Fall introduced negative coherence; the Cross is the conserving event that balances the books. Penal Substitutionary Atonement maps directly to A8.2.
+
+### Atonement Term Mapping
+
+$$\text{Atonement} = \underbrace{S \cdot C}_{\text{debt absorbed}} + \underbrace{\Delta G_{\text{display}}}_{\text{moral influence}} + \underbrace{T_{\text{trap}}}_{\text{Christus Victor}} + \underbrace{s = +1}_{\text{recapitulation}}$$ Plain English: Four classical atonement theories as four terms of a single sum. None excludes the others; they co-add. The Cross does all four because it operates from the eternal frame where all four are co-present.
+
+### On retrocausality
+
+The framework treats the delayed-choice quantum eraser as the laboratory shadow of an eternal-frame operation. The mathematics of the eraser is standard quantum mechanics — the framework's claim is structural isomorphism, not derivation. See Article 18 — The Eraser and the Cross for the formal QM treatment.
+
+### Glossary
+
+Key terms used in this article. Eternal frame — The pre-temporal reference The frame in which God operates without being constrained by sequence. All moments are co-present. The Lamb is "slain from the foundation of the world" (Rev 13:8) is structurally true here. Spatial fall — Permanent positional displacement Satan's fall — cast out , from one place to another. No before/after, no temporal axis, no mechanism for recovery. The angelic state is a fixed point, not a trajectory. Temporal fall — State change that creates time Humanity's fall. It did not just happen in time — it created time. Introduced dt , the entropy arrow, sequence, decay. Created the corridor through which redemption could travel. Delayed-choice quantum eraser — Retrocausal QM experiment Setup where a later "eraser" measurement on an idler photon retroactively determines whether the signal photon behaved as wave or particle. The Cross-as-eraser claim is structural isomorphism with this experiment. Christus Victor — Atonement-as-victory model The Cross as the weapon that destroyed the enemy's hold on humanity. Satan executed the plan that freed every captive he was holding. The strategic mechanism — the temporal trap. Penal Substitution — Atonement-as-debt-absorption model Christ bore the penalty for sin. The accumulated entropy term ($S \cdot C$) was paid by a being with infinite $G$. The transactional mechanism. Maps directly to Sign Conservation Axiom (A8.2). Recapitulation — Atonement-as-perfect-template model Christ re-lived the human story and got it right. Where Adam failed (full coupling, chose autonomy), Christ succeeded (full coupling, maintained alignment through death). The $s = +1$ template. Moral Influence — Atonement-as-heart-transformation model Christ's sacrifice transforms the human heart. Grace so extreme it reaches into death itself increases human openness ($O$) by revealing the magnitude of divine love. The relational mechanism. Law VII (D19.7) — Time/Consequence The temporal 
+
+### Logos Coupling
+
+The interaction architecture between the Logos field and the systems embedded in it — the channel structure ($C_0$, $C_1$, inter-substrate coupling) that determines how the field acts on a subsystem. Distinct from the field itself: field = pervasive substrate; coupling = how interaction happens. Both terms stay; they are not interchangeable. Entropy / Sin ($S$) The decay parameter in the coherence equation. Framework note: Entropy (physical frame) and Sin (theological frame) name the same dynamical quantity at the master-equation level. The notation is $S$ either way.
+
+### NotebookLM
+
+Open this article in NotebookLM to ask the AI questions, generate audio briefings, or explore the citations conversationally. NotebookLM — AI Q&A The Temporal Trap — Interactive Notebook Google NotebookLM lets you query the full article and supporting framework documents conversationally. Useful for: clarifying the spatial-vs-temporal-fall distinction, generating section summaries, producing custom audio overviews, or pressure-testing the four-atonement-theories unification.
+
+### Open in NotebookLM
+
+Suggested prompts "Explain the spatial vs. temporal fall distinction and why it matters for redemption." · "Walk through the seven-step rescue chain in your own words." · "Steelman the objection that the four atonement theories are genuinely incompatible." · "Map every common temptation pattern to its temporal-structure dependency."
+
+### GitHub
+
+Source repository for the Genesis to Quantum series. File issues, suggest corrections, or follow the framework's evolution.
+
+### Repository
+
+theophysics — Genesis to Quantum All articles, axioms, equations, and supporting documents are version-controlled. The framework is built in the open and welcomes adversarial review.
+
+### View Repository
+
+Canonical axioms cited D2.1 (Logos Field), D19.7 (Law VII Time/Consequence), D19.3 (Law III Entropy), A8.2 (Sign Conservation), D19.1 (Law I Existence). Full axiom files are in the repo's 00_AXIOMS directory.
+
+### File an issue
+
+Spotted an exegetical error, a misattributed citation, or a logical gap in the seven-step rescue chain? Open an issue with the article number and section header.
+
+### Next: How God Restores
+
+Skip to next main: The Same God in Both Testaments
+
+## Equations
+
+- `|\psi_{\text{Cross}}\rangle \xrightarrow{\;|\cdot|^2\;} P_{\text{now}}(t) = 1 \quad \forall\, t`
+- `|\psi_{\text{Cross}}\rangle \xrightarrow{\;|\cdot|^2\;} P_{\text{now}}(t) = 1 \quad \forall\, t`
+- `\chi = \iiint (G \cdot M \cdot E \cdot S \cdot T \cdot K \cdot R \cdot Q \cdot F \cdot C) \, dx \, dy \, dt`
+- `\sum_{\text{all events}} \text{sign}(\chi) = 0`
+- `\text{Atonement} = \underbrace{S \cdot C}_{\text{debt absorbed}} + \underbrace{\Delta G_{\text{display}}}_{\text{moral influence}} + \underbrace{T_{\text{trap}}}_{\text{Christus Victor}} + \underbrace{s = +1}_{\text{recapitulation}}`
+- `dt`
+- `S \cdot C`
+- `s = +1`
+- `s = +1`
+- `S \cdot C`
+- `$|\psi_{\text{Cross}}\rangle \xrightarrow{\;|\cdot|^2\;} P_{\text{now}}(t) = 1 \quad \forall\, t`
+- `that holds everything up, measured across 2,400 years of data. VIII. Framework Connections Quantum Eraser ↔ Cross/Resurrection Structural isomorphism. The idler photon (Resurrection) reaches its detector after the signal photon (Cross) has hit the screen. Future measurement retroactively determines whether the past event was wave or particle — victory or defeat. The adversary read raw signal data without the eraser. Four Atonement Theories ↔ Four Equation Terms Penal Substitution =`
+- `paid by infinite`
+- `. Christus Victor = temporal trap. Moral Influence = extreme`
+- `raises human`
+- `. Recapitulation = perfect`
+- `|\psi_{\text{Cross}}\rangle \xrightarrow{\;|\cdot|^2\;} P_{\text{now}}(t) = 1 \quad \forall\, t`
+- `ψ Cross = the Cross-state in the eternal frame. |·| 2 = the actualization operator (the Born-rule analogue applied across temporal coordinates). Plain English: The Spirit projects the finished work of the Cross into every moment of time. "It is finished" is not a past tense statement; it is an eternal-frame statement projected into the temporal frame at every t . Master Equation (Coherence Field)`
+- `\chi = \iiint (G \cdot M \cdot E \cdot S \cdot T \cdot K \cdot R \cdot Q \cdot F \cdot C) \, dx \, dy \, dt`
+- `χ = total coherence. The ten Super-Factors integrated across space and time. T is the temporal axis — the variable Satan exploits and God turns into a rescue corridor. Plain English: The framework's equation for total system state. The Cross is the event that maximizes χ by absorbing the entropic S·C term across all dt . Sign Conservation (A8.2)`
+- `\sum_{\text{all events}} \text{sign}(\chi) = 0`
+- `Plain English: Negentropic events must balance entropic events across the system. The Fall introduced negative coherence; the Cross is the conserving event that balances the books. Penal Substitutionary Atonement maps directly to A8.2. Atonement Term Mapping`
+- `\text{Atonement} = \underbrace{S \cdot C}_{\text{debt absorbed}} + \underbrace{\Delta G_{\text{display}}}_{\text{moral influence}} + \underbrace{T_{\text{trap}}}_{\text{Christus Victor}} + \underbrace{s = +1}_{\text{recapitulation}}`
+- `) was paid by a being with infinite`
+- `. The transactional mechanism. Maps directly to Sign Conservation Axiom (A8.2). Recapitulation — Atonement-as-perfect-template model Christ re-lived the human story and got it right. Where Adam failed (full coupling, chose autonomy), Christ succeeded (full coupling, maintained alignment through death). The`
+- `template. Moral Influence — Atonement-as-heart-transformation model Christ's sacrifice transforms the human heart. Grace so extreme it reaches into death itself increases human openness (`
+- `) by revealing the magnitude of divine love. The relational mechanism. Law VII (D19.7) — Time/Consequence The temporal trap operates by exploiting Law VII's sequential ordering from within the time-frame. Satan reads Law VII linearly and misses the retrocausal structure. Symmetry partner: Law IV (Information/Truth). "Rulers of this age" — Pauline term, 1 Cor 2:7–8 The principalities and powers — spiritual beings operating primarily in the spatial frame. Distinct from human authorities (though those are included). The hidden-wisdom claim is that these spiritual rulers were temporally blind. Logos Field (`
+- `) The pervasive substrate of coherent reality — the framework's`
+- `field; the Master-Equation field whose value is total system coherence. (Earlier drafts denoted this with`
+- `; that symbol is now reserved for the cosmological constant.) Field ≠ coupling : this entry locks the substrate sense. Logos Coupling The interaction architecture between the Logos field and the systems embedded in it — the channel structure (`
+- `, inter-substrate coupling) that determines how the field acts on a subsystem. Distinct from the field itself: field = pervasive substrate; coupling = how interaction happens. Both terms stay; they are not interchangeable. Entropy / Sin (`
+- `) The decay parameter in the coherence equation. Framework note: Entropy (physical frame) and Sin (theological frame) name the same dynamical quantity at the master-equation level. The notation is`
+- `chi_local = G * M * E * S_eff * T * K * R * Q * F * C`
+- `Calvary Miscalculation "Jesus + death = my victory"`
+- `Penal Substitution Debt absorption $S \cdot C$ term paid by infinite $G$`
+- `Recapitulation Life re-lived correctly Perfect $s = +1$ template demonstrated`
+- `$$|\psi_{\text{Cross}}\rangle \xrightarrow{\;|\cdot|^2\;} P_{\text{now}}(t) = 1 \quad \forall\, t$$`
+- `$$\chi = \iiint (G \cdot M \cdot E \cdot S \cdot T \cdot K \cdot R \cdot Q \cdot F \cdot C) \, dx \, dy \, dt$$`
+- `$$\sum_{\text{all events}} \text{sign}(\chi) = 0$$`
+- `$$\text{Atonement} = \underbrace{S \cdot C}_{\text{debt absorbed}} + \underbrace{\Delta G_{\text{display}}}_{\text{moral influence}} + \underbrace{T_{\text{trap}}}_{\text{Christus Victor}} + \underbrace{s = +1}_{\text{recapitulation}}$$`
+- `Logos Field ($\chi$)`
+
+## Claims
+
+### Claim 1
+
+- section: Critical Insight
+- one_sentence_claim: And Paul says he did it because he didn't understand what he was doing.
+- claim_maturity_label: Formal Model
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: dt
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: present
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 2
+
+- section: Why no redemption for angels
+- one_sentence_claim: Redemption requires before and after.
+- claim_maturity_label: Formal Model
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: dt
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 3
+
+- section: The Hiding Mechanism
+- one_sentence_claim: Satan couldn't see this because the eraser hadn't fired yet.
+- claim_maturity_label: Metaphor
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Metaphor, not a final proof.
+- nearby_equation: 
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: present
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 4
+
+- section: The Hiding Mechanism
+- one_sentence_claim: The framework doesn't choose between them — it shows they're four projections of a single event onto different measurement bases.
+- claim_maturity_label: Empirical Support
+- facts_snapshot: Detected terms: measurement
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: measurement
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.
+- nearby_equation: 
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: present
+- Q5_falsifiability: missing
+- Q6_boundary: present
+- Q7_listener_risk: normal
+
+### Claim 5
+
+- section: Recapitulation
+- one_sentence_claim: The Cross does all four simultaneously because it operates from the eternal frame, where all four aspects are co-present .
+- claim_maturity_label: Formal Model
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: dt
+- Q1_identity: clear
+- Q2_scope: broad
+- Q3_mechanism: present
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 6
+
+- section: Recapitulation
+- one_sentence_claim: The Lamb is slain "from the foundation of the world" ( Rev 13:8 ) — not because God looked forward in time and saw it would be needed, but because in the eternal frame there is no "before" and "after." The Cross exists as a structural feature of reality, not as a response to an event.
+- claim_maturity_label: Formal Model
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: dt
+- Q1_identity: clear
+- Q2_scope: broad
+- Q3_mechanism: present
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 7
+
+- section: Recapitulation
+- one_sentence_claim: He sees the Cross and reads it as defeat because he reads sequences as linear: death follows, therefore death wins.
+- claim_maturity_label: Formal Model
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: dt
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: present
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 8
+
+- section: Recapitulation
+- one_sentence_claim: "It is finished" doesn't mean "the task is done." It means "this was always-already accomplished." The Spirit actualizes the Atonement at every moment — backward to Adam, forward to the end of the age — because the Spirit operates from the eternal frame, not the temporal one.
+- claim_maturity_label: Formal Model
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: dt
+- Q1_identity: clear
+- Q2_scope: broad
+- Q3_mechanism: present
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 9
+
+- section: Recapitulation
+- one_sentence_claim: Every Strategy of Evil Requires Time This is the prediction that should make you stop and think.
+- claim_maturity_label: Empirical Support
+- facts_snapshot: Detected terms: prediction
+- forward_test: If the claim is true, its stated prediction should survive measurement or comparison.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: prediction
+- kill_conditions: Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.
+- nearby_equation: dt
+- Q1_identity: clear
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: present
+- Q5_falsifiability: present
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 10
+
+- section: Recapitulation
+- one_sentence_claim: If time is the battlefield and the Cross is the weapon hidden in time, then every strategy the adversary uses should exhibit temporal structure .
+- claim_maturity_label: Formal Model
+- facts_snapshot: Detected terms: field
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: dt
+- Q1_identity: clear
+- Q2_scope: bounded
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 11
+
+- section: Accusation Drags the past into the present
+- one_sentence_claim: "Remember what you did?" It requires a "before" that can be weaponized in the "now." Without sequence, there is no "before" to remember.
+- claim_maturity_label: Metaphor
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Metaphor, not a final proof.
+- nearby_equation: 
+- Q1_identity: clear
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 12
+
+- section: Addiction Entropic momentum
+- one_sentence_claim: Delayed Obedience "Later" assumes "later" exists "I'll get serious about God later." The serpent's best evidence God lied was the temporal delay between eating and dying.
+- claim_maturity_label: Formal Model
+- facts_snapshot: Detected terms: evidence
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: S \cdot C
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 13
+
+- section: False Teaching Temporalizing an eternal event
+- one_sentence_claim: The brain scans confirm what the equation predicts.
+- claim_maturity_label: Formal Model
+- facts_snapshot: Detected terms: equation
+- forward_test: If the claim is true, its stated prediction should survive measurement or comparison.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: |\psi_{\text{Cross}}\rangle \xrightarrow
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: present
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 14
+
+- section: False Teaching Temporalizing an eternal event
+- one_sentence_claim: Not because someone is bringing you good advice from 2,000 years ago.
+- claim_maturity_label: Formal Model
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: |\psi_{\text{Cross}}\rangle \xrightarrow
+- Q1_identity: clear
+- Q2_scope: broad
+- Q3_mechanism: present
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 15
+
+- section: False Teaching Temporalizing an eternal event
+- one_sentence_claim: Because the event itself is operating from the eternal frame, projected into this exact moment by the Spirit who is not bound by your timeline.
+- claim_maturity_label: Formal Model
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: |\psi_{\text{Cross}}\rangle \xrightarrow
+- Q1_identity: clear
+- Q2_scope: broad
+- Q3_mechanism: present
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 16
+
+- section: False Teaching Temporalizing an eternal event
+- one_sentence_claim: The delayed-choice quantum eraser proves that future events can determine past behavior.
+- claim_maturity_label: Public Proof Claim
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Boundary needed: currently reads stronger than Public Proof Claim.
+- nearby_equation: |\psi_{\text{Cross}}\rangle \xrightarrow
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: high
+
+### Claim 17
+
+- section: False Teaching Temporalizing an eternal event
+- one_sentence_claim: The Three Pathways shows what "now" looks like in your body: the moment you stop performing and start receiving, the vmPFC activates, oxytocin rises, the parasympathetic system engages.
+- claim_maturity_label: Formal Model
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: |\psi_{\text{Cross}}\rangle \xrightarrow
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 18
+
+- section: False Teaching Temporalizing an eternal event
+- one_sentence_claim: The Decoherence Curve shows the macro version — the floor that entropy can't breach, the $G > 0$ that holds everything up, measured across 2,400 years of data.
+- claim_maturity_label: Formal Model
+- facts_snapshot: Detected terms: coherence, entropy
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: data
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: |\psi_{\text{Cross}}\rangle \xrightarrow
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: present
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 19
+
+- section: False Teaching Temporalizing an eternal event
+- one_sentence_claim: Four Atonement Theories ↔ Four Equation Terms Penal Substitution = $S \cdot C$ paid by infinite $G$.
+- claim_maturity_label: Formal Model
+- facts_snapshot: Detected terms: equation
+- forward_test: If the claim is true, the stated relationship should preserve its variables, direction, and scope.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: |\psi_{\text{Cross}}\rangle \xrightarrow
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: present
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 20
+
+- section: Canonical Grounding
+- one_sentence_claim: The full axiom map is in the GitHub tab.
+- claim_maturity_label: Metaphor
+- facts_snapshot: Detected terms: axiom
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Metaphor, not a final proof.
+- nearby_equation: 
+- Q1_identity: clear
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 21
+
+- section: The Disclaimer
+- one_sentence_claim: Every model is projection of higher-dimensional reality onto lower-dimensional surface we can comprehend.
+- claim_maturity_label: Formal Model
+- facts_snapshot: Detected terms: model
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: 
+- Q1_identity: clear
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: present
+- Q7_listener_risk: normal
+
+### Claim 22
+
+- section: The Disclaimer
+- one_sentence_claim: We do not claim to have captured God in equations.
+- claim_maturity_label: Formal Model
+- facts_snapshot: Detected terms: equation
+- forward_test: If the claim is true, the stated relationship should preserve its variables, direction, and scope.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: 
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: present
+- Q7_listener_risk: normal
+
+### Claim 23
+
+- section: The Disclaimer
+- one_sentence_claim: We claim that when we look at His creation honestly — with the tools of physics and the revelation of Scripture — the same structure appears in both.
+- claim_maturity_label: Structural Correspondence
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Structural Correspondence, not a final proof.
+- nearby_equation: 
+- Q1_identity: implicit
+- Q2_scope: bounded
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 24
+
+- section: The Disclaimer
+- one_sentence_claim: Where our model limits what God can be, the limitation is ours, not His.
+- claim_maturity_label: Formal Model
+- facts_snapshot: Detected terms: model
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: 
+- Q1_identity: clear
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: present
+- Q7_listener_risk: normal
+
+### Claim 25
+
+- section: What We Got Carried Away With
+- one_sentence_claim: Any claim that turns a structural resemblance into a proven mechanism belongs here until the math, experiment, or textual chain can carry the weight.
+- claim_maturity_label: Metaphor
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: experiment
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Metaphor, not a final proof.
+- nearby_equation: 
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: present
+- Q4_evidence: present
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 26
+
+- section: Gradient zone / interpretive caution
+- one_sentence_claim: Possible overstatement: language that sounds final should be read as a working model unless the article explicitly proves it.
+- claim_maturity_label: Public Proof Claim
+- facts_snapshot: Detected terms: model
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Boundary needed: currently reads stronger than Public Proof Claim.
+- nearby_equation: 
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: present
+- Q7_listener_risk: high
+
+### Claim 27
+
+- section: Executive Summary
+- one_sentence_claim: Paul claims (1 Cor 2:7–8) that the rulers of this age would not have crucified the Lord of glory had they known what they were doing — meaning Satan executed the Cross because he could not see what it was.
+- claim_maturity_label: Formal Model
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: dt
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: present
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 28
+
+- section: Executive Summary
+- one_sentence_claim: Every strategy of evil (temptation, despair, accusation, addiction) requires the temporal axis; remove dt and they all collapse.
+- claim_maturity_label: Formal Model
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: dt
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 29
+
+- section: Explain It Simple
+- one_sentence_claim: The Plain-English Version Paul says Satan helped get Jesus killed because he didn't realize the killing was the plan.
+- claim_maturity_label: Metaphor
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Metaphor, not a final proof.
+- nearby_equation: 
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: present
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 30
+
+- section: Explain It Simple
+- one_sentence_claim: But the Resurrection — coming a few days later — reached backward through time and changed the meaning of the Cross from "they killed him" to "he paid for everyone." Satan didn't see it coming because he doesn't read time backward.
+- claim_maturity_label: Metaphor
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Metaphor, not a final proof.
+- nearby_equation: 
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: present
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 31
+
+- section: The Picture
+- one_sentence_claim: Satan sees it as victory because he's reading the sequence linearly: Jesus dies, the plan ends.
+- claim_maturity_label: Metaphor
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Metaphor, not a final proof.
+- nearby_equation: 
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: present
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 32
+
+- section: The Picture
+- one_sentence_claim: Satan executed his own destruction because he couldn't see backward through time the way God can.
+- claim_maturity_label: Metaphor
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Metaphor, not a final proof.
+- nearby_equation: 
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: present
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 33
+
+- section: Why It Matters
+- one_sentence_claim: The Cross-as-eraser claim is structural isomorphism, not derivation, but a collapse of the physical analogue weakens the rhetorical bridge.
+- claim_maturity_label: Analogy
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Analogy, not a final proof.
+- nearby_equation: 
+- Q1_identity: clear
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 34
+
+- section: Why It Matters
+- one_sentence_claim: The framework's unification claim depends on them being co-present aspects, not competing models.
+- claim_maturity_label: Formal Model
+- facts_snapshot: Detected terms: model
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: 
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: present
+- Q7_listener_risk: normal
+
+### Claim 35
+
+- section: What the article does NOT claim
+- one_sentence_claim: It does not claim Satan is omniscient-minus-temporal-perception.
+- claim_maturity_label: Metaphor
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Metaphor, not a final proof.
+- nearby_equation: 
+- Q1_identity: clear
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: present
+- Q7_listener_risk: normal
+
+### Claim 36
+
+- section: What the article does NOT claim
+- one_sentence_claim: It does not claim the delayed-choice quantum eraser experiment proves the Cross-Resurrection mechanism.
+- claim_maturity_label: Public Proof Claim
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: experiment
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Boundary needed: currently reads stronger than Public Proof Claim.
+- nearby_equation: 
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: present
+- Q4_evidence: present
+- Q5_falsifiability: missing
+- Q6_boundary: present
+- Q7_listener_risk: high
+
+### Claim 37
+
+- section: What the article does NOT claim
+- one_sentence_claim: It does not claim humans should be able to perceive the eternal frame directly.
+- claim_maturity_label: Metaphor
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Metaphor, not a final proof.
+- nearby_equation: 
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: present
+- Q7_listener_risk: normal
+
+### Claim 38
+
+- section: What the article does NOT claim
+- one_sentence_claim: The strong claim is structural isomorphism between two domains where retrocausal-meaning is operative; the weak claim is that this isomorphism organizes diverse atonement theology into a unified picture.
+- claim_maturity_label: Metaphor
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Metaphor, not a final proof.
+- nearby_equation: 
+- Q1_identity: clear
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 39
+
+- section: Mathematics
+- one_sentence_claim: Every equation that appears in the paper, collected here as a reference index.
+- claim_maturity_label: Formal Model
+- facts_snapshot: Detected terms: equation
+- forward_test: If the claim is true, the stated relationship should preserve its variables, direction, and scope.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: reference
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: |\psi_{\text{Cross}}\rangle \xrightarrow
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: present
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 40
+
+- section: Mathematics
+- one_sentence_claim: Master Equation (Coherence Field) $$\chi = \iiint (G \cdot M \cdot E \cdot S \cdot T \cdot K \cdot R \cdot Q \cdot F \cdot C) \, dx \, dy \, dt$$ χ = total coherence.
+- claim_maturity_label: Formal Model
+- facts_snapshot: Detected terms: equation, field, coherence
+- forward_test: If the claim is true, the stated relationship should preserve its variables, direction, and scope.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: |\psi_{\text{Cross}}\rangle \xrightarrow
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: present
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 41
+
+- section: Mathematics
+- one_sentence_claim: Plain English: The framework's equation for total system state.
+- claim_maturity_label: Formal Model
+- facts_snapshot: Detected terms: equation
+- forward_test: If the claim is true, the stated relationship should preserve its variables, direction, and scope.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: |\psi_{\text{Cross}}\rangle \xrightarrow
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: present
+- Q7_listener_risk: normal
+
+### Claim 42
+
+- section: Atonement Term Mapping
+- one_sentence_claim: The Cross does all four because it operates from the eternal frame where all four are co-present.
+- claim_maturity_label: Formal Model
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: \text{Atonement} = \underbrace{S \cdot C
+- Q1_identity: clear
+- Q2_scope: broad
+- Q3_mechanism: present
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 43
+
+- section: On retrocausality
+- one_sentence_claim: The mathematics of the eraser is standard quantum mechanics — the framework's claim is structural isomorphism, not derivation.
+- claim_maturity_label: Metaphor
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Metaphor, not a final proof.
+- nearby_equation: 
+- Q1_identity: clear
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: present
+- Q7_listener_risk: normal
+
+### Claim 44
+
+- section: Glossary
+- one_sentence_claim: The Cross-as-eraser claim is structural isomorphism with this experiment.
+- claim_maturity_label: Formal Model
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: experiment
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: dt
+- Q1_identity: clear
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: present
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 45
+
+- section: Glossary
+- one_sentence_claim: Christus Victor — Atonement-as-victory model The Cross as the weapon that destroyed the enemy's hold on humanity.
+- claim_maturity_label: Formal Model
+- facts_snapshot: Detected terms: model
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: dt
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: present
+- Q7_listener_risk: normal
+
+### Claim 46
+
+- section: Glossary
+- one_sentence_claim: Penal Substitution — Atonement-as-debt-absorption model Christ bore the penalty for sin.
+- claim_maturity_label: Formal Model
+- facts_snapshot: Detected terms: model
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: dt
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: present
+- Q7_listener_risk: normal
+
+### Claim 47
+
+- section: Glossary
+- one_sentence_claim: Maps directly to Sign Conservation Axiom (A8.2).
+- claim_maturity_label: Formal Model
+- facts_snapshot: Detected terms: axiom
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: dt
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 48
+
+- section: Glossary
+- one_sentence_claim: Recapitulation — Atonement-as-perfect-template model Christ re-lived the human story and got it right.
+- claim_maturity_label: Formal Model
+- facts_snapshot: Detected terms: model
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: dt
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: present
+- Q7_listener_risk: normal
+
+### Claim 49
+
+- section: Glossary
+- one_sentence_claim: Moral Influence — Atonement-as-heart-transformation model Christ's sacrifice transforms the human heart.
+- claim_maturity_label: Formal Model
+- facts_snapshot: Detected terms: model
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: dt
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: present
+- Q7_listener_risk: normal
+
+### Claim 50
+
+- section: Glossary
+- one_sentence_claim: The hidden-wisdom claim is that these spiritual rulers were temporally blind.
+- claim_maturity_label: Formal Model
+- facts_snapshot: No hard factual terms detected by deterministic pass.
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: dt
+- Q1_identity: clear
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 51
+
+- section: Glossary
+- one_sentence_claim: Logos Field ($\chi$) The pervasive substrate of coherent reality — the framework's $\chi$ field; the Master-Equation field whose value is total system coherence. (Earlier drafts denoted this with $\Lambda$; that symbol is now reserved for the cosmological constant.) Field ≠ coupling : this entry locks the substrate sense.
+- claim_maturity_label: Formal Model
+- facts_snapshot: Detected terms: equation, field, coherence
+- forward_test: If the claim is true, the stated relationship should preserve its variables, direction, and scope.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: dt
+- Q1_identity: clear
+- Q2_scope: broad
+- Q3_mechanism: present
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: present
+- Q7_listener_risk: normal
+
+### Claim 52
+
+- section: Logos Coupling
+- one_sentence_claim: Entropy / Sin ($S$) The decay parameter in the coherence equation.
+- claim_maturity_label: Formal Model
+- facts_snapshot: Detected terms: equation, coherence, entropy
+- forward_test: If the claim is true, the stated relationship should preserve its variables, direction, and scope.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: 
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal
+
+### Claim 53
+
+- section: Logos Coupling
+- one_sentence_claim: Framework note: Entropy (physical frame) and Sin (theological frame) name the same dynamical quantity at the master-equation level.
+- claim_maturity_label: Formal Model
+- facts_snapshot: Detected terms: equation, entropy
+- forward_test: If the claim is true, the stated relationship should preserve its variables, direction, and scope.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Formal Model, not a final proof.
+- nearby_equation: 
+- Q1_identity: implicit
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: present
+- Q7_listener_risk: normal
+
+### Claim 54
+
+- section: View Repository
+- one_sentence_claim: Full axiom files are in the repo's 00_AXIOMS directory.
+- claim_maturity_label: Metaphor
+- facts_snapshot: Detected terms: axiom
+- forward_test: If the claim is true, the described pattern should appear where the paper says it should appear.
+- reverse_test: If the pattern can appear without the proposed framework, the claim should be downgraded or narrowed.
+- evidence_bar: No explicit evidence marker in sentence.
+- kill_conditions: Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?
+- not_claimed: Does not by itself claim that physics proves theology.
+- proof_boundary: Current boundary: deterministic pass classifies this as Metaphor, not a final proof.
+- nearby_equation: 
+- Q1_identity: clear
+- Q2_scope: broad
+- Q3_mechanism: missing
+- Q4_evidence: missing
+- Q5_falsifiability: missing
+- Q6_boundary: missing
+- Q7_listener_risk: normal

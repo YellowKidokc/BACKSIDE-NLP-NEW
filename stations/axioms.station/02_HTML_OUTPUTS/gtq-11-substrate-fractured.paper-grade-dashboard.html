@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paper Grade Dashboard - gtq-11-substrate-fractured</title>
+<style>
+:root {
+  --ink:#14120d;
+  --paper:#fbf4df;
+  --paper2:#f3e6bf;
+  --line:#d6bd73;
+  --deep:#33250b;
+  --gold:#b8871e;
+  --green:#267a4a;
+  --red:#b3442f;
+  --blue:#2f5f7f;
+  --muted:#786845;
+  --shadow:0 18px 60px rgba(33,24,8,.18);
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  color:var(--ink);
+  font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  background:
+    radial-gradient(circle at top left, rgba(184,135,30,.22), transparent 34rem),
+    linear-gradient(135deg, #fff9e8 0%, #ead38e 100%);
+}
+main { max-width:1280px; margin:0 auto; padding:38px 22px 80px; }
+.hero {
+  border:1px solid rgba(51,37,11,.22);
+  background:rgba(255,251,238,.86);
+  border-radius:28px;
+  padding:30px;
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+.hero:after {
+  content:"";
+  position:absolute;
+  right:-80px; top:-110px;
+  width:340px; height:340px;
+  border-radius:50%;
+  border:38px solid rgba(184,135,30,.16);
+}
+.eyebrow { color:var(--gold); letter-spacing:.16em; text-transform:uppercase; font-size:.76rem; font-weight:800; }
+h1 { margin:.35rem 0 .45rem; font-size:clamp(2.1rem,4vw,4.8rem); line-height:.92; max-width:960px; }
+.sub { color:var(--muted); max-width:940px; line-height:1.65; }
+.grid { display:grid; gap:16px; }
+.metrics { grid-template-columns:repeat(4,minmax(0,1fr)); margin:22px 0; }
+.metric, .panel, .issue {
+  background:rgba(255,252,242,.82);
+  border:1px solid rgba(51,37,11,.18);
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(33,24,8,.08);
+}
+.metric { padding:18px; min-height:112px; }
+.metric strong { display:block; font-size:2rem; line-height:1; color:var(--deep); }
+.metric span { color:var(--muted); font-size:.82rem; text-transform:uppercase; letter-spacing:.09em; }
+.two { grid-template-columns:1.1fr .9fr; align-items:start; margin-top:16px; }
+.panel { padding:20px; overflow:hidden; }
+h2 { margin:.2rem 0 1rem; color:var(--deep); font-size:1.35rem; }
+table { width:100%; border-collapse:collapse; font-size:.92rem; }
+th,td { border-bottom:1px solid rgba(51,37,11,.14); padding:11px 9px; vertical-align:top; text-align:left; }
+th { color:var(--gold); font-size:.72rem; text-transform:uppercase; letter-spacing:.1em; }
+td span { display:block; color:var(--muted); font-size:.78rem; margin-top:.25rem; }
+.bar { display:inline-block; width:120px; height:10px; background:#eadbad; border-radius:999px; overflow:hidden; vertical-align:middle; margin-right:8px; }
+.bar i { display:block; height:100%; background:linear-gradient(90deg,var(--red),var(--gold),var(--green)); border-radius:999px; }
+em { color:var(--muted); font-style:normal; }
+.issues { grid-template-columns:repeat(4,minmax(0,1fr)); }
+.issue { padding:14px; display:flex; justify-content:space-between; gap:12px; align-items:center; }
+.issue strong { font-size:.84rem; color:var(--muted); }
+.issue span { font-size:1.45rem; color:var(--red); font-weight:900; }
+.address {
+  font-family:"Cascadia Mono","Consolas",monospace;
+  font-size:.78rem;
+  line-height:1.65;
+  color:#3c321c;
+  background:#fff7dc;
+  border:1px dashed rgba(51,37,11,.28);
+  border-radius:16px;
+  padding:14px;
+  overflow-wrap:anywhere;
+}
+.claims td:nth-child(3) { min-width:320px; }
+.footer { margin-top:18px; color:var(--muted); font-size:.82rem; line-height:1.55; }
+@media (max-width:900px) { .metrics,.two,.issues { grid-template-columns:1fr; } .hero { padding:22px; border-radius:20px; } }
+</style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <div class="eyebrow">Paper Grader Surface / Canary</div>
+    <h1>gtq-11-substrate-fractured</h1>
+    <p class="sub">This dashboard pulls the deterministic paper-grader metrics into a review surface: claims, equations, 7Q gaps, evidence markers, maturity distribution, semantic address, and station status. It does not replace the canonical JSON/XLSX; it makes the audit readable.</p>
+    <section class="grid metrics">
+      <div class="metric"><strong>10143</strong><span>Words</span></div>
+      <div class="metric"><strong>103</strong><span>Sections</span></div>
+      <div class="metric"><strong>70</strong><span>Equations</span></div>
+      <div class="metric"><strong>88</strong><span>Claim Candidates</span></div>
+    </section>
+    <div class="address">
+      <b>Semantic Address:</b> THEOPHYSICS/GTQ-11-SUBSTRATE-FRACTURED-PAPER-GRADE/W/PUBLIC/B/R1 :: G3M3E0S3T3K3R3Q0F0C3 :: CQ-GF-KE-MS-TR<br>
+      <b>Filename Safe:</b> THEOPHYSICS__GTQ-11-SUBSTRATE-FRACTURED-PAPER-GRADE__W__PUBLIC__B__R1__G3M3E0S3T3K3R3Q0F0C3__CQ-GF-KE-MS-TR<br>
+      <b>Vector / Hash:</b> G3M3E0S3T3K3R3Q0F0C3 / CQ-GF-KE-MS-TR<br>
+      <b>Rigor Verdict:</b>  &nbsp; <b>Math Layer:</b>  (0 translated spans)
+    </div>
+  </section>
+
+  <section class="grid two">
+    <div class="panel">
+      <h2>7Q Coverage</h2>
+      <table><thead><tr><th>Question</th><th>Observed Values</th><th>Weak</th><th>Coverage</th></tr></thead><tbody><tr><td><b>Identity</b><span>Q1_identity</span></td><td>clear: 56, implicit: 32</td><td>32</td><td><div class='bar'><i style='width:63.6%'></i></div><em>63.6%</em></td></tr>
+<tr><td><b>Scope</b><span>Q2_scope</span></td><td>broad: 61, bounded: 27</td><td>61</td><td><div class='bar'><i style='width:30.7%'></i></div><em>30.7%</em></td></tr>
+<tr><td><b>Mechanism</b><span>Q3_mechanism</span></td><td>missing: 55, present: 33</td><td>55</td><td><div class='bar'><i style='width:37.5%'></i></div><em>37.5%</em></td></tr>
+<tr><td><b>Evidence</b><span>Q4_evidence</span></td><td>missing: 72, present: 16</td><td>72</td><td><div class='bar'><i style='width:18.2%'></i></div><em>18.2%</em></td></tr>
+<tr><td><b>Falsifiability</b><span>Q5_falsifiability</span></td><td>missing: 84, present: 4</td><td>84</td><td><div class='bar'><i style='width:4.5%'></i></div><em>4.5%</em></td></tr>
+<tr><td><b>Boundary</b><span>Q6_boundary</span></td><td>missing: 69, present: 19</td><td>69</td><td><div class='bar'><i style='width:21.6%'></i></div><em>21.6%</em></td></tr>
+<tr><td><b>Listener Risk</b><span>Q7_listener_risk</span></td><td>normal: 87, high: 1</td><td>1</td><td><div class='bar'><i style='width:98.9%'></i></div><em>98.9%</em></td></tr></tbody></table>
+    </div>
+    <div class="panel">
+      <h2>Maturity Distribution</h2>
+      <table><thead><tr><th>Level</th><th>Claims</th><th>Share</th></tr></thead><tbody><tr><td>Formal Model</td><td>47</td><td>53.4%</td></tr>
+<tr><td>Metaphor</td><td>23</td><td>26.1%</td></tr>
+<tr><td>Empirical Support</td><td>13</td><td>14.8%</td></tr>
+<tr><td>Structural Correspondence</td><td>2</td><td>2.3%</td></tr>
+<tr><td>Public Proof Claim</td><td>2</td><td>2.3%</td></tr>
+<tr><td>Analogy</td><td>1</td><td>1.1%</td></tr></tbody></table>
+      <h2 style="margin-top:1.4rem;">Evidence Markers</h2>
+      <table><thead><tr><th>Marker</th><th>Claims</th></tr></thead><tbody><tr><td>no explicit marker</td><td>72</td></tr>
+<tr><td>measurement</td><td>10</td></tr>
+<tr><td>prediction</td><td>4</td></tr>
+<tr><td>reference</td><td>3</td></tr>
+<tr><td>data</td><td>1</td></tr>
+<tr><td>experiment</td><td>1</td></tr></tbody></table>
+    </div>
+  </section>
+
+  <section class="panel" style="margin-top:16px;">
+    <h2>Primary Repair Pressure</h2>
+    <div class="grid issues"><div class='issue'><strong>weak:Q5_falsifiability</strong><span>84</span></div>
+<div class='issue'><strong>weak:Q4_evidence</strong><span>72</span></div>
+<div class='issue'><strong>weak:Q6_boundary</strong><span>69</span></div>
+<div class='issue'><strong>weak:Q2_scope</strong><span>61</span></div>
+<div class='issue'><strong>weak:Q3_mechanism</strong><span>55</span></div>
+<div class='issue'><strong>weak:Q1_identity</strong><span>32</span></div>
+<div class='issue'><strong>risk:Q7_listener_risk</strong><span>1</span></div></div>
+  </section>
+
+  <section class="panel" style="margin-top:16px;">
+    <h2>Station Marks</h2>
+    <table><thead><tr><th>Station</th><th>Status</th><th>Warnings</th></tr></thead><tbody><tr><td colspan='3'>No snapshot station marks loaded.</td></tr></tbody></table>
+  </section>
+
+  <section class="panel" style="margin-top:16px;">
+    <h2>Claim Audit Preview</h2>
+    <table class="claims"><thead><tr><th>#</th><th>Section</th><th>Claim</th><th>Maturity</th><th>Evidence</th><th>Kill Condition</th><th>Proof Boundary</th></tr></thead><tbody><tr><td>1</td><td>The single thing they should remember</td><td>It is the physics of the universe after the substrate fractured — general relativity remembers the pre-Fall structure; QM shows what happened when the divine-observer coupling broke.</td><td><b>Structural Correspondence</b><span>Level 3</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Structural Correspondence, not a final proof.</td></tr>
+<tr><td>2</td><td>Critical Insight</td><td>Why it matters now GR and QM cannot be unified from inside physics because they describe two different states of the same substrate.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>3</td><td>Critical Insight</td><td>The YEC position insists the earth is young because the text says so.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>4</td><td>Critical Insight</td><td>The OEC position insists the earth is old because the data says so.</td><td><b>Formal Model</b><span>Level 4</span></td><td>data</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>5</td><td>Critical Insight</td><td>Quantum mechanics shows us what happened when the coupling broke.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>6</td><td>Critical Insight</td><td>The two theories cannot be reconciled from inside physics because they are not describing the same substrate.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>7</td><td>Critical Insight</td><td>It is a scar in the physics itself. — Central Claim General relativity encodes the structural memory of a universe that was once fully coupled and deterministic.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>8</td><td>Critical Insight</td><td>Quantum mechanics is not a new phenomenon that entered history at a specific moment — it is the bedrock description of matter at the smallest scales, and there is no evidence it ever looked different.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>9</td><td>Critical Insight</td><td>The answer is a narrower claim than the one the objection assumes we are making.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>10</td><td>Critical Insight</td><td>The claim is more specific: The indeterminacy at the level of human agency, moral reality, and the coupling between consciousness and the physical substrate is post-Fall.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>11</td><td>Critical Insight</td><td>The universe was not experienced as probabilistic because the system designer was the primary observer, maintaining coherence.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>12</td><td>Critical Insight</td><td>Quantum mechanics shows what that structure looks like when the observer coupling degrades.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>13</td><td>Critical Insight</td><td>What Probability Is Evidence Of The Born Rule states that the probability of a quantum measurement outcome is given by the squared modulus of the wavefunction&#x27;s inner product with the measurement basis:</td><td><b>Empirical Support</b><span>Level 6</span></td><td>measurement</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>14</td><td>Born Rule</td><td>$P(\text{outcome}) = |\langle \phi | \psi \rangle|^2$ This is the most empirically confirmed equation in all of physics.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>15</td><td>Born Rule</td><td>It is also the most conceptually puzzling equation in all of physics, because no one has satisfactorily explained why measurement produces definite outcomes with those specific probabilities rather than something else.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>measurement</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>16</td><td>Born Rule</td><td>Pilot wave theory restores determinism but requires non-local hidden variables that most physicists find implausible.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>17</td><td>Born Rule</td><td>When the Logos field is fully coupled to a system — when the divine observer is the primary observer — outcomes do not need to be probabilistic because the Logos determines them directly.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>18</td><td>Born Rule</td><td>The Born Rule is evidence of the Fall, not evidence of the nature of God&#x27;s creation.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>19</td><td>Born Rule</td><td>If the framework is correct, then there should be measurable differences in quantum measurement statistics depending on the quality of the observer&#x27;s coupling to the Logos field.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>measurement</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>20</td><td>Born Rule</td><td>If radioactive decay is a post-Fall quantum phenomenon (in the sense that the coupling that governed it changed at the Fall), then radiometric dating is measuring the behavior of a post-Fall substrate and projecting it backward into a pre-Fall regime where the physics was different.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>21</td><td>Born Rule</td><td>If the coupling between the Logos field and biological systems changed at the Fall, then the rates of these processes — including mutation and death at the cellular level — would have changed.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>22</td><td>Born Rule</td><td>Death entering creation at the Fall is not just a theological claim.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>23</td><td>Born Rule</td><td>It is a physical claim about the activation of entropy-driven processes in biology.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>24</td><td>Born Rule</td><td>If the fabric of time itself operates differently in a pre-Fall versus post-Fall substrate, then the assumption that physical constants and decay rates were identical before and after the Fall is not safe.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>25</td><td>Born Rule</td><td>The YEC position holds that the earth is approximately 6,000–10,000 years old because Genesis 1 describes six literal 24-hour days of creation and the genealogies allow a roughly calculable date.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>26</td><td>Born Rule</td><td>The problem has always been death before the Fall: if the earth is 4.5 billion years old, then animals were dying for hundreds of millions of years before Adam sinned, which seems to contradict the framework that death entered through sin (Romans 5:12).</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>27</td><td>Born Rule</td><td>Both sides are assuming that the physics we measure today was operating identically before the Fall.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>28</td><td>If quantum mechanics is the physics of a fractured substrate, then:</td><td>The death-before-sin problem for OEC dissolves: there was no death before the Fall because the coupling that drives entropic biological processes had not yet broken.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>29</td><td>If quantum mechanics is the physics of a fractured substrate, then:</td><td>But it does something more important: it shows that the debate as currently framed is asking a question that the substrate fracture makes unanswerable from within the current physics.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>30</td><td>If quantum mechanics is the physics of a fractured substrate, then:</td><td>You cannot use post-Fall instruments to measure pre-Fall states.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>31</td><td>If quantum mechanics is the physics of a fractured substrate, then:</td><td>It is a physics claim: the substrate that fractured will be re-coupled.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>32</td><td>Falsification Criteria</td><td>Prediction 1: If the Born Rule is a signature of broken coupling rather than a fundamental feature of reality, then observer states should systematically affect measurement statistics in ways proportional to the quality of the observer&#x27;s coupling to the Logos field.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>measurement, prediction</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>33</td><td>Falsification Criteria</td><td>Prediction 2: If radiometric dating measures a post-Fall substrate, then there should be anomalous decay rate variations that correlate with cosmological or gravitational events — not the tiny variations currently measured, but systematic deviations that suggest the substrate itself is not uniform across cosmic history.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>prediction</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>34</td><td>Falsification Criteria</td><td>Prediction 3: If GR encodes the structural memory of the pre-Fall substrate, then the GR equations should contain, embedded in their structure, an isomorphism with the Logos field equations of the Theophysics framework.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>prediction</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>35</td><td>Falsification Criteria</td><td>If the derivation fails — if there is no recoverable isomorphism between GR and the $\chi$-field equations — the framework loses a key structural claim.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>36</td><td>Falsification Criteria</td><td>Prediction 4: The framework predicts that the incompatibility between GR and QM is not a solvable problem within the current physics.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>prediction</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>37</td><td>What is suggestive but needs more work</td><td>The narrowing of the claim in Section III.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>38</td><td>What is suggestive but needs more work</td><td>A stronger version of the claim — that quantum mechanics literally did not describe subatomic physics before the Fall — would be bolder and more falsifiable.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>39</td><td>What is suggestive but needs more work</td><td>We chose the weaker version because the stronger version faces overwhelming physical evidence against it.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>40</td><td>Where we got carried away</td><td>There is a gap between &quot;not safe to assume&quot; and &quot;different.&quot; The resurrection body as physics claim.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr></tbody></table>
+    <p class="footer">Showing first 40 claims. Full canonical claim audit remains in the XLSX/JSON.</p>
+  </section>
+
+  <p class="footer">
+    Generated 2026-05-24T10:55:45 from X:\Backside\workflows\axioms.workflow\01_OUTBOX_REPORTS\gtq-11-substrate-fractured.paper-grade.json. Snapshot: not loaded.
+  </p>
+</main>
+</body>
+</html>

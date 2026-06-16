@@ -1,0 +1,24 @@
+model_id: knowledge_graph_extractor
+provider: llm_wrapper
+role: graph_extraction
+status: placeholder
+
+runtime:
+  engine: llm
+  model_name: choose_reasoning_or_code_model
+
+capabilities:
+  - node_extraction
+  - edge_extraction
+  - id_assignment
+
+station_use:
+  - 13_knowledge_graph
+
+healthcheck:
+  prompt: "Return JSON: {\"status\":\"ok\"}"
+  expected_contains: "\"status\""
+
+outputs:
+  required_format: json
+

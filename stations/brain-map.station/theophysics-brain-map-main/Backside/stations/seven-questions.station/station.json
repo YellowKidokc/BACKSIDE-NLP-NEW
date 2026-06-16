@@ -1,0 +1,43 @@
+{
+  "schema": "theophysics.station.v1",
+  "name": "seven-questions",
+  "type": "analysis",
+  "status": "candidate",
+  "public_labels": [
+    "The Seven Questions",
+    "Foundations",
+    "Reversals",
+    "Evidence"
+  ],
+  "internal_labels": [
+    "7Q-F",
+    "7Q-R",
+    "7Q-E"
+  ],
+  "input": [
+    "WORKING/source.md"
+  ],
+  "output": [
+    "WORKING/station-outputs/seven-questions/*.json",
+    "WORKING/station-outputs/seven-questions/*.md",
+    "MACHINE/station-log.json"
+  ],
+  "does_not_touch": [
+    "PUBLIC/index.html",
+    "ARCHIVE/"
+  ],
+  "seven_questions": {
+    "Q1": "Existence",
+    "Q2": "Distinction",
+    "Q3": "Substrate",
+    "Q4": "Order",
+    "Q5": "Observation",
+    "Q6": "Relation",
+    "Q7": "Coherence"
+  },
+  "verification": [
+    "python -m py_compile station.py seven_q_core.py",
+    "sample run produces foundations_7q, reversals_7q, evidence_7q",
+    "output marks uncertainty and missing evidence"
+  ]
+}

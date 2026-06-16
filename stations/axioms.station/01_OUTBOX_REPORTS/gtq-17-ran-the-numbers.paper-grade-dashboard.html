@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paper Grade Dashboard - gtq-17-ran-the-numbers</title>
+<style>
+:root {
+  --ink:#14120d;
+  --paper:#fbf4df;
+  --paper2:#f3e6bf;
+  --line:#d6bd73;
+  --deep:#33250b;
+  --gold:#b8871e;
+  --green:#267a4a;
+  --red:#b3442f;
+  --blue:#2f5f7f;
+  --muted:#786845;
+  --shadow:0 18px 60px rgba(33,24,8,.18);
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  color:var(--ink);
+  font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  background:
+    radial-gradient(circle at top left, rgba(184,135,30,.22), transparent 34rem),
+    linear-gradient(135deg, #fff9e8 0%, #ead38e 100%);
+}
+main { max-width:1280px; margin:0 auto; padding:38px 22px 80px; }
+.hero {
+  border:1px solid rgba(51,37,11,.22);
+  background:rgba(255,251,238,.86);
+  border-radius:28px;
+  padding:30px;
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+.hero:after {
+  content:"";
+  position:absolute;
+  right:-80px; top:-110px;
+  width:340px; height:340px;
+  border-radius:50%;
+  border:38px solid rgba(184,135,30,.16);
+}
+.eyebrow { color:var(--gold); letter-spacing:.16em; text-transform:uppercase; font-size:.76rem; font-weight:800; }
+h1 { margin:.35rem 0 .45rem; font-size:clamp(2.1rem,4vw,4.8rem); line-height:.92; max-width:960px; }
+.sub { color:var(--muted); max-width:940px; line-height:1.65; }
+.grid { display:grid; gap:16px; }
+.metrics { grid-template-columns:repeat(4,minmax(0,1fr)); margin:22px 0; }
+.metric, .panel, .issue {
+  background:rgba(255,252,242,.82);
+  border:1px solid rgba(51,37,11,.18);
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(33,24,8,.08);
+}
+.metric { padding:18px; min-height:112px; }
+.metric strong { display:block; font-size:2rem; line-height:1; color:var(--deep); }
+.metric span { color:var(--muted); font-size:.82rem; text-transform:uppercase; letter-spacing:.09em; }
+.two { grid-template-columns:1.1fr .9fr; align-items:start; margin-top:16px; }
+.panel { padding:20px; overflow:hidden; }
+h2 { margin:.2rem 0 1rem; color:var(--deep); font-size:1.35rem; }
+table { width:100%; border-collapse:collapse; font-size:.92rem; }
+th,td { border-bottom:1px solid rgba(51,37,11,.14); padding:11px 9px; vertical-align:top; text-align:left; }
+th { color:var(--gold); font-size:.72rem; text-transform:uppercase; letter-spacing:.1em; }
+td span { display:block; color:var(--muted); font-size:.78rem; margin-top:.25rem; }
+.bar { display:inline-block; width:120px; height:10px; background:#eadbad; border-radius:999px; overflow:hidden; vertical-align:middle; margin-right:8px; }
+.bar i { display:block; height:100%; background:linear-gradient(90deg,var(--red),var(--gold),var(--green)); border-radius:999px; }
+em { color:var(--muted); font-style:normal; }
+.issues { grid-template-columns:repeat(4,minmax(0,1fr)); }
+.issue { padding:14px; display:flex; justify-content:space-between; gap:12px; align-items:center; }
+.issue strong { font-size:.84rem; color:var(--muted); }
+.issue span { font-size:1.45rem; color:var(--red); font-weight:900; }
+.address {
+  font-family:"Cascadia Mono","Consolas",monospace;
+  font-size:.78rem;
+  line-height:1.65;
+  color:#3c321c;
+  background:#fff7dc;
+  border:1px dashed rgba(51,37,11,.28);
+  border-radius:16px;
+  padding:14px;
+  overflow-wrap:anywhere;
+}
+.claims td:nth-child(3) { min-width:320px; }
+.footer { margin-top:18px; color:var(--muted); font-size:.82rem; line-height:1.55; }
+@media (max-width:900px) { .metrics,.two,.issues { grid-template-columns:1fr; } .hero { padding:22px; border-radius:20px; } }
+</style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <div class="eyebrow">Paper Grader Surface / Canary</div>
+    <h1>gtq-17-ran-the-numbers</h1>
+    <p class="sub">This dashboard pulls the deterministic paper-grader metrics into a review surface: claims, equations, 7Q gaps, evidence markers, maturity distribution, semantic address, and station status. It does not replace the canonical JSON/XLSX; it makes the audit readable.</p>
+    <section class="grid metrics">
+      <div class="metric"><strong>6280</strong><span>Words</span></div>
+      <div class="metric"><strong>155</strong><span>Sections</span></div>
+      <div class="metric"><strong>200</strong><span>Equations</span></div>
+      <div class="metric"><strong>61</strong><span>Claim Candidates</span></div>
+    </section>
+    <div class="address">
+      <b>Semantic Address:</b> SCIENCE/GTQ-17-WHAT-HAPPENED-WHEN-WE-TESTED-THE-PATTERN-GENESIS-TO-QUANTUM/W/PUBLIC/B/R1 :: G3M3E0S0T3K3R3Q0F0C3 :: CQ-GS-KF-ME-TR<br>
+      <b>Filename Safe:</b> SCIENCE__GTQ-17-WHAT-HAPPENED-WHEN-WE-TESTED-THE-PATTERN-GENESIS-TO-QUANTUM__W__PUBLIC__B__R1__G3M3E0S0T3K3R3Q0F0C3__CQ-GS-KF-ME-TR<br>
+      <b>Vector / Hash:</b> G3M3E0S0T3K3R3Q0F0C3 / CQ-GS-KF-ME-TR<br>
+      <b>Rigor Verdict:</b> NEEDS_RIGOR &nbsp; <b>Math Layer:</b> dictionary_fallback (4 translated spans)
+    </div>
+  </section>
+
+  <section class="grid two">
+    <div class="panel">
+      <h2>7Q Coverage</h2>
+      <table><thead><tr><th>Question</th><th>Observed Values</th><th>Weak</th><th>Coverage</th></tr></thead><tbody><tr><td><b>Identity</b><span>Q1_identity</span></td><td>implicit: 38, clear: 23</td><td>38</td><td><div class='bar'><i style='width:37.7%'></i></div><em>37.7%</em></td></tr>
+<tr><td><b>Scope</b><span>Q2_scope</span></td><td>broad: 45, bounded: 16</td><td>45</td><td><div class='bar'><i style='width:26.2%'></i></div><em>26.2%</em></td></tr>
+<tr><td><b>Mechanism</b><span>Q3_mechanism</span></td><td>missing: 52, present: 9</td><td>52</td><td><div class='bar'><i style='width:14.8%'></i></div><em>14.8%</em></td></tr>
+<tr><td><b>Evidence</b><span>Q4_evidence</span></td><td>missing: 33, present: 28</td><td>33</td><td><div class='bar'><i style='width:45.9%'></i></div><em>45.9%</em></td></tr>
+<tr><td><b>Falsifiability</b><span>Q5_falsifiability</span></td><td>missing: 51, present: 10</td><td>51</td><td><div class='bar'><i style='width:16.4%'></i></div><em>16.4%</em></td></tr>
+<tr><td><b>Boundary</b><span>Q6_boundary</span></td><td>present: 31, missing: 30</td><td>30</td><td><div class='bar'><i style='width:50.8%'></i></div><em>50.8%</em></td></tr>
+<tr><td><b>Listener Risk</b><span>Q7_listener_risk</span></td><td>normal: 59, high: 2</td><td>2</td><td><div class='bar'><i style='width:96.7%'></i></div><em>96.7%</em></td></tr></tbody></table>
+    </div>
+    <div class="panel">
+      <h2>Maturity Distribution</h2>
+      <table><thead><tr><th>Level</th><th>Claims</th><th>Share</th></tr></thead><tbody><tr><td>Formal Model</td><td>39</td><td>63.9%</td></tr>
+<tr><td>Empirical Support</td><td>17</td><td>27.9%</td></tr>
+<tr><td>Metaphor</td><td>3</td><td>4.9%</td></tr>
+<tr><td>Public Proof Claim</td><td>2</td><td>3.3%</td></tr></tbody></table>
+      <h2 style="margin-top:1.4rem;">Evidence Markers</h2>
+      <table><thead><tr><th>Marker</th><th>Claims</th></tr></thead><tbody><tr><td>no explicit marker</td><td>33</td></tr>
+<tr><td>data</td><td>13</td></tr>
+<tr><td>empirical</td><td>8</td></tr>
+<tr><td>test</td><td>6</td></tr>
+<tr><td>prediction</td><td>2</td></tr>
+<tr><td>observation</td><td>1</td></tr>
+<tr><td>experiment</td><td>1</td></tr>
+<tr><td>reference</td><td>1</td></tr>
+<tr><td>source</td><td>1</td></tr></tbody></table>
+    </div>
+  </section>
+
+  <section class="panel" style="margin-top:16px;">
+    <h2>Primary Repair Pressure</h2>
+    <div class="grid issues"><div class='issue'><strong>weak:Q3_mechanism</strong><span>52</span></div>
+<div class='issue'><strong>weak:Q5_falsifiability</strong><span>51</span></div>
+<div class='issue'><strong>weak:Q2_scope</strong><span>45</span></div>
+<div class='issue'><strong>weak:Q1_identity</strong><span>38</span></div>
+<div class='issue'><strong>weak:Q4_evidence</strong><span>33</span></div>
+<div class='issue'><strong>weak:Q6_boundary</strong><span>30</span></div>
+<div class='issue'><strong>risk:Q7_listener_risk</strong><span>2</span></div></div>
+  </section>
+
+  <section class="panel" style="margin-top:16px;">
+    <h2>Station Marks</h2>
+    <table><thead><tr><th>Station</th><th>Status</th><th>Warnings</th></tr></thead><tbody><tr><td>paper_grader</td><td>complete</td><td></td></tr>
+<tr><td>claim_audit</td><td>complete</td><td></td></tr>
+<tr><td>math_translation</td><td>complete</td><td></td></tr>
+<tr><td>proof_explorer_audit</td><td>skipped</td><td>No proof explorer audit HTML found for seven_qs population.</td></tr>
+<tr><td>paper_snapshot_writer</td><td>complete</td><td></td></tr></tbody></table>
+  </section>
+
+  <section class="panel" style="margin-top:16px;">
+    <h2>Claim Audit Preview</h2>
+    <table class="claims"><thead><tr><th>#</th><th>Section</th><th>Claim</th><th>Maturity</th><th>Evidence</th><th>Kill Condition</th><th>Proof Boundary</th></tr></thead><tbody><tr><td>1</td><td>The single thing they should remember</td><td>The Master Equation makes specific quantitative predictions and the biblical/historical data fits them — including a near-perfect ρ = 0.988 between adversary sophistication and humanity&#x27;s preparation level.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>data</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>2</td><td>Critical Insight</td><td>A model parameter became an empirical discovery.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>empirical</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>3</td><td>Abstract</td><td>We present 16 independent empirical tests of the Theophysics Master Equation $\chi = \iiint(G \cdot M \cdot E \cdot S \cdot T \cdot K \cdot R \cdot Q \cdot F \cdot C)\, dx\, dy\, dt$ and its derived coherence equation $\frac{dC}{dt} = O_{eff} \cdot G(t) \cdot (1-C) - S \cdot C$ against biblical and historical data.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>data, empirical</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>4</td><td>Abstract</td><td>Of nine completed tests, eight produce statistically significant results confirming framework predictions, including: (1) biblical lifespan data fitting a thermodynamic decay curve ($R^2 = 0.888$); (2) linguistic complexity across the biblical corpus increasing monotonically with all five metrics significant at $p &lt; 10^{-10}$ and an S-curve fit of $R^2 = 0.90$; (3) adversary sophistication tracking preparation level with Spearman $\rho = 0.988$ ($p = 2.16 \times 10^{-9}$); (4) prophetic specificity increasing over time ($\rho = 0.764$, $p = 9.1 \times 10^{-4}$); (5) cumulative theological concepts following an S-curve ($R^2 = 0.956$); and (6) a constraint satisfaction model demonstrating the biblical pattern as uniquely optimal among six tested strategies under three non-negotiable constraints.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>data</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>5</td><td>Abstract</td><td>Introduction 1.1 The Problem The Theophysics framework proposes that physical and spiritual reality are dual projections of a single informational substrate described by the Master Equation.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>6</td><td>Abstract</td><td>This claim is either testable or it is philosophy.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>7</td><td>Abstract</td><td>The framework generates specific, quantitative predictions about patterns that should be observable in biblical and historical data if the model is correct.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>data</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>8</td><td>Abstract</td><td>These predictions are falsifiable: if the data contradicts the predictions, the model requires revision or rejection.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>data</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>9</td><td>Room for growth</td><td>It models the claim that God’s revelation was progressive â€” calibrated to the species’ growing capacity to understand it.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>10</td><td>Room for growth</td><td>If this claim is correct, $P(t)$ should be empirically visible in the biblical text itself as a monotonic increase in linguistic complexity, abstraction level, and conceptual density across the biblical timeline.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>11</td><td>Room for growth</td><td>1.4 Three Hard Constraints The framework identifies three non-negotiable constraints governing any coherent divine strategy: Free Will (O): Must be genuine, never overridden or effectively drowned Grace (G): Must be always available ($G &gt; 0$ for all $t$) Justice (SÂ·C): Consequences must be structural and real ($S &gt; 0$) The constraint satisfaction model (Test C) demonstrates that these three constraints, taken together, produce a unique optimal strategy matching the biblical pattern.</td><td><b>Formal Model</b><span>Level 4</span></td><td>test</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>12</td><td>Epistle</td><td>64 CE 0.920 Model-to-empirical correlation: $r = 0.817$.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>empirical</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>13</td><td>Epistle</td><td>The preparation function is an empirical observation, not a model assumption.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>empirical, observation</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>14</td><td>Epistle</td><td>3.4 Test C: Constraint Satisfaction Model Hypothesis: The biblical pattern (progressive revelation â†’ incarnation â†’ cross â†’ Spirit distribution) is the uniquely optimal strategy given three non-negotiable constraints.</td><td><b>Formal Model</b><span>Level 4</span></td><td>test</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>15</td><td>Epistle</td><td>Method: Six “God strategies” tested via ODE integration of the coherence equation:</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>16</td><td>Valid</td><td>Early periods (Flood, Abraham) show remarkably long stability at low $P(t)$, while the monarchy period shows shorter cycles at moderate $P(t)$.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>17</td><td>Value</td><td>The Spirit-distributed model at high $P$ achieves what institutional models at low $P$ could not sustain.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>18</td><td>Minimum coherence</td><td>Full validation requires running the same analysis on control corpora (Greek philosophy, Chinese classics, comparative religious texts).</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>19</td><td>Predictions:</td><td>- Quran: FLAT (single author, short timespan, no progressive pedagogy) - Vedas: Different topology (increasing but non-monotonic, reflecting accumulation without curation) - Bible: Monotonic S-curve (unique preparation signature) Falsification: If another text shows the same monotonic S-curve pattern, the signal is not unique to the Bible.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>20</td><td>Predictions:</td><td>Method: Composite measure from World Values Survey: life satisfaction + prosocial behavior + relationship stability + health outcomes.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>21</td><td>Predictions:</td><td>Falsification: If the distribution is Gaussian, A12.1 (Bimodal Outcome) requires revision.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>22</td><td>Predictions:</td><td>Method: Measure HRV, cortisol, EEG coherence before, during, and after reported conversion experiences.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>23</td><td>Predictions:</td><td>Falsification: If physiological markers change gradually with no discontinuity, T11.3 (conversion as phase transition) requires revision.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>24</td><td>Predictions:</td><td>Existing evidence: PEAR lab: $6.35\sigma$ across 2.5 million trials.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>25</td><td>Predictions:</td><td>Falsification: If effect size does not scale with estimated $\Phi$, the observer-integration model requires revision.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>26</td><td>Predictions:</td><td>Prediction: Apostates show WORSE outcomes than never-believers, because the transition from $\sigma = +1$ toward $\sigma = -1$ passes through maximum decoherence.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>prediction</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>27</td><td>Predictions:</td><td>Falsification: If apostates show outcomes identical to never-believers, the sign-flip model is not supported.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>28</td><td>Predictions:</td><td>The strongest results are: Sin complexity curve ($\rho = 0.988$, $p = 2.16 \times 10^{-9}$): Near-perfect rank correlation between adversary sophistication and species preparation level P(t) linguistic complexity (all metrics $p &lt; 10^{-10}$, S-curve $R^2 = 0.90$): The preparation function is empirically visible in the biblical text Revelation density S-curve ($R^2 = 0.956$): Cumulative theological concepts follow the predicted S-curve Constraint satisfaction model : The biblical pattern is uniquely optimal among six strategies under three hard constraints 5.2 The Failed Test Test 4 (Grace Response Time) failed at $p = 0.91$.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>test</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>29</td><td>Predictions:</td><td>This failure constrains the model: whatever drives post-intervention stability, it is not a simple function of preparation level alone.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>30</td><td>The eight confirmed tests, taken together, paint a specific picture:</td><td>The preparation function was not designed to match the data; it was proposed on theoretical grounds (the coherence equation requires it for dimensional consistency) and then found to match the data across five independent linguistic metrics.</td><td><b>Formal Model</b><span>Level 4</span></td><td>data</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>31</td><td>The eight confirmed tests, taken together, paint a specific picture:</td><td>This is the pattern that characterizes genuine prediction: the model specifies what should be true before the data is examined.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>data, prediction</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>32</td><td>The eight confirmed tests, taken together, paint a specific picture:</td><td>5.5 The Constraint Proof The constraint satisfaction model (Test C) addresses the most common objection to the framework: “Why not a simpler/better/kinder approach?” The answer is formal: given three non-negotiable constraints (free will, grace, justice), the biblical pattern is the unique optimum.</td><td><b>Public Proof Claim</b><span>Level 7</span></td><td>test</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Public Proof Claim, not a final proof.</td></tr>
+<tr><td>33</td><td>The eight confirmed tests, taken together, paint a specific picture:</td><td>6.3 Model Parameters The constraint satisfaction model uses specific parameter values ($S = 0.3$, $O_{raw} = 0.5$, etc.) that are not independently measured.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>34</td><td>Automated NLP replication of Tests 3, 5, 6 on Hebrew/Greek corpus</td><td>Sensitivity analysis of constraint model across parameter ranges 7.2 Near-term (Requires existing external datasets)</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>35</td><td>Test 14: Apostasy outcome comparison in deconversion literature</td><td>7.3 Long-term (Requires original data collection)</td><td><b>Metaphor</b><span>Level 1</span></td><td>data</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>36</td><td>Test 12: Physiological measurement of conversion events</td><td>The preparation function $P(t)$ emerges as an empirical discovery, not merely a model parameter.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>empirical</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>37</td><td>Test 12: Physiological measurement of conversion events</td><td>The constraint satisfaction model demonstrates strategic uniqueness.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>38</td><td>Test 12: Physiological measurement of conversion events</td><td>If the Bible’s preparation curve proves unique among major religious texts, the evidence transitions from “consistent with the model” to “uniquely predicted by the model.” All code, data, and results are available for independent reproduction.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>data</td><td>Sentence contains an explicit falsifiability or prediction marker; preserve it and make the failure case concrete.</td><td>Boundary needed: currently reads stronger than Empirical Support.</td></tr>
+<tr><td>39</td><td>Purpose</td><td>constraint_model.py Constraint satisfaction model (Test C) test3_pt_validation.py P(t) linguistic analysis (Test 3) run_all_tests.py Complete test suite (Tests 4-8, 15) generate_all_charts.py</td><td><b>Formal Model</b><span>Level 4</span></td><td>test</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>40</td><td>Dependencies: NumPy, SciPy, Matplotlib</td><td>Appendix C: Charts The following figures are generated by generate_all_charts.py and included in the repository: chart1_Pt_composite.png â€” Composite $P(t)$ with S-curve fit and era markers chart2_five_metrics.png â€” Individual metric trend lines with regression statistics chart3_era_progression.png â€” Era average bar chart showing monotonic increase chart4_constraint_model.png â€” Six strategy coherence trajectories with grace deployment chart5_efficiency.png â€” Grace efficiency and final coherence comparison chart6_model_vs_empirical.png â€” Model $P(t)$ overlaid on empirical data ($r = 0.817$) David Lowe (POF 2828)</td><td><b>Empirical Support</b><span>Level 6</span></td><td>data, empirical</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr></tbody></table>
+    <p class="footer">Showing first 40 claims. Full canonical claim audit remains in the XLSX/JSON.</p>
+  </section>
+
+  <p class="footer">
+    Generated 2026-05-24T10:56:00 from X:\Backside\workflows\axioms.workflow\01_OUTBOX_REPORTS\gtq-17-ran-the-numbers.paper-grade.json. Snapshot: X:\Backside\workflows\axioms.workflow\03_FINAL_READY\Genesis-to-Quantum\gtq-17-ran-the-numbers\JSON\gtq-17-ran-the-numbers.paper-snapshot.json.
+  </p>
+</main>
+</body>
+</html>

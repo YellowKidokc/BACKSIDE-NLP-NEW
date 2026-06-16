@@ -1,0 +1,194 @@
+# GTQ Wolfram / Lean Candidate Scan
+
+Total candidates: 409
+
+## Summary
+- WOLFRAM: 178
+- BOTH/REVIEW: 180
+- LEAN: 51
+
+## Top Wolfram Candidates
+- **gtq-03-free-will-two-frames.html** (equation, W=6, L=0) ? `\frac{dC}{dt} = O \cdot G(1-C) - S \cdot C`
+  - reasons: computable or data-facing context, numeric/statistical/differential expression, unit/dimension check candidate
+- **gtq-03-free-will-two-frames.html** (equation, W=6, L=0) ? `s = +1`
+  - reasons: computable or data-facing context, numeric/statistical/differential expression, unit/dimension check candidate
+- **gtq-03-free-will-two-frames.html** (equation, W=6, L=0) ? `\frac{dC}{dt} = \frac{(1+s)}{2} \cdot G(1-C) - S \cdot C`
+  - reasons: computable or data-facing context, numeric/statistical/differential expression, unit/dimension check candidate
+- **gtq-03-free-will-two-frames.html** (equation, W=6, L=0) ? `S \cdot C`
+  - reasons: computable or data-facing context, numeric/statistical/differential expression, unit/dimension check candidate
+- **gtq-03a-macarthur-and-the-equation.html** (equation, W=6, L=4) ? `\frac{dC}{dt} = O \cdot G(1-C) - S \cdot C`
+  - reasons: computable or data-facing context, formal logic/proof context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-03a-macarthur-and-the-equation.html** (equation, W=6, L=4) ? `= coherence with God,`
+  - reasons: computable or data-facing context, formal logic/proof context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-03a-macarthur-and-the-equation.html** (equation, W=6, L=4) ? `= openness,`
+  - reasons: computable or data-facing context, formal logic/proof context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-03a-macarthur-and-the-equation.html** (equation, W=6, L=4) ? `= grace,`
+  - reasons: computable or data-facing context, formal logic/proof context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-03a-macarthur-and-the-equation.html** (equation, W=6, L=4) ? `s = -1`
+  - reasons: computable or data-facing context, formal logic/proof context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-03a-macarthur-and-the-equation.html** (equation, W=6, L=4) ? `\alpha(s) = \frac{1+s}{2}`
+  - reasons: computable or data-facing context, formal logic/proof context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-03a-macarthur-and-the-equation.html** (equation, W=6, L=1) ? `\alpha(-1) = 0`
+  - reasons: computable or data-facing context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-03a-macarthur-and-the-equation.html** (equation, W=6, L=1) ? `\alpha(0) = 0.5`
+  - reasons: computable or data-facing context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-04-the-day-time-began.html** (equation, W=6, L=1) ? `dimension.</span></div> <div class="facts-item"><span class="facts-key">A</span><span>Pre-Flood lifespans cluster at 912 years (CV 5.9%, no significant trend). Post-Flood lifespans follow a quantum decoherence curve:`
+  - reasons: computable or data-facing context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-04-the-day-time-began.html** (equation, W=6, L=1) ? `means no entropy.</strong> <p style="font-size:.95rem;margin:.25rem 0 0;color:#cfcfcf;">The second law of thermodynamics says entropy increases <em>over time</em>. Remove time, and entropy has no arrow. The`
+  - reasons: computable or data-facing context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-04-the-day-time-began.html** (equation, W=6, L=0) ? `C(t) = 337 \cdot e^{-t/214} + 93`
+  - reasons: computable or data-facing context, numeric/statistical/differential expression, unit/dimension check candidate
+- **gtq-04b-how-lies-kill.html** (equation, W=6, L=4) ? `\Omega = 1 \implies S = 0`
+  - reasons: computable or data-facing context, formal logic/proof context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-05b-trinity-timeline.html** (equation, W=6, L=3) ? `is short because coupling is intermittent.</div></div> <div class="math-box"><span class="mlabel">New Covenant</span>`
+  - reasons: computable or data-facing context, formal logic/proof context, numeric/statistical/differential expression, unit/dimension check candidate
+- **gtq-05b-trinity-timeline.html** (equation, W=6, L=3) ? `\frac{dC}{dt} = O \cdot G(1-C) - S \cdot C`
+  - reasons: computable or data-facing context, formal logic/proof context, numeric/statistical/differential expression, unit/dimension check candidate
+- **gtq-05b-trinity-timeline.html** (equation, W=6, L=3) ? `increases dramatically because coupling is sustained, not pulsed.</div></div> <h2><span class="sec-tag">Flood</span>Phase Transition</h2> <div class="math-box"><span class="mlabel">Decoherence Time Constant</span>`
+  - reasons: computable or data-facing context, formal logic/proof context, numeric/statistical/differential expression, unit/dimension check candidate
+- **gtq-05b-trinity-timeline.html** (equation, W=6, L=3) ? `\tau_d = 214 \text{ years (post-Flood)}`
+  - reasons: computable or data-facing context, formal logic/proof context, numeric/statistical/differential expression, unit/dimension check candidate
+- **gtq-05b-trinity-timeline.html** (equation, W=6, L=3) ? `\tau_d = 214`
+  - reasons: computable or data-facing context, formal logic/proof context, numeric/statistical/differential expression, unit/dimension check candidate
+- **gtq-07a-empirical-testing.html** (equation, W=6, L=0) ? `\chi = \iiint(G \cdot M \cdot E \cdot S \cdot T \cdot K \cdot R \cdot Q \cdot F \cdot C)\, dx\, dy\, dt`
+  - reasons: computable or data-facing context, numeric/statistical/differential expression, unit/dimension check candidate
+- **gtq-07a-empirical-testing.html** (equation, W=6, L=0) ? `\frac{dC}{dt} = O_{eff} \cdot G(t) \cdot (1-C) - S \cdot C`
+  - reasons: computable or data-facing context, numeric/statistical/differential expression, unit/dimension check candidate
+- **gtq-07a-empirical-testing.html** (equation, W=6, L=1) ? `\alpha = 0.05`
+  - reasons: computable or data-facing context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-07a-empirical-testing.html** (equation, W=6, L=1) ? `\frac{dL}{dt} = -S \cdot L`
+  - reasons: computable or data-facing context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-07a-empirical-testing.html** (equation, W=6, L=0) ? `S \cdot C`
+  - reasons: computable or data-facing context, numeric/statistical/differential expression, unit/dimension check candidate
+- **gtq-07a-empirical-testing.html** (equation, W=6, L=1) ? `\frac{dC}{dt} = -S \cdot C`
+  - reasons: computable or data-facing context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-09-same-god-both-testaments.html** (equation, W=6, L=3) ? `R^2 = 0.888`
+  - reasons: computable or data-facing context, formal logic/proof context, numeric/statistical/differential expression, unit/dimension check candidate
+- **gtq-09-same-god-both-testaments.html** (equation, W=6, L=3) ? `\frac{dC}{dt} = O \cdot G(1-C) - S \cdot C`
+  - reasons: computable or data-facing context, formal logic/proof context, numeric/statistical/differential expression, unit/dimension check candidate
+- **gtq-09-same-god-both-testaments.html** (equation, W=6, L=3) ? `S \cdot C`
+  - reasons: computable or data-facing context, formal logic/proof context, numeric/statistical/differential expression, unit/dimension check candidate
+
+## Top Lean Candidates
+- **gtq-02-the-first-quantum-state.html** (equation, W=1, L=4) ? \hat{L}|\Psi_{\text{coherent}}\rangle \to |\Psi_{\text{sustained}}\rangle \quad \text{(Tree of Life: coherence maintenance)}
+  - reasons: formal logic/proof context, structural/formal object context, unit/dimension check candidate
+- **gtq-02-the-first-quantum-state.html** (equation, W=1, L=4) ? \hat{K}|\Psi_{\text{superposition}}\rangle \to |\Psi_{\text{collapsed}}\rangle \quad \text{(Tree of Knowledge: measurement / collapse)}
+  - reasons: formal logic/proof context, structural/formal object context, unit/dimension check candidate
+- **gtq-03-free-will-two-frames.html** (equation, W=0, L=4) ? G = 0
+  - reasons: formal logic/proof context, structural/formal object context
+- **gtq-03a-macarthur-and-the-equation.html** (equation, W=0, L=4) ? \alpha(s) = 0
+  - reasons: formal logic/proof context, structural/formal object context
+- **gtq-03b-the-three-pathways.html** (equation, W=2, L=4) ? s = -1
+  - reasons: computable or data-facing context, formal logic/proof context, structural/formal object context
+- **gtq-04b-how-lies-kill.html** (equation, W=1, L=4) ? \Omega_{God} = 1 \quad \implies \quad S_{God} = 0
+  - reasons: formal logic/proof context, structural/formal object context, unit/dimension check candidate
+- **gtq-04b-how-lies-kill.html** (equation, W=1, L=4) ? C_{eq} = \frac{O \cdot G}{O \cdot G + S}
+  - reasons: formal logic/proof context, structural/formal object context, unit/dimension check candidate
+- **gtq-05-the-substrate-fractured.html** (equation, W=1, L=4) ? |\cdot|^2
+  - reasons: formal logic/proof context, structural/formal object context, unit/dimension check candidate
+- **gtq-05-the-substrate-fractured.html** (equation, W=0, L=4) ? P = |\langle\psi|\phi\rangle|^2
+  - reasons: formal logic/proof context, structural/formal object context
+- **gtq-06-why-reality-needs-three.html** (equation, W=1, L=4) ? |\psi\rangle \rightarrow |a\rangle \quad \text{with probability} \quad P(a) = |\langle a|\psi\rangle|^2
+  - reasons: formal logic/proof context, structural/formal object context, unit/dimension check candidate
+- **gtq-06-why-reality-needs-three.html** (equation, W=0, L=4) ? \text{Dyad: } A \rightarrow B \rightarrow A \rightarrow B \quad \text{(period-2 orbit, no arrow)}
+  - reasons: formal logic/proof context, structural/formal object context
+- **gtq-06-why-reality-needs-three.html** (equation, W=0, L=4) ? \text{Triad: } A \rightarrow B \rightarrow C \rightarrow A' \rightarrow B' \rightarrow C' \quad \text{(spiral, directed flow)}
+  - reasons: formal logic/proof context, structural/formal object context
+- **gtq-06-why-reality-needs-three.html** (equation, W=2, L=4) ? [\hat{A}, \hat{B}] \neq 0 \quad [\hat{B}, \hat{C}] \neq 0 \quad [\hat{A}, \hat{C}] \neq 0
+  - reasons: computable or data-facing context, formal logic/proof context, structural/formal object context
+- **gtq-06-why-reality-needs-three.html** (equation, W=2, L=4) ? = generation,
+  - reasons: computable or data-facing context, formal logic/proof context, structural/formal object context
+- **gtq-06-why-reality-needs-three.html** (equation, W=2, L=4) ? = structuring,
+  - reasons: computable or data-facing context, formal logic/proof context, structural/formal object context
+- **gtq-08-god-doesnt-need-a-clock.html** (equation, W=1, L=4) ? by revealing grace magnitude (relational mechanism). Recapitulation = perfect
+  - reasons: formal logic/proof context, structural/formal object context, unit/dimension check candidate
+- **gtq-08a-the-temporal-trap.html** (equation, W=0, L=4) ? \text{Spatial Displacement: No } \Delta t \implies \text{No Return Corridor}
+  - reasons: formal logic/proof context, structural/formal object context
+- **gtq-08a-the-temporal-trap.html** (equation, W=0, L=4) ? \text{Temporal Displacement: } \Delta t \text{ exists} \implies \text{Return to Pre-Fall State Possible}
+  - reasons: formal logic/proof context, structural/formal object context
+- **gtq-09a-regime-dependent-theology.html** (equation, W=0, L=4) ? {formatTime(audio.currentTime)} /
+  - reasons: formal logic/proof context, structural/formal object context
+- **gtq-01-measurement-collapsed-reality.html** (formal_sentence, W=1, L=4) ? The Reset Protocol: The Second Adam If the Fall is a quantum collapse event, then the Crucifixion is a reset measurement performed by a second federal observer — one authorized to collapse reality into a different eigenstate.
+  - reasons: formal logic/proof context, structural/formal object context, unit/dimension check candidate
+- **gtq-03a-macarthur-and-the-equation.html** (formal_sentence, W=0, L=4) ? MacArthur's Claims Mapped to the Equation MacArthur's Claim Equation Mapping "Dead in trespasses" $s = -1$, $\alpha(s) = 0$, pure decay "God wills, draws, grants" Grace $G$ initiates $s:-1 \to 0$ "Bow down, repent, believe" Openness $O$ and surrender increase 
+  - reasons: formal logic/proof context, structural/formal object context
+- **gtq-05b-trinity-timeline.html** (formal_sentence, W=0, L=4) ? What We May Have Overstated Triadic recurrence is evidence of coherence, not proof of necessity.
+  - reasons: formal logic/proof context, structural/formal object context
+- **gtq-06-why-reality-needs-three.html** (formal_sentence, W=0, L=4) ? But once you see three irreducible operations, each logically distinct, each necessary, none reducible to the others — you have to ask: has anyone described this structure before Yes.
+  - reasons: formal logic/proof context, structural/formal object context
+- **gtq-06-why-reality-needs-three.html** (formal_sentence, W=0, L=4) ? Proof Operator Non-Interchangeability Commutation Relations $$[\hat{A}, \hat{B}] \neq 0 \quad [\hat{B}, \hat{C}] \neq 0 \quad [\hat{A}, \hat{C}] \neq 0$$ Where $\hat{A}$ = generation, $\hat{B}$ = structuring, $\hat{C}$ = actualization.
+  - reasons: formal logic/proof context, structural/formal object context
+- **gtq-08a-the-temporal-trap.html** (formal_sentence, W=0, L=4) ? Temporal Asymmetry The fundamental distinction between spatial and temporal displacement determines redemptive possibility: Asymmetry Principle $$\text{Spatial Displacement: No } \Delta t \implies \text{No Return Corridor}$$ $$\text{Temporal Displacement: } \D
+  - reasons: formal logic/proof context, structural/formal object context
+- **gtq-08a-the-temporal-trap.html** (formal_sentence, W=0, L=4) ? These are the conditions under which the temporal trap hypothesis would be definitively falsified: Kill Conditions The temporal/spatial fall distinction is shown to be theologically untenable or biblically contradicted The delayed-choice quantum eraser is defi
+  - reasons: formal logic/proof context, structural/formal object context
+- **gtq-10a-why-the-pattern-is-the-signal.html** (formal_sentence, W=0, L=4) ? The Logos projects its nature onto the physical substrate: rationality → mathematics works; self-consistency → universal laws; conservation → Noether's theorem; triadic structure → the Born Rule requires three irreducible operations.
+  - reasons: formal logic/proof context, structural/formal object context
+- **gtq-04b-how-lies-kill.html** (equation, W=1, L=3) ? \text{Bit Error Rate} > 0 \implies \text{Channel Capacity} \to 0 \text{ as } t \to \infty
+  - reasons: formal logic/proof context, unit/dimension check candidate
+- **gtq-04b-how-lies-kill.html** (equation, W=1, L=3) ? \lim_{t \to \infty} (1 - \epsilon)^t = 0 \quad \text{for any } \epsilon > 0
+  - reasons: formal logic/proof context, unit/dimension check candidate
+- **gtq-08-god-doesnt-need-a-clock.html** (equation, W=1, L=3) ? s = +1
+  - reasons: formal logic/proof context, unit/dimension check candidate
+
+## Both / Review Candidates
+- **gtq-01-measurement-collapsed-reality.html** (equation, W=5, L=4) ? `s = -1`
+  - reasons: computable or data-facing context, formal logic/proof context, numeric/statistical/differential expression, structural/formal object context
+- **gtq-01-measurement-collapsed-reality.html** (equation, W=5, L=4) ? `s = +1`
+  - reasons: computable or data-facing context, formal logic/proof context, numeric/statistical/differential expression, structural/formal object context
+- **gtq-02-the-first-quantum-state.html** (equation, W=5, L=4) ? `<p style="margin:.75rem 0 0;font-size:.8rem;color:var(--text-secondary);font-style:italic;">The two operators act on different aspects of the same system.`
+  - reasons: computable or data-facing context, formal logic/proof context, numeric/statistical/differential expression, structural/formal object context
+- **gtq-04b-how-lies-kill.html** (equation, W=5, L=4) ? `S = k_B \ln \Omega`
+  - reasons: computable or data-facing context, formal logic/proof context, numeric/statistical/differential expression, structural/formal object context
+- **gtq-05b-trinity-timeline.html** (equation, W=5, L=4) ? `P = |\langle\psi|\phi\rangle|^2`
+  - reasons: computable or data-facing context, formal logic/proof context, numeric/statistical/differential expression, structural/formal object context
+- **gtq-03b-the-three-pathways.html** (equation, W=4, L=4) ? `\alpha(s) = 1`
+  - reasons: formal logic/proof context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-03b-the-three-pathways.html** (equation, W=4, L=4) ? `\frac{dC}{dt} = G(1-C) - S \cdot C`
+  - reasons: formal logic/proof context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-03b-the-three-pathways.html** (equation, W=4, L=4) ? `\frac{dC}{dt} = O \cdot G(1-C) - S \cdot C`
+  - reasons: formal logic/proof context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-03b-the-three-pathways.html** (equation, W=4, L=4) ? `\alpha(s) = \frac{1 + s}{2}`
+  - reasons: formal logic/proof context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-03b-the-three-pathways.html** (equation, W=4, L=4) ? `\alpha(-1) = 0 \implies O_{\text{eff}} = 0 \implies \frac{dC}{dt} = -S \cdot C`
+  - reasons: formal logic/proof context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-03b-the-three-pathways.html** (equation, W=4, L=4) ? `\alpha(0) = 0.5 \implies \frac{dC}{dt} = 0.5 \cdot G(1-C) - S \cdot C`
+  - reasons: formal logic/proof context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-03c-why-god-drowned-everybody.html** (equation, W=4, L=3) ? `\frac{dC_i}{dt} = -S_i \cdot C_i + \sum_{j \in \text{neighbors}} \beta_{ij} \cdot (C_j - C_i)`
+  - reasons: formal logic/proof context, numeric/statistical/differential expression, unit/dimension check candidate
+- **gtq-03c-why-god-drowned-everybody.html** (equation, W=4, L=3) ? `\text{If } \forall\, i: \frac{dC_i}{dt} < 0 \implies \text{no recovery node exists}`
+  - reasons: formal logic/proof context, numeric/statistical/differential expression, unit/dimension check candidate
+- **gtq-03c-why-god-drowned-everybody.html** (equation, W=4, L=3) ? `within the connected component. The only intervention that preserves the broader system is external reset. </div> </div> <div class="math-box"> <span class="mlabel">Minimum Viable Recovery Cluster (Sodom)</span>`
+  - reasons: formal logic/proof context, numeric/statistical/differential expression, unit/dimension check candidate
+- **gtq-03c-why-god-drowned-everybody.html** (equation, W=4, L=3) ? `\sigma_{\text{accumulated}} = \int_0^T S(t)\,dt \quad \text{(total entropy debt)}`
+  - reasons: formal logic/proof context, numeric/statistical/differential expression, unit/dimension check candidate
+- **gtq-03c-why-god-drowned-everybody.html** (equation, W=4, L=3) ? `\text{Cross: } \sigma_{\text{paid}} = \sigma_{\text{accumulated}} \implies \text{blocking term} = 0`
+  - reasons: formal logic/proof context, numeric/statistical/differential expression, unit/dimension check candidate
+- **gtq-04b-how-lies-kill.html** (equation, W=4, L=4) ? `L(n) = L_0 \cdot e^{\lambda n}`
+  - reasons: formal logic/proof context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-05-the-substrate-fractured.html** (equation, W=4, L=4) ? `\frac{dC}{dt} = -S \cdot C + \text{external pulses}`
+  - reasons: formal logic/proof context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-05b-trinity-timeline.html** (equation, W=4, L=4) ? `\frac{dC}{dt} = -S \cdot C + \text{external pulses}`
+  - reasons: formal logic/proof context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-08-god-doesnt-need-a-clock.html** (equation, W=4, L=4) ? `|\cdot|^2`
+  - reasons: formal logic/proof context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-08-god-doesnt-need-a-clock.html** (equation, W=4, L=3) ? `\frac{dC}{dt} = -S \cdot C \quad \text{(pure entropy, no coupling to } G\text{)}`
+  - reasons: formal logic/proof context, numeric/statistical/differential expression, unit/dimension check candidate
+- **gtq-09b-civilizational-decay.html** (equation, W=4, L=4) ? `\frac{dC}{dt} = O \cdot G(1-C) - S \cdot C`
+  - reasons: formal logic/proof context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-09b-civilizational-decay.html** (equation, W=4, L=3) ? `S \cdot C`
+  - reasons: formal logic/proof context, numeric/statistical/differential expression, unit/dimension check candidate
+- **gtq-03b-the-three-pathways.html** (formal_sentence, W=4, L=4) ? `The Core Equation Three States, One Formula The Coherence Equation $$\frac{dC}{dt} = O \cdot G(1-C) - S \cdot C$$ C = coherence with God (0 to 1) · O = openness (human reception, modulated by $\alpha(s)$) · G = grace (Go`
+  - reasons: formal logic/proof context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-03b-the-three-pathways.html** (formal_sentence, W=4, L=4) ? `Path 2 s ≈ 0 · Stagnation Performance State $$\alpha(0) = 0.5 \implies \frac{dC}{dt} = 0.5 \cdot G(1-C) - S \cdot C$$ At steady state ($\frac{dC}{dt} = 0$): $C^* = \frac{0.5G}{0.5G + S}$.`
+  - reasons: formal logic/proof context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-03b-the-three-pathways.html** (formal_sentence, W=4, L=4) ? `Path 3 s = +1 · Net Growth Surrender State $$\alpha(+1) = 1 \implies \frac{dC}{dt} = G(1-C) - S \cdot C$$ Steady state: $C^* = \frac{G}{G + S}$.`
+  - reasons: formal logic/proof context, numeric/statistical/differential expression, structural/formal object context, unit/dimension check candidate
+- **gtq-03c-why-god-drowned-everybody.html** (formal_sentence, W=4, L=3) ? `Network Collapse Condition $$\text{If } \forall\, i: \frac{dC_i}{dt} < 0 \implies \text{no recovery node exists}$$ Genesis 6:5 — "every imagination of the thoughts of his heart was only evil continually." In network term`
+  - reasons: formal logic/proof context, numeric/statistical/differential expression, unit/dimension check candidate
+- **gtq-09b-civilizational-decay.html** (formal_sentence, W=3, L=4) ? `While some cases are medically necessary, the mass sedation of children to fit the constraints of an industrialized school system mirrors the ancient practice of modifying the child to fit the needs of the adult economy.`
+  - reasons: formal logic/proof context, numeric/statistical/differential expression, structural/formal object context
+- **gtq-03-free-will-two-frames.html** (equation, W=2, L=3) ? `G_{reprobate} = 0`
+  - reasons: computable or data-facing context, formal logic/proof context
+- **gtq-03a-macarthur-and-the-equation.html** (equation, W=2, L=3) ? `= sin/entropy. </div> <p>Salvation has two phases, described by a single differential equation with one free parameter: <strong>the surrender parameter</strong>`
+  - reasons: computable or data-facing context, formal logic/proof context

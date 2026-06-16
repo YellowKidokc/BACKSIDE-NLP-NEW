@@ -1,0 +1,33 @@
+{
+  "schema": "theophysics.workflow.config.v1",
+  "workflow": "chi-tagging.workflow",
+  "name": "default",
+  "packet_contract": "canon sources -> station indexes -> aggregate index -> database tagging reference",
+  "steps": [
+    {
+      "station": "master-equation-canon",
+      "enabled": true,
+      "output": "stations/master-equation-canon/"
+    },
+    {
+      "station": "trinity-canon",
+      "enabled": true,
+      "output": "stations/trinity-canon/"
+    },
+    {
+      "station": "fruits-spirit-canon",
+      "enabled": true,
+      "output": "stations/fruits-spirit-canon/"
+    },
+    {
+      "station": "operators-canon",
+      "enabled": true,
+      "output": "stations/operators-canon/"
+    }
+  ],
+  "exports": [
+    "canon-index.aggregate.json",
+    "canon-index.aggregate.md",
+    "README.md"
+  ]
+}

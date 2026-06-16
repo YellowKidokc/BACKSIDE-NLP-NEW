@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "theophysics.workflow.config.v1",
+  "title": "Theophysics workflow composition config",
+  "type": "object",
+  "required": ["schema", "workflow", "name", "steps"],
+  "properties": {
+    "schema": {
+      "const": "theophysics.workflow.config.v1"
+    },
+    "workflow": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "packet_contract": {
+      "type": "string"
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["station", "enabled"],
+        "properties": {
+          "station": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "input": {
+            "type": "string"
+          },
+          "output": {
+            "type": "string"
+          },
+          "params": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "exports": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": false
+}

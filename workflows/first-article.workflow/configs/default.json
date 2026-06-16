@@ -1,0 +1,52 @@
+{
+  "schema": "theophysics.workflow.config.v1",
+  "workflow": "first-article.workflow",
+  "name": "default",
+  "packet_contract": "source -> canonical markdown -> station outputs -> lossless artifact -> manifest",
+  "steps": [
+    {
+      "station": "conversion",
+      "enabled": true,
+      "input": "SOURCE",
+      "output": "source.canonical.md"
+    },
+    {
+      "station": "executive-summary",
+      "enabled": true,
+      "input": "source.canonical.md",
+      "output": "stations/<run>/executive-summary.md"
+    },
+    {
+      "station": "overview",
+      "enabled": true,
+      "input": "source.canonical.md",
+      "output": "stations/<run>/overview.md"
+    },
+    {
+      "station": "math-layer",
+      "enabled": true,
+      "input": "source.canonical.md",
+      "output": "stations/<run>/math-layer.md"
+    },
+    {
+      "station": "image-notes",
+      "enabled": true,
+      "input": "SOURCE or source.canonical.md",
+      "output": "image-notes.md"
+    },
+    {
+      "station": "lossless-context",
+      "enabled": true,
+      "input": "source.canonical.md",
+      "output": "lossless/"
+    }
+  ],
+  "exports": [
+    "README.md",
+    "manifest.json",
+    "source.canonical.md",
+    "image-notes.md",
+    "stations/",
+    "lossless/"
+  ]
+}

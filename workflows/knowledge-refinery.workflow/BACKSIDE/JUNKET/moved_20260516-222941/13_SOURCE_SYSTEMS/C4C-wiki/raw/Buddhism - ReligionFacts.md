@@ -1,0 +1,22 @@
+﻿---
+type: source-annotation
+title: "Buddhism - ReligionFacts"
+source: "ReligionFacts.com"
+domain: "13-Comparative-Religion"
+url: "https://religionfacts.com/"
+reliability: medium
+tags:
+  - religionfacts
+  - world-religions
+  - comparative-religion
+imported: 2026-05-08
+---
+**Buddhism** began in [India](https://religionfacts.com/india) around 2,500 years ago and remains the dominant world religion in Asia. There are over 360 million [followers of Buddhism](https://religionfacts.com/buddhism/adherents) worldwide and over a million [American](https://religionfacts.com/usa) Buddhists. Buddhist concepts have also been influential on western culture in general, particularly in the areas of [meditation](https://religionfacts.com/buddhism/meditation) and nonviolence.
+
+Buddhism is based on the teachings of a Nepali prince named **Siddharta Gautama** who lived around 500 BCE. According to Buddhist tradition, the sheltered young prince was shocked by the suffering he saw outside his palace walls, so he left his life of luxury to seek answers. Eventually he succeeded, becoming the [Buddha](https://religionfacts.com/buddha)\--the "Enlightened One." He spent the remaining 45 years of his life teaching the [dharma](https://religionfacts.com/dharma) (the path to liberation from suffering) and establishing the sangha (a community of monks).
+
+Over its long history, Buddhism has taken a wide variety of [forms](https://religionfacts.com/buddhism/branches). Some emphasize rituals and the worship of [deities](https://religionfacts.com/buddhism/gods), while others completely reject rituals and gods in favor of pure [meditation](https://religionfacts.com/buddhism/meditation). Yet all forms of Buddhism share respect for the teachings of the Buddha and the goal of ending suffering and the cycle of rebirth.
+
+[**Theravada Buddhism**](https://religionfacts.com/theravada-buddhism), prominent in Southeast Asia, is [atheistic](https://religionfacts.com/buddhism/atheism) and philosophical in nature and focuses on the monastic life and meditation as means to liberation.
+
+[**Mahayana Buddhism**](https://religionfacts.com/mahayana-buddhism), prominent in [China](https://religionfacts.com/china) and [Japan](https://religionfacts.com/japan), incorporates several deities, celestial beings, and other traditional religious elements. In Mahayana, the path to liberation may include religious rituals, devotion to deities, meditation, or a combination of these elements. [Zen](https://religionfacts.com/zen), [Nichiren](https://religionfacts.com/nichiren), [Tendai](https://religionfacts.com/tendai), and [Pure Land](https://religionfacts.com/pure-land-buddhism) are the major forms of Mahayana Buddhism.

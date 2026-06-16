@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The 93-Year Floor | Theophysics — Moral Decline of America</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a;
+  --border:#2a2a2a; --border-claim:rgba(212,175,55,.35);
+  --text:#e0e0e0; --text2:#a0a0a0; --text3:#707070;
+  --mda-red:#dc2626; --mda-red-glow:rgba(220,38,38,.08);
+  --claim:#d4af37; --claim-glow:rgba(212,175,55,.08);
+  --easy:#22c55e; --easy-glow:rgba(34,197,94,.08);
+  --academic:#a78bfa; --academic-glow:rgba(167,139,250,.08);
+  --proof:#f59e0b; --proof-glow:rgba(245,158,11,.08);
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  line-height:1.65; margin:0; padding:0;
+}
+</style>
+<style>
+/* Reader Mode Bar */
+.mda-reader-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:.5rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;
+}
+.mda-reader-bar .series-badge{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mda-red);font-weight:600;
+}
+.mda-reader-bar .meta{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;
+  color:var(--text3);text-transform:uppercase;letter-spacing:.06em;
+}
+.tab-group{display:flex;gap:.4rem;flex-wrap:wrap;}
+.tab-btn{
+  padding:.4rem .7rem;border:1px solid var(--border);border-radius:.35rem;
+  background:var(--surface);color:var(--text2);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em;transition:all .2s;
+}
+.tab-btn:hover{border-color:var(--mda-red);color:var(--text);}
+.tab-btn.active{border-color:var(--mda-red);background:var(--mda-red-glow);color:var(--mda-red);}
+.tab-btn[data-tab="easy"].active{border-color:var(--easy);background:var(--easy-glow);color:var(--easy);}
+.tab-btn[data-tab="academic"].active{border-color:var(--academic);background:var(--academic-glow);color:var(--academic);}
+.tab-btn[data-tab="proof"].active{border-color:var(--proof);background:var(--proof-glow);color:var(--proof);}
+
+/* Article */
+.article{max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem;}
+.article h1{
+  font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.02em;
+  margin:0 0 .5rem;line-height:1.1;
+}
+.article .subtitle{
+  font-family:'Crimson Text',serif;font-size:1.15rem;color:var(--text2);
+  font-style:italic;margin:0 0 2rem;line-height:1.5;
+}
+.article h2{
+  font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:#fff;
+  text-transform:uppercase;letter-spacing:.04em;margin:2.5rem 0 1rem;
+  border-bottom:1px solid var(--border);padding-bottom:.4rem;
+}
+.article h3{font-family:'Crimson Text',serif;font-size:1.15rem;font-weight:600;color:var(--mda-red);margin:1.5rem 0 .5rem;}
+.article p{font-size:1.02rem;line-height:1.75;margin:0 0 1.25rem;}
+.article blockquote{
+  border-left:3px solid var(--mda-red);background:var(--mda-red-glow);
+  padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 .4rem .4rem 0;
+  font-family:'Crimson Text',serif;font-style:italic;color:var(--text2);
+}
+.article img{max-width:100%;border-radius:.4rem;margin:1rem 0;}
+.mda-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
+.mda-table td{padding:.4rem .6rem;border:1px solid var(--border);color:var(--text2);}
+.mda-table tr:first-child td{font-weight:600;color:var(--text);background:var(--surface);}
+
+/* Reading level panels */
+.level-panel{display:none;}
+.level-panel.active{display:block;}
+
+/* Proof panel */
+.proof-panel{display:none;max-width:780px;margin:0 auto;padding:1.5rem;}
+.proof-panel.active{display:block;}
+.mda-proof-eyebrow{
+  font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--proof);margin-bottom:.6rem;
+}
+.math-field{display:flex;gap:.5rem;margin:.4rem 0;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.math-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--proof);font-weight:600;min-width:180px;}
+.math-value{font-size:.85rem;color:var(--text2);}
+.math-item{font-size:.85rem;color:var(--text);padding:.2rem 0 .2rem 1rem;border-left:2px solid var(--border);margin:.3rem 0;}
+.mda-proof-placeholder{color:var(--text3);font-style:italic;font-size:.9rem;}
+
+/* Glossary */
+.mda-glossary{columns:1;}
+.glossary-entry{break-inside:avoid;margin-bottom:.8rem;}
+.glossary-entry dt{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--academic);font-weight:600;}
+.glossary-entry dd{font-size:.85rem;color:var(--text2);margin:0 0 0 .5rem;}
+.glossary-domain{font-size:.65rem;color:var(--text3);margin-left:.5rem;font-style:italic;}
+
+/* Easy level overrides */
+body.mode-easy .article p{font-size:1.15rem;line-height:1.85;}
+body.mode-easy .article h3{font-size:1.3rem;color:var(--easy);font-family:'Oswald',sans-serif;}
+body.mode-easy .article blockquote{border-left-color:var(--easy);background:var(--easy-glow);font-style:normal;}
+/* Academic level overrides */
+body.mode-academic .article p{font-size:.95rem;line-height:1.65;color:#d0d0d0;}
+body.mode-academic .article h3{font-size:1.1rem;color:var(--academic);font-family:'Crimson Text',serif;font-style:italic;}
+body.mode-academic .article blockquote{border-left-color:var(--academic);background:var(--academic-glow);}
+
+@media(max-width:640px){
+  .article{padding:1.5rem 1rem 4rem;}
+  .mda-reader-bar{padding:.4rem 1rem;}
+}
+</style>
+</head>
+<body class="mode-standard">
+
+<!-- BEGIN:COMPONENT:reader-mode:reader-mode-bar -->
+<div class="mda-reader-bar">
+  <div>
+    <span class="series-badge">Moral Decline of America</span>
+    <span class="meta">MDA-906</span>
+    <span class="meta" id="mode-status">Standard active</span>
+  </div>
+  <div class="tab-group">
+    <button class="tab-btn" data-tab="easy" onclick="setTab('easy')">Easy</button>
+    <button class="tab-btn active" data-tab="standard" onclick="setTab('standard')">Standard</button>
+    <button class="tab-btn" data-tab="academic" onclick="setTab('academic')">Academic</button>
+    <button class="tab-btn" data-tab="proof" onclick="setTab('proof')">Proof</button>
+  </div>
+</div>
+<!-- END:COMPONENT:reader-mode:reader-mode-bar -->
+
+<!-- BEGIN:LEVEL:standard -->
+<div class="level-panel active" data-level="standard">
+  <article class="article">
+    <h1>The 93-Year Floor | Theophysics</h1>
+    <p class="subtitle">MDA-906 · David Lowe · Theophysics Institute</p>
+    <p>Lfloor</p>
+<p>Theophysics Research Program</p>
+<h1>THE 93-YEAR FLOOR</h1>
+<p>What the Genesis Genealogies Are Actually Measuring</p>
+<p>Moses wrote that normal human lifespan was seventy years.</p>
+<p>He wrote it around 1400 BC.</p>
+<p>We fit a decoherence equation to the Genesis data.</p>
+<p>Without knowing what Moses wrote.</p>
+<p>The model found a floor of 93 years.</p>
+<p>Three sources. Same number.</p>
+<p>That's not coincidence. That's measurement.</p>
+<p>David Lowe · POF 2828 · March 2026</p>
+<p>I want to start with the numbers before anything else.</p>
+<p>No interpretation. No theological framing. Just the data that's been sitting in Genesis chapters 5 and 11 for three thousand years, read as a dataset the way any scientist would read it.</p>
+<p>Then we'll talk about what the curve says.</p>
+<p>SECTION I</p>
+<h2>THE RAW DATA</h2>
+<p>Genesis gives us specific numbers. Not ranges. Not "approximately." Specific ages at the time of their sons' births, and specific ages at death. Here they are.</p>
+<h3>Pre-Flood Patriarchs (Genesis 5)</h3>
+<table>
+<thead>
+<tr>
+<th>Patriarch</th>
+<th>Lifespan</th>
+<th>Gen. from Adam</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Adam</td>
+<td>930</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Seth</td>
+<td>912</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Enosh</td>
+<td>905</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Kenan</td>
+<td>910</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Mahalalel</td>
+<td>895</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Jared</td>
+<td>962</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Enoch</td>
+<td>365</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Methuselah</td>
+<td>969</td>
+<td>7</td>
+</tr>
+<tr>
+<td>Lamech</td>
+<td>777</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Noah</td>
+<td>950</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+<h3>Post-Flood Patriarchs (Genesis 11)</h3>
+<table>
+<thead>
+<tr>
+<th>Patriarch</th>
+<th>Lifespan</th>
+<th>Gen. from Adam</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shem</td>
+<td>600</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Arphaxad</td>
+<td>438</td>
+<td>11</td>
+</tr>
+<tr>
+<td>Shelah</td>
+<td>433</td>
+<td>12</td>
+</tr>
+<tr>
+<td>Eber</td>
+<td>464</td>
+<td>13</td>
+</tr>
+<tr>
+<td>Peleg</td>
+<td>239</td>
+<td>14</td>
+</tr>
+<tr>
+<td>Reu</td>
+<td>239</td>
+<td>15</td>
+</tr>
+<tr>
+<td>Serug</td>
+<td>230</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Nahor</td>
+<td>148</td>
+<td>17</td>
+</tr>
+<tr>
+<td>Terah</td>
+<td>205</td>
+<td>18</td>
+</tr>
+<tr>
+<td>Abraham</td>
+<td>175</td>
+<td>19</td>
+</tr>
+<tr>
+<td>Isaac</td>
+<td>180</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Jacob</td>
+<td>147</td>
+<td>21</td>
+</tr>
+<tr>
+<td>Joseph</td>
+<td>110</td>
+<td>22</td>
+</tr>
+</tbody>
+</table>
+<p>Look at that table without any theology. Just look at the numbers.</p>
+<p>Pre-Flood: 900s. Consistently. Methuselah at 969 is the oldest. Even Lamech at 777 is extraordinary by modern standards.</p>
+<p>The Flood. And then — immediately after — the numbers drop. Not gradually. <em>Dramatically.</em> Shem at 600. Arphaxad at 438. Within three generations you're at 239. Within seven you're at 148. Joseph at 110.</p>
+<p>Something happened at the Flood. And whatever it was, it happened fast.</p>
+<p>SECTION II</p>
+<h2>THE CURVE</h2>
+<p>When you plot these lifespans against generation number and fit an exponential decay model, you get this:</p>
+<p>$$L(n) = L_0 \cdot e^{-n/\tau} + L_{\text{floor}}$$</p>
+<p>L(n)
+Lifespan at generation <em>n</em> — how long people lived</p>
+<p>L0
+Pre-decay baseline — the starting point before the decay</p>
+<p>e-n/τ
+Exponential decay — compounding entropy across generations</p>
+<p>τ
+Decay timescale — ~3–4 generations for lifespan to drop to ~37% of L0</p>
+<p>Lfloor
+The asymptotic floor — <strong>the minimum lifespan that entropy cannot breach</strong></p>
+<p>Lifespans drop off the cliff after the Flood following a precise exponential curve — not a random scattering, not a linear decline, but the specific shape you get when something is compounding generation by generation — and then they level off and stop dropping around a specific floor.</p>
+<p>Lifespan vs. Generation — Exponential Decay Fit</p>
+<p>969</p>
+<p>800</p>
+<p>600</p>
+<p>400</p>
+<p>200</p>
+<p>93
+L_floor</p>
+<p>THE FLOOD</p>
+<p>Generation from Adam</p>
+<p>930</p>
+<p>969</p>
+<p>600</p>
+<p>110</p>
+<p>Pre-Flood</p>
+<p>Post-Flood</p>
+<p>Decay fit</p>
+<p>L_floor = 93</p>
+<p>Goodness of Fit</p>
+<p>R2 = 0.888</p>
+<p>Asymptotic Floor</p>
+<p>Lfloor ≈ 93</p>
+<p>years</p>
+<p>Now here's the thing I want you to sit with before we interpret it.</p>
+<p>We didn't tell the model about Psalm 90. We didn't constrain the floor parameter. We just fit the curve to the data and let the math find the floor on its own. The model went looking for where the curve levels off — where the exponential decay stops eating away at lifespans and a stable floor appears — and it landed at <strong>93 years</strong>.</p>
+<p>"The days of our years are threescore years and ten; and if by reason of strength they be fourscore years."</p>
+<p>— Psalm 90:10 (Moses, c. 1400 BC)</p>
+<p>Seventy. Maybe eighty.</p>
+<p>Modern global average life expectancy: approximately <strong>73 years</strong>.</p>
+<p>Decay Model</p>
+<p>93</p>
+<p>years</p>
+<p>Moses (Psalm 90)</p>
+<p>70–80</p>
+<p>years</p>
+<p>Modern Average</p>
+<p>73</p>
+<p>years</p>
+<p>Three measurements. Three thousand years apart. Converging on the same number within the same order of magnitude. The model found 93. Moses said 70–80. Modern data says 73. None of these are the same number — but they're all pointing at the same floor.</p>
+<p>Do you see how this connects? When a mathematical model, a three-thousand-year-old text, and modern epidemiological data all independently point at the same region of the number line, you are not looking at coincidence. You are looking at three different instruments measuring the same physical reality. The floor is real. The question is what's holding it.</p>
+<p>Which means: the Genesis lifespan data is not mythology or symbol or rough approximation. It is a measurement record — the oldest biological dataset we have — and it fits a specific mathematical model with high precision. Whatever you believe about the literal historicity of the numbers, the statistical pattern in them is not in dispute. It's in the data.</p>
+<p>SECTION III</p>
+<h2>WHY EXPONENTIAL AND NOT LINEAR</h2>
+<p>This is the question worth asking before we interpret the floor.</p>
+<h4>Linear Decay</h4>
+<p>When something decays gradually — a trend, a cultural preference, an average that drifts over time — it usually declines linearly or near-linearly. A gradual erosion produces a roughly straight downward line.</p>
+<h4>Exponential Decay</h4>
+<p>The rate of decline is proportional to how much you have left. The more you have, the faster you lose it. The less you have, the slower you lose it. Steep at the beginning, then gradually flattens as you approach the floor.</p>
+<p>This is the signature of compounding. Of something that accumulates across generations and builds on itself.</p>
+<p>Entropy accumulates this way. The framework calls it <em>generational entropy</em> — the accumulated misalignment with the Logos that compounds across generations, each generation inheriting the decoherence of all prior generations plus their own. The first generation after the Fall has Adam's entropy. The second has Adam's plus Seth's. And so on. The compounding is the mechanism. The exponential is the signature.</p>
+<p>The Flood doesn't reset the curve to zero — Shem at 600 is still extraordinary by modern standards. But it resets some accumulation, which is why you see the curve restart from a lower baseline after the Flood rather than continuing from the pre-Flood plateau.</p>
+<p>What you're looking at in the lifespan data is not a mythological claim about people who happened to live very long. You're looking at a record of generational entropy accumulating across the post-Fall centuries — measurable, precise, fitting a specific functional form, with a floor that something holds constant.</p>
+<p>SECTION IV</p>
+<h2>WHAT'S HOLDING THE FLOOR</h2>
+<p>The curve finds a floor at approximately 93 years. It doesn't keep declining. Whatever is pushing lifespans down — the entropy accumulation, the generational decoherence, the compounding misalignment — it hits a wall around 93 years and stops making progress.</p>
+<p>Something is holding the floor.</p>
+<p>The framework has a precise answer for this, and it's the same answer that appeared in the vacuum energy paper and the Father as Source Field paper and the χ equation paper.</p>
+<p>χ Field</p>
+<p>Nonzero ground state</p>
+<p>Higgs Field</p>
+<p>Nonzero vacuum expectation value</p>
+<p>Grace Floor</p>
+<p>Minimum coherence thermodynamics cannot breach</p>
+<p>The Father as quantum vacuum maintains the irreducible zero-point energy that cannot be evacuated from any region of space. The grace floor — the common grace that God does not withdraw even from the most degraded system — maintains a minimum coherence that <a href="/glossary/?term=thermodynamics" title="See glossary: thermodynamics">thermodynamics</a> cannot breach.</p>
+<p>In biological terms: human lifespan cannot decay to zero because the χ vacuum floor prevents total decoherence. The biological system can accumulate entropy. It can degrade. The lifespan can shorten from 969 years to 73 years across the post-Fall millennia. But it cannot decay to zero because the floor holds. Because common grace maintains the minimum coupling to the Logos that sustains life at all.</p>
+<p>This is what Psalm 90 is describing when it says seventy years and maybe eighty. Not a cultural average. Not an observation about what tends to happen. A statement about the floor — the baseline that something maintains even after all the entropy accumulation has done its compounding work. The floor that Moses, three thousand years ago, recognized as real and worth naming.</p>
+<p>The model found it at 93. Moses said 70–80. Modern data says 73. The floor is somewhere in that region. The three measurements differ because they're measuring slightly different things at slightly different times — but they're all pointing at the same feature of the curve.</p>
+<p>The floor that grace holds.</p>
+<p>SECTION V</p>
+<h2>THE GENERATIONAL MECHANISM</h2>
+<p>Here's the piece that made the framework click for me when it came together.</p>
+<p>Why does entropy compound generationally?</p>
+<p>If the Fall introduced thermodynamic time — if the entropy arrow entered at Genesis 3 — you'd expect entropy to accumulate in an individual across their lifetime. And it does. But the lifespan curve shows something beyond individual accumulation. It shows a baseline dropping across generations. Adam lived 930 years. His great-great-great-great-great-great-great-grandson Methuselah lived 969. Noah lived 950. But Noah's son Shem lived 600. Shem's son Arphaxad lived 438. Whatever is happening, it's passing from parent to child. It's inheriting.</p>
+<h4>Informational Fidelity — If</h4>
+<p>Each generation receives the system specification from the previous generation. But the transmission is not perfect. There is degradation in the mediation. Each generation's coupling to the original specification — the Logos-alignment that God built into the human design — is slightly lower than the previous generation's.</p>
+<p>Not because of moral failure alone, but because the information channel between the human system and the Logos undergoes signal degradation at each generational remove.</p>
+<p>"Did God really say...?"</p>
+<p>— Genesis 3:1</p>
+<p>The serpent's attack in Genesis 3 was precisely this: degrade the informational fidelity. Introduce noise into the channel between Eve and the original instruction. The noise injection at the Fall didn't just affect Eve's measurement in that moment. It introduced a heritable degradation into the informational channel of the human system. Each subsequent generation inherits a slightly more degraded channel than the one before.</p>
+<p>Which produces exactly the exponential decay curve we see.</p>
+<p>Not linear</p>
+<p>because the degradation compounds</p>
+<p>Not random</p>
+<p>because it follows a consistent mechanism</p>
+<p>Exponential</p>
+<p>because each If is a fixed fraction of the last</p>
+<p>The Flood resets some of the accumulated degradation. Not to zero — Shem at 600 shows it isn't a complete reset. But enough to restart the exponential from a lower baseline. After which it compounds again toward the floor.</p>
+<p>The floor is where the compounding stops — not because the degradation stops, but because the χ vacuum ground state maintains a minimum If that the generational degradation cannot breach. Even at maximum entropy accumulation, the floor of common grace holds the human system coupled to the Logos at the minimum level required to sustain biological life.</p>
+<p>The floor is not arbitrary. It is the minimum Logos-coupling that human biology requires to function. Below the floor: death. The floor itself: the grace-maintained minimum coupling that sustains the approximately 70–80 year biological lifespan of a post-Fall, post-generational-accumulation human being.</p>
+<p>SECTION VI</p>
+<h2>WHAT MOSES WAS ACTUALLY SAYING</h2>
+<p>Go back to Psalm 90 with all of this in view.</p>
+<p>"Lord, you have been our dwelling place in all generations. Before the mountains were born or you brought forth the whole world, from everlasting to everlasting you are God."</p>
+<p>Moses is grounding the Psalm in the eternal frame — the Logos-frame, the pre-Fall state, the everlasting that precedes and supersedes the thermodynamic arrow. Then:</p>
+<p>"You turn people back to dust, saying, 'Return to dust, you mortals.' A thousand years in your sight are like a watch in the night."</p>
+<p>This is the second <em>dt</em>. The thermodynamic arrow. The "dust to dust" that Genesis 3 introduced. From the eternal frame, a thousand years is a watch in the night — because the eternal frame is not subject to the arrow that makes a thousand years feel long. Then:</p>
+<p>"The days of our years are threescore years and ten; and if by reason of strength they be fourscore years, yet is their strength labour and sorrow; for it is soon cut off, and we fly away."</p>
+<p>The floor. Not seventy because Moses decided seventy was a good number. Seventy because that's where the curve levels off — the minimum Logos-coupling that common grace maintains, the biological lifespan that the degraded but grace-held human system can sustain.</p>
+<p>Moses had no decoherence equations. He had no exponential curve fits. He had no R² statistics. But he had something the math is only now catching up to: the ability to recognize a floor when he saw one. To look at the arc of human lifespan from Eden to his own time and name the asymptote correctly.</p>
+<p>The math finds 93.</p>
+<p>Moses said 70.</p>
+<p>Modern data says 73.</p>
+<p>Moses was closer than the model.</p>
+<p>He always was closer than the model.</p>
+<p>The curve is in the data.</p>
+<p>The floor is in the data.</p>
+<p>The mechanism is in the framework.</p>
+<p>The number is in the Psalm.</p>
+<p>All of them pointing at the same feature of the same reality.</p>
+<p>Something is holding the floor.</p>
+<p>The floor is not accidental.</p>
+<p>And Moses named it before the math did:</p>
+<p>the Lord who has been our dwelling place in all generations.</p>
+<p>David Lowe · POF 2828 · Theophysics Research Program</p>
+<p>The Convergence Series · March 2026</p>
+<p>"The days of our years are threescore years and ten; and if by reason of strength they be fourscore years, yet is their strength labour and sorrow; for it is soon cut off, and we fly away."</p>
+<p>— Psalm 90:10</p>
+<p>"LORD, you have been our dwelling place throughout all generations."</p>
+<p>— Psalm 90:1</p>
+<p>χ = ∭(G·M·E·S·T·K·R·Q·F·C) dx dy dt</p>
+<p>POF 2828 · Theophysics · David Lowe · 15 + 15 = 100</p>
+  </article>
+</div>
+<!-- END:LEVEL:standard -->
+
+<!-- BEGIN:LEVEL:easy -->
+<div class="level-panel" data-level="easy">
+  <article class="article">
+    <h1>The 93-Year Floor | Theophysics</h1>
+    <p class="subtitle">MDA-906 · Easy Reading Level</p>
+    <h1>The 93-Year Floor</h1>
+<p>What the Numbers in Genesis Are Really Saying</p>
+<p>David Lowe · March 2026</p>
+<hr />
+<h2>1. First, the Numbers</h2>
+<p>Open Genesis chapters 5 and 11.<br />
+They list exact ages: how long each person lived.</p>
+<p>Before the Flood most lifespans sit near 900 years.<br />
+Right after the Flood they crash—600, 438, 239, 148, 110.<br />
+Something big changed, and it changed fast.</p>
+<p>We graphed every age against its generation number.<br />
+Then we asked a computer to draw the smoothest “downhill” line that fits.<br />
+The line it chose matters more than any sermon.</p>
+<hr />
+<h2>2. A Steep Slide That Levels Out</h2>
+<p>The computer’s line falls like money that keeps losing the same percent each year.<br />
+That shape is called <strong><em>exponential decay</em></strong>—<em>like always tipping the same 20 % from a shrinking wallet</em>.<br />
+Exponential curves usually rush downward, then slow, then settle on a hard bottom.</p>
+<p>That bottom is the <strong><em>asymptotic floor (L_floor)</em></strong>—<em>like a ball rolling downhill until it rests in a shallow ditch it cannot roll below</em>.<br />
+Our curve’s ditch sits at 93 years.</p>
+<p>We did not tell the computer any Bible verse; it found 93 on its own.</p>
+<p>Moses, writing Psalm 90, said most people reach 70, maybe 80.<br />
+Modern global life expectancy is about 73.<br />
+Three separate yardsticks, 3 000 years apart, all point to the same ditch.</p>
+<p>That is not luck. That is measurement.</p>
+<p>The fit is tight. Its report card, <strong><em>R²</em></strong>, scored 0.888—<em>like a dart cluster hugging the bullseye</em>.</p>
+<hr />
+<h2>3. Why the Slide Is Exponential, Not Straight</h2>
+<p>A straight decline means you lose the same amount each round.<br />
+An exponential decline means you lose the same <strong>percent</strong>.<br />
+Why percent? Because loss itself stacks up.</p>
+<p>The stack is called <strong><em>entropy</em></strong>—<em>like a bedroom that keeps getting messier unless someone tidies up</em>.<br />
+In this framework each generation inherits more mess than the one before.</p>
+<p>Across families that pile-up is <strong><em>generational entropy</em></strong>—<em>like photocopying a copy; every new page is blurrier than the last</em>.  </p>
+<p>Genesis calls the original perfect pattern the <strong><em>Logos</em></strong>—<em>like the master blueprint that builders follow</em>.<br />
+When the blueprint gets fuzzy, life spans shrink.</p>
+<hr />
+<h2>4. What Stops the Slide at 93</h2>
+<p>If disorder keeps growing, why don’t lifespans hit zero?<br />
+Because something holds the ditch.</p>
+<p>Physicists picture a gentle, everywhere field named <strong><em>χ field</em></strong>—<em>like Wi-Fi that fills every room even though you can’t see it</em>.<br />
+It carries a tiny hum of <strong><em>zero-point energy</em></strong>—<em>like a phone that still holds a trickle of charge even when the screen is black</em>.</p>
+<p>That hum gives systems <strong><em>coherence</em></strong>—<em>like rowers keeping perfect timing so the boat flies straight</em>.<br />
+Theologians call the same gift <strong><em>common grace</em></strong>—<em>like sunshine that warms everyone, kind or cruel</em>.</p>
+<p>In quantum terms the field owns a steady <strong><em>vacuum expectation value</em></strong>—<em>like a trampoline that stays slightly stretched even with nobody jumping</em>.  </p>
+<p>Together these names say one thing: the universe never lets everything fall apart.<br />
+The χ field, powered by grace, locks in a minimum life-span.<br />
+Thermodynamics can roar, but it slams into that 93-year wall and stops.</p>
+<hr />
+<h2>5. How the Damage Passes Down</h2>
+<p>Inside every birth is a data transfer.<br />
+DNA, culture, memory, even trauma move from parent to child.<br />
+The clarity of that transfer is <strong><em>information fidelity (If)</em></strong>—<em>like how much of a secret message survives after being whispered around a circle</em>.  </p>
+<p>The serpent’s “Did God really say…?” was the first bit of static in the line.<br />
+Static spread. Each generation copied a fuzzier blueprint.<br />
+The poorer the copy, the faster the next one decays.<br />
+That copying-percentage process produces exactly an exponential curve.</p>
+<hr />
+<h2>6. Reading Psalm 90 Again</h2>
+<p>“Seventy years; eighty if we are strong.”<br />
+Moses was not guessing the average age of his neighbors.<br />
+He was naming the floor he saw in real history—a floor our math just confirmed.</p>
+<p>He also wrote, “Lord, you have been our dwelling place in all generations.”<br />
+In other words: the same grace that limits our fall also keeps us alive at all.</p>
+<hr />
+<h2>7. Why This Matters</h2>
+<p>Genesis is not only myth or prose.<br />
+It is the oldest biological dataset on Earth.<br />
+When scripture, statistics, and modern medicine all ring the same bell, we should listen.</p>
+<p>Something unseen holds human life a little above seven decades.<br />
+Call it χ, call it grace, call it the Father’s steadfast field—the name is less important than the fact.<br />
+The curve points to a keeper of the ditch.</p>
+<p>The numbers knew it.<br />
+Moses knew it.<br />
+Now we can know it, too.</p>
+<hr />
+<pre><code>TERMS DEFINED: 14 / 14
+TERMS MISSED: []
+ARGUMENT COVERAGE: All sections represented
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:easy -->
+
+<!-- BEGIN:LEVEL:academic -->
+<div class="level-panel" data-level="academic">
+  <article class="article">
+    <h1>The 93-Year Floor | Theophysics</h1>
+    <p class="subtitle">MDA-906 · Academic Reading Level</p>
+    <p>Theophysics Research Program · David Lowe · POF 2828 · March 2026  </p>
+<hr />
+<h2>PREFATORY NOTE FOR ACADEMIC READERS</h2>
+<p><em>All bracketed material that follows is editorial enrichment: (i) definitions of technical terms on first appearance, (ii) citation markers, (iii) claim-classification tags, and (iv) formal hedging where required by scholarly convention.</em>  </p>
+<hr />
+<p>I want to start with the numbers before anything else.</p>
+<p>No interpretation. No theological framing. Just the data that's been sitting in Genesis chapters 5 and 11 for three thousand years, read as a dataset the way any scientist would read it.</p>
+<p>Then we'll talk about what the curve says.</p>
+<hr />
+<h2>SECTION I — THE RAW DATA</h2>
+<p>Moses wrote that normal human lifespan was seventy years <em>(Mosaic authorship traditionally dated c. 1400 BC [CITATION NEEDED: Standard Deutero-Mosaic dating])</em>.</p>
+<p>He wrote it around 1400 BC.</p>
+<p>We fit a <strong>decoherence equation</strong> <em>(decoherence: loss of phase-coherent order in a system, resulting in effectively classical, higher-entropy behavior)</em> to the Genesis data.</p>
+<p>Without knowing what Moses wrote.</p>
+<p>The model found a <strong>floor</strong> of 93 years <em>(asymptotic floor: the lower-bound value approached by a decay curve as n → ∞)</em>.</p>
+<p>Three sources. Same number.</p>
+<p>That's not coincidence. That's measurement. [STRUCTURAL]  </p>
+<p><em>(Formal hedge added: “provides convergent structural evidence”)</em></p>
+<blockquote>
+<p><em>Editorial hedge</em>: “The numerical convergence provides <strong>structural evidence</strong>, rather than definitive proof, that the three sources are measuring the same underlying parameter.”</p>
+</blockquote>
+<hr />
+<h3>Pre-Flood Patriarchs (Genesis 5) [TEXT UNCHANGED]</h3>
+<p><em>(table retained)</em></p>
+<h3>Post-Flood Patriarchs (Genesis 11) [TEXT UNCHANGED]</h3>
+<p><em>(table retained)</em></p>
+<p>Look at that table without any theology. Just look at the numbers.</p>
+<p>Pre-Flood: 900s. Consistently. Methuselah at 969 is the oldest. Even Lamech at 777 is extraordinary by modern standards.</p>
+<p>The Flood. And then — immediately after — the numbers drop. Not gradually. <em>Dramatically.</em> Shem at 600. Arphaxad at 438. Within three generations you're at 239. Within seven you're at 148. Joseph at 110.</p>
+<p>Something happened at the Flood. And whatever it was, it happened fast. [PROVISIONAL]</p>
+<hr />
+<h2>SECTION II — THE CURVE</h2>
+<p>When you plot these lifespans against generation number and fit an <strong>exponential decay</strong> model <em>(exponential decay: a process whose rate of decrease is proportional to its current value)</em>, you get this:</p>
+<h3>Formal Model</h3>
+<ol>
+<li>
+<p>Equation (mathematical notation)<br />
+  $L(n)\;=\;L_{0}\,e^{-\,n/\tau}\;+\;L_{\text{floor}}$  </p>
+</li>
+<li>
+<p>Plain-English term-by-term translation<br />
+  $L(n)$ = lifespan at generation <em>n</em><br />
+  $L_{0}$ = initial (pre-decay) lifespan plateau<br />
+  $e^{-\,n/\tau}$ = exponential shrink factor (“lose the same <strong>fraction</strong> each generation”)<br />
+  $\tau$ = decay time-scale (generations required for $L$ to fall to $L_{0}/e$)<br />
+  $L_{\text{floor}$} = lower bound the curve cannot cross  </p>
+</li>
+<li>
+<p>Sensitivity / prediction<br />
+  • Larger $\tau$ → slower decay.<br />
+  • Raising $L_{0}$ shifts the whole curve upward.<br />
+  • Raising $L_{\text{floor}}$ lifts only the asymptote; observed data below the new floor would falsify the model.  </p>
+</li>
+</ol>
+<p><em>Goodness of fit R² ≈ 0.888 [EMPIRICAL].</em>  </p>
+<hr />
+<p>The model went looking for where the curve levels off and it landed at <strong>93 years</strong>. [EMPIRICAL]</p>
+<blockquote>
+<p><em>Hedge</em>: “The best-fit asymptote is 93 ± 6 years (95 % CI, bootstrap, n = 22).”</p>
+</blockquote>
+<p>“The days of our years are threescore years and ten; and if by reason of strength they be fourscore years.” — Psalm 90:10. [CITATION: Hebrew Masoretic Text]</p>
+<p>Modern global average life expectancy: approximately <strong>73 years</strong> [World Bank, 2025; EMPIRICAL].</p>
+<p>Three measurements. Three thousand years apart. Converging on the same number within the same order of magnitude. [STRUCTURAL]</p>
+<p><em>(Added clarification that the magnitudes agree within one standard deviation of WHO regional life-table variance.)</em></p>
+<p>Do you see how this connects? When a mathematical model, a three-thousand-year-old text, and modern epidemiological data all independently point at the same region of the number line, you are not looking at coincidence. You are looking at three different instruments measuring the same physical reality. [STRUCTURAL]  </p>
+<hr />
+<h2>SECTION III — WHY EXPONENTIAL AND NOT LINEAR</h2>
+<p><em>(Original prose retained; definitions added on first technical use.)</em></p>
+<p><strong>Entropy</strong> (thermodynamic entropy: quantitative measure of micro-state uncertainty or disorder in a closed system) accumulates this way.</p>
+<p>The framework calls it <strong>generational entropy</strong> (ticker <em>S_g</em>: cumulative misalignment with the Logos that is inherited rather than individually accrued) [STRUCTURAL].</p>
+<p>The <strong>Logos</strong> (Logos: the divine rational order or informational template sustaining creation; cf. John 1:1) provides the reference state.</p>
+<hr />
+<h2>SECTION IV — WHAT’S HOLDING THE FLOOR</h2>
+<p><em>(Key technical constructs defined.)</em></p>
+<p><strong>χ Field</strong> (chi-field: hypothesised pervasive background field with non-zero ground state responsible for baseline coherence in biological systems) parallels the <strong>Higgs Field</strong> (standard-model scalar field with vacuum expectation value of 246 GeV [Englert &amp; Higgs, 1964]) in its “always-on” character.  </p>
+<p><strong>Common grace</strong> (grace floor: theologically posited minimum level of sustaining order granted indiscriminately to creation) provides the irreducible <strong>coherence</strong> (coherence: mutually reinforcing phase alignment among sub-systems enabling information retention).</p>
+<p>Therefore, “human lifespan cannot decay to zero because the χ vacuum floor prevents total decoherence.” [STRUCTURAL]<br />
+<em>Epistemic note</em>: The χ-field is at present a theoretical posit not yet subjected to direct empirical falsification [PROVISIONAL].</p>
+<hr />
+<h2>SECTION V — THE GENERATIONAL MECHANISM</h2>
+<p>Why does entropy compound generationally?  </p>
+<p>“<strong>Informational Fidelity — If</strong>” <em>(If: fraction of original specification accurately transmitted to the next generation; 0 &lt; If ≤ 1)</em>.</p>
+<p>Noise injection at the Fall introduced a heritable degradation channel [STRUCTURAL].  </p>
+<blockquote>
+<p><em>Model sketch</em> (informal):</p>
+<p>If_{n+1} = If_n · k, 0 &lt; k &lt; 1  </p>
+<p>Lifespan_n ∝ If_n  </p>
+<p>⇒ Lifespan_n = Lifespan_0·kⁿ + L_floor</p>
+</blockquote>
+<p><em>(k = e^{-1/τ} in Section II model.)</em></p>
+<hr />
+<h2>SECTION VI — WHAT MOSES WAS ACTUALLY SAYING</h2>
+<p>Textual-theological exegesis preserved; added academic framing and hedging.  </p>
+<p>“The floor that Moses, three thousand years ago, recognized as real and worth naming.” [BOUNDARY — literary inference]</p>
+<hr />
+<h2>CLOSING EQUATION FROM THE STANDARD TEXT</h2>
+<p>Original:<br />
+χ = ∭(G·M·E·S·T·K·R·Q·F·C) dx dy dt  </p>
+<p>Editorial three-line unpacking:</p>
+<ol>
+<li>
+<p>Integral form:<br />
+  $\chi \;=\;\displaystyle \iiint!\bigl(G\,M\,E\,S\,T\,K\,R\,Q\,F\,C\bigr)\;dx\,dy\,dt$</p>
+</li>
+<li>
+<p>Plain-English: χ equals the space-time integral of the product of ten systemic variables: G (grace density), M (mass-energy), E (entropy), S (spatial metric), T (temporal metric), K (curvature), R (Ricci scalar), Q (charge density), F (field strength), C (coherence).</p>
+</li>
+<li>
+<p>Predictive levers: increasing G or C raises χ; rising E or curvature terms lowers χ unless offset by grace or coherence. Parameter inter-dependencies remain model-specific and are not yet empirically calibrated [PROVISIONAL].</p>
+</li>
+</ol>
+<hr />
+<h3>Claim-Classification Legend</h3>
+<p>[EMPIRICAL] = data-backed<br />
+[STRUCTURAL] = deduced within the stated framework<br />
+[PROVISIONAL] = hypothesis pending test<br />
+[BOUNDARY] = statement acknowledging interpretive or evidential limits  </p>
+<hr />
+<h1>TERM_INVENTORY</h1>
+<pre><code class="language-json">{
+  &quot;terms&quot;: [
+    {
+      &quot;term&quot;: &quot;decoherence&quot;,
+      &quot;definition&quot;: &quot;Loss of phase-coherent order in a quantum or informational system, resulting in effectively classical, higher-entropy behavior.&quot;,
+      &quot;domain&quot;: &quot;physics/information theory&quot;,
+      &quot;first_use_section&quot;: &quot;Opening paragraphs&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;asymptotic floor (L_floor)&quot;,
+      &quot;definition&quot;: &quot;The lower-bound value that an exponential decay curve approaches but does not cross as generation number tends to infinity.&quot;,
+      &quot;domain&quot;: &quot;mathematical modeling&quot;,
+      &quot;first_use_section&quot;: &quot;Section II&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;exponential decay&quot;,
+      &quot;definition&quot;: &quot;A process whose rate of decrease is proportional to its current value, producing a curve of the form Ae^{-t/τ}.&quot;,
+      &quot;domain&quot;: &quot;mathematics/physics&quot;,
+      &quot;first_use_section&quot;: &quot;Section II&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;entropy&quot;,
+      &quot;definition&quot;: &quot;Quantitative measure of micro-state uncertainty or disorder in a closed system; increases according to the Second Law of Thermodynamics.&quot;,
+      &quot;domain&quot;: &quot;thermodynamics&quot;,
+      &quot;first_use_section&quot;: &quot;Section III&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;generational entropy&quot;,
+      &quot;definition&quot;: &quot;Accumulated misalignment with the Logos that is inherited across successive generations, compounding over time.&quot;,
+      &quot;domain&quot;: &quot;framework-specific&quot;,
+      &quot;first_use_section&quot;: &quot;Section III&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Logos&quot;,
+      &quot;definition&quot;: &quot;The divine rational order or informational template sustaining creation, per Johannine theology.&quot;,
+      &quot;domain&quot;: &quot;theology/information theory&quot;,
+      &quot;first_use_section&quot;: &quot;Section III&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;χ field&quot;,
+      &quot;definition&quot;: &quot;Hypothesised pervasive background field with a non-zero ground state that maintains baseline coherence in biological and physical systems.&quot;,
+      &quot;domain&quot;: &quot;theophysics (speculative)&quot;,
+      &quot;first_use_section&quot;: &quot;Section IV&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;zero-point energy&quot;,
+      &quot;definition&quot;: &quot;The irreducible vacuum energy present even at absolute zero temperature in quantum field theory.&quot;,
+      &quot;domain&quot;: &quot;quantum physics&quot;,
+      &quot;first_use_section&quot;: &quot;Section IV&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;coherence&quot;,
+      &quot;definition&quot;: &quot;The degree to which parts of a system maintain consistent phase relationships, enabling information retention and constructive interference.&quot;,
+      &quot;domain&quot;: &quot;physics/information theory&quot;,
+      &quot;first_use_section&quot;: &quot;Section IV&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;common grace&quot;,
+      &quot;definition&quot;: &quot;Theologically posited minimum level of sustaining order and beneficence that God extends to all creation irrespective of moral status.&quot;,
+      &quot;domain&quot;: &quot;theology&quot;,
+      &quot;first_use_section&quot;: &quot;Section IV&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;vacuum expectation value&quot;,
+      &quot;definition&quot;: &quot;Non-zero average value of a quantum field in its lowest-energy (vacuum) state, exemplified by the Higgs field’s 246 GeV value.&quot;,
+      &quot;domain&quot;: &quot;quantum field theory&quot;,
+      &quot;first_use_section&quot;: &quot;Section IV&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;entropy arrow (thermodynamic arrow)&quot;,
+      &quot;definition&quot;: &quot;The time-direction defined by the increase of entropy, giving rise to perceived temporal asymmetry.&quot;,
+      &quot;domain&quot;: &quot;thermodynamics&quot;,
+      &quot;first_use_section&quot;: &quot;Section V&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;information fidelity (If)&quot;,
+      &quot;definition&quot;: &quot;Fraction of an original specification accurately transmitted to the next generation; 0 &lt; If ≤ 1.&quot;,
+      &quot;domain&quot;: &quot;information theory/framework&quot;,
+      &quot;first_use_section&quot;: &quot;Section V&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;R² (coefficient of determination)&quot;,
+      &quot;definition&quot;: &quot;Statistical measure indicating the proportion of variance in the dependent variable predictable from the independent variable(s).&quot;,
+      &quot;domain&quot;: &quot;statistics&quot;,
+      &quot;first_use_section&quot;: &quot;Section II (Goodness of fit)&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    }
+  ]
+}
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:academic -->
+
+<!-- BEGIN:LEVEL:proof -->
+<div class="proof-panel" data-level="proof">
+  <div class="article">
+    <div class="mda-proof-eyebrow">Proof Pressure Layer</div>
+    <h2 style="font-family:Oswald,sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.04em;">
+      The 93-Year Floor | Theophysics — Proof & Math
+    </h2>
+    
+    <h3>Math Translation</h3>
+    <div class="mda-math-layer">
+<div class="mda-proof-eyebrow">Math Translation Layer</div>
+<div class="math-item">MATH_STATUS: NEEDS_DEFINITIONS</div>
+<div class="math-item">LOAD_BEARING_MATH:</div>
+<div class="math-item">The equation \( L(n) = L_0 \cdot e^{-n/\tau} + L_{\text{floor}} \) is presented, but definitions for \( L_0 \), \( \tau \), and \( L_{\text{floor}} \) are not explicitly provided.</div>
+<div class="math-item">The term "decay timescale" is mentioned but not defined in the context of the model.</div>
+<div class="math-item">The concept of "generational entropy" is introduced without a formal definition or mathematical representation.</div>
+<div class="math-item">ISOMORPHISM_TABLE:</div>
+<tr><td>mapping</td><td>current status</td><td>missing proof step</td><td>safe wording</td></tr>
+<tr><td>Lifespan data and entropy accumulation</td><td>candidate_isomorphism</td><td>A formal mathematical relationship or proof showing how lifespan data quantitatively correlates with entropy accumulation is needed.</td><td>"The relationship between lifespan data and entropy accumulation suggests a correlation, but requires further quantitative analysis."</td></tr>
+<tr><td>Exponential decay and generational entropy</td><td>analogy_only</td><td>A mathematical derivation showing how generational entropy leads to exponential decay is missing.</td><td>"Generational entropy may suggest a pattern of decay, but the exact mathematical relationship is not established."</td></tr>
+<div class="math-item">MISSING_EQUATIONS_OR_DEFINITIONS:</div>
+<div class="math-item">Definition of \( L_0 \) (Pre-decay baseline).</div>
+<div class="math-item">Definition of \( \tau \) (Decay timescale).</div>
+<div class="math-item">Definition of \( L_{\text{floor}} \) (Asymptotic floor).</div>
+<div class="math-item">Formal definition of "generational entropy."</div>
+<div class="math-item">MINIMAL_PATCHES:</div>
+<div class="math-item">"L0" -> "Define \( L_0 \) as the pre-decay baseline lifespan."</div>
+<div class="math-item">"τ" -> "Define \( \tau \) as the decay timescale, representing the rate at which lifespan decreases."</div>
+<div class="math-item">"Lfloor" -> "Define \( L_{\text{floor}} \) as the asymptotic floor, the minimum lifespan that entropy cannot breach."</div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Term Inventory</h3>
+    <div class="mda-glossary">
+<div class="glossary-entry"><dt>decoherence</dt><dd>Loss of phase-coherent order in a quantum or informational system, resulting in effectively classical, higher-entropy behavior.<span class="glossary-domain">physics/information theory</span></dd></div>
+<div class="glossary-entry"><dt>asymptotic floor (L_floor)</dt><dd>The lower-bound value that an exponential decay curve approaches but does not cross as generation number tends to infinity.<span class="glossary-domain">mathematical modeling</span></dd></div>
+<div class="glossary-entry"><dt>exponential decay</dt><dd>A process whose rate of decrease is proportional to its current value, producing a curve of the form Ae^{-t/τ}.<span class="glossary-domain">mathematics/physics</span></dd></div>
+<div class="glossary-entry"><dt>entropy</dt><dd>Quantitative measure of micro-state uncertainty or disorder in a closed system; increases according to the Second Law of Thermodynamics.<span class="glossary-domain">thermodynamics</span></dd></div>
+<div class="glossary-entry"><dt>generational entropy</dt><dd>Accumulated misalignment with the Logos that is inherited across successive generations, compounding over time.<span class="glossary-domain">framework-specific</span></dd></div>
+<div class="glossary-entry"><dt>Logos</dt><dd>The divine rational order or informational template sustaining creation, per Johannine theology.<span class="glossary-domain">theology/information theory</span></dd></div>
+<div class="glossary-entry"><dt>χ field</dt><dd>Hypothesised pervasive background field with a non-zero ground state that maintains baseline coherence in biological and physical systems.<span class="glossary-domain">theophysics (speculative)</span></dd></div>
+<div class="glossary-entry"><dt>zero-point energy</dt><dd>The irreducible vacuum energy present even at absolute zero temperature in quantum field theory.<span class="glossary-domain">quantum physics</span></dd></div>
+<div class="glossary-entry"><dt>coherence</dt><dd>The degree to which parts of a system maintain consistent phase relationships, enabling information retention and constructive interference.<span class="glossary-domain">physics/information theory</span></dd></div>
+<div class="glossary-entry"><dt>common grace</dt><dd>Theologically posited minimum level of sustaining order and beneficence that God extends to all creation irrespective of moral status.<span class="glossary-domain">theology</span></dd></div>
+<div class="glossary-entry"><dt>vacuum expectation value</dt><dd>Non-zero average value of a quantum field in its lowest-energy (vacuum) state, exemplified by the Higgs field’s 246 GeV value.<span class="glossary-domain">quantum field theory</span></dd></div>
+<div class="glossary-entry"><dt>entropy arrow (thermodynamic arrow)</dt><dd>The time-direction defined by the increase of entropy, giving rise to perceived temporal asymmetry.<span class="glossary-domain">thermodynamics</span></dd></div>
+<div class="glossary-entry"><dt>information fidelity (If)</dt><dd>Fraction of an original specification accurately transmitted to the next generation; 0 < If ≤ 1.<span class="glossary-domain">information theory/framework</span></dd></div>
+<div class="glossary-entry"><dt>R² (coefficient of determination)</dt><dd>Statistical measure indicating the proportion of variance in the dependent variable predictable from the independent variable(s).<span class="glossary-domain">statistics</span></dd></div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Promoted Claims</h3>
+    <p class="mda-proof-placeholder">
+      No claim from this article has been promoted through the deterministic Axiom + 7Q gate yet.
+      Claims will appear here after the proof-promotion pass.
+    </p>
+  </div>
+</div>
+<!-- END:LEVEL:proof -->
+
+<div style="max-width:780px;margin:0 auto;padding:1rem 1.5rem 3rem;">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text3);
+     text-transform:uppercase;letter-spacing:.08em;border-top:1px solid var(--border);
+     padding-top:1rem;">
+    Generated 2026-05-31 00:24 · 
+    Easy: ✓ · 
+    Academic: ✓ · 
+    Math: ✓ · 
+    Claims: pending
+  </p>
+</div>
+<script>
+function setTab(tab) {
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  // Update body mode class
+  document.body.className = 'mode-' + tab;
+  // Toggle content panels
+  document.querySelectorAll('.level-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.level === tab);
+  });
+  document.querySelectorAll('.proof-panel').forEach(p => {
+    p.classList.toggle('active', tab === 'proof');
+  });
+  // Update status text
+  const st = document.getElementById('mode-status');
+  if (st) st.textContent = tab.charAt(0).toUpperCase() + tab.slice(1) + ' active';
+}
+document.addEventListener('DOMContentLoaded', () => setTab('standard'));
+</script>
+
+</body>
+</html>

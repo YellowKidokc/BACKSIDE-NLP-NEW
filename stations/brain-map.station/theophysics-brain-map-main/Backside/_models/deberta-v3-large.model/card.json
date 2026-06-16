@@ -1,0 +1,34 @@
+{
+  "name": "deberta-v3-large.model",
+  "kind": "weight",
+  "anchor_role": "Entailment, contradiction, and near-claim scoring.",
+  "status": "planned",
+  "owner": "shared",
+  "base_model": "microsoft/deberta-v3-large or local NLI derivative",
+  "runtime_path": "X:\\models",
+  "backing_models": [],
+  "called_by": [
+    "Backside/_models/facts.model",
+    "Backside/_models/paper-citation.model",
+    "Backside/stations/contradiction-scan"
+  ],
+  "inputs": [
+    "claim pairs",
+    "paper/canon proposition pairs",
+    "fact ledger rows"
+  ],
+  "outputs": [
+    "entailment score",
+    "contradiction score",
+    "neutral score"
+  ],
+  "non_goals": [
+    "Do not use NLI score as proof by itself.",
+    "Do not compare vague paragraphs without extracted claims."
+  ],
+  "verification": [
+    "Scores are stored with source claim ids.",
+    "High contradiction scores go to review queue."
+  ],
+  "notes": "Useful as a verifier behind facts and paper proximity, not as the writer."
+}

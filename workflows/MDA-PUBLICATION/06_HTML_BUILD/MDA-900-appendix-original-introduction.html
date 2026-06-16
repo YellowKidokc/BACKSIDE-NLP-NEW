@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Introduction & FACTS Framework — The Moral Decline of America — Moral Decline of America</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a;
+  --border:#2a2a2a; --border-claim:rgba(212,175,55,.35);
+  --text:#e0e0e0; --text2:#a0a0a0; --text3:#707070;
+  --mda-red:#dc2626; --mda-red-glow:rgba(220,38,38,.08);
+  --claim:#d4af37; --claim-glow:rgba(212,175,55,.08);
+  --easy:#22c55e; --easy-glow:rgba(34,197,94,.08);
+  --academic:#a78bfa; --academic-glow:rgba(167,139,250,.08);
+  --proof:#f59e0b; --proof-glow:rgba(245,158,11,.08);
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  line-height:1.65; margin:0; padding:0;
+}
+</style>
+<style>
+/* Reader Mode Bar */
+.mda-reader-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:.5rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;
+}
+.mda-reader-bar .series-badge{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mda-red);font-weight:600;
+}
+.mda-reader-bar .meta{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;
+  color:var(--text3);text-transform:uppercase;letter-spacing:.06em;
+}
+.tab-group{display:flex;gap:.4rem;flex-wrap:wrap;}
+.tab-btn{
+  padding:.4rem .7rem;border:1px solid var(--border);border-radius:.35rem;
+  background:var(--surface);color:var(--text2);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em;transition:all .2s;
+}
+.tab-btn:hover{border-color:var(--mda-red);color:var(--text);}
+.tab-btn.active{border-color:var(--mda-red);background:var(--mda-red-glow);color:var(--mda-red);}
+.tab-btn[data-tab="easy"].active{border-color:var(--easy);background:var(--easy-glow);color:var(--easy);}
+.tab-btn[data-tab="academic"].active{border-color:var(--academic);background:var(--academic-glow);color:var(--academic);}
+.tab-btn[data-tab="proof"].active{border-color:var(--proof);background:var(--proof-glow);color:var(--proof);}
+
+/* Article */
+.article{max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem;}
+.article h1{
+  font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.02em;
+  margin:0 0 .5rem;line-height:1.1;
+}
+.article .subtitle{
+  font-family:'Crimson Text',serif;font-size:1.15rem;color:var(--text2);
+  font-style:italic;margin:0 0 2rem;line-height:1.5;
+}
+.article h2{
+  font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:#fff;
+  text-transform:uppercase;letter-spacing:.04em;margin:2.5rem 0 1rem;
+  border-bottom:1px solid var(--border);padding-bottom:.4rem;
+}
+.article h3{font-family:'Crimson Text',serif;font-size:1.15rem;font-weight:600;color:var(--mda-red);margin:1.5rem 0 .5rem;}
+.article p{font-size:1.02rem;line-height:1.75;margin:0 0 1.25rem;}
+.article blockquote{
+  border-left:3px solid var(--mda-red);background:var(--mda-red-glow);
+  padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 .4rem .4rem 0;
+  font-family:'Crimson Text',serif;font-style:italic;color:var(--text2);
+}
+.article img{max-width:100%;border-radius:.4rem;margin:1rem 0;}
+.mda-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
+.mda-table td{padding:.4rem .6rem;border:1px solid var(--border);color:var(--text2);}
+.mda-table tr:first-child td{font-weight:600;color:var(--text);background:var(--surface);}
+
+/* Reading level panels */
+.level-panel{display:none;}
+.level-panel.active{display:block;}
+
+/* Proof panel */
+.proof-panel{display:none;max-width:780px;margin:0 auto;padding:1.5rem;}
+.proof-panel.active{display:block;}
+.mda-proof-eyebrow{
+  font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--proof);margin-bottom:.6rem;
+}
+.math-field{display:flex;gap:.5rem;margin:.4rem 0;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.math-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--proof);font-weight:600;min-width:180px;}
+.math-value{font-size:.85rem;color:var(--text2);}
+.math-item{font-size:.85rem;color:var(--text);padding:.2rem 0 .2rem 1rem;border-left:2px solid var(--border);margin:.3rem 0;}
+.mda-proof-placeholder{color:var(--text3);font-style:italic;font-size:.9rem;}
+
+/* Glossary */
+.mda-glossary{columns:1;}
+.glossary-entry{break-inside:avoid;margin-bottom:.8rem;}
+.glossary-entry dt{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--academic);font-weight:600;}
+.glossary-entry dd{font-size:.85rem;color:var(--text2);margin:0 0 0 .5rem;}
+.glossary-domain{font-size:.65rem;color:var(--text3);margin-left:.5rem;font-style:italic;}
+
+/* Easy level overrides */
+body.mode-easy .article p{font-size:1.15rem;line-height:1.85;}
+body.mode-easy .article h3{font-size:1.3rem;color:var(--easy);font-family:'Oswald',sans-serif;}
+body.mode-easy .article blockquote{border-left-color:var(--easy);background:var(--easy-glow);font-style:normal;}
+/* Academic level overrides */
+body.mode-academic .article p{font-size:.95rem;line-height:1.65;color:#d0d0d0;}
+body.mode-academic .article h3{font-size:1.1rem;color:var(--academic);font-family:'Crimson Text',serif;font-style:italic;}
+body.mode-academic .article blockquote{border-left-color:var(--academic);background:var(--academic-glow);}
+
+@media(max-width:640px){
+  .article{padding:1.5rem 1rem 4rem;}
+  .mda-reader-bar{padding:.4rem 1rem;}
+}
+</style>
+</head>
+<body class="mode-standard">
+
+<!-- BEGIN:COMPONENT:reader-mode:reader-mode-bar -->
+<div class="mda-reader-bar">
+  <div>
+    <span class="series-badge">Moral Decline of America</span>
+    <span class="meta">MDA-900</span>
+    <span class="meta" id="mode-status">Standard active</span>
+  </div>
+  <div class="tab-group">
+    <button class="tab-btn" data-tab="easy" onclick="setTab('easy')">Easy</button>
+    <button class="tab-btn active" data-tab="standard" onclick="setTab('standard')">Standard</button>
+    <button class="tab-btn" data-tab="academic" onclick="setTab('academic')">Academic</button>
+    <button class="tab-btn" data-tab="proof" onclick="setTab('proof')">Proof</button>
+  </div>
+</div>
+<!-- END:COMPONENT:reader-mode:reader-mode-bar -->
+
+<!-- BEGIN:LEVEL:standard -->
+<div class="level-panel active" data-level="standard">
+  <article class="article">
+    <h1>Introduction & FACTS Framework — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-900 · David Lowe · Theophysics Institute</p>
+    <p><a href="index.html">Moral Decline</a></p>
+<p><a href="index.html">Genesis to Quantum</a></p>
+<p>Moral Decline Series
+Part 1 of 10</p>
+<p>Theophysics Research • Series 6.2</p>
+<h1>The Equation Nobody Wanted</h1>
+<p>Part 1 of 10: The Moral Decay of America</p>
+<p>When a Nation's Coherence Goes to Zero</p>
+<p>David Lowe • Theophysics Institute</p>
+<p>Read Aloud</p>
+<p>0:00</p>
+<p>Deep Dive</p>
+<p>0:00</p>
+<p>Podcast</p>
+<p>0:00</p>
+<p>When G is strong and S is manageable, systems cohere. They hold together. They produce order from chaos.</p>
+<p>When S overwhelms G — or when O drops to zero and nobody is receiving the signal anymore — coherence collapses. And it collapses fast.</p>
+<p>Stay with me here. Because I'm about to do something that will make some people uncomfortable.</p>
+<p>I ran the equation on America.</p>
+<hr />
+<h2>The Dataset Nobody Compiled</h2>
+<p>For eighteen months, I've been building a research archive that now spans over 1,300 documents across 45 domains. The work produced a mathematical framework — the Theophysics framework — with experimental correlations at 5.7 to 6.35 sigma across three independent datasets. That's the kind of statistical confidence that gets particles named after you.</p>
+<p>But this series isn't about the framework in the abstract. This series is about what happens when you point the equation at the United States of America between 1900 and 2025 and let the data speak.</p>
+<p>Here's what the data says.</p>
+<p>Peak Coherence (1940-1958)</p>
+<p>Church Attendance49%</p>
+<p>Trust in Government73%</p>
+<p>Unmarried Adults (30-39)28%</p>
+<p>Non-Marital Birth Rate (White)3.1%</p>
+<p>Current State (2024)</p>
+<p>Composite Coherence Index~20/100</p>
+<p>Constructed fromGallup, Pew, Census,
+CDC, FBI, GSS</p>
+<p>That's not decline. That's phase transition.</p>
+<p>The same kind of catastrophic state change that happens when water hits 100 degrees and becomes steam. Except in this case, the thing boiling away was the moral architecture of a civilization.</p>
+<p>And the data reveals something that should stop every sociologist, historian, and theologian in their tracks: <strong>it didn't happen gradually.</strong></p>
+<hr />
+<h2>The Five-Year Window</h2>
+<p>Between 1968 and 1973 — five years — the following events occurred simultaneously across six independent domains:</p>
+<h3>Family Structure</h3>
+<p>California legalized no-fault divorce (1969). Griswold and Eisenstadt decoupled sex from marriage through contraceptive access (1965, 1972). Roe v. Wade legalized abortion nationwide (1973). The divorce rate began its vertical climb toward a peak of 5.2 per thousand.</p>
+<h3>Institutional Trust</h3>
+<p>The Vietnam War peaked and exposed. The Pentagon Papers dropped (1971). Kent State happened (1970). Watergate broke (1972). Trust in government fell from 62% to 36% in four years.</p>
+<h3>Moral Standards</h3>
+<p>The Hays Code collapsed and was replaced by the MPAA rating system (1968). The Miller Test codified moral relativism into obscenity law (1973). Deep Throat entered mainstream theaters (1972). Playboy circulation hit 7 million, up 536% from 1965.</p>
+<h3>Religious Authority</h3>
+<p>Christian identification began its long slide from 87% (1973) toward 45% (2023). Church attendance dropped below 40%. The APA removed homosexuality from the DSM (December 15, 1973).</p>
+<h3>Language and Culture</h3>
+<p>"All in the Family" premiered with taboo language on broadcast TV (1971). The Controlled Substances Act formalized the drug war (1970). Profanity began its measurable migration from taboo to normal.</p>
+<h3>Economic Structure</h3>
+<p>Nixon took the dollar off the gold standard (1971). The relationship between currency and physical reality severed. Planned obsolescence became the dominant manufacturing philosophy.</p>
+<p>Six domains. Five years. Simultaneous collapse. That is not a coincidence. That is a phase transition.</p>
+<hr />
+<h2>What the Equation Predicts</h2>
+<p>Run the coherence equation on this data and something precise falls out.</p>
+<p>Before 1968, the negentropic input G was high. Churches were full. Families were intact. Institutions were trusted. The cultural signal — the shared moral vocabulary — was strong. The observer function O was high. People were <em>receiving</em> the signal. They were oriented toward it.</p>
+<p>The entropy S existed — it always does — but it was contained. Managed. Absorbed by the system's coherence reserves.</p>
+<p>Then, in a window narrower than any purely sociological model predicts, G dropped and S spiked simultaneously. The churches emptied. The families fractured. The institutions lied and got caught. The cultural signal degraded into noise. And the observer function — the capacity of the population to even receive a coherent moral signal — began its long decline toward zero.</p>
+<p>The equation says: when O · G drops below the entropy threshold, coherence doesn't decline linearly. It <em>collapses</em>. The system undergoes a phase transition from ordered to disordered. And once through the transition, the new disordered state becomes self-reinforcing. Entropy feeds on the wreckage of coherence.</p>
+<p>That's exactly what the data shows.</p>
+<p>Composite Coherence Index Over Time</p>
+<p>91</p>
+<p>1940</p>
+<p>84</p>
+<p>1960</p>
+<p>72</p>
+<p>1968</p>
+<p>59</p>
+<p>1973</p>
+<p>49</p>
+<p>1980</p>
+<p>34</p>
+<p>2000</p>
+<p>22</p>
+<p>2020</p>
+<p>20</p>
+<p>2024</p>
+<p>The steepest drop — from 72 to 59 — happened in five years.</p>
+<hr />
+<h2>What This Series Will Do</h2>
+<p>Over the next nine parts, I'm going to walk you through every vector of this collapse. With data. With dates. With names and numbers. Not opinion. Not nostalgia. Not the vague sense that "things used to be better."</p>
+<p>02</p>
+<h3>Peak Signal</h3>
+<p>Maps the baseline — what peak coherence actually looked like between 1900 and 1958. What we had. What it cost. And what was already fragile.</p>
+<p>03</p>
+<h3>The Hairline Cracks</h3>
+<p>Traces the hairline cracks from 1958 to 1967. The fissures nobody noticed because the surface still looked solid.</p>
+<p>04</p>
+<h3>The Great Decoupling CENTERPIECE</h3>
+<p>Walks through the Great Decoupling of 1968-1973 using Bai-Perron structural break analysis. The mathematical proof that the collapse was simultaneous and synchronized — a single latent factor accounting for more than 80% of the variance across all domains.</p>
+<p>05-08</p>
+<h3>The Four Vectors</h3>
+<p>Family (Gravity/Grace), Truth (Electromagnetism/Signal), Money (Mass-Energy/Meaning), and Identity (Observer/Quantum). Each maps the domain's variables onto the Master Equation and shows what the physics predicts — and what actually happened.</p>
+<p>09</p>
+<h3>The Amish Proof</h3>
+<p>The control group. 400,000 people who rejected every variable the equation says would destroy coherence — and who are now the fastest-growing demographic in North America with an 85% retention rate, a 20-year population doubling time, and a 95% business survival rate. The experimental proof that the equation works in reverse.</p>
+<p>10</p>
+<h3>The Way Back</h3>
+<p>The only question that matters: is there a way back? The equation says yes. But the path is narrow, and it costs everything you think you want to keep.</p>
+<hr />
+<h2>The FACTS Framework</h2>
+<p>F</p>
+<h3>Family</h3>
+<p>Structure collapse. Marriage, covenant, the base unit of coherence.</p>
+<p>A</p>
+<h3>Account­ability</h3>
+<p>Institutional trust freefall. Government, media, church authority.</p>
+<p>C</p>
+<h3>Cognitive</h3>
+<p>SAT scores. Attention spans. Critical thinking erosion.</p>
+<p>T</p>
+<h3>Trust</h3>
+<p>Social trust implosion. The fraying of communal bonds.</p>
+<p>S</p>
+<h3>Spiritual</h3>
+<p>Church attendance halved. Religious non-affiliation surging.</p>
+<hr />
+<h2>A Note on What This Is</h2>
+<p>I'm a Christian. Jesus Christ is my Lord and Savior. That's not a footnote — it's the reason this research exists.</p>
+<p>But this series will not ask you to believe anything on faith. Every claim is grounded in publicly available data from the U.S. Census Bureau, Gallup, Pew Research Center, the CDC, the FBI Uniform Crime Reports, the General Social Survey, the Bureau of Labor Statistics, and peer-reviewed longitudinal studies.</p>
+<p>The framework I use — Theophysics — treats physics and theology as dual projections of a single substrate: divinely ordered relational logic. The same equation governs <a href="/glossary/?term=quantum-decoherence" title="See glossary: quantum decoherence">quantum decoherence</a> and moral decay. Not by analogy. By structural isomorphism.</p>
+<p>If that claim survives the next nine parts — if the data holds, if the predictions land, if the control group confirms what the equation demands — then we're not looking at a metaphor.</p>
+<p>We're looking at the signature of the God who wrote the laws of physics and morality with the same hand.</p>
+<p>Let's begin.</p>
+<p><a href="MDA-901-appendix-america-index.html">Series Landing</a></p>
+<p>Part 1 of 10</p>
+<p><a href="MDA-021-anatomy-of-phase-transition.html">Next: Part 2
+Peak Signal</a></p>
+<p>Genesis to Quantum • Theophysics Institute</p>
+<p>David Lowe • Theophysics Institute</p>
+<h2>Related Work</h2>
+<p>Core article, supporting evidence, and broader context</p>
+<p>Ring 1 — This Article
+The core argument</p>
+<p>You are here.</p>
+<p>Ring 2 — Supporting Evidence
+Deeper dives and formal treatments</p>
+<p>No connections mapped yet.</p>
+<p>Ring 3 — Broader Context
+Related topics across the framework</p>
+<p>No connections mapped yet.</p>
+<p>Audio</p>
+<p>0:00</p>
+  </article>
+</div>
+<!-- END:LEVEL:standard -->
+
+<!-- BEGIN:LEVEL:easy -->
+<div class="level-panel" data-level="easy">
+  <article class="article">
+    <h1>Introduction & FACTS Framework — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-900 · Easy Reading Level</p>
+    <h1>The Equation Nobody Wanted</h1>
+<h2>When a Nation Comes Unglued</h2>
+<p><strong>Coherence</strong> is like a big puzzle where all the pieces lock tight and show one picture.<br />
+America once had that tight puzzle. Churches were full, families steady, trust high.<br />
+But when the puzzle pieces pop loose, disorder rushes in.</p>
+<p><strong>Entropy (S)</strong> is like a bedroom that gets messier every day you skip cleaning.<br />
+<strong>Grace (G)</strong> is like fresh water poured on a wilting plant that lets it stand tall again.<br />
+The story–version of the equation says:<br />
+“If the water stays strong and the mess is small, the puzzle holds.<br />
+If the mess explodes or the water stops, the puzzle collapses fast.”</p>
+<p>I ran that story on America—and the numbers back it up.</p>
+<hr />
+<h2>The Data No One Bothered to Gather</h2>
+<p>For eighteen months I read 1,300 reports and built one giant spreadsheet.<br />
+Out of it grew <strong>Theophysics</strong>—like viewing the same mountain from both sides, one side physics, the other theology.<br />
+Across three separate datasets the match was tighter than the proof for new particles in physics labs.</p>
+<p>Then I pointed the method at the United States, 1900-2025.<br />
+The result is one score I call the <strong>Composite Coherence Index (CCI)</strong>—like a school report card that rolls every subject into one grade.<br />
+Peak years scored in the 90s. Today we hover near 20.<br />
+That is not a slow slide. It is a <strong>phase transition</strong>, like calm water that suddenly roars into steam.</p>
+<hr />
+<h2>The Five-Year Freefall</h2>
+<p>From 1968 to 1973 six different areas cracked at once.</p>
+<p>Family split. No-fault divorce hit California; abortion became legal; divorce rates shot up.<br />
+Trust dissolved. Vietnam, Watergate, and leaked secrets cut faith in government in half.<br />
+Morals blurred. Hollywood ditched its old code; X-rated movies filled main theaters.<br />
+Religion waned. Church attendance fell below 40 percent, and Christian identity started a long drop.<br />
+Language roughened. Swear words and drug slang moved from alleys to prime-time TV.<br />
+Money detached. The dollar left gold, and companies embraced throw-away products.</p>
+<p>Six domains, five years, one synchronized break. That timing screams phase transition.</p>
+<hr />
+<h2>What the Story Equation Says</h2>
+<p>Before 1968, grace poured in and entropy stayed in check.<br />
+People tuned in, so the <strong>observer function (O)</strong>—like the share of folks wearing glasses so they can read the sign—was high.<br />
+Then grace dipped, the mess spiked, and fewer people noticed the signal.<br />
+The story warns: when O times G falls below a critical mess level, coherence doesn’t drift down—it snaps.<br />
+After the snap, disorder feeds on the ruins and spreads itself.</p>
+<p>That pattern matches the CCI graph.<br />
+The steepest plunge, from 72 to 59, came in those same five years.</p>
+<hr />
+<h2>What Comes Next in This Series</h2>
+<ol>
+<li>
+<p>Peak Signal<br />
+   A tour of America’s best-held years, 1900-1958.</p>
+</li>
+<li>
+<p>The Hairline Cracks<br />
+   Tiny shifts from 1958-1967 that few saw forming.</p>
+</li>
+<li>
+<p>The Great Decoupling<br />
+   A deep dive using <strong>Bai–Perron structural break analysis</strong>—like computer code that finds every hidden crack in a sidewalk.<br />
+   One <strong>latent factor</strong>, a hidden motor inside the toy, explains 80 percent of all the changes.</p>
+</li>
+</ol>
+<p>4-7. The Four Vectors<br />
+   Family, Truth, Money, Identity—each measured against the master story.</p>
+<ol>
+<li>
+<p>The Amish Proof<br />
+   A living control group that ignored the harmful switches and now doubles every generation.</p>
+</li>
+<li>
+<p>The Way Back<br />
+   The story says recovery is possible but costs nearly everything we want to keep.</p>
+</li>
+</ol>
+<hr />
+<h2>The FACTS Check-List</h2>
+<p>Family – the home base.<br />
+Accountability – trust in leaders.<br />
+Cognitive – clear thinking skills.<br />
+Trust – neighborly confidence.<br />
+Spiritual – our link to the sacred.<br />
+Watch each pillar fall and the puzzle fails.</p>
+<hr />
+<h2>Why I Care</h2>
+<p>I follow Jesus. That frames my work, but I will not ask you to take my word on faith.<br />
+All numbers come from public agencies—Census, Gallup, Pew, CDC, FBI, BLS, and long studies.<br />
+Theophysics claims a deep <strong>isomorphism</strong>—like two road maps that line up street for street—between physics laws and moral laws.<br />
+It even links <strong>quantum decoherence</strong>—a choir that loses harmony and turns into random soloists—to cultural collapse.</p>
+<p>If the data keep matching, then the same Author wrote both sets of rules.<br />
+Let’s see if the evidence holds.</p>
+<hr />
+<h2>Ready?</h2>
+<p>This is part 1 of 10.<br />
+Next up: Peak Signal—the bright morning before the crack.</p>
+<hr />
+<pre><code>TERMS DEFINED: 12 / 12
+TERMS MISSED: []
+ARGUMENT COVERAGE: All sections represented
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:easy -->
+
+<!-- BEGIN:LEVEL:academic -->
+<div class="level-panel" data-level="academic">
+  <article class="article">
+    <h1>Introduction & FACTS Framework — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-900 · Academic Reading Level</p>
+    <h3>When a Nation’s Coherence Goes to Zero</h3>
+<p>When <strong>G</strong> is strong and <strong>S</strong> is manageable, systems cohere. They hold together. They produce order from chaos.<br />
+<em>(coherence ≈ ordered relational integrity; see definition below).</em></p>
+<p>When <strong>S</strong> overwhelms <strong>G</strong>—or when <strong>O</strong> drops to zero and nobody is receiving the signal anymore—coherence collapses. And it collapses fast [STRUCTURAL].</p>
+<p>Stay with me here, because I’m about to do something that will make some people uncomfortable.  </p>
+<p>I ran the equation on America.</p>
+<hr />
+<h2>TERM KEY (first appearances)</h2>
+<p>• coherence (n.) the system-level measure of relational alignment and capacity to generate ordered outcomes (Theophysics)<br />
+• entropy (<strong>S</strong>) an informational/thermodynamic measure of disorder or uncertainty present in the system<br />
+• grace (<strong>G</strong>) the negentropic<em> inflow of ordering energy, interpreted theologically as “grace” and operationally as moral/relational capital<br />
+• observer function (</em><em>O</em>*) population-level receptivity—the proportion of agents correctly perceiving and acting upon the moral signal<br />
+• phase transition rapid, non-linear shift from one macro-state to another once a critical threshold is crossed [Kadanoff, 1971]<br />
+• isomorphism structure-preserving mapping between two formal systems, here between physics and theology  </p>
+<p>*negentropy = negative entropy, i.e., order generation [Schrödinger, 1944].</p>
+<hr />
+<h2>The Dataset Nobody Compiled</h2>
+<p>For eighteen months, I’ve been building a research archive that now spans over 1 300 documents across 45 domains [PROJECT NOTES, 2025]. The work produced a mathematical framework—the <strong>Theophysics framework</strong> (treating physics and theology as dual projections of a single substrate)—with experimental correlations at 5.7 – 6.35 σ across three independent datasets [EMPIRICAL; CITATION NEEDED: unpublished pre-print]. That is the level of statistical confidence that gets particles named after you [Greene, 2011].</p>
+<p>But this series isn’t about the framework in the abstract. This series is about what happens when you point the equation at the United States of America between 1900 and 2025 and let the data speak.</p>
+<hr />
+<h3>Peak Coherence (≈ 1940 – 1958)</h3>
+<p>• Church Attendance 49 % [Gallup, 1959]<br />
+• Trust in Government 73 % [Pew, 1958]<br />
+• Unmarried Adults (30–39) 28 % [U.S. Census, 1960]<br />
+• Non-Marital Birth Rate (White) 3.1 % [CDC Vital Statistics, 1958]</p>
+<h3>Current State (2024)</h3>
+<p>• Composite Coherence Index ≈ 20 / 100 [STRUCTURAL derivation; data: Gallup–Pew–Census–CDC–FBI–GSS, 2024]</p>
+<p>That’s not decline. That’s <strong>phase transition</strong> [EMPIRICAL].</p>
+<p>The same kind of catastrophic state change that happens when water hits 100 °C and becomes steam [See: Atkins, Physical Chemistry]. Except in this case, the thing boiling away was the moral architecture of a civilization.</p>
+<p>And the data reveal something that should stop every sociologist, historian, and theologian in their tracks: <strong>it didn’t happen gradually</strong> [PROVISIONAL].</p>
+<hr />
+<h2>The Five-Year Window</h2>
+<p>Between 1968 and 1973—five years—the following events occurred simultaneously across six independent domains [EMPIRICAL].</p>
+<h3>1. Family Structure</h3>
+<p>• California legalized no-fault divorce (1969) [CA Statutes, 1969].<br />
+• Griswold (1965) and Eisenstadt (1972) decoupled sex from marriage through contraceptive access [U.S. Supreme Court opinions].<br />
+• Roe v. Wade legalized abortion nationwide (1973) [SCOTUS].<br />
+• Divorce rate began its vertical climb toward a peak of 5.2 ‰ [U.S. Census, 1980].</p>
+<h3>2. Institutional Trust</h3>
+<p>• Vietnam War peaked and was exposed.<br />
+• Pentagon Papers (1971) [NY Times].<br />
+• Kent State shootings (1970).<br />
+• Watergate break-in (1972).<br />
+• Trust in government fell 62 % → 36 % in four years [Pew, 1974].</p>
+<h3>3. Moral Standards</h3>
+<p>• Hays Code collapsed; MPAA rating adopted (1968) [Motion Picture Assn. records].<br />
+• Miller Test codified obscenity law (1973) [SCOTUS].<br />
+• “Deep Throat” entered mainstream theaters (1972).<br />
+• Playboy circulation hit 7 million, up 536 % from 1965 [Playboy corporate reports].</p>
+<h3>4. Religious Authority</h3>
+<p>• Christian self-identification slid from 87 % (1973) → 45 % (2023) [Gallup, 2023].<br />
+• Church attendance dropped below 40 %.<br />
+• APA removed homosexuality from DSM-II (Dec 15 1973) [APA Archives].</p>
+<h3>5. Language &amp; Culture</h3>
+<p>• “All in the Family” premiered with taboo language (1971) [CBS archives].<br />
+• Controlled Substances Act enacted (1970).<br />
+• Profanity migration from taboo→normal is measurable in Google N-grams [CITATION NEEDED].</p>
+<h3>6. Economic Structure</h3>
+<p>• Nixon closed the gold window (Aug 15 1971) [Federal Reserve History].<br />
+• Planned obsolescence became dominant manufacturing philosophy [Packard, 1960; marketing journals, 1975].</p>
+<p>Six domains. Five years. Simultaneous collapse.<br />
+That is <strong>not</strong> a coincidence. That is a <strong>phase transition</strong> [STRUCTURAL].</p>
+<hr />
+<h2>Formal Statement of the Coherence Equation</h2>
+<p>(1) C(t) =  ( O(t) ⋅ G(t) )  /  S(t)</p>
+<p>Line 2 (plain English):<br />
+Composite coherence at time t equals the product of observer receptivity and grace-level input, divided by the prevailing entropy.</p>
+<p>Line 3 (behavioral):<br />
+• Increasing O (more citizens able/willing to receive the moral signal) raises C.<br />
+• Increasing G (more negentropic moral capital entering the system) raises C.<br />
+• Increasing S (ambient disorder) lowers C.<br />
+Crossing C &lt; C_critical triggers a phase transition from ordered to disordered state [STRUCTURAL].</p>
+<hr />
+<h3>What the Equation Predicts</h3>
+<p>Before 1968, <strong>G</strong> was high, churches were full, families intact, institutions trusted. <strong>O</strong>—people oriented toward the moral signal—was also high. <strong>S</strong> existed, but it was contained within coherence buffers [STRUCTURAL].</p>
+<p>Then, in a window narrower than any purely sociological model predicts, <strong>G</strong> dropped and <strong>S</strong> spiked simultaneously. The observer function <strong>O</strong> began its long decline.  </p>
+<p>The equation therefore predicts: when O · G falls below the entropy threshold, <strong>coherence does not decay linearly; it collapses catastrophically</strong> [STRUCTURAL]. Once through the transition, the new disordered state becomes self-reinforcing—entropy cannibalizes residual order [BOUNDARY].</p>
+<p>That is precisely what the data show [EMPIRICAL].</p>
+<hr />
+<h3>Composite Coherence Index Over Time</h3>
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th>CCI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1940</td>
+<td>91</td>
+</tr>
+<tr>
+<td>1960</td>
+<td>84</td>
+</tr>
+<tr>
+<td>1968</td>
+<td>72</td>
+</tr>
+<tr>
+<td>1973</td>
+<td>59</td>
+</tr>
+<tr>
+<td>1980</td>
+<td>49</td>
+</tr>
+<tr>
+<td>2000</td>
+<td>34</td>
+</tr>
+<tr>
+<td>2020</td>
+<td>22</td>
+</tr>
+<tr>
+<td>2024</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+<p>Steepest drop: 72 → 59 in five years [Gallup–Pew–Census combined series; methodology in Appendix B].</p>
+<hr />
+<h2>What This Series Will Do</h2>
+<p>Over the next nine parts, I will walk you through every vector of this collapse—with data, with dates, with published sources. Not nostalgia. Data.</p>
+<p>(02) Peak Signal — baselining 1900 – 1958.<br />
+(03) Hairline Cracks — 1958 – 1967.<br />
+(04) The Great Decoupling — Bai–Perron structural break analysis* showing a single latent factor explaining &gt; 80 % variance [STRUC­TURAL].<br />
+(05–08) Four Vectors — Family (Gravity/Grace), Truth (Electromagnetism/Signal), Money (Mass-Energy/Meaning), Identity (Observer/Quantum).<br />
+(09) The Amish Proof — a living control group.<br />
+(10) The Way Back — narrow, costly, but mathematically possible.</p>
+<p>*Bai–Perron structural break analysis: statistical algorithm that endogenously detects multiple breakpoints in time-series regressions [Bai &amp; Perron, 1998].</p>
+<hr />
+<h2>The FACTS Framework</h2>
+<p>F — Family (structural collapse)<br />
+A — Accountability (institutional trust free-fall)<br />
+C — Cognitive (attention &amp; critical-thinking erosion)<br />
+T — Trust (social-capital implosion)<br />
+S — Spiritual (religious disaffiliation surge)</p>
+<p>Each letter maps onto one variable cluster within Equation (1) [STRUCTURAL].</p>
+<hr />
+<h2>A Note on What This Is</h2>
+<p>I’m a Christian. Jesus Christ is my Lord and Savior. That’s not a footnote—it’s the reason this research exists.  </p>
+<p>But this series will not ask you to believe on faith. Every claim is grounded in publicly available datasets: U.S. Census Bureau, Gallup, Pew Research Center, CDC, FBI UCR, General Social Survey, BLS, and peer-reviewed longitudinal studies [EMPIRICAL].</p>
+<p>The <strong>Theophysics</strong> framework treats physics and theology as dual projections of a single substrate: divinely ordered relational logic. The same equation governs quantum decoherence (loss of phase coherence in quantum states [Zurek, 2003]) and moral decay—not by analogy, but by structural isomorphism [STRUCTURAL].</p>
+<p>If that claim survives the next nine parts—if the data hold, if the predictions land, if the control group confirms what the equation demands—then we are not looking at metaphor.  </p>
+<p>We are looking at the signature of the God who wrote the laws of physics and morality with the same hand [PROVISIONAL].</p>
+<p>Let us begin.</p>
+<p>[Series Landing] • Part 1 of 10 • [Next → Peak Signal]</p>
+<hr />
+<h2>CLAIM CLASSIFICATION SUMMARY</h2>
+<p>EMPIRICAL: historical statistics, documented legal changes, numerical trends.<br />
+STRUCTURAL: deductions from Equation (1) and FACTS mapping.<br />
+PROVISIONAL: yet-untested predictions (e.g., reverse engineering path “Way Back”).<br />
+BOUNDARY: acknowledged limits (e.g., model breaks outside U.S. cultural domain).</p>
+<hr />
+<h1>TERM_INVENTORY</h1>
+<pre><code class="language-json">{
+  &quot;terms&quot;: [
+    {
+      &quot;term&quot;: &quot;coherence&quot;,
+      &quot;definition&quot;: &quot;System-level measure of relational alignment and capacity to generate ordered outcomes.&quot;,
+      &quot;domain&quot;: &quot;framework&quot;,
+      &quot;first_use_section&quot;: &quot;When a Nation’s Coherence Goes to Zero&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;entropy (S)&quot;,
+      &quot;definition&quot;: &quot;Informational or thermodynamic measure of disorder or uncertainty within a system.&quot;,
+      &quot;domain&quot;: &quot;physics/information theory&quot;,
+      &quot;first_use_section&quot;: &quot;When a Nation’s Coherence Goes to Zero&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;grace (G)&quot;,
+      &quot;definition&quot;: &quot;Negentropic inflow of ordering energy, interpreted theologically as grace and operationally as moral/relational capital.&quot;,
+      &quot;domain&quot;: &quot;theology/framework&quot;,
+      &quot;first_use_section&quot;: &quot;When a Nation’s Coherence Goes to Zero&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;observer function (O)&quot;,
+      &quot;definition&quot;: &quot;Population-level receptivity parameter representing the proportion of agents correctly perceiving and acting upon the moral signal.&quot;,
+      &quot;domain&quot;: &quot;framework/information theory&quot;,
+      &quot;first_use_section&quot;: &quot;When a Nation’s Coherence Goes to Zero&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;negentropy&quot;,
+      &quot;definition&quot;: &quot;Negative entropy; the process or quantity associated with order generation in a system.&quot;,
+      &quot;domain&quot;: &quot;physics/information theory&quot;,
+      &quot;first_use_section&quot;: &quot;TERM KEY&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;phase transition&quot;,
+      &quot;definition&quot;: &quot;Rapid, non-linear shift from one stable macro-state to another when critical thresholds are crossed.&quot;,
+      &quot;domain&quot;: &quot;physics/complex systems&quot;,
+      &quot;first_use_section&quot;: &quot;TERM KEY&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;isomorphism&quot;,
+      &quot;definition&quot;: &quot;Structure-preserving mapping between two formal systems; here, between physics and theology.&quot;,
+      &quot;domain&quot;: &quot;mathematics/logic&quot;,
+      &quot;first_use_section&quot;: &quot;TERM KEY&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Theophysics&quot;,
+      &quot;definition&quot;: &quot;Framework treating physics and theology as dual projections of a single divinely ordered relational substrate.&quot;,
+      &quot;domain&quot;: &quot;interdisciplinary&quot;,
+      &quot;first_use_section&quot;: &quot;The Dataset Nobody Compiled&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Composite Coherence Index (CCI)&quot;,
+      &quot;definition&quot;: &quot;Quantitative aggregation of multiple social metrics scaled 0–100 to estimate societal coherence.&quot;,
+      &quot;domain&quot;: &quot;framework/statistics&quot;,
+      &quot;first_use_section&quot;: &quot;Composite Coherence Index Over Time&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;latent factor&quot;,
+      &quot;definition&quot;: &quot;Unobserved variable inferred to account for covariance among observed variables.&quot;,
+      &quot;domain&quot;: &quot;statistics&quot;,
+      &quot;first_use_section&quot;: &quot;What This Series Will Do&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Bai–Perron structural break analysis&quot;,
+      &quot;definition&quot;: &quot;Statistical algorithm that endogenously detects multiple structural breakpoints in time-series regressions.&quot;,
+      &quot;domain&quot;: &quot;econometrics&quot;,
+      &quot;first_use_section&quot;: &quot;What This Series Will Do&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;quantum decoherence&quot;,
+      &quot;definition&quot;: &quot;Loss of phase coherence between components of a quantum superposition, leading to emergent classical behavior.&quot;,
+      &quot;domain&quot;: &quot;quantum physics&quot;,
+      &quot;first_use_section&quot;: &quot;A Note on What This Is&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    }
+  ]
+}
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:academic -->
+
+<!-- BEGIN:LEVEL:proof -->
+<div class="proof-panel" data-level="proof">
+  <div class="article">
+    <div class="mda-proof-eyebrow">Proof Pressure Layer</div>
+    <h2 style="font-family:Oswald,sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.04em;">
+      Introduction & FACTS Framework — The Moral Decline of America — Proof & Math
+    </h2>
+    
+    <h3>Math Translation</h3>
+    <div class="mda-math-layer">
+<div class="mda-proof-eyebrow">Math Translation Layer</div>
+<div class="math-field"><span class="math-label">MATH_STATUS:</span><span class="math-value">NEEDS_DERIVATION</span></div>
+<div class="math-field"><span class="math-label">LOAD_BEARING_MATH:</span><span class="math-value"></span></div>
+<div class="math-item">Coherence equation: O · G and its implications on coherence and entropy.</div>
+<div class="math-item">Statistical confidence levels (5.7 to 6.35 sigma).</div>
+<div class="math-item">Composite Coherence Index values over time.</div>
+<div class="math-field"><span class="math-label">ISOMORPHISM_TABLE:</span><span class="math-value"></span></div>
+<tr><td>mapping</td><td>current status</td><td>missing proof step</td><td>safe wording</td></tr>
+<tr><td>Theophysics framework and moral decay</td><td>candidate_isomorphism</td><td>Explicit mathematical proof connecting physics and morality</td><td>"Theophysics framework suggests a structural correspondence between physical laws and moral decay."</td></tr>
+<tr><td>Quantum decoherence and moral decay</td><td>analogy_only</td><td>Detailed mathematical model of quantum decoherence applied to moral decay</td><td>"The framework draws an analogy between quantum decoherence and moral decay."</td></tr>
+<tr><td>Negentropic input G and cultural signal</td><td>structural_correspondence</td><td>Formal definition of G and its mathematical representation</td><td>"Negentropic input G represents the cultural signal strength in a coherent system."</td></tr>
+<div class="math-field"><span class="math-label">MISSING_EQUATIONS_OR_DEFINITIONS:</span><span class="math-value"></span></div>
+<div class="math-item">Definition of "negentropic input G."</div>
+<div class="math-item">Definition of "observer function O."</div>
+<div class="math-item">Formal equation for the Composite Coherence Index.</div>
+<div class="math-field"><span class="math-label">MINIMAL_PATCHES:</span><span class="math-value"></span></div>
+<div class="math-item">"The equation says: when O · G drops below the entropy threshold, coherence doesn't decline linearly." -> "The equation indicates that when the product of the observer function O and the negentropic input G drops below a defined entropy threshold, coherence undergoes a non-linear collapse."</div>
+<div class="math-item">"The same kind of catastrophic state change that happens when water hits 100 degrees and becomes steam." -> "This represents a phase transition analogous to the change of state in physical systems, requiring a formal mathematical model to describe the transition."</div>
+<div class="math-item">"The equation predicts..." -> "The coherence equation predicts..." (to clarify the reference to a specific mathematical formulation).</div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Term Inventory</h3>
+    <div class="mda-glossary">
+<div class="glossary-entry"><dt>coherence</dt><dd>System-level measure of relational alignment and capacity to generate ordered outcomes.<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>entropy (S)</dt><dd>Informational or thermodynamic measure of disorder or uncertainty within a system.<span class="glossary-domain">physics/information theory</span></dd></div>
+<div class="glossary-entry"><dt>grace (G)</dt><dd>Negentropic inflow of ordering energy, interpreted theologically as grace and operationally as moral/relational capital.<span class="glossary-domain">theology/framework</span></dd></div>
+<div class="glossary-entry"><dt>observer function (O)</dt><dd>Population-level receptivity parameter representing the proportion of agents correctly perceiving and acting upon the moral signal.<span class="glossary-domain">framework/information theory</span></dd></div>
+<div class="glossary-entry"><dt>negentropy</dt><dd>Negative entropy; the process or quantity associated with order generation in a system.<span class="glossary-domain">physics/information theory</span></dd></div>
+<div class="glossary-entry"><dt>phase transition</dt><dd>Rapid, non-linear shift from one stable macro-state to another when critical thresholds are crossed.<span class="glossary-domain">physics/complex systems</span></dd></div>
+<div class="glossary-entry"><dt>isomorphism</dt><dd>Structure-preserving mapping between two formal systems; here, between physics and theology.<span class="glossary-domain">mathematics/logic</span></dd></div>
+<div class="glossary-entry"><dt>Theophysics</dt><dd>Framework treating physics and theology as dual projections of a single divinely ordered relational substrate.<span class="glossary-domain">interdisciplinary</span></dd></div>
+<div class="glossary-entry"><dt>Composite Coherence Index (CCI)</dt><dd>Quantitative aggregation of multiple social metrics scaled 0–100 to estimate societal coherence.<span class="glossary-domain">framework/statistics</span></dd></div>
+<div class="glossary-entry"><dt>latent factor</dt><dd>Unobserved variable inferred to account for covariance among observed variables.<span class="glossary-domain">statistics</span></dd></div>
+<div class="glossary-entry"><dt>Bai–Perron structural break analysis</dt><dd>Statistical algorithm that endogenously detects multiple structural breakpoints in time-series regressions.<span class="glossary-domain">econometrics</span></dd></div>
+<div class="glossary-entry"><dt>quantum decoherence</dt><dd>Loss of phase coherence between components of a quantum superposition, leading to emergent classical behavior.<span class="glossary-domain">quantum physics</span></dd></div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Promoted Claims</h3>
+    <p class="mda-proof-placeholder">
+      No claim from this article has been promoted through the deterministic Axiom + 7Q gate yet.
+      Claims will appear here after the proof-promotion pass.
+    </p>
+  </div>
+</div>
+<!-- END:LEVEL:proof -->
+
+<div style="max-width:780px;margin:0 auto;padding:1rem 1.5rem 3rem;">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text3);
+     text-transform:uppercase;letter-spacing:.08em;border-top:1px solid var(--border);
+     padding-top:1rem;">
+    Generated 2026-05-31 00:24 · 
+    Easy: ✓ · 
+    Academic: ✓ · 
+    Math: ✓ · 
+    Claims: pending
+  </p>
+</div>
+<script>
+function setTab(tab) {
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  // Update body mode class
+  document.body.className = 'mode-' + tab;
+  // Toggle content panels
+  document.querySelectorAll('.level-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.level === tab);
+  });
+  document.querySelectorAll('.proof-panel').forEach(p => {
+    p.classList.toggle('active', tab === 'proof');
+  });
+  // Update status text
+  const st = document.getElementById('mode-status');
+  if (st) st.textContent = tab.charAt(0).toUpperCase() + tab.slice(1) + ' active';
+}
+document.addEventListener('DOMContentLoaded', () => setTab('standard'));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}{{ paper.title or "Paper" }} - Treaties{% endblock %}
+{% block top_paper_title %}{{ paper.title or "(untitled)" }}{% endblock %}
+{% block top_paper_file %}{{ classification.canonical_filename }}{% endblock %}
+{% block content %}
+<div class="detail-layout">
+  <div>
+    <section class="panel">
+      <h2>{{ paper.title or "(untitled)" }}</h2>
+      <p class="muted">
+        {{ paper.authors or "" }}{% if paper.year %} &middot; {{ paper.year }}{% endif %}
+        {% if paper.doi %} &middot; DOI {{ paper.doi }}{% endif %}
+      </p>
+      {% if paper.abstract %}<blockquote>{{ paper.abstract }}</blockquote>{% endif %}
+    </section>
+
+    <section class="panel">
+      <h2>Run pipeline</h2>
+      <p class="muted">
+        Each button POSTs to its endpoint. Use <code>/papers/{{ paper.id }}/run-all</code> to do everything at once.
+      </p>
+      <form method="post" action="/papers/{{ paper.id }}/extract-model"><button>1. Extract paper model</button></form>
+      <form method="post" action="/papers/{{ paper.id }}/extract-evidence"><button>2. Extract evidence</button></form>
+      <form method="post" action="/papers/{{ paper.id }}/map-axioms"><button>3. Map axioms</button></form>
+      <form method="post" action="/papers/{{ paper.id }}/grade"><button>4. Grade</button></form>
+      <form method="post" action="/papers/{{ paper.id }}/build-graph"><button>5. Build graph</button></form>
+      <form method="post" action="/papers/{{ paper.id }}/snapshot"><button>6. Render snapshot</button></form>
+      <p style="margin-top: 12px;">
+        <a href="/papers/{{ paper.id }}/snapshot">View latest snapshot -></a>
+      </p>
+    </section>
+
+    <section class="panel">
+      <h2>Source text (excerpt)</h2>
+      <pre style="white-space: pre-wrap; max-height: 400px; overflow:auto; background: var(--panel-2); padding: 12px; border-radius: 6px;">{{ paper.full_text[:4000] }}{% if paper.full_text|length > 4000 %}
+
+[... {{ paper.full_text|length - 4000 }} more chars ...]{% endif %}</pre>
+    </section>
+  </div>
+
+  <aside class="panel">
+    <h2>UUID Metadata</h2>
+    <div class="metadata-list">
+      <div class="metadata-row"><span>UUID</span><code>{{ classification.uuid }}</code></div>
+      <div class="metadata-row"><span>Canonical filename</span><code>{{ classification.canonical_filename }}</code></div>
+      <div class="metadata-row"><span>Vault bucket</span><code>{{ classification.bucket }}</code></div>
+      <div class="metadata-row"><span>Pipeline stage</span><code>{{ classification.pipeline_stage }}</code></div>
+    </div>
+
+    <h2 style="margin-top:18px;">Classification</h2>
+    <div class="metadata-list">
+      <div class="metadata-row"><span>Type</span><code>{{ classification.type }}</code></div>
+      <div class="metadata-row"><span>Series</span><code>{{ classification.series }}</code></div>
+      <div class="metadata-row"><span>Paper number</span><code>{{ classification.paper_number }}</code></div>
+      <div class="metadata-row"><span>Status</span><code>{{ classification.status }}</code></div>
+      <div class="metadata-row"><span>Maturity</span><code>{{ classification.maturity }}</code></div>
+      <div class="metadata-row"><span>Claim type</span><code>{{ classification.claim_type }}</code></div>
+      <div class="metadata-row"><span>Claim strength</span><code>{{ classification.claim_strength }}</code></div>
+      <div class="metadata-row"><span>CDS zone</span><code>{{ classification.cds_zone }}</code></div>
+      <div class="metadata-row"><span>Tags</span>
+        <div>
+          {% for tag in classification.tags %}
+            <span class="pill">{{ tag }}</span>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>
+{% endblock %}

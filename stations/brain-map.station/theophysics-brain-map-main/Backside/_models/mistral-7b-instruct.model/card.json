@@ -1,0 +1,36 @@
+{
+  "name": "mistral-7b-instruct.model",
+  "kind": "weight",
+  "anchor_role": "Local general-purpose classifier, router, and short reasoning model.",
+  "status": "partial",
+  "owner": "shared",
+  "base_model": "mistral-7b-instruct",
+  "runtime_path": "X:\\ollama",
+  "backing_models": [],
+  "called_by": [
+    "Backside/workflows/route-and-convert",
+    "Backside/workflows/handoff-session",
+    "Backside/_models/timeline.model",
+    "Backside/_models/facts.model",
+    "Backside/_models/paper-citation.model"
+  ],
+  "inputs": [
+    "short text previews",
+    "converted markdown",
+    "routing prompts"
+  ],
+  "outputs": [
+    "classification labels",
+    "short structured JSON",
+    "routing decisions"
+  ],
+  "non_goals": [
+    "Do not treat this as final authority for citations or canon.",
+    "Do not ask it to process huge corpora without chunking."
+  ],
+  "verification": [
+    "Routing labels match allowed enum.",
+    "JSON output parses before downstream use."
+  ],
+  "notes": "Current local model lane referenced by handoff and intake-engine plans."
+}

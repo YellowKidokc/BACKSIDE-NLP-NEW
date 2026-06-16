@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paper Grade Dashboard - gtq-03-first-quantum-state</title>
+<style>
+:root {
+  --ink:#14120d;
+  --paper:#fbf4df;
+  --paper2:#f3e6bf;
+  --line:#d6bd73;
+  --deep:#33250b;
+  --gold:#b8871e;
+  --green:#267a4a;
+  --red:#b3442f;
+  --blue:#2f5f7f;
+  --muted:#786845;
+  --shadow:0 18px 60px rgba(33,24,8,.18);
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  color:var(--ink);
+  font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  background:
+    radial-gradient(circle at top left, rgba(184,135,30,.22), transparent 34rem),
+    linear-gradient(135deg, #fff9e8 0%, #ead38e 100%);
+}
+main { max-width:1280px; margin:0 auto; padding:38px 22px 80px; }
+.hero {
+  border:1px solid rgba(51,37,11,.22);
+  background:rgba(255,251,238,.86);
+  border-radius:28px;
+  padding:30px;
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+.hero:after {
+  content:"";
+  position:absolute;
+  right:-80px; top:-110px;
+  width:340px; height:340px;
+  border-radius:50%;
+  border:38px solid rgba(184,135,30,.16);
+}
+.eyebrow { color:var(--gold); letter-spacing:.16em; text-transform:uppercase; font-size:.76rem; font-weight:800; }
+h1 { margin:.35rem 0 .45rem; font-size:clamp(2.1rem,4vw,4.8rem); line-height:.92; max-width:960px; }
+.sub { color:var(--muted); max-width:940px; line-height:1.65; }
+.grid { display:grid; gap:16px; }
+.metrics { grid-template-columns:repeat(4,minmax(0,1fr)); margin:22px 0; }
+.metric, .panel, .issue {
+  background:rgba(255,252,242,.82);
+  border:1px solid rgba(51,37,11,.18);
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(33,24,8,.08);
+}
+.metric { padding:18px; min-height:112px; }
+.metric strong { display:block; font-size:2rem; line-height:1; color:var(--deep); }
+.metric span { color:var(--muted); font-size:.82rem; text-transform:uppercase; letter-spacing:.09em; }
+.two { grid-template-columns:1.1fr .9fr; align-items:start; margin-top:16px; }
+.panel { padding:20px; overflow:hidden; }
+h2 { margin:.2rem 0 1rem; color:var(--deep); font-size:1.35rem; }
+table { width:100%; border-collapse:collapse; font-size:.92rem; }
+th,td { border-bottom:1px solid rgba(51,37,11,.14); padding:11px 9px; vertical-align:top; text-align:left; }
+th { color:var(--gold); font-size:.72rem; text-transform:uppercase; letter-spacing:.1em; }
+td span { display:block; color:var(--muted); font-size:.78rem; margin-top:.25rem; }
+.bar { display:inline-block; width:120px; height:10px; background:#eadbad; border-radius:999px; overflow:hidden; vertical-align:middle; margin-right:8px; }
+.bar i { display:block; height:100%; background:linear-gradient(90deg,var(--red),var(--gold),var(--green)); border-radius:999px; }
+em { color:var(--muted); font-style:normal; }
+.issues { grid-template-columns:repeat(4,minmax(0,1fr)); }
+.issue { padding:14px; display:flex; justify-content:space-between; gap:12px; align-items:center; }
+.issue strong { font-size:.84rem; color:var(--muted); }
+.issue span { font-size:1.45rem; color:var(--red); font-weight:900; }
+.address {
+  font-family:"Cascadia Mono","Consolas",monospace;
+  font-size:.78rem;
+  line-height:1.65;
+  color:#3c321c;
+  background:#fff7dc;
+  border:1px dashed rgba(51,37,11,.28);
+  border-radius:16px;
+  padding:14px;
+  overflow-wrap:anywhere;
+}
+.claims td:nth-child(3) { min-width:320px; }
+.footer { margin-top:18px; color:var(--muted); font-size:.82rem; line-height:1.55; }
+@media (max-width:900px) { .metrics,.two,.issues { grid-template-columns:1fr; } .hero { padding:22px; border-radius:20px; } }
+</style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <div class="eyebrow">Paper Grader Surface / Canary</div>
+    <h1>gtq-03-first-quantum-state</h1>
+    <p class="sub">This dashboard pulls the deterministic paper-grader metrics into a review surface: claims, equations, 7Q gaps, evidence markers, maturity distribution, semantic address, and station status. It does not replace the canonical JSON/XLSX; it makes the audit readable.</p>
+    <section class="grid metrics">
+      <div class="metric"><strong>6440</strong><span>Words</span></div>
+      <div class="metric"><strong>66</strong><span>Sections</span></div>
+      <div class="metric"><strong>62</strong><span>Equations</span></div>
+      <div class="metric"><strong>46</strong><span>Claim Candidates</span></div>
+    </section>
+    <div class="address">
+      <b>Semantic Address:</b> SCIENCE/GTQ-03-FIRST-QUANTUM-STATE-PAPER-GRADE/W/PUBLIC/B/R1 :: G3M3E0S3T3K3R3Q0F0C3 :: CQ-GF-KE-MS-TR<br>
+      <b>Filename Safe:</b> SCIENCE__GTQ-03-FIRST-QUANTUM-STATE-PAPER-GRADE__W__PUBLIC__B__R1__G3M3E0S3T3K3R3Q0F0C3__CQ-GF-KE-MS-TR<br>
+      <b>Vector / Hash:</b> G3M3E0S3T3K3R3Q0F0C3 / CQ-GF-KE-MS-TR<br>
+      <b>Rigor Verdict:</b>  &nbsp; <b>Math Layer:</b>  (0 translated spans)
+    </div>
+  </section>
+
+  <section class="grid two">
+    <div class="panel">
+      <h2>7Q Coverage</h2>
+      <table><thead><tr><th>Question</th><th>Observed Values</th><th>Weak</th><th>Coverage</th></tr></thead><tbody><tr><td><b>Identity</b><span>Q1_identity</span></td><td>implicit: 29, clear: 17</td><td>29</td><td><div class='bar'><i style='width:37.0%'></i></div><em>37.0%</em></td></tr>
+<tr><td><b>Scope</b><span>Q2_scope</span></td><td>broad: 37, bounded: 9</td><td>37</td><td><div class='bar'><i style='width:19.6%'></i></div><em>19.6%</em></td></tr>
+<tr><td><b>Mechanism</b><span>Q3_mechanism</span></td><td>missing: 38, present: 8</td><td>38</td><td><div class='bar'><i style='width:17.4%'></i></div><em>17.4%</em></td></tr>
+<tr><td><b>Evidence</b><span>Q4_evidence</span></td><td>missing: 36, present: 10</td><td>36</td><td><div class='bar'><i style='width:21.7%'></i></div><em>21.7%</em></td></tr>
+<tr><td><b>Falsifiability</b><span>Q5_falsifiability</span></td><td>missing: 46</td><td>46</td><td><div class='bar'><i style='width:0.0%'></i></div><em>0.0%</em></td></tr>
+<tr><td><b>Boundary</b><span>Q6_boundary</span></td><td>missing: 43, present: 3</td><td>43</td><td><div class='bar'><i style='width:6.5%'></i></div><em>6.5%</em></td></tr>
+<tr><td><b>Listener Risk</b><span>Q7_listener_risk</span></td><td>normal: 44, high: 2</td><td>2</td><td><div class='bar'><i style='width:95.7%'></i></div><em>95.7%</em></td></tr></tbody></table>
+    </div>
+    <div class="panel">
+      <h2>Maturity Distribution</h2>
+      <table><thead><tr><th>Level</th><th>Claims</th><th>Share</th></tr></thead><tbody><tr><td>Metaphor</td><td>24</td><td>52.2%</td></tr>
+<tr><td>Formal Model</td><td>11</td><td>23.9%</td></tr>
+<tr><td>Empirical Support</td><td>8</td><td>17.4%</td></tr>
+<tr><td>Public Proof Claim</td><td>2</td><td>4.3%</td></tr>
+<tr><td>Structural Correspondence</td><td>1</td><td>2.2%</td></tr></tbody></table>
+      <h2 style="margin-top:1.4rem;">Evidence Markers</h2>
+      <table><thead><tr><th>Marker</th><th>Claims</th></tr></thead><tbody><tr><td>no explicit marker</td><td>36</td></tr>
+<tr><td>measurement</td><td>6</td></tr>
+<tr><td>empirical</td><td>2</td></tr>
+<tr><td>source</td><td>1</td></tr>
+<tr><td>experiment</td><td>1</td></tr></tbody></table>
+    </div>
+  </section>
+
+  <section class="panel" style="margin-top:16px;">
+    <h2>Primary Repair Pressure</h2>
+    <div class="grid issues"><div class='issue'><strong>weak:Q5_falsifiability</strong><span>46</span></div>
+<div class='issue'><strong>weak:Q6_boundary</strong><span>43</span></div>
+<div class='issue'><strong>weak:Q3_mechanism</strong><span>38</span></div>
+<div class='issue'><strong>weak:Q2_scope</strong><span>37</span></div>
+<div class='issue'><strong>weak:Q4_evidence</strong><span>36</span></div>
+<div class='issue'><strong>weak:Q1_identity</strong><span>29</span></div>
+<div class='issue'><strong>risk:Q7_listener_risk</strong><span>2</span></div></div>
+  </section>
+
+  <section class="panel" style="margin-top:16px;">
+    <h2>Station Marks</h2>
+    <table><thead><tr><th>Station</th><th>Status</th><th>Warnings</th></tr></thead><tbody><tr><td colspan='3'>No snapshot station marks loaded.</td></tr></tbody></table>
+  </section>
+
+  <section class="panel" style="margin-top:16px;">
+    <h2>Claim Audit Preview</h2>
+    <table class="claims"><thead><tr><th>#</th><th>Section</th><th>Claim</th><th>Maturity</th><th>Evidence</th><th>Kill Condition</th><th>Proof Boundary</th></tr></thead><tbody><tr><td>1</td><td>Opening Note</td><td>If the mapping holds in two independent domains, the universality claim becomes serious.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>2</td><td>Quantum Superposition State</td><td>The wavefunction evolves according to the Schrödinger equation — a perfectly smooth, deterministic, reversible evolution.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>3</td><td>Quantum Superposition State</td><td>The measurement basis — what property you choose to measure — determines which eigenstates are available as outcomes.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>measurement</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>4</td><td>Quantum Superposition State</td><td>Choosing to measure spin-z gives different results than choosing to measure spin-x, even on the same particle.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>5</td><td>Quantum Superposition State</td><td>The system has entered a different regime. — The Structural Claim These five properties are not arbitrary.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>6</td><td>Property 2: No Definite Outcome Until Measurement</td><td>Days, years, centuries — the text is silent because the duration is irrelevant to the physics.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>7</td><td>Property 4: Observer Choice Determines Outcome</td><td>It is a specific claim: different measurement operators produce different eigenstates.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>measurement</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>8</td><td>Property 5: Post-Collapse Evolution Differs</td><td>The Same Shape in a Completely Different Domain One cross-domain mapping proves nothing.</td><td><b>Public Proof Claim</b><span>Level 7</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Boundary needed: currently reads stronger than Public Proof Claim.</td></tr>
+<tr><td>9</td><td>Collapsed system evolves from definite eigenstate, not from superposition</td><td>UNIVERSALITY CLAIM: When the same five-property structure appears in quantum superposition, phase transitions, and the Genesis Fall narrative — three independent domains — the structure is not coincidental.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>10</td><td>Collapsed system evolves from definite eigenstate, not from superposition</td><td>The physics reading makes a stronger claim: the two trees represent two distinct physical operators acting on the same system simultaneously.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>11</td><td>The Tree of Life: Coherence Stabilizer</td><td>The Redemption arc requires mortality as a structural feature.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>12</td><td>The Theology</td><td>Paul writes with clinical precision across three texts: &quot;Therefore, just as sin came into the world through one man, and death through sin, and so death spread to all men because all sinned.&quot; — Romans 5:12 &quot;For as by the one man&#x27;s disobedience the many were made sinners, so by the one man&#x27;s obedience the many will be made righteous.&quot; — Romans 5:19 &quot;For as in Adam all die, so also in Christ shall all be made alive.&quot; — 1 Corinthians 15:22 &quot;Adam was not deceived, but the woman was deceived and became a transgressor.&quot; — 1 Timothy 2:14 The doctrine of federal headship holds that Adam served as the representative head of humanity.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>13</td><td>Insufficient</td><td>Wigner&#x27;s Friend requires the external observer to be in a position to re-coherently superpose the internal observer&#x27;s system.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>14</td><td>Partially applicable</td><td>A system requires sufficient environmental entanglement to fully collapse.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>15</td><td>Category error</td><td>The Eve-Adam asymmetry implies that the universe does not treat all observers equivalently.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>16</td><td>Category error</td><td>The effect is small — roughly one part in ten thousand — but it is real, replicated, and implies that consciousness is not a passive observer of quantum systems.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>17</td><td>Category error</td><td>All six together constitute a body of evidence.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>18</td><td>Pattern 01</td><td>In current physics, light requires a source.</td><td><b>Metaphor</b><span>Level 1</span></td><td>source</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>19</td><td>Pattern 02</td><td>The particle does not have a definite spin until you measure it; measurement constitutes the definiteness.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>measurement</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>20</td><td>Pattern 05</td><td>In physics, boundary conditions determine which solutions to a differential equation are physically realizable.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr>
+<tr><td>21</td><td>Pattern 05</td><td>The serpent attacks the boundary condition directly — &quot;you will not surely die&quot; — because destabilizing the boundary condition is the mechanism by which the system is pushed toward the measurement event.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>measurement</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>22</td><td>Pattern 06</td><td>When the same logical structure appears in three independent domains, the universality claim becomes serious.</td><td><b>Structural Correspondence</b><span>Level 3</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Structural Correspondence, not a final proof.</td></tr>
+<tr><td>23</td><td>Pattern 06</td><td>It is an empirical claim about observer hierarchy that, if true, requires new physics.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>empirical</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>24</td><td>Falsification Criteria</td><td>If phase transitions fail to exhibit any of the five properties in the same structural relation, the universality claim collapses.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>25</td><td>Falsification Criteria</td><td>If current quantum mechanics — without modification — can account for a complete physical interaction producing zero wavefunction collapse, followed by a second identical interaction producing total collapse, then the &quot;new physics&quot; claim is unnecessary.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>26</td><td>Falsification Criteria</td><td>The 6.35σ result anchors the observer-authority claim.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>27</td><td>Falsification Criteria</td><td>The paper is not falsified by this alone, but the strongest physical evidence for observer authority is removed.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>28</td><td>The Audit</td><td>Every claim in this paper falls into one of three categories.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>29</td><td>Load-Bearing</td><td>It is testable physics, not interpretation.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>30</td><td>Load-Bearing</td><td>This is a negative claim about current theory.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>31</td><td>Load-Bearing</td><td>Dismissal requires engagement with the methodology, not with priors.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>32</td><td>Got Carried Away</td><td>Claims that overreach the evidence.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>33</td><td>Got Carried Away</td><td>The language is evocative and the John 1 connection is real, but &quot;constitutes reality&quot; is too strong for this paper&#x27;s evidence base.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>34</td><td>Got Carried Away</td><td>The Logos-as-observer claim requires a separate treatment.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>35</td><td>Got Carried Away</td><td>This is theologically defensible (Hebrews 8:5, 10:1) but the physics claim — that current quantum mechanics is a degraded approximation of a higher-coherence substrate — is extrapolation.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>36</td><td>Audit floor / red zone</td><td>Any claim that turns a structural resemblance into a proven mechanism belongs here until the math, experiment, or textual chain can carry the weight.</td><td><b>Metaphor</b><span>Level 1</span></td><td>experiment</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>37</td><td>Gradient zone / interpretive caution</td><td>Possible overstatement: language that sounds final should be read as a working model unless the article explicitly proves it.</td><td><b>Public Proof Claim</b><span>Level 7</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Boundary needed: currently reads stronger than Public Proof Claim.</td></tr>
+<tr><td>38</td><td>Executive Summary</td><td>PEAR-LAB&#x27;s 6.35σ anomaly anchors the empirical claim that observer role, not coupling strength, governs collapse.</td><td><b>Empirical Support</b><span>Level 6</span></td><td>empirical</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Empirical Support, not a final proof.</td></tr>
+<tr><td>39</td><td>Executive Summary</td><td>Rigor &amp; Kill Conditions Every claim is held to explicit falsification standards.</td><td><b>Metaphor</b><span>Level 1</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Metaphor, not a final proof.</td></tr>
+<tr><td>40</td><td>Mathematics</td><td>Every equation that appears in this article, collected in one place.</td><td><b>Formal Model</b><span>Level 4</span></td><td>No explicit evidence marker in sentence.</td><td>Needs an explicit failure case: what observation, logic result, or counterexample would make this claim false?</td><td>Current boundary: deterministic pass classifies this as Formal Model, not a final proof.</td></tr></tbody></table>
+    <p class="footer">Showing first 40 claims. Full canonical claim audit remains in the XLSX/JSON.</p>
+  </section>
+
+  <p class="footer">
+    Generated 2026-05-24T10:55:26 from X:\Backside\workflows\axioms.workflow\01_OUTBOX_REPORTS\gtq-03-first-quantum-state.paper-grade.json. Snapshot: not loaded.
+  </p>
+</main>
+</body>
+</html>

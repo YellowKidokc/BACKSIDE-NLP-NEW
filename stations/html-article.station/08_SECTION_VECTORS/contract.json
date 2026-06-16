@@ -1,0 +1,65 @@
+{
+  "lane_id": "08",
+  "folder": "08_SECTION_VECTORS",
+  "lane_name": "Section Vectors",
+  "pipeline_step": 3,
+  "owner": "worker-4 (round-1 swarm)",
+  "intent": "Embed every stable section_id as a reusable machine object. Prefer the existing sbert-embedder station / Infinity embedding service when reachable; if the service is unavailable, emit deterministic hash-based fallback vectors and mark provenance.mocked = true instead of blocking the workflow.",
+  "input": {
+    "requires": [
+      "02_SECTION_MAP/section-map.json",
+      "02_SECTION_MAP/section_packets/*.md (preferred when present)",
+      "03_YAML_METADATA/metadata.json (preferred for page_id, paper_uuid, address candidate)",
+      "configs/shared_lib/address.py (for shared naming assumptions)",
+      "stations/sbert-embedder.station/config.json"
+    ],
+    "format": "section-map.json supplies {paper_uuid, page_id?, sections:[{section_id, stable_uuid, heading_path, ordinal, packet_path, text_excerpt, word_count}]}. metadata.json supplies {page_id, title, source_file_name, address_string}. If upstream packets are missing, lane falls back to section text excerpts or the raw 00_DROP file.",
+    "mock_policy": "If 02 is missing, lane synthesizes a minimal section ledger from the raw drop file. If the SBERT/Infinity service is unavailable, lane emits deterministic hash vectors with provenance.mocked = true and vector_source = 'hash-fallback'."
+  },
+  "output": {
+    "produces": [
+      "08_SECTION_VECTORS/section-vectors.jsonl",
+      "08_SECTION_VECTORS/vector-metadata.json"
+    ],
+    "format": "section-vectors.jsonl is one JSON object per section with embedding payload, metadata, and provenance. vector-metadata.json is the page-level rollup including source mode, vector dimension, counts, nearest-neighbor hints, and loopback state."
+  },
+  "excel_columns": {
+    "tab_name": "Vector_Index",
+    "columns": [
+      { "name": "paper_uuid", "type": "string" },
+      { "name": "page_id", "type": "string" },
+      { "name": "section_id", "type": "string" },
+      { "name": "stable_uuid", "type": "string" },
+      { "name": "heading_path", "type": "string[]" },
+      { "name": "vector_dim", "type": "int" },
+      { "name": "vector_source", "type": "enum:infinity|hash-fallback|mocked-upstream" },
+      { "name": "embedding_norm", "type": "float" },
+      { "name": "text_hash", "type": "string" },
+      { "name": "provenance", "type": "enum:lane08|mocked|loopback" }
+    ]
+  },
+  "vector_policy": {
+    "preferred_station": "\\\\dlowenas\\brain\\Backside\\stations\\sbert-embedder.station",
+    "preferred_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "preferred_dimension": 384,
+    "normalization": "L2 normalize all embeddings before writing artifacts.",
+    "fap_overlap": "If an upstream FAP packet already contains section-level embeddings for the exact page_id + section_id set, consume those instead of re-embedding. Record source as 'fap-upstream'."
+  },
+  "loopback_conditions": [
+    "Section count in output differs from 02_SECTION_MAP section_count.",
+    "Any section resolves to empty text after packet/text-excerpt fallback.",
+    "Embedding service returns inconsistent dimensions across one run.",
+    "All section vectors are numerically identical for a multi-section document.",
+    "Synthetic upstream section map had to be built because 02 output was absent."
+  ],
+  "dependencies": {
+    "upstream_lanes": ["02"],
+    "soft_upstream_lanes": ["03"],
+    "downstream_lanes": ["09", "10", "15", "16"],
+    "stations": ["sbert-embedder.station"],
+    "models": ["Infinity embeddings endpoint for sentence-transformers/all-MiniLM-L6-v2", "hash fallback only when station path is unavailable"]
+  },
+  "confidence": "draft",
+  "version": "0.1.0",
+  "round": "round-1"
+}

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Reverse Method — Prove by Destruction</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0b0f;--card:#12141c;--row:#0e1018;--border:#1e2233;--border2:#2a3050;--text:#e8e6e1;--text2:#8a8d9b;--text3:#555869;--gold:#d4a853;--fail:#ef4444;--pass:#2dd4a0;--warn:#f59e0b;--step1:#ef4444;--step2:#f97316;--step3:#a0724a;--step4:#38bdf8;--step5:#a78bfa;--step6:#7c6340;--step7:#d4a853}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{font-family:'DM Sans',sans-serif;color:var(--text);background:var(--bg);min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(239,68,68,0.03),transparent 40%),radial-gradient(ellipse at 50% 100%,rgba(212,168,83,0.04),transparent 40%);pointer-events:none;z-index:0}
+.container{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:40px 24px 100px}
+
+.hero{text-align:center;padding:60px 0 48px;border-bottom:1px solid var(--border);margin-bottom:48px}
+.hero-tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--fail);margin-bottom:16px}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4.5vw,52px);font-weight:700;line-height:1.1;margin-bottom:18px}
+.hero .sub{font-size:15px;color:var(--text2);max-width:650px;margin:0 auto;line-height:1.8}
+
+.anchor{font-family:'Cormorant Garamond',serif;font-size:20px;font-style:italic;color:var(--gold);text-align:center;padding:24px;margin:40px 0;border-left:2px solid rgba(212,168,83,0.3);border-right:2px solid rgba(212,168,83,0.3);background:rgba(212,168,83,0.03);border-radius:8px}
+
+/* Compare */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:40px 0}
+@media(max-width:700px){.compare{grid-template-columns:1fr}}
+.compare-side{padding:24px;border-radius:12px;background:var(--card);border:1px solid var(--border)}
+.compare-side.old{border-left:3px solid var(--text3)}
+.compare-side.new{border-left:3px solid var(--fail)}
+.compare-side h3{font-family:'Cormorant Garamond',serif;font-size:22px;margin-bottom:12px}
+.compare-side.old h3{color:var(--text3)}
+.compare-side.new h3{color:var(--fail)}
+.compare-side p{font-size:14px;color:var(--text2);line-height:1.7}
+.compare-side strong{color:var(--text)}
+
+/* Steps */
+.step{padding:48px 0;border-bottom:1px solid var(--border)}
+.step:last-of-type{border-bottom:none}
+.step-header{display:grid;grid-template-columns:80px 1fr;gap:20px;align-items:start;margin-bottom:24px}
+.step-badge{text-align:center}
+.step-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;line-height:1}
+.step-from{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-top:4px}
+.step-meta .step-tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.step-meta .step-title{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,3vw,32px);font-weight:700;margin-bottom:4px}
+.step-meta .step-function{font-size:13px;color:var(--text3)}
+
+.step-body{display:grid;grid-template-columns:200px 1fr;gap:28px;align-items:start}
+@media(max-width:800px){.step-body{grid-template-columns:1fr}}
+
+/* Mini tree in each step */
+.mini-tree{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center}
+.mini-tree svg{width:100%;max-width:170px;height:auto}
+.mini-tree .zone-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-top:8px}
+
+.step-text{}
+.step-story{font-size:15px;color:var(--text2);line-height:1.8;margin-bottom:16px}
+.step-story strong{color:var(--text)}
+.step-insight{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--gold);line-height:1.6;padding:12px 16px;border-left:2px solid rgba(212,168,83,0.3);margin-bottom:16px;background:rgba(212,168,83,0.02);border-radius:0 6px 6px 0}
+
+/* Transform badge */
+.transform{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--row);border-radius:6px;border:1px solid var(--border);margin-bottom:16px;font-family:'JetBrains Mono',monospace;font-size:12px}
+.transform .from{color:var(--text3)}
+.transform .arrow{color:var(--gold)}
+.transform .to{color:var(--text);font-weight:600}
+
+/* Physics example */
+.phys-ex{background:rgba(56,189,248,0.04);border:1px solid rgba(56,189,248,0.12);border-radius:8px;padding:16px}
+.phys-ex h4{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#38bdf8;margin-bottom:8px}
+.phys-ex p{font-size:13px;color:var(--text2);line-height:1.7}
+.phys-ex strong{color:var(--text)}
+
+/* Reader question */
+.reader-q{margin-top:14px;padding:10px 14px;background:rgba(212,168,83,0.04);border:1px solid rgba(212,168,83,0.15);border-radius:6px;font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--gold)}
+
+/* Summary */
+.summary-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin:32px 0}
+@media(max-width:800px){.summary-grid{grid-template-columns:repeat(4,1fr)}}
+.sum-card{text-align:center;padding:14px 8px;background:var(--card);border:1px solid var(--border);border-radius:8px}
+.sum-card .sum-num{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;margin-bottom:4px}
+.sum-card .sum-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--text3)}
+.sum-card .sum-verb{font-size:12px;color:var(--text2);margin-top:4px}
+
+.footer{text-align:center;padding:48px 24px;border-top:1px solid var(--border);margin-top:32px}
+.footer .sig{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--text);margin-bottom:8px}
+.footer p{font-size:12px;color:var(--text3);line-height:1.7}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div class="hero-tag">The 7Q Framework — Reverse Direction</div>
+  <h1>Start With Destruction.<br>End With a Name.</h1>
+  <p class="sub">The traditional scientific method starts with a hypothesis and tries to confirm it. This method starts with everything that could kill your idea — and whatever survives earns its identity last. The reader doesn't have to trust you. They watched everything else die.</p>
+</div>
+
+<div class="compare">
+  <div class="compare-side old">
+    <h3>Traditional (Forward)</h3>
+    <p>Start with hypothesis → gather evidence → try to confirm → announce conclusion.</p>
+    <p style="margin-top:8px"><strong>Problem:</strong> Identity is assumed first. The hypothesis carries its name from the beginning. Confirmation bias is baked in. You're trying to prove something you already believe.</p>
+  </div>
+  <div class="compare-side new">
+    <h3>Reverse (7Q)</h3>
+    <p>Start with destruction → extract consequences → trace foundations → attach evidence → state what survived → locate it → name it last.</p>
+    <p style="margin-top:8px"><strong>Advantage:</strong> Identity is earned, not assumed. The conclusion is what's left standing after everything else failed. You didn't prove it — you watched it survive.</p>
+  </div>
+</div>
+
+<div class="anchor">The traditional method starts with a seed and hopes it grows. The reverse method starts with a forest fire and names what's still standing.</div>
+
+<!-- ═══════ STEP 1: Q7 — DESTROY ═══════ -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-badge"><div class="step-num" style="color:var(--step1)">1</div><div class="step-from">from Q7</div></div>
+    <div class="step-meta">
+      <div class="step-tag" style="color:var(--step1)">Destroy</div>
+      <div class="step-title">Show Every Way It Could Die</div>
+      <div class="step-function">Function: Define failure FIRST. Before you build anything, map the kill zone.</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="mini-tree">
+      <svg viewBox="0 0 170 280" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="230" width="170" height="50" fill="#2a2035" opacity="0.1"/>
+        <rect x="0" y="170" width="170" height="60" fill="#3d2b1f" opacity="0.1"/>
+        <rect x="0" y="155" width="170" height="15" fill="#4a3728" opacity="0.1"/>
+        <rect x="76" y="80" width="18" height="75" rx="2" fill="#5c3d2e" opacity="0.15"/>
+        <ellipse cx="85" cy="55" rx="55" ry="40" fill="#2d5a2a" opacity="0.1"/>
+        <!-- AXE glowing -->
+        <line x1="35" y1="120" x2="73" y2="120" stroke="#ef4444" stroke-width="3"/>
+        <polygon points="30,112 35,120 30,128 24,120" fill="#ef4444" opacity="0.9"/>
+        <path d="M73 120 L83 113 M73 120 L83 127 M73 120 L90 120" stroke="#ef4444" stroke-width="1.5" opacity="0.6"/>
+      </svg>
+      <div class="zone-tag" style="color:var(--step1)">The Axe Falls First</div>
+    </div>
+    <div class="step-text">
+      <div class="transform"><span class="from">unknown</span><span class="arrow">→</span><span class="to">vulnerable</span></div>
+      <div class="step-story">You don't start by saying what you believe. You start by listing <strong>every way your idea can die.</strong> Self-refutation. Infinite regress. Empirical contradiction. Logical incoherence. Explanatory failure. Five death conditions, named explicitly, before you do anything else.</div>
+      <div class="step-insight">"If you can't name how it dies, you can't know if it's alive."</div>
+      <div class="phys-ex">
+        <h4>Physics Example — General Relativity, Reversed</h4>
+        <p>Before stating what GR claims, start here: <strong>GR dies if</strong> light doesn't bend around mass. GR dies if gravitational waves don't exist. GR dies if GPS doesn't need relativistic correction. GR dies if spacetime singularities are impossible. GR dies if the equivalence principle is wrong. Five kill conditions, laid out before any argument is made.</p>
+      </div>
+      <div class="reader-q">The question for the reader: "These are the ways this idea dies. Watch what happens next."</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ STEP 2: Q6 — FORCE ═══════ -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-badge"><div class="step-num" style="color:var(--step2)">2</div><div class="step-from">from Q6</div></div>
+    <div class="step-meta">
+      <div class="step-tag" style="color:var(--step2)">Force</div>
+      <div class="step-title">Extract What the Survivor Produces</div>
+      <div class="step-function">Function: If this survives step 1, what does it NECESSARILY generate?</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="mini-tree">
+      <svg viewBox="0 0 170 280" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="230" width="170" height="50" fill="#2a2035" opacity="0.1"/>
+        <rect x="0" y="170" width="170" height="60" fill="#3d2b1f" opacity="0.1"/>
+        <rect x="0" y="155" width="170" height="15" fill="#4a3728" opacity="0.1"/>
+        <rect x="76" y="80" width="18" height="75" rx="2" fill="#5c3d2e" opacity="0.15"/>
+        <!-- Canopy highlighted -->
+        <ellipse cx="85" cy="55" rx="58" ry="42" fill="#2d5a2a" opacity="0.7"/>
+        <ellipse cx="65" cy="45" rx="35" ry="28" fill="#3a6b35" opacity="0.8"/>
+        <ellipse cx="108" cy="50" rx="30" ry="25" fill="#336630" opacity="0.75"/>
+        <circle cx="50" cy="70" r="5" fill="#d4a853"/><circle cx="125" cy="65" r="5" fill="#d4a853"/><circle cx="85" cy="30" r="4" fill="#d4a853"/>
+        <!-- Seeds falling -->
+        <ellipse cx="47" cy="85" rx="3" ry="2" fill="#d4a853" opacity="0.5"/>
+        <line x1="47" y1="88" x2="40" y2="155" stroke="#d4a853" stroke-width="0.5" stroke-dasharray="2,3" opacity="0.3"/>
+      </svg>
+      <div class="zone-tag" style="color:var(--step2)">What It Produces</div>
+    </div>
+    <div class="step-text">
+      <div class="transform"><span class="from">vulnerable</span><span class="arrow">→</span><span class="to">constrained</span></div>
+      <div class="step-story">The kill conditions from step 1 didn't fire. The idea survived. Now ask: <strong>what does the survivor necessarily produce?</strong> Not what you hope it produces — what it MUST produce if it's true. Predictions. Constraints. Consequences in other domains. If it produces nothing, it's a dead tree — standing but fruitless.</div>
+      <div class="step-insight">"A surviving claim that generates nothing downstream explains nothing."</div>
+      <div class="phys-ex">
+        <h4>What GR Forces</h4>
+        <p>If spacetime curves around mass, then: <strong>black holes must exist</strong> (extreme curvature). <strong>Gravitational waves must propagate</strong> (ripples in curvature). <strong>Time must run slower near mass</strong> (metric distortion). <strong>Light must bend around galaxies</strong> (geodesic paths through curved space). Einstein didn't predict most of these — the math forced them.</p>
+      </div>
+      <div class="reader-q">The question for the reader: "This is not a hypothesis anymore. This is what must follow."</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ STEP 3: Q5 — GROUND ═══════ -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-badge"><div class="step-num" style="color:var(--step3)">3</div><div class="step-from">from Q5</div></div>
+    <div class="step-meta">
+      <div class="step-tag" style="color:var(--step3)">Ground</div>
+      <div class="step-title">Show What It Stands On</div>
+      <div class="step-function">Function: Trace the foundations. Where does the chain end?</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="mini-tree">
+      <svg viewBox="0 0 170 280" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="230" width="170" height="50" fill="#2a2035" opacity="0.3"/>
+        <!-- Roots highlighted -->
+        <rect x="0" y="170" width="170" height="60" fill="#3d2b1f" opacity="0.7"/>
+        <path d="M85 170 C65 190 30 200 10 225" stroke="#a0724a" stroke-width="3.5" fill="none"/>
+        <path d="M85 170 C105 190 140 200 160 225" stroke="#a0724a" stroke-width="3.5" fill="none"/>
+        <path d="M85 170 C85 195 85 215 85 235" stroke="#a0724a" stroke-width="2.5" fill="none"/>
+        <circle cx="85" cy="238" r="3" fill="#a0724a" opacity="0.6"/>
+        <rect x="0" y="155" width="170" height="15" fill="#4a3728" opacity="0.15"/>
+        <rect x="76" y="80" width="18" height="75" rx="2" fill="#5c3d2e" opacity="0.1"/>
+        <ellipse cx="85" cy="55" rx="55" ry="40" fill="#2d5a2a" opacity="0.1"/>
+      </svg>
+      <div class="zone-tag" style="color:var(--step3)">The Root System</div>
+    </div>
+    <div class="step-text">
+      <div class="transform"><span class="from">constrained</span><span class="arrow">→</span><span class="to">grounded</span></div>
+      <div class="step-story">You've shown it can't be easily killed. You've shown what it forces. Now show <strong>what it stands on.</strong> What assumptions are required? What must already be true? Trace the chain down. Does it end at bedrock (axiom), at assertion (brute fact), or does it loop back on itself (circularity)?</div>
+      <div class="step-insight">"The reader now sees the foundations — not because you claimed them, but because the structure required them."</div>
+      <div class="phys-ex">
+        <h4>What GR Stands On</h4>
+        <p>Equivalence principle (gravity = acceleration). Riemannian geometry (smooth manifolds). Constancy of c. Conservation of energy-momentum. The chain terminates at the equivalence principle — <strong>an axiom, not a derived result.</strong> And the smooth manifold assumption is the hidden root that might be wrong at quantum scales.</p>
+      </div>
+      <div class="reader-q">The question for the reader: "Now you see what holds it up. You decide if those foundations are solid."</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ STEP 4: Q4 — SUPPORT ═══════ -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-badge"><div class="step-num" style="color:var(--step4)">4</div><div class="step-from">from Q4</div></div>
+    <div class="step-meta">
+      <div class="step-tag" style="color:var(--step4)">Support</div>
+      <div class="step-title">Bring Evidence AFTER Survival</div>
+      <div class="step-function">Function: Evidence confirms what survived — it doesn't build the argument.</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="mini-tree">
+      <svg viewBox="0 0 170 280" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="230" width="170" height="50" fill="#2a2035" opacity="0.1"/>
+        <rect x="0" y="170" width="170" height="60" fill="#3d2b1f" opacity="0.1"/>
+        <rect x="0" y="155" width="170" height="15" fill="#4a3728" opacity="0.15"/>
+        <rect x="76" y="80" width="18" height="75" rx="2" fill="#5c3d2e" opacity="0.15"/>
+        <ellipse cx="85" cy="55" rx="55" ry="40" fill="#2d5a2a" opacity="0.1"/>
+        <!-- Rain highlighted -->
+        <circle cx="85" cy="12" r="14" fill="#38bdf8" opacity="0.5"/>
+        <line x1="45" y1="22" x2="55" y2="60" stroke="#38bdf8" stroke-width="1.5" opacity="0.7"/>
+        <line x1="80" y1="18" x2="85" y2="56" stroke="#38bdf8" stroke-width="1.5" opacity="0.6"/>
+        <line x1="120" y1="20" x2="115" y2="58" stroke="#38bdf8" stroke-width="1.5" opacity="0.7"/>
+        <line x1="140" y1="28" x2="135" y2="66" stroke="#38bdf8" stroke-width="1" opacity="0.4"/>
+      </svg>
+      <div class="zone-tag" style="color:var(--step4)">Evidence After Survival</div>
+    </div>
+    <div class="step-text">
+      <div class="transform"><span class="from">grounded</span><span class="arrow">→</span><span class="to">supported</span></div>
+      <div class="step-story">Notice the order. In the forward direction, evidence comes early — you try to prove your hypothesis. <strong>In reverse, evidence comes AFTER the structure has already survived destruction.</strong> Evidence here is confirmation, not construction. The argument was already built by steps 1-3. Now you're showing the data agrees.</div>
+      <div class="step-insight">"The evidence didn't build the case. It confirmed what survived."</div>
+      <div class="phys-ex">
+        <h4>Evidence Arrives Late — And It's Devastating</h4>
+        <p>Mercury's precession: predicted exactly. Light bending: confirmed 1919. Gravitational waves: detected 2015. GPS corrections: working daily. By this point in the reverse argument, the reader has already seen: what kills it, what it forces, what it stands on. <strong>The evidence landing now isn't persuasion — it's confirmation of a structure that was already standing.</strong></p>
+      </div>
+      <div class="reader-q">The question for the reader: "The structure survived. The data matches. This is not persuasion — this is confirmation."</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ STEP 5: Q3 — STATE ═══════ -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-badge"><div class="step-num" style="color:var(--step5)">5</div><div class="step-from">from Q3</div></div>
+    <div class="step-meta">
+      <div class="step-tag" style="color:var(--step5)">State</div>
+      <div class="step-title">The Claim Is Now a Conclusion</div>
+      <div class="step-function">Function: State precisely what survived. This is not a hypothesis anymore.</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="mini-tree">
+      <svg viewBox="0 0 170 280" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="230" width="170" height="50" fill="#2a2035" opacity="0.1"/>
+        <rect x="0" y="170" width="170" height="60" fill="#3d2b1f" opacity="0.1"/>
+        <rect x="0" y="155" width="170" height="15" fill="#4a3728" opacity="0.15"/>
+        <!-- Trunk highlighted -->
+        <rect x="76" y="80" width="18" height="75" rx="2" fill="#5c3d2e" opacity="0.8"/>
+        <line x1="85" y1="150" x2="85" y2="85" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <polygon points="80,88 85,78 90,88" fill="#a78bfa"/>
+        <ellipse cx="85" cy="55" rx="55" ry="40" fill="#2d5a2a" opacity="0.1"/>
+      </svg>
+      <div class="zone-tag" style="color:var(--step5)">Direction Committed</div>
+    </div>
+    <div class="step-text">
+      <div class="transform"><span class="from">supported</span><span class="arrow">→</span><span class="to">stated</span></div>
+      <div class="step-story">Only NOW do you state the claim precisely. It's no longer a hypothesis. <strong>It's a conclusion — what's left after destruction, forced consequences, foundation tracing, and evidence confirmation.</strong> The reader has watched the entire process. The claim doesn't need to be believed. It needs to be acknowledged as what survived.</div>
+      <div class="step-insight">"This is not a hypothesis. This is what's left."</div>
+      <div class="phys-ex">
+        <h4>The Statement That Earned Its Right</h4>
+        <p><strong>"The distribution of mass-energy determines the curvature of spacetime, and free-falling objects follow geodesics through that curvature."</strong> Notice: this sentence appears at step 5, not step 1. The reader already knows what kills it, what it forces, what it stands on, and what data confirms it. The statement is a summary, not a starting point.</p>
+      </div>
+      <div class="reader-q">The question for the reader: "This is not a hypothesis. This is what's left."</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ STEP 6: Q2 — GENERALIZE ═══════ -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-badge"><div class="step-num" style="color:var(--step6)">6</div><div class="step-from">from Q2</div></div>
+    <div class="step-meta">
+      <div class="step-tag" style="color:var(--step6)">Generalize</div>
+      <div class="step-title">Show It Holds Across Domains</div>
+      <div class="step-function">Function: The survivor isn't trapped in one field. Place it in the broader landscape.</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="mini-tree">
+      <svg viewBox="0 0 170 280" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="230" width="170" height="50" fill="#2a2035" opacity="0.1"/>
+        <rect x="0" y="170" width="170" height="60" fill="#3d2b1f" opacity="0.1"/>
+        <!-- Soil highlighted — different soil types -->
+        <rect x="0" y="155" width="170" height="15" fill="#4a3728" opacity="0.8"/>
+        <rect x="0" y="155" width="56" height="15" fill="#5a4535" opacity="0.6"/>
+        <rect x="57" y="155" width="56" height="15" fill="#4a3728" opacity="0.6"/>
+        <rect x="114" y="155" width="56" height="15" fill="#6b5540" opacity="0.6"/>
+        <text x="28" y="163" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="5" fill="#8a8d9b">physics</text>
+        <text x="85" y="163" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="5" fill="#8a8d9b">math</text>
+        <text x="141" y="163" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="5" fill="#8a8d9b">info</text>
+        <rect x="76" y="80" width="18" height="75" rx="2" fill="#5c3d2e" opacity="0.1"/>
+        <ellipse cx="85" cy="55" rx="55" ry="40" fill="#2d5a2a" opacity="0.1"/>
+      </svg>
+      <div class="zone-tag" style="color:var(--step6)">Multiple Soils, Same Tree</div>
+    </div>
+    <div class="step-text">
+      <div class="transform"><span class="from">stated</span><span class="arrow">→</span><span class="to">located</span></div>
+      <div class="step-story">The claim survived, produced consequences, has foundations, was confirmed by data, and has been precisely stated. Now show <strong>it isn't trapped in one domain.</strong> Does the same structure appear elsewhere? Can you swap the variable labels and the architecture holds? If yes — that's isomorphism, and it means you found something real, not just local.</div>
+      <div class="step-insight">"This isn't local. It survives across domains."</div>
+      <div class="phys-ex">
+        <h4>GR's Structure Is Not Physics-Only</h4>
+        <p>Riemannian geometry appears in machine learning (manifold learning), economics (curved utility surfaces), information theory (Fisher information geometry). <strong>The mathematical structure GR depends on exists independently of physics.</strong> That's not analogy — it's structural isomorphism. The architecture holds when you change the labels.</p>
+      </div>
+      <div class="reader-q">The question for the reader: "This isn't local. It survives across domains."</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ STEP 7: Q1 — NAME ═══════ -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-badge"><div class="step-num" style="color:var(--step7)">7</div><div class="step-from">from Q1</div></div>
+    <div class="step-meta">
+      <div class="step-tag" style="color:var(--step7)">Name</div>
+      <div class="step-title">Identity Earned Through Survival</div>
+      <div class="step-function">Function: Name it LAST. Everything that could have died is dead. What remains has a name.</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="mini-tree">
+      <svg viewBox="0 0 170 280" xmlns="http://www.w3.org/2000/svg">
+        <!-- Full tree, all visible, golden glow -->
+        <rect x="0" y="230" width="170" height="50" fill="#2a2035" opacity="0.3"/>
+        <rect x="0" y="170" width="170" height="60" fill="#3d2b1f" opacity="0.5"/>
+        <path d="M85 170 C65 190 30 200 10 225" stroke="#a0724a" stroke-width="2.5" fill="none" opacity="0.6"/>
+        <path d="M85 170 C105 190 140 200 160 225" stroke="#a0724a" stroke-width="2.5" fill="none" opacity="0.6"/>
+        <rect x="0" y="155" width="170" height="15" fill="#4a3728" opacity="0.5"/>
+        <rect x="76" y="80" width="18" height="75" rx="2" fill="#5c3d2e" opacity="0.7"/>
+        <ellipse cx="85" cy="55" rx="58" ry="42" fill="#2d5a2a" opacity="0.7"/>
+        <ellipse cx="65" cy="45" rx="35" ry="28" fill="#3a6b35" opacity="0.7"/>
+        <ellipse cx="108" cy="50" rx="30" ry="25" fill="#336630" opacity="0.7"/>
+        <circle cx="50" cy="70" r="5" fill="#d4a853" opacity="0.8"/>
+        <circle cx="125" cy="65" r="5" fill="#d4a853" opacity="0.8"/>
+        <circle cx="85" cy="30" r="4" fill="#d4a853" opacity="0.8"/>
+        <!-- Golden glow -->
+        <ellipse cx="85" cy="140" rx="75" ry="120" fill="none" stroke="#d4a853" stroke-width="0.5" opacity="0.15"/>
+        <ellipse cx="85" cy="140" rx="60" ry="100" fill="none" stroke="#d4a853" stroke-width="0.5" opacity="0.1"/>
+        <!-- Seed at soil surface — the beginning -->
+        <ellipse cx="85" cy="160" rx="5" ry="3" fill="#d4a853" opacity="0.6"/>
+      </svg>
+      <div class="zone-tag" style="color:var(--step7)">The Full Tree — Named</div>
+    </div>
+    <div class="step-text">
+      <div class="transform"><span class="from">located</span><span class="arrow">→</span><span class="to">defined (earned)</span></div>
+      <div class="step-story">The tree is fully visible now. Every layer has been examined — axe wound, canopy, roots, rain, trunk, soil. <strong>Only NOW do you name it.</strong> The identity is not assumed. It's earned. Everything that could have died is dead. What remains has been tested, traced, supported, stated, and generalized. Now it gets a name — because it survived the process of being everything else first.</div>
+      <div class="step-insight">"Now you know what it is. Because you watched everything else fail."</div>
+      <div class="phys-ex">
+        <h4>General Relativity — Named Last</h4>
+        <p>After all of that — the kill conditions it survived, the consequences it forced, the foundations it stands on, the evidence that confirmed it, the precise statement, the cross-domain presence — NOW you can call it <strong>"General Relativity: a foundational causal theory of spacetime curvature, derived from the equivalence principle, confirmed across 100+ years, with one known open wound at quantum scales."</strong> That name means something because it was earned.</p>
+      </div>
+      <div class="reader-q">The question for the reader: "Now you know what it is. Because you watched everything else fail."</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ SUMMARY ═══════ -->
+<div class="step" style="border-bottom:none">
+  <div class="s-tag" style="color:var(--gold)">The Full Sequence</div>
+  <div class="s-title">Seven Steps. One Direction. Identity Earned.</div>
+  <div class="summary-grid">
+    <div class="sum-card"><div class="sum-num" style="color:var(--step1)">1</div><div class="sum-label">Q7</div><div class="sum-verb">Destroy</div></div>
+    <div class="sum-card"><div class="sum-num" style="color:var(--step2)">2</div><div class="sum-label">Q6</div><div class="sum-verb">Force</div></div>
+    <div class="sum-card"><div class="sum-num" style="color:var(--step3)">3</div><div class="sum-label">Q5</div><div class="sum-verb">Ground</div></div>
+    <div class="sum-card"><div class="sum-num" style="color:var(--step4)">4</div><div class="sum-label">Q4</div><div class="sum-verb">Support</div></div>
+    <div class="sum-card"><div class="sum-num" style="color:var(--step5)">5</div><div class="sum-label">Q3</div><div class="sum-verb">State</div></div>
+    <div class="sum-card"><div class="sum-num" style="color:var(--step6)">6</div><div class="sum-label">Q2</div><div class="sum-verb">Generalize</div></div>
+    <div class="sum-card"><div class="sum-num" style="color:var(--step7)">7</div><div class="sum-label">Q1</div><div class="sum-verb">Name</div></div>
+  </div>
+  <div class="anchor">Death condition → consequence → dependency → evidence → assertion → location → identity.<br><br>Same seven questions. Reverse order. The conclusion doesn't need to be believed — the reader watched everything else die.</div>
+</div>
+
+<div class="footer">
+  <div class="sig">Start with destruction. End with a name.<br>If it survives, it earned the right to exist.</div>
+  <p style="margin-top:8px"><strong>David Lowe · POF 2828 · Theophysics</strong></p>
+  <p>Companion to: The 7Q Framework</p>
+</div>
+
+</div>
+</body>
+</html>

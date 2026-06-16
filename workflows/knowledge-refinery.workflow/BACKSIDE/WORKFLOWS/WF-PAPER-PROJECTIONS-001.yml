@@ -1,0 +1,96 @@
+workflow_id: WF-PAPER-PROJECTIONS-001
+name: Paper Projection Pipeline
+input: canonical_paper_packet
+status: draft
+
+contract:
+  source_of_truth: paper-snapshot.json
+  trace_required: true
+  rule: >
+    The academic version is generated first from the source article and canonical
+    paper snapshot. The reader layer then defines academic terms above an
+    8th-grade level and creates analogies only for recurring concepts. Neither
+    layer may create new claims, erase limits, or bypass trace IDs.
+
+stations:
+  - station_id: ST-CONV-001
+    folder: BACKSIDE/STATIONS/stations/document_converter
+    in: routing.yml
+    out:
+      - conversion_report.yml
+      - source.md
+
+  - station_id: ST-CLAIM-001
+    folder: BACKSIDE/STATIONS/stations/claim_extractor
+    in:
+      - source.md
+      - trace-ledger.json
+    out:
+      - claims.json
+      - claims.md
+
+  - station_id: ST-SUM-001
+    folder: BACKSIDE/STATIONS/stations/lossless_summary
+    in:
+      - source.md
+      - claims.json
+    out:
+      - summary.lossless.json
+      - summary.lossless.md
+
+  - station_id: ST-7QS-009
+    folder: BACKSIDE/STATIONS/stations/7q_forward
+    in: source.md
+    out: forward_7q.json
+
+  - station_id: ST-7QS-010
+    folder: BACKSIDE/STATIONS/stations/7q_reverse
+    in: source.md
+    out: reverse_7q.json
+
+  - station_id: ST-7QS-011
+    folder: BACKSIDE/STATIONS/stations/7q_evidence
+    in: source.md
+    out: evidence_7q.json
+
+  - station_id: ST-PROJ-009
+    folder: BACKSIDE/STATIONS/stations/academic_projection
+    in:
+      - source.md
+      - paper-snapshot.json
+      - trace-ledger.json
+    out:
+      - projection.academic.json
+      - projection.academic.md
+
+  - station_id: ST-PROJ-010
+    folder: BACKSIDE/STATIONS/stations/reader_bridge
+    in:
+      - projection.academic.md
+      - projection.academic.json
+      - paper-snapshot.json
+      - trace-ledger.json
+    out:
+      - reader_bridge.json
+      - reader_bridge.md
+
+gates:
+  projection_integrity:
+    fail_to: 99_ERROR
+    review_to: 03_REVIEW
+    checks:
+      - paper_snapshot_exists
+      - trace_ledger_exists
+      - no_new_claims
+      - epistemic_tiers_preserved
+      - defeat_conditions_preserved
+      - reader_bridge_definitions_trace_to_academic_spans
+      - analogies_marked_as_analogies
+
+outputs:
+  human_review:
+    - projection.academic.md
+    - reader_bridge.md
+  machine_review:
+    - projection.academic.json
+    - reader_bridge.json

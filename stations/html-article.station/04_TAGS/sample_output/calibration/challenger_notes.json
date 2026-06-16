@@ -1,0 +1,49 @@
+{
+  "lane": "04_TAGS",
+  "worker": "claude-code-worker-2",
+  "run_id": "2026-05-22T20:30:00Z",
+  "instruction": "Per opus #1168 standing-order: be concrete, not vague. If anything load-bearing, fix it or send to loopback.",
+  "overlooked": [
+    {
+      "id": "ovr-04-01",
+      "issue": "Vector recompute consistency gate is structurally unable to fire on the T axis.",
+      "detail": "configs/shared_lib/address.py:score_vector hardcodes T=3 unconditionally (line 27, no branching). The contract advertises lane 04 as a drift-detector against lane 02's vector, but T can never disagree because both lanes pull from the same hardcoded constant. Drift on T-dominated articles (temporal/sequential) will go undetected. Fix is either in shared_lib (make T context-dependent) or in lane 04 (exclude T from drift comparison and document the exclusion).",
+      "severity": "load-bearing",
+      "fix_owner": "shared_lib + lane 04"
+    },
+    {
+      "id": "ovr-04-02",
+      "issue": "Contract declares section-map.json as input but does not require block_types to be present in upstream emit.",
+      "detail": "score_vector() needs block_types[] to produce a faithful vector. If lane 02 emits a section_map without block_types (only heading_path + text), lane 04 falls back to text-keyword heuristics only and the 'consistency gate' becomes a self-comparison, not an upstream check. Need to either pin block_types as a required field in section-map.json or document the degraded mode explicitly in contract.input.format.",
+      "severity": "load-bearing",
+      "fix_owner": "lane 04 contract + cross-lane handshake with worker-1"
+    },
+    {
+      "id": "ovr-04-03",
+      "issue": "master_equation_uuid field in SemanticTag has no lookup source.",
+      "detail": "The schema carries master_equation_uuid but there is no canonical registry pointer in the contract or run_prompt. A worker will either leave it blank or hallucinate a UUID. Need a configs/canon-pointers.json (or similar) that names the canonical master_equation_uuid and lets lane 04 reference it deterministically.",
+      "severity": "suggestive",
+      "fix_owner": "configs + canon channel"
+    }
+  ],
+  "attack_surfaces": [
+    {
+      "id": "atk-04-01",
+      "issue": "C=3 keyword trigger is short and matchable — adversary can force DRIFT and stall the pipeline.",
+      "detail": "score_vector triggers C=3 on six keywords: coherence, unity, synthesis, integration, unification, 'single artifact', 'self-contained'. A motivated section author (or upstream rewrite) can sprinkle any of these and force lane 04 to disagree with lane 02 on C, triggering loopback. Lane 02's address recomputation uses the same heuristics so the address can be made unstable. Mitigation: require at least two distinct synthesis signals AND a structural marker (e.g., explicit isomorphism block) for C=3.",
+      "severity": "load-bearing"
+    },
+    {
+      "id": "atk-04-02",
+      "issue": "Workflow tags (needs-evidence, kill-condition, etc.) carry no source-quote requirement.",
+      "detail": "tag_type=workflow rows in the sample have source_quote=null. Downstream (graph-links, rigor) trust these flags. A model can emit needs-evidence on a section that doesn't claim anything empirical, and rigor will spend cycles asking for citations that aren't needed. Schema fix: SemanticTag.source_quote should be required when tag_type in {workflow, axiom, law, master_eq}.",
+      "severity": "load-bearing"
+    },
+    {
+      "id": "atk-04-03",
+      "issue": "Sample tag_ids are LLM-generated strings, not stable_uuid(...) outputs.",
+      "detail": "run_prompt.md instructs the runner to use shared_lib/ids.py:stable_uuid('tag', page_id, section_id, tag_type, label) for tag_id. The calibration sample uses readable strings like 'tag-cal-s01-chi-G' for human inspection. Two runs of the same article will produce non-deterministic tag_ids unless the runner is wired strictly. Need either a CI check that tag_id matches stable_uuid output, or accept non-determinism and document it.",
+      "severity": "suggestive"
+    }
+  ]
+}

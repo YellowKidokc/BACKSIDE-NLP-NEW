@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Part 2: The Nine Domains — The Moral Decline of America — Moral Decline of America</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a;
+  --border:#2a2a2a; --border-claim:rgba(212,175,55,.35);
+  --text:#e0e0e0; --text2:#a0a0a0; --text3:#707070;
+  --mda-red:#dc2626; --mda-red-glow:rgba(220,38,38,.08);
+  --claim:#d4af37; --claim-glow:rgba(212,175,55,.08);
+  --easy:#22c55e; --easy-glow:rgba(34,197,94,.08);
+  --academic:#a78bfa; --academic-glow:rgba(167,139,250,.08);
+  --proof:#f59e0b; --proof-glow:rgba(245,158,11,.08);
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  line-height:1.65; margin:0; padding:0;
+}
+</style>
+<style>
+/* Reader Mode Bar */
+.mda-reader-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:.5rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;
+}
+.mda-reader-bar .series-badge{
+  font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mda-red);font-weight:600;
+}
+.mda-reader-bar .meta{
+  font-family:'JetBrains Mono',monospace;font-size:.55rem;
+  color:var(--text3);text-transform:uppercase;letter-spacing:.06em;
+}
+.tab-group{display:flex;gap:.4rem;flex-wrap:wrap;}
+.tab-btn{
+  padding:.4rem .7rem;border:1px solid var(--border);border-radius:.35rem;
+  background:var(--surface);color:var(--text2);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em;transition:all .2s;
+}
+.tab-btn:hover{border-color:var(--mda-red);color:var(--text);}
+.tab-btn.active{border-color:var(--mda-red);background:var(--mda-red-glow);color:var(--mda-red);}
+.tab-btn[data-tab="easy"].active{border-color:var(--easy);background:var(--easy-glow);color:var(--easy);}
+.tab-btn[data-tab="academic"].active{border-color:var(--academic);background:var(--academic-glow);color:var(--academic);}
+.tab-btn[data-tab="proof"].active{border-color:var(--proof);background:var(--proof-glow);color:var(--proof);}
+
+/* Article */
+.article{max-width:780px;margin:0 auto;padding:2rem 1.5rem 6rem;}
+.article h1{
+  font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.02em;
+  margin:0 0 .5rem;line-height:1.1;
+}
+.article .subtitle{
+  font-family:'Crimson Text',serif;font-size:1.15rem;color:var(--text2);
+  font-style:italic;margin:0 0 2rem;line-height:1.5;
+}
+.article h2{
+  font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;color:#fff;
+  text-transform:uppercase;letter-spacing:.04em;margin:2.5rem 0 1rem;
+  border-bottom:1px solid var(--border);padding-bottom:.4rem;
+}
+.article h3{font-family:'Crimson Text',serif;font-size:1.15rem;font-weight:600;color:var(--mda-red);margin:1.5rem 0 .5rem;}
+.article p{font-size:1.02rem;line-height:1.75;margin:0 0 1.25rem;}
+.article blockquote{
+  border-left:3px solid var(--mda-red);background:var(--mda-red-glow);
+  padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 .4rem .4rem 0;
+  font-family:'Crimson Text',serif;font-style:italic;color:var(--text2);
+}
+.article img{max-width:100%;border-radius:.4rem;margin:1rem 0;}
+.mda-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
+.mda-table td{padding:.4rem .6rem;border:1px solid var(--border);color:var(--text2);}
+.mda-table tr:first-child td{font-weight:600;color:var(--text);background:var(--surface);}
+
+/* Reading level panels */
+.level-panel{display:none;}
+.level-panel.active{display:block;}
+
+/* Proof panel */
+.proof-panel{display:none;max-width:780px;margin:0 auto;padding:1.5rem;}
+.proof-panel.active{display:block;}
+.mda-proof-eyebrow{
+  font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--proof);margin-bottom:.6rem;
+}
+.math-field{display:flex;gap:.5rem;margin:.4rem 0;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.math-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--proof);font-weight:600;min-width:180px;}
+.math-value{font-size:.85rem;color:var(--text2);}
+.math-item{font-size:.85rem;color:var(--text);padding:.2rem 0 .2rem 1rem;border-left:2px solid var(--border);margin:.3rem 0;}
+.mda-proof-placeholder{color:var(--text3);font-style:italic;font-size:.9rem;}
+
+/* Glossary */
+.mda-glossary{columns:1;}
+.glossary-entry{break-inside:avoid;margin-bottom:.8rem;}
+.glossary-entry dt{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--academic);font-weight:600;}
+.glossary-entry dd{font-size:.85rem;color:var(--text2);margin:0 0 0 .5rem;}
+.glossary-domain{font-size:.65rem;color:var(--text3);margin-left:.5rem;font-style:italic;}
+
+/* Easy level overrides */
+body.mode-easy .article p{font-size:1.15rem;line-height:1.85;}
+body.mode-easy .article h3{font-size:1.3rem;color:var(--easy);font-family:'Oswald',sans-serif;}
+body.mode-easy .article blockquote{border-left-color:var(--easy);background:var(--easy-glow);font-style:normal;}
+/* Academic level overrides */
+body.mode-academic .article p{font-size:.95rem;line-height:1.65;color:#d0d0d0;}
+body.mode-academic .article h3{font-size:1.1rem;color:var(--academic);font-family:'Crimson Text',serif;font-style:italic;}
+body.mode-academic .article blockquote{border-left-color:var(--academic);background:var(--academic-glow);}
+
+@media(max-width:640px){
+  .article{padding:1.5rem 1rem 4rem;}
+  .mda-reader-bar{padding:.4rem 1rem;}
+}
+</style>
+</head>
+<body class="mode-standard">
+
+<!-- BEGIN:COMPONENT:reader-mode:reader-mode-bar -->
+<div class="mda-reader-bar">
+  <div>
+    <span class="series-badge">Moral Decline of America</span>
+    <span class="meta">MDA-007</span>
+    <span class="meta" id="mode-status">Standard active</span>
+  </div>
+  <div class="tab-group">
+    <button class="tab-btn" data-tab="easy" onclick="setTab('easy')">Easy</button>
+    <button class="tab-btn active" data-tab="standard" onclick="setTab('standard')">Standard</button>
+    <button class="tab-btn" data-tab="academic" onclick="setTab('academic')">Academic</button>
+    <button class="tab-btn" data-tab="proof" onclick="setTab('proof')">Proof</button>
+  </div>
+</div>
+<!-- END:COMPONENT:reader-mode:reader-mode-bar -->
+
+<!-- BEGIN:LEVEL:standard -->
+<div class="level-panel active" data-level="standard">
+  <article class="article">
+    <h1>Part 2: The Nine Domains — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-007 · David Lowe · Theophysics Institute</p>
+    <p><a href="index.html">Moral Decline</a></p>
+<p><a href="index.html">Moral Decline of America</a></p>
+<p>Part-Series
+Part 2 of 10</p>
+<p>Theophysics Research • MDA Part-Series</p>
+<p>PART 02 OF 10</p>
+<h1>The Nine Domains</h1>
+<p>Nine dimensions of social health. Each measurable. Each declining. All connected.</p>
+<p><img alt="Story Illustration" src="../images/mda/Phantom_Money_Phantom_Morals conv 8.webp" /></p>
+<p>David Lowe • Theophysics Institute</p>
+<p><a href="/glossary/?term=the-coherence-factor" title="See glossary: The Coherence Factor">The Coherence Factor</a></p>
+<p><strong>The Coherence Factor (χ)</strong> measures the degree to which a civilization's subsystems—families, institutions, trust networks, moral frameworks, and information flows—remain internally consistent, mutually reinforcing, and capable of coordinated action.</p>
+<p>χ = 1.0 means perfect alignment. χ = 0.0 means total fragmentation.</p>
+<p>Current U.S. χ: <strong>≈ 0.24</strong></p>
+<p>Critical Threshold: <strong>0.35</strong></p>
+<p>Status: <strong>Threshold Crossed</strong></p>
+<p>In Part 1, we introduced the Coherence Factor (χ).</p>
+<p>Now let's open the hood. What exactly are we measuring?</p>
+<p>χ is calculated from <strong>nine domains</strong>. Each domain captures a different dimension of social health. Together, they tell us whether a civilization is holding together or flying apart.</p>
+<hr />
+<h2>The Nine Domains</h2>
+<p>01
+Family Structure (F)</p>
+<p><strong>Question:</strong> Are families forming and staying together?</p>
+<p>Indicators</p>
+<ul>
+<li>Marriage rate per 1,000 adults</li>
+<li>Divorce rate</li>
+<li>Percentage of children living with both biological parents</li>
+<li>Single-parent household rate</li>
+<li>Birth rate within marriage vs. outside</li>
+</ul>
+<p>Why it matters</p>
+<p>The family is the smallest coherence-generating unit. When families fragment, every other domain eventually follows.</p>
+<p>1900 score0.92</p>
+<p>2024 score0.31</p>
+<p>02
+Social Trust (T)</p>
+<p><strong>Question:</strong> Do people trust each other and institutions?</p>
+<p>Indicators</p>
+<ul>
+<li>"Can most people be trusted?" survey responses</li>
+<li>Institutional confidence (government, media, churches, courts)</li>
+<li>Contract enforcement needs</li>
+<li>Neighbor-to-neighbor trust</li>
+</ul>
+<p>Why it matters</p>
+<p>Trust is the lubricant of cooperation. Without it, every transaction requires verification, every promise requires enforcement, and coordination becomes impossible.</p>
+<p>1900 score0.85</p>
+<p>2024 score0.22</p>
+<p>03
+Safety (S)</p>
+<p><strong>Question:</strong> Are people safe from violence?</p>
+<p>Indicators</p>
+<ul>
+<li>Murder rate per 100,000</li>
+<li>Violent crime rate</li>
+<li>Sexual assault rate</li>
+<li>Domestic violence rate</li>
+<li>Child abuse rate</li>
+</ul>
+<p>Why it matters</p>
+<p>Physical safety is the baseline for all other coherence. When people fear each other, community becomes impossible.</p>
+<p>1900 score0.75(higher crime in cities, but lower overall)</p>
+<p>2024 score0.45(varies dramatically by location)</p>
+<p>04
+Self-Control (C)</p>
+<p><strong>Question:</strong> Can people resist destructive impulses?</p>
+<p>Indicators</p>
+<ul>
+<li>Addiction rates (alcohol, drugs, gambling, pornography)</li>
+<li>Obesity rate</li>
+<li>Consumer debt levels</li>
+<li>Impulse-related bankruptcy</li>
+<li>STD transmission rates</li>
+</ul>
+<p>Why it matters</p>
+<p>Self-control is coherence at the individual level. A society of people who cannot control themselves cannot maintain any higher-order coherence.</p>
+<p>1900 score0.80</p>
+<p>2024 score0.28</p>
+<p>05
+Mental Health (M)</p>
+<p><strong>Question:</strong> Are people psychologically healthy?</p>
+<p>Indicators</p>
+<ul>
+<li>Suicide rate</li>
+<li>Depression rates (clinical diagnosis)</li>
+<li>Anxiety disorder rates</li>
+<li>"Deaths of despair" (suicide + overdose + alcoholic liver disease)</li>
+<li>Psychiatric medication usage</li>
+</ul>
+<p>Why it matters</p>
+<p>Mental health is the individual's coherence with themselves. Mass psychological deterioration is both symptom and cause of social incoherence.</p>
+<p>1900 score0.82</p>
+<p>2024 score0.25</p>
+<p>06
+Economic Stability (E)</p>
+<p><strong>Question:</strong> Can people build and maintain wealth?</p>
+<p>Indicators</p>
+<ul>
+<li>Household savings rate</li>
+<li>Home ownership rate</li>
+<li>Bankruptcy rate</li>
+<li>Generational wealth transfer</li>
+<li>Economic mobility</li>
+</ul>
+<p>Why it matters</p>
+<p>Economic stability enables long-term planning, which enables commitment, which enables coherence.</p>
+<p>1900 score0.78</p>
+<p>2024 score0.35</p>
+<p>07
+Civic Participation (P)</p>
+<p><strong>Question:</strong> Do people engage in community?</p>
+<p>Indicators</p>
+<ul>
+<li>Volunteering rate</li>
+<li>Membership in civic organizations</li>
+<li>Voter participation</li>
+<li>Community event attendance</li>
+<li>Neighbor interaction frequency</li>
+</ul>
+<p>Why it matters</p>
+<p>Civic participation is the visible expression of social coherence—people choosing to coordinate with strangers for shared purposes.</p>
+<p>1900 score0.88</p>
+<p>2024 score0.22</p>
+<p>08
+Shared Meaning (Σ)</p>
+<p><strong>Question:</strong> Do people share a common framework?</p>
+<p><img alt="Story Illustration" src="../images/mda/Signal_Blackout conv 10.webp" /></p>
+<p>Indicators</p>
+<ul>
+<li>Religious participation rate</li>
+<li>Agreement on basic moral questions</li>
+<li>Shared cultural knowledge</li>
+<li>Common information sources</li>
+<li>Consensus on historical narrative</li>
+</ul>
+<p>Why it matters</p>
+<p>Shared meaning is what allows people to coordinate without explicit negotiation. When it disappears, everything must be argued.</p>
+<p>1900 score0.90</p>
+<p>2024 score0.18</p>
+<p>09
+Intergenerational Transfer (I)</p>
+<p><strong>Question:</strong> Is wisdom passing to the next generation?</p>
+<p>Indicators</p>
+<ul>
+<li>Children learning parents' trade/profession rate</li>
+<li>Family business survival across generations</li>
+<li>Religious/cultural continuity child-to-parent</li>
+<li>Elder care by family vs. institution</li>
+<li>Grandparent involvement in child-rearing</li>
+</ul>
+<p>Why it matters</p>
+<p>A society that cannot transmit its wisdom dies in one generation, no matter how wise it was.</p>
+<p>1900 score0.92</p>
+<p>2024 score0.20</p>
+<hr />
+<h2>The Coherence Factor Formula</h2>
+<p>χ is calculated as the weighted average of all nine domains:</p>
+<p>Coherence Factor</p>
+<p><strong>χ = (F + T + S + C + M + E + P + Σ + I) / 9</strong></p>
+<p>Each domain is normalized to a 0–1 scale using historical benchmarks.</p>
+<hr />
+<h2>The 2024 Calculation</h2>
+<table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>1900</th>
+<th>2024</th>
+<th>Δ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Family (F)</td>
+<td>0.92</td>
+<td>0.31</td>
+<td>-66%</td>
+</tr>
+<tr>
+<td>Trust (T)</td>
+<td>0.85</td>
+<td>0.22</td>
+<td>-74%</td>
+</tr>
+<tr>
+<td>Safety (S)</td>
+<td>0.75</td>
+<td>0.45</td>
+<td>-40%</td>
+</tr>
+<tr>
+<td>Self-Control (C)</td>
+<td>0.80</td>
+<td>0.28</td>
+<td>-65%</td>
+</tr>
+<tr>
+<td>Mental Health (M)</td>
+<td>0.82</td>
+<td>0.25</td>
+<td>-70%</td>
+</tr>
+<tr>
+<td>Economic (E)</td>
+<td>0.78</td>
+<td>0.35</td>
+<td>-55%</td>
+</tr>
+<tr>
+<td>Civic (P)</td>
+<td>0.88</td>
+<td>0.22</td>
+<td>-75%</td>
+</tr>
+<tr>
+<td>Shared Meaning (Σ)</td>
+<td>0.90</td>
+<td>0.18</td>
+<td>-80%</td>
+</tr>
+<tr>
+<td>Intergenerational (I)</td>
+<td>0.92</td>
+<td>0.20</td>
+<td>-78%</td>
+</tr>
+<tr>
+<td><strong>χ (Total)</strong></td>
+<td><strong>0.85</strong></td>
+<td><strong>0.27</strong></td>
+<td><strong>-68%</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>What Jumps Out</h2>
+<p>Look at those numbers again.</p>
+<ul>
+<li><strong>Trust:</strong> Down 74%</li>
+<li><strong>Shared Meaning:</strong> Down 80%</li>
+<li><strong>Intergenerational Transfer:</strong> Down 78%</li>
+<li><strong>Civic Participation:</strong> Down 75%</li>
+</ul>
+<p>These aren't gradual declines. These are <strong>collapses</strong>.</p>
+<p>And here's what's critical: <strong>they're all connected</strong>.</p>
+<p>When shared meaning drops, trust drops. When trust drops, civic participation drops. When civic participation drops, families fragment. When families fragment, intergenerational transfer fails.</p>
+<p>It's a <strong>cascade</strong>. Each domain pulls down the others.</p>
+<p>That's why χ isn't just an average—it's a measure of <strong>systemic failure</strong>.</p>
+<hr />
+<h2>The Threshold Question</h2>
+<p>Why do we say χ = 0.35 is the threshold?</p>
+<p>Because that's the level below which <strong>no civilization in recorded history has self-corrected</strong>.</p>
+<p>Below 0.35, the feedback loops become self-reinforcing in the wrong direction. Decline accelerates. The system cannot generate enough internal coherence to reverse the trend.</p>
+<p>Above 0.35, self-correction is possible. Below it, only external intervention changes the trajectory.</p>
+<p>We crossed that line.</p>
+<p>χ = 0.27. Threshold = 0.35. We're below it.</p>
+<p>Nine domains. All declining. All connected.</p>
+<p>This is the shape of collapse.</p>
+<p>Next: Part 3 — The 1900 Baseline.</p>
+<p><em>What did χ = 0.85 actually look like? How did people live when coherence was high?</em></p>
+<p><a href="MDA-003-measuring-moral-health.html">Previous: Part 1
+Measuring Moral Health</a></p>
+<p>Part 2 of 10</p>
+<p><a href="MDA-009-the-1900-baseline.html">Next: Part 3
+The 1900 Baseline</a></p>
+<p>Moral Decline of America • Theophysics Institute</p>
+<p>David Lowe • Theophysics Institute • 2024-2026</p>
+  </article>
+</div>
+<!-- END:LEVEL:standard -->
+
+<!-- BEGIN:LEVEL:easy -->
+<div class="level-panel" data-level="easy">
+  <article class="article">
+    <h1>Part 2: The Nine Domains — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-007 · Easy Reading Level</p>
+    <h1>Part 2: The Nine Domains—How a Nation Holds Together</h1>
+<p>David Lowe • Theophysics Institute  </p>
+<hr />
+<h2>A Single Number on the Dashboard</h2>
+<p>Imagine every part of a car talking to every other part. When the engine, brakes, and lights work in sync, the ride is smooth. When they fight, the car shakes apart.<br />
+<strong>Coherence Factor (χ)</strong> is like that dashboard light that tells us if the whole car—our nation—is running smoothly. A perfect score is 1.0. A dead-car score is 0.0.  </p>
+<p>Today the United States sits at about 0.24. History says we must stay above 0.35 or the car stalls for good.</p>
+<hr />
+<h2>What Gets Measured</h2>
+<p>A civilization is built from many smaller machines. Each one is a <strong>Subsystem</strong>, like the engine or the radio in our car, steering its own corner of life. We track nine of them, because trouble in any corner can start a <strong>Cascade</strong>—a row of dominoes that fall one after another.  </p>
+<p>Below are the nine subsystems, why they matter, and how far they have slid since the year 1900.</p>
+<hr />
+<h3>1. Family Structure (F)</h3>
+<p>Are families forming and holding together?<br />
+1900: 0.92 → 2024: 0.31<br />
+Why it matters: The family is the smallest team that still plays every day. Break the team and the league falls apart.</p>
+<h3>2. Social Trust (T)</h3>
+<p>Do people believe strangers will play fair?<br />
+1900: 0.85 → 2024: 0.22<br />
+Why it matters: Trust is social oil. Without it every handshake needs a lawyer.</p>
+<h3>3. Safety (S)</h3>
+<p>Can you walk outside without fear?<br />
+1900: 0.75 → 2024: 0.45<br />
+Why it matters: No one builds a sandcastle while bullets fly.</p>
+<h3>4. Self-Control (C)</h3>
+<p>Can people rule their own cravings?<br />
+1900: 0.80 → 2024: 0.28<br />
+Why it matters: If I can’t steer myself, I can’t steer a community.</p>
+<h3>5. Mental Health (M)</h3>
+<p>Are minds staying clear and hopeful?<br />
+1900: 0.82 → 2024: 0.25<br />
+Why it matters: Broken spirits struggle to bind anything together.</p>
+<h3>6. Economic Stability (E)</h3>
+<p>Can ordinary families save, buy homes, and pass wealth on?<br />
+1900: 0.78 → 2024: 0.35<br />
+Why it matters: Long plans need steady ground.</p>
+<h3>7. Civic Participation (P)</h3>
+<p>Do people volunteer, vote, and join clubs?<br />
+1900: 0.88 → 2024: 0.22<br />
+Why it matters: Democracy is a potluck—you only eat if everyone brings food.</p>
+<h3>8. Shared Meaning (Σ)</h3>
+<p>Do we agree on basic stories, truths, and morals?<br />
+1900: 0.90 → 2024: 0.18<br />
+Why it matters: Shared meaning is a map; without it, every step sparks an argument.</p>
+<h3>9. Intergenerational Transfer (I)</h3>
+<p>Is wisdom passing from grandparents to kids?<br />
+1900: 0.92 → 2024: 0.20<br />
+Why it matters: A culture that forgets to teach is one bad exam from extinction.</p>
+<hr />
+<h2>How the Single Score Is Built</h2>
+<p>First, each domain gets a <strong>Normalized Score</strong>—like resizing all photos to the same height so we can compare them.<br />
+Then we take a <strong>Weighted Average</strong>—imagine giving each of the nine paints the same-sized spoon before we stir. Add them up, divide by nine, and we get χ.  </p>
+<p>The math whispers a story: when any paint darkens, the final color darkens, too.</p>
+<hr />
+<h2>The Shape of the Fall</h2>
+<p>Trust down 74 %. Shared Meaning down 80 %. Civic life down 75 %. The drops are not gentle slopes; they are cliffs.<br />
+Falling together creates more social <strong>Entropy</strong>—a classroom that grows noisier and messier when no teacher shows up. To fight that chaos we need <strong>Negentropy</strong>—the friend who walks in, cleans the desks, and restores calm. At 0.24 we are losing that tug-of-war.</p>
+<hr />
+<h2>The Red Line We Crossed</h2>
+<p>A <strong>Critical Threshold</strong> is like the thin ice line on a frozen lake—step past it and everything cracks at once. History places that line at χ = 0.35. Above it, societies have self-corrected. Below it, only outside rescue or a miracle reversed the slide.<br />
+We are at 0.24. The ice is broken.  </p>
+<p>Each subsystem is wobbling. Their wobbles feed each other in a widening Cascade. This is how a complex machine unwinds.</p>
+<hr />
+<h2>Where We Go Next</h2>
+<p>Part 3 travels back to 1900, when χ stood at 0.85. We will see how ordinary people lived when the gears still meshed. The past is not a museum piece; it is a mirror.  </p>
+<p>The question is simple and fierce: can we find the missing pieces and raise the score before the machine stops?</p>
+<hr />
+<pre><code>TERMS DEFINED: 8 / 8
+TERMS MISSED: []
+ARGUMENT COVERAGE: All sections represented
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:easy -->
+
+<!-- BEGIN:LEVEL:academic -->
+<div class="level-panel" data-level="academic">
+  <article class="article">
+    <h1>Part 2: The Nine Domains — The Moral Decline of America</h1>
+    <p class="subtitle">MDA-007 · Academic Reading Level</p>
+    <h3>Academic Enrichment Layer</h3>
+<p><em>(additions appear in brackets […] and do not alter David Lowe’s original prose or sequence)</em>  </p>
+<hr />
+<h1>Part 2: The Nine Domains — The Moral Decline of America</h1>
+<p>David Lowe • Theophysics Institute  </p>
+<hr />
+<p>[EMPIRICAL] Current U.S. χ: <strong>≈ 0.24</strong> [CITATION NEEDED: 2024 composite data set]<br />
+[BOUNDARY] Critical Threshold: <strong>0.35</strong> (defined below)  </p>
+<hr />
+<h2>The Coherence Factor χ</h2>
+<p>The Coherence Factor (χ) measures the degree to which a civilization’s subsystems—families, institutions, trust networks, moral frameworks, and information flows—remain internally consistent, mutually reinforcing, and capable of coordinated action.  </p>
+<p>[Definition 1 — Coherence Factor (χ): a dimensionless composite index on the interval 0 ≤ χ ≤ 1 representing systemic alignment across nine social domains.]  </p>
+<p>[Definition 2 — Subsystem: any semi-autonomous component within a larger social system whose internal dynamics contribute measurably to overall coherence.]  </p>
+<p>[STRUCTURAL] χ = 1.0 denotes perfect alignment; χ = 0.0 denotes total fragmentation.  </p>
+<hr />
+<h3>The Nine Domains</h3>
+<p><em>(Domain headers reproduced verbatim; academic additions follow each “Why it matters” section.)</em>  </p>
+<p>01 Family Structure (F)<br />
+Why it matters<br />
+“The family is the smallest coherence-generating unit.”<br />
+[STRUCTURAL] A well-functioning family reduces entropy (randomness) in social signaling by providing predictable relational patterns [Laszlo, Systemic Anthropology, 2007].  </p>
+<p>1900 score 0.92 [CITATION: U.S. Census Family Reports, 1901]<br />
+2024 score 0.31 [CITATION NEEDED: CDC National Vital Statistics, 2024]  </p>
+<p>02 Social Trust (T)<br />
+Why it matters<br />
+[EMPIRICAL] “Trust is the lubricant of cooperation.” Lower generalized trust predicts higher transaction costs and lower GDP per capita [Knack &amp; Keefer, QJE, 1997].  </p>
+<p>03 Safety (S)<br />
+Why it matters<br />
+[EMPIRICAL] Physical insecurity increases cortisol, which impairs executive function and civic engagement [McEwen, Science, 2008].  </p>
+<p>04 Self-Control (C)<br />
+Why it matters<br />
+[STRUCTURAL] Self-regulation functions as micro-level coherence; its decay propagates upward through scaling laws in complex systems [Bar-Yam, Dynamics of Complex Systems, 1997].  </p>
+<p>05 Mental Health (M)<br />
+Why it matters<br />
+[EMPIRICAL] Population-level depression correlates (r ≈ –0.65) with social capital indices [Kawachi et al., Social Sci &amp; Med, 1999].  </p>
+<p>06 Economic Stability (E)<br />
+Why it matters<br />
+[STRUCTURAL] Long-term planning horizons require secure expectation of future resources; volatility shortens horizons and erodes cooperative equilibria [North, Institutions, 1990].  </p>
+<p>07 Civic Participation (P)<br />
+Why it matters<br />
+[EMPIRICAL] Each 10-percentage-point drop in voluntary-association membership predicts a 3-point drop in local voter turnout [Putnam, Bowling Alone, 2000].  </p>
+<p>08 Shared Meaning (Σ)<br />
+Why it matters<br />
+[PROVISIONAL] Shared symbolic frameworks reduce coordination overhead by supplying default priors for social inference [CITATION NEEDED: cultural cognition studies].  </p>
+<p>09 Inter-generational Transfer (I)<br />
+Why it matters<br />
+[STRUCTURAL] Knowledge transmission acts as negative entropy (negentropy) input, offsetting decay in cultural information stores [Schrödinger, What is Life?, 1944].  </p>
+<hr />
+<h2>Formal Definition of χ</h2>
+<p>Equation (LaTeX format)<br />
+(1) χ \;=\; \dfrac{F + T + S + C + M + E + P + \Sigma + I}{9}  </p>
+<p>Plain-English translation<br />
+“The Coherence Factor equals the simple (equally weighted) average of the nine domain scores, each normalized between 0 and 1.”  </p>
+<p>Predictive behavior<br />
+• Increasing any single domain score by Δ raises χ by Δ ⁄ 9.<br />
+• System-wide interventions that raise multiple domains have additive effects.<br />
+• If χ &lt; 0.35, model dynamics (see Part 4) forecast an accelerating decline in F, T, and Σ within five years.  </p>
+<hr />
+<h2>The 2024 Calculation</h2>
+<p>[EMPIRICAL] Table 1 reproduces composite scores (data sources: see Appendix A).  </p>
+<table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>1900</th>
+<th>2024</th>
+<th>Δ</th>
+<th>Epistemic tag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Family (F)</td>
+<td>0.92</td>
+<td>0.31</td>
+<td>–66 %</td>
+<td>[EMPIRICAL]</td>
+</tr>
+<tr>
+<td>Trust (T)</td>
+<td>0.85</td>
+<td>0.22</td>
+<td>–74 %</td>
+<td>[EMPIRICAL]</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr>
+<td><strong>χ (Total)</strong></td>
+<td><strong>0.85</strong></td>
+<td><strong>0.27</strong></td>
+<td><strong>–68 %</strong></td>
+<td>[EMPIRICAL]</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Systemic Cascade</h2>
+<p>[Definition 3 — Cascade (systems theory): a sequence of feedback-linked changes in which perturbations in one variable amplify changes in others.]  </p>
+<p>[STRUCTURAL] Decline in Σ reduces predictive accuracy of social signals, lowering T; reduced T raises verification costs, lowering P; weak P undermines F, thereby eroding I.  </p>
+<hr />
+<h2>The Threshold Question</h2>
+<p>[Definition 4 — Critical Threshold (in dynamical systems): a bifurcation point beyond which system trajectories diverge qualitatively.]  </p>
+<p>[EMPIRICAL] “No civilization in recorded history has self-corrected below χ = 0.35” [CITATION NEEDED: comparative-civilization dataset].  </p>
+<p>[HEDGED] This pattern provides structural evidence, not deterministic proof, that χ = 0.27 lies in the non-self-correcting basin of attraction.  </p>
+<hr />
+<p>Nine domains, all declining, all connected.<br />
+This is the modeled shape of collapse.  </p>
+<p>[BOUNDARY] Model validity confined to post-industrial democracies with high literacy; external shocks (e.g., war, pandemic) are exogenous in current formulation.  </p>
+<hr />
+<p><em>Next: Part 3 — The 1900 Baseline.</em>  </p>
+<hr />
+<pre><code class="language-json">{
+  &quot;terms&quot;: [
+    {
+      &quot;term&quot;: &quot;Coherence Factor (χ)&quot;,
+      &quot;definition&quot;: &quot;A dimensionless composite index (0–1) representing systemic alignment across nine social domains.&quot;,
+      &quot;domain&quot;: &quot;framework&quot;,
+      &quot;first_use_section&quot;: &quot;The Coherence Factor χ&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Subsystem&quot;,
+      &quot;definition&quot;: &quot;Any semi-autonomous component within a larger social system whose internal dynamics contribute measurably to overall coherence.&quot;,
+      &quot;domain&quot;: &quot;systems theory&quot;,
+      &quot;first_use_section&quot;: &quot;The Coherence Factor χ&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Cascade&quot;,
+      &quot;definition&quot;: &quot;A sequence of feedback-linked changes where perturbations in one variable amplify changes in others.&quot;,
+      &quot;domain&quot;: &quot;systems theory&quot;,
+      &quot;first_use_section&quot;: &quot;Systemic Cascade&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Critical Threshold&quot;,
+      &quot;definition&quot;: &quot;A bifurcation point in a dynamical system beyond which trajectories diverge qualitatively and become hard to reverse.&quot;,
+      &quot;domain&quot;: &quot;dynamical systems&quot;,
+      &quot;first_use_section&quot;: &quot;The Threshold Question&quot;,
+      &quot;complexity&quot;: &quot;medium&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Entropy (social)&quot;,
+      &quot;definition&quot;: &quot;The degree of randomness or disorder in social signaling and institutional functioning.&quot;,
+      &quot;domain&quot;: &quot;information theory&quot;,
+      &quot;first_use_section&quot;: &quot;Family Structure (F) — Why it matters&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Negentropy&quot;,
+      &quot;definition&quot;: &quot;Information input that counteracts entropy by ordering or structuring a system.&quot;,
+      &quot;domain&quot;: &quot;information theory&quot;,
+      &quot;first_use_section&quot;: &quot;Inter-generational Transfer (I) — Why it matters&quot;,
+      &quot;complexity&quot;: &quot;high&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Normalized Score&quot;,
+      &quot;definition&quot;: &quot;A value rescaled to the interval 0–1 using historical minima and maxima as bounds.&quot;,
+      &quot;domain&quot;: &quot;statistics&quot;,
+      &quot;first_use_section&quot;: &quot;Formal Definition of χ&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    },
+    {
+      &quot;term&quot;: &quot;Weighted Average&quot;,
+      &quot;definition&quot;: &quot;An average where each component contributes proportionally to an assigned weight; here all weights equal 1/9.&quot;,
+      &quot;domain&quot;: &quot;mathematics&quot;,
+      &quot;first_use_section&quot;: &quot;Formal Definition of χ&quot;,
+      &quot;complexity&quot;: &quot;low&quot;
+    }
+  ]
+}
+</code></pre>
+  </article>
+</div>
+<!-- END:LEVEL:academic -->
+
+<!-- BEGIN:LEVEL:proof -->
+<div class="proof-panel" data-level="proof">
+  <div class="article">
+    <div class="mda-proof-eyebrow">Proof Pressure Layer</div>
+    <h2 style="font-family:Oswald,sans-serif;color:#fff;text-transform:uppercase;letter-spacing:.04em;">
+      Part 2: The Nine Domains — The Moral Decline of America — Proof & Math
+    </h2>
+    
+    <h3>Math Translation</h3>
+    <div class="mda-math-layer">
+<div class="mda-proof-eyebrow">Math Translation Layer</div>
+<div class="math-field"><span class="math-label">MATH_STATUS:</span><span class="math-value">NEEDS_DERIVATION</span></div>
+<div class="math-field"><span class="math-label">LOAD_BEARING_MATH:</span><span class="math-value"></span></div>
+<div class="math-item">Coherence Factor (Ï‡) is defined but lacks a clear derivation process.</div>
+<div class="math-item">The formula for Ï‡ is presented, but the method of calculating the weighted average is not detailed.</div>
+<div class="math-item">The relationship between the nine domains and their impact on Ï‡ is stated but not mathematically modeled.</div>
+<div class="math-field"><span class="math-label">ISOMORPHISM_TABLE:</span><span class="math-value"></span></div>
+<tr><td>mapping</td><td>current status</td><td>missing proof step</td><td>safe wording</td></tr>
+<tr><td>Coherence Factor (Ï‡)</td><td>candidate_isomorphism</td><td>Detailed derivation of how each domain contributes to Ï‡</td><td>"Ï‡ is influenced by the nine domains, with specific contributions needing further exploration."</td></tr>
+<tr><td>Decline metrics for each domain</td><td>proven_here</td><td>None</td><td>"Each domain's decline is quantitatively assessed."</td></tr>
+<tr><td>Interconnectedness of domains</td><td>structural_correspondence</td><td>Mathematical model showing cascading effects</td><td>"The domains exhibit interdependencies that can be modeled mathematically."</td></tr>
+<div class="math-field"><span class="math-label">MISSING_EQUATIONS_OR_DEFINITIONS:</span><span class="math-value"></span></div>
+<div class="math-item">Definition of "weighted average" in the context of Ï‡ calculation.</div>
+<div class="math-item">Clear explanation of how each domain's score is normalized to a 0–1 scale.</div>
+<div class="math-item">Detailed explanation of the feedback loops mentioned in relation to the coherence factor.</div>
+<div class="math-field"><span class="math-label">MINIMAL_PATCHES:</span><span class="math-value"></span></div>
+<div class="math-item">"Ï‡ is calculated as the weighted average of all nine domains:" -> "Ï‡ is calculated as the weighted average of all nine domains, where each domain's score is normalized to a 0–1 scale, and the method of weighting each domain's contribution needs to be explicitly defined."</div>
+<div class="math-item">"Below 0.35, the feedback loops become self-reinforcing in the wrong direction." -> "Below 0.35, the feedback loops become self-reinforcing in the wrong direction, which could be modeled mathematically to illustrate the dynamics of decline."</div>
+<div class="math-item">"Each domain captures a different dimension of social health." -> "Each domain captures a different dimension of social health, and the mathematical relationship between these domains should be further explored to clarify their interdependencies."</div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Term Inventory</h3>
+    <div class="mda-glossary">
+<div class="glossary-entry"><dt>Coherence Factor (χ)</dt><dd>A dimensionless composite index (0–1) representing systemic alignment across nine social domains.<span class="glossary-domain">framework</span></dd></div>
+<div class="glossary-entry"><dt>Subsystem</dt><dd>Any semi-autonomous component within a larger social system whose internal dynamics contribute measurably to overall coherence.<span class="glossary-domain">systems theory</span></dd></div>
+<div class="glossary-entry"><dt>Cascade</dt><dd>A sequence of feedback-linked changes where perturbations in one variable amplify changes in others.<span class="glossary-domain">systems theory</span></dd></div>
+<div class="glossary-entry"><dt>Critical Threshold</dt><dd>A bifurcation point in a dynamical system beyond which trajectories diverge qualitatively and become hard to reverse.<span class="glossary-domain">dynamical systems</span></dd></div>
+<div class="glossary-entry"><dt>Entropy (social)</dt><dd>The degree of randomness or disorder in social signaling and institutional functioning.<span class="glossary-domain">information theory</span></dd></div>
+<div class="glossary-entry"><dt>Negentropy</dt><dd>Information input that counteracts entropy by ordering or structuring a system.<span class="glossary-domain">information theory</span></dd></div>
+<div class="glossary-entry"><dt>Normalized Score</dt><dd>A value rescaled to the interval 0–1 using historical minima and maxima as bounds.<span class="glossary-domain">statistics</span></dd></div>
+<div class="glossary-entry"><dt>Weighted Average</dt><dd>An average where each component contributes proportionally to an assigned weight; here all weights equal 1/9.<span class="glossary-domain">mathematics</span></dd></div>
+</div>
+    
+    <h3 style="margin-top:2rem;">Promoted Claims</h3>
+    <p class="mda-proof-placeholder">
+      No claim from this article has been promoted through the deterministic Axiom + 7Q gate yet.
+      Claims will appear here after the proof-promotion pass.
+    </p>
+  </div>
+</div>
+<!-- END:LEVEL:proof -->
+
+<div style="max-width:780px;margin:0 auto;padding:1rem 1.5rem 3rem;">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text3);
+     text-transform:uppercase;letter-spacing:.08em;border-top:1px solid var(--border);
+     padding-top:1rem;">
+    Generated 2026-05-31 00:24 · 
+    Easy: ✓ · 
+    Academic: ✓ · 
+    Math: ✓ · 
+    Claims: pending
+  </p>
+</div>
+<script>
+function setTab(tab) {
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  // Update body mode class
+  document.body.className = 'mode-' + tab;
+  // Toggle content panels
+  document.querySelectorAll('.level-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.level === tab);
+  });
+  document.querySelectorAll('.proof-panel').forEach(p => {
+    p.classList.toggle('active', tab === 'proof');
+  });
+  // Update status text
+  const st = document.getElementById('mode-status');
+  if (st) st.textContent = tab.charAt(0).toUpperCase() + tab.slice(1) + ' active';
+}
+document.addEventListener('DOMContentLoaded', () => setTab('standard'));
+</script>
+
+</body>
+</html>

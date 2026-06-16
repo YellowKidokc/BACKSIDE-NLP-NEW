@@ -1,0 +1,28 @@
+﻿model_id: timeline_temporal_information
+provider: huggingface
+role: timeline_temporal
+status: active
+
+runtime:
+  engine: transformers
+  repo_id: AventIQ-AI/Temporal_Information
+  local_assets_path: X:\\knowledge-refinery\\BACKSIDE\MODELS\_MODELS\HF_SNAPSHOTS\timeline_temporal_information
+
+capabilities:
+  - timex_extraction
+  - timeline_support
+
+station_use:
+  - 03_cleaner
+  - 08_7qs_evidence
+  - 13_knowledge_graph
+
+healthcheck:
+  prompt: "Return JSON: {\"status\":\"ok\"}"
+  expected_contains: "\"status\""
+
+outputs:
+  required_format: json
+
+
+

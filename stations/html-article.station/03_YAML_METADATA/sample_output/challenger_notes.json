@@ -1,0 +1,53 @@
+{
+  "lane_id": "03",
+  "lane_name": "YAML + Filing",
+  "challenger": "claude-code-worker-1",
+  "generated_at_utc": "2026-05-22",
+  "overlooked": [
+    {
+      "id": "03-O1",
+      "headline": "named_entity collisions across the GTQ series are not guarded.",
+      "detail": "Two GTQ papers titled 'The Equation' would both screaming-snake to named_entity=THE_EQUATION and produce identical address_string fragments. paper_uuid disambiguates at storage, but the human-readable address collides. For a 30+ paper series this is a real risk.",
+      "load_bearing": true,
+      "recommended_action": "When series is set, prefix named_entity with `{SERIES}_{ARTICLE_NUMBER}_` for the address; reserve the bare named_entity for the title field. So GTQ-03 becomes `THEOPHYSICS/GTQ_03_FREE_WILL_IN_TWO_FRAMES/F/GENERAL/I/R1`."
+    },
+    {
+      "id": "03-O2",
+      "headline": "YAML emitter only quotes the title; other fields are emitted bare.",
+      "detail": "A domain value containing a colon (e.g. `AVIATION:OPERATIONAL`), or a series name with a hyphen-start (e.g. `-DRAFT`), or any UTF-8 non-ASCII content in named_entity would produce invalid YAML for downstream Obsidian parsers. Currently only the title field is quoted.",
+      "load_bearing": false,
+      "recommended_action": "Helper yaml_safe(v) that quotes any value containing `:`, `#`, `-` at line start, or non-ASCII; apply to every value-emitting line."
+    },
+    {
+      "id": "03-O3",
+      "headline": "website_layers default is applied to operational/draft docs that have no public-web intent.",
+      "detail": "The calibration checklist (an operational TEAM doc) currently inherits the public default layers `[reader, academic, accessible, lossless_ai]`. That is misleading: this document will not appear on the website. The heuristic over-applies.",
+      "load_bearing": false,
+      "recommended_action": "When type=note AND audience IN {TEAM, INTERNAL}, default website_layers to [] (empty). When primary_bucket IN {06_DRAFTS, 08_ARCHIVE}, also default to []. Override only when source declares layers explicitly."
+    }
+  ],
+  "attack_surfaces": [
+    {
+      "id": "03-A1",
+      "headline": "Routing heuristic silently dumps unclassified papers into 06_DRAFTS.",
+      "detail": "If a real paper is missing the paper-slug meta and the filename does not match the {SERIES}-{ARTICLE} pattern, the lane falls through to primary_bucket=06_DRAFTS. This is silent demotion — the paper looks routed but is actually unclassified. No loopback is raised.",
+      "exploitation": "A finished paper missing a paper-slug `<meta>` tag (common authoring mistake) ends up in DRAFTS, never reaches 07_PUBLISH, no one notices until publication day.",
+      "mitigation": "When primary_bucket cannot be resolved from explicit or derived signal, emit primary_bucket=null + write a 14_LOOPBACK_REVIEW artifact asking 'classify or confirm 06_DRAFTS'. Loud failure beats silent demotion."
+    },
+    {
+      "id": "03-A2",
+      "headline": "D/N/V/A/U/R values have no controlled-vocabulary normalization.",
+      "detail": "Frontmatter could declare `domain: Aviation` and `domain: AVIATION` and `domain: aviation` across three papers and produce three different addresses. The lane does not normalize to a controlled vocabulary; whatever the source says goes verbatim into the address.",
+      "exploitation": "Inconsistent author capitalization fragments the workbook Master_Index and breaks downstream `address LIKE 'AVIATION/%'` filters in Postgres.",
+      "mitigation": "Add configs/canonical_terms.json with allowed values per slot. Normalize on emit. Unknown values raise a 'controlled vocabulary miss' loopback rather than passing through."
+    },
+    {
+      "id": "03-A3",
+      "headline": "Provenance ledger records field names but not source values.",
+      "detail": "extracted_fields=[domain] tells you `domain` came from frontmatter or meta, but not WHICH source line declared it. If two papers later disagree about a domain value, the audit trail can't surface the original declaration.",
+      "exploitation": "A subtle frontmatter drift across papers becomes invisible. David asks 'where did this domain come from?' and the ledger says 'extracted' with no further detail.",
+      "mitigation": "Replace flat lists with {field, source_kind: frontmatter|meta|filename|h1|title|default, source_value, source_line?} tuples. Cheap upgrade; defer to next iteration."
+    }
+  ],
+  "decision": "03-O1 (named_entity collision) and 03-A1 (silent DRAFTS demotion) are the two real load-bearing issues. Both are flagged for next-iteration fixes. The current outputs match CALIBRATION_EXPECTED.md exactly, so testable status holds, but these will bite during Round 2 expansion to a full GTQ series sweep."
+}

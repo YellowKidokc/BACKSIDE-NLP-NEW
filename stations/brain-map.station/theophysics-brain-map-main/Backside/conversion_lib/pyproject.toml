@@ -1,0 +1,25 @@
+[project]
+name = "theophysics-conversion"
+version = "0.1.0"
+description = "Unified format normalization: source documents and links to canonical markdown"
+requires-python = ">=3.10"
+dependencies = [
+  "beautifulsoup4>=4.12",
+  "html2text>=2024.2.26",
+  "pydantic>=2.0",
+  "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+all = [
+  "markitdown[all]>=0.0.1a3",
+  "yt-dlp>=2024.1",
+  "youtube-transcript-api>=0.6",
+  "pytesseract>=0.3",
+]
+whisper = ["openai-whisper>=20240930"]
+ocr = ["pytesseract>=0.3"]
+
+[project.scripts]
+convert-file = "theophysics_conversion.convert:cli"
+

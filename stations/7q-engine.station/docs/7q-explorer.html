@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>7Q Framework Explorer — Canonical v1</title>
+<style>
+:root {
+  --bg:#0a0b0f; --bg2:#12141c; --bg3:#0e1018; --border:#1e2233; --border2:#2a3050;
+  --text:#e8e6e1; --text2:#a2a7b8; --text3:#6d7385; --gold:#d4a853;
+  --q0:#8a8d9b; --q1:#d4a853; --q2:#7c6340; --q3:#6b8c42; --q4:#38bdf8;
+  --q5:#a0724a; --q6:#34d399; --q7:#ef4444;
+  --posture:rgba(138,141,155,.08); --identity:rgba(212,168,83,.08);
+  --domain:rgba(124,99,64,.08); --assertion:rgba(107,140,66,.08);
+  --evidence:rgba(56,189,248,.08); --dependency:rgba(160,114,74,.08);
+  --consequence:rgba(52,211,153,.08); --falsification:rgba(239,68,68,.08);
+  --dead:#ef4444; --pass:#2dd4a0; --warn:#f59e0b;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;scroll-behavior:smooth}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 20% 0%,rgba(56,189,248,.04),transparent 35%),radial-gradient(circle at 90% 100%,rgba(167,139,250,.04),transparent 35%);pointer-events:none}
+.shell{position:relative;z-index:1;display:grid;grid-template-columns:320px 1fr;min-height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;overflow:auto;border-right:1px solid var(--border);background:rgba(10,11,15,.88);backdrop-filter:blur(8px);padding:28px 22px 40px}
+.main{padding:30px 34px 80px;max-width:1400px}
+.kicker{font:600 11px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+h1,h2,h3{margin:0}h1{font-family:Georgia,'Times New Roman',serif;font-size:42px;line-height:1.05;margin-bottom:10px}.sub{color:var(--text2);line-height:1.6;font-size:14px}
+.section{margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+.muted{color:var(--text3)}
+.control-group{margin-top:18px}.control-title{font:600 11px ui-monospace,monospace;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
+button,select{appearance:none;border:1px solid var(--border2);background:var(--bg2);color:var(--text);padding:10px 12px;border-radius:10px;font-size:13px}
+button{cursor:pointer}.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn-full{width:100%;margin-top:10px}
+.checks{display:grid;gap:8px}.check{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--text2)}.check input{accent-color:var(--gold)}
+.legend{display:grid;gap:9px}.leg{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text2)}.sw{width:12px;height:12px;border-radius:4px;border:1px solid var(--border2)}
+.header{display:flex;justify-content:space-between;gap:18px;align-items:end;padding-bottom:18px;border-bottom:1px solid var(--border);margin-bottom:24px}
+.header-right{display:flex;gap:10px;flex-wrap:wrap}
+.badge{padding:7px 10px;border:1px solid var(--border);border-radius:999px;font-size:12px;color:var(--text2);background:var(--bg2)}
+.band{border:1px solid var(--border);background:rgba(18,20,28,.74);border-radius:18px;padding:18px 18px 20px;margin-bottom:18px;position:relative;overflow:hidden}
+.band-title{font:600 11px ui-monospace,monospace;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.stack{display:grid;gap:12px;max-width:520px;margin:0 auto}
+.row{display:grid;gap:12px}.row.cols-5{grid-template-columns:repeat(5,minmax(180px,1fr))}.row.cols-4{grid-template-columns:repeat(4,minmax(180px,1fr))}.row.cols-3{grid-template-columns:repeat(3,minmax(180px,1fr))}.row.cols-2{grid-template-columns:repeat(2,minmax(220px,1fr))}
+@media(max-width:1200px){.shell{grid-template-columns:1fr}.sidebar{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--border)}.row.cols-5,.row.cols-4,.row.cols-3{grid-template-columns:repeat(2,minmax(220px,1fr))}}
+@media(max-width:760px){.main{padding:22px}.row.cols-5,.row.cols-4,.row.cols-3,.row.cols-2{grid-template-columns:1fr}h1{font-size:34px}}
+.node{border:1px solid var(--border);background:var(--bg2);border-radius:14px;padding:14px 14px 12px;position:relative;transition:.18s ease;cursor:pointer;box-shadow:0 0 0 rgba(0,0,0,0)}
+.node:hover{transform:translateY(-1px);border-color:var(--border2);box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.node .kind{font:600 10px ui-monospace,monospace;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.node .title{font-weight:650;line-height:1.35;margin-bottom:6px}.node .meta{font-size:12px;color:var(--text3)}
+.node .mini{font-size:12px;color:var(--text2);line-height:1.45;margin-top:7px}
+.node[data-kind='posture']{background:linear-gradient(180deg,var(--posture),rgba(18,20,28,.95));border-color:rgba(138,141,155,.28)}
+.node[data-kind='identity']{background:linear-gradient(180deg,var(--identity),rgba(18,20,28,.95));border-color:rgba(212,168,83,.28)}
+.node[data-kind='domain']{background:linear-gradient(180deg,var(--domain),rgba(18,20,28,.95));border-color:rgba(124,99,64,.28)}
+.node[data-kind='assertion']{background:linear-gradient(180deg,var(--assertion),rgba(18,20,28,.95));border-color:rgba(107,140,66,.28)}
+.node[data-kind='evidence']{background:linear-gradient(180deg,var(--evidence),rgba(18,20,28,.95));border-color:rgba(56,189,248,.25)}
+.node[data-kind='dependency']{background:linear-gradient(180deg,var(--dependency),rgba(18,20,28,.95));border-color:rgba(160,114,74,.28)}
+.node[data-kind='consequence']{background:linear-gradient(180deg,var(--consequence),rgba(18,20,28,.95));border-color:rgba(52,211,153,.25)}
+.node[data-kind='falsification']{background:linear-gradient(180deg,var(--falsification),rgba(18,20,28,.95));border-color:rgba(239,68,68,.25)}
+.node[data-kind='death']{background:linear-gradient(180deg,rgba(239,68,68,.06),rgba(18,20,28,.95));border-color:rgba(239,68,68,.2)}
+.node[data-kind='survival']{background:linear-gradient(180deg,rgba(45,212,160,.06),rgba(18,20,28,.95));border-color:rgba(45,212,160,.2)}
+.node[data-kind='formula']{background:linear-gradient(180deg,rgba(167,139,250,.08),rgba(18,20,28,.95));border-color:rgba(167,139,250,.25)}
+.node[data-status='dead']{box-shadow:inset 0 0 0 1px rgba(239,68,68,.2)}.node[data-status='pass']{box-shadow:inset 0 0 0 1px rgba(45,212,160,.2)}
+.node.hidden-layer{display:none}
+.node.trace-dim{opacity:.22;filter:saturate(.65)}.node.trace-hit{opacity:1;outline:2px solid var(--gold);outline-offset:2px}
+.connector{height:22px;display:flex;justify-content:center;align-items:center;color:var(--text3);font:600 12px ui-monospace,monospace;letter-spacing:1px}
+.detail{position:sticky;bottom:18px;margin-top:20px;border:1px solid var(--border2);background:linear-gradient(180deg,rgba(18,20,28,.95),rgba(10,11,15,.96));border-radius:18px;padding:18px 18px 16px;box-shadow:0 18px 40px rgba(0,0,0,.25)}
+.detail .head{display:flex;justify-content:space-between;gap:12px;align-items:start;margin-bottom:10px}.detail .name{font-size:22px;font-family:Georgia,'Times New Roman',serif}.detail .tag{font:600 11px ui-monospace,monospace;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+.detail-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}.detail-card{border:1px solid var(--border);background:var(--bg3);border-radius:12px;padding:14px}
+.detail-card h4{margin:0 0 8px 0;font-size:13px;color:var(--text2);text-transform:uppercase;letter-spacing:1.5px;font-family:ui-monospace,monospace}.detail-card p,.detail-card li{font-size:13px;color:var(--text2);line-height:1.6}.detail-card ul{margin:0;padding-left:18px}
+.eq{font-family:ui-monospace,monospace;color:var(--text);font-size:13px;background:rgba(255,255,255,.03);padding:10px 12px;border-radius:10px;border:1px solid var(--border)}
+.trace-note{margin-top:10px;padding:10px 12px;border-radius:12px;border:1px dashed rgba(212,168,83,.35);background:rgba(212,168,83,.05);font-size:12px;color:var(--text2)}
+.small{font-size:12px;color:var(--text3)}
+.dir-toggle{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px}
+.dir-btn{padding:10px;text-align:center;border-radius:10px;font:600 11px ui-monospace,monospace;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:.15s}
+.dir-btn.active{background:var(--gold);color:#0a0b0f;border-color:var(--gold)}
+.step-num{display:inline-block;width:28px;height:28px;line-height:28px;text-align:center;border-radius:50%;font:700 14px ui-monospace,monospace;margin-right:8px}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="kicker">7Q Framework</div>
+    <h2 style="font-family:Georgia,serif;font-size:28px;margin-bottom:10px;">Method Explorer</h2>
+    <div class="sub">Click any node for full detail. Toggle direction to see forward classification or reverse proof. Filter layers to focus on specific epistemic types.</div>
+
+    <div class="section control-group">
+      <div class="control-title">Direction</div>
+      <div class="dir-toggle">
+        <button class="dir-btn active" id="dirForward" onclick="setDirection('forward')">▶ Forward</button>
+        <button class="dir-btn" id="dirReverse" onclick="setDirection('reverse')">◀ Reverse</button>
+      </div>
+      <div class="trace-note" id="dirDesc">Forward: Q0 → Q7. Classify any claim into a structured, testable object.</div>
+    </div>
+
+    <div class="section control-group">
+      <div class="control-title">Trace Example</div>
+      <select id="traceSelect" style="width:100%">
+        <option value="">No trace</option>
+        <option value="gr">General Relativity</option>
+        <option value="consciousness">Consciousness is fundamental</option>
+        <option value="entropy">Entropy = moral decay</option>
+      </select>
+      <button class="btn-full" id="clearTrace">Reset trace</button>
+      <div class="trace-note">Trace mode highlights how a specific claim flows through all seven questions.</div>
+    </div>
+
+    <div class="section control-group">
+      <div class="control-title">Visible layers</div>
+      <div class="checks">
+        <label class="check"><input type="checkbox" data-layer-toggle="posture" checked> Q0 Posture</label>
+        <label class="check"><input type="checkbox" data-layer-toggle="identity" checked> Q1 Identity</label>
+        <label class="check"><input type="checkbox" data-layer-toggle="domain" checked> Q2 Domain</label>
+        <label class="check"><input type="checkbox" data-layer-toggle="assertion" checked> Q3 Assertion</label>
+        <label class="check"><input type="checkbox" data-layer-toggle="evidence" checked> Q4 Evidence</label>
+        <label class="check"><input type="checkbox" data-layer-toggle="dependency" checked> Q5 Dependencies</label>
+        <label class="check"><input type="checkbox" data-layer-toggle="consequence" checked> Q6 Consequences</label>
+        <label class="check"><input type="checkbox" data-layer-toggle="falsification" checked> Q7 Falsification</label>
+        <label class="check"><input type="checkbox" data-layer-toggle="death" checked> Death conditions</label>
+        <label class="check"><input type="checkbox" data-layer-toggle="survival" checked> Survival markers</label>
+        <label class="check"><input type="checkbox" data-layer-toggle="formula" checked> Formulas</label>
+      </div>
+      <div class="btn-row">
+        <button id="showAll">Show all</button>
+        <button id="showCore">Core only</button>
+      </div>
+    </div>
+
+    <div class="section control-group">
+      <div class="control-title">Legend</div>
+      <div class="legend">
+        <div class="leg"><span class="sw" style="background:var(--posture)"></span> Posture / precondition</div>
+        <div class="leg"><span class="sw" style="background:var(--identity)"></span> Identity / classification</div>
+        <div class="leg"><span class="sw" style="background:var(--domain)"></span> Domain / location</div>
+        <div class="leg"><span class="sw" style="background:var(--assertion)"></span> Assertion / precision</div>
+        <div class="leg"><span class="sw" style="background:var(--evidence)"></span> Evidence / support</div>
+        <div class="leg"><span class="sw" style="background:var(--dependency)"></span> Dependency / foundation</div>
+        <div class="leg"><span class="sw" style="background:var(--consequence)"></span> Consequence / forcing</div>
+        <div class="leg"><span class="sw" style="background:var(--falsification)"></span> Falsification / kill</div>
+      </div>
+    </div>
+    <div class="small" style="margin-top:12px">David Lowe · POF 2828 · Theophysics<br>Design adapted from the Canonical Proof Explorer.</div>
+  </aside>
+
+  <main class="main">
+    <div class="header">
+      <div>
+        <div class="kicker">A new scientific method</div>
+        <h1>7Q Method Explorer</h1>
+        <div class="sub">Seven questions forward: classify anything. Seven questions reversed: prove anything. Q0: arrive humble or don't arrive at all.</div>
+      </div>
+      <div class="header-right">
+        <div class="badge">click = expand question</div>
+        <div class="badge">toggle = epistemic layer</div>
+        <div class="badge">trace = worked example</div>
+      </div>
+    </div>
+
+    <!-- ═══ Q0: POSTURE ═══ -->
+    <section class="band" id="q0Band">
+      <div class="band-title"><span class="step-num" style="background:var(--q0);color:#0a0b0f">0</span> Q0 — POSTURE BEFORE INQUIRY</div>
+      <div class="stack">
+        <div class="node" data-id="q0_precondition" data-kind="posture" data-traces="gr consciousness entropy">
+          <div class="kind">Precondition</div><div class="title">The inquirer cannot be the ground of inquiry.</div><div class="meta">Not a question — a posture. Cannot be scored, only acknowledged.</div>
+        </div>
+        <div class="node" data-id="q0_humility" data-kind="posture" data-traces="gr consciousness entropy">
+          <div class="kind">Operational</div><div class="title">Arrive open or don't arrive at all.</div><div class="mini">Every dead framework — positivism, behaviorism, instrumentalism — arrived decided before investigating. Q0 prevents that error mode.</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="connector" data-dir="forward">▼ undefined → defined</div>
+    <div class="connector" data-dir="reverse" style="display:none">▲ STEP 7: Name it last — identity earned</div>
+
+    <!-- ═══ Q1: IDENTITY ═══ -->
+    <section class="band" id="q1Band">
+      <div class="band-title"><span class="step-num" style="background:var(--q1);color:#0a0b0f">1</span> Q1 — WHAT IS IT? (Identity)</div>
+      <div class="row cols-3">
+        <div class="node" data-id="q1_classify" data-kind="identity" data-traces="gr consciousness entropy">
+          <div class="kind">Classification</div><div class="title">Name it. Type it. Tier it.</div><div class="mini">Claim types: causal, descriptive, ontological, mathematical, predictive, mechanistic, normative.</div>
+        </div>
+        <div class="node" data-id="q1_tier" data-kind="identity" data-traces="gr consciousness entropy">
+          <div class="kind">Tier</div><div class="title">Where in the hierarchy?</div><div class="mini">Foundational (axiom, postulate) · Derived (theorem, hypothesis) · Constraint · Support · Connection</div>
+        </div>
+        <div class="node" data-id="q1_gr" data-kind="identity" data-traces="gr" data-status="pass">
+          <div class="kind">GR Example</div><div class="title">GR is causal, not descriptive.</div><div class="mini">Mass-energy causes curvature — a stronger commitment than standard presentation suggests. Reclassified at Q1.</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="connector" data-dir="forward">▼ defined → located</div>
+    <div class="connector" data-dir="reverse" style="display:none">▲ STEP 6: Generalize — show it holds across domains</div>
+
+    <!-- ═══ Q2: DOMAIN ═══ -->
+    <section class="band" id="q2Band">
+      <div class="band-title"><span class="step-num" style="background:var(--q2);color:#fff">2</span> Q2 — WHERE DOES IT LIVE? (Domain)</div>
+      <div class="row cols-3">
+        <div class="node" data-id="q2_primary" data-kind="domain" data-traces="gr consciousness entropy">
+          <div class="kind">Primary Domain</div><div class="title">Anchor in domain and scale.</div><div class="mini">Physics, theology, consciousness, information theory, mathematics, biology, economics, social science.</div>
+        </div>
+        <div class="node" data-id="q2_iso" data-kind="domain" data-traces="gr consciousness entropy">
+          <div class="kind">Isomorphism Test</div><div class="title">Analogy or structural identity?</div><div class="mini">If the math preserves topology, boundary conditions, and conservation laws under variable substitution → isomorphism, not analogy.</div>
+        </div>
+        <div class="node" data-id="q2_gr" data-kind="domain" data-traces="gr" data-status="pass">
+          <div class="kind">GR Example</div><div class="title">Riemannian geometry exists independently.</div><div class="mini">Appears in ML (manifold learning), economics (curved utility), information theory (Fisher geometry). ISO-confirmed.</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="connector" data-dir="forward">▼ located → stated</div>
+    <div class="connector" data-dir="reverse" style="display:none">▲ STEP 5: State — the claim is now a conclusion</div>
+
+    <!-- ═══ Q3: ASSERTION ═══ -->
+    <section class="band" id="q3Band">
+      <div class="band-title"><span class="step-num" style="background:var(--q3);color:#fff">3</span> Q3 — WHAT DOES IT SAY? (Assertion)</div>
+      <div class="row cols-3">
+        <div class="node" data-id="q3_precision" data-kind="assertion" data-traces="gr consciousness entropy">
+          <div class="kind">Precision</div><div class="title">One sentence. No hedging.</div><div class="mini">Classify: certainty level, scope, mathematical vs verbal. Generate the opponent restatement test.</div>
+        </div>
+        <div class="node" data-id="q3_negation" data-kind="assertion" data-traces="gr consciousness entropy">
+          <div class="kind">Negation</div><div class="title">Every claim carries its own death warrant.</div><div class="mini">Auto-generate the logical opposite. If the negation decomposes the claim into independently testable components, you've found bundled claims.</div>
+        </div>
+        <div class="node" data-id="q3_gr" data-kind="assertion" data-traces="gr" data-status="pass">
+          <div class="kind">GR Example</div><div class="title">Negation splits GR into two claims.</div><div class="mini">"Mass-energy does NOT curve spacetime, OR objects do NOT follow geodesics." Two independently killable components found.</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="connector" data-dir="forward">▼ stated → supported</div>
+    <div class="connector" data-dir="reverse" style="display:none">▲ STEP 4: Support — evidence confirms what survived</div>
+
+    <!-- ═══ Q4: EVIDENCE ═══ -->
+    <section class="band" id="q4Band">
+      <div class="band-title"><span class="step-num" style="background:var(--q4);color:#0a0b0f">4</span> Q4 — WHAT SUPPORTS IT? (Evidence)</div>
+      <div class="row cols-3">
+        <div class="node" data-id="q4_ps" data-kind="evidence" data-traces="gr consciousness entropy">
+          <div class="kind">Channel 1: PS</div><div class="title">Phenomenon Strength</div><div class="mini">Reproducibility × 0.4 + Effect size × 0.3 + Measurement quality × 0.3. "What do we reliably observe?"</div>
+        </div>
+        <div class="node" data-id="q4_ed" data-kind="evidence" data-traces="gr consciousness entropy">
+          <div class="kind">Channel 2: ED</div><div class="title">Explanatory Depth</div><div class="mini">Mechanism clarity × 0.4 + Constraint consistency × 0.3 + Scope × 0.3. "Do we understand WHY?"</div>
+        </div>
+        <div class="node" data-id="q4_ec" data-kind="evidence" data-traces="gr consciousness entropy">
+          <div class="kind">Channel 3: EC</div><div class="title">Experiential Coherence</div><div class="mini">Internal consistency × .25 + Longitudinal stability × .25 + Behavioral transformation × .25 + Intersubjective pattern × .25</div>
+        </div>
+      </div>
+      <div class="connector">▼</div>
+      <div class="row cols-2">
+        <div class="node" data-id="q4_formula" data-kind="formula" data-traces="gr consciousness entropy">
+          <div class="kind">Formula</div><div class="title">The Completeness Factor</div><div class="mini">CF = (0.5 + 0.5 × ED) × (0.5 + 0.5 × EC)<br>E_final = PS × CF<br><strong>If ED = 0, evidence capped at 50%.</strong></div>
+        </div>
+        <div class="node" data-id="q4_competing" data-kind="evidence" data-traces="gr consciousness entropy">
+          <div class="kind">Critical Sub-Q</div><div class="title">Could this evidence support a competing model equally?</div><div class="mini">If yes → evidence doesn't distinguish. It supports a class, not a specific claim. This is information, not failure.</div>
+        </div>
+      </div>
+      <div class="connector">▼</div>
+      <div class="row cols-4">
+        <div class="node" data-id="q4_gr1" data-kind="survival" data-traces="gr" data-status="pass">
+          <div class="kind">GR Evidence</div><div class="title">Mercury precession</div><div class="mini">43 arcseconds. Predicted exactly.</div>
+        </div>
+        <div class="node" data-id="q4_gr2" data-kind="survival" data-traces="gr" data-status="pass">
+          <div class="kind">GR Evidence</div><div class="title">Gravitational lensing</div><div class="mini">Eddington 1919. Confirmed thousands of times.</div>
+        </div>
+        <div class="node" data-id="q4_gr3" data-kind="survival" data-traces="gr" data-status="pass">
+          <div class="kind">GR Evidence</div><div class="title">Gravitational waves</div><div class="mini">LIGO 2015. Waveform matched.</div>
+        </div>
+        <div class="node" data-id="q4_gr4" data-kind="survival" data-traces="gr" data-status="pass">
+          <div class="kind">GR Evidence</div><div class="title">GPS time dilation</div><div class="mini">Daily operational confirmation.</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="connector" data-dir="forward">▼ supported → grounded</div>
+    <div class="connector" data-dir="reverse" style="display:none">▲ STEP 3: Ground — show what it stands on</div>
+
+    <!-- ═══ Q5: DEPENDENCIES ═══ -->
+    <section class="band" id="q5Band">
+      <div class="band-title"><span class="step-num" style="background:var(--q5);color:#fff">5</span> Q5 — WHAT DOES IT DEPEND ON? (Dependencies)</div>
+      <div class="row cols-3">
+        <div class="node" data-id="q5_chain" data-kind="dependency" data-traces="gr consciousness entropy">
+          <div class="kind">Chain Terminus</div><div class="title">Where does the chain end?</div><div class="mini">Axiom (self-evident) · Brute fact (accepted without proof) · Circularity (loops back — FLAGGED) · Open (doesn't terminate — FLAGGED)</div>
+        </div>
+        <div class="node" data-id="q5_fragility" data-kind="dependency" data-traces="gr consciousness entropy">
+          <div class="kind">Fragility</div><div class="title">If this foundation fails, what happens?</div><div class="mini">Immediate collapse · Graceful degradation · Independent survival. A structural engineering load test applied to ideas.</div>
+        </div>
+        <div class="node" data-id="q5_gr" data-kind="dependency" data-traces="gr" data-status="pass">
+          <div class="kind">GR Example</div><div class="title">Hidden dependency: smooth manifold.</div><div class="mini">GR assumes spacetime is continuous. At Planck scale (~10⁻³⁵ m), it might be discrete. This unexamined root has driven unsolved physics for 100 years. Q5 surfaced it in one question.</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="connector" data-dir="forward">▼ grounded → generative</div>
+    <div class="connector" data-dir="reverse" style="display:none">▲ STEP 2: Force — extract what the survivor produces</div>
+
+    <!-- ═══ Q6: CONSEQUENCES ═══ -->
+    <section class="band" id="q6Band">
+      <div class="band-title"><span class="step-num" style="background:var(--q6);color:#0a0b0f">6</span> Q6 — WHAT DOES IT FORCE? (Consequences)</div>
+      <div class="row cols-3">
+        <div class="node" data-id="q6_predictions" data-kind="consequence" data-traces="gr consciousness entropy">
+          <div class="kind">Predictions</div><div class="title">What must be true if this claim is true?</div><div class="mini">Confirmed vs untested prediction ratio = generative maturity. A claim that forces nothing downstream explains nothing.</div>
+        </div>
+        <div class="node" data-id="q6_crossdomain" data-kind="consequence" data-traces="gr consciousness entropy">
+          <div class="kind">Cross-Domain</div><div class="title">Where do consequences land in other fields?</div><div class="mini">If a consequence appears in another domain and preserves structural relationships → isomorphism candidate detected. Loops back to Q2.</div>
+        </div>
+        <div class="node" data-id="q6_gr" data-kind="consequence" data-traces="gr" data-status="pass">
+          <div class="kind">GR Example</div><div class="title">GR bore fruit its planter didn't foresee.</div><div class="mini">Black holes (Schwarzschild 1916), gravitational waves (detected 2015), GPS corrections (daily). Einstein didn't predict most of these — the math forced them.</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="connector" data-dir="forward">▼ generative → testable</div>
+    <div class="connector" data-dir="reverse" style="display:none">▲ STEP 1: Destroy — show every way it could die</div>
+
+    <!-- ═══ Q7: FALSIFICATION ═══ -->
+    <section class="band" id="q7Band">
+      <div class="band-title"><span class="step-num" style="background:var(--q7);color:#fff">7</span> Q7 — WHAT KILLS IT? (Falsification)</div>
+      <div class="row cols-5">
+        <div class="node" data-id="q7_self" data-kind="death" data-traces="gr consciousness entropy">
+          <div class="kind">Death #1</div><div class="title">Self-refutation</div><div class="mini">Destroys itself when stated. The denial presupposes what it denies.</div>
+        </div>
+        <div class="node" data-id="q7_regress" data-kind="death" data-traces="gr consciousness entropy">
+          <div class="kind">Death #2</div><div class="title">Infinite regress</div><div class="mini">Pushes the question backward without resolving it. Each answer generates a new instance.</div>
+        </div>
+        <div class="node" data-id="q7_empirical" data-kind="death" data-traces="gr consciousness entropy">
+          <div class="kind">Death #3</div><div class="title">Empirical contradiction</div><div class="mini">Contradicts observed data. The traditional mode — necessary but not sufficient alone.</div>
+        </div>
+        <div class="node" data-id="q7_logical" data-kind="death" data-traces="gr consciousness entropy">
+          <div class="kind">Death #4</div><div class="title">Logical incoherence</div><div class="mini">Contradicts something already established in the chain — a dependency, a consequence, itself.</div>
+        </div>
+        <div class="node" data-id="q7_explanatory" data-kind="death" data-traces="gr consciousness entropy">
+          <div class="kind">Death #5</div><div class="title">Explanatory failure</div><div class="mini">Cannot answer forced downstream questions from Q6. Stops generating. Runs out of road.</div>
+        </div>
+      </div>
+      <div class="connector">▼ GR kill condition results</div>
+      <div class="row cols-4">
+        <div class="node" data-id="q7_gr1" data-kind="survival" data-traces="gr" data-status="pass">
+          <div class="kind">Survived</div><div class="title">Light bends around mass</div><div class="mini">Confirmed 1919. Still passing.</div>
+        </div>
+        <div class="node" data-id="q7_gr2" data-kind="survival" data-traces="gr" data-status="pass">
+          <div class="kind">Survived</div><div class="title">Gravitational waves exist</div><div class="mini">LIGO 2015. Waveform matched.</div>
+        </div>
+        <div class="node" data-id="q7_gr3" data-kind="survival" data-traces="gr" data-status="pass">
+          <div class="kind">Survived</div><div class="title">GPS needs relativistic correction</div><div class="mini">Daily operational confirmation.</div>
+        </div>
+        <div class="node" data-id="q7_gr4" data-kind="falsification" data-traces="gr" data-status="dead">
+          <div class="kind">STILL LIVE</div><div class="title">Singularity problem</div><div class="mini">GR produces infinities at black hole centers and Big Bang origin. Connects directly to Q5's hidden dependency (smooth manifold).</div>
+        </div>
+      </div>
+      <div class="connector">▼</div>
+      <div class="stack">
+        <div class="node" data-id="q7_adversarial" data-kind="falsification" data-traces="gr consciousness entropy">
+          <div class="kind">Adversarial Test</div><div class="title">Has anyone actually tried to kill it?</div><div class="mini">A claim that survived informed opponents is categorically different from one examined only by sympathetic parties. The system tracks this explicitly.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ TRUTH SCORE ═══ -->
+    <section class="band" id="scoreBand">
+      <div class="band-title"><span class="step-num" style="background:var(--gold);color:#0a0b0f">T</span> TRUTH SCORE — SYNTHESIS</div>
+      <div class="row cols-3">
+        <div class="node" data-id="score_formula" data-kind="formula" data-traces="gr consciousness entropy">
+          <div class="kind">Formula</div><div class="title">T = w₁·S + w₂·E + w₃·L + w₄·D + w₅·P + w₆·C</div>
+          <div class="mini">S ← Q7 survivability · E ← Q4 E_final · L ← Q3+Q4 logic · D ← Q5 dependencies · P ← Q6 predictions · C ← Q2 cross-domain</div>
+        </div>
+        <div class="node" data-id="score_enhanced" data-kind="formula" data-traces="gr consciousness entropy">
+          <div class="kind">Modulator</div><div class="title">T_enhanced = T × (0.6 + 0.4 × 7Q_score)</div>
+          <div class="mini">Zero 7Q markers = 60% of truth score. Full 7Q = 100%. The framework itself is a force multiplier.</div>
+        </div>
+        <div class="node" data-id="score_caps" data-kind="formula" data-traces="gr consciousness entropy">
+          <div class="kind">Caps</div><div class="title">Weak dimensions cap the total.</div>
+          <div class="mini">ED &lt; 0.3 → cap at 70% (no why). Q7 &lt; 0.3 → cap at 60% (unfalsifiable). Q6 &lt; 0.3 → cap at 70% (no consequences). You can't game this system.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ DETAIL PANEL ═══ -->
+    <div class="detail" id="detailPanel">
+      <div class="head">
+        <div class="name" id="detailTitle">Click any node for detail.</div>
+        <div class="tag" id="detailKind">—</div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-card">
+          <h4>Claim / Function</h4>
+          <p id="detailClaim">Select a node above to see its full claim, function within the framework, and worked example.</p>
+        </div>
+        <div class="detail-card">
+          <h4>Formal</h4>
+          <div class="eq" id="detailEq">—</div>
+          <ul id="detailBullets" style="margin-top:10px"></ul>
+        </div>
+      </div>
+      <div class="trace-note" id="detailTrace">No trace active.</div>
+    </div>
+  </main>
+</div>
+
+<script>
+const details = {
+  q0_precondition:{kind:'Precondition',title:'The inquirer cannot be the ground of inquiry',claim:'Before the first question, there is a posture. You do not arrive decided. You arrive open to whatever the evidence produces, including results that disconfirm your priors. This is not humility as virtue — it is an operational requirement. Every dead framework committed the exact error Q0 prevents.',eq:'Q0 ∉ {Q1..Q7} — sits outside the sequence',bullets:['Cannot be scored, only acknowledged.','Historical test: every framework that ossified arrived decided.','Einstein didn\'t set out to disprove Newton — he resolved a genuine tension.','Planck didn\'t want quanta — the data forced him.']},
+  q0_humility:{kind:'Operational',title:'Arrive open or don\'t arrive at all',claim:'Q0 is the silence before the first letter. The empty soil before any seed lands. Its function is to create a moment of reflection before inquiry begins. The posture shapes what grows.',eq:'posture(decided) → dead framework | posture(open) → breakthrough potential',bullets:['Not philosophical ornament — operational check.','Prevents: positivism (decided metaphysics meaningless before investigating), behaviorism (decided consciousness irrelevant before measuring).','Weakest operational element — non-enforceable. Honest about this.']},
+  q1_classify:{kind:'Identity',title:'Name it. Type it. Tier it.',claim:'Q1 creates the object. Forces the inquirer to name the claim, classify its type, and assign it a tier. Prevents category confusion — the error that occurs when a descriptive claim is treated as causal, or a hypothesis is treated as an axiom.',eq:'undefined → defined',bullets:['Types: causal, descriptive, ontological, mathematical, predictive, mechanistic, normative.','Tiers: foundational, derived, constraint, support, connection.','Misclassification at Q1 propagates through every subsequent question.','Sub-Q: Has it been named before — and does that name carry assumptions you haven\'t verified?']},
+  q1_tier:{kind:'Hierarchy',title:'Where does it sit in the knowledge hierarchy?',claim:'A claim\'s tier determines how it should be tested. Foundational claims need different kill conditions than derived claims. A hypothesis treated as an axiom will never be traced to its dependencies because axioms don\'t have dependencies — they ARE dependencies.',eq:'tier(claim) → {foundational, derived, constraint, support, connection}',bullets:['Foundational: axiom, postulate, definition.','Derived: theorem, corollary, hypothesis.','Constraint: boundary condition.','Support: evidence bundle.','Connection: bridge, relationship.']},
+  q1_gr:{kind:'GR Example',title:'GR is causal, not descriptive',claim:'Standard textbook presentation treats GR as a description of spacetime geometry. Q1 reclassifies it: GR asserts that mass-energy CAUSES curvature. That\'s a causal claim — a stronger commitment than "spacetime is curved." The reclassification immediately sharpens the kill conditions.',eq:'classify(GR) = causal > descriptive',bullets:['Causal means: removing the cause should remove the effect.','This is testable in ways "descriptive" is not.','The reclassification was not expected — Q1 surfaced it.']},
+  q2_primary:{kind:'Domain',title:'Anchor in domain and scale',claim:'Q2 places the claim in conceptual space. Primary domain, additional domains, scale of operation. The critical question: does this claim appear in more than one domain?',eq:'defined → located',bullets:['Domains: physics, theology, consciousness, info theory, math, biology, economics, social science.','Scale: quantum, molecular, neural, individual, social, civilizational, cosmic, universal.','Cross-domain presence triggers the isomorphism test.']},
+  q2_iso:{kind:'Isomorphism Test',title:'Analogy or structural identity?',claim:'If the same structural relationships hold when you swap the domain labels — if the mathematics preserves topology, boundary conditions, and conservation laws under variable substitution — that\'s not analogy. That\'s isomorphism. Analogies suggest similarity. Isomorphisms demonstrate structural identity.',eq:'iso(A,B) iff ∀ relations R: R_A ↔ R_B under variable substitution',bullets:['Analogy: "gravity is like love" — metaphorical, non-constraining.','Isomorphism: "the same tensor equations describe both" — structural, prediction-constraining.','The distinction is critical: isomorphisms constrain predictions in both domains.']},
+  q2_gr:{kind:'GR Example',title:'Riemannian geometry exists independently',claim:'The mathematical substrate GR depends on — Riemannian geometry — appears independently in machine learning (manifold learning), economics (curved utility surfaces), and information theory (Fisher information geometry). The soil is more universal than the seed planted in it.',eq:'Riemannian geometry: physics ∩ ML ∩ economics ∩ info theory → ISO confirmed',bullets:['Not analogy — the same mathematics operates in all four domains.','This means GR\'s mathematical foundation is NOT physics-specific.','Cross-domain structural identity confirmed.']},
+  q3_precision:{kind:'Precision',title:'One sentence. No hedging.',claim:'Q3 forces the claim into a single precise statement. No qualifiers, no escape routes. Classify by certainty level and scope. The opponent restatement test: can a serious, informed opponent restate your claim accurately? If not, it\'s not precise enough to test.',eq:'located → stated',bullets:['Certainty: proven, well-supported, tentative, speculative.','Scope: universal, domain-specific, context-dependent.','The opponent restatement test catches vagueness other checks miss.']},
+  q3_negation:{kind:'Negation',title:'Every claim carries its own death warrant',claim:'Q3 auto-generates the logical opposite of the claim. The negation is testable. If the negation decomposes the original into independently testable components, you\'ve found bundled claims that were hidden inside a single statement.',eq:'¬(A ∧ B) = ¬A ∨ ¬B — negation splits bundled claims',bullets:['This is a mechanical operation, not a judgment call.','The negation reveals the claim\'s internal structure.','Bundled claims are the most common hidden vulnerability.']},
+  q3_gr:{kind:'GR Example',title:'Negation splits GR into two claims',claim:'"Mass-energy does NOT curve spacetime, OR objects do NOT follow geodesics." The negation reveals GR is actually two claims bundled together, each independently killable. Most treatments present GR as unified — Q3 decomposed it automatically.',eq:'¬GR = ¬(curvature causation) ∨ ¬(geodesic following)',bullets:['Two independently testable components found.','This was not anticipated — the method surfaced it.','Suggests general utility for decomposing complex theories.']},
+  q4_ps:{kind:'Channel 1: PS',title:'Phenomenon Strength',claim:'What do we reliably observe? This is what science already does well. Measurement, replication, signal detection. The rain that falls on the tree.',eq:'PS = reproducibility×0.4 + effect_size×0.3 + measurement_quality×0.3',bullets:['Reproducibility weighted highest — can it be repeated?','Effect size — how strong is the signal?','Measurement quality — are the instruments adequate?']},
+  q4_ed:{kind:'Channel 2: ED',title:'Explanatory Depth',claim:'Do we understand WHY? This is what science systematically avoids. Every dead framework refused this question. Every breakthrough came from someone who held it. The sunlight that tells the tree which direction to grow.',eq:'ED = mechanism_clarity×0.4 + constraint_consistency×0.3 + scope×0.3',bullets:['THE why-penalty channel. ED = 0 caps evidence at 50%.','Mechanism clarity — do we know HOW it works?','Pre-1927 scientists who asked WHY moved the needle.','Post-1927 instrumentalism correlates with fragmentation.']},
+  q4_ec:{kind:'Channel 3: EC',title:'Experiential Coherence',claim:'Does it produce stable structure in lived systems? Not "I feel strongly." Does the evidence produce consistent downstream effects across time, behavior, and agents? The soil moisture the roots actually draw from.',eq:'EC = consistency×.25 + stability×.25 + transformation×.25 + pattern×.25',bullets:['Internal consistency — does it contradict itself over time?','Longitudinal stability — does the effect persist?','Behavioral transformation — does it change how people act?','Intersubjective pattern — do multiple observers report the same structure?']},
+  q4_formula:{kind:'Formula',title:'The Completeness Factor',claim:'The three channels multiply, not add. You can\'t compensate for zero in one channel by maxing another. A tree with infinite rain but no sunlight dies. A tree with perfect sunlight but no water dies.',eq:'CF = (0.5 + 0.5×ED) × (0.5 + 0.5×EC)\nE_final = PS × CF',bullets:['ED=0, EC=0 → CF=0.25 → evidence capped at 25%.','ED=1, EC=1 → CF=1.0 → full credit earned.','The why-penalty is the signature feature.','Observed ≠ Explained. Repeatable ≠ Understood.']},
+  q4_competing:{kind:'Critical Sub-Q',title:'Could this evidence support a competing model?',claim:'If the same evidence equally supports multiple models, it doesn\'t distinguish between them. It supports a class of theories, not a specific one. This is not weakness — it\'s information about discriminating power.',eq:'E_discriminating = E_final × (1 − competing_model_fit)',bullets:['Most evidence in most fields supports multiple models.','The question is not "does evidence exist?" but "does it distinguish?"','Q4 forces this question explicitly.']},
+  q4_gr1:{kind:'GR Evidence',title:'Mercury perihelion precession',claim:'43 arcseconds of precession predicted exactly by GR. No competing model matches this specific quantitative prediction.',eq:'Δφ = 43.0" ± 0.1" per century (observed = predicted)',bullets:['First confirmed prediction of GR.','No competing model matches the exact value.']},
+  q4_gr2:{kind:'GR Evidence',title:'Gravitational lensing',claim:'Light bending around massive objects. First confirmed by Eddington in 1919 during solar eclipse. Confirmed thousands of times since.',eq:'θ = 4GM/(c²b) (deflection angle)',bullets:['Eddington 1919 — the experiment that made Einstein famous.','Now used routinely in astronomy (gravitational lensing surveys).']},
+  q4_gr3:{kind:'GR Evidence',title:'Gravitational waves',claim:'Ripples in spacetime detected by LIGO in 2015. Waveform matched GR predictions to extraordinary precision.',eq:'h(t) ∝ (Mc)^(5/3) f(t)^(2/3) — chirp waveform',bullets:['LIGO 2015 — first direct detection.','Waveform matched numerical relativity simulations.','Nobel Prize 2017.']},
+  q4_gr4:{kind:'GR Evidence',title:'GPS time dilation',claim:'GPS satellites must correct for relativistic time dilation. Without GR corrections, GPS would drift by ~10 km per day.',eq:'Δt_GR ≈ 45 μs/day (gravitational) − 7 μs/day (velocity) = +38 μs/day net',bullets:['Operational daily confirmation of GR.','Not an experiment — a working engineering system.']},
+  q5_chain:{kind:'Chain Terminus',title:'Where does the chain end?',claim:'Q5 traces the dependency chain all the way down. Where does it terminate? Axiom (self-evident, not derived) · Brute fact (accepted without proof) · Circularity (loops back — structural vulnerability) · Open (never terminates — incomplete).',eq:'supported → grounded',bullets:['Axiom terminus = solid ground.','Brute fact terminus = honest but ungrounded.','Circular terminus = FLAGGED as structural vulnerability.','Open terminus = FLAGGED as incomplete.']},
+  q5_fragility:{kind:'Fragility',title:'If this foundation fails, what happens?',claim:'For each dependency: if it fails, does the entire claim collapse immediately, degrade gracefully, or survive independently? This produces a fragility map — the equivalent of a structural engineering load test applied to ideas.',eq:'fragility(dep) → {immediate_collapse, graceful_degradation, independent_survival}',bullets:['Immediate collapse = critical dependency.','Graceful degradation = the claim still partially works.','Independent survival = the dependency wasn\'t actually needed.']},
+  q5_gr:{kind:'GR Example',title:'Hidden dependency: smooth manifold assumption',claim:'GR assumes spacetime is a smooth, continuous manifold. At the Planck scale (~10⁻³⁵ m), spacetime might be discrete. This hidden root has been driving unsolved physics for a century. Q5 surfaced it in one question.',eq:'GR depends on: equivalence principle, Riemannian geometry, c=const, E-mom conservation, smooth manifold',bullets:['Chain terminus: equivalence principle = axiom (solid).','Hidden dependency: smooth manifold = unverified assumption.','This is the root of the quantum gravity problem.','Standard textbooks don\'t flag this as a dependency.']},
+  q6_predictions:{kind:'Predictions',title:'What must be true if this claim is true?',claim:'Q6 separates confirmed predictions from untested predictions. The ratio is a direct measure of generative maturity. A claim that forces nothing downstream explains nothing — it occupies conceptual space without generating new knowledge.',eq:'grounded → generative',bullets:['Confirmed/untested ratio = generative maturity metric.','A claim with 0 predictions = decorative, not productive.','Q6 is where isomorphisms are born — consequences appearing in other domains.']},
+  q6_crossdomain:{kind:'Cross-Domain',title:'Where do consequences land in other fields?',claim:'If a consequence of the claim appears in a domain other than its primary domain, and preserves structural relationships under variable substitution, an isomorphism candidate has been detected. This loops back to Q2 for verification.',eq:'Q6 consequence ∈ domain_B → flag for Q2 isomorphism test',bullets:['This is the discovery mechanism for cross-domain connections.','Standard disciplinary boundaries hide these connections.','The framework makes them structurally visible.']},
+  q6_gr:{kind:'GR Example',title:'GR bore fruit its planter didn\'t foresee',claim:'Black holes, gravitational waves, GPS corrections — all forced by the equations, not predicted by Einstein himself. The math generated consequences the author didn\'t plant.',eq:'GR → {black holes, grav waves, GPS, frame dragging, ...}',bullets:['Black holes: Schwarzschild 1916 (not Einstein).','Gravitational waves: predicted but Einstein doubted them.','GPS: practical engineering consequence nobody anticipated.','4 major consequences, all confirmed.']},
+  q7_self:{kind:'Death Condition #1',title:'Self-refutation',claim:'The claim destroys itself when stated. The denial presupposes what it denies. Example: "There is no truth" is itself a truth claim. "Logic is unreliable" requires logic to state.',eq:'P → ¬P (self-refuting)',bullets:['The fastest death condition to check.','If the claim self-refutes, nothing else matters.','Many philosophical positions fail here silently.']},
+  q7_regress:{kind:'Death Condition #2',title:'Infinite regress',claim:'The claim pushes the question backward without ever resolving it. Each answer generates a new instance of the same question. "Who created the creator?" is the classic example.',eq:'answer(Q) → new instance of Q → ∞',bullets:['Not the same as a deep dependency chain.','Regress = the chain never terminates by design.','Some frameworks embrace this — the 7Q system flags it.']},
+  q7_empirical:{kind:'Death Condition #3',title:'Empirical contradiction',claim:'The claim contradicts observed data. This is the traditional mode of falsification — the one Popper formalized. Necessary but not sufficient alone: a claim can survive empirical testing and still fail on other conditions.',eq:'prediction(claim) ≠ observation → falsified',bullets:['The only death condition the traditional method recognizes.','The 7Q system adds four more.','Empirical contradiction is necessary but not sufficient.']},
+  q7_logical:{kind:'Death Condition #4',title:'Logical incoherence',claim:'The claim contradicts something already established in its own chain — a prior dependency, a forced consequence, or itself at a different point in the argument.',eq:'claim ∧ ¬(consequence of claim) → incoherent',bullets:['Different from self-refutation (which is immediate).','This catches delayed contradictions.','Often invisible until the full chain is traced.']},
+  q7_explanatory:{kind:'Death Condition #5',title:'Explanatory failure',claim:'The claim cannot answer forced downstream questions from Q6. It stops generating. It runs out of road. Kuhn described this as anomaly accumulation — the 7Q system formalizes it.',eq:'Q6(claim) → ∅ (no downstream consequences)',bullets:['The Kuhnian death condition, formalized.','A theory that stops generating is dying.','Different from empirical failure — the data might still fit.']},
+  q7_gr1:{kind:'Survived',title:'Light bends around mass',claim:'Confirmed since Eddington 1919. Replicated thousands of times. No anomalies detected.',eq:'θ_observed = θ_predicted ± measurement error',bullets:['Kill condition: light does NOT bend. Status: SURVIVED.']},
+  q7_gr2:{kind:'Survived',title:'Gravitational waves exist',claim:'LIGO 2015. Waveform matched numerical relativity predictions to extraordinary precision.',eq:'h_observed matches h_NR within detector sensitivity',bullets:['Kill condition: gravitational waves do NOT exist. Status: SURVIVED.']},
+  q7_gr3:{kind:'Survived',title:'GPS needs relativistic correction',claim:'Operational daily. Without corrections, GPS drifts ~10 km/day. The correction works.',eq:'GPS_corrected - GPS_uncorrected ≈ 10 km/day drift',bullets:['Kill condition: GPS does NOT need GR correction. Status: SURVIVED.']},
+  q7_gr4:{kind:'STILL LIVE',title:'Singularity problem — open kill condition',claim:'GR produces infinities at black hole centers and the Big Bang origin. This is not "needs more work" — it\'s a structural failure at extreme conditions. Connects directly to Q5\'s hidden dependency (smooth manifold assumption).',eq:'R_μν → ∞ at r = 0 (singularity)',bullets:['Kill condition: GR cannot handle singularities. Status: STILL LIVE.','This is the open wound.','Connects directly to Q5 (smooth manifold dependency).','The 7Q method traced the connection in two questions.']},
+  q7_adversarial:{kind:'Adversarial Test',title:'Has anyone actually tried to kill it?',claim:'A claim that survived adversarial testing by informed opponents is categorically different from one examined only by sympathetic parties. The system tracks this distinction explicitly.',eq:'adversarial_tested: true/false (tracked)',bullets:['Most claims in most fields have NOT been adversarially tested.','Surviving sympathetic review ≠ surviving hostile review.','The 7Q system requires this field to be declared.']},
+  score_formula:{kind:'Truth Score',title:'T = w₁·S + w₂·E + w₃·L + w₄·D + w₅·P + w₆·C',claim:'Six variables, all derived from 7Q fields. S = Survivability (Q7). E = Evidence (Q4 E_final with why-penalty). L = Logic (Q3 precision × Q4 type). D = Dependencies (Q5 stability). P = Predictions (Q6 confirmed ratio). C = Coherence (Q2 cross-domain).',eq:'T = Σ wᵢ · Vᵢ where V ∈ {S, E, L, D, P, C}',bullets:['Every variable comes from fields the user already filled.','No external judgment needed — the math handles it.','Maps to existing unified_scorer.py: T=χ, confidence=κ, cluster variance=ρ.']},
+  score_enhanced:{kind:'Modulator',title:'T_enhanced = T × (0.6 + 0.4 × 7Q_score)',claim:'The 7Q framework score itself modulates the truth score. A document with zero 7Q markers keeps 60% of its score. Full 7Q presence amplifies to 100%. The framework rewards structured epistemic practice.',eq:'T_enhanced = T_base × (0.6 + 0.4 × 7Q_composite)',bullets:['This means: using the method makes your work score higher.','Not because it\'s biased — because structured inquiry IS better inquiry.']},
+  score_caps:{kind:'Caps',title:'Weak dimensions cap the total',claim:'You cannot game this system by maxing one dimension and ignoring others. If explanatory depth is missing, the score is capped regardless of evidence strength. If kill conditions are absent, the score is capped regardless of everything else.',eq:'if ED < 0.3 → max(T) = 0.70\nif Q7 < 0.3 → max(T) = 0.60\nif Q6 < 0.3 → max(T) = 0.70',bullets:['The caps enforce completeness.','A paper with perfect evidence but no kill conditions caps at 60%.','A paper with perfect kill conditions but no explanation caps at 70%.','You need all dimensions present for full credit.']}
+};
+
+const nodes=[...document.querySelectorAll('.node')];
+const detailKind=document.getElementById('detailKind');
+const detailTitle=document.getElementById('detailTitle');
+const detailClaim=document.getElementById('detailClaim');
+const detailEq=document.getElementById('detailEq');
+const detailBullets=document.getElementById('detailBullets');
+const detailTrace=document.getElementById('detailTrace');
+
+nodes.forEach(n=>n.addEventListener('click',()=>{
+  const d=details[n.dataset.id];
+  if(!d)return;
+  detailKind.textContent=d.kind;
+  detailTitle.textContent=d.title;
+  detailClaim.textContent=d.claim;
+  detailEq.textContent=d.eq;
+  detailBullets.innerHTML=d.bullets.map(x=>`<li>${x}</li>`).join('');
+}));
+
+// Layer filters
+function applyLayerFilters(){
+  const on=new Set([...document.querySelectorAll('[data-layer-toggle]')].filter(i=>i.checked).map(i=>i.dataset.layerToggle));
+  nodes.forEach(n=>n.classList.toggle('hidden-layer',!on.has(n.dataset.kind)));
+}
+[...document.querySelectorAll('[data-layer-toggle]')].forEach(i=>i.addEventListener('change',applyLayerFilters));
+document.getElementById('showAll').addEventListener('click',()=>{document.querySelectorAll('[data-layer-toggle]').forEach(i=>i.checked=true);applyLayerFilters()});
+document.getElementById('showCore').addEventListener('click',()=>{document.querySelectorAll('[data-layer-toggle]').forEach(i=>i.checked=['identity','assertion','evidence','dependency','consequence','falsification'].includes(i.dataset.layerToggle));applyLayerFilters()});
+applyLayerFilters();
+
+// Trace
+const traceSelect=document.getElementById('traceSelect');
+function applyTrace(){
+  const val=traceSelect.value;
+  nodes.forEach(n=>{n.classList.remove('trace-hit','trace-dim');
+    if(!val)return;
+    const traces=(n.dataset.traces||'').split(/\s+/).filter(Boolean);
+    if(traces.includes(val))n.classList.add('trace-hit');else n.classList.add('trace-dim');
+  });
+  detailTrace.textContent=val?`Trace active: ${val}`:'No trace active.';
+}
+traceSelect.addEventListener('change',applyTrace);
+document.getElementById('clearTrace').addEventListener('click',()=>{traceSelect.value='';applyTrace()});
+applyTrace();
+
+// Direction toggle
+function setDirection(dir){
+  document.getElementById('dirForward').classList.toggle('active',dir==='forward');
+  document.getElementById('dirReverse').classList.toggle('active',dir==='reverse');
+  document.getElementById('dirDesc').textContent=dir==='forward'
+    ?'Forward: Q0 → Q7. Classify any claim into a structured, testable object.'
+    :'Reverse: Q7 → Q0. Prove by exhaustive elimination — identity earned last.';
+  // Reverse band order visually
+  const main=document.querySelector('.main');
+  const bands=[...main.querySelectorAll('.band')];
+  const connectors=[...main.querySelectorAll('.connector')];
+  connectors.forEach(c=>{
+    if(c.dataset.dir==='forward')c.style.display=dir==='forward'?'flex':'none';
+    if(c.dataset.dir==='reverse')c.style.display=dir==='reverse'?'flex':'none';
+  });
+  if(dir==='reverse'){
+    const header=main.querySelector('.header');
+    const detail=main.querySelector('.detail');
+    bands.reverse();
+    // Remove all bands and re-append in reverse
+    bands.forEach(b=>b.remove());
+    connectors.forEach(c=>c.remove());
+    const reverseLabels=['▼ STEP 1: Destroy — show every way it could die','▼ STEP 2: Force — extract what the survivor produces','▼ STEP 3: Ground — show what it stands on','▼ STEP 4: Support — evidence confirms what survived','▼ STEP 5: State — the claim is now a conclusion','▼ STEP 6: Generalize — show it holds across domains','▼ STEP 7: Name — identity earned through survival'];
+    bands.forEach((b,i)=>{
+      header.after(b);
+      // Move to end
+      if(i<bands.length-1){
+        const conn=document.createElement('div');
+        conn.className='connector';
+        conn.textContent=reverseLabels[i]||'▼';
+        b.after(conn);
+      }
+    });
+  } else {
+    // Reload to restore forward order
+    location.reload();
+  }
+}
+</script>
+</body>
+</html>
