@@ -1,0 +1,28 @@
+{
+  "station_id": "PI_09",
+  "station_name": "linguistic-depth",
+  "station_type": "one_for_one",
+  "description": "Linguistic depth analyzer wrapper",
+  "input_extensions": [
+    ".md",
+    ".txt",
+    ".json"
+  ],
+  "workers": {
+    "default": [
+      "NONE"
+    ],
+    "optional": []
+  },
+  "entrypoint": {
+    "script": "linguistic_analyzer.py",
+    "module": "linguistic_analyzer",
+    "function": "analyze",
+    "mode": "function_path"
+  },
+  "outputs": {
+    "artifact_type": "json",
+    "update_job_card": false,
+    "final_export": false
+  }
+}

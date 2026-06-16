@@ -1,0 +1,26 @@
+{
+  "station_id": "PI_07",
+  "station_name": "knowledge-graphs",
+  "station_type": "one_for_one",
+  "description": "Knowledge graph builder wrapper",
+  "input_extensions": [
+    ".json"
+  ],
+  "workers": {
+    "default": [
+      "NONE"
+    ],
+    "optional": []
+  },
+  "entrypoint": {
+    "script": "graph_builder.py",
+    "module": "graph_builder",
+    "function": "build_graph",
+    "mode": "graph_builder"
+  },
+  "outputs": {
+    "artifact_type": "json",
+    "update_job_card": false,
+    "final_export": false
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "station_id": "PI_04Q",
+  "station_name": "openai-7q",
+  "station_type": "one_for_one",
+  "description": "OpenAI/Ollama 7Q scoring wrapper",
+  "input_extensions": [
+    ".md",
+    ".txt",
+    ".json"
+  ],
+  "workers": {
+    "default": [
+      "NONE"
+    ],
+    "optional": []
+  },
+  "entrypoint": {
+    "script": "ollama_7q_runner.py",
+    "module": "ollama_7q_runner",
+    "function": "run_paper",
+    "mode": "function_path_outdir"
+  },
+  "outputs": {
+    "artifact_type": "json",
+    "update_job_card": false,
+    "final_export": false
+  }
+}

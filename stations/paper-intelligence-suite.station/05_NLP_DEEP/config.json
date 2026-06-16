@@ -1,0 +1,28 @@
+{
+  "station_id": "PI_05",
+  "station_name": "nlp-deep",
+  "station_type": "one_for_one",
+  "description": "Deep NLP analyzer wrapper",
+  "input_extensions": [
+    ".md",
+    ".txt",
+    ".json"
+  ],
+  "workers": {
+    "default": [
+      "NONE"
+    ],
+    "optional": []
+  },
+  "entrypoint": {
+    "script": "nlp_analyzer.py",
+    "module": "nlp_analyzer",
+    "function": "analyze",
+    "mode": "function_path"
+  },
+  "outputs": {
+    "artifact_type": "json",
+    "update_job_card": false,
+    "final_export": false
+  }
+}

@@ -1,31 +1,13 @@
 @echo off
 setlocal
-echo ============================================
-echo  STATION: Paper Proof Grader
-echo  Drop a paper into DROP_PAPERS_HERE, then run this.
-echo ============================================
+cd /d "%~dp0"
 
-set PYTHON_EXE=C:\Users\lowes\AppData\Local\Programs\Python\Python313\python.exe
-if not exist "%PYTHON_EXE%" set PYTHON_EXE=C:\Users\lowes\AppData\Local\Programs\Python\Python312\python.exe
+if not exist "_inbox" mkdir "_inbox"
+if not exist "_outbox" mkdir "_outbox"
+if not exist "_processed" mkdir "_processed"
 
-if not exist "%~dp0pipeline.py" (
-  echo Pipeline scaffold exists, but pipeline.py has not been built yet.
-  echo See MASTER_VARIABLE_SCHEMA.md and README.md.
-  pause
-  exit /b 0
-)
+set "PYTHON_EXE=%PYTHON_EXE%"
+if "%PYTHON_EXE%"=="" set "PYTHON_EXE=python"
 
-if exist "%PYTHON_EXE%" (
-  "%PYTHON_EXE%" "%~dp0pipeline.py"
-) else (
-  py -3.13 "%~dp0pipeline.py"
-)
-set RC=%ERRORLEVEL%
-
-echo ============================================
-echo  Done (rc=%RC%). See X:\Backside\_logs\workflow_paper-proof-grader_*.log
-echo ============================================
-pause
-exit /b %RC%
-
-
+"%PYTHON_EXE%" "%~dp0pipeline.py" %*
+exit /b %ERRORLEVEL%

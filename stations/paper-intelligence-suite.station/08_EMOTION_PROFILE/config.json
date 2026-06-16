@@ -1,0 +1,28 @@
+{
+  "station_id": "PI_08",
+  "station_name": "emotion-profile",
+  "station_type": "one_for_one",
+  "description": "Emotion profile analyzer wrapper",
+  "input_extensions": [
+    ".md",
+    ".txt",
+    ".json"
+  ],
+  "workers": {
+    "default": [
+      "NONE"
+    ],
+    "optional": []
+  },
+  "entrypoint": {
+    "script": "emotion_analyzer.py",
+    "module": "emotion_analyzer",
+    "function": "analyze",
+    "mode": "function_path"
+  },
+  "outputs": {
+    "artifact_type": "json",
+    "update_job_card": false,
+    "final_export": false
+  }
+}
