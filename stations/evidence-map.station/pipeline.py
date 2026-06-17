@@ -182,81 +182,61 @@ def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool
 # ============================================================
 # 06_NLP_ROUTE  *** STATION-SPECIFIC ***
 # ============================================================
-# Decide which NLP model or worker handles this input.
-# Simple stations return one model. Complex ones route by content type.
-#
-# NLP models live at: X:\05_MODELS\{model_folder}\
-#   M01_summarizer, M02_embedder, M03_contradiction, M04_imager,
-#   M05_transcriber, M06_llm, M07_fact_verify, M08_contradiction_deep,
-#   M09_claim_extract, M10_timeline, M11_math_verify, M12_paper_review,
-#   M13_bart_summarizer, M14_clip_vision, M15_mistral_7b, M16_whisper_large_v3
-#
-# Preference engines live at: X:\06_ENGINES\{engine_folder}\
-#   P01_implicit, P02_recbole, P03_lightfm, P04_paper_recommender,
-#   P05_ppk, P06_river, P07_markovify
+# Shared helpers keep the SSS_v1 station files focused on routing and processing.
+import re
+sys.path.insert(0, str(STATIONS))
+from _shared.station_helpers import (
+    API_BASE,
+    base_result,
+    call_nlp,
+    cosine,
+    data_from_artifact,
+    embeddings,
+    flesch_reading_ease,
+    nlp_route,
+    paragraphs,
+    read_input,
+    sections,
+    sentences,
+    strip_html,
+    text_from_input,
+    top_label,
+    word_count,
+)
+
 
 def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
-    """
-    Returns dict with at minimum:
-      {"nlp_id": "M01_summarizer", "nlp_path": Path(...)}
-    or {"nlp_id": "NONE"} if station doesn't call an NLP.
-    """
-    workers = cfg.get("workers", {})
-    default_nlp = workers.get("default", ["NONE"])[0] if isinstance(workers.get("default"), list) else workers.get("default_worker", "NONE")
-
-    nlp_path = MODELS / default_nlp if default_nlp != "NONE" else None
-
-    return {
-        "nlp_id": default_nlp,
-        "nlp_path": nlp_path,
-    }
+    return nlp_route(API_BASE, MODELS, cfg, "embeddings_fast", "embed")
 
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
-# The ONE action this station performs.
-# This is where the actual work happens.
-# Keep it focused — if this grows beyond ~100 lines, split into a new station.
 
 def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
                 log: logging.Logger) -> dict[str, Any]:
-    """
-    Process a single input file. Returns a result dict.
-
-    The result dict is the station's artifact — it gets written to _outbox.
-    Must include at minimum:
-      - input_file: str
-      - station_id: str
-      - station_name: str
-      - nlp_used: str
-      - processed_at: str (ISO timestamp)
-      - success: bool
-      - artifacts: list[str]  (paths to any generated files)
-      - errors: list[str]
-      - data: dict  (the actual extracted/computed content)
-    """
-    result = {
-        "input_file": str(path.name),
-        "station_id": STATION_ID,
-        "station_name": STATION_NAME,
-        "nlp_used": nlp_info.get("nlp_id", "NONE"),
-        "processed_at": datetime.now().isoformat(timespec="seconds"),
-        "success": True,
-        "artifacts": [],
-        "errors": [],
-        "data": {},
-    }
-
-    # ── YOUR STATION LOGIC HERE ──
-    # Example: read the file, call the NLP, extract results
-    #
-    # text = path.read_text(encoding="utf-8")
-    # nlp_result = call_nlp(text, nlp_info)
-    # result["data"] = nlp_result
-    #
-
+    result=base_result(path, STATION_ID, STATION_NAME, nlp_info)
+    try:
+        obj=read_input(path); data=obj.get("data",obj)
+        claims=data.get("falsification_results", data.get("claims", []))
+        doc_text=data.get("original_text") or data.get("document") or text_from_input(obj)
+        passages=[(i+1,p) for i,p in enumerate(paragraphs(strip_html(doc_text))) if re.search(r"\b(data|study|survey|citation|evidence|results?|analysis|found|show|%|\d)\b", p, re.I)] or [(i+1,p) for i,p in enumerate(paragraphs(strip_html(doc_text)))]
+        claim_emb=embeddings(call_nlp("embed", {"texts":[c.get("text","") for c in claims]})) if claims else []
+        pass_emb=embeddings(call_nlp("embed", {"texts":[p for _,p in passages]})) if passages else []
+        mapped=[]; summary={"SUPPORTED":0,"PARTIAL":0,"UNSUPPORTED":0,"EVIDENCE_GAP":0}
+        for idx,c in enumerate(claims):
+            sims=sorted([(j,cosine(claim_emb[idx] if idx<len(claim_emb) else [], e)) for j,e in enumerate(pass_emb)], key=lambda x:x[1], reverse=True)[:3]
+            matches=[]
+            for j,sim in sims:
+                status="SUPPORTED" if sim>0.5 else "PARTIAL" if sim>=0.3 else "UNSUPPORTED"
+                matches.append({"passage":passages[j][1],"similarity":round(sim,4),"paragraph_index":passages[j][0],"status":status})
+            best=matches[0]["similarity"] if matches else 0.0
+            coverage="SUPPORTED" if best>0.5 else "PARTIAL" if best>=0.3 else "EVIDENCE_GAP"
+            summary[coverage]+=1
+            mapped.append({"claim_id":c.get("claim_id"),"text":c.get("text",""),"evidence_matches":matches,"coverage_status":coverage,"best_similarity":best})
+        result["data"]={"evidence_map":mapped,"coverage_summary":summary,"orphan_evidence":[]}
+    except Exception as exc:
+        result["success"] = False; result["errors"].append(str(exc))
     return result
-
 # ============================================================
 # 08_ARTIFACTS
 # ============================================================

@@ -182,81 +182,52 @@ def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool
 # ============================================================
 # 06_NLP_ROUTE  *** STATION-SPECIFIC ***
 # ============================================================
-# Decide which NLP model or worker handles this input.
-# Simple stations return one model. Complex ones route by content type.
-#
-# NLP models live at: X:\05_MODELS\{model_folder}\
-#   M01_summarizer, M02_embedder, M03_contradiction, M04_imager,
-#   M05_transcriber, M06_llm, M07_fact_verify, M08_contradiction_deep,
-#   M09_claim_extract, M10_timeline, M11_math_verify, M12_paper_review,
-#   M13_bart_summarizer, M14_clip_vision, M15_mistral_7b, M16_whisper_large_v3
-#
-# Preference engines live at: X:\06_ENGINES\{engine_folder}\
-#   P01_implicit, P02_recbole, P03_lightfm, P04_paper_recommender,
-#   P05_ppk, P06_river, P07_markovify
+# Shared helpers keep the SSS_v1 station files focused on routing and processing.
+import re
+sys.path.insert(0, str(STATIONS))
+from _shared.station_helpers import (
+    API_BASE,
+    base_result,
+    call_nlp,
+    cosine,
+    data_from_artifact,
+    embeddings,
+    flesch_reading_ease,
+    nlp_route,
+    paragraphs,
+    read_input,
+    sections,
+    sentences,
+    strip_html,
+    text_from_input,
+    top_label,
+    word_count,
+)
+
 
 def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
-    """
-    Returns dict with at minimum:
-      {"nlp_id": "M01_summarizer", "nlp_path": Path(...)}
-    or {"nlp_id": "NONE"} if station doesn't call an NLP.
-    """
-    workers = cfg.get("workers", {})
-    default_nlp = workers.get("default", ["NONE"])[0] if isinstance(workers.get("default"), list) else workers.get("default_worker", "NONE")
-
-    nlp_path = MODELS / default_nlp if default_nlp != "NONE" else None
-
-    return {
-        "nlp_id": default_nlp,
-        "nlp_path": nlp_path,
-    }
+    return nlp_route(API_BASE, MODELS, cfg, "ollama_phi4", "llm")
 
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
-# The ONE action this station performs.
-# This is where the actual work happens.
-# Keep it focused — if this grows beyond ~100 lines, split into a new station.
+
+def _rewrite(text: str, target: str) -> str:
+    prompt = f"Rewrite this at a {target} reading level. Keep all facts and preserve section structure.\n\n{text}"
+    data = call_nlp("generate", {"model": "phi4", "prompt": prompt})
+    return data.get("response") or data.get("text") or data.get("generated_text") or text
+
 
 def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
                 log: logging.Logger) -> dict[str, Any]:
-    """
-    Process a single input file. Returns a result dict.
-
-    The result dict is the station's artifact — it gets written to _outbox.
-    Must include at minimum:
-      - input_file: str
-      - station_id: str
-      - station_name: str
-      - nlp_used: str
-      - processed_at: str (ISO timestamp)
-      - success: bool
-      - artifacts: list[str]  (paths to any generated files)
-      - errors: list[str]
-      - data: dict  (the actual extracted/computed content)
-    """
-    result = {
-        "input_file": str(path.name),
-        "station_id": STATION_ID,
-        "station_name": STATION_NAME,
-        "nlp_used": nlp_info.get("nlp_id", "NONE"),
-        "processed_at": datetime.now().isoformat(timespec="seconds"),
-        "success": True,
-        "artifacts": [],
-        "errors": [],
-        "data": {},
-    }
-
-    # ── YOUR STATION LOGIC HERE ──
-    # Example: read the file, call the NLP, extract results
-    #
-    # text = path.read_text(encoding="utf-8")
-    # nlp_result = call_nlp(text, nlp_info)
-    # result["data"] = nlp_result
-    #
-
+    result = base_result(path, STATION_ID, STATION_NAME, nlp_info)
+    try:
+        text = strip_html(text_from_input(read_input(path)))
+        versions = {"easy": _rewrite(text, "6th grade"), "standard": _rewrite(text, "10th grade"), "academic": text}
+        result["data"] = {"versions": {k: {"text": v, "reading_level": {"easy":"grade_6","standard":"grade_10","academic":"graduate"}[k], "flesch_kincaid": flesch_reading_ease(v), "word_count": word_count(v)} for k, v in versions.items()}, "section_count": len(sections(text))}
+    except Exception as exc:
+        result["success"] = False; result["errors"].append(str(exc))
     return result
-
 # ============================================================
 # 08_ARTIFACTS
 # ============================================================

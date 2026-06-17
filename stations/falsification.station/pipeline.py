@@ -182,81 +182,59 @@ def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool
 # ============================================================
 # 06_NLP_ROUTE  *** STATION-SPECIFIC ***
 # ============================================================
-# Decide which NLP model or worker handles this input.
-# Simple stations return one model. Complex ones route by content type.
-#
-# NLP models live at: X:\05_MODELS\{model_folder}\
-#   M01_summarizer, M02_embedder, M03_contradiction, M04_imager,
-#   M05_transcriber, M06_llm, M07_fact_verify, M08_contradiction_deep,
-#   M09_claim_extract, M10_timeline, M11_math_verify, M12_paper_review,
-#   M13_bart_summarizer, M14_clip_vision, M15_mistral_7b, M16_whisper_large_v3
-#
-# Preference engines live at: X:\06_ENGINES\{engine_folder}\
-#   P01_implicit, P02_recbole, P03_lightfm, P04_paper_recommender,
-#   P05_ppk, P06_river, P07_markovify
+# Shared helpers keep the SSS_v1 station files focused on routing and processing.
+import re
+sys.path.insert(0, str(STATIONS))
+from _shared.station_helpers import (
+    API_BASE,
+    base_result,
+    call_nlp,
+    cosine,
+    data_from_artifact,
+    embeddings,
+    flesch_reading_ease,
+    nlp_route,
+    paragraphs,
+    read_input,
+    sections,
+    sentences,
+    strip_html,
+    text_from_input,
+    top_label,
+    word_count,
+)
+
 
 def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
-    """
-    Returns dict with at minimum:
-      {"nlp_id": "M01_summarizer", "nlp_path": Path(...)}
-    or {"nlp_id": "NONE"} if station doesn't call an NLP.
-    """
-    workers = cfg.get("workers", {})
-    default_nlp = workers.get("default", ["NONE"])[0] if isinstance(workers.get("default"), list) else workers.get("default_worker", "NONE")
-
-    nlp_path = MODELS / default_nlp if default_nlp != "NONE" else None
-
-    return {
-        "nlp_id": default_nlp,
-        "nlp_path": nlp_path,
-    }
+    return nlp_route(API_BASE, MODELS, cfg, "llm_reasoning", "contradiction")
 
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
-# The ONE action this station performs.
-# This is where the actual work happens.
-# Keep it focused — if this grows beyond ~100 lines, split into a new station.
+
+def _parse_llm(text: str) -> tuple[str,str,str]:
+    kill = re.search(r"(?:falsify|kill condition)[:\-]?\s*(.+?)(?:\n\s*\d|\n\s*(?:evidence|support)|$)", text, re.I|re.S)
+    bar = re.search(r"(?:evidence bar|support)[:\-]?\s*(.+?)(?:\n\s*\d|\n\s*falsifiability|$)", text, re.I|re.S)
+    rating = re.search(r"\b(HIGH|MEDIUM|LOW)\b", text, re.I)
+    return ((kill.group(1).strip() if kill else text[:500]), (bar.group(1).strip() if bar else "Specific, independently checkable evidence from the relevant domain."), (rating.group(1).upper() if rating else "MEDIUM"))
+
 
 def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
                 log: logging.Logger) -> dict[str, Any]:
-    """
-    Process a single input file. Returns a result dict.
-
-    The result dict is the station's artifact — it gets written to _outbox.
-    Must include at minimum:
-      - input_file: str
-      - station_id: str
-      - station_name: str
-      - nlp_used: str
-      - processed_at: str (ISO timestamp)
-      - success: bool
-      - artifacts: list[str]  (paths to any generated files)
-      - errors: list[str]
-      - data: dict  (the actual extracted/computed content)
-    """
-    result = {
-        "input_file": str(path.name),
-        "station_id": STATION_ID,
-        "station_name": STATION_NAME,
-        "nlp_used": nlp_info.get("nlp_id", "NONE"),
-        "processed_at": datetime.now().isoformat(timespec="seconds"),
-        "success": True,
-        "artifacts": [],
-        "errors": [],
-        "data": {},
-    }
-
-    # ── YOUR STATION LOGIC HERE ──
-    # Example: read the file, call the NLP, extract results
-    #
-    # text = path.read_text(encoding="utf-8")
-    # nlp_result = call_nlp(text, nlp_info)
-    # result["data"] = nlp_result
-    #
-
+    result=base_result(path, STATION_ID, STATION_NAME, nlp_info)
+    try:
+        obj=read_input(path); data=obj.get("data",obj); claims=data.get("load_bearing", data.get("claims",[]))
+        out=[]; dist={"HIGH":0,"MEDIUM":0,"LOW":0}
+        for c in claims:
+            prompt=f"Given this claim: '{c.get('text','')}'\n1. State one specific observation that would FALSIFY this claim.\n2. State the minimum evidence bar required to SUPPORT this claim.\n3. Rate falsifiability: HIGH, MEDIUM, or LOW."
+            llm=call_nlp("generate", {"model":"phi4", "prompt":prompt})
+            kill, bar, rating=_parse_llm(llm.get("response") or llm.get("text") or "")
+            dist[rating]=dist.get(rating,0)+1
+            out.append({"claim_id":c.get("claim_id"),"text":c.get("text",""),"kill_condition":kill,"evidence_bar":bar,"falsifiability":rating,"has_evidence_in_text":bool(re.search(r"\b(data|study|evidence|citation|survey|analysis)\b", c.get("text",""), re.I)),"evidence_excerpt":""})
+        result["data"]={"falsification_results":out,"falsifiability_distribution":dist}
+    except Exception as exc:
+        result["success"] = False; result["errors"].append(str(exc))
     return result
-
 # ============================================================
 # 08_ARTIFACTS
 # ============================================================

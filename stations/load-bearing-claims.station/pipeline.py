@@ -182,81 +182,60 @@ def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool
 # ============================================================
 # 06_NLP_ROUTE  *** STATION-SPECIFIC ***
 # ============================================================
-# Decide which NLP model or worker handles this input.
-# Simple stations return one model. Complex ones route by content type.
-#
-# NLP models live at: X:\05_MODELS\{model_folder}\
-#   M01_summarizer, M02_embedder, M03_contradiction, M04_imager,
-#   M05_transcriber, M06_llm, M07_fact_verify, M08_contradiction_deep,
-#   M09_claim_extract, M10_timeline, M11_math_verify, M12_paper_review,
-#   M13_bart_summarizer, M14_clip_vision, M15_mistral_7b, M16_whisper_large_v3
-#
-# Preference engines live at: X:\06_ENGINES\{engine_folder}\
-#   P01_implicit, P02_recbole, P03_lightfm, P04_paper_recommender,
-#   P05_ppk, P06_river, P07_markovify
+# Shared helpers keep the SSS_v1 station files focused on routing and processing.
+import re
+sys.path.insert(0, str(STATIONS))
+from _shared.station_helpers import (
+    API_BASE,
+    base_result,
+    call_nlp,
+    cosine,
+    data_from_artifact,
+    embeddings,
+    flesch_reading_ease,
+    nlp_route,
+    paragraphs,
+    read_input,
+    sections,
+    sentences,
+    strip_html,
+    text_from_input,
+    top_label,
+    word_count,
+)
+
 
 def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
-    """
-    Returns dict with at minimum:
-      {"nlp_id": "M01_summarizer", "nlp_path": Path(...)}
-    or {"nlp_id": "NONE"} if station doesn't call an NLP.
-    """
-    workers = cfg.get("workers", {})
-    default_nlp = workers.get("default", ["NONE"])[0] if isinstance(workers.get("default"), list) else workers.get("default_worker", "NONE")
-
-    nlp_path = MODELS / default_nlp if default_nlp != "NONE" else None
-
-    return {
-        "nlp_id": default_nlp,
-        "nlp_path": nlp_path,
-    }
+    return nlp_route(API_BASE, MODELS, cfg, "zero_shot_llm", "classify")
 
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
-# The ONE action this station performs.
-# This is where the actual work happens.
-# Keep it focused — if this grows beyond ~100 lines, split into a new station.
 
 def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
                 log: logging.Logger) -> dict[str, Any]:
-    """
-    Process a single input file. Returns a result dict.
-
-    The result dict is the station's artifact — it gets written to _outbox.
-    Must include at minimum:
-      - input_file: str
-      - station_id: str
-      - station_name: str
-      - nlp_used: str
-      - processed_at: str (ISO timestamp)
-      - success: bool
-      - artifacts: list[str]  (paths to any generated files)
-      - errors: list[str]
-      - data: dict  (the actual extracted/computed content)
-    """
-    result = {
-        "input_file": str(path.name),
-        "station_id": STATION_ID,
-        "station_name": STATION_NAME,
-        "nlp_used": nlp_info.get("nlp_id", "NONE"),
-        "processed_at": datetime.now().isoformat(timespec="seconds"),
-        "success": True,
-        "artifacts": [],
-        "errors": [],
-        "data": {},
-    }
-
-    # ── YOUR STATION LOGIC HERE ──
-    # Example: read the file, call the NLP, extract results
-    #
-    # text = path.read_text(encoding="utf-8")
-    # nlp_result = call_nlp(text, nlp_info)
-    # result["data"] = nlp_result
-    #
-
+    result=base_result(path, STATION_ID, STATION_NAME, nlp_info)
+    try:
+        obj=read_input(path); claims=obj.get("data",obj).get("classified_claims", obj.get("data",obj).get("claims",[]))
+        queues={"load_bearing":[],"citation_facts":[],"review_queue":[],"parked":[]}; counts={"PAPER_CLAIM_QUEUE":0,"CITATION_FACT_QUEUE":0,"REVIEW_QUEUE":0,"PARK":0}
+        model_terms=re.compile(r"\b(model|theory|mechanism|structure|framework|therefore|implies|causes|predicts)\b",re.I)
+        data_terms=re.compile(r"\b(percent|survey|census|study|data|corpus|gss|gallup|pew|analysis|score|scores|evidence)\b|%",re.I)
+        strong={"Formal Model","Structural Correspondence","Public Proof Claim","Empirical Support"}
+        for c in claims:
+            text=c.get("text",""); maturity=c.get("maturity_label",""); score=0; reasons=[]
+            if maturity in strong: score+=3; reasons.append(f"maturity={maturity}")
+            if model_terms.search(text): score+=2; reasons.append("model term present")
+            if data_terms.search(text): score+=2; reasons.append("evidence/data marker present")
+            if maturity in strong and model_terms.search(text): status="PAPER_CLAIM_QUEUE"; key="load_bearing"
+            elif data_terms.search(text): status="CITATION_FACT_QUEUE"; key="citation_facts"
+            elif score>=3: status="REVIEW_QUEUE"; key="review_queue"
+            else: status="PARK"; key="parked"
+            item={**c,"triage_status":status,"triage_score":score,"triage_reason":"; ".join(reasons) or "rhetorical/narrative/metadata"}
+            queues[key].append(item); counts[status]+=1
+        result["data"]={**queues,"counts":counts}
+    except Exception as exc:
+        result["success"] = False; result["errors"].append(str(exc))
     return result
-
 # ============================================================
 # 08_ARTIFACTS
 # ============================================================
