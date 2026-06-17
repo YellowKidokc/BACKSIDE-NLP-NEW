@@ -182,132 +182,61 @@ def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool
 # ============================================================
 # 06_NLP_ROUTE  *** STATION-SPECIFIC ***
 # ============================================================
-
-import math
+# Shared helpers keep the SSS_v1 station files focused on routing and processing.
 import re
-import requests
-
-API_BASE = "http://localhost:8700/nlp"
-
-
-def _api(endpoint: str, payload: dict[str, Any], timeout: int = 120) -> dict[str, Any]:
-    response = requests.post(f"{API_BASE}/{endpoint}", json=payload, timeout=timeout)
-    response.raise_for_status()
-    return response.json()
-
-
-def _read_input(path: Path) -> Any:
-    text = path.read_text(encoding="utf-8-sig")
-    if path.suffix.lower() == ".json":
-        return json.loads(text)
-    return text
-
-
-def _text_from_input(obj: Any) -> str:
-    if isinstance(obj, str):
-        return obj
-    if isinstance(obj, dict):
-        data = obj.get("data", obj)
-        for key in ("text", "document", "original_text", "content", "summary"):
-            if isinstance(data.get(key), str):
-                return data[key]
-        if isinstance(data.get("versions"), dict):
-            return data["versions"].get("academic", {}).get("text", "")
-    return json.dumps(obj, ensure_ascii=False)
-
-
-def _strip_html(text: str) -> str:
-    if "<" not in text or ">" not in text:
-        return text
-    text = re.sub(r"<script[\s\S]*?</script>|<style[\s\S]*?</style>", " ", text, flags=re.I)
-    text = re.sub(r"<[^>]+>", " ", text)
-    return re.sub(r"\s+", " ", text).strip()
-
-
-def _sentences(text: str) -> list[str]:
-    return [s.strip() for s in re.split(r"(?<=[.!?])\s+", text) if s.strip()]
-
-
-def _paragraphs(text: str) -> list[str]:
-    return [p.strip() for p in re.split(r"\n\s*\n+", text) if p.strip()]
-
-
-def _sections(text: str) -> list[dict[str, Any]]:
-    sections = []
-    current = {"heading": "Introduction", "text": []}
-    for line in text.splitlines():
-        m = re.match(r"^\s{0,3}(#{1,6})\s+(.+?)\s*$", line)
-        if m:
-            if current["text"]:
-                sections.append({"heading": current["heading"], "text": "\n".join(current["text"]).strip()})
-            current = {"heading": m.group(2).strip(), "text": []}
-        else:
-            current["text"].append(line)
-    if current["text"] or not sections:
-        sections.append({"heading": current["heading"], "text": "\n".join(current["text"]).strip()})
-    return sections
-
-
-def _score_map(api_result: dict[str, Any]) -> dict[str, float]:
-    labels = api_result.get("labels") or api_result.get("classes") or []
-    scores = api_result.get("scores") or api_result.get("probabilities") or []
-    if isinstance(scores, dict):
-        return {str(k): float(v) for k, v in scores.items()}
-    return {str(label): float(score) for label, score in zip(labels, scores)}
-
-
-def _top_label(api_result: dict[str, Any], default: str = "unknown") -> tuple[str, float, dict[str, float]]:
-    scores = _score_map(api_result)
-    if scores:
-        label = max(scores, key=scores.get)
-        return label, scores[label], scores
-    label = str(api_result.get("label") or api_result.get("class") or default)
-    return label, float(api_result.get("score", 0.0) or 0.0), {label: float(api_result.get("score", 0.0) or 0.0)}
-
-
-def _word_count(text: str) -> int:
-    return len(re.findall(r"\b\w+\b", text))
-
-
-def _cosine(a: list[float], b: list[float]) -> float:
-    if not a or not b:
-        return 0.0
-    n = min(len(a), len(b))
-    dot = sum(float(a[i]) * float(b[i]) for i in range(n))
-    na = math.sqrt(sum(float(a[i]) ** 2 for i in range(n)))
-    nb = math.sqrt(sum(float(b[i]) ** 2 for i in range(n)))
-    return dot / (na * nb) if na and nb else 0.0
-
-
-def _embeddings(api_result: dict[str, Any]) -> list[list[float]]:
-    value = api_result.get("embeddings", api_result.get("embedding", []))
-    if value and isinstance(value[0], (int, float)):
-        return [value]
-    return value or []
-
-
-def _base_result(path: Path, nlp_info: dict[str, Any]) -> dict[str, Any]:
-    return {
-        "input_file": str(path.name),
-        "station_id": STATION_ID,
-        "station_name": STATION_NAME,
-        "nlp_used": nlp_info.get("nlp_id", "NONE"),
-        "api_endpoint": nlp_info.get("api_endpoint"),
-        "processed_at": datetime.now().isoformat(timespec="seconds"),
-        "success": True,
-        "artifacts": [],
-        "errors": [],
-        "data": {},
-    }
+sys.path.insert(0, str(STATIONS))
+from _shared.station_helpers import (
+    API_BASE,
+    base_result,
+    call_nlp,
+    cosine,
+    data_from_artifact,
+    embeddings,
+    flesch_reading_ease,
+    nlp_route,
+    paragraphs,
+    read_input,
+    sections,
+    sentences,
+    strip_html,
+    text_from_input,
+    top_label,
+    word_count,
+)
 
 
 def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
-    return {
-        "nlp_id": cfg.get("nlp_id", "embeddings_fast"),
-        "nlp_path": MODELS / cfg.get("model_folder", "embeddings_fast"),
-        "api_endpoint": f"{API_BASE}/embed",
-    }
+    return nlp_route(API_BASE, MODELS, cfg, "embeddings_fast", "embed")
 
+# ============================================================
+# 07_PROCESS  *** STATION-SPECIFIC ***
+# ============================================================
+
+def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
+                log: logging.Logger) -> dict[str, Any]:
+    result=base_result(path, STATION_ID, STATION_NAME, nlp_info)
+    try:
+        obj=read_input(path); data=obj.get("data",obj)
+        claims=data.get("falsification_results", data.get("claims", []))
+        doc_text=data.get("original_text") or data.get("document") or text_from_input(obj)
+        passages=[(i+1,p) for i,p in enumerate(paragraphs(strip_html(doc_text))) if re.search(r"\b(data|study|survey|citation|evidence|results?|analysis|found|show|%|\d)\b", p, re.I)] or [(i+1,p) for i,p in enumerate(paragraphs(strip_html(doc_text)))]
+        claim_emb=embeddings(call_nlp("embed", {"texts":[c.get("text","") for c in claims]})) if claims else []
+        pass_emb=embeddings(call_nlp("embed", {"texts":[p for _,p in passages]})) if passages else []
+        mapped=[]; summary={"SUPPORTED":0,"PARTIAL":0,"UNSUPPORTED":0,"EVIDENCE_GAP":0}
+        for idx,c in enumerate(claims):
+            sims=sorted([(j,cosine(claim_emb[idx] if idx<len(claim_emb) else [], e)) for j,e in enumerate(pass_emb)], key=lambda x:x[1], reverse=True)[:3]
+            matches=[]
+            for j,sim in sims:
+                status="SUPPORTED" if sim>0.5 else "PARTIAL" if sim>=0.3 else "UNSUPPORTED"
+                matches.append({"passage":passages[j][1],"similarity":round(sim,4),"paragraph_index":passages[j][0],"status":status})
+            best=matches[0]["similarity"] if matches else 0.0
+            coverage="SUPPORTED" if best>0.5 else "PARTIAL" if best>=0.3 else "EVIDENCE_GAP"
+            summary[coverage]+=1
+            mapped.append({"claim_id":c.get("claim_id"),"text":c.get("text",""),"evidence_matches":matches,"coverage_status":coverage,"best_similarity":best})
+        result["data"]={"evidence_map":mapped,"coverage_summary":summary,"orphan_evidence":[]}
+    except Exception as exc:
+        result["success"] = False; result["errors"].append(str(exc))
+    return result
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
