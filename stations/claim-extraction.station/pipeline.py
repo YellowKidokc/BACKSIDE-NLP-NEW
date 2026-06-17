@@ -232,6 +232,29 @@ def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
         result["success"] = False; result["errors"].append(str(exc))
     return result
 # ============================================================
+# 07_PROCESS  *** STATION-SPECIFIC ***
+# ============================================================
+
+def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
+                log: logging.Logger) -> dict[str, Any]:
+    result = _base_result(path, nlp_info)
+    try:
+        text = _strip_html(_text_from_input(_read_input(path))); article_id = path.stem
+        labels = ["factual claim", "model claim", "opinion", "definition", "narrative", "metadata"]
+        claims=[]; counts={}
+        for sec in _sections(text):
+            for p_idx, para in enumerate(_paragraphs(sec["text"]), start=1):
+                for s_idx, sent in enumerate(_sentences(para), start=1):
+                    label, score, _ = _top_label(_api("classify", {"text": sent, "labels": labels}), "metadata")
+                    norm = label.replace(" ", "_")
+                    if norm in {"factual_claim", "model_claim", "opinion", "definition"}:
+                        counts[norm]=counts.get(norm,0)+1
+                        claims.append({"claim_id": f"{article_id}:claim-{len(claims)+1:03d}", "text": sent, "section": sec["heading"], "paragraph_index": p_idx, "sentence_index": s_idx, "claim_type": norm, "classifier_score": score})
+        result["data"]={"claims": claims, "total_claims": len(claims), "claims_by_type": counts}
+    except Exception as exc:
+        result["success"] = False; result["errors"].append(str(exc))
+    return result
+# ============================================================
 # 08_ARTIFACTS
 # ============================================================
 # Write the result dict to _outbox/ as a JSON artifact.

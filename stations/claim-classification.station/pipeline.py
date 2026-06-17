@@ -230,6 +230,27 @@ def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
         result["success"] = False; result["errors"].append(str(exc))
     return result
 # ============================================================
+# 07_PROCESS  *** STATION-SPECIFIC ***
+# ============================================================
+
+def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
+                log: logging.Logger) -> dict[str, Any]:
+    result = _base_result(path, nlp_info)
+    try:
+        obj=_read_input(path); claims=obj.get("data",obj).get("claims",[])
+        maturity=["Formal Model", "Structural Correspondence", "Public Proof Claim", "Empirical Support", "Analogy", "Metaphor", "Assertion"]
+        domains=["physics", "theology", "mathematics", "consciousness", "information_theory", "ethics", "empirical_data", "historical"]
+        out=[]; md={}; dd={}
+        for c in claims:
+            ml, ms, allm = _top_label(_api("classify", {"text": c.get("text",""), "labels": maturity}), "Assertion")
+            dl, ds, alld = _top_label(_api("classify", {"text": c.get("text",""), "labels": domains}), "empirical_data")
+            md[ml]=md.get(ml,0)+1; dd[dl]=dd.get(dl,0)+1
+            out.append({**c, "maturity_label": ml, "maturity_score": ms, "domain": dl, "domain_score": ds, "all_maturity_scores": allm, "all_domain_scores": alld})
+        result["data"]={"classified_claims": out, "maturity_distribution": md, "domain_distribution": dd}
+    except Exception as exc:
+        result["success"] = False; result["errors"].append(str(exc))
+    return result
+# ============================================================
 # 08_ARTIFACTS
 # ============================================================
 # Write the result dict to _outbox/ as a JSON artifact.
