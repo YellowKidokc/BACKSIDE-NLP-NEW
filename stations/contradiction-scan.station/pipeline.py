@@ -182,64 +182,117 @@ def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool
 # ============================================================
 # 06_NLP_ROUTE  *** STATION-SPECIFIC ***
 # ============================================================
-# Decide which NLP model or worker handles this input.
-# Simple stations return one model. Complex ones route by content type.
-#
-# NLP models live at: X:\05_MODELS\{model_folder}\
-#   M01_summarizer, M02_embedder, M03_contradiction, M04_imager,
-#   M05_transcriber, M06_llm, M07_fact_verify, M08_contradiction_deep,
-#   M09_claim_extract, M10_timeline, M11_math_verify, M12_paper_review,
-#   M13_bart_summarizer, M14_clip_vision, M15_mistral_7b, M16_whisper_large_v3
-#
-# Preference engines live at: X:\06_ENGINES\{engine_folder}\
-#   P01_implicit, P02_recbole, P03_lightfm, P04_paper_recommender,
-#   P05_ppk, P06_river, P07_markovify
 
-def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
-    """
-    Returns dict with at minimum:
-      {"nlp_id": "M01_summarizer", "nlp_path": Path(...)}
-    or {"nlp_id": "NONE"} if station doesn't call an NLP.
-    """
-    workers = cfg.get("workers", {})
-    default_nlp = workers.get("default", ["NONE"])[0] if isinstance(workers.get("default"), list) else workers.get("default_worker", "NONE")
+import math
+import re
+import requests
 
-    nlp_path = MODELS / default_nlp if default_nlp != "NONE" else None
+API_BASE = "http://localhost:8700/nlp"
 
+
+def _api(endpoint: str, payload: dict[str, Any], timeout: int = 120) -> dict[str, Any]:
+    response = requests.post(f"{API_BASE}/{endpoint}", json=payload, timeout=timeout)
+    response.raise_for_status()
+    return response.json()
+
+
+def _read_input(path: Path) -> Any:
+    text = path.read_text(encoding="utf-8-sig")
+    if path.suffix.lower() == ".json":
+        return json.loads(text)
+    return text
+
+
+def _text_from_input(obj: Any) -> str:
+    if isinstance(obj, str):
+        return obj
+    if isinstance(obj, dict):
+        data = obj.get("data", obj)
+        for key in ("text", "document", "original_text", "content", "summary"):
+            if isinstance(data.get(key), str):
+                return data[key]
+        if isinstance(data.get("versions"), dict):
+            return data["versions"].get("academic", {}).get("text", "")
+    return json.dumps(obj, ensure_ascii=False)
+
+
+def _strip_html(text: str) -> str:
+    if "<" not in text or ">" not in text:
+        return text
+    text = re.sub(r"<script[\s\S]*?</script>|<style[\s\S]*?</style>", " ", text, flags=re.I)
+    text = re.sub(r"<[^>]+>", " ", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def _sentences(text: str) -> list[str]:
+    return [s.strip() for s in re.split(r"(?<=[.!?])\s+", text) if s.strip()]
+
+
+def _paragraphs(text: str) -> list[str]:
+    return [p.strip() for p in re.split(r"\n\s*\n+", text) if p.strip()]
+
+
+def _sections(text: str) -> list[dict[str, Any]]:
+    sections = []
+    current = {"heading": "Introduction", "text": []}
+    for line in text.splitlines():
+        m = re.match(r"^\s{0,3}(#{1,6})\s+(.+?)\s*$", line)
+        if m:
+            if current["text"]:
+                sections.append({"heading": current["heading"], "text": "\n".join(current["text"]).strip()})
+            current = {"heading": m.group(2).strip(), "text": []}
+        else:
+            current["text"].append(line)
+    if current["text"] or not sections:
+        sections.append({"heading": current["heading"], "text": "\n".join(current["text"]).strip()})
+    return sections
+
+
+def _score_map(api_result: dict[str, Any]) -> dict[str, float]:
+    labels = api_result.get("labels") or api_result.get("classes") or []
+    scores = api_result.get("scores") or api_result.get("probabilities") or []
+    if isinstance(scores, dict):
+        return {str(k): float(v) for k, v in scores.items()}
+    return {str(label): float(score) for label, score in zip(labels, scores)}
+
+
+def _top_label(api_result: dict[str, Any], default: str = "unknown") -> tuple[str, float, dict[str, float]]:
+    scores = _score_map(api_result)
+    if scores:
+        label = max(scores, key=scores.get)
+        return label, scores[label], scores
+    label = str(api_result.get("label") or api_result.get("class") or default)
+    return label, float(api_result.get("score", 0.0) or 0.0), {label: float(api_result.get("score", 0.0) or 0.0)}
+
+
+def _word_count(text: str) -> int:
+    return len(re.findall(r"\b\w+\b", text))
+
+
+def _cosine(a: list[float], b: list[float]) -> float:
+    if not a or not b:
+        return 0.0
+    n = min(len(a), len(b))
+    dot = sum(float(a[i]) * float(b[i]) for i in range(n))
+    na = math.sqrt(sum(float(a[i]) ** 2 for i in range(n)))
+    nb = math.sqrt(sum(float(b[i]) ** 2 for i in range(n)))
+    return dot / (na * nb) if na and nb else 0.0
+
+
+def _embeddings(api_result: dict[str, Any]) -> list[list[float]]:
+    value = api_result.get("embeddings", api_result.get("embedding", []))
+    if value and isinstance(value[0], (int, float)):
+        return [value]
+    return value or []
+
+
+def _base_result(path: Path, nlp_info: dict[str, Any]) -> dict[str, Any]:
     return {
-        "nlp_id": default_nlp,
-        "nlp_path": nlp_path,
-    }
-
-# ============================================================
-# 07_PROCESS  *** STATION-SPECIFIC ***
-# ============================================================
-# The ONE action this station performs.
-# This is where the actual work happens.
-# Keep it focused — if this grows beyond ~100 lines, split into a new station.
-
-def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
-                log: logging.Logger) -> dict[str, Any]:
-    """
-    Process a single input file. Returns a result dict.
-
-    The result dict is the station's artifact — it gets written to _outbox.
-    Must include at minimum:
-      - input_file: str
-      - station_id: str
-      - station_name: str
-      - nlp_used: str
-      - processed_at: str (ISO timestamp)
-      - success: bool
-      - artifacts: list[str]  (paths to any generated files)
-      - errors: list[str]
-      - data: dict  (the actual extracted/computed content)
-    """
-    result = {
         "input_file": str(path.name),
         "station_id": STATION_ID,
         "station_name": STATION_NAME,
         "nlp_used": nlp_info.get("nlp_id", "NONE"),
+        "api_endpoint": nlp_info.get("api_endpoint"),
         "processed_at": datetime.now().isoformat(timespec="seconds"),
         "success": True,
         "artifacts": [],
@@ -247,16 +300,41 @@ def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
         "data": {},
     }
 
-    # ── YOUR STATION LOGIC HERE ──
-    # Example: read the file, call the NLP, extract results
-    #
-    # text = path.read_text(encoding="utf-8")
-    # nlp_result = call_nlp(text, nlp_info)
-    # result["data"] = nlp_result
-    #
 
+def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "nlp_id": cfg.get("nlp_id", "contradiction_primary"),
+        "nlp_path": MODELS / cfg.get("model_folder", "contradiction_primary"),
+        "api_endpoint": f"{API_BASE}/contradiction",
+    }
+
+# ============================================================
+# 07_PROCESS  *** STATION-SPECIFIC ***
+# ============================================================
+
+def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
+                log: logging.Logger) -> dict[str, Any]:
+    result=_base_result(path,nlp_info)
+    try:
+        obj=_read_input(path); data=obj.get("data",obj)
+        claims=data.get("load_bearing") or data.get("classified_claims") or data.get("claims") or data.get("falsification_results") or []
+        contradictions=[]; tensions=[]; checked=0; flagged=0
+        for i in range(len(claims)):
+            for j in range(i+1,len(claims)):
+                checked+=1; a=claims[i]; b=claims[j]
+                res=_api("contradiction", {"text_a":a.get("text",""), "text_b":b.get("text","")})
+                scores=res.get("scores") or {"contradiction":res.get("contradiction",0),"entailment":res.get("entailment",0),"neutral":res.get("neutral",0)}
+                con=float(scores.get("contradiction",0) or 0)
+                if con>0.3: flagged+=1
+                item={"claim_a":{"id":a.get("claim_id"),"text":a.get("text","")},"claim_b":{"id":b.get("claim_id"),"text":b.get("text","")},"scores":scores,"model":"contradiction_primary"}
+                if con>0.6:
+                    contradictions.append({**item,"label":"CONTRADICTION","severity":"HIGH" if con>0.8 else "MEDIUM"})
+                elif con>=0.3:
+                    tensions.append({**item,"label":"TENSION","severity":"LOW"})
+        result["data"]={"contradictions":contradictions,"tensions":tensions,"pairs_checked":checked,"pairs_flagged_fast":flagged,"contradictions_found":len(contradictions),"tensions_found":len(tensions),"cross_article_checked":False}
+    except Exception as exc:
+        result["success"] = False; result["errors"].append(str(exc))
     return result
-
 # ============================================================
 # 08_ARTIFACTS
 # ============================================================
