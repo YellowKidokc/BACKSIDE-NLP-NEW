@@ -27,19 +27,19 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], all
 MODELS_ROOT = Path(os.environ.get("NLP_MODELS_ROOT", r"\\192.168.2.50\brain\05_MODELS"))
 
 MODEL_PATHS = {
-    "contradiction_primary": MODELS_ROOT / "01_CONTRADICTION_PRIMARY",
-    "contradiction_fast":    MODELS_ROOT / "02_CONTRADICTION_FAST",
-    "embeddings_fast":       MODELS_ROOT / "03_EMBEDDINGS_FAST",
-    "scifact_verify":        MODELS_ROOT / "05_SCIENTIFIC_CLAIM_VERIFY",
-    "ner_general":           MODELS_ROOT / "06_NER_GENERAL",
-    "zero_shot":             MODELS_ROOT / "07_ZERO_SHOT_CLASSIFIER",
-    "summarizer":            MODELS_ROOT / "08_SUMMARIZER",
-    "reranker":              MODELS_ROOT / "09_RERANKER",
-    "sentiment":             MODELS_ROOT / "10_SENTIMENT",
-    "contradiction_tiny":    MODELS_ROOT / "14_CONTRADICTION_TINY",
-    "long_nli":              MODELS_ROOT / "15_CONTRADICTION_ENSEMBLE_LONG",
-    "ner_enhanced":          MODELS_ROOT / "16_NER_ENHANCED",
-    "qa_extractor":          MODELS_ROOT / "18_QA_EXTRACTOR",
+    "contradiction_primary": MODELS_ROOT / "M17_01_CONTRADICTION_PRIMARY",
+    "contradiction_fast":    MODELS_ROOT / "M18_02_CONTRADICTION_FAST",
+    "embeddings_fast":       MODELS_ROOT / "M19_03_EMBEDDINGS_FAST",
+    "scifact_verify":        MODELS_ROOT / "M20_05_SCIENTIFIC_CLAIM_VERIFY",
+    "ner_general":           MODELS_ROOT / "M21_06_NER_GENERAL",
+    "zero_shot":             MODELS_ROOT / "M22_07_ZERO_SHOT_CLASSIFIER",
+    "summarizer":            MODELS_ROOT / "M23_08_SUMMARIZER",
+    "reranker":              MODELS_ROOT / "M24_09_RERANKER",
+    "sentiment":             MODELS_ROOT / "M25_10_SENTIMENT",
+    "contradiction_tiny":    MODELS_ROOT / "M27_14_CONTRADICTION_TINY",
+    "long_nli":              MODELS_ROOT / "M28_15_CONTRADICTION_ENSEMBLE_LONG",
+    "ner_enhanced":          MODELS_ROOT / "M29_16_NER_ENHANCED",
+    "qa_extractor":          MODELS_ROOT / "M30_18_QA_EXTRACTOR",
     "sbert_minilm":          MODELS_ROOT / "sbert_minilm",
 }
 
