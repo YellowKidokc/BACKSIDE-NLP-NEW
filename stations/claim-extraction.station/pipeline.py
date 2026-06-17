@@ -322,6 +322,13 @@ def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
         for sec in _sections(text):
             for p_idx, para in enumerate(_paragraphs(sec["text"]), start=1):
                 for s_idx, sent in enumerate(_sentences(para), start=1):
+                    # Prefilter: skip short/non-claim sentences
+                    words = sent.split()
+                    if len(words) < 6:
+                        continue
+                    sl = sent.lower().strip()
+                    if any(sl.startswith(p) for p in ("in this section", "next we", "for example", "see also", "note that", "figure ", "table ", "as shown", "as discussed", "let us", "we will")):
+                        continue
                     label, score, _ = _top_label(_api("classify", {"text": sent, "labels": labels}), "metadata")
                     norm = label.replace(" ", "_")
                     if norm in {"factual_claim", "model_claim", "opinion", "definition"}:

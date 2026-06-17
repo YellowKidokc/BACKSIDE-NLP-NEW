@@ -322,7 +322,7 @@ def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
         for i in range(len(claims)):
             for j in range(i+1,len(claims)):
                 checked+=1; a=claims[i]; b=claims[j]
-                res=_api("contradiction", {"text_a":a.get("text",""), "text_b":b.get("text","")})
+                res=_api("contradiction", {"premise":a.get("text",""), "hypothesis":b.get("text","")})
                 scores=res.get("scores") or {"contradiction":res.get("contradiction",0),"entailment":res.get("entailment",0),"neutral":res.get("neutral",0)}
                 con=float(scores.get("contradiction",0) or 0)
                 if con>0.3: flagged+=1
