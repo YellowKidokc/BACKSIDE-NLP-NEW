@@ -237,34 +237,6 @@ def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
         result["success"] = False; result["errors"].append(str(exc))
     return result
 # ============================================================
-# 07_PROCESS  *** STATION-SPECIFIC ***
-# ============================================================
-
-def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
-                log: logging.Logger) -> dict[str, Any]:
-    result=_base_result(path,nlp_info)
-    try:
-        obj=_read_input(path); claims=obj.get("data",obj).get("classified_claims", obj.get("data",obj).get("claims",[]))
-        queues={"load_bearing":[],"citation_facts":[],"review_queue":[],"parked":[]}; counts={"PAPER_CLAIM_QUEUE":0,"CITATION_FACT_QUEUE":0,"REVIEW_QUEUE":0,"PARK":0}
-        model_terms=re.compile(r"\b(model|theory|mechanism|structure|framework|therefore|implies|causes|predicts)\b",re.I)
-        data_terms=re.compile(r"\b(percent|survey|census|study|data|corpus|gss|gallup|pew|analysis|score|scores|evidence)\b|%",re.I)
-        strong={"Formal Model","Structural Correspondence","Public Proof Claim","Empirical Support"}
-        for c in claims:
-            text=c.get("text",""); maturity=c.get("maturity_label",""); score=0; reasons=[]
-            if maturity in strong: score+=3; reasons.append(f"maturity={maturity}")
-            if model_terms.search(text): score+=2; reasons.append("model term present")
-            if data_terms.search(text): score+=2; reasons.append("evidence/data marker present")
-            if maturity in strong and model_terms.search(text): status="PAPER_CLAIM_QUEUE"; key="load_bearing"
-            elif data_terms.search(text): status="CITATION_FACT_QUEUE"; key="citation_facts"
-            elif score>=3: status="REVIEW_QUEUE"; key="review_queue"
-            else: status="PARK"; key="parked"
-            item={**c,"triage_status":status,"triage_score":score,"triage_reason":"; ".join(reasons) or "rhetorical/narrative/metadata"}
-            queues[key].append(item); counts[status]+=1
-        result["data"]={**queues,"counts":counts}
-    except Exception as exc:
-        result["success"] = False; result["errors"].append(str(exc))
-    return result
-# ============================================================
 # 08_ARTIFACTS
 # ============================================================
 # Write the result dict to _outbox/ as a JSON artifact.

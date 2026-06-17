@@ -238,35 +238,6 @@ def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
         result["success"] = False; result["errors"].append(str(exc))
     return result
 # ============================================================
-# 07_PROCESS  *** STATION-SPECIFIC ***
-# ============================================================
-
-def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
-                log: logging.Logger) -> dict[str, Any]:
-    result=_base_result(path,nlp_info)
-    try:
-        obj=_read_input(path); data=obj.get("data",obj)
-        claims=data.get("falsification_results", data.get("claims", []))
-        doc_text=data.get("original_text") or data.get("document") or _text_from_input(obj)
-        passages=[(i+1,p) for i,p in enumerate(_paragraphs(_strip_html(doc_text))) if re.search(r"\b(data|study|survey|citation|evidence|results?|analysis|found|show|%|\d)\b", p, re.I)] or [(i+1,p) for i,p in enumerate(_paragraphs(_strip_html(doc_text)))]
-        claim_emb=_embeddings(_api("embed", {"texts":[c.get("text","") for c in claims]})) if claims else []
-        pass_emb=_embeddings(_api("embed", {"texts":[p for _,p in passages]})) if passages else []
-        mapped=[]; summary={"SUPPORTED":0,"PARTIAL":0,"UNSUPPORTED":0,"EVIDENCE_GAP":0}
-        for idx,c in enumerate(claims):
-            sims=sorted([(j,_cosine(claim_emb[idx] if idx<len(claim_emb) else [], e)) for j,e in enumerate(pass_emb)], key=lambda x:x[1], reverse=True)[:3]
-            matches=[]
-            for j,sim in sims:
-                status="SUPPORTED" if sim>0.5 else "PARTIAL" if sim>=0.3 else "UNSUPPORTED"
-                matches.append({"passage":passages[j][1],"similarity":round(sim,4),"paragraph_index":passages[j][0],"status":status})
-            best=matches[0]["similarity"] if matches else 0.0
-            coverage="SUPPORTED" if best>0.5 else "PARTIAL" if best>=0.3 else "EVIDENCE_GAP"
-            summary[coverage]+=1
-            mapped.append({"claim_id":c.get("claim_id"),"text":c.get("text",""),"evidence_matches":matches,"coverage_status":coverage,"best_similarity":best})
-        result["data"]={"evidence_map":mapped,"coverage_summary":summary,"orphan_evidence":[]}
-    except Exception as exc:
-        result["success"] = False; result["errors"].append(str(exc))
-    return result
-# ============================================================
 # 08_ARTIFACTS
 # ============================================================
 # Write the result dict to _outbox/ as a JSON artifact.

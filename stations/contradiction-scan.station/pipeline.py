@@ -236,33 +236,6 @@ def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
         result["success"] = False; result["errors"].append(str(exc))
     return result
 # ============================================================
-# 07_PROCESS  *** STATION-SPECIFIC ***
-# ============================================================
-
-def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
-                log: logging.Logger) -> dict[str, Any]:
-    result=_base_result(path,nlp_info)
-    try:
-        obj=_read_input(path); data=obj.get("data",obj)
-        claims=data.get("load_bearing") or data.get("classified_claims") or data.get("claims") or data.get("falsification_results") or []
-        contradictions=[]; tensions=[]; checked=0; flagged=0
-        for i in range(len(claims)):
-            for j in range(i+1,len(claims)):
-                checked+=1; a=claims[i]; b=claims[j]
-                res=_api("contradiction", {"premise":a.get("text",""), "hypothesis":b.get("text","")})
-                scores=res.get("scores") or {"contradiction":res.get("contradiction",0),"entailment":res.get("entailment",0),"neutral":res.get("neutral",0)}
-                con=float(scores.get("contradiction",0) or 0)
-                if con>0.3: flagged+=1
-                item={"claim_a":{"id":a.get("claim_id"),"text":a.get("text","")},"claim_b":{"id":b.get("claim_id"),"text":b.get("text","")},"scores":scores,"model":"contradiction_primary"}
-                if con>0.6:
-                    contradictions.append({**item,"label":"CONTRADICTION","severity":"HIGH" if con>0.8 else "MEDIUM"})
-                elif con>=0.3:
-                    tensions.append({**item,"label":"TENSION","severity":"LOW"})
-        result["data"]={"contradictions":contradictions,"tensions":tensions,"pairs_checked":checked,"pairs_flagged_fast":flagged,"contradictions_found":len(contradictions),"tensions_found":len(tensions),"cross_article_checked":False}
-    except Exception as exc:
-        result["success"] = False; result["errors"].append(str(exc))
-    return result
-# ============================================================
 # 08_ARTIFACTS
 # ============================================================
 # Write the result dict to _outbox/ as a JSON artifact.

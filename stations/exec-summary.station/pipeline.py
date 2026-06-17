@@ -240,37 +240,6 @@ def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
         result["success"] = False; result["errors"].append(str(exc))
     return result
 # ============================================================
-# 07_PROCESS  *** STATION-SPECIFIC ***
-# ============================================================
-
-def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
-                log: logging.Logger) -> dict[str, Any]:
-    result = _base_result(path, nlp_info)
-    try:
-        raw = _text_from_input(_read_input(path))
-        text = _strip_html(raw)
-        title_match = re.search(r"^#\s+(.+)$", raw, re.M)
-        title = title_match.group(1).strip() if title_match else path.stem
-        summary_payload = {"text": text}
-        if len(text) > int(cfg.get("chunk_chars", 4096)):
-            chunks = [text[i:i+4000] for i in range(0, len(text), 4000)]
-            partials = [_api("summarize", {"text": chunk}).get("summary", "") for chunk in chunks]
-            summary_payload = {"text": "\n\n".join(partials)}
-        summary = _api("summarize", summary_payload)
-        entities = _api("ner", {"text": text})
-        result["data"] = {
-            "title": title,
-            "summary": summary.get("summary") or summary.get("text") or summary.get("generated_text", ""),
-            "key_entities": entities.get("entities", entities.get("data", [])),
-            "section_count": len(_sections(text)),
-            "word_count": _word_count(text),
-            "estimated_reading_time_min": max(1, round(_word_count(text) / 250)),
-            "source_format": "html" if path.suffix.lower() in {".html", ".htm"} else "markdown" if path.suffix.lower() == ".md" else "text",
-        }
-    except Exception as exc:
-        result["success"] = False; result["errors"].append(str(exc))
-    return result
-# ============================================================
 # 08_ARTIFACTS
 # ============================================================
 # Write the result dict to _outbox/ as a JSON artifact.

@@ -121,7 +121,7 @@ def extract_embeddings(api_result: dict[str, Any]) -> list[list[float]]:
     return value or []
 
 
-def base_result(station_id: str, station_name: str, path: Path,
+def base_result(path: Path, station_id: str, station_name: str,
                 nlp_info: dict[str, Any]) -> dict[str, Any]:
     """Create the standard artifact envelope."""
     return {
@@ -150,3 +150,46 @@ def is_likely_claim(sentence: str) -> bool:
     if any(sl.startswith(p) for p in skip_starts):
         return False
     return True
+
+
+# ─── Aliases for Codex pipeline imports ───
+call_nlp = api_call
+sentences = split_sentences
+paragraphs = split_paragraphs
+sections = split_sections
+cosine = cosine_similarity
+embeddings = extract_embeddings
+
+
+def data_from_artifact(obj: Any) -> dict[str, Any]:
+    """Extract the data dict from an upstream artifact."""
+    if isinstance(obj, dict):
+        return obj.get("data", obj)
+    return {}
+
+
+def flesch_reading_ease(text: str) -> float:
+    """Approximate Flesch Reading Ease score."""
+    sents = split_sentences(text)
+    words = re.findall(r"\b\w+\b", text)
+    if not sents or not words:
+        return 0.0
+    syllable_count = sum(
+        max(1, len(re.findall(r"[aeiouy]+", w.lower())))
+        for w in words
+    )
+    asl = len(words) / len(sents)
+    asw = syllable_count / len(words)
+    return 206.835 - 1.015 * asl - 84.6 * asw
+
+
+def nlp_route(api_base: str, models_dir, cfg: dict[str, Any],
+              default_nlp: str = "NONE",
+              endpoint: str = "classify") -> dict[str, Any]:
+    """Build NLP routing info dict for choose_nlp()."""
+    nlp_id = cfg.get("nlp_id", default_nlp)
+    return {
+        "nlp_id": nlp_id,
+        "nlp_path": Path(str(models_dir)) / cfg.get("model_folder", nlp_id) if nlp_id != "NONE" else None,
+        "api_endpoint": f"{api_base}/{endpoint}",
+    }
