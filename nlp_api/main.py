@@ -24,7 +24,16 @@ app = FastAPI(
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 # -- Model paths --
-MODELS_ROOT = Path(os.environ.get("NLP_MODELS_ROOT", r"\\192.168.2.50\brain\05_MODELS"))
+# Runtime loads from a LOCAL cache, NOT the NAS share. safetensors mmaps the weight file,
+# and mmap over SMB does thousands of tiny random reads and stalls. Sequential copy of the
+# same file runs at ~500 MB/s and loads locally in ~1.5s. NAS stays the source of record;
+# stage the local copy with:  python stage_models.py
+_LOCAL_MODELS = Path(r"D:\nlp_models")
+_NAS_MODELS = Path(r"\\192.168.2.50\brain\05_MODELS")
+MODELS_ROOT = Path(os.environ.get(
+    "NLP_MODELS_ROOT",
+    str(_LOCAL_MODELS if _LOCAL_MODELS.exists() else _NAS_MODELS),
+))
 
 MODEL_PATHS = {
     "contradiction_primary": MODELS_ROOT / "M17_01_CONTRADICTION_PRIMARY",
@@ -174,8 +183,8 @@ def zero_shot_classify(inp: ClassifyInput):
     pipe = _models[key]
     result = pipe(inp.text, inp.labels, multi_label=True)
     return {
-        "labels": result["labels"],
-        "scores": [round(s, 4) for s in result["scores"]],
+        "labels": [str(l) for l in result["labels"]],
+        "scores": [round(float(s), 4) for s in result["scores"]],
         "model": inp.model,
     }
 
@@ -205,21 +214,31 @@ def embed_texts(inp: EmbedInput):
 
 
 # -- Summarization --
+# transformers 5.x dropped the "summarization" pipeline task; load seq2seq directly.
 @app.post("/nlp/summarize")
 def summarize(inp: TextInput):
-    from transformers import pipeline as hf_pipeline
+    from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+    import torch
 
     key = "summarizer"
     if key not in _models:
         path = MODEL_PATHS.get("summarizer")
+        if not path or not path.exists():
+            raise HTTPException(404, "Model not found: summarizer")
         t0 = time.time()
-        _models[key] = hf_pipeline("summarization", model=str(path))
+        tok = AutoTokenizer.from_pretrained(str(path))
+        mdl = AutoModelForSeq2SeqLM.from_pretrained(str(path))
+        mdl.eval()
+        _models[key] = (tok, mdl)
         _load_times[key] = time.time() - t0
 
-    pipe = _models[key]
+    tok, mdl = _models[key]
     text = inp.text[:4096]
-    result = pipe(text, max_length=200, min_length=40, do_sample=False)
-    return {"summary": result[0]["summary_text"], "model": "summarizer"}
+    inputs = tok(text, return_tensors="pt", truncation=True, max_length=1024)
+    with torch.no_grad():
+        ids = mdl.generate(**inputs, max_length=200, min_length=40, num_beams=4, do_sample=False)
+    summary = tok.decode(ids[0], skip_special_tokens=True)
+    return {"summary": summary, "model": "summarizer"}
 
 
 # -- NER --
@@ -234,14 +253,14 @@ def named_entities(inp: TextInput):
         if not path:
             raise HTTPException(404, f"Unknown model: {model_key}")
         t0 = time.time()
-        _models[key] = hf_pipeline("ner", model=str(path), aggregation_strategy="simple")
+        _models[key] = hf_pipeline("token-classification", model=str(path), aggregation_strategy="simple")
         _load_times[key] = time.time() - t0
 
     pipe = _models[key]
     results = pipe(inp.text[:2048])
     entities = [
-        {"entity": r["entity_group"], "word": r["word"], "score": round(r["score"], 4),
-         "start": r["start"], "end": r["end"]}
+        {"entity": str(r["entity_group"]), "word": r["word"], "score": round(float(r["score"]), 4),
+         "start": int(r["start"]), "end": int(r["end"])}
         for r in results
     ]
     return {"entities": entities, "count": len(entities), "model": model_key}
@@ -256,33 +275,58 @@ def sentiment(inp: TextInput):
     if key not in _models:
         path = MODEL_PATHS.get("sentiment")
         t0 = time.time()
-        _models[key] = hf_pipeline("sentiment-analysis", model=str(path))
+        _models[key] = hf_pipeline("text-classification", model=str(path))
         _load_times[key] = time.time() - t0
 
     pipe = _models[key]
     result = pipe(inp.text[:512])
-    return {"label": result[0]["label"], "score": round(result[0]["score"], 4), "model": "sentiment"}
+    return {"label": str(result[0]["label"]), "score": round(float(result[0]["score"]), 4), "model": "sentiment"}
 
 
 # -- Extractive QA --
+# transformers 5.x dropped the "question-answering" pipeline task; load + extract span directly.
 @app.post("/nlp/qa")
 def extractive_qa(inp: QAInput):
-    from transformers import pipeline as hf_pipeline
+    from transformers import AutoTokenizer, AutoModelForQuestionAnswering
+    import torch
 
     key = "qa"
     if key not in _models:
         path = MODEL_PATHS.get("qa_extractor")
+        if not path or not path.exists():
+            raise HTTPException(404, "Model not found: qa_extractor")
         t0 = time.time()
-        _models[key] = hf_pipeline("question-answering", model=str(path))
+        tok = AutoTokenizer.from_pretrained(str(path))
+        mdl = AutoModelForQuestionAnswering.from_pretrained(str(path))
+        mdl.eval()
+        _models[key] = (tok, mdl)
         _load_times[key] = time.time() - t0
 
-    pipe = _models[key]
-    result = pipe(question=inp.question, context=inp.context[:4096])
+    tok, mdl = _models[key]
+    context = inp.context[:4096]
+    enc = tok(inp.question, context, return_tensors="pt", truncation="only_second",
+              max_length=512, return_offsets_mapping=True)
+    offsets = enc.pop("offset_mapping")[0].tolist()
+    seq_ids = enc.sequence_ids(0)
+    with torch.no_grad():
+        out = mdl(**enc)
+    # mask everything that isn't a context token so the span can't land in the question
+    neg = float("-inf")
+    ctx = torch.tensor([0.0 if seq_ids[i] == 1 else neg for i in range(len(seq_ids))])
+    start_logits = out.start_logits[0] + ctx
+    end_logits = out.end_logits[0] + ctx
+    start_idx = int(torch.argmax(start_logits))
+    end_idx = int(torch.argmax(end_logits))
+    if end_idx < start_idx:
+        end_idx = start_idx
+    start_char = offsets[start_idx][0]
+    end_char = offsets[end_idx][1]
+    score = float(torch.softmax(start_logits, -1)[start_idx] * torch.softmax(end_logits, -1)[end_idx])
     return {
-        "answer": result["answer"],
-        "score": round(result["score"], 4),
-        "start": result["start"],
-        "end": result["end"],
+        "answer": context[start_char:end_char],
+        "score": round(score, 4),
+        "start": int(start_char),
+        "end": int(end_char),
         "model": "qa_extractor",
     }
 
