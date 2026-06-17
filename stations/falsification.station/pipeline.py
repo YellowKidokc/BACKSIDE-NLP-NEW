@@ -182,131 +182,31 @@ def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool
 # ============================================================
 # 06_NLP_ROUTE  *** STATION-SPECIFIC ***
 # ============================================================
-
-import math
+# Shared helpers keep the SSS_v1 station files focused on routing and processing.
 import re
-import requests
-
-API_BASE = "http://localhost:8700/nlp"
-
-
-def _api(endpoint: str, payload: dict[str, Any], timeout: int = 120) -> dict[str, Any]:
-    response = requests.post(f"{API_BASE}/{endpoint}", json=payload, timeout=timeout)
-    response.raise_for_status()
-    return response.json()
-
-
-def _read_input(path: Path) -> Any:
-    text = path.read_text(encoding="utf-8-sig")
-    if path.suffix.lower() == ".json":
-        return json.loads(text)
-    return text
-
-
-def _text_from_input(obj: Any) -> str:
-    if isinstance(obj, str):
-        return obj
-    if isinstance(obj, dict):
-        data = obj.get("data", obj)
-        for key in ("text", "document", "original_text", "content", "summary"):
-            if isinstance(data.get(key), str):
-                return data[key]
-        if isinstance(data.get("versions"), dict):
-            return data["versions"].get("academic", {}).get("text", "")
-    return json.dumps(obj, ensure_ascii=False)
-
-
-def _strip_html(text: str) -> str:
-    if "<" not in text or ">" not in text:
-        return text
-    text = re.sub(r"<script[\s\S]*?</script>|<style[\s\S]*?</style>", " ", text, flags=re.I)
-    text = re.sub(r"<[^>]+>", " ", text)
-    return re.sub(r"\s+", " ", text).strip()
-
-
-def _sentences(text: str) -> list[str]:
-    return [s.strip() for s in re.split(r"(?<=[.!?])\s+", text) if s.strip()]
-
-
-def _paragraphs(text: str) -> list[str]:
-    return [p.strip() for p in re.split(r"\n\s*\n+", text) if p.strip()]
-
-
-def _sections(text: str) -> list[dict[str, Any]]:
-    sections = []
-    current = {"heading": "Introduction", "text": []}
-    for line in text.splitlines():
-        m = re.match(r"^\s{0,3}(#{1,6})\s+(.+?)\s*$", line)
-        if m:
-            if current["text"]:
-                sections.append({"heading": current["heading"], "text": "\n".join(current["text"]).strip()})
-            current = {"heading": m.group(2).strip(), "text": []}
-        else:
-            current["text"].append(line)
-    if current["text"] or not sections:
-        sections.append({"heading": current["heading"], "text": "\n".join(current["text"]).strip()})
-    return sections
-
-
-def _score_map(api_result: dict[str, Any]) -> dict[str, float]:
-    labels = api_result.get("labels") or api_result.get("classes") or []
-    scores = api_result.get("scores") or api_result.get("probabilities") or []
-    if isinstance(scores, dict):
-        return {str(k): float(v) for k, v in scores.items()}
-    return {str(label): float(score) for label, score in zip(labels, scores)}
-
-
-def _top_label(api_result: dict[str, Any], default: str = "unknown") -> tuple[str, float, dict[str, float]]:
-    scores = _score_map(api_result)
-    if scores:
-        label = max(scores, key=scores.get)
-        return label, scores[label], scores
-    label = str(api_result.get("label") or api_result.get("class") or default)
-    return label, float(api_result.get("score", 0.0) or 0.0), {label: float(api_result.get("score", 0.0) or 0.0)}
-
-
-def _word_count(text: str) -> int:
-    return len(re.findall(r"\b\w+\b", text))
-
-
-def _cosine(a: list[float], b: list[float]) -> float:
-    if not a or not b:
-        return 0.0
-    n = min(len(a), len(b))
-    dot = sum(float(a[i]) * float(b[i]) for i in range(n))
-    na = math.sqrt(sum(float(a[i]) ** 2 for i in range(n)))
-    nb = math.sqrt(sum(float(b[i]) ** 2 for i in range(n)))
-    return dot / (na * nb) if na and nb else 0.0
-
-
-def _embeddings(api_result: dict[str, Any]) -> list[list[float]]:
-    value = api_result.get("embeddings", api_result.get("embedding", []))
-    if value and isinstance(value[0], (int, float)):
-        return [value]
-    return value or []
-
-
-def _base_result(path: Path, nlp_info: dict[str, Any]) -> dict[str, Any]:
-    return {
-        "input_file": str(path.name),
-        "station_id": STATION_ID,
-        "station_name": STATION_NAME,
-        "nlp_used": nlp_info.get("nlp_id", "NONE"),
-        "api_endpoint": nlp_info.get("api_endpoint"),
-        "processed_at": datetime.now().isoformat(timespec="seconds"),
-        "success": True,
-        "artifacts": [],
-        "errors": [],
-        "data": {},
-    }
+sys.path.insert(0, str(STATIONS))
+from _shared.station_helpers import (
+    API_BASE,
+    base_result,
+    call_nlp,
+    cosine,
+    data_from_artifact,
+    embeddings,
+    flesch_reading_ease,
+    nlp_route,
+    paragraphs,
+    read_input,
+    sections,
+    sentences,
+    strip_html,
+    text_from_input,
+    top_label,
+    word_count,
+)
 
 
 def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
-    return {
-        "nlp_id": cfg.get("nlp_id", "llm_reasoning"),
-        "nlp_path": MODELS / cfg.get("model_folder", "llm_reasoning"),
-        "api_endpoint": f"{API_BASE}/contradiction",
-    }
+    return nlp_route(API_BASE, MODELS, cfg, "llm_reasoning", "contradiction")
 
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
@@ -321,13 +221,13 @@ def _parse_llm(text: str) -> tuple[str,str,str]:
 
 def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
                 log: logging.Logger) -> dict[str, Any]:
-    result=_base_result(path,nlp_info)
+    result=base_result(path, STATION_ID, STATION_NAME, nlp_info)
     try:
-        obj=_read_input(path); data=obj.get("data",obj); claims=data.get("load_bearing", data.get("claims",[]))
+        obj=read_input(path); data=obj.get("data",obj); claims=data.get("load_bearing", data.get("claims",[]))
         out=[]; dist={"HIGH":0,"MEDIUM":0,"LOW":0}
         for c in claims:
             prompt=f"Given this claim: '{c.get('text','')}'\n1. State one specific observation that would FALSIFY this claim.\n2. State the minimum evidence bar required to SUPPORT this claim.\n3. Rate falsifiability: HIGH, MEDIUM, or LOW."
-            llm=_api("generate", {"model":"phi4", "prompt":prompt})
+            llm=call_nlp("generate", {"model":"phi4", "prompt":prompt})
             kill, bar, rating=_parse_llm(llm.get("response") or llm.get("text") or "")
             dist[rating]=dist.get(rating,0)+1
             out.append({"claim_id":c.get("claim_id"),"text":c.get("text",""),"kill_condition":kill,"evidence_bar":bar,"falsifiability":rating,"has_evidence_in_text":bool(re.search(r"\b(data|study|evidence|citation|survey|analysis)\b", c.get("text",""), re.I)),"evidence_excerpt":""})
