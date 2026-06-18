@@ -1,0 +1,189 @@
+{
+  "_meta": {
+    "generated_for": "paper-production.workflow",
+    "generated_at": "2026-06-18T10:36:27.893261+00:00",
+    "scope": "active_paper_stack_only",
+    "excluded_from_this_workflow": [
+      "obsidian-export",
+      "youtube-fetch",
+      "youtube-qa",
+      "youtube-scrape",
+      "youtube-channel",
+      "whisper-transcribe",
+      "whisper-qa"
+    ]
+  },
+  "math-translation-layer": {
+    "enabled": true,
+    "primary_output": [
+      "stats",
+      "text"
+    ],
+    "text_outputs": [
+      "academic",
+      "lossless_summary"
+    ],
+    "metric_outputs": [
+      "formula_complexity",
+      "token_counts",
+      "signal_quality"
+    ],
+    "max_text_fields": 2,
+    "include_metrics": true,
+    "notes": "Normalize equations/logic and emit a simplified lossless statement + structure-aware math notes."
+  },
+  "classify-documents": {
+    "enabled": true,
+    "primary_output": [
+      "stats"
+    ],
+    "text_outputs": [],
+    "metric_outputs": [
+      "doc_type",
+      "reading_level",
+      "spine_mappings",
+      "tags",
+      "word_count"
+    ],
+    "max_text_fields": 0,
+    "include_metrics": true,
+    "notes": "Paper routing + metadata classification layer."
+  },
+  "plain-language": {
+    "enabled": true,
+    "primary_output": [
+      "text"
+    ],
+    "text_outputs": [
+      "easy_reading",
+      "academic"
+    ],
+    "metric_outputs": [
+      "readability_delta",
+      "word_count"
+    ],
+    "max_text_fields": 2,
+    "include_metrics": true,
+    "notes": "Core audience text rewrite station."
+  },
+  "claim-extraction": {
+    "enabled": true,
+    "primary_output": [
+      "stats",
+      "text"
+    ],
+    "text_outputs": [
+      "claim_list"
+    ],
+    "metric_outputs": [
+      "claims_count",
+      "claims_by_type",
+      "quality_flags"
+    ],
+    "max_text_fields": 1,
+    "include_metrics": true,
+    "notes": "Extract claims and provide claim inventory + per-type counts."
+  },
+  "claim-classification": {
+    "enabled": true,
+    "primary_output": [
+      "stats"
+    ],
+    "text_outputs": [],
+    "metric_outputs": [
+      "maturity_distribution",
+      "domain_distribution",
+      "verification_signals"
+    ],
+    "max_text_fields": 0,
+    "include_metrics": true,
+    "notes": "Secondary claim-level enrichment from claim extraction artifact."
+  },
+  "master-equation-canon": {
+    "enabled": true,
+    "primary_output": [
+      "stats",
+      "text"
+    ],
+    "text_outputs": [
+      "equation_summary"
+    ],
+    "metric_outputs": [
+      "equation_count",
+      "equation_component_count",
+      "source_length"
+    ],
+    "max_text_fields": 1,
+    "include_metrics": true,
+    "notes": "Canonized master-equation outputs + summary for the site."
+  },
+  "fruits-spirit-canon": {
+    "enabled": true,
+    "primary_output": [
+      "stats"
+    ],
+    "text_outputs": [
+      "spirit_summary"
+    ],
+    "metric_outputs": [
+      "fruit_count",
+      "dominant_fruit",
+      "ranking_top_score"
+    ],
+    "max_text_fields": 1,
+    "include_metrics": true,
+    "notes": "Spirit fruit scoring with concise qualitative digest."
+  },
+  "sbert-embedder": {
+    "enabled": true,
+    "primary_output": [
+      "stats"
+    ],
+    "text_outputs": [],
+    "metric_outputs": [
+      "vector_count",
+      "embedding_dim",
+      "norm_stats"
+    ],
+    "max_text_fields": 0,
+    "include_metrics": true,
+    "notes": "Run once per paper and expose compact vector stats only."
+  },
+  "paper-intelligence-suite": {
+    "enabled": true,
+    "primary_output": [
+      "stats",
+      "text"
+    ],
+    "text_outputs": [
+      "analysis_summary"
+    ],
+    "metric_outputs": [
+      "insight_count",
+      "evidence_density",
+      "coverage_flags"
+    ],
+    "max_text_fields": 1,
+    "include_metrics": true,
+    "notes": "High-level intelligence digest and evidence-level metrics."
+  },
+  "paper-proof-grader": {
+    "enabled": true,
+    "primary_output": [
+      "stats",
+      "text"
+    ],
+    "text_outputs": [
+      "quality_summary"
+    ],
+    "metric_outputs": [
+      "grade",
+      "score",
+      "confidence",
+      "risk_flags"
+    ],
+    "max_text_fields": 1,
+    "include_metrics": true,
+    "notes": "Final proof/readability/argument quality grade."
+  }
+}
