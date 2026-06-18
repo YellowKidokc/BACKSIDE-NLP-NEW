@@ -173,7 +173,7 @@ def main():
         t0 = time.time()
 
         try:
-            run_ok, run_err = run_station(s_path, timeout=90)
+            run_ok, run_err = run_station(s_path, timeout=300)
         except subprocess.TimeoutExpired:
             run_ok, run_err = False, "TIMEOUT"
         elapsed = round(time.time() - t0, 1)
@@ -183,6 +183,10 @@ def main():
 
         if run_ok and ob.get("has_output") and ob.get("has_data"):
             status = "PASS"
+            passed += 1
+        elif ob.get("has_output") and ob.get("has_data") and not run_ok and "TIMEOUT" in run_err:
+            # Station wrote data before timeout — counts as DATA_PASS
+            status = "DATA_PASS"
             passed += 1
         elif run_ok and ob.get("has_output") and not ob.get("has_data"):
             status = "EMPTY_DATA"

@@ -182,66 +182,50 @@ def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool
 # ============================================================
 # 06_NLP_ROUTE  *** STATION-SPECIFIC ***
 # ============================================================
-# Route this station to its configured worker/model.
+import re as _re, sys as _sys
+_sys.path.insert(0, str(STATIONS))
+from _shared.station_helpers import (
+    API_BASE, base_result, call_nlp, cosine, flesch_reading_ease,
+    nlp_route, paragraphs, read_input, sections, sentences,
+    strip_html, text_from_input, word_count,
+)
 
-def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
-    workers = cfg.get("workers", {})
-    default = workers.get("default", ["NONE"])
-    nlp_id = default[0] if isinstance(default, list) and default else str(default or "NONE")
-    if nlp_id.startswith("P"):
-        nlp_path = ENGINES / nlp_id
-    else:
-        nlp_path = MODELS / nlp_id if nlp_id not in {"NONE", "OPENAI", "OLLAMA"} else None
-    return {"nlp_id": nlp_id, "nlp_path": nlp_path}
+_CLAIM_QUESTIONS = [
+    "What is the main claim or thesis being argued?",
+    "What evidence or citations support this claim?",
+]
+
+def choose_nlp(path, cfg):
+    return nlp_route(API_BASE, MODELS, cfg, "qa_extractor", "qa")
 
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
-# Extract claim inventory rows for MDA citation spine analysis.
-
-from claim_inventory import extract_claims
-
-
-def _read_text(path: Path) -> str:
-    """Read file content as text. JSON files get string values concatenated."""
-    if path.suffix.lower() == '.json':
-        data = json.loads(path.read_text(encoding='utf-8-sig'))
-        if isinstance(data, str):
-            return data
-        if isinstance(data, dict):
-            parts = [str(v) for v in data.values() if v and isinstance(v, str)]
-            return '\n'.join(parts) if parts else json.dumps(data)
-        return json.dumps(data)
-    return path.read_text(encoding='utf-8', errors='replace')
-
-
-def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
-                log: logging.Logger) -> dict[str, Any]:
-    """Extract claim inventory rows for MDA citation spine analysis."""
-    result = {
-        "input_file": str(path.name),
-        "station_id": STATION_ID,
-        "station_name": STATION_NAME,
-        "nlp_used": nlp_info.get("nlp_id", "NONE"),
-        "processed_at": datetime.now().isoformat(timespec="seconds"),
-        "success": True,
-        "artifacts": [],
-        "errors": [],
-        "data": {},
-    }
-
+def process_one(path, nlp_info, cfg, log):
+    result = base_result(path, STATION_ID, STATION_NAME, nlp_info)
     try:
-        text = _read_text(path)
-        claims = extract_claims(text)
-        result["data"] = {"claims": claims, "claim_count": len(claims) if claims else 0}
-
+        text = text_from_input(read_input(path))
+        context = text[:4000]
+        claims = []
+        for i, q in enumerate(_CLAIM_QUESTIONS):
+            res = call_nlp("qa", {"question": q, "context": context})
+            answer = res.get("answer", "").strip()
+            score = float(res.get("score", 0))
+            if answer and score > 0.05:
+                claims.append({
+                    "claim_id": f"C{i+1:03d}",
+                    "text": answer,
+                    "question": q,
+                    "confidence": round(score, 4),
+                })
+        result["data"] = {
+            "claims": claims,
+            "claim_count": len(claims),
+            "source_length": len(text),
+        }
     except Exception as exc:
-        log.exception("Processing failed for %s", path.name)
-        result["success"] = False
-        result["errors"].append(str(exc))
-
+        result["success"] = False; result["errors"].append(str(exc))
     return result
-
 
 # ============================================================
 # 08_ARTIFACTS

@@ -223,8 +223,27 @@ def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
     result = base_result(path, STATION_ID, STATION_NAME, nlp_info)
     try:
         text = strip_html(text_from_input(read_input(path)))
-        versions = {"easy": _rewrite(text, "6th grade"), "standard": _rewrite(text, "10th grade"), "academic": text}
-        result["data"] = {"versions": {k: {"text": v, "reading_level": {"easy":"grade_6","standard":"grade_10","academic":"graduate"}[k], "flesch_kincaid": flesch_reading_ease(v), "word_count": word_count(v)} for k, v in versions.items()}, "section_count": len(sections(text))}
+        easy_text = _rewrite(text, "8th grade")
+        standard_text = _rewrite(text, "10th grade")
+        versions = {
+            "grade_8": easy_text,
+            "easy": easy_text,
+            "standard": standard_text,
+            "academic": text,
+        }
+        result["data"] = {
+            "versions": {
+                k: {
+                    "text": v,
+                    "reading_level": {"grade_8": "grade_8", "easy": "grade_8", "standard": "grade_10", "academic": "graduate"}[k],
+                    "flesch_kincaid": flesch_reading_ease(v),
+                    "word_count": word_count(v),
+                }
+                for k, v in versions.items()
+            },
+            "rewrites": {"grade_8": easy_text, "academic": text},
+            "section_count": len(sections(text)),
+        }
     except Exception as exc:
         result["success"] = False; result["errors"].append(str(exc))
     return result

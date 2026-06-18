@@ -182,56 +182,73 @@ def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool
 # ============================================================
 # 06_NLP_ROUTE  *** STATION-SPECIFIC ***
 # ============================================================
-# Route this station to its configured worker/model.
+import re as _re, sys as _sys
+_sys.path.insert(0, str(STATIONS))
+from _shared.station_helpers import (
+    API_BASE, base_result, call_nlp, cosine, flesch_reading_ease,
+    nlp_route, paragraphs, read_input, sections, sentences,
+    strip_html, text_from_input, word_count,
+)
 
-def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
-    workers = cfg.get("workers", {})
-    default = workers.get("default", ["NONE"])
-    nlp_id = default[0] if isinstance(default, list) and default else str(default or "NONE")
-    if nlp_id.startswith("P"):
-        nlp_path = ENGINES / nlp_id
-    else:
-        nlp_path = MODELS / nlp_id if nlp_id not in {"NONE", "OPENAI", "OLLAMA"} else None
-    return {"nlp_id": nlp_id, "nlp_path": nlp_path}
+_THEOPHYSICS_LABELS = [
+    "axiom foundational premise",
+    "theorem derived proposition",
+    "physical law empirical",
+    "theological claim divine",
+    "mathematical relationship equation",
+    "philosophical premise assumption",
+    "boundary condition constraint",
+    "operator definition transformation",
+]
+
+def _embed_classify(text, labels, top_n=5):
+    import math
+    all_texts = [text[:1000]] + [l[:100] for l in labels]
+    res = call_nlp("embed", {"texts": all_texts})
+    vecs = res.get("embeddings", [])
+    if len(vecs) < 2:
+        return [{"label": l, "score": 0.0} for l in labels]
+    text_vec = vecs[0]
+    scored = []
+    for i, label in enumerate(labels):
+        if i + 1 >= len(vecs):
+            break
+        scored.append({"label": label, "score": round(cosine(text_vec, vecs[i + 1]), 4)})
+    return sorted(scored, key=lambda x: x["score"], reverse=True)[:top_n]
+
+def choose_nlp(path, cfg):
+    return nlp_route(API_BASE, MODELS, cfg, "embeddings_fast", "embed")
 
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
-# The ONE action this station performs: Processes theophysics engine station inputs.
-# PHASE2_SKIP: no original legacy implementation was available after Phase 1.
-
-def _read_input_payload(path: Path) -> Any:
-    if path.suffix.lower() == ".json":
-        return json.loads(path.read_text(encoding="utf-8-sig"))
-    return path.read_text(encoding="utf-8", errors="replace")
-
-
-def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
-                log: logging.Logger) -> dict[str, Any]:
-    """Record the input with an explicit Phase 2 skip reason."""
-    result = {
-        "input_file": str(path.name),
-        "station_id": STATION_ID,
-        "station_name": STATION_NAME,
-        "nlp_used": nlp_info.get("nlp_id", "NONE"),
-        "processed_at": datetime.now().isoformat(timespec="seconds"),
-        "success": True,
-        "artifacts": [],
-        "errors": [],
-        "data": {},
-    }
+def process_one(path, nlp_info, cfg, log):
+    result = base_result(path, STATION_ID, STATION_NAME, nlp_info)
     try:
+        text = text_from_input(read_input(path))
+        scored = _embed_classify(text, _THEOPHYSICS_LABELS)
+        # ONE contradiction call between theological and scientific claims
+        paras = paragraphs(text)
+        tensions = []
+        if len(paras) >= 2:
+            res = call_nlp("contradiction", {
+                "premise": paras[0][:400],
+                "hypothesis": paras[min(2, len(paras)-1)][:400],
+            })
+            con = float(res.get("scores", {}).get("contradiction", 0))
+            tensions.append({
+                "section_a": paras[0][:150],
+                "section_b": paras[min(2, len(paras)-1)][:150],
+                "contradiction": round(con, 4),
+            })
         result["data"] = {
-            "action": STATION_DESC,
-            "phase2_skip": "no original legacy implementation was available after Phase 1",
-            "worker": nlp_info.get("nlp_id", "NONE"),
-            "input_type": path.suffix.lower(),
-            "content": _read_input_payload(path),
+            "statement_type_ranking": scored,
+            "dominant_type": scored[0]["label"] if scored else "",
+            "tensions": tensions,
+            "axiom_count": len([s for s in scored if "axiom" in s["label"] and s["score"] > 0.1]),
         }
     except Exception as exc:
-        log.exception("Station processing failed for %s", path.name)
-        result["success"] = False
-        result["errors"].append(str(exc))
+        result["success"] = False; result["errors"].append(str(exc))
     return result
 
 # ============================================================

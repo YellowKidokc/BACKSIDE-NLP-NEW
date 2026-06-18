@@ -14,6 +14,8 @@ import requests
 
 API_BASE = "http://localhost:8700/nlp"
 API_TIMEOUT = 120
+_VECTOR_STATE_ROOT = Path(__file__).resolve().parent.parent / "_state" / "paper_vectors"
+_VECTOR_SCHEMA_VERSION = "v1"
 
 
 def api_call(endpoint: str, payload: dict[str, Any], timeout: int = API_TIMEOUT) -> dict[str, Any]:
@@ -121,9 +123,190 @@ def extract_embeddings(api_result: dict[str, Any]) -> list[list[float]]:
     return value or []
 
 
+def _sanitize_vector_input(text: str, max_chars: int = 30000) -> str:
+    """Sanitize and trim text for vectorization payloads."""
+    if not isinstance(text, str):
+        return ""
+    txt = text.strip()
+    if max_chars and len(txt) > max_chars:
+        txt = txt[:max_chars]
+    return " ".join(txt.split())
+
+
+def _normalize_embedding_payload(raw: Any, expected_dim: int | None = None) -> tuple[list[float], int]:
+    """Normalize unknown embedding response shapes into a single vector."""
+    vecs = extract_embeddings(raw if isinstance(raw, dict) else {"embeddings": raw})
+    vector: list[float] = []
+    if vecs and isinstance(vecs[0], list):
+        vector = [float(v) for v in vecs[0] if isinstance(v, (int, float))]
+    if expected_dim and len(vector) > expected_dim:
+        vector = vector[:expected_dim]
+    if expected_dim and len(vector) < expected_dim:
+        vector = vector + [0.0] * (expected_dim - len(vector))
+    return vector, len(vector)
+
+
+def _safe_load_json(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    try:
+        with path.open("r", encoding="utf-8-sig") as fp:
+            data = json.load(fp)
+        return data if isinstance(data, dict) else {}
+    except Exception:
+        return {}
+
+
+def _build_series_context(series_id: str | None, source_file: str | None,
+                         cfg: dict[str, Any], log: logging.Logger | None) -> dict[str, Any]:
+    series_cfg = cfg.get("series", {}) if isinstance(cfg, dict) else {}
+    if not series_id or not series_cfg:
+        return {"enabled": False}
+
+    enabled = bool(series_cfg.get("enabled", True))
+    method = series_cfg.get("method", "running_mean")
+    state = {
+        "enabled": bool(enabled),
+        "series_id": series_id,
+        "method": method,
+        "source_file": source_file or "",
+    }
+    if not enabled:
+        return state
+
+    try:
+        _VECTOR_STATE_ROOT.mkdir(parents=True, exist_ok=True)
+        state_file = _VECTOR_STATE_ROOT / f"{series_id}.json"
+        payload = _safe_load_json(state_file)
+        docs = payload.get("documents") if isinstance(payload.get("documents"), list) else []
+        docs.append({
+            "source_file": source_file or "",
+            "updated_at": datetime.now().isoformat(timespec="seconds"),
+        })
+        payload = {
+            "series_id": series_id,
+            "method": method,
+            "updated_at": datetime.now().isoformat(timespec="seconds"),
+            "document_count": len(docs),
+            "documents": docs[-int(series_cfg.get("window", 200)):],
+        }
+        state_file.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        state.update(payload)
+    except Exception as exc:
+        if log:
+            log.warning("Series vector state write failed: %s", exc)
+    return state
+
+
+def build_vectorization_payload(text: str, cfg: dict[str, Any], log: logging.Logger | None = None,
+                               *, source_file: str | None = None,
+                               series_id: str | None = None) -> dict[str, Any]:
+    """Build a normalized vectorization object for downstream exporters/stores."""
+    if log is None:
+        log = logging.getLogger("vectorization")
+
+    cfg = cfg or {}
+    vcfg = cfg.get("vectorization", {})
+    if not isinstance(vcfg, dict) or not vcfg.get("enabled", True):
+        return {
+            "enabled": False,
+            "schema_version": _VECTOR_SCHEMA_VERSION,
+            "reason": "disabled",
+        }
+
+    if not isinstance(text, str):
+        text = text_from_input(text)
+    safe_text = _sanitize_vector_input(text, max_chars=int(vcfg.get("max_chars", 30000)))
+    if not safe_text:
+        return {
+            "enabled": False,
+            "schema_version": _VECTOR_SCHEMA_VERSION,
+            "reason": "empty_input",
+        }
+
+    try:
+        embedding_result = call_nlp("embed", {"texts": [safe_text]})
+    except Exception as exc:
+        if log:
+            log.warning("Vectorization failed: %s", exc)
+        return {
+            "enabled": False,
+            "schema_version": _VECTOR_SCHEMA_VERSION,
+            "reason": "embed_error",
+            "error": str(exc),
+        }
+
+    vector, dim = _normalize_embedding_payload(
+        embedding_result,
+        expected_dim=int(vcfg.get("expected_dim", 0)) or None,
+    )
+    if not vector:
+        return {
+            "enabled": False,
+            "schema_version": _VECTOR_SCHEMA_VERSION,
+            "reason": "no_vector",
+        }
+
+    resolved_series_id = series_id or str(vcfg.get("series_id", "")) or cfg.get("series_id")
+    series_ctx = _build_series_context(
+        resolved_series_id or None,
+        source_file,
+        cfg=cfg,
+        log=log,
+    )
+    return {
+        "enabled": True,
+        "schema_version": _VECTOR_SCHEMA_VERSION,
+        "paper": {
+            "source_file": source_file or "",
+            "text_length": len(safe_text),
+            "word_count": word_count(safe_text),
+            "expected_dimension": dim,
+            "requested_dimension": int(vcfg.get("expected_dim", dim) or dim),
+            "model": vcfg.get("model", "m01_embedder"),
+            "method": vcfg.get("method", "embed"),
+        },
+        "vector": vector,
+        "series_context": series_ctx,
+    }
+
+
 def base_result(path: Path, station_id: str, station_name: str,
-                nlp_info: dict[str, Any]) -> dict[str, Any]:
+                nlp_info: dict[str, Any],
+                cfg: dict[str, Any] | None = None,
+                log: logging.Logger | None = None) -> dict[str, Any]:
     """Create the standard artifact envelope."""
+    if cfg is None:
+        cfg = {}
+        try:
+            station_dir = Path(path).resolve().parent.parent
+            cfg_path = station_dir / "config.json"
+            if cfg_path.exists():
+                cfg = _safe_load_json(cfg_path)
+        except Exception:
+            cfg = {}
+
+        if not isinstance(cfg, dict):
+            cfg = {}
+
+    try:
+        vectorization = build_vectorization_payload(
+            text_from_input(read_input(path)),
+            cfg,
+            log,
+            source_file=path.name,
+            series_id=cfg.get("series_id"),
+        )
+    except Exception as exc:
+        if log:
+            log.warning("Vectorization attach failed: %s", exc)
+        vectorization = {
+            "enabled": False,
+            "schema_version": _VECTOR_SCHEMA_VERSION,
+            "reason": "vectorization_exception",
+            "error": str(exc),
+        }
+
     return {
         "input_file": str(path.name),
         "station_id": station_id,
@@ -134,6 +317,7 @@ def base_result(path: Path, station_id: str, station_name: str,
         "success": True,
         "artifacts": [],
         "errors": [],
+        "vectorization": vectorization,
         "data": {},
     }
 

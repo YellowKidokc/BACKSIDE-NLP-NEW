@@ -3,9 +3,15 @@
   "station_name": "sbert-embedder",
   "station_type": "one_for_one",
   "description": "Generates SBERT sentence embeddings",
-  "input_extensions": [".md", ".txt", ".json"],
+  "input_extensions": [
+    ".md",
+    ".txt",
+    ".json"
+  ],
   "workers": {
-    "default": ["M02_embedder"],
+    "default": [
+      "M02_embedder"
+    ],
     "optional": []
   },
   "outputs": {
@@ -13,17 +19,18 @@
     "update_job_card": false,
     "final_export": false
   },
-
   "infinity_url": "http://192.168.1.177:7997",
   "qdrant_url": "http://192.168.1.177:6333",
   "qdrant_collection": null,
   "vector_distance": "cosine",
-
   "source": {
     "type": "files",
     "table": null,
     "id_col": "id",
-    "text_cols": ["title", "description"],
+    "text_cols": [
+      "title",
+      "description"
+    ],
     "payload_cols": [],
     "text_preview_chars": 300,
     "where": null
@@ -31,12 +38,21 @@
   "files_source": {
     "input_dir": "",
     "output_dir": "",
-    "text_extensions": [".txt", ".md"]
+    "text_extensions": [
+      ".txt",
+      ".md"
+    ]
   },
   "model_settings": {
     "model_name": "sentence-transformers/all-MiniLM-L6-v2",
     "batch_size": 200,
     "http_batch_size": 32,
     "normalize_embeddings": true
+  },
+  "vectorization": {
+    "enabled": true,
+    "expected_dim": 0,
+    "max_chars": 30000,
+    "series_id": ""
   }
 }

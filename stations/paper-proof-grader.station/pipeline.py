@@ -64,6 +64,7 @@ from typing import Any
 HERE      = Path(__file__).resolve().parent          # this station folder
 STATIONS  = HERE.parent                              # 04_STATIONS or stations/
 BRAIN     = STATIONS.parent                          # brain root (X:\ or repo root)
+sys.path.insert(0, str(STATIONS))
 
 
 def _resolve(numbered: str, flat: str) -> Path:
@@ -184,6 +185,15 @@ def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool
 # ============================================================
 # Route this station to its configured worker/model.
 
+_sys = sys
+_sys.path.insert(0, str(STATIONS))
+from _shared.station_helpers import (
+    base_result,
+    build_vectorization_payload,
+    read_input,
+    text_from_input,
+)
+
 def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
     workers = cfg.get("workers", {})
     default = workers.get("default", ["NONE"])
@@ -211,7 +221,10 @@ def _get_fruit_scorer(cfg: dict[str, Any], log: logging.Logger):
         return _fruit_scorer
 
     anchors = cfg.get("anchors") or {}
-    _fruit_scorer = SemanticAnchorScorer(anchors)
+    try:
+        _fruit_scorer = SemanticAnchorScorer(anchors)
+    except TypeError:
+        _fruit_scorer = SemanticAnchorScorer()
 
     return _fruit_scorer
 
@@ -232,23 +245,19 @@ def _read_text(path: Path) -> str:
 def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
                 log: logging.Logger) -> dict[str, Any]:
     """Score paper text against Fruits of the Spirit proof-grader anchors."""
-    result = {
-        "input_file": str(path.name),
-        "station_id": STATION_ID,
-        "station_name": STATION_NAME,
-        "nlp_used": nlp_info.get("nlp_id", "NONE"),
-        "processed_at": datetime.now().isoformat(timespec="seconds"),
-        "success": True,
-        "artifacts": [],
-        "errors": [],
-        "data": {},
-    }
+    result = base_result(path, STATION_ID, STATION_NAME, nlp_info)
 
     try:
-        text = _read_text(path)
+        text = text_from_input(read_input(path))
+        result["vectorization"] = build_vectorization_payload(
+            text,
+            cfg,
+            log,
+            source_file=path.name,
+            series_id=cfg.get("series_id"),
+        )
         scorer = _get_fruit_scorer(cfg, log)
-        chunks = chunks_for_semantics(text, max_chunks=int(cfg.get("max_chunks", 120)))
-        scores = scorer.score(chunks)
+        scores = scorer.score(text)
         result["data"] = {"scores": scores}
 
     except Exception as exc:

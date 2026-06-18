@@ -35,6 +35,7 @@ from typing import Callable, Sequence
 
 import numpy as np
 from scipy.integrate import solve_ivp
+import re
 
 # Force UTF-8 stdout on Windows so Greek letters in the smoke test print
 try:
@@ -267,6 +268,98 @@ def integrate_fruit_dynamics(
         zeta=zeta_t,
         fruit_norm=norm_t,
     )
+
+
+def _word_counts(text: str) -> dict[str, int]:
+    """Count fruit-lexicon keywords in the input text."""
+    lowered = text.lower()
+    words = re.findall(r"[a-z]+(?:_[a-z]+)?", lowered)
+    total_words = len(words) or 1
+
+    aliases = {
+        "self_control": [r"\bself[-_ ]?control\b", r"\bselfcontrol\b"],
+        "faithfulness": [r"\bfaithfulness\b", r"\bfaithful\b", r"\bfaith\b"],
+    }
+
+    counts: dict[str, int] = {}
+    for fruit in FRUIT_NAMES:
+        if fruit in aliases:
+            pats = aliases[fruit]
+            cnt = 0
+            for pat in pats:
+                cnt += len(re.findall(pat, lowered))
+            counts[fruit] = cnt
+        else:
+            cnt = len(re.findall(rf"\\b{re.escape(fruit)}\\b", lowered))
+            counts[fruit] = cnt
+
+    counts = {k: counts.get(k, 0) for k in FRUIT_NAMES}
+    counts["total_words"] = total_words
+    return counts
+
+
+def compute_fruit_dynamics(text: str) -> dict:
+    """Compute fruit dynamics summary for a paper text.
+
+    This compatibility API is used by station wiring. It returns a compact
+    set of machine-readable fields plus the full final fruit trajectory state.
+    """
+    text = text or ""
+    counts = _word_counts(text)
+    total_words = max(1, counts.get("total_words", 1))
+    del counts["total_words"]
+
+    total_hits = sum(counts.values()) or 1
+    fruit_density = total_hits / total_words
+
+    word_intake = min(1.0, max(0.02, 0.15 + 0.85 * fruit_density))
+    experience_intake = min(
+        1.0,
+        max(0.1, 0.25 + 0.5 * min(1.0, total_words / 5000.0))
+    )
+
+    traj = integrate_fruit_dynamics(
+        t_span=(0.0, 50.0),
+        word_intake=lambda _t: word_intake,
+        experience_intake=lambda _t: experience_intake,
+        n_eval=150,
+    )
+
+    final_f = traj.F[-1]
+    dominant_idx = int(np.argmax(final_f))
+    dominant_fruit = FRUIT_NAMES[dominant_idx]
+
+    # Find first phase-transition crossing at ζ=0.5 (if any)
+    transitions = np.where(np.diff((traj.zeta >= 0.5).astype(int)) != 0)[0]
+    phase_cross_t = None
+    if len(transitions) > 0:
+        i = transitions[0]
+        phase_cross_t = float(traj.t[i])
+
+    return {
+        "text_metrics": {
+            "total_words": total_words,
+            "fruit_token_hits": counts,
+            "fruit_density": float(fruit_density),
+            "word_signal": word_intake,
+            "experience_signal": experience_intake,
+            "dominant_fruit": dominant_fruit,
+        },
+        "trajectory": {
+            "t": traj.t.tolist(),
+            "phi": traj.phi.tolist(),
+            "fruit_norm": traj.fruit_norm.tolist(),
+            "zeta": traj.zeta.tolist(),
+            "phase_transition_t": phase_cross_t,
+        },
+        "final_state": {
+            "phi": float(traj.phi[-1]),
+            "fruit_vector": dict(zip(FRUIT_NAMES, final_f.tolist())),
+            "fruit_norm": float(traj.fruit_norm[-1]),
+            "salvation_state": float(traj.zeta[-1]),
+            "utility": float(utility_of_salvation(traj.zeta[-1])),
+        },
+    }
 
 
 # ---------------------------------------------------------------------------

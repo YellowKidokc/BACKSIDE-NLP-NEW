@@ -182,68 +182,62 @@ def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool
 # ============================================================
 # 06_NLP_ROUTE  *** STATION-SPECIFIC ***
 # ============================================================
-# Route this station to its configured worker/model.
+import re as _re, sys as _sys
+_sys.path.insert(0, str(STATIONS))
+from _shared.station_helpers import (
+    API_BASE, base_result, call_nlp, cosine, flesch_reading_ease,
+    nlp_route, paragraphs, read_input, sections, sentences,
+    strip_html, text_from_input, word_count,
+)
 
-def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
-    workers = cfg.get("workers", {})
-    default = workers.get("default", ["NONE"])
-    nlp_id = default[0] if isinstance(default, list) and default else str(default or "NONE")
-    if nlp_id.startswith("P"):
-        nlp_path = ENGINES / nlp_id
-    else:
-        nlp_path = MODELS / nlp_id if nlp_id not in {"NONE", "OPENAI", "OLLAMA"} else None
-    return {"nlp_id": nlp_id, "nlp_path": nlp_path}
+_TRINITY = [
+    "Father God Creator",
+    "Son Jesus Christ incarnation",
+    "Holy Spirit comforter advocate",
+    "Triune relationship perichoresis",
+    "divine nature essence",
+    "economic Trinity mission",
+    "immanent Trinity eternal",
+    "unity of three persons",
+]
+
+def _embed_classify(text, labels, top_n=5):
+    import math
+    all_texts = [text[:1000]] + [l[:100] for l in labels]
+    res = call_nlp("embed", {"texts": all_texts})
+    vecs = res.get("embeddings", [])
+    if len(vecs) < 2:
+        return [{"label": l, "score": 0.0} for l in labels]
+    text_vec = vecs[0]
+    scored = []
+    for i, label in enumerate(labels):
+        if i + 1 >= len(vecs):
+            break
+        scored.append({"label": label, "score": round(cosine(text_vec, vecs[i + 1]), 4)})
+    return sorted(scored, key=lambda x: x["score"], reverse=True)[:top_n]
+
+def choose_nlp(path, cfg):
+    return nlp_route(API_BASE, MODELS, cfg, "embeddings_fast", "embed")
 
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
-# Index the Trinity canon source set.
-
-from station import DEFAULT_SOURCES
-from _shared.canon_index import build_index
-
-
-def _read_text(path: Path) -> str:
-    """Read file content as text. JSON files get string values concatenated."""
-    if path.suffix.lower() == '.json':
-        data = json.loads(path.read_text(encoding='utf-8-sig'))
-        if isinstance(data, str):
-            return data
-        if isinstance(data, dict):
-            parts = [str(v) for v in data.values() if v and isinstance(v, str)]
-            return '\n'.join(parts) if parts else json.dumps(data)
-        return json.dumps(data)
-    return path.read_text(encoding='utf-8', errors='replace')
-
-
-def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
-                log: logging.Logger) -> dict[str, Any]:
-    """Index the Trinity canon source set."""
-    result = {
-        "input_file": str(path.name),
-        "station_id": STATION_ID,
-        "station_name": STATION_NAME,
-        "nlp_used": nlp_info.get("nlp_id", "NONE"),
-        "processed_at": datetime.now().isoformat(timespec="seconds"),
-        "success": True,
-        "artifacts": [],
-        "errors": [],
-        "data": {},
-    }
-
+def process_one(path, nlp_info, cfg, log):
+    result = base_result(path, STATION_ID, STATION_NAME, nlp_info)
     try:
-        text = _read_text(path)
-        sources = [Path(p) for p in cfg.get("sources", DEFAULT_SOURCES)]
-        index = build_index("trinity-canon", sources)
-        result["data"] = {"canon_index": index}
-
+        text = text_from_input(read_input(path))
+        scored = _embed_classify(text, _TRINITY)
+        non_empty = {s["label"]: s["score"] for s in scored if s["score"] > 0.1}
+        result["data"] = {
+            "person_map": non_empty,
+            "statement_count": len([s for s in scored if s["score"] > 0.15]),
+            "persons_addressed": list(non_empty.keys()),
+            "dominant_person": scored[0]["label"] if scored else "",
+            "full_ranking": scored,
+        }
     except Exception as exc:
-        log.exception("Processing failed for %s", path.name)
-        result["success"] = False
-        result["errors"].append(str(exc))
-
+        result["success"] = False; result["errors"].append(str(exc))
     return result
-
 
 # ============================================================
 # 08_ARTIFACTS

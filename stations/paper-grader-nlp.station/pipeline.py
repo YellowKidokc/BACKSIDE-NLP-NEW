@@ -77,6 +77,15 @@ ENGINES   = _resolve("06_ENGINES",   "engines")      # preference engines
 JOB_CARDS = _resolve("03_JOB_CARDS", "job_cards")    # job card registry
 EXPORTS   = _resolve("10_EXPORTS",   "exports")      # global exports
 
+import sys as _sys
+_sys.path.insert(0, str(STATIONS))
+from _shared.station_helpers import (
+    base_result,
+    build_vectorization_payload,
+    read_input,
+    text_from_input,
+)
+
 # Station identity — CHANGE THESE per station
 STATION_ID   = "ST_037"
 STATION_NAME = "paper-grader-nlp"
@@ -209,24 +218,21 @@ def _read_input_payload(path: Path) -> Any:
 def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
                 log: logging.Logger) -> dict[str, Any]:
     """Record the input with an explicit Phase 2 skip reason."""
-    result = {
-        "input_file": str(path.name),
-        "station_id": STATION_ID,
-        "station_name": STATION_NAME,
-        "nlp_used": nlp_info.get("nlp_id", "NONE"),
-        "processed_at": datetime.now().isoformat(timespec="seconds"),
-        "success": True,
-        "artifacts": [],
-        "errors": [],
-        "data": {},
-    }
+    result = base_result(path, STATION_ID, STATION_NAME, nlp_info)
     try:
+        result["vectorization"] = build_vectorization_payload(
+            text_from_input(read_input(path)),
+            cfg,
+            log,
+            source_file=path.name,
+            series_id=cfg.get("series_id"),
+        )
         result["data"] = {
             "action": STATION_DESC,
             "phase2_skip": "no original legacy implementation was available after Phase 1",
             "worker": nlp_info.get("nlp_id", "NONE"),
             "input_type": path.suffix.lower(),
-            "content": _read_input_payload(path),
+            "content": text_from_input(read_input(path)),
         }
     except Exception as exc:
         log.exception("Station processing failed for %s", path.name)

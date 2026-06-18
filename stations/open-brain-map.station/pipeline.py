@@ -182,56 +182,51 @@ def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool
 # ============================================================
 # 06_NLP_ROUTE  *** STATION-SPECIFIC ***
 # ============================================================
-# Route this station to its configured worker/model.
+import re as _re, sys as _sys
+_sys.path.insert(0, str(STATIONS))
+from _shared.station_helpers import (
+    API_BASE, base_result, call_nlp, cosine, flesch_reading_ease,
+    nlp_route, paragraphs, read_input, sections, sentences,
+    strip_html, text_from_input, word_count,
+)
 
-def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
-    workers = cfg.get("workers", {})
-    default = workers.get("default", ["NONE"])
-    nlp_id = default[0] if isinstance(default, list) and default else str(default or "NONE")
-    if nlp_id.startswith("P"):
-        nlp_path = ENGINES / nlp_id
-    else:
-        nlp_path = MODELS / nlp_id if nlp_id not in {"NONE", "OPENAI", "OLLAMA"} else None
-    return {"nlp_id": nlp_id, "nlp_path": nlp_path}
+def choose_nlp(path, cfg):
+    return nlp_route(API_BASE, MODELS, cfg, "embeddings_fast", "embed")
 
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
-# The ONE action this station performs: Processes open brain map station inputs.
-# PHASE2_SKIP: no original legacy implementation was available after Phase 1.
-
-def _read_input_payload(path: Path) -> Any:
-    if path.suffix.lower() == ".json":
-        return json.loads(path.read_text(encoding="utf-8-sig"))
-    return path.read_text(encoding="utf-8", errors="replace")
-
-
-def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
-                log: logging.Logger) -> dict[str, Any]:
-    """Record the input with an explicit Phase 2 skip reason."""
-    result = {
-        "input_file": str(path.name),
-        "station_id": STATION_ID,
-        "station_name": STATION_NAME,
-        "nlp_used": nlp_info.get("nlp_id", "NONE"),
-        "processed_at": datetime.now().isoformat(timespec="seconds"),
-        "success": True,
-        "artifacts": [],
-        "errors": [],
-        "data": {},
-    }
+def process_one(path, nlp_info, cfg, log):
+    result = base_result(path, STATION_ID, STATION_NAME, nlp_info)
     try:
+        obj = read_input(path)
+        data = obj.get("data", obj) if isinstance(obj, dict) else {}
+        existing_nodes = data.get("nodes", [])
+        text = text_from_input(obj)
+        new_sections = sections(text)
+        all_texts = []
+        for n in existing_nodes:
+            t = n.get("text_preview", "") or n.get("text", "") if isinstance(n, dict) else ""
+            if len(t) > 20: all_texts.append(t)
+        for s in new_sections:
+            t = s.get("text", "")[:400]
+            if len(t) > 20: all_texts.append(t)
+        all_texts = all_texts[:30] or [text[:500]]
+        res = call_nlp("embed", {"texts": all_texts})
+        vecs = res.get("embeddings", [])
+        edges = []
+        for i in range(len(vecs)):
+            for j in range(i + 1, len(vecs)):
+                sim = cosine(vecs[i], vecs[j])
+                if sim > 0.45:
+                    edges.append({"source": i, "target": j, "weight": round(sim, 4)})
         result["data"] = {
-            "action": STATION_DESC,
-            "phase2_skip": "no original legacy implementation was available after Phase 1",
-            "worker": nlp_info.get("nlp_id", "NONE"),
-            "input_type": path.suffix.lower(),
-            "content": _read_input_payload(path),
+            "node_count": len(all_texts), "edge_count": len(edges),
+            "edges": edges[:150],
+            "nodes": [{"id": i, "preview": all_texts[i][:80]} for i in range(len(all_texts))],
         }
     except Exception as exc:
-        log.exception("Station processing failed for %s", path.name)
-        result["success"] = False
-        result["errors"].append(str(exc))
+        result["success"] = False; result["errors"].append(str(exc))
     return result
 
 # ============================================================

@@ -182,56 +182,69 @@ def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool
 # ============================================================
 # 06_NLP_ROUTE  *** STATION-SPECIFIC ***
 # ============================================================
-# Route this station to its configured worker/model.
+import re as _re, sys as _sys
+_sys.path.insert(0, str(STATIONS))
+from _shared.station_helpers import (
+    API_BASE, base_result, call_nlp, cosine, flesch_reading_ease,
+    nlp_route, paragraphs, read_input, sections, sentences,
+    strip_html, text_from_input, word_count,
+)
 
-def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
-    workers = cfg.get("workers", {})
-    default = workers.get("default", ["NONE"])
-    nlp_id = default[0] if isinstance(default, list) and default else str(default or "NONE")
-    if nlp_id.startswith("P"):
-        nlp_path = ENGINES / nlp_id
-    else:
-        nlp_path = MODELS / nlp_id if nlp_id not in {"NONE", "OPENAI", "OLLAMA"} else None
-    return {"nlp_id": nlp_id, "nlp_path": nlp_path}
+_FILE_TYPES = [
+    "research paper academic",
+    "sermon homily church",
+    "book draft manuscript",
+    "personal correspondence letter",
+    "spreadsheet numerical data",
+    "technical documentation code",
+    "theological essay doctrine",
+    "meeting notes minutes",
+    "media transcript interview",
+    "reference bibliography",
+]
+
+def _embed_classify(text, labels, top_n=5):
+    import math
+    all_texts = [text[:1000]] + [l[:100] for l in labels]
+    res = call_nlp("embed", {"texts": all_texts})
+    vecs = res.get("embeddings", [])
+    if len(vecs) < 2:
+        return [{"label": l, "score": 0.0} for l in labels]
+    text_vec = vecs[0]
+    scored = []
+    for i, label in enumerate(labels):
+        if i + 1 >= len(vecs):
+            break
+        scored.append({"label": label, "score": round(cosine(text_vec, vecs[i + 1]), 4)})
+    return sorted(scored, key=lambda x: x["score"], reverse=True)[:top_n]
+
+def choose_nlp(path, cfg):
+    return nlp_route(API_BASE, MODELS, cfg, "embeddings_fast", "embed")
 
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
-# The ONE action this station performs: Processes file intelligence station inputs.
-# PHASE2_SKIP: no original legacy implementation was available after Phase 1.
-
-def _read_input_payload(path: Path) -> Any:
-    if path.suffix.lower() == ".json":
-        return json.loads(path.read_text(encoding="utf-8-sig"))
-    return path.read_text(encoding="utf-8", errors="replace")
-
-
-def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
-                log: logging.Logger) -> dict[str, Any]:
-    """Record the input with an explicit Phase 2 skip reason."""
-    result = {
-        "input_file": str(path.name),
-        "station_id": STATION_ID,
-        "station_name": STATION_NAME,
-        "nlp_used": nlp_info.get("nlp_id", "NONE"),
-        "processed_at": datetime.now().isoformat(timespec="seconds"),
-        "success": True,
-        "artifacts": [],
-        "errors": [],
-        "data": {},
-    }
+def process_one(path, nlp_info, cfg, log):
+    result = base_result(path, STATION_ID, STATION_NAME, nlp_info)
     try:
+        text = text_from_input(read_input(path))
+        scored = _embed_classify(text, _FILE_TYPES)
+        top_type = scored[0]["label"].split()[0] if scored else "unknown"
+        # Quick entity extraction from first 500 chars
+        header = text[:500]
+        entities = [w for w in _re.findall(r"[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*", header)
+                    if len(w) > 5 and not w.startswith("The ")][:5]
+        slug = _re.sub(r"[^a-z0-9]+", "-", top_type.lower()).strip("-")
         result["data"] = {
-            "action": STATION_DESC,
-            "phase2_skip": "no original legacy implementation was available after Phase 1",
-            "worker": nlp_info.get("nlp_id", "NONE"),
-            "input_type": path.suffix.lower(),
-            "content": _read_input_payload(path),
+            "file_type": top_type,
+            "confidence": scored[0]["score"] if scored else 0,
+            "file_type_ranking": scored,
+            "key_entities": entities,
+            "rename_suggestion": f"{slug}_{path.stem[:30]}{path.suffix}",
+            "word_count": word_count(text),
         }
     except Exception as exc:
-        log.exception("Station processing failed for %s", path.name)
-        result["success"] = False
-        result["errors"].append(str(exc))
+        result["success"] = False; result["errors"].append(str(exc))
     return result
 
 # ============================================================

@@ -182,66 +182,50 @@ def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool
 # ============================================================
 # 06_NLP_ROUTE  *** STATION-SPECIFIC ***
 # ============================================================
-# Route this station to its configured worker/model.
+import re as _re, sys as _sys
+_sys.path.insert(0, str(STATIONS))
+from _shared.station_helpers import (
+    API_BASE, base_result, call_nlp, cosine, flesch_reading_ease,
+    nlp_route, paragraphs, read_input, sections, sentences,
+    strip_html, text_from_input, word_count,
+)
 
-def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
-    workers = cfg.get("workers", {})
-    default = workers.get("default", ["NONE"])
-    nlp_id = default[0] if isinstance(default, list) and default else str(default or "NONE")
-    if nlp_id.startswith("P"):
-        nlp_path = ENGINES / nlp_id
-    else:
-        nlp_path = MODELS / nlp_id if nlp_id not in {"NONE", "OPENAI", "OLLAMA"} else None
-    return {"nlp_id": nlp_id, "nlp_path": nlp_path}
+def choose_nlp(path, cfg):
+    return nlp_route(API_BASE, MODELS, cfg, "embeddings_fast", "embed")
 
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
-# Assign one embedding vector to an HDBSCAN cluster model workflow.
-
-from hdbscan_cluster import HDBSCAN
-
-
-def _read_text(path: Path) -> str:
-    """Read file content as text. JSON files get string values concatenated."""
-    if path.suffix.lower() == '.json':
-        data = json.loads(path.read_text(encoding='utf-8-sig'))
-        if isinstance(data, str):
-            return data
-        if isinstance(data, dict):
-            parts = [str(v) for v in data.values() if v and isinstance(v, str)]
-            return '\n'.join(parts) if parts else json.dumps(data)
-        return json.dumps(data)
-    return path.read_text(encoding='utf-8', errors='replace')
-
-
-def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
-                log: logging.Logger) -> dict[str, Any]:
-    """Assign one embedding vector to an HDBSCAN cluster model workflow."""
-    result = {
-        "input_file": str(path.name),
-        "station_id": STATION_ID,
-        "station_name": STATION_NAME,
-        "nlp_used": nlp_info.get("nlp_id", "NONE"),
-        "processed_at": datetime.now().isoformat(timespec="seconds"),
-        "success": True,
-        "artifacts": [],
-        "errors": [],
-        "data": {},
-    }
-
+def process_one(path, nlp_info, cfg, log):
+    result = base_result(path, STATION_ID, STATION_NAME, nlp_info)
     try:
-        text = _read_text(path)
-        # cluster_runner is batch-oriented; preserve this input for batch clustering runs.
-        result["data"] = {"text": text, "note": "Use cluster_runner.run(config) for batch embedding clustering."}
-
+        text = text_from_input(read_input(path))
+        para_list = [p for p in paragraphs(text) if len(p) > 30][:40]
+        chunks = [p[:500] for p in para_list]
+        if not chunks:
+            chunks = [text[:500]]
+        res = call_nlp("embed", {"texts": chunks})
+        vecs = res.get("embeddings", [])
+        clusters = []
+        assigned = set()
+        for i in range(len(vecs)):
+            if i in assigned:
+                continue
+            cluster = [i]; assigned.add(i)
+            for j in range(i + 1, len(vecs)):
+                if j not in assigned and cosine(vecs[i], vecs[j]) > 0.6:
+                    cluster.append(j); assigned.add(j)
+            clusters.append({"cluster_id": len(clusters), "size": len(cluster),
+                              "members": [{"idx": idx, "preview": chunks[idx][:80]} for idx in cluster],
+                              "centroid_preview": chunks[cluster[0]][:80]})
+        result["data"] = {
+            "clusters": clusters, "cluster_count": len(clusters),
+            "chunk_count": len(chunks), "vector_dim": len(vecs[0]) if vecs else 0,
+            "ready_for_hdbscan": True,
+        }
     except Exception as exc:
-        log.exception("Processing failed for %s", path.name)
-        result["success"] = False
-        result["errors"].append(str(exc))
-
+        result["success"] = False; result["errors"].append(str(exc))
     return result
-
 
 # ============================================================
 # 08_ARTIFACTS
