@@ -184,64 +184,44 @@ def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool
 # ============================================================
 # Route this station to its configured worker/model.
 
-def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
-    workers = cfg.get("workers", {})
-    default = workers.get("default", ["NONE"])
-    nlp_id = default[0] if isinstance(default, list) and default else str(default or "NONE")
-    if nlp_id.startswith("P"):
-        nlp_path = ENGINES / nlp_id
-    else:
-        nlp_path = MODELS / nlp_id if nlp_id not in {"NONE", "OPENAI", "OLLAMA"} else None
-    return {"nlp_id": nlp_id, "nlp_path": nlp_path}
+import re, sys
+sys.path.insert(0, str(STATIONS))
+from _shared.station_helpers import (
+    API_BASE, base_result, call_nlp, cosine, data_from_artifact,
+    embeddings, flesch_reading_ease, nlp_route, paragraphs,
+    read_input, sections, sentences, strip_html, text_from_input,
+    top_label, word_count,
+)
+
+import requests as _req
+def _llm(prompt):
+    r = _req.post("http://localhost:11434/api/generate",
+                  json={"model":"phi4","prompt":prompt,"stream":False},timeout=120)
+    return r.json().get("response","")
+
+def choose_nlp(path, cfg):
+    return {"model": "M06_llm", "endpoint": "llm", "api_base": "http://localhost:11434"}
 
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
-# Extract AI-portal document metadata, summary bullets, equations, and claims.
+# Process one document through this station's NLP task.
 
-from generator import clean_text, lossless_summary, extract_equations, extract_claims_from_text
-
-
-def _read_text(path: Path) -> str:
-    """Read file content as text. JSON files get string values concatenated."""
-    if path.suffix.lower() == '.json':
-        data = json.loads(path.read_text(encoding='utf-8-sig'))
-        if isinstance(data, str):
-            return data
-        if isinstance(data, dict):
-            parts = [str(v) for v in data.values() if v and isinstance(v, str)]
-            return '\n'.join(parts) if parts else json.dumps(data)
-        return json.dumps(data)
-    return path.read_text(encoding='utf-8', errors='replace')
-
-
-def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
-                log: logging.Logger) -> dict[str, Any]:
-    """Extract AI-portal document metadata, summary bullets, equations, and claims."""
-    result = {
-        "input_file": str(path.name),
-        "station_id": STATION_ID,
-        "station_name": STATION_NAME,
-        "nlp_used": nlp_info.get("nlp_id", "NONE"),
-        "processed_at": datetime.now().isoformat(timespec="seconds"),
-        "success": True,
-        "artifacts": [],
-        "errors": [],
-        "data": {},
-    }
-
+def process_one(path, nlp_info, cfg, log):
+    result = base_result(path, STATION_ID, STATION_NAME, nlp_info)
     try:
-        text = _read_text(path)
-        cleaned = clean_text(text)
-        result["data"] = {"summary": lossless_summary(cleaned), "equations": extract_equations(cleaned), "claims": extract_claims_from_text(cleaned, limit=int(cfg.get("claim_limit", 20)))}
-
+        obj = read_input(path); data = obj.get("data", obj) if isinstance(obj, dict) else {}
+        title = data.get("title", path.stem)
+        summary = data.get("summary", text_from_input(obj)[:1000])
+        prompt = f"Write a clean HTML research portal page for this article.\nTitle: {title}\nSummary: {summary}\nReturn only valid HTML, no markdown fences."
+        html = _llm(prompt)
+        export_path = EXPORTS / f"{path.stem}_portal.html"
+        export_path.write_text(html, encoding="utf-8")
+        result["data"] = {"portal_html_path": str(export_path), "title": title, "char_count": len(html)}
+        log.info("Portal exported -> %s", export_path)
     except Exception as exc:
-        log.exception("Processing failed for %s", path.name)
-        result["success"] = False
-        result["errors"].append(str(exc))
-
+        result["success"] = False; result["errors"].append(str(exc))
     return result
-
 
 # ============================================================
 # 08_ARTIFACTS
