@@ -184,54 +184,39 @@ def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool
 # ============================================================
 # Route this station to its configured worker/model.
 
-def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
-    workers = cfg.get("workers", {})
-    default = workers.get("default", ["NONE"])
-    nlp_id = default[0] if isinstance(default, list) and default else str(default or "NONE")
-    if nlp_id.startswith("P"):
-        nlp_path = ENGINES / nlp_id
-    else:
-        nlp_path = MODELS / nlp_id if nlp_id not in {"NONE", "OPENAI", "OLLAMA"} else None
-    return {"nlp_id": nlp_id, "nlp_path": nlp_path}
+import re, sys
+sys.path.insert(0, str(STATIONS))
+from _shared.station_helpers import (
+    API_BASE, base_result, call_nlp, cosine, data_from_artifact,
+    embeddings, flesch_reading_ease, nlp_route, paragraphs,
+    read_input, sections, sentences, strip_html, text_from_input,
+    top_label, word_count,
+)
+
+def choose_nlp(path, cfg):
+    return nlp_route(API_BASE, MODELS, cfg, "summarizer", "summarize")
 
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
-# The ONE action this station performs: Processes youtube scrape station inputs.
-# PHASE2_SKIP: legacy core is a multi-file/external-service workflow that is too complex to migrate safely in Phase 2.
+# Process one document through this station's NLP task.
 
-def _read_input_payload(path: Path) -> Any:
-    if path.suffix.lower() == ".json":
-        return json.loads(path.read_text(encoding="utf-8-sig"))
-    return path.read_text(encoding="utf-8", errors="replace")
-
-
-def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
-                log: logging.Logger) -> dict[str, Any]:
-    """Record the input with an explicit Phase 2 skip reason."""
-    result = {
-        "input_file": str(path.name),
-        "station_id": STATION_ID,
-        "station_name": STATION_NAME,
-        "nlp_used": nlp_info.get("nlp_id", "NONE"),
-        "processed_at": datetime.now().isoformat(timespec="seconds"),
-        "success": True,
-        "artifacts": [],
-        "errors": [],
-        "data": {},
-    }
+def process_one(path, nlp_info, cfg, log):
+    result = base_result(path, STATION_ID, STATION_NAME, nlp_info)
     try:
-        result["data"] = {
-            "action": STATION_DESC,
-            "phase2_skip": "legacy core is a multi-file/external-service workflow that is too complex to migrate safely in Phase 2",
-            "worker": nlp_info.get("nlp_id", "NONE"),
-            "input_type": path.suffix.lower(),
-            "content": _read_input_payload(path),
-        }
+        obj = read_input(path)
+        data = obj.get("data", obj) if isinstance(obj, dict) else {}
+        transcript = data.get("transcript") or text_from_input(obj)
+        transcript = re.sub(r"\[\d+:\d+\]","", transcript)
+        chunks = [transcript[i:i+3000] for i in range(0, min(len(transcript),12000), 3000)]
+        summaries = []
+        for i, chunk in enumerate(chunks):
+            res = call_nlp("summarize", {"text": chunk})
+            summaries.append({"chunk": i+1, "summary": res.get("summary","")})
+        full_res = call_nlp("summarize", {"text": " ".join(s["summary"] for s in summaries)[:4000]})
+        result["data"] = {"chunk_summaries": summaries, "full_summary": full_res.get("summary",""), "transcript_length": len(transcript), "chunks_processed": len(chunks)}
     except Exception as exc:
-        log.exception("Station processing failed for %s", path.name)
-        result["success"] = False
-        result["errors"].append(str(exc))
+        result["success"] = False; result["errors"].append(str(exc))
     return result
 
 # ============================================================

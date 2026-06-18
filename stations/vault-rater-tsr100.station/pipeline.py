@@ -184,81 +184,49 @@ def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool
 # ============================================================
 # Route this station to its configured worker/model.
 
-def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
-    workers = cfg.get("workers", {})
-    default = workers.get("default", ["NONE"])
-    nlp_id = default[0] if isinstance(default, list) and default else str(default or "NONE")
-    if nlp_id.startswith("P"):
-        nlp_path = ENGINES / nlp_id
-    else:
-        nlp_path = MODELS / nlp_id if nlp_id not in {"NONE", "OPENAI", "OLLAMA"} else None
-    return {"nlp_id": nlp_id, "nlp_path": nlp_path}
+import re, sys
+sys.path.insert(0, str(STATIONS))
+from _shared.station_helpers import (
+    API_BASE, base_result, call_nlp, cosine, data_from_artifact,
+    embeddings, flesch_reading_ease, nlp_route, paragraphs,
+    read_input, sections, sentences, strip_html, text_from_input,
+    top_label, word_count,
+)
+
+def choose_nlp(path, cfg):
+    return nlp_route(API_BASE, MODELS, cfg, "contradiction_primary", "contradiction")
 
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
-# Score one vault document with Lowe prosecution and TSR rubrics.
+# Process one document through this station's NLP task.
 
-from lowe_scorer import get_client, load_config, score_prosecution, score_tsr
+TSR_DIMENSIONS = ["factual accuracy", "theological soundness", "logical consistency",
+                  "source reliability", "argument strength", "doctrinal alignment"]
 
-_lowe_client = None
-
-
-def _get_lowe_client(cfg: dict[str, Any], log: logging.Logger):
-    """Lazy-init lowe_client — created once per run."""
-    global _lowe_client
-    if _lowe_client is not None:
-        return _lowe_client
-
-    scorer_cfg = load_config(cfg.get("lowe_config"))
-    scorer_cfg.update(cfg)
-    _lowe_client = get_client(scorer_cfg)
-
-    return _lowe_client
-
-
-def _read_text(path: Path) -> str:
-    """Read file content as text. JSON files get string values concatenated."""
-    if path.suffix.lower() == '.json':
-        data = json.loads(path.read_text(encoding='utf-8-sig'))
-        if isinstance(data, str):
-            return data
-        if isinstance(data, dict):
-            parts = [str(v) for v in data.values() if v and isinstance(v, str)]
-            return '\n'.join(parts) if parts else json.dumps(data)
-        return json.dumps(data)
-    return path.read_text(encoding='utf-8', errors='replace')
-
-
-def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
-                log: logging.Logger) -> dict[str, Any]:
-    """Score one vault document with Lowe prosecution and TSR rubrics."""
-    result = {
-        "input_file": str(path.name),
-        "station_id": STATION_ID,
-        "station_name": STATION_NAME,
-        "nlp_used": nlp_info.get("nlp_id", "NONE"),
-        "processed_at": datetime.now().isoformat(timespec="seconds"),
-        "success": True,
-        "artifacts": [],
-        "errors": [],
-        "data": {},
-    }
-
+def process_one(path, nlp_info, cfg, log):
+    result = base_result(path, STATION_ID, STATION_NAME, nlp_info)
     try:
-        text = _read_text(path)
-        client = _get_lowe_client(cfg, log)
-        prosecution = score_prosecution(client, cfg, path.name, text)
-        tsr = score_tsr(client, cfg, path.name, text)
-        result["data"] = {"prosecution": prosecution, "tsr": tsr}
-
+        text = text_from_input(read_input(path))
+        dim_scores = {}
+        for dim in TSR_DIMENSIONS:
+            res = call_nlp("classify", {"text": text[:2000], "labels": [f"high {dim}", f"medium {dim}", f"low {dim}"]})
+            top = res.get("labels",[{}])[0]
+            label = top.get("label","")
+            score = 100 if "high" in label else (50 if "medium" in label else 20)
+            dim_scores[dim] = {"label": label, "score": score}
+        tsr_total = round(sum(d["score"] for d in dim_scores.values()) / len(dim_scores))
+        sent_list = sentences(text)[:20]
+        contradictions = 0
+        for i in range(min(len(sent_list)-1,10)):
+            res = call_nlp("contradiction", {"text_a": sent_list[i][:300], "text_b": sent_list[i+1][:300]})
+            if float(res.get("scores",{}).get("contradiction",0)) > 0.5:
+                contradictions += 1
+        tsr_total = max(0, tsr_total - contradictions*5)
+        result["data"] = {"tsr_score": tsr_total, "dimensions": dim_scores, "contradictions_found": contradictions, "rating": "A" if tsr_total>=80 else ("B" if tsr_total>=60 else ("C" if tsr_total>=40 else "F"))}
     except Exception as exc:
-        log.exception("Processing failed for %s", path.name)
-        result["success"] = False
-        result["errors"].append(str(exc))
-
+        result["success"] = False; result["errors"].append(str(exc))
     return result
-
 
 # ============================================================
 # 08_ARTIFACTS

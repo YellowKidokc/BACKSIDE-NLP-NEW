@@ -184,66 +184,48 @@ def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool
 # ============================================================
 # Route this station to its configured worker/model.
 
-def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
-    workers = cfg.get("workers", {})
-    default = workers.get("default", ["NONE"])
-    nlp_id = default[0] if isinstance(default, list) and default else str(default or "NONE")
-    if nlp_id.startswith("P"):
-        nlp_path = ENGINES / nlp_id
-    else:
-        nlp_path = MODELS / nlp_id if nlp_id not in {"NONE", "OPENAI", "OLLAMA"} else None
-    return {"nlp_id": nlp_id, "nlp_path": nlp_path}
+import re, sys
+sys.path.insert(0, str(STATIONS))
+from _shared.station_helpers import (
+    API_BASE, base_result, call_nlp, cosine, data_from_artifact,
+    embeddings, flesch_reading_ease, nlp_route, paragraphs,
+    read_input, sections, sentences, strip_html, text_from_input,
+    top_label, word_count,
+)
+
+def choose_nlp(path, cfg):
+    return nlp_route(API_BASE, MODELS, cfg, "contradiction_primary", "contradiction")
 
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
-# Process a YouTube URL through the apologetics transcript pipeline.
+# Process one document through this station's NLP task.
 
-from apologetics_pipeline import process_video
+APOLOGETIC_LABELS = ["theological claim", "philosophical premise", "scriptural reference",
+                     "logical argument", "counter-argument", "conclusion", "evidence"]
 
-
-def _read_text(path: Path) -> str:
-    """Read file content as text. JSON files get string values concatenated."""
-    if path.suffix.lower() == '.json':
-        data = json.loads(path.read_text(encoding='utf-8-sig'))
-        if isinstance(data, str):
-            return data
-        if isinstance(data, dict):
-            parts = [str(v) for v in data.values() if v and isinstance(v, str)]
-            return '\n'.join(parts) if parts else json.dumps(data)
-        return json.dumps(data)
-    return path.read_text(encoding='utf-8', errors='replace')
-
-
-def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
-                log: logging.Logger) -> dict[str, Any]:
-    """Process a YouTube URL through the apologetics transcript pipeline."""
-    result = {
-        "input_file": str(path.name),
-        "station_id": STATION_ID,
-        "station_name": STATION_NAME,
-        "nlp_used": nlp_info.get("nlp_id", "NONE"),
-        "processed_at": datetime.now().isoformat(timespec="seconds"),
-        "success": True,
-        "artifacts": [],
-        "errors": [],
-        "data": {},
-    }
-
+def process_one(path, nlp_info, cfg, log):
+    result = base_result(path, STATION_ID, STATION_NAME, nlp_info)
     try:
-        text = _read_text(path)
-        url = text.strip()
-        out_dir = Path(cfg.get("output_dir", HERE / "outputs"))
-        video_result = process_video(url, out_dir, model_size=cfg.get("whisper_model", "base"))
-        result["data"] = {"url": url, "video": video_result}
-
+        text = text_from_input(read_input(path))
+        sent_list = sentences(text)[:40]
+        classified = []
+        for s in sent_list:
+            res = call_nlp("classify", {"text": s, "labels": APOLOGETIC_LABELS})
+            top = res.get("labels", [{}])[0]
+            classified.append({"sentence": s, "type": top.get("label",""), "confidence": top.get("score",0)})
+        premises = [c for c in classified if c["type"] in ("theological claim","philosophical premise","scriptural reference")]
+        tensions = []
+        for i in range(len(premises)):
+            for j in range(i+1, len(premises)):
+                res = call_nlp("contradiction", {"text_a": premises[i]["sentence"], "text_b": premises[j]["sentence"]})
+                con = float(res.get("scores",{}).get("contradiction",0))
+                if con > 0.4:
+                    tensions.append({"a": premises[i]["sentence"], "b": premises[j]["sentence"], "contradiction_score": con})
+        result["data"] = {"classified_sentences": classified, "premises_found": len(premises), "tensions": tensions}
     except Exception as exc:
-        log.exception("Processing failed for %s", path.name)
-        result["success"] = False
-        result["errors"].append(str(exc))
-
+        result["success"] = False; result["errors"].append(str(exc))
     return result
-
 
 # ============================================================
 # 08_ARTIFACTS

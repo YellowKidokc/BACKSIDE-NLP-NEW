@@ -184,54 +184,41 @@ def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool
 # ============================================================
 # Route this station to its configured worker/model.
 
-def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
-    workers = cfg.get("workers", {})
-    default = workers.get("default", ["NONE"])
-    nlp_id = default[0] if isinstance(default, list) and default else str(default or "NONE")
-    if nlp_id.startswith("P"):
-        nlp_path = ENGINES / nlp_id
-    else:
-        nlp_path = MODELS / nlp_id if nlp_id not in {"NONE", "OPENAI", "OLLAMA"} else None
-    return {"nlp_id": nlp_id, "nlp_path": nlp_path}
+import re, sys
+sys.path.insert(0, str(STATIONS))
+from _shared.station_helpers import (
+    API_BASE, base_result, call_nlp, cosine, data_from_artifact,
+    embeddings, flesch_reading_ease, nlp_route, paragraphs,
+    read_input, sections, sentences, strip_html, text_from_input,
+    top_label, word_count,
+)
+
+def choose_nlp(path, cfg):
+    return nlp_route(API_BASE, MODELS, cfg, "contradiction_primary", "contradiction")
 
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
-# The ONE action this station performs: Processes coherence discoherence station inputs.
-# PHASE2_SKIP: no original legacy implementation was available after Phase 1.
+# Process one document through this station's NLP task.
 
-def _read_input_payload(path: Path) -> Any:
-    if path.suffix.lower() == ".json":
-        return json.loads(path.read_text(encoding="utf-8-sig"))
-    return path.read_text(encoding="utf-8", errors="replace")
-
-
-def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
-                log: logging.Logger) -> dict[str, Any]:
-    """Record the input with an explicit Phase 2 skip reason."""
-    result = {
-        "input_file": str(path.name),
-        "station_id": STATION_ID,
-        "station_name": STATION_NAME,
-        "nlp_used": nlp_info.get("nlp_id", "NONE"),
-        "processed_at": datetime.now().isoformat(timespec="seconds"),
-        "success": True,
-        "artifacts": [],
-        "errors": [],
-        "data": {},
-    }
+def process_one(path, nlp_info, cfg, log):
+    result = base_result(path, STATION_ID, STATION_NAME, nlp_info)
     try:
-        result["data"] = {
-            "action": STATION_DESC,
-            "phase2_skip": "no original legacy implementation was available after Phase 1",
-            "worker": nlp_info.get("nlp_id", "NONE"),
-            "input_type": path.suffix.lower(),
-            "content": _read_input_payload(path),
-        }
+        text = text_from_input(read_input(path))
+        para_list = paragraphs(text)[:20]
+        coherence_pairs = []; incoherent = []
+        for i in range(len(para_list)-1):
+            res = call_nlp("contradiction", {"text_a": para_list[i][:500], "text_b": para_list[i+1][:500]})
+            scores = res.get("scores", {})
+            con = float(scores.get("contradiction", 0))
+            ent = float(scores.get("entailment", 0))
+            coherence_pairs.append({"para_index": i, "contradiction": con, "entailment": ent, "coherent": con < 0.3})
+            if con > 0.5:
+                incoherent.append({"para_a": para_list[i][:200], "para_b": para_list[i+1][:200], "contradiction_score": con})
+        avg_coherence = sum(1 - p["contradiction"] for p in coherence_pairs) / len(coherence_pairs) if coherence_pairs else 1.0
+        result["data"] = {"coherence_score": round(avg_coherence, 3), "incoherent_transitions": incoherent, "paragraphs_checked": len(coherence_pairs)}
     except Exception as exc:
-        log.exception("Station processing failed for %s", path.name)
-        result["success"] = False
-        result["errors"].append(str(exc))
+        result["success"] = False; result["errors"].append(str(exc))
     return result
 
 # ============================================================

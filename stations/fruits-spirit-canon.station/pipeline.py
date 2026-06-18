@@ -184,66 +184,43 @@ def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool
 # ============================================================
 # Route this station to its configured worker/model.
 
-def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
-    workers = cfg.get("workers", {})
-    default = workers.get("default", ["NONE"])
-    nlp_id = default[0] if isinstance(default, list) and default else str(default or "NONE")
-    if nlp_id.startswith("P"):
-        nlp_path = ENGINES / nlp_id
-    else:
-        nlp_path = MODELS / nlp_id if nlp_id not in {"NONE", "OPENAI", "OLLAMA"} else None
-    return {"nlp_id": nlp_id, "nlp_path": nlp_path}
+import re, sys
+sys.path.insert(0, str(STATIONS))
+from _shared.station_helpers import (
+    API_BASE, base_result, call_nlp, cosine, data_from_artifact,
+    embeddings, flesch_reading_ease, nlp_route, paragraphs,
+    read_input, sections, sentences, strip_html, text_from_input,
+    top_label, word_count,
+)
+
+def choose_nlp(path, cfg):
+    return nlp_route(API_BASE, MODELS, cfg, "zero_shot", "classify")
 
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
-# Index the Fruits of the Spirit canon source set.
+# Process one document through this station's NLP task.
 
-from station import DEFAULT_SOURCES
-from _shared.canon_index import build_index
+FRUITS = ["love", "joy", "peace", "patience", "kindness", "goodness",
+          "faithfulness", "gentleness", "self-control"]
 
-
-def _read_text(path: Path) -> str:
-    """Read file content as text. JSON files get string values concatenated."""
-    if path.suffix.lower() == '.json':
-        data = json.loads(path.read_text(encoding='utf-8-sig'))
-        if isinstance(data, str):
-            return data
-        if isinstance(data, dict):
-            parts = [str(v) for v in data.values() if v and isinstance(v, str)]
-            return '\n'.join(parts) if parts else json.dumps(data)
-        return json.dumps(data)
-    return path.read_text(encoding='utf-8', errors='replace')
-
-
-def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
-                log: logging.Logger) -> dict[str, Any]:
-    """Index the Fruits of the Spirit canon source set."""
-    result = {
-        "input_file": str(path.name),
-        "station_id": STATION_ID,
-        "station_name": STATION_NAME,
-        "nlp_used": nlp_info.get("nlp_id", "NONE"),
-        "processed_at": datetime.now().isoformat(timespec="seconds"),
-        "success": True,
-        "artifacts": [],
-        "errors": [],
-        "data": {},
-    }
-
+def process_one(path, nlp_info, cfg, log):
+    result = base_result(path, STATION_ID, STATION_NAME, nlp_info)
     try:
-        text = _read_text(path)
-        sources = [Path(p) for p in cfg.get("sources", DEFAULT_SOURCES)]
-        index = build_index("fruits-spirit-canon", sources)
-        result["data"] = {"canon_index": index}
-
+        text = text_from_input(read_input(path))
+        para_list = paragraphs(text)[:15]
+        fruit_map = {f: [] for f in FRUITS}
+        for para in para_list:
+            if len(para.strip()) < 20: continue
+            res = call_nlp("classify", {"text": para[:500], "labels": FRUITS})
+            for item in res.get("labels",[]):
+                if item.get("score",0) > 0.3:
+                    fruit_map[item["label"]].append({"text": para[:150], "score": item["score"]})
+        present = {f: v for f,v in fruit_map.items() if v}
+        result["data"] = {"fruits_present": present, "fruit_count": len(present), "dominant_fruit": max(present, key=lambda f: max(x["score"] for x in present[f])) if present else ""}
     except Exception as exc:
-        log.exception("Processing failed for %s", path.name)
-        result["success"] = False
-        result["errors"].append(str(exc))
-
+        result["success"] = False; result["errors"].append(str(exc))
     return result
-
 
 # ============================================================
 # 08_ARTIFACTS

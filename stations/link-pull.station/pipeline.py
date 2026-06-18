@@ -184,240 +184,38 @@ def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool
 # ============================================================
 # Route this station to its configured worker/model.
 
-def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
-    workers = cfg.get("workers", {})
-    default = workers.get("default", ["NONE"])
-    nlp_id = default[0] if isinstance(default, list) and default else str(default or "NONE")
-    if nlp_id.startswith("P"):
-        nlp_path = ENGINES / nlp_id
-    else:
-        nlp_path = MODELS / nlp_id if nlp_id not in {"NONE", "OPENAI", "OLLAMA"} else None
-    return {"nlp_id": nlp_id, "nlp_path": nlp_path}
+import re, sys
+sys.path.insert(0, str(STATIONS))
+from _shared.station_helpers import (
+    API_BASE, base_result, call_nlp, cosine, data_from_artifact,
+    embeddings, flesch_reading_ease, nlp_route, paragraphs,
+    read_input, sections, sentences, strip_html, text_from_input,
+    top_label, word_count,
+)
+
+def choose_nlp(path, cfg):
+    return nlp_route(API_BASE, MODELS, cfg, "ner_general", "ner")
 
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
-# The ONE action this station performs: Processes link pull station inputs.
+# Process one document through this station's NLP task.
 
-def _load_legacy_module() -> Any:
-    legacy_path = HERE / "pipeline_legacy.py"
-    if not legacy_path.exists():
-        raise FileNotFoundError(f"Missing legacy implementation: {legacy_path}")
-    import importlib.util
-    spec = importlib.util.spec_from_file_location(f"{STATION_NAME}_legacy", legacy_path)
-    if spec is None or spec.loader is None:
-        raise ImportError(f"Cannot import legacy implementation: {legacy_path}")
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+HREF_RE = re.compile(r'href=["\']([^"\']+)["\']', re.I)
+ANCHOR_RE = re.compile(r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>([^<]*)</a>', re.I)
 
-
-def _read_input_payload(path: Path) -> Any:
-    if path.suffix.lower() == ".json":
-        return json.loads(path.read_text(encoding="utf-8-sig"))
-    return path.read_text(encoding="utf-8", errors="replace")
-
-
-def _station_output_dir() -> Path:
-    out_dir = HERE / "_outbox" / "phase2_logic"
-    out_dir.mkdir(parents=True, exist_ok=True)
-    return out_dir
-
-
-def _fallback_embed_one(text: str, dim: int = 384) -> list[float]:
-    import hashlib
-    import math
-    vector = [0.0] * dim
-    tokens = [token.lower() for token in text.split() if len(token) > 2] or [text[:64] or "empty"]
-    for token in tokens[:2000]:
-        digest = hashlib.sha256(token.encode("utf-8", errors="ignore")).digest()
-        idx = int.from_bytes(digest[:4], "little") % dim
-        vector[idx] += 1.0
-    norm = math.sqrt(sum(value * value for value in vector))
-    return [value / norm for value in vector] if norm else vector
-
-
-def _fallback_classify(text: str, labels: list[str]) -> dict[str, Any]:
-    lower = text.lower()
-    scored = []
-    for label in labels:
-        terms = [term for term in label.lower().split() if len(term) > 2]
-        hits = sum(1 for term in terms if term in lower)
-        scored.append((label, hits / max(len(terms), 1)))
-    scored.sort(key=lambda item: item[1], reverse=True)
-    top_label, top_score = scored[0] if scored else ("unclassified", 0.0)
-    if top_score == 0:
-        top_label = "unclassified"
-    return {
-        "label": top_label,
-        "score": float(top_score),
-        "labels": [label for label, _ in scored],
-        "scores": [float(score) for _, score in scored],
-        "engine": "deterministic-fallback",
-    }
-
-
-def _extract_urls(text: str) -> list[str]:
-    import re
-    return re.findall(r"https?://[^\s)\]>\"']+", text)
-
-
-def _basic_fetch_url(url: str, timeout: int = 20, max_chars: int = 20000) -> dict[str, Any]:
-    from html import unescape
-    from urllib.request import Request, urlopen
-    import re
-    req = Request(url, headers={"User-Agent": "BACKSIDE-NLP/SSS_v1"})
-    with urlopen(req, timeout=timeout) as response:
-        raw = response.read(max_chars * 4)
-        content_type = response.headers.get("content-type", "")
-    html = raw.decode("utf-8", errors="replace")
-    title_match = re.search(r"(?is)<title[^>]*>(.*?)</title>", html)
-    title = unescape(re.sub(r"\s+", " ", title_match.group(1)).strip()) if title_match else ""
-    text = re.sub(r"(?is)<script.*?>.*?</script>", " ", html)
-    text = re.sub(r"(?is)<style.*?>.*?</style>", " ", text)
-    text = unescape(re.sub(r"(?s)<[^>]+>", " ", text))
-    text = re.sub(r"\s+", " ", text).strip()[:max_chars]
-    return {"url": url, "title": title, "content_type": content_type, "text": text}
-
-
-def _simple_paper_proof_grade(text: str) -> dict[str, Any]:
-    import re
-    sentences = [s.strip() for s in re.split(r"(?<=[.!?])\s+", text) if s.strip()]
-    equation_count = len(re.findall(r"(?:\$[^$]+\$|\\\(|\\\[|=|≤|≥|\\frac|\\sum|\\int)", text))
-    claim_terms = ["therefore", "thus", "we prove", "we show", "implies", "theorem", "lemma", "proof"]
-    evidence_terms = ["because", "since", "follows", "by", "given", "assume", "derive", "verified"]
-    claim_hits = sum(text.lower().count(term) for term in claim_terms)
-    evidence_hits = sum(text.lower().count(term) for term in evidence_terms)
-    rigor_score = min(1.0, (claim_hits + evidence_hits + equation_count) / max(len(sentences), 1))
-    return {
-        "sentence_count": len(sentences),
-        "equation_count": equation_count,
-        "claim_signal_count": claim_hits,
-        "evidence_signal_count": evidence_hits,
-        "rigor_score": round(rigor_score, 4),
-        "grade": "strong" if rigor_score >= 0.35 else "developing" if rigor_score >= 0.15 else "thin",
-    }
-
-
-def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
-                log: logging.Logger) -> dict[str, Any]:
-    """Run the migrated core action for one input file."""
-    result = {
-        "input_file": str(path.name),
-        "station_id": STATION_ID,
-        "station_name": STATION_NAME,
-        "nlp_used": nlp_info.get("nlp_id", "NONE"),
-        "processed_at": datetime.now().isoformat(timespec="seconds"),
-        "success": True,
-        "artifacts": [],
-        "errors": [],
-        "data": {},
-    }
-
+def process_one(path, nlp_info, cfg, log):
+    result = base_result(path, STATION_ID, STATION_NAME, nlp_info)
     try:
-        out_dir = _station_output_dir()
-
-        if STATION_NAME == "classify-documents":
-            text = path.read_text(encoding="utf-8", errors="replace")
-            labels = cfg.get("labels") or [
-                "theology", "science", "philosophy", "history",
-                "apologetics", "research", "unclassified",
-            ]
-            vector = _fallback_embed_one(text)
-            classification = _fallback_classify(text[: int(cfg.get("max_text_chars", 2000))], labels)
-            result["data"] = {
-                "action": "classify document",
-                "classification": classification,
-                "embedding_dim": len(vector),
-                "embedding_engine": "deterministic-fallback",
-            }
-
-        elif STATION_NAME == "session-handoff-drop":
-            legacy = _load_legacy_module()
-            text = legacy._read_text(path)
-            lines = legacy._normalize_lines(text)
-            manifest_items = legacy._manifest_objects(
-                legacy._collect_bullets(legacy._extract_layer(lines, ["layer 1", "session manifest"]))
-            )
-            decision_items = legacy._decision_objects(
-                legacy._collect_bullets(legacy._extract_layer(lines, ["layer 2", "decisions and results"]))
-            )
-            thread_items = legacy._open_thread_objects(
-                legacy._collect_bullets(legacy._extract_layer(lines, ["layer 3", "open threads"]))
-            )
-            session_date = legacy._extract_date(text, cfg.get("default_date", datetime.now().strftime("%Y-%m-%d")))
-            ai_partner = cfg.get("default_ai_partner", "Codex")
-            markdown = legacy._render_markdown(
-                session_date, ai_partner, manifest_items, decision_items, thread_items, path.name, [path.name]
-            )
-            md_path = out_dir / f"{path.stem}__handoff.md"
-            json_path = out_dir / f"{path.stem}__handoff.json"
-            md_path.write_text(markdown, encoding="utf-8")
-            json_payload = {
-                "session_date": session_date,
-                "ai_partner": ai_partner,
-                "manifest": manifest_items,
-                "decisions": decision_items,
-                "open_threads": thread_items,
-            }
-            json_path.write_text(json.dumps(json_payload, ensure_ascii=False, indent=2), encoding="utf-8")
-            result["artifacts"].extend([str(md_path), str(json_path)])
-            result["data"] = json_payload
-
-        elif STATION_NAME == "link-pull":
-            payload = _read_input_payload(path)
-            if isinstance(payload, dict):
-                urls = [payload.get("url") or payload.get("link")] if (payload.get("url") or payload.get("link")) else []
-            elif isinstance(payload, list):
-                urls = [str(item.get("url", item)) if isinstance(item, dict) else str(item) for item in payload]
-            else:
-                urls = _extract_urls(str(payload))
-            pulled = []
-            for url in urls:
-                try:
-                    item = _basic_fetch_url(str(url), int(cfg.get("timeout", 20)), int(cfg.get("max_chars", 20000)))
-                    out_path = out_dir / f"{len(pulled)+1:03d}__link.json"
-                    out_path.write_text(json.dumps(item, ensure_ascii=False, indent=2), encoding="utf-8")
-                    result["artifacts"].append(str(out_path))
-                    pulled.append(item)
-                except Exception as exc:
-                    result["errors"].append(f"{url}: {exc}")
-            result["success"] = not result["errors"]
-            result["data"] = {"action": "pull linked web content", "urls": urls, "pulled": pulled}
-
-        elif STATION_NAME == "harvest-links":
-            legacy = _load_legacy_module()
-            payload = _read_input_payload(path)
-            urls = payload if isinstance(payload, list) else [line.strip() for line in str(payload).splitlines() if line.strip()]
-            harvested = []
-            for url in urls:
-                try:
-                    harvested.append(legacy._fetch_and_parse(
-                        str(url),
-                        cfg.get("user_agent", "BACKSIDE-NLP/SSS_v1"),
-                        int(cfg.get("timeout", 20)),
-                        cfg.get("strategy", "requests"),
-                        int(cfg.get("max_chars", 20000)),
-                    ))
-                except Exception as exc:
-                    result["errors"].append(f"{url}: {exc}")
-            result["success"] = not result["errors"]
-            result["data"] = {"action": "harvest link text", "urls": urls, "harvested": harvested}
-
-        elif STATION_NAME == "reading-level-glossary":
-            legacy = _load_legacy_module()
-            analysis = legacy.analyze_file(path, cfg, out_dir)
-            result["data"] = {"action": "reading level and glossary analysis", "analysis": analysis}
-
-        elif STATION_NAME == "paper-proof-grader":
-            text = path.read_text(encoding="utf-8", errors="replace")
-            result["data"] = {"action": "grade paper proof", "grade": _simple_paper_proof_grade(text)}
-
+        raw = read_input(path) if path.suffix.lower() in (".html",".htm") else text_from_input(read_input(path))
+        if isinstance(raw, str):
+            anchors = [{"url": m[0], "anchor_text": m[1].strip()} for m in ANCHOR_RE.findall(raw)]
+            plain_urls = [u for u in HREF_RE.findall(raw) if u not in [a["url"] for a in anchors]]
+        else:
+            anchors = []; plain_urls = []
+        result["data"] = {"anchors": anchors, "plain_urls": plain_urls, "total_links": len(anchors)+len(plain_urls)}
     except Exception as exc:
-        log.exception("Station processing failed for %s", path.name)
-        result["success"] = False
-        result["errors"].append(str(exc))
-
+        result["success"] = False; result["errors"].append(str(exc))
     return result
 
 # ============================================================
