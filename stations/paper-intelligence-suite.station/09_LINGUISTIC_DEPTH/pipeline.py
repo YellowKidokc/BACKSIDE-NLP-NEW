@@ -37,7 +37,7 @@ def _resolve(numbered: str, flat: str) -> Path:
 MODELS    = _resolve("05_MODELS", "models")
 ENGINES   = _resolve("06_ENGINES", "engines")
 WORKFLOWS = _resolve("03_WORKFLOWS", "workflows")
-EXPORTS   = _resolve("10_EXPORTS", "exports")
+EXPORTS   = _resolve("10_EXPORTS", "exports") / "1 Exports TEST"
 
 STATION_ID   = "PI_09"
 STATION_NAME = "linguistic-depth"

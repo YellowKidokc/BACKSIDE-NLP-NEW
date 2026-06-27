@@ -75,7 +75,7 @@ def _resolve(numbered: str, flat: str) -> Path:
 MODELS    = _resolve("05_MODELS",    "models")       # NLP models
 ENGINES   = _resolve("06_ENGINES",   "engines")      # preference engines
 JOB_CARDS = _resolve("03_JOB_CARDS", "job_cards")    # job card registry
-EXPORTS   = _resolve("10_EXPORTS",   "exports")      # global exports
+EXPORTS   = _resolve("10_EXPORTS", "exports") / "1 Exports TEST"      # global exports
 
 # Station identity — CHANGE THESE per station
 STATION_ID   = "ST_038"
@@ -184,6 +184,10 @@ def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool
 # ============================================================
 # Route this station to its configured worker/model.
 
+import sys as _sys
+_sys.path.insert(0, str(STATIONS))
+from _shared.station_helpers import build_vectorization_payload, text_from_input, read_input
+
 def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
     workers = cfg.get("workers", {})
     default = workers.get("default", ["NONE"])
@@ -194,6 +198,14 @@ def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
         nlp_path = MODELS / nlp_id if nlp_id not in {"NONE", "OPENAI", "OLLAMA"} else None
     return {"nlp_id": nlp_id, "nlp_path": nlp_path}
 
+
+def _vectorize_text(text: str, cfg: dict[str, Any], log: logging.Logger) -> dict[str, Any]:
+    return build_vectorization_payload(
+        text=text,
+        cfg=cfg,
+        log=log,
+    )
+
 # ============================================================
 # 07_PROCESS  *** STATION-SPECIFIC ***
 # ============================================================
@@ -201,31 +213,42 @@ def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
 
 from fruit_dynamics import compute_fruit_dynamics
 
-import re as _re, sys as _sys
-_sys.path.insert(0, str(STATIONS))
-from _shared.station_helpers import (
-    base_result,
-    build_vectorization_payload,
-    read_input,
-    text_from_input,
-)
+
+def _read_text(path: Path) -> str:
+    """Read file content as text. JSON files get string values concatenated."""
+    if path.suffix.lower() == '.json':
+        data = json.loads(path.read_text(encoding='utf-8-sig'))
+        if isinstance(data, str):
+            return data
+        if isinstance(data, dict):
+            parts = [str(v) for v in data.values() if v and isinstance(v, str)]
+            return '\n'.join(parts) if parts else json.dumps(data)
+        return json.dumps(data)
+    return path.read_text(encoding='utf-8', errors='replace')
+
 
 def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
                 log: logging.Logger) -> dict[str, Any]:
     """Compute fruit dynamics metrics for one paper text."""
-    result = base_result(path, STATION_ID, STATION_NAME, nlp_info)
+    result = {
+        "input_file": str(path.name),
+        "station_id": STATION_ID,
+        "station_name": STATION_NAME,
+        "nlp_used": nlp_info.get("nlp_id", "NONE"),
+        "processed_at": datetime.now().isoformat(timespec="seconds"),
+        "success": True,
+        "artifacts": [],
+        "errors": [],
+        "data": {},
+    }
 
     try:
         text = text_from_input(read_input(path))
-        result["vectorization"] = build_vectorization_payload(
-            text,
-            cfg,
-            log,
-            source_file=path.name,
-            series_id=cfg.get("series_id"),
-        )
         metrics = compute_fruit_dynamics(text)
-        result["data"] = {"fruit_dynamics": metrics}
+        result["data"] = {
+            "fruit_dynamics": metrics,
+            "vectorization": _vectorize_text(text, cfg, log),
+        }
 
     except Exception as exc:
         log.exception("Processing failed for %s", path.name)
@@ -283,7 +306,7 @@ def handoff(result: dict[str, Any], artifact_path: Path,
             cfg: dict[str, Any], log: logging.Logger) -> None:
     # Check if this station is terminal (produces final export)
     if cfg.get("outputs", {}).get("final_export", False):
-        export_dir = HERE / "_exports"
+        export_dir = EXPORTS
         export_dir.mkdir(parents=True, exist_ok=True)
         import shutil
         shutil.copy2(artifact_path, export_dir / artifact_path.name)

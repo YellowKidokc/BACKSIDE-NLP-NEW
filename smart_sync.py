@@ -2,16 +2,18 @@
 smart_sync.py -- Whitelist-based station sync for Codex workflow.
 POF 2828 | 2026-06-17
 
-Syncs ONLY what Codex needs between NAS (X:\04_STATIONS) and D: repo.
+Syncs ONLY what Codex needs between X:\04_STATIONS (or NAS) and D: repo.
 Whitelist approach: nothing moves unless explicitly listed.
 
 Usage:
-  python smart_sync.py                    # dry run NAS -> D:
-  python smart_sync.py --go               # actually copy NAS -> D:
-  python smart_sync.py --push             # dry run D: -> NAS
-  python smart_sync.py --push --go        # actually copy D: -> NAS
+  python smart_sync.py                    # dry run X: -> D:
+  python smart_sync.py --go               # actually copy X: -> D:
+  python smart_sync.py --nas              # use NAS as source instead of X:
+  python smart_sync.py --push             # dry run D: -> X:
+  python smart_sync.py --push --go        # actually copy D: -> X:
   python smart_sync.py --diff             # show files that differ
-  python smart_sync.py --add my-station.station   # add station to whitelist
+  python smart_sync.py --core-only        # only sync Core 8 + _shared
+  python smart_sync.py --add my-station.station   # add station to whitelist for this run
 """
 import argparse
 import hashlib
@@ -23,7 +25,8 @@ from pathlib import Path
 # ─────────────────────────────────────────────
 # PATHS
 # ─────────────────────────────────────────────
-NAS_STATIONS = Path(r"\\192.168.2.50\brain\04_STATIONS")
+X_STATIONS   = Path(r"X:\04_STATIONS")               # local working drive (default source)
+NAS_STATIONS = Path(r"\\192.168.2.50\brain\04_STATIONS")  # NAS share (use --nas)
 D_STATIONS   = Path(r"D:\GitHub\BACKSIDE-NLP-NEW\stations")
 
 # ─────────────────────────────────────────────
@@ -62,6 +65,11 @@ EXTENDED = [
     "section-splitter.station",
     "summarizer.station",
     "mda-publication.station",
+    # Added 2026-06-27 — present on X:\ but missing from repo
+    "article-taxonomy-classifier.station",
+    "chi-evaluator.station",
+    "nabla-chi-classifier.station",
+    "paper-grade-composer.station",
 ]
 
 # Combine all
@@ -98,6 +106,8 @@ SKIP_SUBDIRS = {
     "mirror_nas", "mirror_vault",
     "scored_output", "data", "sample_input",
     "tts_edge",
+    # Station output/ready folders — contain processed papers, not code
+    "03_final_ready", "02_final_review", "01_inbox_working",
 }
 
 # Max file size to sync (500 KB — anything bigger is data, not code)
@@ -226,11 +236,12 @@ def do_sync(src_files: dict, dst_base: Path, dry_run: bool) -> dict:
 
 def main():
     parser = argparse.ArgumentParser(description="Smart station sync (whitelist-based)")
-    parser.add_argument("--go", action="store_true", help="Actually copy (default is dry run)")
-    parser.add_argument("--push", action="store_true", help="Sync D: -> NAS (default is NAS -> D:)")
-    parser.add_argument("--diff", action="store_true", help="Show diffs only, no copy")
+    parser.add_argument("--go",        action="store_true", help="Actually copy (default is dry run)")
+    parser.add_argument("--nas",       action="store_true", help="Use NAS as source instead of X:\\")
+    parser.add_argument("--push",      action="store_true", help="Sync D: -> X:\\ (or NAS if --nas)")
+    parser.add_argument("--diff",      action="store_true", help="Show diffs only, no copy")
     parser.add_argument("--core-only", action="store_true", help="Only sync Core 8 + _shared")
-    parser.add_argument("--add", type=str, help="Add a station to the whitelist for this run")
+    parser.add_argument("--add",       type=str,            help="Add a station to the whitelist for this run")
     args = parser.parse_args()
 
     folders = CORE_8 + SHARED
@@ -239,12 +250,14 @@ def main():
     if args.add:
         folders = folders + [args.add]
 
+    remote_base = NAS_STATIONS if args.nas else X_STATIONS
+
     if args.push:
-        src_base, dst_base = D_STATIONS, NAS_STATIONS
-        direction = "D: -> NAS"
+        src_base, dst_base = D_STATIONS, remote_base
+        direction = f"D: -> {'NAS' if args.nas else 'X:\\'}"
     else:
-        src_base, dst_base = NAS_STATIONS, D_STATIONS
-        direction = "NAS -> D:"
+        src_base, dst_base = remote_base, D_STATIONS
+        direction = f"{'NAS' if args.nas else 'X:\\'} -> D:"
 
     mode = "DRY RUN" if not args.go else "LIVE"
     print(f"{'='*60}")

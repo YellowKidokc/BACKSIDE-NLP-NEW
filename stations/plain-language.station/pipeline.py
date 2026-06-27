@@ -75,7 +75,7 @@ def _resolve(numbered: str, flat: str) -> Path:
 MODELS    = _resolve("05_MODELS",    "models")       # NLP models
 ENGINES   = _resolve("06_ENGINES",   "engines")      # preference engines
 WORKFLOWS = _resolve("03_WORKFLOWS", "workflows")    # workflow orchestration
-EXPORTS   = _resolve("10_EXPORTS",   "exports")      # global exports
+EXPORTS   = _resolve("10_EXPORTS", "exports") / "1 Exports TEST"      # global exports
 
 # Station identity — CHANGE THESE per station
 STATION_ID   = "ST_002"
@@ -223,27 +223,8 @@ def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
     result = base_result(path, STATION_ID, STATION_NAME, nlp_info)
     try:
         text = strip_html(text_from_input(read_input(path)))
-        easy_text = _rewrite(text, "8th grade")
-        standard_text = _rewrite(text, "10th grade")
-        versions = {
-            "grade_8": easy_text,
-            "easy": easy_text,
-            "standard": standard_text,
-            "academic": text,
-        }
-        result["data"] = {
-            "versions": {
-                k: {
-                    "text": v,
-                    "reading_level": {"grade_8": "grade_8", "easy": "grade_8", "standard": "grade_10", "academic": "graduate"}[k],
-                    "flesch_kincaid": flesch_reading_ease(v),
-                    "word_count": word_count(v),
-                }
-                for k, v in versions.items()
-            },
-            "rewrites": {"grade_8": easy_text, "academic": text},
-            "section_count": len(sections(text)),
-        }
+        versions = {"easy": _rewrite(text, "6th grade"), "standard": _rewrite(text, "10th grade"), "academic": text}
+        result["data"] = {"versions": {k: {"text": v, "reading_level": {"easy":"grade_6","standard":"grade_10","academic":"graduate"}[k], "flesch_kincaid": flesch_reading_ease(v), "word_count": word_count(v)} for k, v in versions.items()}, "section_count": len(sections(text))}
     except Exception as exc:
         result["success"] = False; result["errors"].append(str(exc))
     return result
@@ -295,7 +276,7 @@ def handoff(result: dict[str, Any], artifact_path: Path,
             cfg: dict[str, Any], log: logging.Logger) -> None:
     # Check if this station is terminal (produces final export)
     if cfg.get("outputs", {}).get("final_export", False):
-        export_dir = HERE / "_exports"
+        export_dir = EXPORTS
         export_dir.mkdir(parents=True, exist_ok=True)
         import shutil
         shutil.copy2(artifact_path, export_dir / artifact_path.name)

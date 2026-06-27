@@ -49,8 +49,6 @@ from typing import Any
 
 # Station-specific imports (uncomment/add as needed):
 # import requests
-# from sentence_transformers import SentenceTransformer
-# from transformers import pipeline as hf_pipeline
 
 # ============================================================
 # 01_CONSTANTS
@@ -64,7 +62,6 @@ from typing import Any
 HERE      = Path(__file__).resolve().parent          # this station folder
 STATIONS  = HERE.parent                              # 04_STATIONS or stations/
 BRAIN     = STATIONS.parent                          # brain root (X:\ or repo root)
-sys.path.insert(0, str(STATIONS))
 
 
 def _resolve(numbered: str, flat: str) -> Path:
@@ -76,7 +73,7 @@ def _resolve(numbered: str, flat: str) -> Path:
 MODELS    = _resolve("05_MODELS",    "models")       # NLP models
 ENGINES   = _resolve("06_ENGINES",   "engines")      # preference engines
 JOB_CARDS = _resolve("03_JOB_CARDS", "job_cards")    # job card registry
-EXPORTS   = _resolve("10_EXPORTS",   "exports")      # global exports
+EXPORTS   = _resolve("10_EXPORTS", "exports") / "1 Exports TEST"      # global exports
 
 # Station identity — CHANGE THESE per station
 STATION_ID   = "ST_039"
@@ -184,15 +181,10 @@ def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool
 # 06_NLP_ROUTE  *** STATION-SPECIFIC ***
 # ============================================================
 # Route this station to its configured worker/model.
-
-_sys = sys
+import sys as _sys
 _sys.path.insert(0, str(STATIONS))
-from _shared.station_helpers import (
-    base_result,
-    build_vectorization_payload,
-    read_input,
-    text_from_input,
-)
+from _shared.station_helpers import build_vectorization_payload, read_input, text_from_input
+
 
 def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
     workers = cfg.get("workers", {})
@@ -209,7 +201,7 @@ def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
 # ============================================================
 # Score paper text against Fruits of the Spirit proof-grader anchors.
 
-from fruits_of_spirit_bridge import SemanticAnchorScorer, chunks_for_semantics
+from fruits_of_spirit_bridge import SemanticAnchorScorer
 
 _fruit_scorer = None
 
@@ -220,11 +212,9 @@ def _get_fruit_scorer(cfg: dict[str, Any], log: logging.Logger):
     if _fruit_scorer is not None:
         return _fruit_scorer
 
-    anchors = cfg.get("anchors") or {}
-    try:
-        _fruit_scorer = SemanticAnchorScorer(anchors)
-    except TypeError:
-        _fruit_scorer = SemanticAnchorScorer()
+    # NOTE: current bridge scorer is zero-arg; keep cfg anchors reserved for
+    # downstream station settings while falling back to builtin anchors.
+    _fruit_scorer = SemanticAnchorScorer()
 
     return _fruit_scorer
 
@@ -242,23 +232,38 @@ def _read_text(path: Path) -> str:
     return path.read_text(encoding='utf-8', errors='replace')
 
 
+def _vectorize_text(text: str, cfg: dict[str, Any], log: logging.Logger) -> dict[str, Any]:
+    """Generate one full-document vector embedding via NLP API."""
+    return build_vectorization_payload(
+        text=text,
+        cfg=cfg,
+        log=log,
+    )
+
+
 def process_one(path: Path, nlp_info: dict, cfg: dict[str, Any],
                 log: logging.Logger) -> dict[str, Any]:
     """Score paper text against Fruits of the Spirit proof-grader anchors."""
-    result = base_result(path, STATION_ID, STATION_NAME, nlp_info)
+    result = {
+        "input_file": str(path.name),
+        "station_id": STATION_ID,
+        "station_name": STATION_NAME,
+        "nlp_used": nlp_info.get("nlp_id", "NONE"),
+        "processed_at": datetime.now().isoformat(timespec="seconds"),
+        "success": True,
+        "artifacts": [],
+        "errors": [],
+        "data": {},
+    }
 
     try:
         text = text_from_input(read_input(path))
-        result["vectorization"] = build_vectorization_payload(
-            text,
-            cfg,
-            log,
-            source_file=path.name,
-            series_id=cfg.get("series_id"),
-        )
         scorer = _get_fruit_scorer(cfg, log)
         scores = scorer.score(text)
-        result["data"] = {"scores": scores}
+        result["data"] = {
+            "scores": scores,
+            "vectorization": _vectorize_text(text, cfg, log),
+        }
 
     except Exception as exc:
         log.exception("Processing failed for %s", path.name)
@@ -316,7 +321,7 @@ def handoff(result: dict[str, Any], artifact_path: Path,
             cfg: dict[str, Any], log: logging.Logger) -> None:
     # Check if this station is terminal (produces final export)
     if cfg.get("outputs", {}).get("final_export", False):
-        export_dir = HERE / "_exports"
+        export_dir = EXPORTS
         export_dir.mkdir(parents=True, exist_ok=True)
         import shutil
         shutil.copy2(artifact_path, export_dir / artifact_path.name)

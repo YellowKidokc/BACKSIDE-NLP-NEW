@@ -75,7 +75,7 @@ def _resolve(numbered: str, flat: str) -> Path:
 MODELS    = _resolve("05_MODELS",    "models")       # NLP models
 ENGINES   = _resolve("06_ENGINES",   "engines")      # preference engines
 JOB_CARDS = _resolve("03_JOB_CARDS", "job_cards")    # job card registry
-EXPORTS   = _resolve("10_EXPORTS",   "exports")      # global exports
+EXPORTS   = _resolve("10_EXPORTS", "exports") / "1 Exports TEST"      # global exports
 
 # Station identity — CHANGE THESE per station
 STATION_ID   = "ST_033"
@@ -266,7 +266,7 @@ def handoff(result: dict[str, Any], artifact_path: Path,
             cfg: dict[str, Any], log: logging.Logger) -> None:
     # Check if this station is terminal (produces final export)
     if cfg.get("outputs", {}).get("final_export", False):
-        export_dir = HERE / "_exports"
+        export_dir = EXPORTS
         export_dir.mkdir(parents=True, exist_ok=True)
         import shutil
         shutil.copy2(artifact_path, export_dir / artifact_path.name)

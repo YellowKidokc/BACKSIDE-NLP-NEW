@@ -75,7 +75,7 @@ def _resolve(numbered: str, flat: str) -> Path:
 MODELS    = _resolve("05_MODELS",    "models")       # NLP models
 ENGINES   = _resolve("06_ENGINES",   "engines")      # preference engines
 JOB_CARDS = _resolve("03_JOB_CARDS", "job_cards")    # job card registry
-EXPORTS   = _resolve("10_EXPORTS",   "exports")      # global exports
+EXPORTS   = _resolve("10_EXPORTS", "exports") / "1 Exports TEST"      # global exports
 
 # Station identity — CHANGE THESE per station
 STATION_ID   = "ST_017"
@@ -186,9 +186,8 @@ import re as _re, sys as _sys
 _sys.path.insert(0, str(STATIONS))
 from _shared.station_helpers import (
     API_BASE, base_result, call_nlp, cosine, flesch_reading_ease,
-    nlp_route, paragraphs, read_input, sections, sentences,
-    build_vectorization_payload,
-    strip_html, text_from_input, word_count,
+    build_vectorization_payload, nlp_route, paragraphs, read_input, sections, sentences,
+    text_from_input, word_count,
 )
 
 _FRUITS = [
@@ -211,6 +210,14 @@ def _embed_classify(text, labels, top_n=5):
         scored.append({"label": label, "score": round(cosine(text_vec, vecs[i + 1]), 4)})
     return sorted(scored, key=lambda x: x["score"], reverse=True)[:top_n]
 
+
+def _vectorize_text(text: str, cfg: dict[str, Any], log: logging.Logger) -> dict[str, Any]:
+    return build_vectorization_payload(
+        text=text,
+        cfg=cfg,
+        log=log,
+    )
+
 def choose_nlp(path, cfg):
     return nlp_route(API_BASE, MODELS, cfg, "embeddings_fast", "embed")
 
@@ -221,13 +228,6 @@ def process_one(path, nlp_info, cfg, log):
     result = base_result(path, STATION_ID, STATION_NAME, nlp_info)
     try:
         text = text_from_input(read_input(path))
-        result["vectorization"] = build_vectorization_payload(
-            text,
-            cfg,
-            log,
-            source_file=path.name,
-            series_id=cfg.get("series_id"),
-        )
         scored = _embed_classify(text, _FRUITS)
         # Check each fruit presence via keyword too
         text_lower = text.lower()
@@ -243,6 +243,7 @@ def process_one(path, nlp_info, cfg, log):
             "fruit_count": len(present),
             "dominant_fruit": dominant,
             "full_ranking": scored,
+            "vectorization": _vectorize_text(text, cfg, log),
         }
     except Exception as exc:
         result["success"] = False; result["errors"].append(str(exc))
@@ -296,7 +297,7 @@ def handoff(result: dict[str, Any], artifact_path: Path,
             cfg: dict[str, Any], log: logging.Logger) -> None:
     # Check if this station is terminal (produces final export)
     if cfg.get("outputs", {}).get("final_export", False):
-        export_dir = HERE / "_exports"
+        export_dir = EXPORTS
         export_dir.mkdir(parents=True, exist_ok=True)
         import shutil
         shutil.copy2(artifact_path, export_dir / artifact_path.name)
