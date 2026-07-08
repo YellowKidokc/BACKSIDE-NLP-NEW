@@ -192,8 +192,8 @@ def validate_input(path: Path, cfg: dict[str, Any], log: logging.Logger) -> bool
 #   M13_bart_summarizer, M14_clip_vision, M15_mistral_7b, M16_whisper_large_v3
 #
 # Preference engines live at: X:\06_ENGINES\{engine_folder}\
-#   P01_implicit, P02_recbole, P03_lightfm, P04_paper_recommender,
-#   P05_ppk, P06_river, P07_markovify
+#   preference-engine-implicit, preference-engine-recbole, preference-engine-lightfm, preference-engine-paper-recommender,
+#   preference-engine-ppk, preference-engine-river, preference-engine-markovify
 
 def choose_nlp(path: Path, cfg: dict[str, Any]) -> dict[str, Any]:
     """

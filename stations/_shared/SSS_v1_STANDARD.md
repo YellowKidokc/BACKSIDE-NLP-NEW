@@ -105,10 +105,10 @@ X:\05_MODELS\
 ## Preference Engine Registry
 ```
 X:\06_ENGINES\
-  P01_implicit    P05_ppk
-  P02_recbole     P06_river
-  P03_lightfm     P07_markovify
-  P04_paper_recommender
+  preference-engine-implicit    preference-engine-ppk
+  preference-engine-recbole     preference-engine-river
+  preference-engine-lightfm     preference-engine-markovify
+  preference-engine-paper-recommender
 ```
 
 ## Section 08 Template-Aware Artifact Rule

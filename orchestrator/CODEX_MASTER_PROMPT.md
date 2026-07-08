@@ -184,8 +184,8 @@ M13_bart_summarizer, M14_clip_vision, M15_mistral_7b, M16_whisper_large_v3
 
 ## ENGINES (reference only)
 
-P01_implicit, P02_recbole, P03_lightfm, P04_paper_recommender,
-P05_ppk, P06_river, P07_markovify
+preference-engine-implicit, preference-engine-recbole, preference-engine-lightfm, preference-engine-paper-recommender,
+preference-engine-ppk, preference-engine-river, preference-engine-markovify
 
 ## CHANGE TARGETS
 

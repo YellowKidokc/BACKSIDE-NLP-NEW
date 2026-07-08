@@ -1,9 +1,0 @@
-**Islam** is one of the largest religions in the world, with over 1 billion followers. It is a monotheistic faith based on revelations received by the Prophet Muhammad in 7th-century Saudi Arabia. The Arabic word _islam_ means “submission,” reflecting the faith's central tenet of submitting to the will of God. Followers of Islam are called Muslims.
-
-According to Islamic tradition, the angel Gabriel appeared to the Prophet over the course of 20 years, revealing to him many messages from God. Muslims recognize some earlier Judeo-Christian prophets—including Moses and Jesus—as messengers of of the same true God. But in Islam, Muhammad is the last and greatest of the prophets, whose revelations alone are pure and uncorrupted.
-
-The Prophet dedicated the remainder of his life to spreading a message of monotheism in a polytheistic world. In 622, he fled north to the city of Medina to escape growing persecution. This event marks the beginning of the Islamic calendar. Eight years later, Muhammad returned to Mecca with an army and conquered the city for Islam. By Muhammad's death, 50 years later, the entire Arabian Peninsula had come under Muslim control.
-
-The sacred text of Islam, the Qur'an, was written in Arabic within 30 years of Muhammad's death. Muslims believe it contains the literal word of God. Also important is the tradition of the sayings and actions of Muhammad and his companions, collected in the Hadith.
-
-Islamic practices center on the Five Pillars of Islam—faith; prayer; fasting; pilgrimage to Mecca; and alms—and include several holidays and rituals as well.

@@ -1,1 +1,0 @@
-Aside from its important ethical principles, Confucianism does not prescribe any specific rituals or practices. These are filled by the practices of Chinese religion, Taoism, Buddhism, or other religion which Confucians follow.

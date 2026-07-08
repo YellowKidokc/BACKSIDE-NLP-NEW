@@ -9,12 +9,15 @@ Models load lazily on first request, stay in memory.
 from __future__ import annotations
 import json, os, time, hashlib
 from pathlib import Path
-from typing import Optional
+from typing import Any, Optional
 from datetime import datetime
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+
+from packet_bridge import build_bridge_packet, build_integrity_packet, build_packet_bundle, build_schema_projection
+from disk_packet_loader import load_article_fixture
 
 app = FastAPI(
     title="POF 2828 NLP API",
@@ -107,6 +110,23 @@ class VectorQueryInput(BaseModel):
     query: str
     n_results: int = 5
     where: Optional[dict] = None
+
+
+class PacketBuildInput(BaseModel):
+    source: dict[str, Any]
+    station_outputs: dict[str, Any] = {}
+
+
+class PacketProjectionInput(BaseModel):
+    bridge_packet: dict[str, Any]
+    integrity_packet: Optional[dict[str, Any]] = None
+
+
+class PacketFromDiskInput(BaseModel):
+    series_slug: str
+    article_slug: str
+    site_data_dir: Optional[str] = None
+    site_dir: Optional[str] = None
 
 
 
@@ -426,6 +446,53 @@ def vector_clear():
     client.delete_collection("theophysics_corpus")
     _chroma_collection = None
     return {"ok": True, "message": "Vector store cleared"}
+
+
+# ============================================================
+# Packet Bridge
+# ============================================================
+
+@app.post("/packet/build")
+def packet_build(inp: PacketBuildInput):
+    """Build the first canonical packet bundle from station outputs."""
+    return build_packet_bundle(inp.source, inp.station_outputs)
+
+
+@app.post("/packet/bridge")
+def packet_bridge(inp: PacketBuildInput):
+    """Build only the bridge packet."""
+    return build_bridge_packet(inp.source, inp.station_outputs)
+
+
+@app.post("/packet/integrity")
+def packet_integrity(inp: PacketBuildInput):
+    """Build the integrity packet from station outputs."""
+    bridge = build_bridge_packet(inp.source, inp.station_outputs)
+    return build_integrity_packet(bridge, inp.station_outputs)
+
+
+@app.post("/packet/schema")
+def packet_schema(inp: PacketBuildInput):
+    """Build the JSON-LD/schema projection from station outputs."""
+    bundle = build_packet_bundle(inp.source, inp.station_outputs)
+    return bundle["schema_packet"]
+
+
+@app.post("/packet/project")
+def packet_project(inp: PacketProjectionInput):
+    """Project a prebuilt bridge packet into schema.org + pof namespace JSON-LD."""
+    return build_schema_projection(inp.bridge_packet, inp.integrity_packet)
+
+
+@app.post("/packet/from-disk")
+def packet_from_disk(inp: PacketFromDiskInput):
+    """Load a real article's surrounding artifacts from disk and build the packet bundle."""
+    kwargs: dict[str, Any] = {}
+    if inp.site_data_dir:
+        kwargs["site_data_dir"] = Path(inp.site_data_dir)
+    if inp.site_dir:
+        kwargs["site_dir"] = Path(inp.site_dir)
+    return load_article_fixture(inp.series_slug, inp.article_slug, **kwargs)
 
 
 # ============================================================

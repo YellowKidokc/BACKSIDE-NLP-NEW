@@ -6,8 +6,9 @@ echo  Port: 8700
 echo  Docs: http://localhost:8700/docs
 echo ========================================
 cd /d "%~dp0"
-REM Pin to the 3.12 interpreter that actually has the full stack (transformers/torch/etc).
-REM Bare "python" can resolve to the 3.14 install which lacks transformers -> 500s.
-set PY=C:\Users\lowes\AppData\Local\Programs\Python\Python312\python.exe
-"%PY%" main.py
+REM Use the 3.12 interpreter that has the full stack (transformers/torch/etc).
+REM py launcher resolves per-machine; bare "python" can hit a stack-less install -> 500s.
+REM Override with NLP_API_PY env var if a specific interpreter is needed.
+if "%NLP_API_PY%"=="" (set PY=py -3.12) else (set PY=%NLP_API_PY%)
+%PY% main.py
 pause

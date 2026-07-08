@@ -1,3 +1,0 @@
-Shinto does not have any philosophical literature or official scripture that can be compared to texts like the Bible or the Qur'an. But the _Kojiki_(Records of Ancient Matters) and the _Nihongi_or Nihon shoki (Chronicles of Japan), are in a sense the sacred books of Shinto. They were written in 712 and 720 CE, respectively, and are compilations of the oral traditions, mythology and ceremonies of ancient Shinto. But they are also books about the history, topography, and literature of ancient Japan.
-
-Also important is the collection of 50 books known as _Engishiki_, completed in 927. These deal with the laws governing shrine ceremonies, the organization of religious leadership, and official prayers and liturgies.
